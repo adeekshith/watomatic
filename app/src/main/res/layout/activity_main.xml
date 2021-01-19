@@ -18,7 +18,7 @@
             android:id="@+id/mainAutoReplySwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Auto reply OFF"
+            android:text="@string/mainAutoReplySwitchOffLabel"
             android:padding="20dp"/>
     </androidx.cardview.widget.CardView>
 
@@ -41,7 +41,7 @@
                 android:paddingStart="20dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
-                android:text="Auto reply text"
+                android:text="@string/mainAutoReplyLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +54,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
-                android:text="(Custom Reply)aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:text="@string/mainAutoReplyTextPlaceholder"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_edit" />
+                app:srcCompat="@drawable/ic_edit"
+                android:contentDescription="@string/mainAutoReplyEditBtnTooltip" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

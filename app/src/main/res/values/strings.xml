@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WaReply</string>
+    <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
+    <string name="mainAutoReplyLabel">Auto reply text</string>
+    <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
+    <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
 </resources>
