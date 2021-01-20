@@ -7,11 +7,14 @@
     tools:context=".CustomReplyEditorActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="374dp"
-        android:layout_height="66dp"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="500"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,7 +22,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="@string/mainAutoReplyLabel"
+            android:text="@string/mainAutoReplyTextPlaceholder" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline

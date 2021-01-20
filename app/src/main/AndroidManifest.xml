@@ -9,13 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WaReply">
-        <activity android:name=".CustomReplyEditorActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".CustomReplyEditorActivity"
+            android:label="@string/mainAutoReplyLabel"
+            android:parentActivityName="com.parishod.wareply.MainActivity" >
         </activity>
     </application>
 
