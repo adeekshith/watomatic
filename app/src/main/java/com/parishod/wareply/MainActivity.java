@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     CardView autoReplyTextPreviewCard;
     TextView autoReplyTextPreview;
     CustomRepliesData customRepliesData;
+    String autoReplyTextPlaceholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
 
+        autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
+
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        autoReplyTextPreview.setText(customRepliesData.get());
+        autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
     }
 
     private void openCustomReplyEditorActivity(View v) {

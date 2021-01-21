@@ -50,19 +50,32 @@ public class CustomRepliesData {
     }
 
     /**
-     * Get the current auto reply text
-     * @return Auto reply text
+     * Get last set auto reply text
+     * Prefer using {@link CustomRepliesData::getOrElse} to avoid {@code null}
+     * @return Auto reply text or {@code null} if not set
      */
     public String get() {
         JSONArray allCustomReplies = getAll();
         try {
             return (allCustomReplies.length() > 0)
                     ? (String) allCustomReplies.get(allCustomReplies.length() - 1)
-                    : "";
+                    : null;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
+    }
+
+    /**
+     * Get last set auto reply text if present or else return {@param defaultText}
+     * @param defaultText default auto reply text
+     * @return Return auto reply text if present or else return given {@param defaultText}
+     */
+    public String getOrElse(String defaultText) {
+        String currentText = get();
+        return (currentText != null)
+                ? currentText
+                : defaultText;
     }
 
     private JSONArray getAll() {
