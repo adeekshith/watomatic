@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CustomReplyEditorActivity"
+            android:label="@string/mainAutoReplyLabel"
+            android:parentActivityName="com.parishod.wareply.MainActivity" >
+        </activity>
     </application>
 
 </manifest>

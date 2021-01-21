@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gray_500">#9e9e9e</color>
+    <color name="blue_500">#0192ea</color>
+    <color name="blue_700">#0071ca</color>
+    <color name="blue_800">#0061b8</color>
+    <color name="blue_900">#004399</color>
     <color name="blue_gray_800">#37474f</color>
     <color name="blue_gray_900">#263238</color>
     <color name="teal_200">#FF03DAC5</color>
