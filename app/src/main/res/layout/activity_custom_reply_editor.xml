@@ -7,7 +7,7 @@
     tools:context=".CustomReplyEditorActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/autoReplyTextInputLayout"
         android:layout_width="378dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/autoReplyTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mainAutoReplyLabel"
@@ -43,7 +44,7 @@
         app:layout_constraintGuide_begin="16dp" />
 
     <Button
-        android:id="@+id/saveCustomReply"
+        android:id="@+id/saveCustomReplyBtn"
         android:layout_width="302dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -51,5 +52,6 @@
         android:text="Save"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/autoReplyTextInputLayout"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,11 +47,11 @@ public class CustomRepliesData {
         try {
             return (allCustomReplies.length() > 0)
                     ? (String) allCustomReplies.get(allCustomReplies.length() - 1)
-                    : null;
+                    : "";
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     private JSONArray getAll() {
