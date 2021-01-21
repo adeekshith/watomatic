@@ -15,10 +15,21 @@ public class CustomRepliesData {
     public static final String KEY_CUSTOM_REPLY_ALL = "user_custom_reply_all";
     public static final int MAX_NUM_CUSTOM_REPLY = 10;
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
-    private final SharedPreferences _sharedPrefs;
+    private static SharedPreferences _sharedPrefs;
+    private static CustomRepliesData _INSTANCE;
 
-    public CustomRepliesData(Context context) {
-        this._sharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+    private CustomRepliesData() {}
+
+    private CustomRepliesData (Context context) {
+        _sharedPrefs = context.getApplicationContext()
+                .getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+    }
+
+    public static CustomRepliesData getInstance (Context context) {
+        if (_INSTANCE == null) {
+            _INSTANCE = new CustomRepliesData(context);
+        }
+        return _INSTANCE;
     }
 
     /**

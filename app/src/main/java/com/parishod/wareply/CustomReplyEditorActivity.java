@@ -18,7 +18,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_reply_editor);
 
-        customRepliesData = new CustomRepliesData(this);
+        customRepliesData = CustomRepliesData.getInstance(this);
 
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText);
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn);
