@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
@@ -72,7 +71,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     /**
-     * To extract WearNotification with RemoteInputs that we can use to respond later on
+     * Extract WearNotification with RemoteInputs that can be used to send a response
      * @param statusBarNotification
      * @return
      */
