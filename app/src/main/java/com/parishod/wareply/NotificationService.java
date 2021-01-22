@@ -17,7 +17,7 @@ import java.util.List;
 
 public class NotificationService extends NotificationListenerService {
     private static final CharSequence REPLY_KEYWORD = "reply";
-    private String TAG = NotificationService.class.getSimpleName();
+    private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
 
     @Override
