@@ -25,8 +25,6 @@ public class NotificationService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
         if(sbn.getPackageName().equals("com.whatsapp")) {
-            Log.d(TAG," Title " + sbn.getNotification().extras.getString("android.title"));
-            Log.d(TAG," Message " + sbn.getNotification().extras.getCharSequence("android.text"));
             sendReply(extractWearNotification(sbn));
         }
     }
