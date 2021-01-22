@@ -29,15 +29,11 @@ public class NotificationService extends NotificationListenerService {
         }
     }
 
-    private void sendReply(NotificationWear notificationWear){
-        if(notificationWear == null) {
-            Toast.makeText(getApplicationContext(), "No notification :(", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(notificationWear.remoteInputs.isEmpty()){
-            //Its just some random notificatin from whatsapp like checking notifications, whatsapp web is active
-            return;
-        }
+    private void sendReply(NotificationWear notificationWear) {
+        // Possibly transient or non-user notification from WhatsApp like
+        // "Checking for new messages" or "WhatsApp web is Active"
+        if (notificationWear == null || notificationWear.remoteInputs.isEmpty()) { return;}
+
         customRepliesData = CustomRepliesData.getInstance(this);
 
         RemoteInput[] remoteInputs = new RemoteInput[notificationWear.remoteInputs.size()];
@@ -48,7 +44,8 @@ public class NotificationService extends NotificationListenerService {
         int i = 0;
         for(RemoteInput remoteIn : notificationWear.remoteInputs){
             remoteInputs[i] = remoteIn;
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), "WaReply: " + customRepliesData.get());//This work, apart from Hangouts as probably they need additional parameter (notification_tag?)
+            // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
+            localBundle.putCharSequence(remoteInputs[i].getResultKey(), "WaReply: " + customRepliesData.get());
             i++;
         }
 
