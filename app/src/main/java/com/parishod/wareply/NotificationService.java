@@ -20,10 +20,18 @@ public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
 
+    /*
+        These are the package names of the apps. for which we want to
+        listen the notifications
+     */
+    private static final class SupportedPackageNames {
+        public static final String WHATSAPP_PACK_NAME = "com.whatsapp";
+    }
+
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(sbn.getPackageName().equals("com.whatsapp")) {
+        if(isSupportedPackage(sbn)) {
             sendReply(extractWearNotification(sbn));
         }
     }
@@ -100,5 +108,15 @@ public class NotificationService extends NotificationListenerService {
         notificationWear.tag = statusBarNotification.getTag();//TODO find how to pass Tag with sending PendingIntent, might fix Hangout problem
 
         return notificationWear;
+    }
+
+    private boolean isSupportedPackage(StatusBarNotification sbn) {
+        String packageName = sbn.getPackageName();
+        switch (packageName){
+            case SupportedPackageNames.WHATSAPP_PACK_NAME:
+                return true;
+            default:
+                return false;
+        }
     }
 }
