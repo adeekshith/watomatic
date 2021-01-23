@@ -3,6 +3,7 @@ package com.parishod.wareply;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -63,7 +64,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchNotificationAccessSettings() {
-        Intent i = new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS);
+        final String NOTIFICATION_LISTENER_SETTINGS;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
+            NOTIFICATION_LISTENER_SETTINGS = ACTION_NOTIFICATION_LISTENER_SETTINGS;
+        }else{
+            NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+        }
+        Intent i = new Intent(NOTIFICATION_LISTENER_SETTINGS);
         startActivityForResult(i, REQ_NOTIFICATION_LISTENER);
     }
 
