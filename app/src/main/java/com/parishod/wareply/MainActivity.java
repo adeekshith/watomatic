@@ -1,20 +1,18 @@
 package com.parishod.wareply;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.parishod.wareply.model.CustomRepliesData;
 
@@ -35,18 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
+        // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
-        mainAutoReplySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    if(!isListenerEnabled(MainActivity.this, NotificationService.class)){
-                        launchNotificationAccessSettings();
-                    }
-                }
-            }
-        });
-
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
 
@@ -54,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
+        mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
+                launchNotificationAccessSettings();
+            }
+        });
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115
