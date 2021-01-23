@@ -5,4 +5,5 @@
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
+    <string name="app_short_description_main">Auto reply for WhatsApp</string>
 </resources>
