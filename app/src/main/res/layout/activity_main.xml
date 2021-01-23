@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textAutoReply"
                 android:layout_width="329dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

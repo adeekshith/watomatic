@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
-        autoReplyTextPreview = findViewById(R.id.textView4);
+        autoReplyTextPreview = findViewById(R.id.textAutoReply);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
