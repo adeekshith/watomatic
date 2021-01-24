@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.parishod.wareply.model.CustomRepliesData;
+import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     Switch mainAutoReplySwitch;
+    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         customRepliesData = CustomRepliesData.getInstance(this);
+        preferencesManager = PreferencesManager.getPreferencesInstance(this);
 
         // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
@@ -48,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 launchNotificationAccessSettings();
             }
         });
+
+        setSwitchState();
+    }
+
+    private void setSwitchState(){
+        mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115
@@ -80,9 +89,12 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == REQ_NOTIFICATION_LISTENER){
             if(isListenerEnabled(this, NotificationService.class)){
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show();
+                preferencesManager.setServicePref(true);
+                setSwitchState();
             }else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
-                mainAutoReplySwitch.setChecked(false);
+                preferencesManager.setServicePref(false);
+                setSwitchState();
             }
         }
     }
