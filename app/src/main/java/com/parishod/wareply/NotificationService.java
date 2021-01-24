@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.wareply.model.CustomRepliesData;
+import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(isSupportedPackage(sbn)) {
+        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
+                isSupportedPackage(sbn)) {
             sendReply(extractWearNotification(sbn));
         }
     }

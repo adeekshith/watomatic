@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Switch;
@@ -53,19 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 launchNotificationAccessSettings();
             }else {
                 preferencesManager.setServicePref(isChecked);
-                if(isChecked){
-                    enableService();
-                }else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            restartActivity();
-                        }
-                    }, 100);
-                }
+                enableService(isChecked);
             }
         });
-
     }
 
     @Override
@@ -78,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(!preferencesManager.isServiceEnabled()){
-            disableService();
+            enableService(false);
         }
         setSwitchState();
     }
@@ -101,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchNotificationAccessSettings() {
-        enableService();//we need to enable the service for it so show in settings
+        enableService(true);//we need to enable the service for it so show in settings
 
         final String NOTIFICATION_LISTENER_SETTINGS;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
@@ -120,37 +109,23 @@ public class MainActivity extends AppCompatActivity {
             if(isListenerEnabled(this, NotificationService.class)){
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show();
                 preferencesManager.setServicePref(true);
-            }else {
+                setSwitchState();
+            } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
+                preferencesManager.setServicePref(false);
                 setSwitchState();
             }
         }
     }
 
-    private void enableService(){
+    private void enableService(boolean enable) {
         PackageManager packageManager = getPackageManager();
         ComponentName componentName = new ComponentName(this, NotificationService.class);
+        int settingCode = enable
+                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         // enable dummyActivity (as it is disabled in the manifest.xml)
-        packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
 
-    }
-
-    private void disableService(){
-        PackageManager packageManager = getPackageManager();
-        ComponentName componentName = new ComponentName(this, NotificationService.class);
-        // enable dummyActivity (as it is disabled in the manifest.xml)
-        packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
-    }
-
-    /*
-     * Do not know why after disabling the service until activity restarted the service is still receiving the notifications
-     * hence restarting the activity
-     */
-    private void restartActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        Runtime.getRuntime().exit(0);
     }
 }
