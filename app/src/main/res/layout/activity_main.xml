@@ -69,7 +69,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:text="@string/mainAutoReplyTextPlaceholder"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
