@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class PreferencesManager {
-
+    private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private PreferencesManager(Context context) {
@@ -20,12 +20,12 @@ public class PreferencesManager {
     }
 
     public boolean isServiceEnabled(){
-        return _sharedPrefs.getBoolean("pref_service_enabled",false);
+        return _sharedPrefs.getBoolean(KEY_SERVICE_ENABLED,false);
     }
 
     public void setServicePref(boolean enabled){
         SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putBoolean("pref_service_enabled", enabled);
+        editor.putBoolean(KEY_SERVICE_ENABLED, enabled);
         editor.apply();
     }
 
