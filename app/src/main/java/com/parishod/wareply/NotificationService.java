@@ -36,6 +36,13 @@ public class NotificationService extends NotificationListenerService {
         }
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        //START_STICKY  to order the system to restart your service as soon as possible when it was killed.
+        return START_STICKY;
+    }
+
     private void sendReply(NotificationWear notificationWear) {
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
