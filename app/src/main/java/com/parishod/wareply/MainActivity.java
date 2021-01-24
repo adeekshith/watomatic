@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 preferencesManager.setServicePref(isChecked);
                 if(isChecked){
                     enableService();
-                    setSwitchState();
                 }else {
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -66,6 +65,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //If user directly goes to Settings and removes notifications permission
+        //when app is launched check for permission and set appropriate app state
+        if(!isListenerEnabled(MainActivity.this, NotificationService.class)){
+            preferencesManager.setServicePref(false);
+        }
 
         if(!preferencesManager.isServiceEnabled()){
             disableService();
@@ -110,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
             if(isListenerEnabled(this, NotificationService.class)){
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show();
                 preferencesManager.setServicePref(true);
-                setSwitchState();
             }else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
+                setSwitchState();
             }
         }
     }
