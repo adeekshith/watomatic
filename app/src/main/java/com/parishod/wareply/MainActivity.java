@@ -3,6 +3,7 @@ package com.parishod.wareply;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -49,9 +50,25 @@ public class MainActivity extends AppCompatActivity {
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
                 launchNotificationAccessSettings();
+            }else {
+                preferencesManager.setServicePref(isChecked);
+                enableService(isChecked);
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //If user directly goes to Settings and removes notifications permission
+        //when app is launched check for permission and set appropriate app state
+        if(!isListenerEnabled(MainActivity.this, NotificationService.class)){
+            preferencesManager.setServicePref(false);
+        }
+
+        if(!preferencesManager.isServiceEnabled()){
+            enableService(false);
+        }
         setSwitchState();
     }
 
@@ -73,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchNotificationAccessSettings() {
+        enableService(true);//we need to enable the service for it so show in settings
+
         final String NOTIFICATION_LISTENER_SETTINGS;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
             NOTIFICATION_LISTENER_SETTINGS = ACTION_NOTIFICATION_LISTENER_SETTINGS;
@@ -91,11 +110,22 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show();
                 preferencesManager.setServicePref(true);
                 setSwitchState();
-            }else {
+            } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
                 preferencesManager.setServicePref(false);
                 setSwitchState();
             }
         }
+    }
+
+    private void enableService(boolean enable) {
+        PackageManager packageManager = getPackageManager();
+        ComponentName componentName = new ComponentName(this, NotificationService.class);
+        int settingCode = enable
+                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+        // enable dummyActivity (as it is disabled in the manifest.xml)
+        packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
+
     }
 }

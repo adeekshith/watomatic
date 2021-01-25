@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.wareply.model.CustomRepliesData;
+import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;
 
@@ -31,9 +32,17 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(isSupportedPackage(sbn)) {
+        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
+                isSupportedPackage(sbn)) {
             sendReply(extractWearNotification(sbn));
         }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        //START_STICKY  to order the system to restart your service as soon as possible when it was killed.
+        return START_STICKY;
     }
 
     private void sendReply(NotificationWear notificationWear) {
