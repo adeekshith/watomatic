@@ -12,6 +12,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.wareply.model.CustomRepliesData;
+import com.parishod.wareply.model.logs.Logs;
+import com.parishod.wareply.model.logs.ReplyLogsDatabase;
 import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;
@@ -20,6 +22,8 @@ public class NotificationService extends NotificationListenerService {
     private static final CharSequence REPLY_KEYWORD = "reply";
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
+    private ReplyLogsDatabase logsDatabase;
+    private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 30 * 1000;
 
     /*
         These are the package names of the apps. for which we want to
@@ -33,8 +37,9 @@ public class NotificationService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
         if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
-                isSupportedPackage(sbn)) {
-            sendReply(extractWearNotification(sbn));
+                isSupportedPackage(sbn) &&
+                canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
+            sendReply(sbn);
         }
     }
 
@@ -45,10 +50,12 @@ public class NotificationService extends NotificationListenerService {
         return START_STICKY;
     }
 
-    private void sendReply(NotificationWear notificationWear) {
+    private void sendReply(StatusBarNotification sbn) {
+        NotificationWear notificationWear = extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear == null || notificationWear.remoteInputs.isEmpty()) { return;}
+
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
@@ -67,6 +74,7 @@ public class NotificationService extends NotificationListenerService {
 
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
+            logReply(sbn.getNotification().extras.getString("android.title"));
             notificationWear.pendingIntent.send(this, 0, localIntent);
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
@@ -127,5 +135,16 @@ public class NotificationService extends NotificationListenerService {
             default:
                 return false;
         }
+    }
+
+    private boolean canSendReplyNow(String userId){
+        logsDatabase = ReplyLogsDatabase.getInstance(getApplicationContext());
+        return (System.currentTimeMillis() - logsDatabase.logsDao().getLastReplyTimeStamp(userId) >= DELAY_BETWEEN_REPLY_IN_MILLISEC);
+    }
+
+    private void logReply(String userId){
+        logsDatabase = ReplyLogsDatabase.getInstance(getApplicationContext());
+        Logs logs = new Logs(userId, System.currentTimeMillis());
+        logsDatabase.logsDao().logReply(logs);
     }
 }
