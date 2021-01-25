@@ -2,6 +2,7 @@ package com.parishod.wareply;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -18,6 +19,8 @@ import androidx.cardview.widget.CardView;
 
 import com.parishod.wareply.model.CustomRepliesData;
 import com.parishod.wareply.model.preferences.PreferencesManager;
+import com.parishod.wareply.model.utils.Constants;
+import com.parishod.wareply.model.utils.CustomDialog;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
-                launchNotificationAccessSettings();
+//                launchNotificationAccessSettings();
+                showPermissionsDialog();
             }else {
                 preferencesManager.setServicePref(isChecked);
                 enableService(isChecked);
@@ -87,6 +91,45 @@ public class MainActivity extends AppCompatActivity {
     private void openCustomReplyEditorActivity(View v) {
         Intent intent = new Intent(this, CustomReplyEditorActivity.class);
         startActivity(intent);
+    }
+
+    private void showPermissionsDialog(){
+        CustomDialog customDialog = new CustomDialog(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.PERMISSION_DIALOG_TITLE, getString(R.string.permission_dialog_title));
+        bundle.putString(Constants.PERMISSION_DIALOG_MSG, getString(R.string.permission_dialog_msg));
+        customDialog.showDialog(bundle, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == -2){
+                    //Decline
+                    showPermissionDeniedDialog();
+                }else{
+                    //Accept
+                    launchNotificationAccessSettings();
+                }
+            }
+        });
+    }
+
+    private void showPermissionDeniedDialog(){
+        CustomDialog customDialog = new CustomDialog(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.PERMISSION_DIALOG_DENIED_TITLE, getString(R.string.permission_dialog_denied_title));
+        bundle.putString(Constants.PERMISSION_DIALOG_DENIED_MSG, getString(R.string.permission_dialog_denied_msg));
+        bundle.putBoolean(Constants.PERMISSION_DIALOG_DENIED, true);
+        customDialog.showDialog(bundle, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == -2){
+                    //Decline
+                    setSwitchState();
+                }else{
+                    //Accept
+                    launchNotificationAccessSettings();
+                }
+            }
+        });
     }
 
     public void launchNotificationAccessSettings() {
