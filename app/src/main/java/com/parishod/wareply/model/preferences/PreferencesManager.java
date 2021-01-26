@@ -2,7 +2,7 @@ package com.parishod.wareply.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
