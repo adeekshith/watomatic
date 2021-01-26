@@ -1,6 +1,8 @@
 package com.parishod.wareply;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,19 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
 
         autoReplyText.setText(customRepliesData.get());
         autoReplyText.requestFocus();
+        autoReplyText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Disable save button if text does not satisfy requirements
+                saveAutoReplyTextBtn.setEnabled(CustomRepliesData.isValidCustomReply(editable));
+            }
+        });
 
         saveAutoReplyTextBtn.setOnClickListener(view -> {
             String setString = customRepliesData.set(autoReplyText.getText());
