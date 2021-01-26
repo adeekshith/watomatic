@@ -43,6 +43,7 @@ gradle-app.setting
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 /*.iml
+.idea/modules/app/*.iml
 
 ## Directory-based project format:
 .idea/
