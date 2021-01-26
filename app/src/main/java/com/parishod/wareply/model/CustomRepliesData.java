@@ -4,6 +4,7 @@ package com.parishod.wareply.model;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.Editable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +15,7 @@ import org.json.JSONException;
 public class CustomRepliesData {
     public static final String KEY_CUSTOM_REPLY_ALL = "user_custom_reply_all";
     public static final int MAX_NUM_CUSTOM_REPLY = 10;
+    public static final int MAX_STR_LENGTH_CUSTOM_REPLY = 500;
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
@@ -35,9 +37,12 @@ public class CustomRepliesData {
     /**
      * Stores given auto reply text to the database and sets it as current
      * @param customReply String that needs to be set as current auto reply
-     * @return String that is set
+     * @return String that is stored in the database as current custom reply
      */
     public String set(String customReply) {
+        if (!isValidCustomReply(customReply)) {
+            return null;
+        }
         JSONArray previousCustomReplies = getAll();
         previousCustomReplies.put(customReply);
         if (previousCustomReplies.length() > MAX_NUM_CUSTOM_REPLY) {
@@ -47,6 +52,17 @@ public class CustomRepliesData {
         editor.putString(KEY_CUSTOM_REPLY_ALL, previousCustomReplies.toString());
         editor.apply();
         return customReply;
+    }
+
+    /**
+     * Stores given auto reply text to the database and sets it as current
+     * @param customReply Editable that needs to be set as current auto reply
+     * @return String that is stored in the database as current custom reply
+     */
+    public String set(Editable customReply) {
+        return (customReply != null)
+                ? set(customReply.toString())
+                : null;
     }
 
     /**
@@ -86,5 +102,16 @@ public class CustomRepliesData {
             e.printStackTrace();
         }
         return allCustomReplies;
+    }
+
+    public static boolean isValidCustomReply (String userInput) {
+        return (userInput != null) &&
+                !userInput.isEmpty() &&
+                (userInput.length() <= MAX_STR_LENGTH_CUSTOM_REPLY);
+    }
+
+    public static boolean isValidCustomReply (Editable userInput) {
+        return (userInput != null) &&
+                isValidCustomReply(userInput.toString());
     }
 }
