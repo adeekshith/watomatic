@@ -27,8 +27,10 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
         autoReplyText.requestFocus();
 
         saveAutoReplyTextBtn.setOnClickListener(view -> {
-            customRepliesData.set(autoReplyText.getText().toString());
-            this.onNavigateUp();
+            String setString = customRepliesData.set(autoReplyText.getText());
+            if (setString != null) {
+                this.onNavigateUp();
+            }
         });
     }
 }
