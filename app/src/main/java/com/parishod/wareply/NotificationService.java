@@ -12,8 +12,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.wareply.model.CustomRepliesData;
-import com.parishod.wareply.model.logs.Logs;
-import com.parishod.wareply.model.logs.ReplyLogsDatabase;
+import com.parishod.wareply.model.WhatsappAutoReplyLogs.WhatsappAutoReplyLogs;
+import com.parishod.wareply.model.WhatsappAutoReplyLogs.WhatsappAutoReplyLogsDB;
 import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class NotificationService extends NotificationListenerService {
     private static final CharSequence REPLY_KEYWORD = "reply";
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
-    private ReplyLogsDatabase logsDatabase;
+    private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 30 * 1000;
 
     /*
@@ -146,14 +146,14 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canSendReplyNow(String userId){
-        logsDatabase = ReplyLogsDatabase.getInstance(getApplicationContext());
-        return (System.currentTimeMillis() - logsDatabase.logsDao().getLastReplyTimeStamp(userId) >= DELAY_BETWEEN_REPLY_IN_MILLISEC);
+        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
+        return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= DELAY_BETWEEN_REPLY_IN_MILLISEC);
     }
 
     private void logReply(String userId){
-        logsDatabase = ReplyLogsDatabase.getInstance(getApplicationContext());
-        Logs logs = new Logs(userId, System.currentTimeMillis());
-        logsDatabase.logsDao().logReply(logs);
+        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
+        WhatsappAutoReplyLogs logs = new WhatsappAutoReplyLogs(userId, System.currentTimeMillis());
+        whatsappAutoReplyLogsDB.logsDao().logReply(logs);
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
