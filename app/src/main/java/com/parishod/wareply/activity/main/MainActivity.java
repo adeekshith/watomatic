@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.parishod.wareply.CustomReplyEditorActivity;
+import com.parishod.wareply.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.wareply.NotificationService;
 import com.parishod.wareply.R;
 import com.parishod.wareply.model.CustomRepliesData;

@@ -1,4 +1,4 @@
-package com.parishod.wareply;
+package com.parishod.wareply.activity.customreplyeditor;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.parishod.wareply.R;
 import com.parishod.wareply.model.CustomRepliesData;
 
 public class CustomReplyEditorActivity extends AppCompatActivity {
