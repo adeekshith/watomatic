@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager;
 
 public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
+    private final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private PreferencesManager(Context context) {
@@ -29,4 +30,13 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    public boolean isGroupReplyEnabled(){
+        return _sharedPrefs.getBoolean(KEY_GROUP_REPLY_ENABLED,false);
+    }
+
+    public void setGroupReplyPref(boolean enabled){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_GROUP_REPLY_ENABLED, enabled);
+        editor.apply();
+    }
 }

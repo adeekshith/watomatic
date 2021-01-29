@@ -36,11 +36,19 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
-                isSupportedPackage(sbn) &&
-                canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
+        if(canReply(sbn)) {
             sendReply(sbn);
         }
+    }
+
+    private boolean canReply(StatusBarNotification sbn){
+        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
+                isSupportedPackage(sbn) &&
+                isGroupMessageAndReplyAllowed(sbn) &&
+                canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -146,5 +154,13 @@ public class NotificationService extends NotificationListenerService {
         logsDatabase = ReplyLogsDatabase.getInstance(getApplicationContext());
         Logs logs = new Logs(userId, System.currentTimeMillis());
         logsDatabase.logsDao().logReply(logs);
+    }
+
+    private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
+        if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
+            return true;
+        }else {
+            return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
+        }
     }
 }
