@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.WhatsappAutoReplyLogs;
+package com.parishod.wareply.model.logs.whatsapp;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.parishod.wareply.model.utils.Constants;
 
 @Database(entities = {WhatsappAutoReplyLogs.class}, version = 1)
 public abstract class WhatsappAutoReplyLogsDB extends RoomDatabase {
-    private static final String DB_NAME = Constants.DB_NAME;
+    private static final String DB_NAME = Constants.WHATSAPP_LOGS_DB_NAME;
     private static WhatsappAutoReplyLogsDB _instance;
 
     public static synchronized WhatsappAutoReplyLogsDB getInstance(Context context){

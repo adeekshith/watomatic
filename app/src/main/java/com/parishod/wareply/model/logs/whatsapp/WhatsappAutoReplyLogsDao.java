@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.WhatsappAutoReplyLogs;
+package com.parishod.wareply.model.logs.whatsapp;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
