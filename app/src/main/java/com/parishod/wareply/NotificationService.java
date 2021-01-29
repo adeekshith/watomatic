@@ -36,11 +36,18 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
+        if(canReply(sbn)) {
+            sendReply(sbn);
+        }
+    }
+
+    private boolean canReply(StatusBarNotification sbn){
         if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
                 canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
-            sendReply(sbn);
+            return true;
         }
+        return false;
     }
 
     @Override
