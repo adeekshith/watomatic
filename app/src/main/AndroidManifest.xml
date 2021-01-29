@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WaReply">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,9 +18,9 @@
         </activity>
 
         <activity
-            android:name=".CustomReplyEditorActivity"
+            android:name=".activity.customreplyeditor.CustomReplyEditorActivity"
             android:label="@string/mainAutoReplyLabel"
-            android:parentActivityName="com.parishod.wareply.MainActivity" >
+            android:parentActivityName="com.parishod.wareply.activity.main.MainActivity" >
         </activity>
 
         <service android:name=".NotificationService"
