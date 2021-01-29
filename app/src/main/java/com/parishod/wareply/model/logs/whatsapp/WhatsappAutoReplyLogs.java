@@ -1,12 +1,12 @@
-package com.parishod.wareply.model.logs;
+package com.parishod.wareply.model.logs.whatsapp;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "log")
-public class Logs {
+@Entity(tableName = "WhatsappAutoReplyLogs")
+public class WhatsappAutoReplyLogs {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
@@ -15,7 +15,7 @@ public class Logs {
     @ColumnInfo(name = "created_at")
     private long createdAt;
 
-    public Logs(String userId, long createdAt) {
+    public WhatsappAutoReplyLogs(String userId, long createdAt) {
         this.userId = userId;
         this.createdAt = createdAt;
     }
