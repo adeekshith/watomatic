@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.Switch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     TextView autoReplyTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
-    Switch mainAutoReplySwitch;
+    SwitchMaterial mainAutoReplySwitch;
     private PreferencesManager preferencesManager;
 
     @Override

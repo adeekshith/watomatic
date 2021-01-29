@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="154dp">
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/mainAutoReplySwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
