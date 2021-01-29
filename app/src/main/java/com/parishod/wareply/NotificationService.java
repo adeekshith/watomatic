@@ -12,8 +12,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.wareply.model.CustomRepliesData;
-import com.parishod.wareply.model.whatsapp.WhatsappAutoReplyLogs;
-import com.parishod.wareply.model.whatsapp.WhatsappAutoReplyLogsDB;
+import com.parishod.wareply.model.logs.whatsapp.WhatsappAutoReplyLogs;
+import com.parishod.wareply.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
 import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.whatsapp;
+package com.parishod.wareply.model.logs.whatsapp;
 
 import android.content.Context;
 
