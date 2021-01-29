@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     TextView autoReplyTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
-    SwitchMaterial mainAutoReplySwitch;
+    SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
 
     @Override
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
+        groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
 
@@ -58,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 preferencesManager.setServicePref(isChecked);
                 enableService(isChecked);
             }
+        });
+
+        groupReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                Toast.makeText(MainActivity.this, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(MainActivity.this, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
+            }
+            preferencesManager.setGroupReplyPref(isChecked);
         });
     }
 

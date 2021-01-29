@@ -33,4 +33,10 @@ public class PreferencesManager {
     public boolean isGroupReplyEnabled(){
         return _sharedPrefs.getBoolean(KEY_GROUP_REPLY_ENABLED,false);
     }
+
+    public void setGroupReplyPref(boolean enabled){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_GROUP_REPLY_ENABLED, enabled);
+        editor.apply();
+    }
 }

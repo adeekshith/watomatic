@@ -14,4 +14,7 @@
     <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
     <string name="permission_dialog_denied_title">Permission Denied</string>
     <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
+    <string name="groupReplySwitchLabel">Group reply</string>
+    <string name="group_reply_on_info_message">Now the app will reply to group chats also.</string>
+    <string name="group_reply_off_info_message">Reply to group chats disabled.</string>
 </resources>
