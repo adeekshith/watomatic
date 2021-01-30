@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
     private final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
+    private final String KEY_AUTO_REPLY_DELAY = "pref_auto_reply_delay";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private PreferencesManager(Context context) {
@@ -37,6 +38,16 @@ public class PreferencesManager {
     public void setGroupReplyPref(boolean enabled){
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putBoolean(KEY_GROUP_REPLY_ENABLED, enabled);
+        editor.apply();
+    }
+
+    public int getAutoReplyDelay(){
+        return _sharedPrefs.getInt(KEY_AUTO_REPLY_DELAY,0);
+    }
+
+    public void setAutoReplyDelay(int delay){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putInt(KEY_AUTO_REPLY_DELAY, delay);
         editor.apply();
     }
 }

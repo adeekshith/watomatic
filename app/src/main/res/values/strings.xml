@@ -17,4 +17,9 @@
     <string name="groupReplySwitchLabel">Group reply</string>
     <string name="group_reply_on_info_message">Now the app will reply to group chats also.</string>
     <string name="group_reply_off_info_message">Reply to group chats disabled.</string>
+    <string name="time_picker_title">Choose time between replies</string>
+    <string name="time_picker_sub_title_default">Auto Reply will respond always</string>
+    <string name="time_picker_sub_title">(Auto Reply will respond after \nevery %1$s hours, %2$s minutes)</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
 </resources>
