@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         aboutAppBtn.setOnClickListener(this::openAboutActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
+        // Enable group chat switch only if main switch id ON
+        groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
+
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
 //                launchNotificationAccessSettings();
@@ -79,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                                 ? R.string.mainAutoReplySwitchOnLabel
                                 : R.string.mainAutoReplySwitchOffLabel
                 );
+
+                // Enable group chat switch only if main switch id ON
+                groupReplySwitch.setEnabled(isChecked);
             }
         });
 
