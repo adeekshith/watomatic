@@ -41,13 +41,13 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public int getAutoReplyDelay(){
-        return _sharedPrefs.getInt(KEY_AUTO_REPLY_DELAY,0);
+    public long getAutoReplyDelay(){
+        return _sharedPrefs.getLong(KEY_AUTO_REPLY_DELAY,0);
     }
 
-    public void setAutoReplyDelay(int delay){
+    public void setAutoReplyDelay(long delay){
         SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putInt(KEY_AUTO_REPLY_DELAY, delay);
+        editor.putLong(KEY_AUTO_REPLY_DELAY, delay);
         editor.apply();
     }
 }

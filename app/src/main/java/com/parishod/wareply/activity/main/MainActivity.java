@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchTimePicker(){
-        int timeDelay = preferencesManager.getAutoReplyDelay();
+        int timeDelay = (int) (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
         int hour = timeDelay/MINUTE_FACTOR;
         int min = timeDelay%MINUTE_FACTOR;
         materialTimePicker = new MaterialTimePicker.Builder()
@@ -100,24 +100,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveSelectedTime(){
-        int delay = materialTimePicker.getHour() * MINUTE_FACTOR + materialTimePicker.getMinute();
+        long delay = ((materialTimePicker.getHour() * MINUTE_FACTOR) + materialTimePicker.getMinute()) * 60 * 1000;//Save it in milliseconds
         preferencesManager.setAutoReplyDelay(delay);
         setSelectedTime();
     }
 
     private void setSelectedTime(){
-        int timeDelay = preferencesManager.getAutoReplyDelay();
+        long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
         String hour = "" + timeDelay/MINUTE_FACTOR;
         String min = "" + timeDelay%MINUTE_FACTOR;
-        if(hour.length() == 1){
-            hour = "0" + hour;
-        }
-        if(min.length() == 1){
-            min = "0" + min;
-        }
-        String time = hour + ":" + min;
+        String time = hour + "h " + min + "m";
         timeSelectedTextPreview.setText(time);
-        if(time.equalsIgnoreCase("00:00")){
+        if(time.equalsIgnoreCase("0h 0m")){
             timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
         }else{
             timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), hour, min));
