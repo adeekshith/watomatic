@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             preferencesManager.setGroupReplyPref(isChecked);
         });
 
+        // Hide throttle feature until a little cleanup is done
+        timePickerCard.setVisibility(View.GONE);
+
         timePickerCard.setOnClickListener(v -> launchTimePicker());
         setSelectedTime();
     }
