@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 preferencesManager.setServicePref(isChecked);
                 enableService(isChecked);
+                mainAutoReplySwitch.setText(
+                        isChecked
+                                ? R.string.mainAutoReplySwitchOnLabel
+                                : R.string.mainAutoReplySwitchOffLabel
+                );
             }
         });
 
