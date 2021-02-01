@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Watomatic</string>
+    <string name="url_privacy_policy">https://github.com/adeekshith/watomatic/PRIVACY.md</string>
+    <string name="adeekshith_twitter_handle">\@adeekshith</string>
+    <string name="url_adeekshith_twitter">https://twitter.com/adeekshith</string>
+
     <string name="about">About</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
