@@ -18,6 +18,8 @@ import com.parishod.wareply.model.preferences.PreferencesManager;
 
 import java.util.List;
 
+import static java.lang.Math.max;
+
 public class NotificationService extends NotificationListenerService {
     private static final CharSequence REPLY_KEYWORD = "reply";
     private final String TAG = NotificationService.class.getSimpleName();
@@ -147,7 +149,8 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean canSendReplyNow(String userId){
         whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
-        return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= DELAY_BETWEEN_REPLY_IN_MILLISEC);
+        long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
+        return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private void logReply(String userId){

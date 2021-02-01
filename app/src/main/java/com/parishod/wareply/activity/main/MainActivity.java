@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.parishod.wareply.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.wareply.NotificationService;
 import com.parishod.wareply.R;
@@ -29,12 +31,14 @@ import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_NOTIFICATION_LISTENER = 100;
-    CardView autoReplyTextPreviewCard;
-    TextView autoReplyTextPreview;
+    private final int MINUTE_FACTOR = 60;
+    CardView autoReplyTextPreviewCard, timePickerCard;
+    TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
+    private MaterialTimePicker materialTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreview = findViewById(R.id.textView4);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
+
+        timePickerCard = findViewById(R.id.timePickerCardView);
+        timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
+        timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
@@ -72,6 +80,42 @@ public class MainActivity extends AppCompatActivity {
             }
             preferencesManager.setGroupReplyPref(isChecked);
         });
+
+        timePickerCard.setOnClickListener(v -> launchTimePicker());
+        setSelectedTime();
+    }
+
+    private void launchTimePicker(){
+        int timeDelay = (int) (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
+        int hour = timeDelay/MINUTE_FACTOR;
+        int min = timeDelay%MINUTE_FACTOR;
+        materialTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+                .setHour(hour)
+                .setMinute(min)
+                .build();
+        materialTimePicker.show(getSupportFragmentManager(), "time_picker");
+        materialTimePicker.addOnPositiveButtonClickListener(v -> saveSelectedTime());
+    }
+
+    private void saveSelectedTime(){
+        long delay = ((materialTimePicker.getHour() * MINUTE_FACTOR) + materialTimePicker.getMinute()) * 60 * 1000;//Save it in milliseconds
+        preferencesManager.setAutoReplyDelay(delay);
+        setSelectedTime();
+    }
+
+    private void setSelectedTime(){
+        long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
+        String hour = "" + timeDelay/MINUTE_FACTOR;
+        String min = "" + timeDelay%MINUTE_FACTOR;
+        String time = hour + "h " + min + "m";
+        timeSelectedTextPreview.setText(time);
+        if(time.equalsIgnoreCase("0h 0m")){
+            timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
+        }else{
+            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), hour, min));
+        }
     }
 
     @Override
