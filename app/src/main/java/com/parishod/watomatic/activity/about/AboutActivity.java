@@ -1,4 +1,4 @@
-package com.parishod.wareply.activity.about;
+package com.parishod.watomatic.activity.about;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -8,8 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.parishod.wareply.R;
-import com.parishod.wareply.BuildConfig;
+import com.parishod.watomatic.R;
+import com.parishod.watomatic.BuildConfig;
 
 public class AboutActivity extends AppCompatActivity {
     CardView privacyPolicyCard;

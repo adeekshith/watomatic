@@ -1,4 +1,4 @@
-package com.parishod.wareply;
+package com.parishod.watomatic;
 
 import org.junit.Test;
 

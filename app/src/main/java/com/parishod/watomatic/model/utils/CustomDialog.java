@@ -1,11 +1,11 @@
-package com.parishod.wareply.model.utils;
+package com.parishod.watomatic.model.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import com.parishod.wareply.R;
+import com.parishod.watomatic.R;
 
 public class CustomDialog {
     private final Context mContext;

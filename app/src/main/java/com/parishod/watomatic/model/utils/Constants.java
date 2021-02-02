@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.utils;
+package com.parishod.watomatic.model.utils;
 
 public class Constants {
     public static final String PERMISSION_DIALOG_TITLE = "permission_dialog_title";

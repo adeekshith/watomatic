@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.logs.whatsapp;
+package com.parishod.watomatic.model.logs.whatsapp;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

@@ -1,4 +1,4 @@
-package com.parishod.wareply.activity.main;
+package com.parishod.watomatic.activity.main;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,14 +20,14 @@ import androidx.cardview.widget.CardView;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
-import com.parishod.wareply.activity.about.AboutActivity;
-import com.parishod.wareply.activity.customreplyeditor.CustomReplyEditorActivity;
-import com.parishod.wareply.NotificationService;
-import com.parishod.wareply.R;
-import com.parishod.wareply.model.CustomRepliesData;
-import com.parishod.wareply.model.preferences.PreferencesManager;
-import com.parishod.wareply.model.utils.Constants;
-import com.parishod.wareply.model.utils.CustomDialog;
+import com.parishod.watomatic.activity.about.AboutActivity;
+import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.parishod.watomatic.NotificationService;
+import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.Constants;
+import com.parishod.watomatic.model.utils.CustomDialog;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
