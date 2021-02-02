@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.parishod.wareply.R;
+import com.parishod.wareply.BuildConfig;
 
 public class AboutActivity extends AppCompatActivity {
     CardView privacyPolicyCard;
     TextView privacyPolicyLink;
-    TextView developerAttrLink;
+    TextView developerAttrLink, appVersionText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class AboutActivity extends AppCompatActivity {
         privacyPolicyCard = findViewById(R.id.privacyPolicyCardView);
         privacyPolicyLink = findViewById(R.id.privacyPolicyLink);
         developerAttrLink = findViewById(R.id.developerLink);
+        appVersionText = findViewById(R.id.appVersion);
+        appVersionText.setText(String.format(getResources().getString(R.string.app_version), BuildConfig.VERSION_NAME));
 
         privacyPolicyCard.setOnClickListener(view -> {
             String url = privacyPolicyLink.getText().toString();
