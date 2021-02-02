@@ -5,6 +5,7 @@
     <string name="url_adeekshith_twitter">https://twitter.com/adeekshith</string>
 
     <string name="about">About</string>
+    <string name="privacy_policy_label">Privacy Policy</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
