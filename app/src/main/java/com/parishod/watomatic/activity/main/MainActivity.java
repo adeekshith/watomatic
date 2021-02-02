@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
-    TextView aboutAppBtn;
     private PreferencesManager preferencesManager;
     private MaterialTimePicker materialTimePicker;
 
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
-        aboutAppBtn = findViewById(R.id.aboutAppBtn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        aboutAppBtn.setOnClickListener(this::openAboutActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
         // Enable group chat switch only if main switch id ON
         groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
