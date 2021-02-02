@@ -1,4 +1,4 @@
-package com.parishod.wareply;
+package com.parishod.watomatic;
 
 import android.app.Notification;
 import android.app.PendingIntent;

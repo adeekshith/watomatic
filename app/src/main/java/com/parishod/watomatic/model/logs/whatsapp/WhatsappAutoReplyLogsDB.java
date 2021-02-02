@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.logs.whatsapp;
+package com.parishod.watomatic.model.logs.whatsapp;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.parishod.wareply.model.utils.Constants;
+import com.parishod.watomatic.model.utils.Constants;
 
 @Database(entities = {WhatsappAutoReplyLogs.class}, version = 1)
 public abstract class WhatsappAutoReplyLogsDB extends RoomDatabase {

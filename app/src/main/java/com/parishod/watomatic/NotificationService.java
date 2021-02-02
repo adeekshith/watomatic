@@ -1,4 +1,4 @@
-package com.parishod.wareply;
+package com.parishod.watomatic;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -11,10 +11,10 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
-import com.parishod.wareply.model.CustomRepliesData;
-import com.parishod.wareply.model.logs.whatsapp.WhatsappAutoReplyLogs;
-import com.parishod.wareply.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
-import com.parishod.wareply.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
+import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.List;
 

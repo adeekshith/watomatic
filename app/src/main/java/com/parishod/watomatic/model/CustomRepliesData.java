@@ -1,4 +1,4 @@
-package com.parishod.wareply.model;
+package com.parishod.watomatic.model;
 
 
 import android.app.Activity;

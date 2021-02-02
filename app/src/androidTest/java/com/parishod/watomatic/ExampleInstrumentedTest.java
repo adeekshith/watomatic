@@ -1,4 +1,4 @@
-package com.parishod.wareply;
+package com.parishod.watomatic;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.parishod.wareply", appContext.getPackageName());
+        assertEquals("com.parishod.watomatic", appContext.getPackageName());
     }
 }

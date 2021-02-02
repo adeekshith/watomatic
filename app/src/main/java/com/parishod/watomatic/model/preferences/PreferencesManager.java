@@ -1,4 +1,4 @@
-package com.parishod.wareply.model.preferences;
+package com.parishod.watomatic.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
