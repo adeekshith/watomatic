@@ -8,11 +8,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
-    TextView aboutAppBtn;
     private PreferencesManager preferencesManager;
     private MaterialTimePicker materialTimePicker;
 
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
-        aboutAppBtn = findViewById(R.id.aboutAppBtn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        aboutAppBtn.setOnClickListener(this::openAboutActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
         // Enable group chat switch only if main switch id ON
         groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openAboutActivity(View v) {
+    private void openAboutActivity() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
@@ -251,5 +251,19 @@ public class MainActivity extends AppCompatActivity {
         // enable dummyActivity (as it is disabled in the manifest.xml)
         packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.about){
+            openAboutActivity();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
