@@ -19,6 +19,8 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+
+import com.parishod.wareply.activity.about.AboutActivity;
 import com.parishod.wareply.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.wareply.NotificationService;
 import com.parishod.wareply.R;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
+    TextView aboutAppBtn;
     private PreferencesManager preferencesManager;
     private MaterialTimePicker materialTimePicker;
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
+        aboutAppBtn = findViewById(R.id.aboutAppBtn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
+        aboutAppBtn.setOnClickListener(this::openAboutActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
@@ -147,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void openCustomReplyEditorActivity(View v) {
         Intent intent = new Intent(this, CustomReplyEditorActivity.class);
+        startActivity(intent);
+    }
+
+    private void openAboutActivity(View v) {
+        Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 
