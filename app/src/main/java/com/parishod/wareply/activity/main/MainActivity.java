@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         aboutAppBtn.setOnClickListener(this::openAboutActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
+        // Enable group chat switch only if main switch id ON
+        groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
+
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked && !isListenerEnabled(MainActivity.this, NotificationService.class)){
 //                launchNotificationAccessSettings();
@@ -74,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 preferencesManager.setServicePref(isChecked);
                 enableService(isChecked);
+                mainAutoReplySwitch.setText(
+                        isChecked
+                                ? R.string.mainAutoReplySwitchOnLabel
+                                : R.string.mainAutoReplySwitchOffLabel
+                );
+
+                // Enable group chat switch only if main switch id ON
+                groupReplySwitch.setEnabled(isChecked);
             }
         });
 
@@ -85,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
             }
             preferencesManager.setGroupReplyPref(isChecked);
         });
+
+        // Hide throttle feature until a little cleanup is done
+        timePickerCard.setVisibility(View.GONE);
 
         timePickerCard.setOnClickListener(v -> launchTimePicker());
         setSelectedTime();
