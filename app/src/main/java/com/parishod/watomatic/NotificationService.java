@@ -26,6 +26,7 @@ public class NotificationService extends NotificationListenerService {
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 30 * 1000;
+    private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 30 * 1000;
 
     /*
         These are the package names of the apps. for which we want to
@@ -46,6 +47,7 @@ public class NotificationService extends NotificationListenerService {
     private boolean canReply(StatusBarNotification sbn){
         return isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
+                isNewNotification(sbn) &&
                 isGroupMessageAndReplyAllowed(sbn) &&
                 canSendReplyNow(sbn);
     }
@@ -167,5 +169,16 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isServiceEnabled(){
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+    }
+
+    /*
+    This method is used to avoid replying to unreplied notifications
+    which are posted again when next message is received
+     */
+    private boolean isNewNotification(StatusBarNotification sbn){
+        //For apps targeting {@link android.os.Build.VERSION_CODES#N} and above, this time is not shown
+        //by default unless explicitly set by the apps hence checking not 0
+        return sbn.getNotification().when == 0 ||
+                sbn.getNotification().when < DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC;
     }
 }
