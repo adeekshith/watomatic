@@ -44,13 +44,10 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canReply(StatusBarNotification sbn){
-        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
+        return isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
                 isGroupMessageAndReplyAllowed(sbn) &&
-                canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
-            return true;
-        }
-        return false;
+                canSendReplyNow(sbn);
     }
 
     @Override
@@ -147,7 +144,8 @@ public class NotificationService extends NotificationListenerService {
         }
     }
 
-    private boolean canSendReplyNow(String userId){
+    private boolean canSendReplyNow(StatusBarNotification sbn){
+        String userId = sbn.getNotification().extras.getString("android.title");
         whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
         return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
@@ -165,5 +163,9 @@ public class NotificationService extends NotificationListenerService {
         }else {
             return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
         }
+    }
+
+    private boolean isServiceEnabled(){
+        return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
     }
 }
