@@ -179,6 +179,6 @@ public class NotificationService extends NotificationListenerService {
         //For apps targeting {@link android.os.Build.VERSION_CODES#N} and above, this time is not shown
         //by default unless explicitly set by the apps hence checking not 0
         return sbn.getNotification().when == 0 ||
-                sbn.getNotification().when < DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC;
+                (System.currentTimeMillis() - sbn.getNotification().when) < DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC;
     }
 }
