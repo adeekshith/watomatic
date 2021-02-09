@@ -26,6 +26,7 @@ public class NotificationService extends NotificationListenerService {
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 30 * 1000;
+    private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 60 * 1000;
 
     /*
         These are the package names of the apps. for which we want to
@@ -44,13 +45,11 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canReply(StatusBarNotification sbn){
-        if(PreferencesManager.getPreferencesInstance(this).isServiceEnabled() &&
+        return isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
+                isNewNotification(sbn) &&
                 isGroupMessageAndReplyAllowed(sbn) &&
-                canSendReplyNow(sbn.getNotification().extras.getString("android.title"))) {
-            return true;
-        }
-        return false;
+                canSendReplyNow(sbn);
     }
 
     @Override
@@ -147,7 +146,8 @@ public class NotificationService extends NotificationListenerService {
         }
     }
 
-    private boolean canSendReplyNow(String userId){
+    private boolean canSendReplyNow(StatusBarNotification sbn){
+        String userId = sbn.getNotification().extras.getString("android.title");
         whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
         return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
@@ -165,5 +165,20 @@ public class NotificationService extends NotificationListenerService {
         }else {
             return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
         }
+    }
+
+    private boolean isServiceEnabled(){
+        return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+    }
+
+    /*
+    This method is used to avoid replying to unreplied notifications
+    which are posted again when next message is received
+     */
+    private boolean isNewNotification(StatusBarNotification sbn){
+        //For apps targeting {@link android.os.Build.VERSION_CODES#N} and above, this time is not shown
+        //by default unless explicitly set by the apps hence checking not 0
+        return sbn.getNotification().when == 0 ||
+                (System.currentTimeMillis() - sbn.getNotification().when) < DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC;
     }
 }
