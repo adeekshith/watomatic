@@ -21,7 +21,6 @@ import java.util.List;
 import static java.lang.Math.max;
 
 public class NotificationService extends NotificationListenerService {
-    private static final CharSequence REPLY_KEYWORD = "reply";
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
@@ -120,10 +119,8 @@ public class NotificationService extends NotificationListenerService {
             if(act != null && act.getRemoteInputs() != null) {
                 for(int x = 0; x < act.getRemoteInputs().length; x++) {
                     RemoteInput remoteInput = act.getRemoteInputs()[x];
-                    if (remoteInput.getLabel().toString().toLowerCase().contains(REPLY_KEYWORD)) {
-                        notificationWear.remoteInputs.add(remoteInput);
-                        notificationWear.pendingIntent = act.actionIntent;
-                    }
+                    notificationWear.remoteInputs.add(remoteInput);
+                    notificationWear.pendingIntent = act.actionIntent;
                 }
             }
         }
