@@ -9,6 +9,8 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
 - Set your own auto reply message
 - Auto reply to group chats
 - Respects your privacy
+  - No analytics or tracking
+  - Does not connect to Internet
 - Free an open source
 
 WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Watomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
@@ -31,5 +33,5 @@ This app is not associated with any company including WhatsApp, Facebook, Signal
   
   This app relies on Android specific notification quick replies feature to function. I am not aware of similar functionality on iOS but will look into it.
 
-Missing any features? Let us know!
+Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
 
