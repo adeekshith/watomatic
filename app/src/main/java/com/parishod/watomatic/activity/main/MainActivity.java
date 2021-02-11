@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         groupReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Ignore if this is not triggered by user action but just UI update in onResume() #62
+            if (preferencesManager.isGroupReplyEnabled() == isChecked) { return;}
+
             if(isChecked){
                 Toast.makeText(MainActivity.this, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
             }else{
