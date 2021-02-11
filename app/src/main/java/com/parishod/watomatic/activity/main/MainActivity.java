@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
             enableService(false);
         }
         setSwitchState();
+
+        // set group chat switch state
+        groupReplySwitch.setChecked(preferencesManager.isGroupReplyEnabled());
     }
 
     private void setSwitchState(){
