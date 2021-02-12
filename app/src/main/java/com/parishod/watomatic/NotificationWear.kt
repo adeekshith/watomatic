@@ -10,7 +10,7 @@ data class NotificationWear (
         val pendingIntent: PendingIntent?,
         val remoteInputs: List<RemoteInput>,
         val pages: List<Notification>,
-        val bundle: Bundle,
-        val tag: String,
+        val bundle: Bundle?,
+        val tag: String?, // Tag can be null for some notifications
         val id: String
 )
