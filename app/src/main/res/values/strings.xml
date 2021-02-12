@@ -24,8 +24,8 @@
 
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
-    <string name="group_reply_on_info_message">Enable auto reply for group chats</string>
-    <string name="group_reply_off_info_message">Disable auto reply for group chats</string>
+    <string name="group_reply_on_info_message">Enabled auto reply for group chats</string>
+    <string name="group_reply_off_info_message">Disabled auto reply for group chats</string>
 
     <string name="time_picker_title">Choose time between replies</string>
     <string name="time_picker_sub_title_default">Auto Reply will respond always</string>
