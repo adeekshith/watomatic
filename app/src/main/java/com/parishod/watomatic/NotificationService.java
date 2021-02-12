@@ -63,7 +63,7 @@ public class NotificationService extends NotificationListenerService {
         NotificationWear notificationWear = extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
-        if (notificationWear == null || notificationWear.getRemoteInputs().isEmpty()) { return;}
+        if (notificationWear.getRemoteInputs().isEmpty()) { return;}
 
 
         customRepliesData = CustomRepliesData.getInstance(this);
