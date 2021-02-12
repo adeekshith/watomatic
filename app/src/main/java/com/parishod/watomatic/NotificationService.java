@@ -1,6 +1,5 @@
 package com.parishod.watomatic;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +15,9 @@ import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
 import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static java.lang.Math.max;
 
@@ -62,18 +63,18 @@ public class NotificationService extends NotificationListenerService {
         NotificationWear notificationWear = extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
-        if (notificationWear == null || notificationWear.remoteInputs.isEmpty()) { return;}
+        if (notificationWear == null || notificationWear.getRemoteInputs().isEmpty()) { return;}
 
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
-        RemoteInput[] remoteInputs = new RemoteInput[notificationWear.remoteInputs.size()];
+        RemoteInput[] remoteInputs = new RemoteInput[notificationWear.getRemoteInputs().size()];
 
         Intent localIntent = new Intent();
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle localBundle = new Bundle();//notificationWear.bundle;
         int i = 0;
-        for(RemoteInput remoteIn : notificationWear.remoteInputs){
+        for(RemoteInput remoteIn : notificationWear.getRemoteInputs()){
             remoteInputs[i] = remoteIn;
             // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
             localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.get());
@@ -82,8 +83,10 @@ public class NotificationService extends NotificationListenerService {
 
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
-            logReply(sbn.getNotification().extras.getString("android.title"));
-            notificationWear.pendingIntent.send(this, 0, localIntent);
+            if (notificationWear.getPendingIntent() != null) {
+                logReply(sbn.getNotification().extras.getString("android.title"));
+                notificationWear.getPendingIntent().send(this, 0, localIntent);
+            }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
         }
@@ -110,27 +113,30 @@ public class NotificationService extends NotificationListenerService {
      */
     private NotificationWear extractWearNotification(StatusBarNotification statusBarNotification) {
         //Should work for communicators such:"com.whatsapp", "com.facebook.orca", "com.google.android.talk", "jp.naver.line.android", "org.telegram.messenger"
-        NotificationWear notificationWear = new NotificationWear();
-        notificationWear.packageName = statusBarNotification.getPackageName();
 
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender(statusBarNotification.getNotification());
         List<NotificationCompat.Action> actions = wearableExtender.getActions();
+        List<RemoteInput> remoteInputs = new ArrayList<>(actions.size());
+        PendingIntent pendingIntent = null;
         for(NotificationCompat.Action act : actions) {
             if(act != null && act.getRemoteInputs() != null) {
                 for(int x = 0; x < act.getRemoteInputs().length; x++) {
                     RemoteInput remoteInput = act.getRemoteInputs()[x];
-                    notificationWear.remoteInputs.add(remoteInput);
-                    notificationWear.pendingIntent = act.actionIntent;
+                    remoteInputs.add(remoteInput);
+                    pendingIntent = act.actionIntent;
                 }
             }
         }
-        List<Notification> pages = wearableExtender.getPages();
-        notificationWear.pages.addAll(pages);
 
-        notificationWear.bundle = statusBarNotification.getNotification().extras;
-        notificationWear.tag = statusBarNotification.getTag();//TODO find how to pass Tag with sending PendingIntent, might fix Hangout problem
-
-        return notificationWear;
+        return new NotificationWear(
+                statusBarNotification.getPackageName(),
+                pendingIntent,
+                remoteInputs,
+                wearableExtender.getPages(),
+                statusBarNotification.getNotification().extras,
+                statusBarNotification.getTag(),
+                UUID.randomUUID().toString()
+        );
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
