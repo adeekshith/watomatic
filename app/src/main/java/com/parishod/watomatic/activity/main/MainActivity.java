@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,17 +34,21 @@ import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
+import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private final int MINUTE_FACTOR = 60;
     CardView autoReplyTextPreviewCard, timePickerCard;
-    TextView autoReplyTextPreview, timePickerSubTitleTextPreview;
+    TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
     private RelativeLayout share_layout;
+    private int days = 0;
+    private ImageView imgMinus, imgPlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
         timePickerCard = findViewById(R.id.timePickerCardView);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
+
+        timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
+
+        imgMinus = findViewById(R.id.imgMinus);
+        imgPlus = findViewById(R.id.imgPlus);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
@@ -99,8 +109,38 @@ public class MainActivity extends AppCompatActivity {
             preferencesManager.setGroupReplyPref(isChecked);
         });
 
-        // Hide throttle feature until a little cleanup is done
-        timePickerCard.setVisibility(View.GONE);
+        imgMinus.setOnClickListener(v -> {
+            if(days > MIN_DAYS){
+                days--;
+                saveNumDays();
+            }
+        });
+
+        imgPlus.setOnClickListener(v -> {
+            if(days < MAX_DAYS){
+                days++;
+                saveNumDays();
+            }
+        });
+
+        setNumDays();
+    }
+
+    private void saveNumDays(){
+        preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
+        setNumDays();
+    }
+
+    private void setNumDays(){
+        long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
+        days = (int)timeDelay/(60 * 24);//convert back to days
+        if(days == 0){
+            timeSelectedTextPreview.setText("•");
+            timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
+        }else{
+            timeSelectedTextPreview.setText("" + days);
+            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), days));
+        }
     }
 
     @Override
