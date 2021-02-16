@@ -140,18 +140,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/timeSelectedText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="20dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:text="@string/time_format_placeholder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editTimeButton"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/timePickerSubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,16 +154,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/timePickerTitle"/>
 
-            <ImageView
-                android:id="@+id/editTimeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@string/time_picker_edit_btn_tooltip"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_edit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

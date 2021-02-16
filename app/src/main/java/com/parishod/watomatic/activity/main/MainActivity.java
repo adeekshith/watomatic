@@ -22,8 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
@@ -40,12 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private final int MINUTE_FACTOR = 60;
     CardView autoReplyTextPreviewCard, timePickerCard;
-    TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
+    TextView autoReplyTextPreview, timePickerSubTitleTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
-    private MaterialTimePicker materialTimePicker;
     private RelativeLayout share_layout;
 
     @Override
@@ -65,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
         timePickerCard = findViewById(R.id.timePickerCardView);
-        timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
@@ -105,53 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Hide throttle feature until a little cleanup is done
         timePickerCard.setVisibility(View.GONE);
-
-        timePickerCard.setOnClickListener(v -> launchTimePicker());
-        setSelectedTime();
-
-        share_layout = findViewById(R.id.share_layout);
-        share_layout.setOnClickListener(v -> launchShareIntent());
-    }
-
-    private void launchShareIntent() {
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_text));
-        startActivity(Intent.createChooser(sharingIntent, "Share app via"));
-    }
-
-    private void launchTimePicker(){
-        int timeDelay = (int) (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
-        int hour = timeDelay/MINUTE_FACTOR;
-        int min = timeDelay%MINUTE_FACTOR;
-        materialTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setHour(hour)
-                .setMinute(min)
-                .build();
-        materialTimePicker.show(getSupportFragmentManager(), "time_picker");
-        materialTimePicker.addOnPositiveButtonClickListener(v -> saveSelectedTime());
-    }
-
-    private void saveSelectedTime(){
-        long delay = ((materialTimePicker.getHour() * MINUTE_FACTOR) + materialTimePicker.getMinute()) * 60 * 1000;//Save it in milliseconds
-        preferencesManager.setAutoReplyDelay(delay);
-        setSelectedTime();
-    }
-
-    private void setSelectedTime(){
-        long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
-        String hour = "" + timeDelay/MINUTE_FACTOR;
-        String min = "" + timeDelay%MINUTE_FACTOR;
-        String time = hour + "h " + min + "m";
-        timeSelectedTextPreview.setText(time);
-        if(time.equalsIgnoreCase("0h 0m")){
-            timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
-        }else{
-            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), hour, min));
-        }
     }
 
     @Override
