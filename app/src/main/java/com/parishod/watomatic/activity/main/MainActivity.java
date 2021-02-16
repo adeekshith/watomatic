@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
     private MaterialTimePicker materialTimePicker;
+    private RelativeLayout share_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,17 @@ public class MainActivity extends AppCompatActivity {
 
         timePickerCard.setOnClickListener(v -> launchTimePicker());
         setSelectedTime();
+
+        share_layout = findViewById(R.id.share_layout);
+        share_layout.setOnClickListener(v -> launchShareIntent());
+    }
+
+    private void launchShareIntent() {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_text));
+        startActivity(Intent.createChooser(sharingIntent, "Share app via"));
     }
 
     private void launchTimePicker(){
