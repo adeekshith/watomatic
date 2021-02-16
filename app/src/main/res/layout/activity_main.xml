@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
             android:id="@+id/share_btn"
-            android:layout_toRightOf="@+id/share_text"/>
+            android:layout_toEndOf="@+id/share_text"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
