@@ -186,7 +186,7 @@
                         android:textSize="20sp"
                         android:gravity="center_horizontal"
                         android:inputType="number"
-                        android:textColor="@android:color/black"
+                        android:textColor="?attr/colorOnSurface"
                         app:layout_constraintTop_toTopOf="@+id/imgMinus"
                         app:layout_constraintBottom_toBottomOf="@id/imgMinus"
                         app:layout_constraintStart_toEndOf="@+id/imgMinus"/>
