@@ -7,4 +7,7 @@ public class Constants {
     public static final String PERMISSION_DIALOG_DENIED_MSG = "permission_dialog_denied_msg";
     public static final String PERMISSION_DIALOG_DENIED = "permission_dialog_denied";
     public static final String WHATSAPP_LOGS_DB_NAME = "logs_whatsapp_autoreply_db";
+
+    public static final int MIN_DAYS = 0;
+    public static final int MAX_DAYS = 7;
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
@@ -35,6 +34,8 @@ import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
+import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_NOTIFICATION_LISTENER = 100;
@@ -45,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
-    private MaterialTimePicker materialTimePicker;
     private RelativeLayout share_layout;
+    private int days = 0;
+    private ImageView imgMinus, imgPlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
         timePickerCard = findViewById(R.id.timePickerCardView);
-        timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
+
+        timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
+
+        imgMinus = findViewById(R.id.imgMinus);
+        imgPlus = findViewById(R.id.imgPlus);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
@@ -103,54 +109,37 @@ public class MainActivity extends AppCompatActivity {
             preferencesManager.setGroupReplyPref(isChecked);
         });
 
-        // Hide throttle feature until a little cleanup is done
-        timePickerCard.setVisibility(View.GONE);
+        imgMinus.setOnClickListener(v -> {
+            if(days > MIN_DAYS){
+                days--;
+                saveNumDays();
+            }
+        });
 
-        timePickerCard.setOnClickListener(v -> launchTimePicker());
-        setSelectedTime();
+        imgPlus.setOnClickListener(v -> {
+            if(days < MAX_DAYS){
+                days++;
+                saveNumDays();
+            }
+        });
 
-        share_layout = findViewById(R.id.share_layout);
-        share_layout.setOnClickListener(v -> launchShareIntent());
+        setNumDays();
     }
 
-    private void launchShareIntent() {
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_text));
-        startActivity(Intent.createChooser(sharingIntent, "Share app via"));
+    private void saveNumDays(){
+        preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
+        setNumDays();
     }
 
-    private void launchTimePicker(){
-        int timeDelay = (int) (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
-        int hour = timeDelay/MINUTE_FACTOR;
-        int min = timeDelay%MINUTE_FACTOR;
-        materialTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setHour(hour)
-                .setMinute(min)
-                .build();
-        materialTimePicker.show(getSupportFragmentManager(), "time_picker");
-        materialTimePicker.addOnPositiveButtonClickListener(v -> saveSelectedTime());
-    }
-
-    private void saveSelectedTime(){
-        long delay = ((materialTimePicker.getHour() * MINUTE_FACTOR) + materialTimePicker.getMinute()) * 60 * 1000;//Save it in milliseconds
-        preferencesManager.setAutoReplyDelay(delay);
-        setSelectedTime();
-    }
-
-    private void setSelectedTime(){
+    private void setNumDays(){
         long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
-        String hour = "" + timeDelay/MINUTE_FACTOR;
-        String min = "" + timeDelay%MINUTE_FACTOR;
-        String time = hour + "h " + min + "m";
-        timeSelectedTextPreview.setText(time);
-        if(time.equalsIgnoreCase("0h 0m")){
+        days = (int)timeDelay/(60 * 24);//convert back to days
+        if(days == 0){
+            timeSelectedTextPreview.setText("•");
             timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
         }else{
-            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), hour, min));
+            timeSelectedTextPreview.setText("" + days);
+            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), days));
         }
     }
 
