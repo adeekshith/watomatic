@@ -1,0 +1,18 @@
+<i>Watomatic</i> sends an automated reply to everyone contacting you on WhatsApp. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a vacation responder.
+
+<b>Features:</b>
+
+* Auto reply to every WhatsApp message
+* Set your own auto reply message
+* Auto reply to group chats
+* Respects your privacy
+* Does not connect to the internet
+* No Ads
+* Open Source
+
+WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Watomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
+
+<b>Troubleshoot:</b>
+
+Watomatic relies on WhatsApp notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure WhatsApp notifications are enabled and WhatsApp fingerprint lock is disabled for this app to work.
+This app is not associated with any company including WhatsApp, Facebook, Signal, Telegram.
