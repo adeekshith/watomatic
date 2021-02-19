@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
     private ImageView share_layout;
+    private TextView watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
 
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
         share_layout = findViewById(R.id.share_btn);
+        watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -127,6 +130,13 @@ public class MainActivity extends AppCompatActivity {
         setNumDays();
 
         share_layout.setOnClickListener(v -> launchShareIntent());
+
+        watomaticSubredditBtn.setOnClickListener(view -> {
+            String url = getString(R.string.watomatic_subreddit_url);
+            startActivity(
+                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            );
+        });
     }
 
     private void saveNumDays(){

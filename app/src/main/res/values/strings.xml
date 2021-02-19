@@ -36,4 +36,6 @@
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="watomatic_subreddit_label">r/watomatic</string>
+    <string name="watomatic_subreddit_url">https://www.reddit.com/r/watomatic</string>
 </resources>

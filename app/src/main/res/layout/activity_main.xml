@@ -209,6 +209,20 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- r/watomatic subreddit button -->
+    <TextView
+        android:id="@+id/watomaticSubredditBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:text="@string/watomatic_subreddit_label"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <!-- App share button -->
     <ImageView
@@ -216,7 +230,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
-        android:padding="15dp"
+        android:layout_margin="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
