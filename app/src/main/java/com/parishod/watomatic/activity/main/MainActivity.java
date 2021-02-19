@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
-    private RelativeLayout share_layout;
+    private ImageView share_layout;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
-        share_layout = findViewById(R.id.share_layout);
+        share_layout = findViewById(R.id.share_btn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
