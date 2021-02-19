@@ -27,9 +27,9 @@
     <string name="group_reply_on_info_message">Enabled auto reply for group chats</string>
     <string name="group_reply_off_info_message">Disabled auto reply for group chats</string>
 
-    <string name="time_picker_title">Choose time between replies</string>
-    <string name="time_picker_sub_title_default">Auto Reply will respond always</string>
-    <string name="time_picker_sub_title">(Auto Reply will respond after \nevery %1$d day\/s)</string>
+    <string name="time_picker_title">Reply frequency (BETA)</string>
+    <string name="time_picker_sub_title_default">Respond to all messages without control</string>
+    <string name="time_picker_sub_title">Respond only once every %1$d day\/s for each person\/group</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
     <string name="app_version">v%1$s</string>
