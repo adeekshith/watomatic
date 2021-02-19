@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Watomatic</string>
+    <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
+    <string name="adeekshith_twitter_handle">\@adeekshith</string>
+    <string name="url_adeekshith_twitter">https://twitter.com/adeekshith</string>
+
+    <string name="about">Sobre</string>
+    <string name="privacy_policy_label">Política de Privacidade</string>
+    <string name="service_name">Monitor de notificações de mensagens recebidas</string>
+    <string name="mainAutoReplyTextPlaceholder">(Resposta personalizada)</string>
+    <string name="mainAutoReplyLabel">Texto de resposta automática</string>
+    <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
+    <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
+    <string name="mainAutoReplyEditBtnTooltip">Clique para editar o texto de resposta automática</string>
+    <string name="app_short_description_main">Resposta automática para WhatsApp</string>
+    <string name="decline">Recusar</string>
+    <string name="accept">Aceitar</string>
+    <string name="sure">Sim, negar</string>
+    <string name="retry">Tentar de novo</string>
+    <string name="permission_dialog_title">Permissão necessária</string>
+    <string name="permission_dialog_msg">Este App requer a permissão de Acesso à Notificações para funcionar.</string>
+    <string name="permission_dialog_denied_title">Permissão negada</string>
+    <string name="permission_dialog_denied_msg">Sem esta autorização, o App não vai poder responder automaticamente às notificações. Você tem certeza de que quer negar a permissão?</string>
+
+    <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Resposta automática para chats de grupos</string>
+    <string name="group_reply_on_info_message">Ativada a Resposta Automática para chats de grupos</string>
+    <string name="group_reply_off_info_message">Desativada a Resposta Automática para chats de grupos</string>
+
+    <string name="time_picker_title">Freqüência de resposta (BETA)</string>
+    <string name="time_picker_sub_title_default">Responder a todas as mensagens sem controle</string>
+    <string name="time_picker_sub_title">Responder apenas uma vez a cada %1$d dia(s) para cada pessoa\/grupo</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Clique para editar o tempo de atraso entre as respostas</string>
+    <string name="app_version">v%1$s</string>
+    <string name="share_app_text">"Estou usando Watomatic para livre-se de WhatsApp. Experimente!\n https://git.io/watomatic</string>
+    <string name="share">Compartilhar</string>
+    <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
+    <string name="watomatic_subreddit_label">r/watomatic</string>
+    <string name="watomatic_subreddit_url">https://www.reddit.com/r/watomatic</string>
+</resources>
