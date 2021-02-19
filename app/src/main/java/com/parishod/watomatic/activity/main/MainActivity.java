@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
+        share_layout = findViewById(R.id.share_layout);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -124,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setNumDays();
+
+        share_layout.setOnClickListener(v -> launchShareIntent());
     }
 
     private void saveNumDays(){
@@ -260,6 +263,14 @@ public class MainActivity extends AppCompatActivity {
         // enable dummyActivity (as it is disabled in the manifest.xml)
         packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
 
+    }
+
+    private void launchShareIntent() {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_text));
+        startActivity(Intent.createChooser(sharingIntent, "Share app via"));
     }
 
     @Override
