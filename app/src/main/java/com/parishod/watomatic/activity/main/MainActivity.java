@@ -11,8 +11,11 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout share_layout;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
+    MaterialCheckBox whatsappCheckbox, facebookCheckBox;
+    private View whatsappLayout, facebookLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,42 @@ public class MainActivity extends AppCompatActivity {
         imgMinus = findViewById(R.id.imgMinus);
         imgPlus = findViewById(R.id.imgPlus);
 
+        whatsappCheckbox = findViewById(R.id.whatsapp_checkbox);
+        whatsappCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferencesManager.setWhatsAppPref(isChecked);
+            }
+        });
+
+        whatsappLayout = findViewById(R.id.whatsapp_layout);
+        whatsappLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mainAutoReplySwitch.isChecked()){
+                    Toast.makeText(MainActivity.this, "Enable the Auto Reply switch.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        facebookCheckBox = findViewById(R.id.facebook_checkbox);
+        facebookCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferencesManager.setFacebookMessengerPref(isChecked);
+            }
+        });
+
+        facebookLayout = findViewById(R.id.facebook_layout);
+        facebookLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mainAutoReplySwitch.isChecked()){
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.enable_auto_reply_switch_first), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
         // Enable group chat switch only if main switch id ON
@@ -91,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                 ? R.string.mainAutoReplySwitchOnLabel
                                 : R.string.mainAutoReplySwitchOffLabel
                 );
-
+                setSwitchState();
                 // Enable group chat switch only if main switch id ON
                 groupReplySwitch.setEnabled(isChecked);
             }
@@ -157,12 +198,30 @@ public class MainActivity extends AppCompatActivity {
         }
         setSwitchState();
 
+        whatsappCheckbox.setChecked(preferencesManager.isWhatsAppEnabled());
+        facebookCheckBox.setChecked(preferencesManager.isFacebookMessengerEnabled());
+
         // set group chat switch state
         groupReplySwitch.setChecked(preferencesManager.isGroupReplyEnabled());
     }
 
     private void setSwitchState(){
-        mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
+        boolean isServiceEnabled = preferencesManager.isServiceEnabled();
+        mainAutoReplySwitch.setChecked(isServiceEnabled);
+        setPlatformsState(isServiceEnabled);
+    }
+
+    private void setPlatformsState(boolean isServiceEnabled) {
+        whatsappCheckbox.setEnabled(isServiceEnabled);
+        facebookCheckBox.setEnabled(isServiceEnabled);
+
+        if (isServiceEnabled){
+            whatsappLayout.setVisibility(View.GONE);
+            facebookLayout.setVisibility(View.GONE);
+        }else{
+            whatsappLayout.setVisibility(View.VISIBLE);
+            facebookLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115

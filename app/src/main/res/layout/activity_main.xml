@@ -48,11 +48,79 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/mainAutoReplyTextCardView"
+        android:id="@+id/platformsSupportedCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
+        tools:layout_editor_absoluteX="134dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/whatsapp_checkbox"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/whatsapp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:textColor="?attr/colorOnSurface"
+                android:text="@string/whatsapp"
+                app:layout_constraintStart_toEndOf="@+id/whatsapp_checkbox"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@android:color/transparent"
+                android:id="@+id/whatsapp_layout"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/facebook_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/whatsapp_checkbox"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/platform_facebook_text"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:textColor="?attr/colorOnSurface"
+                android:text="@string/facebook_messenger"
+                app:layout_constraintStart_toEndOf="@+id/facebook_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/whatsapp_checkbox"
+                android:gravity="center_vertical"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whatsapp_checkbox"
+                android:background="@android:color/transparent"
+                android:id="@+id/facebook_layout"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainAutoReplyTextCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/platformsSupportedCardView"
         tools:layout_editor_absoluteX="134dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -34,6 +34,8 @@ public class NotificationService extends NotificationListenerService {
      */
     private static final class SupportedPackageNames {
         public static final String WHATSAPP_PACK_NAME = "com.whatsapp";
+        public static final String FACEBOOK_MESSENGER_PACK_NAME = "com.facebook.orca";
+        public static final String FACEBOOK_MESSENGER_LITE_PACK_NAME = "com.facebook.mlite";
     }
 
     @Override
@@ -143,7 +145,10 @@ public class NotificationService extends NotificationListenerService {
         String packageName = sbn.getPackageName();
         switch (packageName){
             case SupportedPackageNames.WHATSAPP_PACK_NAME:
-                return true;
+                return PreferencesManager.getPreferencesInstance(this).isWhatsAppEnabled();
+            case SupportedPackageNames.FACEBOOK_MESSENGER_PACK_NAME:
+            case SupportedPackageNames.FACEBOOK_MESSENGER_LITE_PACK_NAME:
+                return PreferencesManager.getPreferencesInstance(this).isFacebookMessengerEnabled();
             default:
                 return false;
         }

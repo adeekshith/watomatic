@@ -36,4 +36,7 @@
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\nhttps://play.google.com/store/apps/details?id=com.parishod.watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="facebook_messenger">Facebook Messenger</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="enable_auto_reply_switch_first">Enable the Auto Reply switch first.</string>
 </resources>
