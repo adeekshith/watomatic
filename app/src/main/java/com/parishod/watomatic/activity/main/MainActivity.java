@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
-    private RelativeLayout share_layout;
+    private ImageView share_layout;
+    private TextView watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
 
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
+        share_layout = findViewById(R.id.share_btn);
+        watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -124,6 +128,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setNumDays();
+
+        share_layout.setOnClickListener(v -> launchShareIntent());
+
+        watomaticSubredditBtn.setOnClickListener(view -> {
+            String url = getString(R.string.watomatic_subreddit_url);
+            startActivity(
+                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            );
+        });
     }
 
     private void saveNumDays(){
@@ -260,6 +273,14 @@ public class MainActivity extends AppCompatActivity {
         // enable dummyActivity (as it is disabled in the manifest.xml)
         packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
 
+    }
+
+    private void launchShareIntent() {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_text));
+        startActivity(Intent.createChooser(sharingIntent, "Share app via"));
     }
 
     @Override

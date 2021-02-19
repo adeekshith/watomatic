@@ -209,27 +209,30 @@
 
     </androidx.cardview.widget.CardView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <!-- r/watomatic subreddit button -->
+    <TextView
+        android:id="@+id/watomaticSubredditBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:text="@string/watomatic_subreddit_label"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/share_layout"
-        android:gravity="center"
-        android:layout_marginBottom="10dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/share_text"
-            android:text="@string/share"
-            android:layout_marginEnd="10dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_share"
-            android:id="@+id/share_btn"
-            android:layout_toEndOf="@+id/share_text"/>
-    </RelativeLayout>
+    <!-- App share button -->
+    <ImageView
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
