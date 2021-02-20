@@ -28,14 +28,6 @@ public class NotificationService extends NotificationListenerService {
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 20 * 1000;
     private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 60 * 1000;
 
-    /*
-        These are the package names of the apps. for which we want to
-        listen the notifications
-     */
-    private static final class SupportedPackageNames {
-        public static final String WHATSAPP_PACK_NAME = "com.whatsapp";
-    }
-
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
@@ -141,12 +133,8 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
-        switch (packageName){
-            case SupportedPackageNames.WHATSAPP_PACK_NAME:
-                return true;
-            default:
-                return false;
-        }
+        List<String> enabledPlatforms = PreferencesManager.getPreferencesInstance(this).getSelectedPlatforms();
+        return enabledPlatforms.contains(packageName);
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
