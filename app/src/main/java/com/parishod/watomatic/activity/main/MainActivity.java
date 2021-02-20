@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
+    private String[] supportedPlatforms, supportedPlatformPackages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         customRepliesData = CustomRepliesData.getInstance(this);
         preferencesManager = PreferencesManager.getPreferencesInstance(this);
+        supportedPlatforms = getResources().getStringArray(R.array.supported_platforms);
+        supportedPlatformPackages = getResources().getStringArray(R.array.supported_platforms_packages);
 
         // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
