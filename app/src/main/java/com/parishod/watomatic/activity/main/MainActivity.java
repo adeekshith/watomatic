@@ -161,22 +161,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generatePlatformsList(){
+        List<String> selectedPlatforms = preferencesManager.getSelectedPlatforms();
         //Generate supported platform list
         for(int i = 0; i < supportedPlatforms.length; i++){
-            Platform platform = new Platform(supportedPlatforms[i], supportedPlatformPackages[i], false);
+            boolean isSelected = selectedPlatforms.contains(supportedPlatformPackages[i]);
+            Platform platform = new Platform(supportedPlatforms[i], supportedPlatformPackages[i], isSelected);
             platforms.add(platform);
         }
     }
 
     private void enableOrDisablePlatformCheckboxes(boolean enabled){
-        for(int i = 0; i < platformCheckBoxes.size(); i++){
-            platformCheckBoxes.get(i).setEnabled(enabled);
+        if(platformCheckBoxes.size() > 0) {
+            for (int i = 0; i < platformCheckBoxes.size(); i++) {
+                platformCheckBoxes.get(i).setEnabled(enabled);
+            }
         }
-        for(int i = 0; i < platformDummyViews.size(); i++){
-            if(enabled) {
-                platformDummyViews.get(i).setVisibility(View.GONE);
-            }else{
-                platformDummyViews.get(i).setVisibility(View.VISIBLE);
+        if(platformDummyViews.size() > 0) {
+            for (int i = 0; i < platformDummyViews.size(); i++) {
+                if (enabled) {
+                    platformDummyViews.get(i).setVisibility(View.GONE);
+                } else {
+                    platformDummyViews.get(i).setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -191,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
             MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
             checkBox.setText(platforms.get(i).getName());
+            checkBox.setTag(platforms.get(i).getPackageName());
             checkBox.setChecked(platforms.get(i).isEnabled());
             checkBox.setEnabled(mainAutoReplySwitch.isChecked());
             checkBox.setOnCheckedChangeListener(platformCheckboxListener);
@@ -213,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     private CompoundButton.OnCheckedChangeListener platformCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            preferencesManager.saveSelectedPlatformPreference((String) buttonView.getTag(), isChecked);
         }
     };
 
