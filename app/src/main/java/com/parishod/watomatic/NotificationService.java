@@ -25,7 +25,7 @@ public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
-    private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 30 * 1000;
+    private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 20 * 1000;
     private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 60 * 1000;
 
     /*
