@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Watomatic</string>
-    <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
-    <string name="adeekshith_twitter_handle">\@adeekshith</string>
-    <string name="url_adeekshith_twitter">https://twitter.com/adeekshith</string>
+    <string name="url_privacy_policy" translatable="false">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
+    <string name="adeekshith_twitter_handle" translatable="false">\@adeekshith</string>
+    <string name="url_adeekshith_twitter" translatable="false">https://twitter.com/adeekshith</string>
 
     <string name="about">About</string>
     <string name="privacy_policy_label">Privacy Policy</string>
@@ -36,6 +36,6 @@
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
-    <string name="watomatic_subreddit_label">r/watomatic</string>
-    <string name="watomatic_subreddit_url">https://www.reddit.com/r/watomatic</string>
+    <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
+    <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
 </resources>
