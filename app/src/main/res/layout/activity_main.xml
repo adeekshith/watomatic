@@ -55,6 +55,12 @@
         app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
         tools:layout_editor_absoluteX="134dp">
 
+        <LinearLayout
+            android:id="@+id/supportedPlatformsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

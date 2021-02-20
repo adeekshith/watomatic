@@ -9,13 +9,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +34,13 @@ import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivi
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.Platform;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
@@ -52,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
     private int days = 0;
     private ImageView imgMinus, imgPlus;
     private String[] supportedPlatforms, supportedPlatformPackages;
+    private LinearLayout supportedPlatformsLayout;
+    private List<Platform> platforms = new ArrayList<>();
+    private List<MaterialCheckBox> platformCheckBoxes = new ArrayList<>();
+    private List<View> platformDummyViews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreview = findViewById(R.id.textView4);
         share_layout = findViewById(R.id.share_btn);
         watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
+        supportedPlatformsLayout = findViewById(R.id.supportedPlatformsLayout);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -98,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                                 ? R.string.mainAutoReplySwitchOnLabel
                                 : R.string.mainAutoReplySwitchOffLabel
                 );
+
+                setSwitchState();
 
                 // Enable group chat switch only if main switch id ON
                 groupReplySwitch.setEnabled(isChecked);
@@ -140,7 +155,67 @@ public class MainActivity extends AppCompatActivity {
                     new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             );
         });
+
+        generatePlatformsList();
+        createSupportedPlatformsViews();
     }
+
+    private void generatePlatformsList(){
+        //Generate supported platform list
+        for(int i = 0; i < supportedPlatforms.length; i++){
+            Platform platform = new Platform(supportedPlatforms[i], supportedPlatformPackages[i], false);
+            platforms.add(platform);
+        }
+    }
+
+    private void enableOrDisablePlatformCheckboxes(boolean enabled){
+        for(int i = 0; i < platformCheckBoxes.size(); i++){
+            platformCheckBoxes.get(i).setEnabled(enabled);
+        }
+        for(int i = 0; i < platformDummyViews.size(); i++){
+            if(enabled) {
+                platformDummyViews.get(i).setVisibility(View.GONE);
+            }else{
+                platformDummyViews.get(i).setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private void createSupportedPlatformsViews() {
+        supportedPlatformsLayout.removeAllViews();
+
+        //inflate the views
+        LayoutInflater inflater = getLayoutInflater();
+        for(int i = 0; i < platforms.size(); i++){
+            View view = inflater.inflate(R.layout.platform_layout, null);
+
+            MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
+            checkBox.setText(platforms.get(i).getName());
+            checkBox.setChecked(platforms.get(i).isEnabled());
+            checkBox.setEnabled(mainAutoReplySwitch.isChecked());
+            checkBox.setOnCheckedChangeListener(platformCheckboxListener);
+            platformCheckBoxes.add(checkBox);
+
+            View platformDummyView = view.findViewById(R.id.platform_dummy_view);
+            if(mainAutoReplySwitch.isChecked()){
+                platformDummyView.setVisibility(View.GONE);
+            }
+            platformDummyView.setOnClickListener(v -> {
+                if(!mainAutoReplySwitch.isChecked()){
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.enable_auto_reply_switch_msg), Toast.LENGTH_SHORT).show();
+                }
+            });
+            platformDummyViews.add(platformDummyView);
+            supportedPlatformsLayout.addView(view);
+        }
+    }
+
+    private CompoundButton.OnCheckedChangeListener platformCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        }
+    };
 
     private void saveNumDays(){
         preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
@@ -179,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSwitchState(){
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
+        enableOrDisablePlatformCheckboxes(mainAutoReplySwitch.isChecked());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115
