@@ -2,11 +2,14 @@ package com.parishod.watomatic.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import androidx.preference.PreferenceManager;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.parishod.watomatic.model.App;
+
+import java.lang.reflect.Type;
 import java.util.Set;
 
 public class PreferencesManager {
@@ -58,20 +61,15 @@ public class PreferencesManager {
     }
 
     public Set<String> getEnabledApps(){
-        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
         // If this was never set, enable for WhatsApp by default so it does not break
         // for users who installed before.
-        if (enabledApps == null) {
-            enabledApps = "[com.whatsapp]";
-        }
-        //string to list is adding [ & ] so remove them
-        enabledApps = enabledApps.replace("[", "");
-        enabledApps = enabledApps.replace("]", "");
-        if(enabledApps.isEmpty()) {
-            return new HashSet<>();
-        }else {
-            return new HashSet<>(Arrays.asList(enabledApps.split(",")));
-        }
+        String enabledAppsJsonStr = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
+        Type type = new TypeToken<Set<String>>(){}.getType();
+        return new Gson().fromJson(enabledAppsJsonStr, type);
+    }
+
+    public boolean isAppEnabled (App thisApp) {
+        return getEnabledApps().contains(thisApp.getPackageName());
     }
 
     public void saveEnabledApps(String packageName, boolean isSelected){
