@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <!-- Main Auto Reply enable switch -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mainAutoReplySwitchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/mainAutoReplySwitchOffLabel" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Custom auto reply text card -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mainAutoReplyTextCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,11 +101,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Supported app selector checklist empty card.
         Actual checklist will be generated at runtime -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/supportedAppsSelectorCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,10 +139,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Group reply switch card -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/groupReplySwitchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,10 +156,10 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/groupReplySwitchLabel" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Reply frequency Time picker -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/replyFrequencyTimePickerCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- r/watomatic subreddit button -->
     <TextView
