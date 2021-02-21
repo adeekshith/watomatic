@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         //inflate the views
         LayoutInflater inflater = getLayoutInflater();
         for(int i = 0; i < supportedApps.size(); i++){
-            View view = inflater.inflate(R.layout.platform_layout, null);
+            View view = inflater.inflate(R.layout.enable_app_main_layout, null);
 
             MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
             checkBox.setText(supportedApps.get(i).getName());

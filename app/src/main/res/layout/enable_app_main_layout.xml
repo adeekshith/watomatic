@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:minHeight="0dp"
         android:layout_marginStart="10dp" />
 
     <View
