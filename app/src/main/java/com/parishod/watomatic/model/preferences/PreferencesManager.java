@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
@@ -55,29 +57,23 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public List<String> getEnabledApps(){
+    public Set<String> getEnabledApps(){
         String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, "");
         //string to list is adding [ & ] so remove them
         enabledApps = enabledApps.replace("[", "");
         enabledApps = enabledApps.replace("]", "");
         if(enabledApps.isEmpty()) {
-            return new ArrayList<>();
+            return new HashSet<>();
         }else {
-            return new ArrayList<String>(Arrays.asList(enabledApps.split(",")));
+            return new HashSet<>(Arrays.asList(enabledApps.split(",")));
         }
     }
 
     public void saveEnabledApps(String packageName, boolean isSelected){
-        List<String> selectedPlatforms = getEnabledApps();
+        Set<String> selectedPlatforms = getEnabledApps();
         if(!isSelected) {
             //remove the given platform
-            if (selectedPlatforms.size() > 0) {
-                for(int i = 0; i < selectedPlatforms.size(); i++){
-                    if(selectedPlatforms.get(i).equals(packageName)){
-                        selectedPlatforms.remove(i);
-                    }
-                }
-            }
+            selectedPlatforms.remove(packageName);
         }else{
             //add the given platform
             selectedPlatforms.add(packageName);

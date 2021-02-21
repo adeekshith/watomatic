@@ -17,6 +17,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static java.lang.Math.max;
@@ -132,9 +133,9 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
-        String packageName = sbn.getPackageName();
-        List<String> enabledPlatforms = PreferencesManager.getPreferencesInstance(this).getEnabledApps();
-        return enabledPlatforms.contains(packageName);
+        return PreferencesManager.getPreferencesInstance(this)
+                .getEnabledApps()
+                .contains(sbn.getPackageName());
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){

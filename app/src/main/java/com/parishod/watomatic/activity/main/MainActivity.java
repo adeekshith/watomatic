@@ -41,6 +41,7 @@ import com.parishod.watomatic.model.utils.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateSupportedAppsList(){
-        List<String> selectedApps = preferencesManager.getEnabledApps();
+        Set<String> selectedApps = preferencesManager.getEnabledApps();
         //Generate supported platform list
         for(int i = 0; i < supportedPlatforms.length; i++){
             boolean isSelected = selectedApps.contains(supportedPlatformPackages[i]);
