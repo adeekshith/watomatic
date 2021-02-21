@@ -58,7 +58,12 @@ public class PreferencesManager {
     }
 
     public Set<String> getEnabledApps(){
-        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, "");
+        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
+        // If this was never set, enable for WhatsApp by default so it does not break
+        // for users who installed before.
+        if (enabledApps == null) {
+            enabledApps = "[com.whatsapp]";
+        }
         //string to list is adding [ & ] so remove them
         enabledApps = enabledApps.replace("[", "");
         enabledApps = enabledApps.replace("]", "");
