@@ -30,12 +30,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!-- Main Auto Reply enable switch -->
     <androidx.cardview.widget.CardView
         android:id="@+id/mainAutoReplySwitchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@id/supportedPlatformsCardView"
+        app:layout_constraintBottom_toTopOf="@id/supportedAppsSelectorCardView"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:layout_editor_absoluteX="154dp">
 
@@ -47,19 +48,41 @@
             android:text="@string/mainAutoReplySwitchOffLabel" />
     </androidx.cardview.widget.CardView>
 
+    <!-- Supported app selector checklist empty card.
+        Actual checklist will be generated at runtime -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/supportedPlatformsCardView"
+        android:id="@+id/supportedAppsSelectorCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
         tools:layout_editor_absoluteX="134dp">
 
-        <LinearLayout
-            android:id="@+id/supportedPlatformsLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/selectAppsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_for_apps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/supportedPlatformsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectAppsLabel">
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -68,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/supportedPlatformsCardView"
+        app:layout_constraintTop_toBottomOf="@+id/supportedAppsSelectorCardView"
         tools:layout_editor_absoluteX="134dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

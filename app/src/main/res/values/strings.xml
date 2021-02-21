@@ -22,6 +22,10 @@
     <string name="permission_dialog_denied_title">Permission Denied</string>
     <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
 
+    <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Enable for apps</string>
+    <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
+
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
     <string name="group_reply_on_info_message">Enabled auto reply for group chats</string>
@@ -38,7 +42,6 @@
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
-    <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
 
     <!--Supported platforms-->
     <string-array name="supported_platforms">
