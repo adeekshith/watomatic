@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
-        timePickerCard = findViewById(R.id.timePickerCardView);
+        timePickerCard = findViewById(R.id.replyFrequencyTimePickerCardView);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         timeSelectedTextPreview = findViewById(R.id.timeSelectedText);

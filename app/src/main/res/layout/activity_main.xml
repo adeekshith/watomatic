@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@id/supportedAppsSelectorCardView"
+        app:layout_constraintBottom_toTopOf="@id/mainAutoReplyTextCardView"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:layout_editor_absoluteX="154dp">
 
@@ -48,50 +48,13 @@
             android:text="@string/mainAutoReplySwitchOffLabel" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Supported app selector checklist empty card.
-        Actual checklist will be generated at runtime -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/supportedAppsSelectorCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
-        tools:layout_editor_absoluteX="134dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/selectAppsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/enable_for_apps"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="10dp"
-                />
-
-            <LinearLayout
-                android:id="@+id/supportedPlatformsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/selectAppsLabel">
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
+    <!-- Custom auto reply text card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/mainAutoReplyTextCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/supportedAppsSelectorCardView"
+        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
         tools:layout_editor_absoluteX="134dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,8 +68,8 @@
                 android:paddingStart="20dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
-                android:textColor="?attr/colorOnSurface"
                 android:text="@string/mainAutoReplyLabel"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,12 +103,51 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Supported app selector checklist empty card.
+        Actual checklist will be generated at runtime -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/supportedAppsSelectorCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplyTextCardView"
+        tools:layout_editor_absoluteX="134dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/selectAppsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_for_apps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/supportedPlatformsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectAppsLabel">
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Group reply switch card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/groupReplySwitchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplyTextCardView"
+        app:layout_constraintTop_toBottomOf="@+id/supportedAppsSelectorCardView"
         tools:layout_editor_absoluteX="154dp">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -156,8 +158,9 @@
             android:text="@string/groupReplySwitchLabel" />
     </androidx.cardview.widget.CardView>
 
+    <!-- Reply frequency Time picker -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/timePickerCardView"
+        android:id="@+id/replyFrequencyTimePickerCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
