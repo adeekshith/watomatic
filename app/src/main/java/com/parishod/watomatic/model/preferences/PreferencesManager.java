@@ -11,7 +11,7 @@ public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
     private final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
-    private final String KEY_SELECTED_PLATFORMS = "pref_selected_platforms";
+    private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private PreferencesManager(Context context) {
@@ -55,20 +55,20 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public List<String> getSelectedPlatforms(){
-        String selectedPlatforms = _sharedPrefs.getString(KEY_SELECTED_PLATFORMS, "");
+    public List<String> getEnabledApps(){
+        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, "");
         //string to list is adding [ & ] so remove them
-        selectedPlatforms = selectedPlatforms.replace("[", "");
-        selectedPlatforms = selectedPlatforms.replace("]", "");
-        if(selectedPlatforms.isEmpty()) {
+        enabledApps = enabledApps.replace("[", "");
+        enabledApps = enabledApps.replace("]", "");
+        if(enabledApps.isEmpty()) {
             return new ArrayList<>();
         }else {
-            return new ArrayList<String>(Arrays.asList(selectedPlatforms.split(",")));
+            return new ArrayList<String>(Arrays.asList(enabledApps.split(",")));
         }
     }
 
-    public void saveSelectedPlatformPreference(String packageName, boolean isSelected){
-        List<String> selectedPlatforms = getSelectedPlatforms();
+    public void saveEnabledApps(String packageName, boolean isSelected){
+        List<String> selectedPlatforms = getEnabledApps();
         if(!isSelected) {
             //remove the given platform
             if (selectedPlatforms.size() > 0) {
@@ -84,7 +84,7 @@ public class PreferencesManager {
         }
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         //list tostring is adding empty space so removing them before saving
-        editor.putString(KEY_SELECTED_PLATFORMS, selectedPlatforms.toString().replace(" ", ""));
+        editor.putString(KEY_SELECTED_APPS_ARR, selectedPlatforms.toString().replace(" ", ""));
         editor.apply();
     }
 }

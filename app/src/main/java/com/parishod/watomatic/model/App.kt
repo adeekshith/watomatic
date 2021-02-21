@@ -1,6 +1,6 @@
 package com.parishod.watomatic.model
 
-data class Platform(
+data class App(
         val name:String,
         val packageName:String,
         val isEnabled:Boolean

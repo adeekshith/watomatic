@@ -133,7 +133,7 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
-        List<String> enabledPlatforms = PreferencesManager.getPreferencesInstance(this).getSelectedPlatforms();
+        List<String> enabledPlatforms = PreferencesManager.getPreferencesInstance(this).getEnabledApps();
         return enabledPlatforms.contains(packageName);
     }
 
