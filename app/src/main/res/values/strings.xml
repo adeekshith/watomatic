@@ -12,7 +12,7 @@
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="app_short_description_main">Auto reply for WhatsApp</string>
+    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
