@@ -171,19 +171,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
-        if(supportedAppsCheckboxes.size() > 0) {
-            for (int i = 0; i < supportedAppsCheckboxes.size(); i++) {
-                supportedAppsCheckboxes.get(i).setEnabled(enabled);
-            }
+        for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
+            checkbox.setEnabled(enabled);
         }
-        if(supportedAppsDummyViews.size() > 0) {
-            for (int i = 0; i < supportedAppsDummyViews.size(); i++) {
-                if (enabled) {
-                    supportedAppsDummyViews.get(i).setVisibility(View.GONE);
-                } else {
-                    supportedAppsDummyViews.get(i).setVisibility(View.VISIBLE);
-                }
-            }
+        for (View dummyView: supportedAppsDummyViews) {
+            dummyView.setVisibility(enabled ? View.GONE : View.VISIBLE);
         }
     }
 
