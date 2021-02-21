@@ -34,13 +34,14 @@ import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivi
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
-import com.parishod.watomatic.model.Platform;
+import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
@@ -60,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
     private int days = 0;
     private ImageView imgMinus, imgPlus;
     private String[] supportedPlatforms, supportedPlatformPackages;
-    private LinearLayout supportedPlatformsLayout;
-    private List<Platform> platforms = new ArrayList<>();
-    private List<MaterialCheckBox> platformCheckBoxes = new ArrayList<>();
-    private List<View> platformDummyViews = new ArrayList<>();
+    private LinearLayout supportedAppsLayout;
+    private List<App> supportedApps = new ArrayList<>();
+    private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
+    private List<View> supportedAppsDummyViews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreview = findViewById(R.id.textView4);
         share_layout = findViewById(R.id.share_btn);
         watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
-        supportedPlatformsLayout = findViewById(R.id.supportedPlatformsLayout);
+        supportedAppsLayout = findViewById(R.id.supportedPlatformsLayout);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
-        timePickerCard = findViewById(R.id.timePickerCardView);
+        timePickerCard = findViewById(R.id.replyFrequencyTimePickerCardView);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
@@ -156,52 +157,44 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
-        generatePlatformsList();
-        createSupportedPlatformsViews();
+        generateSupportedAppsList();
+        createSupportedAppCheckboxes();
     }
 
-    private void generatePlatformsList(){
-        List<String> selectedPlatforms = preferencesManager.getSelectedPlatforms();
+    private void generateSupportedAppsList(){
+        Set<String> selectedApps = preferencesManager.getEnabledApps();
         //Generate supported platform list
         for(int i = 0; i < supportedPlatforms.length; i++){
-            boolean isSelected = selectedPlatforms.contains(supportedPlatformPackages[i]);
-            Platform platform = new Platform(supportedPlatforms[i], supportedPlatformPackages[i], isSelected);
-            platforms.add(platform);
+            boolean isSelected = selectedApps.contains(supportedPlatformPackages[i]);
+            App app = new App(supportedPlatforms[i], supportedPlatformPackages[i], isSelected);
+            supportedApps.add(app);
         }
     }
 
-    private void enableOrDisablePlatformCheckboxes(boolean enabled){
-        if(platformCheckBoxes.size() > 0) {
-            for (int i = 0; i < platformCheckBoxes.size(); i++) {
-                platformCheckBoxes.get(i).setEnabled(enabled);
-            }
+    private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
+        for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
+            checkbox.setEnabled(enabled);
         }
-        if(platformDummyViews.size() > 0) {
-            for (int i = 0; i < platformDummyViews.size(); i++) {
-                if (enabled) {
-                    platformDummyViews.get(i).setVisibility(View.GONE);
-                } else {
-                    platformDummyViews.get(i).setVisibility(View.VISIBLE);
-                }
-            }
+        for (View dummyView: supportedAppsDummyViews) {
+            dummyView.setVisibility(enabled ? View.GONE : View.VISIBLE);
         }
     }
 
-    private void createSupportedPlatformsViews() {
-        supportedPlatformsLayout.removeAllViews();
+    private void createSupportedAppCheckboxes() {
+        supportedAppsLayout.removeAllViews();
 
         //inflate the views
         LayoutInflater inflater = getLayoutInflater();
-        for(int i = 0; i < platforms.size(); i++){
-            View view = inflater.inflate(R.layout.platform_layout, null);
+        for(int i = 0; i < supportedApps.size(); i++){
+            View view = inflater.inflate(R.layout.enable_app_main_layout, null);
 
             MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
-            checkBox.setText(platforms.get(i).getName());
-            checkBox.setTag(platforms.get(i).getPackageName());
-            checkBox.setChecked(platforms.get(i).isEnabled());
+            checkBox.setText(supportedApps.get(i).getName());
+            checkBox.setTag(supportedApps.get(i).getPackageName());
+            checkBox.setChecked(supportedApps.get(i).isEnabled());
             checkBox.setEnabled(mainAutoReplySwitch.isChecked());
-            checkBox.setOnCheckedChangeListener(platformCheckboxListener);
-            platformCheckBoxes.add(checkBox);
+            checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
+            supportedAppsCheckboxes.add(checkBox);
 
             View platformDummyView = view.findViewById(R.id.platform_dummy_view);
             if(mainAutoReplySwitch.isChecked()){
@@ -212,15 +205,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.enable_auto_reply_switch_msg), Toast.LENGTH_SHORT).show();
                 }
             });
-            platformDummyViews.add(platformDummyView);
-            supportedPlatformsLayout.addView(view);
+            supportedAppsDummyViews.add(platformDummyView);
+            supportedAppsLayout.addView(view);
         }
     }
 
-    private CompoundButton.OnCheckedChangeListener platformCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
+    private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            preferencesManager.saveSelectedPlatformPreference((String) buttonView.getTag(), isChecked);
+            preferencesManager.saveEnabledApps((String) buttonView.getTag(), isChecked);
         }
     };
 
@@ -261,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSwitchState(){
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
-        enableOrDisablePlatformCheckboxes(mainAutoReplySwitch.isChecked());
+        enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115

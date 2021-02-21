@@ -8,7 +8,6 @@
     <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
     <string name="mainAutoReplyEditBtnTooltip">Clique para editar o texto de resposta automática</string>
-    <string name="app_short_description_main">Resposta automática para WhatsApp</string>
     <string name="decline">Recusar</string>
     <string name="accept">Aceitar</string>
     <string name="sure">Sim, negar</string>

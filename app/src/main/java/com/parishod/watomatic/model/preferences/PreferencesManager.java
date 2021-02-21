@@ -5,13 +5,15 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PreferencesManager {
     private final String KEY_SERVICE_ENABLED = "pref_service_enabled";
     private final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
-    private final String KEY_SELECTED_PLATFORMS = "pref_selected_platforms";
+    private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private PreferencesManager(Context context) {
@@ -55,36 +57,35 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public List<String> getSelectedPlatforms(){
-        String selectedPlatforms = _sharedPrefs.getString(KEY_SELECTED_PLATFORMS, "");
+    public Set<String> getEnabledApps(){
+        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
+        // If this was never set, enable for WhatsApp by default so it does not break
+        // for users who installed before.
+        if (enabledApps == null) {
+            enabledApps = "[com.whatsapp]";
+        }
         //string to list is adding [ & ] so remove them
-        selectedPlatforms = selectedPlatforms.replace("[", "");
-        selectedPlatforms = selectedPlatforms.replace("]", "");
-        if(selectedPlatforms.isEmpty()) {
-            return new ArrayList<>();
+        enabledApps = enabledApps.replace("[", "");
+        enabledApps = enabledApps.replace("]", "");
+        if(enabledApps.isEmpty()) {
+            return new HashSet<>();
         }else {
-            return new ArrayList<String>(Arrays.asList(selectedPlatforms.split(",")));
+            return new HashSet<>(Arrays.asList(enabledApps.split(",")));
         }
     }
 
-    public void saveSelectedPlatformPreference(String packageName, boolean isSelected){
-        List<String> selectedPlatforms = getSelectedPlatforms();
+    public void saveEnabledApps(String packageName, boolean isSelected){
+        Set<String> selectedPlatforms = getEnabledApps();
         if(!isSelected) {
             //remove the given platform
-            if (selectedPlatforms.size() > 0) {
-                for(int i = 0; i < selectedPlatforms.size(); i++){
-                    if(selectedPlatforms.get(i).equals(packageName)){
-                        selectedPlatforms.remove(i);
-                    }
-                }
-            }
+            selectedPlatforms.remove(packageName);
         }else{
             //add the given platform
             selectedPlatforms.add(packageName);
         }
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         //list tostring is adding empty space so removing them before saving
-        editor.putString(KEY_SELECTED_PLATFORMS, selectedPlatforms.toString().replace(" ", ""));
+        editor.putString(KEY_SELECTED_APPS_ARR, selectedPlatforms.toString().replace(" ", ""));
         editor.apply();
     }
 }

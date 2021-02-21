@@ -12,7 +12,7 @@
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="app_short_description_main">Auto reply for WhatsApp</string>
+    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
@@ -21,6 +21,10 @@
     <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
     <string name="permission_dialog_denied_title">Permission Denied</string>
     <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
+
+    <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Enable for apps</string>
+    <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
 
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
@@ -38,19 +42,18 @@
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
-    <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
 
     <!--Supported platforms-->
     <string-array name="supported_platforms">
         <item>WhatsApp</item>
         <item>Facebook Messenger</item>
-        <item>Facebook Messenger Lite</item>
+        <!-- <item>Facebook Messenger Lite</item> -->
     </string-array>
 
     <!--Supported platforms packages-->
     <string-array name="supported_platforms_packages">
         <item>com.whatsapp</item>
         <item>com.facebook.orca</item>
-        <item>com.facebook.mlite</item>
+        <!-- <item>com.facebook.mlite</item> -->
     </string-array>
 </resources>
