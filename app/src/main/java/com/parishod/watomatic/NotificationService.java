@@ -17,7 +17,6 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import static java.lang.Math.max;
@@ -26,8 +25,11 @@ public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
-    private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 20 * 1000;
-    private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 60 * 1000;
+    // Do not reply to consecutive notifications from same person/group that arrive in below time
+    // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
+    private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
+    // Do not reply to notifications whose timestamp is older than 2 minutes
+    private final int MAX_OLD_NOTIFICATION_CAN_BE_REPLIED_TIME_MS = 2 * 60 * 1000;
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
@@ -171,6 +173,6 @@ public class NotificationService extends NotificationListenerService {
         //For apps targeting {@link android.os.Build.VERSION_CODES#N} and above, this time is not shown
         //by default unless explicitly set by the apps hence checking not 0
         return sbn.getNotification().when == 0 ||
-                (System.currentTimeMillis() - sbn.getNotification().when) < DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC;
+                (System.currentTimeMillis() - sbn.getNotification().when) < MAX_OLD_NOTIFICATION_CAN_BE_REPLIED_TIME_MS;
     }
 }
