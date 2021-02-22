@@ -59,6 +59,7 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 repositories {
     mavenCentral()

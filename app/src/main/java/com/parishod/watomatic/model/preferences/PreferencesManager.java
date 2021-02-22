@@ -2,11 +2,18 @@ package com.parishod.watomatic.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import androidx.preference.PreferenceManager;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.utils.Constants;
+
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PreferencesManager {
@@ -58,34 +65,54 @@ public class PreferencesManager {
     }
 
     public Set<String> getEnabledApps(){
-        String enabledApps = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
-        // If this was never set, enable for WhatsApp by default so it does not break
-        // for users who installed before.
-        if (enabledApps == null) {
-            enabledApps = "[com.whatsapp]";
+        String enabledAppsJsonStr = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
+
+        // For new installs, enable all the supported apps
+        boolean newInstall = _sharedPrefs.getString(KEY_SERVICE_ENABLED, null) == null;
+        if (newInstall && (enabledAppsJsonStr == null)) {
+            enabledAppsJsonStr = setAppsAsEnabled(Constants.SUPPORTED_APPS);
         }
-        //string to list is adding [ & ] so remove them
-        enabledApps = enabledApps.replace("[", "");
-        enabledApps = enabledApps.replace("]", "");
-        if(enabledApps.isEmpty()) {
-            return new HashSet<>();
-        }else {
-            return new HashSet<>(Arrays.asList(enabledApps.split(",")));
+
+        // Users upgrading from v1.7 and before
+        // For upgrading users, preserve functionality by enabling only WhatsApp
+        //   (remove this when time most users would have updated. May be in 3 weeks after deploying this?)
+        if (enabledAppsJsonStr == null) {
+            enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App("WhatsApp", "com.whatsapp")));
         }
+
+        Type type = new TypeToken<Set<String>>(){}.getType();
+        return new Gson().fromJson(enabledAppsJsonStr, type);
     }
 
-    public void saveEnabledApps(String packageName, boolean isSelected){
-        Set<String> selectedPlatforms = getEnabledApps();
+    public boolean isAppEnabled (App thisApp) {
+        return getEnabledApps().contains(thisApp.getPackageName());
+    }
+
+    private String serializeAndSetEnabledPackageList (Collection<String> packageList) {
+        String jsonStr = new Gson().toJson(packageList);
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SELECTED_APPS_ARR, jsonStr);
+        editor.apply();
+        return jsonStr;
+    }
+
+    public String setAppsAsEnabled (Collection<App> apps) {
+        Set<String> packageNames = new HashSet<>();
+        for (App app: apps) {
+            packageNames.add(app.getPackageName());
+        }
+        return serializeAndSetEnabledPackageList(packageNames);
+    }
+
+    public String saveEnabledApps(App app, boolean isSelected){
+        Set<String> enabledPackages = getEnabledApps();
         if(!isSelected) {
             //remove the given platform
-            selectedPlatforms.remove(packageName);
+            enabledPackages.remove(app.getPackageName());
         }else{
             //add the given platform
-            selectedPlatforms.add(packageName);
+            enabledPackages.add(app.getPackageName());
         }
-        SharedPreferences.Editor editor = _sharedPrefs.edit();
-        //list tostring is adding empty space so removing them before saving
-        editor.putString(KEY_SELECTED_APPS_ARR, selectedPlatforms.toString().replace(" ", ""));
-        editor.apply();
+        return serializeAndSetEnabledPackageList(enabledPackages);
     }
 }

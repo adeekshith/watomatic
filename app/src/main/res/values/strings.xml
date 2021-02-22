@@ -42,18 +42,4 @@
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
-
-    <!--Supported platforms-->
-    <string-array name="supported_platforms">
-        <item>WhatsApp</item>
-        <item>Facebook Messenger</item>
-        <!-- <item>Facebook Messenger Lite</item> -->
-    </string-array>
-
-    <!--Supported platforms packages-->
-    <string-array name="supported_platforms_packages">
-        <item>com.whatsapp</item>
-        <item>com.facebook.orca</item>
-        <!-- <item>com.facebook.mlite</item> -->
-    </string-array>
 </resources>

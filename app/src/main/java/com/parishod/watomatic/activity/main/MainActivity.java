@@ -13,10 +13,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,20 +24,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-
-import com.parishod.watomatic.activity.about.AboutActivity;
-import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.activity.about.AboutActivity;
+import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
@@ -60,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
-    private String[] supportedPlatforms, supportedPlatformPackages;
     private LinearLayout supportedAppsLayout;
-    private List<App> supportedApps = new ArrayList<>();
     private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
     private List<View> supportedAppsDummyViews = new ArrayList<>();
 
@@ -73,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         customRepliesData = CustomRepliesData.getInstance(this);
         preferencesManager = PreferencesManager.getPreferencesInstance(this);
-        supportedPlatforms = getResources().getStringArray(R.array.supported_platforms);
-        supportedPlatformPackages = getResources().getStringArray(R.array.supported_platforms_packages);
 
         // Assign Views
         mainAutoReplySwitch = findViewById(R.id.mainAutoReplySwitch);
@@ -157,18 +149,7 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
-        generateSupportedAppsList();
         createSupportedAppCheckboxes();
-    }
-
-    private void generateSupportedAppsList(){
-        Set<String> selectedApps = preferencesManager.getEnabledApps();
-        //Generate supported platform list
-        for(int i = 0; i < supportedPlatforms.length; i++){
-            boolean isSelected = selectedApps.contains(supportedPlatformPackages[i]);
-            App app = new App(supportedPlatforms[i], supportedPlatformPackages[i], isSelected);
-            supportedApps.add(app);
-        }
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
@@ -185,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
 
         //inflate the views
         LayoutInflater inflater = getLayoutInflater();
-        for(int i = 0; i < supportedApps.size(); i++){
+        for (App supportedApp: Constants.SUPPORTED_APPS) {
             View view = inflater.inflate(R.layout.enable_app_main_layout, null);
 
             MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
-            checkBox.setText(supportedApps.get(i).getName());
-            checkBox.setTag(supportedApps.get(i).getPackageName());
-            checkBox.setChecked(supportedApps.get(i).isEnabled());
+            checkBox.setText(supportedApp.getName());
+            checkBox.setTag(supportedApp);
+            checkBox.setChecked(preferencesManager.isAppEnabled(supportedApp));
             checkBox.setEnabled(mainAutoReplySwitch.isChecked());
             checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
             supportedAppsCheckboxes.add(checkBox);
@@ -213,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
     private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            preferencesManager.saveEnabledApps((String) buttonView.getTag(), isChecked);
+            preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
         }
     };
 
