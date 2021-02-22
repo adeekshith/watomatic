@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
             MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
             checkBox.setText(supportedApp.getName());
-            checkBox.setTag(supportedApp.getPackageName());
+            checkBox.setTag(supportedApp);
             checkBox.setChecked(preferencesManager.isAppEnabled(supportedApp));
             checkBox.setEnabled(mainAutoReplySwitch.isChecked());
             checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
     private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            preferencesManager.saveEnabledApps((String) buttonView.getTag(), isChecked);
+            preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
         }
     };
 
