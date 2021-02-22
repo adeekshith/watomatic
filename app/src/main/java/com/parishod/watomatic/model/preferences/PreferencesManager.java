@@ -68,7 +68,7 @@ public class PreferencesManager {
         String enabledAppsJsonStr = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
 
         // For new installs, enable all the supported apps
-        boolean newInstall = _sharedPrefs.getString(KEY_SERVICE_ENABLED, null) == null;
+        boolean newInstall = _sharedPrefs.contains(KEY_SERVICE_ENABLED);
         if (newInstall && (enabledAppsJsonStr == null)) {
             enabledAppsJsonStr = setAppsAsEnabled(Constants.SUPPORTED_APPS);
         }
