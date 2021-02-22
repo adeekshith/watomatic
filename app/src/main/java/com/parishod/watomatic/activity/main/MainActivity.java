@@ -9,13 +9,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-
+import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,15 +24,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-
-import com.parishod.watomatic.activity.about.AboutActivity;
-import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.about.AboutActivity;
+import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
@@ -51,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
+    private LinearLayout supportedAppsLayout;
+    private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
+    private List<View> supportedAppsDummyViews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +75,11 @@ public class MainActivity extends AppCompatActivity {
         autoReplyTextPreview = findViewById(R.id.textView4);
         share_layout = findViewById(R.id.share_btn);
         watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
+        supportedAppsLayout = findViewById(R.id.supportedPlatformsLayout);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
-        timePickerCard = findViewById(R.id.timePickerCardView);
+        timePickerCard = findViewById(R.id.replyFrequencyTimePickerCardView);
         timePickerSubTitleTextPreview = findViewById(R.id.timePickerSubTitle);
 
         timeSelectedTextPreview = findViewById(R.id.timeSelectedText);
@@ -95,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                                 ? R.string.mainAutoReplySwitchOnLabel
                                 : R.string.mainAutoReplySwitchOffLabel
                 );
+
+                setSwitchState();
 
                 // Enable group chat switch only if main switch id ON
                 groupReplySwitch.setEnabled(isChecked);
@@ -137,7 +148,55 @@ public class MainActivity extends AppCompatActivity {
                     new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             );
         });
+
+        createSupportedAppCheckboxes();
     }
+
+    private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
+        for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
+            checkbox.setEnabled(enabled);
+        }
+        for (View dummyView: supportedAppsDummyViews) {
+            dummyView.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private void createSupportedAppCheckboxes() {
+        supportedAppsLayout.removeAllViews();
+
+        //inflate the views
+        LayoutInflater inflater = getLayoutInflater();
+        for (App supportedApp: Constants.SUPPORTED_APPS) {
+            View view = inflater.inflate(R.layout.enable_app_main_layout, null);
+
+            MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
+            checkBox.setText(supportedApp.getName());
+            checkBox.setTag(supportedApp);
+            checkBox.setChecked(preferencesManager.isAppEnabled(supportedApp));
+            checkBox.setEnabled(mainAutoReplySwitch.isChecked());
+            checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
+            supportedAppsCheckboxes.add(checkBox);
+
+            View platformDummyView = view.findViewById(R.id.platform_dummy_view);
+            if(mainAutoReplySwitch.isChecked()){
+                platformDummyView.setVisibility(View.GONE);
+            }
+            platformDummyView.setOnClickListener(v -> {
+                if(!mainAutoReplySwitch.isChecked()){
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.enable_auto_reply_switch_msg), Toast.LENGTH_SHORT).show();
+                }
+            });
+            supportedAppsDummyViews.add(platformDummyView);
+            supportedAppsLayout.addView(view);
+        }
+    }
+
+    private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
+        }
+    };
 
     private void saveNumDays(){
         preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
@@ -176,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSwitchState(){
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
+        enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115

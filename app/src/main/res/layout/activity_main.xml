@@ -14,7 +14,7 @@
         android:paddingTop="45dp"
         android:gravity="center"
         android:maxLines="2"
-        android:text="@string/app_short_description_main"
+        android:text="@string/app_name"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +24,14 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="to help you leave WhatsApp"
+        android:text="@string/to_help_you_leave_whatsapp"
         android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <androidx.cardview.widget.CardView
+    <!-- Main Auto Reply enable switch -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mainAutoReplySwitchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,9 +46,10 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/mainAutoReplySwitchOffLabel" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <!-- Custom auto reply text card -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mainAutoReplyTextCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,8 +68,8 @@
                 android:paddingStart="20dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
-                android:textColor="?attr/colorOnSurface"
                 android:text="@string/mainAutoReplyLabel"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,14 +101,53 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/groupReplySwitchCardView"
+    <!-- Supported app selector checklist empty card.
+        Actual checklist will be generated at runtime -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/supportedAppsSelectorCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@+id/mainAutoReplyTextCardView"
+        tools:layout_editor_absoluteX="134dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/selectAppsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_for_apps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/supportedPlatformsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectAppsLabel">
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Group reply switch card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/groupReplySwitchCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/supportedAppsSelectorCardView"
         tools:layout_editor_absoluteX="154dp">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -115,10 +156,11 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/groupReplySwitchLabel" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/timePickerCardView"
+    <!-- Reply frequency Time picker -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/replyFrequencyTimePickerCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -207,7 +249,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- r/watomatic subreddit button -->
     <TextView

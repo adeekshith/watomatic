@@ -17,6 +17,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static java.lang.Math.max;
@@ -27,14 +28,6 @@ public class NotificationService extends NotificationListenerService {
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 20 * 1000;
     private final int DELAY_BETWEEN_NOTIFICATION_RECEIVED_IN_MILLISEC = 60 * 1000;
-
-    /*
-        These are the package names of the apps. for which we want to
-        listen the notifications
-     */
-    private static final class SupportedPackageNames {
-        public static final String WHATSAPP_PACK_NAME = "com.whatsapp";
-    }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
@@ -140,13 +133,9 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
-        String packageName = sbn.getPackageName();
-        switch (packageName){
-            case SupportedPackageNames.WHATSAPP_PACK_NAME:
-                return true;
-            default:
-                return false;
-        }
+        return PreferencesManager.getPreferencesInstance(this)
+                .getEnabledApps()
+                .contains(sbn.getPackageName());
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
