@@ -25,6 +25,8 @@ public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
     private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
+    // Do not reply to consecutive notifications from same person/group that arrive in below time
+    // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
     // Do not reply to notifications whose timestamp is older than 2 minutes
     private final int MAX_OLD_NOTIFICATION_CAN_BE_REPLIED_TIME_MS = 2 * 60 * 1000;
