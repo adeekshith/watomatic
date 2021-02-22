@@ -17,7 +17,6 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import static java.lang.Math.max;
