@@ -253,7 +253,7 @@
 
     <!-- Github button -->
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/watomaticGithubBtn"
         app:srcCompat="@drawable/ic_github"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
