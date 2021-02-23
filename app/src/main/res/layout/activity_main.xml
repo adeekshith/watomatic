@@ -251,6 +251,18 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Github button -->
+    <ImageButton
+        android:id="@+id/imageButton2"
+        app:srcCompat="@drawable/ic_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="?android:selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <!-- r/watomatic subreddit button -->
     <Button
         android:id="@+id/watomaticSubredditBtn"
