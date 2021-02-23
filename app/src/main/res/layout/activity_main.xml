@@ -251,8 +251,20 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Github button -->
+    <ImageButton
+        android:id="@+id/watomaticGithubBtn"
+        app:srcCompat="@drawable/ic_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="?android:selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <!-- r/watomatic subreddit button -->
-    <TextView
+    <Button
         android:id="@+id/watomaticSubredditBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -261,18 +273,21 @@
         android:maxLines="1"
         android:text="@string/watomatic_subreddit_label"
         android:textAllCaps="false"
+        android:textColor="?attr/colorControlNormal"
+        android:background="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <!-- App share button -->
-    <ImageView
+    <ImageButton
         android:id="@+id/share_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
         android:layout_margin="15dp"
+        android:background="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

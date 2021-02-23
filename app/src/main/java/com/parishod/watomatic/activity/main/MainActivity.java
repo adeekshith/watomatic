@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     private PreferencesManager preferencesManager;
-    private ImageView share_layout;
-    private TextView watomaticSubredditBtn;
+    private  ImageButton githubBtn;
+    private ImageButton share_layout;
+    private Button watomaticSubredditBtn;
     private int days = 0;
     private ImageView imgMinus, imgPlus;
     private LinearLayout supportedAppsLayout;
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         groupReplySwitch = findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = findViewById(R.id.textView4);
+        githubBtn = findViewById(R.id.watomaticGithubBtn);
         share_layout = findViewById(R.id.share_btn);
         watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
         supportedAppsLayout = findViewById(R.id.supportedPlatformsLayout);
@@ -144,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
         watomaticSubredditBtn.setOnClickListener(view -> {
             String url = getString(R.string.watomatic_subreddit_url);
+            startActivity(
+                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            );
+        });
+
+        githubBtn.setOnClickListener(view -> {
+            String url = getString(R.string.watomatic_github_url);
             startActivity(
                     new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             );

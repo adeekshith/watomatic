@@ -42,4 +42,5 @@
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
+    <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
 </resources>
