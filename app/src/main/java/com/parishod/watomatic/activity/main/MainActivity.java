@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
     SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
+    CardView supportedAppsCard;
     private PreferencesManager preferencesManager;
     private  ImageButton githubBtn;
     private ImageButton share_layout;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         share_layout = findViewById(R.id.share_btn);
         watomaticSubredditBtn = findViewById(R.id.watomaticSubredditBtn);
         supportedAppsLayout = findViewById(R.id.supportedPlatformsLayout);
+        supportedAppsCard = findViewById(R.id.supportedAppsSelectorCardView);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -161,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createSupportedAppCheckboxes();
+
+        // TODO Hide incomplete facebook support issue #117
+        supportedAppsCard.setVisibility(View.GONE);
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
