@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.customreplyeditor.CustomReplyEditorActivity">
 
+    <!-- Auto reply text area -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/autoReplyTextInputLayout"
         android:layout_width="378dp"
@@ -43,6 +44,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
+    <!-- Save Button -->
     <Button
         android:id="@+id/saveCustomReplyBtn"
         android:layout_width="302dp"
