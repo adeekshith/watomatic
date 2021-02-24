@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
 
+import com.parishod.watomatic.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -19,12 +21,15 @@ public class CustomRepliesData {
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
+    private Context thisAppContext;
 
     private CustomRepliesData() {}
 
     private CustomRepliesData (Context context) {
+        thisAppContext = context.getApplicationContext();
         _sharedPrefs = context.getApplicationContext()
                 .getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+        init();
     }
 
     public static CustomRepliesData getInstance (Context context) {
@@ -32,6 +37,18 @@ public class CustomRepliesData {
             _INSTANCE = new CustomRepliesData(context);
         }
         return _INSTANCE;
+    }
+
+    /**
+     * Execute this code when the singleton is first created. All the tasks that needs to be done
+     * when the instance is first created goes here. For example, set specific keys based on new install
+     * or app upgrade, etc.
+     */
+    private void init () {
+        // Set default auto reply message on first install
+        if (!_sharedPrefs.contains(KEY_CUSTOM_REPLY_ALL)) {
+            set(thisAppContext.getString(R.string.auto_reply_default_message));
+        }
     }
 
     /**
