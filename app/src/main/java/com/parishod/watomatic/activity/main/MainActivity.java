@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSwitchState(){
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
+        groupReplySwitch.setEnabled(preferencesManager.isServiceEnabled());
         enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
     }
 
