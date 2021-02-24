@@ -44,15 +44,15 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 Your great responses already fill my heart with joy and that alone keeps me going.
 But if you can, here are a few ways you can help: 
 
-- I am taking care of all the development costs out of pocket and I am happy to do so for
-  as long as I can but to make it sustainable and easy on me, please consider being a patron
+- I am happy to take care of development costs as long as I can but to make it sustainable and to help
+  me focus on development and not on monetizing the product, please consider being a patron
   [![Liberapay Watomatic](https://img.shields.io/liberapay/patrons/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
-  or buy me coffee [paypal.me/deek](https://paypal.me/deek). Just want to mention that even a few cent
-  symbolic contribution means a lot 😊
-- Other ways to help include filing issues, join [r/watomatic](https://www.reddit.com/r/watomatic/)
+  or buy me coffee [paypal.me/deek](https://paypal.me/deek). Would like to mention that even a few cent
+  symbolic contribution means something so go for it 😊
+- Other ways to help include find issues, join [r/watomatic](https://www.reddit.com/r/watomatic/)
   and help fellow users or post interesting content to engage the community, promote the app in your circles
-  and whatever other ways you can think of is welcome. I would love code contributions too. Will try
-  to better organize the code in the near future and setup contribution guidelines so you can start
-  submitting your code. Star or follow this repository to keep updated.
+  and any other way of help is welcome. I would love code contributions too. Will try to better organize
+  the code in the near future and setup contribution guidelines so you can start submitting your code.
+  Star or follow this repository to keep updated.
 - Also reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
   is one of the easiest ways you can contribute so do not forget 😃 
