@@ -165,7 +165,9 @@ public class MainActivity extends AppCompatActivity {
         createSupportedAppCheckboxes();
 
         // TODO Hide incomplete facebook support issue #117
-        supportedAppsCard.setVisibility(View.GONE);
+        if (!Constants.BETA_FACEBOOK_SUPPORT_ENABLED) {
+            supportedAppsCard.setVisibility(View.GONE);
+        }
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
