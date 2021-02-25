@@ -12,7 +12,7 @@ import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
-import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
+import com.parishod.watomatic.model.logs.AutoReplyLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import static java.lang.Math.max;
 public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
-    private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
+    private AutoReplyLogsDB autoReplyLogsDB;
     // Do not reply to consecutive notifications from same person/group that arrive in below time
     // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
@@ -142,15 +142,15 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
         String userId = sbn.getNotification().extras.getString("android.title");
-        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
+        autoReplyLogsDB = AutoReplyLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        return (System.currentTimeMillis() - autoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private void logReply(String userId){
-        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
+        autoReplyLogsDB = AutoReplyLogsDB.getInstance(getApplicationContext());
         WhatsappAutoReplyLogs logs = new WhatsappAutoReplyLogs(userId, System.currentTimeMillis());
-        whatsappAutoReplyLogsDB.logsDao().logReply(logs);
+        autoReplyLogsDB.logsDao().logReply(logs);
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
