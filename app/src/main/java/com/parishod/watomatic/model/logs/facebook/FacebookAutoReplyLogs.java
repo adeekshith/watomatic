@@ -29,6 +29,15 @@ public class FacebookAutoReplyLogs {
         isReplied = replied;
     }
 
+    @Nullable
+    public String getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(@Nullable String replyMessage) {
+        this.replyMessage = replyMessage;
+    }
+
     public FacebookAutoReplyLogs(String userId, long createdAt) {
         this.userId = userId;
         this.createdAt = createdAt;

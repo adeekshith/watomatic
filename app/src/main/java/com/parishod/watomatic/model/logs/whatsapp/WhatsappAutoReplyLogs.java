@@ -17,6 +17,16 @@ public class WhatsappAutoReplyLogs {
     private long createdAt;
     @ColumnInfo(name = "is_replied")
     private boolean isReplied;
+
+    @Nullable
+    public String getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(@Nullable String replyMessage) {
+        this.replyMessage = replyMessage;
+    }
+
     @ColumnInfo(name = "reply_message", defaultValue = "'NULL'")
     @Nullable
     private String replyMessage;
