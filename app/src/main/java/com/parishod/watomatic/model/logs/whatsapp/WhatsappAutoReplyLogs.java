@@ -1,6 +1,7 @@
 package com.parishod.watomatic.model.logs.whatsapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,10 +15,24 @@ public class WhatsappAutoReplyLogs {
     private String userId;
     @ColumnInfo(name = "created_at")
     private long createdAt;
+    @ColumnInfo(name = "is_replied")
+    private boolean isReplied;
+    @ColumnInfo(name = "reply_message", defaultValue = "'NULL'")
+    @Nullable
+    private String replyMessage;
+
+    public boolean isReplied() {
+        return isReplied;
+    }
+
+    public void setReplied(boolean replied) {
+        isReplied = replied;
+    }
 
     public WhatsappAutoReplyLogs(String userId, long createdAt) {
         this.userId = userId;
         this.createdAt = createdAt;
+        this.isReplied = true; //Setting by default to true
     }
 
     public int getId() {
