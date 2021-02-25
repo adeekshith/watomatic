@@ -12,7 +12,7 @@ import com.parishod.watomatic.model.utils.Constants;
 
 @Database(entities = {WhatsappAutoReplyLogs.class}, version = 1)
 public abstract class AutoReplyLogsDB extends RoomDatabase {
-    private static final String DB_NAME = Constants.WHATSAPP_LOGS_DB_NAME;
+    private static final String DB_NAME = Constants.LOGS_DB_NAME;
     private static AutoReplyLogsDB _instance;
 
     public static synchronized AutoReplyLogsDB getInstance(Context context){
