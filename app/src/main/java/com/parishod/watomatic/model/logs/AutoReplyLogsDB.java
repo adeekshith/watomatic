@@ -6,11 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.parishod.watomatic.model.logs.facebook.FacebookAutoReplyLogs;
+import com.parishod.watomatic.model.logs.facebook.FacebookAutoReplyLogsDao;
 import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
 import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogsDao;
 import com.parishod.watomatic.model.utils.Constants;
 
-@Database(entities = {WhatsappAutoReplyLogs.class}, version = 1)
+@Database(entities = {WhatsappAutoReplyLogs.class, FacebookAutoReplyLogs.class}, version = 2)
 public abstract class AutoReplyLogsDB extends RoomDatabase {
     private static final String DB_NAME = Constants.LOGS_DB_NAME;
     private static AutoReplyLogsDB _instance;
@@ -25,5 +27,7 @@ public abstract class AutoReplyLogsDB extends RoomDatabase {
         return _instance;
     }
 
-    public abstract WhatsappAutoReplyLogsDao logsDao();
+    public abstract WhatsappAutoReplyLogsDao whatsappAutoReplyLogsDao();
+
+    public abstract FacebookAutoReplyLogsDao facebookAutoReplyLogsDao();
 }

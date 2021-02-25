@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.logs.facebook.FacebookAutoReplyLogs;
 import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
 import com.parishod.watomatic.model.logs.AutoReplyLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -79,7 +80,7 @@ public class NotificationService extends NotificationListenerService {
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
-                logReply(sbn.getNotification().extras.getString("android.title"));
+                logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
             }
         } catch (PendingIntent.CanceledException e) {
@@ -144,13 +145,23 @@ public class NotificationService extends NotificationListenerService {
         String userId = sbn.getNotification().extras.getString("android.title");
         autoReplyLogsDB = AutoReplyLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - autoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        if(sbn.getPackageName().contains("whatsapp")) {
+            return (System.currentTimeMillis() - autoReplyLogsDB.whatsappAutoReplyLogsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        }else {
+            return (System.currentTimeMillis() - autoReplyLogsDB.facebookAutoReplyLogsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        }
     }
 
-    private void logReply(String userId){
+    private void logReply(StatusBarNotification sbn){
+        String userId = sbn.getNotification().extras.getString("android.title");
         autoReplyLogsDB = AutoReplyLogsDB.getInstance(getApplicationContext());
-        WhatsappAutoReplyLogs logs = new WhatsappAutoReplyLogs(userId, System.currentTimeMillis());
-        autoReplyLogsDB.logsDao().logReply(logs);
+        if(sbn.getPackageName().contains("whatsapp")) {
+            WhatsappAutoReplyLogs logs = new WhatsappAutoReplyLogs(userId, System.currentTimeMillis());
+            autoReplyLogsDB.whatsappAutoReplyLogsDao().logReply(logs);
+        }else if(sbn.getPackageName().contains("facebook")) {
+            FacebookAutoReplyLogs logs = new FacebookAutoReplyLogs(userId, System.currentTimeMillis());
+            autoReplyLogsDB.facebookAutoReplyLogsDao().logReply(logs);
+        }
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
