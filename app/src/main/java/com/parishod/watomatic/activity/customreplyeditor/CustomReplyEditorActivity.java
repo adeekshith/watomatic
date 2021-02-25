@@ -1,5 +1,7 @@
 package com.parishod.watomatic.activity.customreplyeditor;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +17,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
     TextInputEditText autoReplyText;
     Button saveAutoReplyTextBtn;
     CustomRepliesData customRepliesData;
+    Button watoMessageLinkBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
 
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText);
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn);
+        watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
 
         autoReplyText.setText(customRepliesData.get());
         autoReplyText.requestFocus();
@@ -47,6 +51,13 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
             if (setString != null) {
                 this.onNavigateUp();
             }
+        });
+
+        watoMessageLinkBtn.setOnClickListener(view -> {
+            String url = getString(R.string.watomatic_wato_message_url);
+            startActivity(
+                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            );
         });
     }
 }

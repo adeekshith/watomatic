@@ -56,4 +56,18 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/autoReplyTextInputLayout"
         />
+
+    <!-- Wato message r/watomatic link -->
+    <Button
+        android:id="@+id/tip_wato_message"
+        android:layout_width="301dp"
+        android:layout_height="94dp"
+        android:background="?android:selectableItemBackground"
+        android:text="@string/tip_view_messages_from_fellow_users"
+        android:textAllCaps="false"
+        android:textColor="?attr/colorControlNormal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveCustomReplyBtn"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
