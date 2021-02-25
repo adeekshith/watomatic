@@ -38,10 +38,16 @@
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
     <string name="app_version">v%1$s</string>
+
+    <!-- Custom message editor -->
+    <string name="save">Save</string>
+    <string name="tip_view_messages_from_fellow_users">Tip: View messages from fellow users for inspiration ➚</string>
+
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
+    <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
 </resources>
