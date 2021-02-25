@@ -2,6 +2,7 @@ package com.parishod.watomatic.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 
 import androidx.preference.PreferenceManager;
 
@@ -22,6 +23,7 @@ public class PreferencesManager {
     private final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
+    private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private Context thisAppContext;
@@ -51,6 +53,13 @@ public class PreferencesManager {
                     && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
             if (newInstall) {
                 setAppsAsEnabled(Constants.SUPPORTED_APPS);
+            }
+        }
+
+        if (isFirstInstall(thisAppContext)) {
+            // Set Append Watomatic attribution checked for new installs
+            if (!_sharedPrefs.contains(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION)) {
+                setAppendWatomaticAttribution(true);
             }
         }
     }
@@ -129,5 +138,32 @@ public class PreferencesManager {
             enabledPackages.add(app.getPackageName());
         }
         return serializeAndSetEnabledPackageList(enabledPackages);
+    }
+
+    public void setAppendWatomaticAttribution(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION, enabled);
+        editor.apply();
+    }
+
+    public boolean isAppendWatomaticAttributionEnabled() {
+        return _sharedPrefs.getBoolean(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION,false);
+    }
+
+    /**
+     * Check if it is first install on this device.
+     * ref: https://stackoverflow.com/a/34194960 
+     * @param context
+     * @return true if first install or else false if it is installed from an update
+     */
+    public static boolean isFirstInstall(Context context) {
+        try {
+            long firstInstallTime = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).firstInstallTime;
+            long lastUpdateTime = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).lastUpdateTime;
+            return firstInstallTime == lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return true;
+        }
     }
 }

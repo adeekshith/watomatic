@@ -72,7 +72,7 @@ public class NotificationService extends NotificationListenerService {
         for(RemoteInput remoteIn : notificationWear.getRemoteInputs()){
             remoteInputs[i] = remoteIn;
             // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.get());
+            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse(null));
             i++;
         }
 
