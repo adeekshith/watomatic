@@ -152,6 +152,7 @@ public class PreferencesManager {
 
     /**
      * Check if it is first install on this device.
+     * ref: https://stackoverflow.com/a/34194960 
      * @param context
      * @return true if first install or else false if it is installed from an update
      */
