@@ -249,6 +249,9 @@ public class MainActivity extends AppCompatActivity {
 
         // set group chat switch state
         groupReplySwitch.setChecked(preferencesManager.isGroupReplyEnabled());
+
+        // Set user auto reply text
+        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
     }
 
     private void setSwitchState(){
