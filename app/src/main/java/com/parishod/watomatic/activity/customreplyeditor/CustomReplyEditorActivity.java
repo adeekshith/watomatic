@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 public class CustomReplyEditorActivity extends AppCompatActivity {
     TextInputEditText autoReplyText;
     Button saveAutoReplyTextBtn;
     CustomRepliesData customRepliesData;
+    PreferencesManager preferencesManager;
     Button watoMessageLinkBtn;
+    CheckBox appendWatomaticAttribution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +29,12 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_custom_reply_editor);
 
         customRepliesData = CustomRepliesData.getInstance(this);
+        preferencesManager = PreferencesManager.getPreferencesInstance(this);
 
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText);
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn);
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
+        appendWatomaticAttribution = findViewById(R.id.appendWatomaticAttribution);
 
         autoReplyText.setText(customRepliesData.get());
         autoReplyText.requestFocus();
@@ -58,6 +64,11 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
             startActivity(
                     new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             );
+        });
+
+        appendWatomaticAttribution.setChecked(preferencesManager.isAppendWatomaticAttributionEnabled());
+        appendWatomaticAttribution.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            preferencesManager.setAppendWatomaticAttribution(isChecked);
         });
     }
 }

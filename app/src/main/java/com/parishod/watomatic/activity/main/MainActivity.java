@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         imgPlus = findViewById(R.id.imgPlus);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        autoReplyTextPreview.setText(customRepliesData.getOrElse(autoReplyTextPlaceholder));
+        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
         // Enable group chat switch only if main switch id ON
         groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
 

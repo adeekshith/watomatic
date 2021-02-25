@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.text.Editable;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,7 @@ public class CustomRepliesData {
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
     private Context thisAppContext;
+    private PreferencesManager preferencesManager;
 
     private CustomRepliesData() {}
 
@@ -29,6 +31,7 @@ public class CustomRepliesData {
         thisAppContext = context.getApplicationContext();
         _sharedPrefs = context.getApplicationContext()
                 .getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+        preferencesManager = PreferencesManager.getPreferencesInstance(thisAppContext);
         init();
     }
 
@@ -109,6 +112,16 @@ public class CustomRepliesData {
         return (currentText != null)
                 ? currentText
                 : defaultText;
+    }
+
+    public String getTextToSendOrElse (String defaultTextToSend) {
+        String currentText = get();
+        if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
+            currentText += "\n" + thisAppContext.getString(R.string.sent_using_Watomatic);
+        }
+        return (currentText != null)
+                ? currentText
+                : defaultTextToSend;
     }
 
     private JSONArray getAll() {
