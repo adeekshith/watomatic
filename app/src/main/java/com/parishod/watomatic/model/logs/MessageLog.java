@@ -3,9 +3,15 @@ package com.parishod.watomatic.model.logs;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.ForeignKey;
 
-@Entity(tableName = "message_logs")
+@Entity(tableName = "message_logs",
+        foreignKeys = {@ForeignKey(
+                entity = AppPackage.class,
+                parentColumns = "index",
+                childColumns = "index",
+                onDelete = ForeignKey.CASCADE
+        )})
 public class MessageLog {
     @NonNull
     private int index;
