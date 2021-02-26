@@ -1,4 +1,4 @@
-package com.parishod.watomatic.model.logs.whatsapp;
+package com.parishod.watomatic.model.logs;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "WhatsappAutoReplyLogs")
-public class WhatsappAutoReplyLogs {
+public class MessageLog {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
@@ -15,7 +15,7 @@ public class WhatsappAutoReplyLogs {
     @ColumnInfo(name = "created_at")
     private long createdAt;
 
-    public WhatsappAutoReplyLogs(String userId, long createdAt) {
+    public MessageLog(String userId, long createdAt) {
         this.userId = userId;
         this.createdAt = createdAt;
     }
