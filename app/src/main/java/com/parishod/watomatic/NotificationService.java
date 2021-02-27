@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -79,7 +80,7 @@ public class NotificationService extends NotificationListenerService {
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
-                logReply(sbn.getNotification().extras.getString("android.title"));
+                logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
             }
         } catch (PendingIntent.CanceledException e) {
@@ -147,9 +148,16 @@ public class NotificationService extends NotificationListenerService {
         return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
-    private void logReply(String userId){
+    private void logReply(StatusBarNotification sbn){
+        String title = sbn.getNotification().extras.getString("android.title");
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
-        MessageLog logs = new MessageLog(userId, System.currentTimeMillis());
+        int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
+        if(packageIndex <= 0){
+            AppPackage appPackage = new AppPackage(sbn.getPackageName());
+            messageLogsDB.appPackageDao().insertAppPackage(appPackage);
+            packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
+        }
+        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
         messageLogsDB.logsDao().logReply(logs);
     }
 
