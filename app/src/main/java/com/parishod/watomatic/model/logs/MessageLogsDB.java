@@ -8,9 +8,9 @@ import androidx.room.RoomDatabase;
 
 import com.parishod.watomatic.model.utils.Constants;
 
-@Database(entities = {MessageLog.class}, version = 1)
+@Database(entities = {MessageLog.class, AppPackage.class}, version = 2)
 public abstract class MessageLogsDB extends RoomDatabase {
-    private static final String DB_NAME = Constants.WHATSAPP_LOGS_DB_NAME;
+    private static final String DB_NAME = Constants.LOGS_DB_NAME;
     private static MessageLogsDB _instance;
 
     public static synchronized MessageLogsDB getInstance(Context context){
@@ -24,4 +24,6 @@ public abstract class MessageLogsDB extends RoomDatabase {
     }
 
     public abstract MessageLogsDao logsDao();
+
+    public abstract AppPackageDao appPackageDao();
 }
