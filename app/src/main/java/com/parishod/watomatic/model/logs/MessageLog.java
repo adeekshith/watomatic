@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "message_logs",
         foreignKeys = {@ForeignKey(
@@ -11,8 +13,14 @@ import androidx.room.ForeignKey;
                 parentColumns = "index",
                 childColumns = "index",
                 onDelete = ForeignKey.CASCADE
-        )})
+        )},
+        indices = {
+            @Index(value = "index")
+        })
 public class MessageLog {
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int id;
     @NonNull
     private int index;
     @ColumnInfo(name = "notif_id")
@@ -29,16 +37,26 @@ public class MessageLog {
     private long notifReplyTime;
 
     public MessageLog(int index,
-                      String notif_title,
-                      long notif_arrived_time,
-                      String notif_replied_msg,
-                      long notif_reply_time
+                      String notifTitle,
+                      long notifArrivedTime,
+                      String notifRepliedMsg,
+                      long notifReplyTime
         ) {
         this.index = index;
-        this.notifTitle = notif_title;
-        this.notifArrivedTime = notif_arrived_time;
-        this.notifRepliedMsg = notif_replied_msg;
-        this.notifReplyTime = notif_reply_time;
+        this.notifId = null;
+        this.notifTitle = notifTitle;
+        this.notifArrivedTime = notifArrivedTime;
+        this.notifRepliedMsg = notifRepliedMsg;
+        this.notifReplyTime = notifReplyTime;
+        this.notifIsReplied = true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIndex() {
