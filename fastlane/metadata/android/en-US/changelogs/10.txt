@@ -1,0 +1,1 @@
+* Fix drawable colors to adapt to themes
