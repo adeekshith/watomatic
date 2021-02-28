@@ -39,20 +39,12 @@ This app is not associated with any company including WhatsApp, Facebook, Signal
 
 Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
 
-### Like to help?
+### Support
 
-Your great responses already fill my heart with joy and that alone keeps me going.
-But if you can, here are a few ways you can help: 
+Help me offset development costs and keep this project alive
 
-- I am happy to take care of development costs as long as I can but to make it sustainable and to help
-  me focus on development and not on monetizing the product, please consider being a patron
-  [![Liberapay Watomatic](https://img.shields.io/liberapay/patrons/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
-  or buy me coffee [paypal.me/deek](https://paypal.me/deek). Would like to mention that even a few cent
-  symbolic contribution means something so go for it 😊
-- Other ways to help include find issues, join [r/watomatic](https://www.reddit.com/r/watomatic/)
-  and help fellow users or post interesting content to engage the community, promote the app in your circles
-  and any other way of help is welcome. I would love code contributions too. Will try to better organize
-  the code in the near future and setup contribution guidelines so you can start submitting your code.
-  Star or follow this repository to keep updated.
-- Also reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
-  is one of the easiest ways you can contribute so do not forget 😃 
+- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) Become a patron and help reach our goal [![Liberapay](https://img.shields.io/liberapay/goal/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
+- Buy me coffee [paypal.me/deek](https://paypal.me/deek)
+- Reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
+  is one of the easiest ways you help so please do that 😃
+
