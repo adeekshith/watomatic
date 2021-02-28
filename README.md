@@ -41,10 +41,17 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 ### Support
 
-Help me offset development costs and keep this project alive
+Help me offset development costs to keep this project alive
 
-- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) Become a patron and help reach our goal [![Liberapay](https://img.shields.io/liberapay/goal/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
+- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) Become a patron  [![Liberapay](https://img.shields.io/liberapay/goal/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
 - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
 - Reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
   is one of the easiest ways you help so please do that 😃
+
+### Contact:
+
+- Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
+- Email: watomatic@deekshith.in
+
+Deekshith: [twitter](https://twitter.com/adeekshith), [linkedin](https://www.linkedin.com/in/adeekshith/), [mastodon](https://mastodon.technology/@dsoft), [github](https://github.com/adeekshith) 
 
