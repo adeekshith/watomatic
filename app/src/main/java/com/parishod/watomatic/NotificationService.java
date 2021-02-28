@@ -11,8 +11,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
-import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogs;
-import com.parishod.watomatic.model.logs.whatsapp.WhatsappAutoReplyLogsDB;
+import com.parishod.watomatic.model.logs.AppPackage;
+import com.parishod.watomatic.model.logs.MessageLog;
+import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import static java.lang.Math.max;
 public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
-    private WhatsappAutoReplyLogsDB whatsappAutoReplyLogsDB;
+    private MessageLogsDB messageLogsDB;
     // Do not reply to consecutive notifications from same person/group that arrive in below time
     // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
@@ -79,7 +80,7 @@ public class NotificationService extends NotificationListenerService {
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
-                logReply(sbn.getNotification().extras.getString("android.title"));
+                logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
             }
         } catch (PendingIntent.CanceledException e) {
@@ -141,16 +142,23 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
-        String userId = sbn.getNotification().extras.getString("android.title");
-        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
+        String title = sbn.getNotification().extras.getString("android.title");
+        messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - whatsappAutoReplyLogsDB.logsDao().getLastReplyTimeStamp(userId) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
-    private void logReply(String userId){
-        whatsappAutoReplyLogsDB = WhatsappAutoReplyLogsDB.getInstance(getApplicationContext());
-        WhatsappAutoReplyLogs logs = new WhatsappAutoReplyLogs(userId, System.currentTimeMillis());
-        whatsappAutoReplyLogsDB.logsDao().logReply(logs);
+    private void logReply(StatusBarNotification sbn){
+        String title = sbn.getNotification().extras.getString("android.title");
+        messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
+        int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
+        if(packageIndex <= 0){
+            AppPackage appPackage = new AppPackage(sbn.getPackageName());
+            messageLogsDB.appPackageDao().insertAppPackage(appPackage);
+            packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
+        }
+        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
+        messageLogsDB.logsDao().logReply(logs);
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
