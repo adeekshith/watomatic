@@ -8,7 +8,7 @@
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
-    <string name="auto_reply_default_message">⚠️ This user may not be available on this app</string>
+    <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
