@@ -8,7 +8,7 @@
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
-    <string name="auto_reply_default_message">⚠️ This user may not be available on this app</string>
+    <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
@@ -41,7 +41,7 @@
 
     <!-- Custom message editor -->
     <string name="save">Save</string>
-    <string name="tip_view_messages_from_fellow_users">Tip: View messages from fellow users for inspiration ➚</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 Click here for fancy templates and share yours too ➚</string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
     <string name="sent_using_Watomatic">Sent using https://git.io/watomatic</string>
 
