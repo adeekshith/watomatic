@@ -8,7 +8,7 @@ object Constants {
     const val PERMISSION_DIALOG_DENIED_TITLE = "permission_dialog_denied_title"
     const val PERMISSION_DIALOG_DENIED_MSG = "permission_dialog_denied_msg"
     const val PERMISSION_DIALOG_DENIED = "permission_dialog_denied"
-    const val WHATSAPP_LOGS_DB_NAME = "logs_whatsapp_autoreply_db"
+    const val LOGS_DB_NAME = "logs_messages_db"
 
     // Beta feature flags
     const val BETA_FACEBOOK_SUPPORT_ENABLED = false

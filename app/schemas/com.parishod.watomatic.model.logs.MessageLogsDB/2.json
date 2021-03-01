@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "15f2970ddd80a2326858a17ebda632b9",
+    "entities": [
+      {
+        "tableName": "message_logs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `index` INTEGER NOT NULL, `notif_id` TEXT, `notif_title` TEXT, `notif_arrived_time` INTEGER NOT NULL, `notif_is_replied` INTEGER NOT NULL, `notif_replied_msg` TEXT, `notif_reply_time` INTEGER NOT NULL, FOREIGN KEY(`index`) REFERENCES `app_packages`(`index`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "index",
+            "columnName": "index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notifId",
+            "columnName": "notif_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notifTitle",
+            "columnName": "notif_title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notifArrivedTime",
+            "columnName": "notif_arrived_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notifIsReplied",
+            "columnName": "notif_is_replied",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notifRepliedMsg",
+            "columnName": "notif_replied_msg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notifReplyTime",
+            "columnName": "notif_reply_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_message_logs_index",
+            "unique": false,
+            "columnNames": [
+              "index"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_message_logs_index` ON `${TABLE_NAME}` (`index`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "app_packages",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "index"
+            ],
+            "referencedColumns": [
+              "index"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "app_packages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`index` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `package_name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "index",
+            "columnName": "index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageName",
+            "columnName": "package_name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "index"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '15f2970ddd80a2326858a17ebda632b9')"
+    ]
+  }
+}
