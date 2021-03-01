@@ -117,7 +117,7 @@ public class CustomRepliesData {
     public String getTextToSendOrElse (String defaultTextToSend) {
         String currentText = get();
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
-            currentText += "\n" + thisAppContext.getString(R.string.sent_using_Watomatic);
+            currentText += "\n\n" + thisAppContext.getString(R.string.sent_using_Watomatic);
         }
         return (currentText != null)
                 ? currentText
