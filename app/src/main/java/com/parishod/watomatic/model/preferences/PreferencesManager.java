@@ -24,6 +24,7 @@ public class PreferencesManager {
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
+    private final String KEY_SELECTED_APP_LANGUAGE = "pref_key_selected_app_language";
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
     private Context thisAppContext;
@@ -165,5 +166,9 @@ public class PreferencesManager {
             e.printStackTrace();
             return true;
         }
+    }
+
+    public String getSelectedLanguage(){
+        return _sharedPrefs.getString(KEY_SELECTED_APP_LANGUAGE, "en");
     }
 }
