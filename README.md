@@ -43,7 +43,7 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 Help me offset development costs to keep this project alive
 
-- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) Become a patron  [![Liberapay](https://img.shields.io/liberapay/goal/dk.svg?logo=liberapay)](https://liberapay.com/dk/donate)
+- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) [![Liberapay financial goals badge](https://img.shields.io/liberapay/goal/dk?color=%23BF360C&label=%F0%9F%92%B0%20Goal%20%F0%9F%A4%92&style=for-the-badge)](https://liberapay.com/dk/donate)
 - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
 - Reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
   is one of the easiest ways you help so please do that 😃
