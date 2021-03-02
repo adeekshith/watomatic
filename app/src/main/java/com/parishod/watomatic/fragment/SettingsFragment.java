@@ -8,7 +8,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -17,11 +16,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey);
-
-        //Set fragment title
-        getActivity().setTitle("Settings");
-
-        ((MainActivity)getActivity()).showHideBackButton(true);
 
         languagePref = findPreference("pref_key_selected_app_language");
         languagePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
