@@ -2,11 +2,11 @@ package com.parishod.watomatic.activity.main;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

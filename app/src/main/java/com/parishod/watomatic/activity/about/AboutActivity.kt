@@ -4,12 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.parishod.watomatic.BuildConfig
 import com.parishod.watomatic.R
+import com.parishod.watomatic.activity.BaseActivity
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity () {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)

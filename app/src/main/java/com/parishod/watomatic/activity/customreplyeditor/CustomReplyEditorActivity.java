@@ -8,14 +8,13 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.BaseActivity;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
-public class CustomReplyEditorActivity extends AppCompatActivity {
+public class CustomReplyEditorActivity extends BaseActivity {
     TextInputEditText autoReplyText;
     Button saveAutoReplyTextBtn;
     CustomRepliesData customRepliesData;
