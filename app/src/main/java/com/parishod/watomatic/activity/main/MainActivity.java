@@ -17,23 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        loadMainFragment();
-        loadBrandingFragment();
-    }
-
-    private void loadMainFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.main_frame_layout, new MainFragment())
-                .commit();
-    }
-
-    private void loadBrandingFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.branding_frame_layout, new BrandingFragment())
-                .commit();
     }
 
     @Override
