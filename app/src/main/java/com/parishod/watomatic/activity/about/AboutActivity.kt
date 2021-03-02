@@ -15,13 +15,12 @@ class AboutActivity : BaseActivity () {
         setContentView(R.layout.activity_about)
 
         val privacyPolicyCard: CardView = findViewById(R.id.privacyPolicyCardView)
-        val privacyPolicyLink: TextView = findViewById(R.id.privacyPolicyLink)
         val developerAttrLink: TextView = findViewById(R.id.developerLink)
         val appVersionText: TextView = findViewById(R.id.appVersion)
 
         appVersionText.text = String.format(resources.getString(R.string.app_version), BuildConfig.VERSION_NAME)
         privacyPolicyCard.setOnClickListener {
-            val url = privacyPolicyLink.text.toString()
+            val url = getString(R.string.url_privacy_policy);
             val i = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             startActivity(i)
         }
