@@ -53,7 +53,6 @@
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
-    <string name="settings">Settings</string>
 
     <!-- App Language selection -->
     <string-array name="app_language">
