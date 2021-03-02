@@ -31,6 +31,13 @@
             >
         </activity>
 
+        <activity
+            android:name="com.parishod.watomatic.activity.settings.SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity"
+            >
+        </activity>
+
         <service
             android:name="com.parishod.watomatic.NotificationService"
             android:label="@string/service_name"

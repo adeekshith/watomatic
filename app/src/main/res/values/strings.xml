@@ -5,6 +5,7 @@
     <string name="url_adeekshith_twitter" translatable="false">https://twitter.com/adeekshith</string>
 
     <string name="about">About</string>
+    <string name="settings">Settings</string>
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
@@ -52,4 +53,15 @@
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
+
+    <!-- App Language selection -->
+    <string-array name="app_language">
+        <item>English</item>
+        <item>Portuguese</item>
+    </string-array>
+
+    <string-array name="app_language_value">
+        <item>en</item>
+        <item>pt</item>
+    </string-array>
 </resources>
