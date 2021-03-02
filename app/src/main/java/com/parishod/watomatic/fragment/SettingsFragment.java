@@ -25,16 +25,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if(!PreferencesManager.getPreferencesInstance(getActivity()).getSelectedLanguage().equals(newValue)){
                     //switch app language here
                     //Should restart the app for language change to take into account
-                    restartActivity();
+                    restartApp();
                 }
                 return true;
             }
         });
     }
 
-    private void restartActivity() {
+    private void restartApp() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         getActivity().startActivity(intent);
-        getActivity().finish();
+        getActivity().finishAffinity();
     }
 }
