@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,9 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +32,7 @@ import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
-import com.parishod.watomatic.activity.main.MainActivity;
+import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -75,10 +72,6 @@ public class MainFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mActivity = getActivity();
-
-        mActivity.setTitle(getResources().getString(R.string.app_name));
-
-        ((MainActivity)getActivity()).showHideBackButton(false);
 
         customRepliesData = CustomRepliesData.getInstance(mActivity);
         preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
@@ -361,18 +354,13 @@ public class MainFragment extends Fragment {
         if(item.getItemId() == R.id.about){
             openAboutActivity();
         }else if(item.getItemId() == R.id.setting){
-            loadSettingsFragment();
+            loadSettingsActivity();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadSettingsFragment(){
-        if(mActivity instanceof MainActivity) {
-            ((MainActivity) mActivity).getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_frame_layout, new SettingsFragment())
-                    .addToBackStack("MainFragment")
-                    .commit();
-        }
+    private void loadSettingsActivity(){
+        Intent intent = new Intent(mActivity, SettingsActivity.class);
+        mActivity.startActivity(intent);
     }
 }
