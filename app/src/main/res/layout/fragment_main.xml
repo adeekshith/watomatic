@@ -76,18 +76,19 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="329dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:paddingStart="20dp"
-                android:paddingEnd="10dp"
+                android:paddingEnd="20dp"
                 android:paddingBottom="10dp"
                 android:text="@string/mainAutoReplyTextPlaceholder"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                />
 
             <ImageView
                 android:id="@+id/imageButton"
@@ -202,50 +203,41 @@
                 app:layout_constraintTop_toBottomOf="@+id/timePickerTitle"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frequencySetterWidget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_inner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imgMinus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/minus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-                    <ImageView
-                        android:id="@+id/imgMinus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/minus"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                <TextView
+                    android:id="@+id/timeSelectedText"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:textColor="?attr/colorOnSurface"
+                    app:layout_constraintTop_toTopOf="@+id/imgMinus"
+                    app:layout_constraintBottom_toBottomOf="@id/imgMinus"
+                    app:layout_constraintStart_toEndOf="@+id/imgMinus"/>
 
-                    <TextView
-                        android:id="@+id/timeSelectedText"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="20sp"
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:textColor="?attr/colorOnSurface"
-                        app:layout_constraintTop_toTopOf="@+id/imgMinus"
-                        app:layout_constraintBottom_toBottomOf="@id/imgMinus"
-                        app:layout_constraintStart_toEndOf="@+id/imgMinus"/>
-
-                    <ImageView
-                        android:id="@+id/imgPlus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/plus"
-                        app:layout_constraintStart_toEndOf="@+id/timeSelectedText"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imgPlus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/plus"
+                    app:layout_constraintStart_toEndOf="@+id/timeSelectedText"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
