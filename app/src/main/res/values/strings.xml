@@ -42,7 +42,7 @@
 
     <!-- Custom message editor -->
     <string name="save">Save</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 Click here for fancy templates and share yours too ➚</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
     <string name="sent_using_Watomatic">Sent using https://git.io/watomatic</string>
 
