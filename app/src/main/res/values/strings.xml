@@ -49,7 +49,7 @@
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
-    <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
+    <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
