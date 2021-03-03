@@ -76,18 +76,19 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="329dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:paddingStart="20dp"
-                android:paddingEnd="10dp"
+                android:paddingEnd="20dp"
                 android:paddingBottom="10dp"
                 android:text="@string/mainAutoReplyTextPlaceholder"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                />
 
             <ImageView
                 android:id="@+id/imageButton"
