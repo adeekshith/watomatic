@@ -54,6 +54,9 @@
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
 
+    <!-- keys and app internal strings -->
+    <string name="key_pref_app_language" translatable="false">pref_app_language</string>
+
     <!-- App Language selection -->
     <string-array name="app_language">
         <item>English</item>
