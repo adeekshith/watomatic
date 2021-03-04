@@ -1,34 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
-    <string name="about">Sobre</string>
-    <string name="privacy_policy_label">Política de Privacidade</string>
-    <string name="service_name">Monitor de notificações de mensagens recebidas</string>
-    <string name="mainAutoReplyTextPlaceholder">(Resposta personalizada)</string>
-    <string name="mainAutoReplyLabel">Texto de resposta automática</string>
-    <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
-    <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
-    <string name="mainAutoReplyEditBtnTooltip">Clique para editar o texto da resposta automática</string>
-    <string name="decline">Recusar</string>
-    <string name="accept">Aceitar</string>
-    <string name="sure">Sim, negar</string>
-    <string name="retry">Tentar de novo</string>
-    <string name="permission_dialog_title">Permissão necessária</string>
-    <string name="permission_dialog_msg">Este App requer a permissão de Acesso à Notificações para funcionar.</string>
-    <string name="permission_dialog_denied_title">Permissão negada</string>
-    <string name="permission_dialog_denied_msg">Sem esta autorização, o App não vai poder responder automaticamente às notificações. Você tem certeza de que quer negar a permissão?</string>
-
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+    <string name="privacy_policy_label">Privacy Policy</string>
+    <string name="service_name">Incoming Message Notification Listener</string>
+    <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
+    <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
+    <string name="mainAutoReplyLabel">Auto reply text</string>
+    <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
+    <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
+    <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
+    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp \n(and soon Facebook messenger)</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="sure">I\'m Sure</string>
+    <string name="retry">Retry</string>
+    <string name="permission_dialog_title">Permission Required</string>
+    <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
+    <string name="permission_dialog_denied_title">Permission Denied</string>
+    <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
+    <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Enable for apps</string>
+    <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">Resposta automática para chats de grupos</string>
-    <string name="group_reply_on_info_message">Ativada a Resposta Automática para chats de grupos</string>
-    <string name="group_reply_off_info_message">Desativada a Resposta Automática para chats de grupos</string>
-
-    <string name="time_picker_title">Frequência de resposta (BETA)</string>
-    <string name="time_picker_sub_title_default">Responder a todas as mensagens sem controle</string>
-    <string name="time_picker_sub_title">Responder apenas uma vez a cada %1$d dia(s) para cada pessoa\/grupo</string>
+    <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
+    <string name="group_reply_on_info_message">Enabled auto reply for group chats</string>
+    <string name="group_reply_off_info_message">Disabled auto reply for group chats</string>
+    <string name="time_picker_title">Reply frequency (BETA)</string>
+    <string name="time_picker_sub_title_default">Respond to all messages without control</string>
+    <string name="time_picker_sub_title">Respond only once every %1$d day\/s for each person\/group</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Clique para editar o tempo de espera entre as respostas</string>
+    <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
     <string name="app_version">v%1$s</string>
-    <string name="share_app_text">"Estou usando Watomatic para me livrar do WhatsApp. Experimente!\n https://git.io/watomatic</string>
-    <string name="share">Compartilhar</string>
-    <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
+    <!-- Custom message editor -->
+    <string name="save">Save</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
+    <string name="sent_using_Watomatic">Sent using https://git.io/watomatic</string>
+    <string name="share_app_text">\"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
+    <string name="share">Share</string>
+    <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
+    <!-- keys and app internal strings -->
+    <!-- App Language selection -->
+    <string-array name="app_language">
+        <item>English</item>
+        <item>Portuguese</item>
+    </string-array>
+    <string-array name="app_language_value">
+        <item>en</item>
+        <item>pt</item>
+    </string-array>
 </resources>
