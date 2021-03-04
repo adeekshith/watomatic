@@ -42,14 +42,14 @@
 
     <!-- Custom message editor -->
     <string name="save">Save</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 Click here for fancy templates and share yours too ➚</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
     <string name="sent_using_Watomatic">Sent using https://git.io/watomatic</string>
 
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
-    <string name="watomatic_subreddit_label" translatable="false">r/watomatic</string>
+    <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
