@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">మా గురించి</string>
+    <string name="settings">అమరికలు</string>
+    <string name="privacy_policy_label">గోప్యతా విధానం</string>
+    <string name="decline">నిరాకరించండి</string>
+    <string name="retry">తిరిగి ప్రయత్నించండి</string>
+    <string name="permission_dialog_title">అనుమతి అవసరం</string>
+    <!-- Select apps to auto reply -->
+    <!-- Group chats -->
+    <!-- Custom message editor -->
+    <!-- keys and app internal strings -->
+    <!-- App Language selection -->
+</resources>
