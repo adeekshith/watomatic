@@ -38,6 +38,18 @@
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de gemeenschap en deel ook je eigen ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Voeg Watomatic-vermelding toe om te helpen het woord te verspreiden</string>
     <string name="sent_using_Watomatic">Verzonden met https://git.io/watomatic</string>
+    <string name="share_app_text">\"Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het!\n https://git.io/watomatic</string>
+    <string name="share">Delen</string>
+    <string name="share_subject">Watomatis: Auto-reactie voor WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Laten we\nr/watomatic</u> bespreken</string>
     <!-- keys and app internal strings -->
     <!-- App Language selection -->
+    <string-array name="app_language">
+        <item>Engels</item>
+        <item>Portugees</item>
+    </string-array>
+    <string-array name="app_language_value">
+        <item>en</item>
+        <item>pt</item>
+    </string-array>
 </resources>
