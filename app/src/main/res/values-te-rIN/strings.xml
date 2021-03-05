@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
-    <string name="about">About</string>
-    <string name="settings">Settings</string>
-    <string name="privacy_policy_label">Privacy Policy</string>
+    <string name="about">మా గురించి</string>
+    <string name="settings">అమరికలు</string>
+    <string name="privacy_policy_label">గోప్యతా విధానం</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
@@ -12,11 +12,11 @@
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
     <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp \n(and soon Facebook messenger)</string>
-    <string name="decline">Decline</string>
+    <string name="decline">నిరాకరించండి</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
-    <string name="retry">Retry</string>
-    <string name="permission_dialog_title">Permission Required</string>
+    <string name="retry">తిరిగి ప్రయత్నించండి</string>
+    <string name="permission_dialog_title">అనుమతి అవసరం</string>
     <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
     <string name="permission_dialog_denied_title">Permission Denied</string>
     <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
