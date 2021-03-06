@@ -17,8 +17,8 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
 
 ### [Screenshots](./media/screenshots/)
 
-| [<img src="/media/screenshots/1.png" alt="Scr 1" height="240">][scr-page-link]  |  [<img src="/media/screenshots/2.png" alt="scr 2" height="240">][scr-page-link]  |
-| ------------------------------------------- | ------------------------------------------ |
+| [<img src="/media/screenshots/1.png" alt="Scr 1" height="360">][scr-page-link]  |  [<img src="/media/screenshots/2.png" alt="scr 2" height="360">][scr-page-link]  |  [<img src="/media/screenshots/3.png" alt="Scr 3" height="360">][scr-page-link]  |  [<img src="/media/screenshots/4.png" alt="Scr 4" height="360">][scr-page-link]  |
+| ------------------------------------------- | ------------------------------------------ | ------- | ------ |
 
 [**❯ More screenshots**](./media/screenshots/)
 
