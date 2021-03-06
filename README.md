@@ -46,19 +46,20 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 ### Support
 
-Help me offset development costs to keep this project alive
+Help me offset development costs to keep this project alive and support further development
 
 - [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) [![Liberapay financial goals badge](https://img.shields.io/liberapay/goal/dk?color=%23BF360C&label=%F0%9F%92%B0%20Goal%20%F0%9F%A4%92&style=for-the-badge)](https://liberapay.com/dk/donate)
 - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
 - BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
-- Reviewing the app on [play store](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
+- Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
   is one of the easiest ways you help so please do that 😃
 
 ### Contact:
 
 - Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
+- Community: [r/watomatic](https://www.reddit.com/r/watomatic/)
 - Email: watomatic@deekshith.in
 
-Deekshith: [twitter](https://twitter.com/adeekshith), [linkedin](https://www.linkedin.com/in/adeekshith/), [mastodon](https://mastodon.technology/@dsoft), [github](https://github.com/adeekshith) 
+Connect with Deekshith on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
 
 [scr-page-link]: ./media/screenshots/
