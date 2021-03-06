@@ -43,10 +43,6 @@
     <string name="share_subject">Watomatis: Auto-reactie voor WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Laten we\nr/watomatic</u> bespreken</string>
     <!-- keys and app internal strings -->
+    <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
-    <string-array name="app_language">
-        <item>Engels (en)</item>
-        <item>Nederlands (nl-rNL)</item>
-        <item>Portugees (pt-rBR)</item>
-    </string-array>
 </resources>
