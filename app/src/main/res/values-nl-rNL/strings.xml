@@ -45,8 +45,8 @@
     <!-- keys and app internal strings -->
     <!-- App Language selection -->
     <string-array name="app_language">
-        <item>Engels</item>
-        <item>Nederlands</item>
-        <item>Portugees</item>
+        <item>Engels (en)</item>
+        <item>Nederlands (nl-rNL)</item>
+        <item>Portugees (pt-rBR)</item>
     </string-array>
 </resources>

@@ -58,15 +58,16 @@
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
 
     <!-- App Language selection -->
+    <string name="app_language">App Language</string>
     <string-array name="app_language">
-        <item>English</item>
-        <item>Dutch</item>
-        <item>Portuguese</item>
+        <item>English (en)</item>
+        <item>Dutch (nl-rNL)</item>
+        <item>Portuguese (pt-rBR)</item>
     </string-array>
 
     <string-array name="app_language_value">
         <item>en</item>
         <item>nl-rNL</item>
-        <item>pt-rBr</item>
+        <item>pt-rBR</item>
     </string-array>
 </resources>
