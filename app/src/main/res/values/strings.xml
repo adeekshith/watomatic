@@ -57,6 +57,11 @@
     <!-- keys and app internal strings -->
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
 
+    <!-- Language codes (non translatable) -->
+    <string name="lang_code_en" translatable="false">en</string>
+    <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
+    <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
+
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
     <string-array name="app_language">
@@ -66,8 +71,8 @@
     </string-array>
 
     <string-array name="app_language_value">
-        <item>en</item>
-        <item>nl-rNL</item>
-        <item>pt-rBR</item>
+        <item>@string/lang_code_en</item>
+        <item>@string/lang_code_nl_rNL</item>
+        <item>@string/lang_code_pt_rBR</item>
     </string-array>
 </resources>
