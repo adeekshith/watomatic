@@ -6,8 +6,6 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.parishod.watomatic/)
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="80" /></a>
 
-[Screenshots](./media/screenshots/)
-
 ### Features:
 - Auto reply to every WhatsApp message
 - Set your own auto reply message
@@ -16,6 +14,13 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
   - No analytics or tracking
   - Does not connect to Internet
 - Free an open source
+
+### [Screenshots](./media/screenshots/)
+
+| <img src="/media/screenshots/1.png" alt="Scr 1" height="120">  |  <img src="/media/screenshots/2.png" alt="scr 2" height="120">  |
+| ------------------------------------------- | ------------------------------------------ |
+
+[**❯ More screenshots**](./media/screenshots/)
 
 WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Watomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
 
