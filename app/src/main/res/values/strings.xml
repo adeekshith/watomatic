@@ -60,11 +60,13 @@
     <!-- App Language selection -->
     <string-array name="app_language">
         <item>English</item>
+        <item>Dutch</item>
         <item>Portuguese</item>
     </string-array>
 
     <string-array name="app_language_value">
         <item>en</item>
+        <item>nl-rNL</item>
         <item>pt</item>
     </string-array>
 </resources>

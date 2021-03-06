@@ -46,10 +46,7 @@
     <!-- App Language selection -->
     <string-array name="app_language">
         <item>Engels</item>
+        <item>Nederlands</item>
         <item>Portugees</item>
-    </string-array>
-    <string-array name="app_language_value">
-        <item>en</item>
-        <item>pt</item>
     </string-array>
 </resources>
