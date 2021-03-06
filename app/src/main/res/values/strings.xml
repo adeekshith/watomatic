@@ -67,6 +67,6 @@
     <string-array name="app_language_value">
         <item>en</item>
         <item>nl-rNL</item>
-        <item>pt</item>
+        <item>pt-rBr</item>
     </string-array>
 </resources>

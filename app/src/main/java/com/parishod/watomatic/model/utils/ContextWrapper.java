@@ -19,9 +19,12 @@ public class ContextWrapper extends android.content.ContextWrapper {
         Resources res = context.getResources();
         Configuration configuration = res.getConfiguration();
 
-        Locale newLocale = new Locale("en");
-        if(lang.equalsIgnoreCase("pt")){
-            newLocale = new Locale("pt", "Br");
+        Locale newLocale;
+        String[] languageSplit = lang.split("-");
+        if(languageSplit.length == 2){
+            newLocale = new Locale(languageSplit[0], languageSplit[1]);
+        }else{
+            newLocale = new Locale(languageSplit[0]);
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
