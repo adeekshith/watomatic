@@ -2,9 +2,9 @@
 
 Watomatic sends an automated reply to everyone contacting you on WhatsApp. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a vacation responder.
 
-<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80" /></a>
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.parishod.watomatic/)
-<a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="80" /></a>
+<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="60" /></a>
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
+<a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
 ### [Screenshots](./media/screenshots/)
 
