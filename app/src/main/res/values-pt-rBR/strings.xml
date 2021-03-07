@@ -30,5 +30,6 @@
     <string name="share">Compartilhar</string>
     <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
     <!-- keys and app internal strings -->
+    <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
 </resources>
