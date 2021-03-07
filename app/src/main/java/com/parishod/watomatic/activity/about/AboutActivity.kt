@@ -3,28 +3,24 @@ package com.parishod.watomatic.activity.about
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.parishod.watomatic.BuildConfig
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
+import com.parishod.watomatic.databinding.ActivityAboutBinding
 
 class AboutActivity : BaseActivity () {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+        val binding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val privacyPolicyCard: CardView = findViewById(R.id.privacyPolicyCardView)
-        val developerAttrLink: TextView = findViewById(R.id.developerLink)
-        val appVersionText: TextView = findViewById(R.id.appVersion)
-
-        appVersionText.text = String.format(resources.getString(R.string.app_version), BuildConfig.VERSION_NAME)
-        privacyPolicyCard.setOnClickListener {
+        binding.appVersion.text = String.format(resources.getString(R.string.app_version), BuildConfig.VERSION_NAME)
+        binding.privacyPolicyCardView.setOnClickListener {
             val url = getString(R.string.url_privacy_policy);
             val i = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             startActivity(i)
         }
-        developerAttrLink.setOnClickListener {
+        binding.developerLink.setOnClickListener {
             val url = getString(R.string.url_adeekshith_twitter)
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(url)
