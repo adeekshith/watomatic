@@ -47,12 +47,15 @@
     <!-- App Language selection -->
     <string name="app_language">App taal</string>
     <string-array name="app_language">
-        <item>Engels (en)</item>
-        <item>Nederlands (nl-rNL)</item>
-        <item>Portugees (pt-rBR)</item>
+        <item>@string/lang_en</item>
+        <item>@string/lang_de_rDE</item>
+        <item>@string/lang_nl_rNL</item>
+        <item>@string/lang_pt_rBR</item>
     </string-array>
+
     <string-array name="app_language_value">
         <item>@string/lang_code_en</item>
+        <item>@string/lang_code_de_rDE</item>
         <item>@string/lang_code_nl_rNL</item>
         <item>@string/lang_code_pt_rBR</item>
     </string-array>
