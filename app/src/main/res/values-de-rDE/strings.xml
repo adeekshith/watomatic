@@ -43,6 +43,7 @@
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
     <!-- keys and app internal strings -->
+    <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">App-Sprache</string>
