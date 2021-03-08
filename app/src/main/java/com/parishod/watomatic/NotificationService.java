@@ -110,17 +110,11 @@ public class NotificationService extends NotificationListenerService {
         List<RemoteInput> remoteInputs = new ArrayList<>();
         PendingIntent pendingIntent = null;
         for(NotificationCompat.Action act : actions) {
-            if(act != null && act.getRemoteInputs() != null
-                && remoteInputs.size() == 0 ) {
+            if(act != null && act.getRemoteInputs() != null) {
                 for(int x = 0; x < act.getRemoteInputs().length; x++) {
                     RemoteInput remoteInput = act.getRemoteInputs()[x];
-                    if((remoteInput.getResultKey().toLowerCase().contains("reply")
-                        || remoteInput.getLabel().toString().toLowerCase().contains("reply"))
-                        && remoteInputs.size() == 0 ) {
-                        remoteInputs.add(remoteInput);
-                        pendingIntent = act.actionIntent;
-                        break; //Somehow this is giving two remote input objects with reply action so replying twice hence nreak once found
-                    }
+                    remoteInputs.add(remoteInput);
+                    pendingIntent = act.actionIntent;
                 }
             }
         }
