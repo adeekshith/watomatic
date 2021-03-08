@@ -27,7 +27,7 @@
         android:text="@string/watomatic_subreddit_label"
         android:textAllCaps="false"
         android:textColor="?attr/colorControlNormal"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/share_btn"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
