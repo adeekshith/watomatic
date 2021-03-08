@@ -11,8 +11,8 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        String lang = PreferencesManager.getPreferencesInstance(newBase).getSelectedLanguage();
-        ContextWrapper contextWrapper = ContextWrapper.wrap(newBase, lang);
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(newBase);
+        ContextWrapper contextWrapper = ContextWrapper.wrap(newBase, prefs.getSelectedLocale());
         super.attachBaseContext(contextWrapper);
     }
 }
