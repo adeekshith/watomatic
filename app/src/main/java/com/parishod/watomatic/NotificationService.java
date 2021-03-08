@@ -185,6 +185,10 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
         String title = sbn.getNotification().extras.getString("android.title");
+        String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
+        if(title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+            return false;
+        }
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
         return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
