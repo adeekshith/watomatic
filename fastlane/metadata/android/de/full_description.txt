@@ -1,0 +1,27 @@
+<i>Watomatic</i> sendet eine automatische Antwort an alle, die dich über WhatsApp kontaktieren. Dies ist besonders nützlich, wenn Sie von WhatsApp zu einem anderen Messenger wechseln möchten, aber auch als Urlaubsresponder.
+
+<b>Funktionen:</b>
+
+* Automatische Antwort auf jede WhatsApp-Nachricht
+* Automatische Antwort auf Gruppen-Chats setzen
+* Automatische Antwort auf Gruppen-Chats
+* Respektiert Ihre Privatsphäre
+* Keine Verbindung zum Internet
+* Keine Werbung
+* Open Source
+
+WhatsApp's jüngste Änderungen der Datenschutzrichtlinien haben eine enorme Migration auf mehr Privatsphäre-freundliche Apps wie Signal und andere ausgelöst.
+Doch den meisten von uns fällt es schwer, WhatsApp zu löschen, weil alle anderen es benutzen.
+Watomatic versucht, deine Migration zu vereinfachen, indem es deine Freunde und Kontakte automatisch informiert, dass du auf eine andere App gewechselt hast.
+Lege einfach eine automatische Antwort fest. Beispielsweise: „Ich benutze WhatsApp nicht mehr.
+Kontaktiere mich auf Signal…” und lass es den Rest für dich erledigen.
+
+<b>Fehlersuche:</b>
+
+Watomatic benötigt Zugriff auf WhatsApp-Benachrichtigungen, damit die automatische Antwort funktioniert.
+Die meisten Benutzer haben in der Regel Benachrichtigungen aktiviert, sollten also direkt aus dem System heraus funktionieren. Andernfalls stellen Sie sicher, dass WhatsApp Benachrichtigungen aktiviert sind und WhatsApp Fingerabdruck-Sperre deaktiviert ist, damit diese App funktioniert.
+
+Watomatic relies on WhatsApp notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure WhatsApp notifications are enabled and WhatsApp fingerprint lock is disabled for this app to work.
+This app is not associated with any company including WhatsApp, Facebook, Signal, Telegram.
+
+Diese App steht in keinem Zusammenhang zu Unternehmen, einschließlich WhatsApp, Facebook, Signal, Telegram.
