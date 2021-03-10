@@ -66,6 +66,10 @@
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
     <string name="app_logs_file_name">WatomaticLogs.txt</string>
+    <string name="share_email_body">Hi Team Watomatic,\nPlease find the attachment of the app logs.</string>
+    <string name="share_email_subject">Watomatic AppLogs</string>
+    <string name="share_email_id">watomatic@deekshith.in</string>
+    <string name="share_email_err_msg">Couldnot find any application to process this request</string>
     <string-array name="app_language">
         <item>English (en)</item>
         <item>Dutch (nl-rNL)</item>
