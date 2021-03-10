@@ -105,7 +105,7 @@ public class PreferencesManager {
         // Users upgrading from v1.7 and before
         // For upgrading users, preserve functionality by enabling only WhatsApp
         //   (remove this when time most users would have updated. May be in 3 weeks after deploying this?)
-        if (enabledAppsJsonStr == null) {
+        if (enabledAppsJsonStr == null || enabledAppsJsonStr.equals("[]")) {
             enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App("WhatsApp", "com.whatsapp")));
         }
 
