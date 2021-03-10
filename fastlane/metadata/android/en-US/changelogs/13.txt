@@ -1,0 +1,2 @@
+* 🐞 Fix app stopped working for some existing installs
+* ➚ Check GitHub release page for details: https://github.com/adeekshith/watomatic/releases
