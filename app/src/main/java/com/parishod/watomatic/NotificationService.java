@@ -37,11 +37,11 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        AppLogs.getInstance().writeToSDFile("===== Notification Received =======\n");
+        AppLogs.getInstance(getApplicationContext()).writeToSDFile("===== Notification Received =======\n");
         if(canReply(sbn)) {
             sendReply(sbn);
         }
-        AppLogs.getInstance().writeToSDFile("===== Notification End =======\n\n");
+        AppLogs.getInstance(getApplicationContext()).writeToSDFile("===== Notification End =======\n\n");
     }
 
     private boolean canReply(StatusBarNotification sbn){
@@ -60,7 +60,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void sendReply(StatusBarNotification sbn) {
-        AppLogs.getInstance().writeToSDFile("\tsendReply start\n");
+        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply start\n");
         NotificationWear notificationWear;
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
             notificationWear = extractQuickReplyNotification(sbn);
@@ -92,11 +92,11 @@ public class NotificationService extends NotificationListenerService {
             if (notificationWear.getPendingIntent() != null) {
                 logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
-                AppLogs.getInstance().writeToSDFile("\tsendReply success \n");
+                AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply success \n");
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
-            AppLogs.getInstance().writeToSDFile("\tsendReply error: " + e.getLocalizedMessage() + "\n");
+            AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply error: " + e.getLocalizedMessage() + "\n");
         }
     }
 
@@ -178,7 +178,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
-        AppLogs.getInstance().writeToSDFile("\tMessage from App: " + sbn.getPackageName() + "\n");
+        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tMessage from App: " + sbn.getPackageName() + "\n");
         return PreferencesManager.getPreferencesInstance(this)
                 .getEnabledApps()
                 .contains(sbn.getPackageName());
@@ -187,7 +187,7 @@ public class NotificationService extends NotificationListenerService {
     private boolean canSendReplyNow(StatusBarNotification sbn){
         String title = sbn.getNotification().extras.getString("android.title");
         if(title != null){
-            AppLogs.getInstance().writeToSDFile("\tMessage from: " + title + "\n");
+            AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tMessage from: " + title + "\n");
         }
         String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
         if(title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
@@ -220,7 +220,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isServiceEnabled(){
-        AppLogs.getInstance().writeToSDFile("\tisServiceEnabled: " + PreferencesManager.getPreferencesInstance(this).isServiceEnabled() + "\n");
+        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tisServiceEnabled: " + PreferencesManager.getPreferencesInstance(this).isServiceEnabled() + "\n");
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
     }
 
