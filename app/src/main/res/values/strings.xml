@@ -56,6 +56,7 @@
 
     <!-- keys and app internal strings -->
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
+    <string name="pref_share_logs" translatable="false">pref_share_logs</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
@@ -64,6 +65,7 @@
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
+    <string name="app_logs_file_name">WatomaticLogs.txt</string>
     <string-array name="app_language">
         <item>English (en)</item>
         <item>Dutch (nl-rNL)</item>

@@ -9,4 +9,8 @@
         android:entryValues="@array/app_language_value"
         app:useSimpleSummaryProvider="true"/>
 
+    <Preference android:title="Share Logs"
+        app:icon="@drawable/ic_share"
+        android:key="@string/pref_share_logs"/>
+
 </PreferenceScreen>

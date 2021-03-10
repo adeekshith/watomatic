@@ -13,6 +13,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private ListPreference languagePref;
+    private Preference shareLogsPref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -29,6 +30,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
                 return true;
             }
+        });
+
+        shareLogsPref = findPreference(getString(R.string.pref_share_logs));
+        shareLogsPref.setOnPreferenceClickListener(preference -> {
+            return true;
         });
     }
 

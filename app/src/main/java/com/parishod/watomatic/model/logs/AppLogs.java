@@ -2,6 +2,7 @@ package com.parishod.watomatic.model.logs;
 
 import android.content.Context;
 
+import com.parishod.watomatic.R;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,9 +13,10 @@ import java.io.InputStreamReader;
 public class AppLogs {
     private static AppLogs _instance;
     private Context thisContext;
-    private String logsFileName = "WatomaticLogs.txt";
+    private String logsFileName;
     public AppLogs(Context context){
         thisContext = context;
+        logsFileName = thisContext.getString(R.string.app_logs_file_name);
     }
 
     public static AppLogs getInstance(Context context){
