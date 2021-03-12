@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">à propos de Watomatic</string>
+    <string name="settings">paramètres</string>
+    <string name="privacy_policy_label">politique de confidentialité</string>
+    <string name="service_name">nom du service</string>
+    <string name="mainAutoReplyTextPlaceholder">réponse automatique</string>
+    <string name="auto_reply_default_message">réponse automatique\n⚠️ message par défaut</string>
+    <string name="mainAutoReplyLabel">Texte de réponse automatique</string>
+    <string name="mainAutoReplySwitchOffLabel">désactiver la réponse automatique</string>
+    <string name="mainAutoReplySwitchOnLabel">activer la réponse automatique</string>
+    <string name="mainAutoReplyEditBtnTooltip">Cliquer pour modifier</string>
+    <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider\nà quitter Whatsapp</string>
+    <string name="decline">refuser</string>
+    <string name="accept">accepter</string>
+    <string name="sure">Je suis sûr·e</string>
+    <string name="retry">essayer de nouveau</string>
+    <string name="permission_dialog_title">Gestion des permissions</string>
+    <string name="permission_dialog_msg">Cette application a besoin des permissions suivantes pour fonctionner.</string>
+    <string name="permission_dialog_denied_title">Gestion des permissions</string>
+    <string name="permission_dialog_denied_msg">Sans ces permissions, il est impossible de faire une réponse automatique. Êtes-vous sûr·e de vouloir les refuser ?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">activer pour les applications</string>
+    <string name="enable_auto_reply_switch_msg">Activer la réponse automatique.</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Réponse automatique pour les conversations de groupe</string>
+    <string name="group_reply_on_info_message">Réponse automatique pour les conversations de groupe activée</string>
+    <string name="group_reply_off_info_message">Réponse automatique pour les conversations de groupe désactivée</string>
+    <string name="time_picker_title">Fréquence d'envoi (BETA)</string>
+    <string name="time_picker_sub_title_default">Répondre sans limite à tous les messages</string>
+    <string name="time_picker_sub_title">Une fois tous les %1$d jour\/e par conversation</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Cliquer pour modifier la fréquence des réponses.</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">sauvegarder</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Ajouter le lien de l'origine de la réponse automatique. Merci.</string>
+    <string name="sent_using_Watomatic">Envoyé grâce à https://git.io/watomatic</string>
+    <string name="share_app_text">\"Merci à Watomatic de m'aider à me débarasser de Whatsapp. Essayez le !\n https://git.io/watomatic</string>
+    <string name="share">Partager</string>
+    <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Parlons de\nr/watomatic</u></string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Langue de l'application</string>
 </resources>
