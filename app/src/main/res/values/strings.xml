@@ -59,12 +59,14 @@
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
+    <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
     <string name="lang_de_rDE" translatable="false">Deutsche (de-rDE)</string>
     <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
     <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
+    <string name="lang_code_fr_rFR" translatable="false">fr-rFR</string>
     <string name="lang_code_de_rDE" translatable="false">de-rDE</string>
     <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
     <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
