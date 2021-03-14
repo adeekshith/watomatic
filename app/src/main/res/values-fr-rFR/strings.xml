@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
     <string name="about">à propos de Watomatic</string>
     <string name="settings">paramètres</string>
     <string name="privacy_policy_label">politique de confidentialité</string>
@@ -29,6 +30,7 @@
     <string name="time_picker_title">Fréquence d\'envoi (BETA)</string>
     <string name="time_picker_sub_title_default">Répondre sans limite à tous les messages</string>
     <string name="time_picker_sub_title">Une fois tous les %1$d jour\/e par conversation</string>
+    <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Cliquer pour modifier la fréquence des réponses.</string>
     <!-- Custom message editor -->
     <string name="save">sauvegarder</string>
