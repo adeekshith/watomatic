@@ -1,0 +1,6 @@
+* 📱 Fix layouts for small screens and for landscape mode #147
+* 🌍 New settings to change app language #141
+* 🇧🇷 Improved Portuguese pt-BR translation by @edsoncunha on GitHub #144
+* 🚀 Updated underlying libraries for better performance and stability #139
+* ⚙️ Upgraded data storage architecture to support other apps in the future #127
+* ➚ Check GitHub release page for details: https://github.com/adeekshith/watomatic/releases

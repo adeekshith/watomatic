@@ -1,0 +1,4 @@
+* 🇩🇪 New German de-rDE translations by r/watomatic member u/11equals7
+* 🇳🇱 New Dutch nl-rNL translations by r/watomatic member u/Marruk14
+* 🏃 Performance improvements
+* ➚ Check GitHub release page for details: https://github.com/adeekshith/watomatic/releases

@@ -15,29 +15,21 @@ public class ContextWrapper extends android.content.ContextWrapper {
     }
 
     //REF: https://medium.com/swlh/android-app-specific-language-change-programmatically-using-kotlin-d650a5392220
-    public static ContextWrapper wrap(Context context, String lang){
+    public static ContextWrapper wrap(Context context, Locale locale){
         Resources res = context.getResources();
         Configuration configuration = res.getConfiguration();
 
-        Locale newLocale;
-        String[] languageSplit = lang.split("-");
-        if(languageSplit.length == 2){
-            newLocale = new Locale(languageSplit[0], languageSplit[1]);
-        }else{
-            newLocale = new Locale(languageSplit[0]);
-        }
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            configuration.setLocale(newLocale);
+            configuration.setLocale(locale);
 
-            LocaleList localeList = new LocaleList(newLocale);
+            LocaleList localeList = new LocaleList(locale);
             LocaleList.setDefault(localeList);
             configuration.setLocales(localeList);
 
             context = context.createConfigurationContext(configuration);
             res.updateConfiguration(configuration, res.getDisplayMetrics());
         }else {
-            configuration.locale = newLocale;
+            configuration.locale = locale;
             res.updateConfiguration(configuration, res.getDisplayMetrics());
         }
         return new ContextWrapper(context);

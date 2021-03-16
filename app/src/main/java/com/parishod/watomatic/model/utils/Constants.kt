@@ -11,7 +11,7 @@ object Constants {
     const val LOGS_DB_NAME = "logs_messages_db"
 
     // Beta feature flags
-    const val BETA_FACEBOOK_SUPPORT_ENABLED = false
+    const val BETA_FACEBOOK_SUPPORT_ENABLED = true
 
     /**
      * Set of apps this app can auto reply

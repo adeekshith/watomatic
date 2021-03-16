@@ -14,7 +14,7 @@
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp \n(and soon Facebook messenger)</string>
+    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook messenger</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
@@ -30,6 +30,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Enable for apps</string>
     <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Select at-least a single app</string>
 
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
@@ -57,22 +58,33 @@
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
 
-    <!-- keys and app internal strings -->
-    <string name="key_pref_app_language" translatable="false">pref_app_language</string>
-    <string name="pref_share_logs" translatable="false">pref_share_logs</string>
-
-    <!-- Language codes (non translatable) -->
-    <string name="lang_code_en" translatable="false">en</string>
-    <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
-    <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
-
-    <!-- App Language selection -->
-    <string name="app_language">App Language</string>
+    <!-- Share debug logs -->
     <string name="app_logs_file_name">WatomaticLogs.txt</string>
     <string name="share_email_body">Hi Team Watomatic,\nPlease find the attachment of the app logs.</string>
     <string name="share_email_subject">Watomatic AppLogs</string>
     <string name="share_email_id">watomatic@deekshith.in</string>
     <string name="share_email_err_msg">Couldnot find any application to process this request</string>
+
+    <!-- keys and app internal strings -->
+    <string name="key_pref_app_language" translatable="false">pref_app_language</string>
+    <string name="pref_share_logs" translatable="false">pref_share_logs</string>
+
+    <!-- Local language names (non translatable) -->
+    <string name="lang_en" translatable="false">English (en)</string>
+    <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
+    <string name="lang_de_rDE" translatable="false">Deutsche (de-rDE)</string>
+    <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
+    <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
+
+    <!-- Language codes (non translatable) -->
+    <string name="lang_code_en" translatable="false">en</string>
+    <string name="lang_code_fr_rFR" translatable="false">fr-rFR</string>
+    <string name="lang_code_de_rDE" translatable="false">de-rDE</string>
+    <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
+    <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
+
+    <!-- App Language selection -->
+    <string name="app_language">App Language</string>
     <string-array name="app_language">
         <item>English (en)</item>
         <item>Dutch (nl-rNL)</item>

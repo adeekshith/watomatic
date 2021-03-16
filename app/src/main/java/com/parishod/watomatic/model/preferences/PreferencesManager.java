@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class PreferencesManager {
@@ -112,7 +113,7 @@ public class PreferencesManager {
         // Users upgrading from v1.7 and before
         // For upgrading users, preserve functionality by enabling only WhatsApp
         //   (remove this when time most users would have updated. May be in 3 weeks after deploying this?)
-        if (enabledAppsJsonStr == null) {
+        if (enabledAppsJsonStr == null || enabledAppsJsonStr.equals("[]")) {
             enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App("WhatsApp", "com.whatsapp")));
         }
 
@@ -179,8 +180,19 @@ public class PreferencesManager {
         }
     }
 
-    public String getSelectedLanguage(){
-        return _sharedPrefs.getString(KEY_SELECTED_APP_LANGUAGE, "en");
+    public String getSelectedLanguageStr(String defaultLangStr){
+        return _sharedPrefs.getString(KEY_SELECTED_APP_LANGUAGE, defaultLangStr);
+    }
+
+    public Locale getSelectedLocale () {
+        String thisLangStr = getSelectedLanguageStr(null);
+        if (thisLangStr == null || thisLangStr.isEmpty()) {
+            return Locale.getDefault();
+        }
+        String[] languageSplit = thisLangStr.split("-");
+        return (languageSplit.length == 2)
+                ? new Locale(languageSplit[0], languageSplit[1])
+                : new Locale(languageSplit[0]);
     }
 
     public boolean isDismissNotificationEnabled(){
