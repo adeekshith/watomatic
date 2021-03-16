@@ -27,6 +27,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Enable for apps</string>
     <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Select at-least a single app</string>
 
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
