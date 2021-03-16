@@ -1,8 +1,8 @@
-<i>Watomatic</i> automatically replies to all your WhatsApp messages. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a simple vacation responder.
+<i>Watomatic</i> automatically replies to all your WhatsApp and Facebook messages. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a simple vacation responder.
 
 <b>Features:</b>
 
-* Auto reply to every WhatsApp message
+* Auto reply to every WhatsApp and Facebook messages
 * Set your own auto reply message
 * Auto reply to group chats
 * Respects your privacy
