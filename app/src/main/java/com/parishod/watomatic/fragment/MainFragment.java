@@ -199,7 +199,12 @@ public class MainFragment extends Fragment {
     private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
+            if (!isChecked && preferencesManager.getEnabledApps().size() <= 1) { // Keep at-least one app selected
+                Toast.makeText(mActivity, getResources().getString(R.string.error_atleast_single_app_must_be_selected), Toast.LENGTH_SHORT).show();
+                buttonView.setChecked(true);
+            } else {
+                preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
+            }
         }
     };
 

@@ -14,7 +14,7 @@
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp \n(and soon Facebook messenger)</string>
+    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook messenger</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
@@ -27,6 +27,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Enable for apps</string>
     <string name="enable_auto_reply_switch_msg">Enable Auto Reply Switch First.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Select at-least a single app</string>
 
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
