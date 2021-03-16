@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">à propos de Watomatic</string>
-    <string name="settings">paramètres</string>
-    <string name="privacy_policy_label">politique de confidentialité</string>
-    <string name="service_name">nom du service</string>
-    <string name="mainAutoReplyTextPlaceholder">réponse automatique</string>
-    <string name="auto_reply_default_message">réponse automatique\n⚠️ message par défaut</string>
+    <string name="app_name">Watomatic</string>
+    <string name="about">À propos de Watomatic</string>
+    <string name="settings">Paramètres</string>
+    <string name="privacy_policy_label">Politique de confidentialité</string>
+    <string name="service_name">Nom du service</string>
+    <string name="mainAutoReplyTextPlaceholder">(Réponse personnalisée)</string>
+    <string name="auto_reply_default_message">Réponse automatique\n⚠️ Utilisateur non joignable</string>
     <string name="mainAutoReplyLabel">Texte de réponse automatique</string>
-    <string name="mainAutoReplySwitchOffLabel">désactiver la réponse automatique</string>
-    <string name="mainAutoReplySwitchOnLabel">activer la réponse automatique</string>
+    <string name="mainAutoReplySwitchOffLabel">Désactiver la réponse automatique</string>
+    <string name="mainAutoReplySwitchOnLabel">Activer la réponse automatique</string>
     <string name="mainAutoReplyEditBtnTooltip">Cliquer pour modifier</string>
     <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider\nà quitter Whatsapp</string>
     <string name="decline">refuser</string>
@@ -29,7 +30,9 @@
     <string name="time_picker_title">Fréquence d\'envoi (BETA)</string>
     <string name="time_picker_sub_title_default">Répondre sans limite à tous les messages</string>
     <string name="time_picker_sub_title">Une fois tous les %1$d jour\/e par conversation</string>
+    <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Cliquer pour modifier la fréquence des réponses.</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
