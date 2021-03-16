@@ -1,0 +1,3 @@
+* 🎉 Enable auto reply for Facebook Messenger
+* 🇫🇷 New French (fr-rFR) translations by @Tonus1 Github
+* ➚ Check GitHub release page for details: https://github.com/adeekshith/watomatic/releases
