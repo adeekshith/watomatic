@@ -11,7 +11,6 @@
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
     <string name="mainAutoReplySwitchOnLabel">Automatische Antwort AN</string>
     <string name="mainAutoReplyEditBtnTooltip">Klick um Antworttext zu bearbeiten</string>
-    <string name="to_help_you_leave_whatsapp">Automatische Antwort um dir zu helfen WhatsApp \nzu verlassen (bald auch Facebook-Messenger)</string>
     <string name="decline">Ablehnen</string>
     <string name="accept">Zustimmen</string>
     <string name="sure">Ich bin mir sicher</string>
