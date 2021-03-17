@@ -149,7 +149,6 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void logReply(StatusBarNotification sbn){
-        String title = sbn.getNotification().extras.getString("android.title");
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         if(packageIndex <= 0){
@@ -157,8 +156,27 @@ public class NotificationService extends NotificationListenerService {
             messageLogsDB.appPackageDao().insertAppPackage(appPackage);
             packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         }
-        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
+        MessageLog logs = new MessageLog(packageIndex, getTitle(sbn), sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
         messageLogsDB.logsDao().logReply(logs);
+    }
+
+    private String getTitle(StatusBarNotification sbn) {
+        String title = "";
+        if(sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
+            title = sbn.getNotification().extras.getString("android.hiddenConversationTitle");
+            //Just to avoid null cases, if by any chance hiddenConversationTitle comes null for group message
+            // then extract group name from title
+            if(title == null) {
+                title = sbn.getNotification().extras.getString("android.title");
+                int index = title.indexOf(':');
+                if (index != -1) {
+                    title = title.substring(0, index);
+                }
+            }
+        }else{
+            title = sbn.getNotification().extras.getString("android.title");
+        }
+        return title;
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
