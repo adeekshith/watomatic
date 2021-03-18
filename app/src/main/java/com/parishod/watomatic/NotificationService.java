@@ -1,8 +1,10 @@
 package com.parishod.watomatic;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -171,6 +173,25 @@ public class NotificationService extends NotificationListenerService {
                 int index = title.indexOf(':');
                 if (index != -1) {
                     title = title.substring(0, index);
+                }
+            }
+
+            //To eliminate the case where group title has number of messages count in it
+            Parcelable b[] = (Parcelable[]) sbn.getNotification().extras.get(Notification.EXTRA_MESSAGES);
+            if(b != null && b.length > 1){
+                int startIndex = title.lastIndexOf('(');
+                int endIndex = title.lastIndexOf(')');
+                if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                    String strBetween = title.substring(startIndex + 1, endIndex);
+                    //Split the string and check if it has 2 components and 1st component is integer
+                    String[] splitStr = strBetween.split(" ");
+                    try {
+                        if(splitStr.length > 1 && Integer.parseInt(splitStr[0]) != -1){
+                            title = title.substring(0, startIndex);
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }else{
