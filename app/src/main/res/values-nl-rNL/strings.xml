@@ -42,7 +42,7 @@
     <string name="share_app_text">\"Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het uit!\n https://git.io/watomatic</string>
     <string name="share">Delen</string>
     <string name="share_subject">Watomatic: Auto-reactie voor WhatsApp</string>
-    <string name="watomatic_subreddit_label"><u>Laten we\nr/watomatic</u> bespreken</string>
+    <string name="watomatic_subreddit_label"><u>Laten we bespreken\nr/watomatic</u></string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
