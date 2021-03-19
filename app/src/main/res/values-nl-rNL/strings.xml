@@ -4,42 +4,44 @@
     <string name="about">Over</string>
     <string name="settings">Instellingen</string>
     <string name="privacy_policy_label">Privacybeleid</string>
-    <string name="service_name">Luisteraar van inkomend bericht</string>
+    <string name="service_name">Luisteraar van inkomende berichten</string>
     <string name="mainAutoReplyTextPlaceholder">(Aangepaste Reactie)</string>
     <string name="auto_reply_default_message">Automatisch antwoord\n⚠️ Gebruiker niet beschikbaar</string>
     <string name="mainAutoReplyLabel">Auto-reactietekst</string>
     <string name="mainAutoReplySwitchOffLabel">Automatisch antwoorden UIT</string>
     <string name="mainAutoReplySwitchOnLabel">Automatisch antwoorden AAN</string>
     <string name="mainAutoReplyEditBtnTooltip">Klik om de auto-reactietekst te bewerken</string>
+    <string name="to_help_you_leave_whatsapp">Auto-reactie om je te helpen WhatsApp en Facebook messenger te verlaten</string>
     <string name="decline">Weigeren</string>
     <string name="accept">Accepteren</string>
     <string name="sure">Ik weet het zeker</string>
     <string name="retry">Opnieuw proberen</string>
     <string name="permission_dialog_title">Toestemming Vereist</string>
-    <string name="permission_dialog_msg">Deze app vereist machtigingen tot meldingen om te werken.</string>
+    <string name="permission_dialog_msg">Deze app vereist machtigingen tot meldingen om te kunnen werken.</string>
     <string name="permission_dialog_denied_title">Toestemming Geweigerd</string>
     <string name="permission_dialog_denied_msg">Zonder deze machtiging kan de app niet automatisch reageren op de meldingen. Weet u zeker dat u de machtiging wilt weigeren?</string>
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Inschakelen voor apps</string>
     <string name="enable_auto_reply_switch_msg">Schakel eerst de auto-reactieknop in.</string>
+    <string name="error_atleast_single_app_must_be_selected">Fout: Selecteer ten minste één app</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Auto-reactie voor groepsapps</string>
     <string name="group_reply_on_info_message">Auto-reactie ingeschakeld voor groepsapps</string>
     <string name="group_reply_off_info_message">Auto-reactie uitgeschakeld voor groepsapps</string>
     <string name="time_picker_title">Reactie-frequentie (BETA)</string>
     <string name="time_picker_sub_title_default">Reageer op alle berichten zonder controle</string>
-    <string name="time_picker_sub_title">Reageer slechts eenmaal per %1$d dag\/s voor elke persoon\/groep</string>
+    <string name="time_picker_sub_title">Reageer slechts eenmaal per %1$d dag\/en voor elke persoon\/groep</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Klik om de tijdsvertraging tussen de reacties aan te passen</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Opslaan</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de gemeenschap en deel ook je eigen ➚</u></string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de community en deel ook je eigen ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Voeg Watomatic-vermelding toe om te helpen het woord te verspreiden</string>
     <string name="sent_using_Watomatic">Verzonden met https://git.io/watomatic</string>
-    <string name="share_app_text">\"Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het!\n https://git.io/watomatic</string>
+    <string name="share_app_text">\"Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het uit!\n https://git.io/watomatic</string>
     <string name="share">Delen</string>
-    <string name="share_subject">Watomatis: Auto-reactie voor WhatsApp</string>
+    <string name="share_subject">Watomatic: Auto-reactie voor WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Laten we\nr/watomatic</u> bespreken</string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
