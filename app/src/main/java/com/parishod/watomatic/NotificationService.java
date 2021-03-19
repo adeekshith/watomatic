@@ -180,18 +180,8 @@ public class NotificationService extends NotificationListenerService {
             Parcelable b[] = (Parcelable[]) sbn.getNotification().extras.get(Notification.EXTRA_MESSAGES);
             if(b != null && b.length > 1){
                 int startIndex = title.lastIndexOf('(');
-                int endIndex = title.lastIndexOf(')');
-                if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
-                    String strBetween = title.substring(startIndex + 1, endIndex);
-                    //Split the string and check if it has 2 components and 1st component is integer
-                    String[] splitStr = strBetween.split(" ");
-                    try {
-                        if(splitStr.length > 1 && Integer.parseInt(splitStr[0]) != -1){
-                            title = title.substring(0, startIndex);
-                        }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
+                if (startIndex != -1) {
+                    title = title.substring(0, startIndex);
                 }
             }
         }else{
