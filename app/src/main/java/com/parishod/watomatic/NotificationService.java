@@ -144,10 +144,9 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
-        String title = sbn.getNotification().extras.getString("android.title");
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(getTitle(sbn), sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private void logReply(StatusBarNotification sbn){
