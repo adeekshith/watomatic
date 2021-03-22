@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Tietoja</string>
+    <string name="settings">Asetukset</string>
+    <string name="privacy_policy_label">Tietosuojakäytännöt</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
