@@ -1,0 +1,3 @@
+* 🛠 Fix reply frequency for group messages
+* 🇳🇱 Dutch translation improvements by m2wz via Crowin
+* ➚ Check GitHub release page for details: https://github.com/adeekshith/watomatic/releases
