@@ -9,6 +9,11 @@
         android:entryValues="@array/app_language_value"
         app:useSimpleSummaryProvider="true"/>
 
+    <SwitchPreference android:title="@string/show_notification_label"
+        android:key="@string/pref_show_notification"
+        app:icon="@drawable/ic_notification"
+        />
+
     <Preference android:title="Share Logs"
         app:icon="@drawable/ic_share"
         android:key="@string/pref_share_logs"/>
