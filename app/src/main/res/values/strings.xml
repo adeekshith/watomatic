@@ -85,15 +85,4 @@
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
-    <string-array name="app_language">
-        <item>English (en)</item>
-        <item>Dutch (nl-rNL)</item>
-        <item>Portuguese (pt-rBR)</item>
-    </string-array>
-
-    <string-array name="app_language_value">
-        <item>@string/lang_code_en</item>
-        <item>@string/lang_code_nl_rNL</item>
-        <item>@string/lang_code_pt_rBR</item>
-    </string-array>
 </resources>
