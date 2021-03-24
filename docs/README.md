@@ -6,12 +6,12 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
-### [Screenshots](./media/screenshots/)
+### [Screenshots](/screenshots.md)
 
 | [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/1.png" alt="Scr 1">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/2.png" alt="scr 2">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/3.png" alt="Scr 3">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/4.png" alt="Scr 4">][scr-page-link]  |
 | ------------------------------------------- | ------------------------------------------ | ------- | ------ |
 
-[**❯ More screenshots**](./media/screenshots/)
+[**❯ More screenshots**](/screenshots.md)
 
 ### Features:
 - Auto reply to every WhatsApp message
