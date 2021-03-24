@@ -11,6 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Désactiver la réponse automatique</string>
     <string name="mainAutoReplySwitchOnLabel">Activer la réponse automatique</string>
     <string name="mainAutoReplyEditBtnTooltip">Cliquer pour modifier</string>
+    <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider à quitter Whatsapp et Facebook messenger</string>
     <string name="decline">refuser</string>
     <string name="accept">accepter</string>
     <string name="sure">Je suis sûr·e</string>
@@ -22,6 +23,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">activer pour les applications</string>
     <string name="enable_auto_reply_switch_msg">Activer la réponse automatique.</string>
+    <string name="error_atleast_single_app_must_be_selected">Erreur: Sélectionnez au moins une application</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Réponse automatique pour les conversations de groupe</string>
     <string name="group_reply_on_info_message">Réponse automatique pour les conversations de groupe activée</string>

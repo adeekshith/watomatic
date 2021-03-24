@@ -1,10 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Tietoja</string>
+    <string name="settings">Asetukset</string>
+    <string name="privacy_policy_label">Tietosuojakäytännöt</string>
+    <string name="service_name">Saapuvien viestien ilmoitusten tarkkailija</string>
+    <string name="mainAutoReplyTextPlaceholder">(Mukautettu vastaus)</string>
+    <string name="auto_reply_default_message">Automaattinen vastaus\n⚠️ Käyttäjä ei ole tavoitettavissa</string>
+    <string name="mainAutoReplyLabel">Automaattisen vastauksen teksti</string>
+    <string name="mainAutoReplySwitchOffLabel">Automaattinen vastaus pois käytöstä</string>
+    <string name="mainAutoReplySwitchOnLabel">Automaattinen vastaus käytössä</string>
+    <string name="mainAutoReplyEditBtnTooltip">Napsauta muokataksesi automaattisen vastauksen tekstiä</string>
+    <string name="to_help_you_leave_whatsapp">Automaattinen vastaus auttaa sinua poistumaan WhatsAppista ja Facebook Messengeristä</string>
+    <string name="decline">Kieltäydy</string>
+    <string name="accept">Hyväksy</string>
+    <string name="sure">Olen varma</string>
+    <string name="retry">Yritä uudelleen</string>
+    <string name="permission_dialog_title">Käyttöoikeus tarvitaan</string>
+    <string name="permission_dialog_msg">Tämä sovellus vaatii ilmoitusten käyttöoikeudet toimiakseen.</string>
+    <string name="permission_dialog_denied_title">Lupa evätty</string>
+    <string name="permission_dialog_denied_msg">Ilman tätä käyttöoikeutta sovellus ei voi vastata automaattisesti ilmoituksiin. Oletko varma, että haluat kieltää käyttöoikeuden?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Salli sovelluksille</string>
+    <string name="enable_auto_reply_switch_msg">Ota ensin automaattinen vastaus käyttöön.</string>
+    <string name="error_atleast_single_app_must_be_selected">Virhe: Valitse ainakin yksi sovellus</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Automaattinen vastaus ryhmäkeskusteluihin</string>
+    <string name="group_reply_on_info_message">Automaattinen vastaus ryhmäkeskusteluihin otettu käyttöön</string>
+    <string name="group_reply_off_info_message">Automaattinen vastaus ryhmäkeskusteluihin otettu pois käytöstä</string>
+    <string name="time_picker_title">Vastaustiheys (BETA)</string>
+    <string name="time_picker_sub_title_default">Vastaa kaikkiin viesteihin ilman rajoituksia</string>
+    <string name="time_picker_sub_title">Vastaa vain kerran %1$d päivässä\/s jokaiselle henkilölle\/ryhmälle</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Napauta muokataksesi vastausten välistä aikaviivettä</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Tallenna</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic linkki auttaaksesi levittämään sanaa</string>
+    <string name="sent_using_Watomatic">Lähetetty käyttäen Watomaticia: https://git.io/watomatic</string>
+    <string name="share_app_text">\"Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin!\"\n https://git.io/watomatic</string>
+    <string name="share">Jaa</string>
+    <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
+    <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Sovelluksen kieli</string>
 </resources>
