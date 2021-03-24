@@ -25,7 +25,6 @@ public class PreferencesManager {
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
-    private final String KEY_DISMISS_NOTIFICATION = "pref_dismiss_notification";
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
@@ -60,13 +59,6 @@ public class PreferencesManager {
             if (newInstall) {
                 setAppsAsEnabled(Constants.SUPPORTED_APPS);
             }
-        }
-
-        //for existing users preserve dismissing notification behaviour
-        boolean existingUser = _sharedPrefs.contains(KEY_SERVICE_ENABLED)
-                && !_sharedPrefs.contains(KEY_DISMISS_NOTIFICATION);
-        if (existingUser) {
-            setDismissNotificationPref(true);
         }
 
         if (isFirstInstall(thisAppContext)) {
@@ -193,15 +185,5 @@ public class PreferencesManager {
         return (languageSplit.length == 2)
                 ? new Locale(languageSplit[0], languageSplit[1])
                 : new Locale(languageSplit[0]);
-    }
-
-    public boolean isDismissNotificationEnabled(){
-        return _sharedPrefs.getBoolean(KEY_DISMISS_NOTIFICATION,false);
-    }
-
-    public void setDismissNotificationPref(boolean enabled){
-        SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putBoolean(KEY_DISMISS_NOTIFICATION, enabled);
-        editor.apply();
     }
 }
