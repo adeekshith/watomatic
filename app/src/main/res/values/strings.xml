@@ -23,9 +23,6 @@
     <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
     <string name="permission_dialog_denied_title">Permission Denied</string>
     <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
-    <string name="dismiss_notification_switch_label">Dismiss Notification\n*(Works on Oreo+ devices)</string>
-    <string name="dismiss_notification_switch_on_text">All the Replied Notifications will be dismissed</string>
-    <string name="dismiss_notification_switch_off_text">Turn this ON to dismiss auto replied notifications</string>
 
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Enable for apps</string>

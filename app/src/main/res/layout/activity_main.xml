@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-    <LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".activity.main.MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_frame_layout"
+        android:name="com.parishod.watomatic.fragment.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/branding_frame_layout"
+        />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/branding_frame_layout"
+        android:name="com.parishod.watomatic.fragment.BrandingFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".activity.main.MainActivity"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_frame_layout"
-            android:name="com.parishod.watomatic.fragment.MainFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/notification_settings_frame_layout"
-            android:name="com.parishod.watomatic.fragment.NotificationSettingsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/branding_frame_layout"
-            android:name="com.parishod.watomatic.fragment.BrandingFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
