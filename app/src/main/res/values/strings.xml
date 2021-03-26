@@ -45,7 +45,7 @@
     <string name="save">Save</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
-    <string name="sent_using_Watomatic">Sent using https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Sent using git.io/watomatic</string>
 
     <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
     <string name="share">Share</string>
