@@ -38,6 +38,7 @@
     <string name="save">Simpan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Tambahkan arribusi Watomatic untuk membantu menyebarkan berita</string>
+    <string name="sent_using_Watomatic">Dikirim menggunakan git.io/watomatic</string>
     <string name="share_app_text">\"Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah!\n https://git.io/watomatic</string>
     <string name="share">Bagikan</string>
     <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
