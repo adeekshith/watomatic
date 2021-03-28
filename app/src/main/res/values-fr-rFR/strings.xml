@@ -38,6 +38,7 @@
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Ajouter le lien de l\'origine de la réponse automatique. Merci.</string>
+    <string name="sent_using_Watomatic">Envoyé grâce à git.io/watomatic</string>
     <string name="share_app_text">\"Merci à Watomatic de m\'aider à me débarasser de Whatsapp. Essayez le !\n https://git.io/watomatic</string>
     <string name="share">Partager</string>
     <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>
