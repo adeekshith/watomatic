@@ -38,7 +38,7 @@
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic linkki auttaaksesi levittämään sanaa</string>
-    <string name="sent_using_Watomatic">Lähetetty käyttäen Watomaticia: https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Lähetetty käyttäen git.io/watomatic</string>
     <string name="share_app_text">\"Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin!\"\n https://git.io/watomatic</string>
     <string name="share">Jaa</string>
     <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
