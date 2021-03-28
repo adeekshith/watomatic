@@ -38,6 +38,7 @@
     <string name="save">Opslaan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de community en deel ook je eigen ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Voeg Watomatic-vermelding toe om te helpen het woord te verspreiden</string>
+    <string name="sent_using_Watomatic">Verzonden met git.io/watomatic</string>
     <string name="share_app_text">\"Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het uit!\n https://git.io/watomatic</string>
     <string name="share">Delen</string>
     <string name="share_subject">Watomatic: Auto-reactie voor WhatsApp</string>
