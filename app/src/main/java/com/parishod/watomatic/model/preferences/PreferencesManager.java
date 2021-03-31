@@ -25,6 +25,7 @@ public class PreferencesManager {
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
+    private final String KEY_IS_SHOW_NOTIFICATIONS_ENABLED = "pref_show_notification";
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
@@ -185,5 +186,9 @@ public class PreferencesManager {
         return (languageSplit.length == 2)
                 ? new Locale(languageSplit[0], languageSplit[1])
                 : new Locale(languageSplit[0]);
+    }
+
+    public boolean isShowNotificationEnabled(){
+        return _sharedPrefs.getBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED,false);
     }
 }

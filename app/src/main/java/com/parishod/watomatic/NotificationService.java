@@ -94,7 +94,9 @@ public class NotificationService extends NotificationListenerService {
                 logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply success \n");
-                NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
+                if(PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
+                    NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
+                }
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
