@@ -17,6 +17,7 @@ import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.NotificationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,7 @@ public class NotificationService extends NotificationListenerService {
                 logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply success \n");
+                NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
@@ -190,7 +192,7 @@ public class NotificationService extends NotificationListenerService {
             AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tMessage from: " + title + "\n");
         }
         String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
-        if(title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+        if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
             return false;
         }
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
@@ -233,5 +235,13 @@ public class NotificationService extends NotificationListenerService {
         //by default unless explicitly set by the apps hence checking not 0
         return sbn.getNotification().when == 0 ||
                 (System.currentTimeMillis() - sbn.getNotification().when) < MAX_OLD_NOTIFICATION_CAN_BE_REPLIED_TIME_MS;
+    }
+
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn) {
+        super.onNotificationRemoved(sbn);
+        if(sbn.getPackageName().equalsIgnoreCase(BuildConfig.APPLICATION_ID)){
+            NotificationHelper.getInstance(getApplicationContext()).markNotificationDismissed(sbn.getGroupKey());
+        }
     }
 }

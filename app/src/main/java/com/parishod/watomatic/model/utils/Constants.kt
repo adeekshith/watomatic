@@ -9,6 +9,8 @@ object Constants {
     const val PERMISSION_DIALOG_DENIED_MSG = "permission_dialog_denied_msg"
     const val PERMISSION_DIALOG_DENIED = "permission_dialog_denied"
     const val LOGS_DB_NAME = "logs_messages_db"
+    const val NOTIFICATION_CHANNEL_ID = "watomatic"
+    const val NOTIFICATION_CHANNEL_NAME = "watomatic_channel"
 
     // Beta feature flags
     const val BETA_FACEBOOK_SUPPORT_ENABLED = true
