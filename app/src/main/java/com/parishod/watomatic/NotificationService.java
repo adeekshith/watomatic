@@ -13,7 +13,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
-import com.parishod.watomatic.model.logs.AppLogs;
 import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
@@ -60,7 +59,6 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void sendReply(StatusBarNotification sbn) {
-        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply start\n");
         NotificationWear notificationWear;
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
             notificationWear = extractQuickReplyNotification(sbn);
@@ -92,14 +90,12 @@ public class NotificationService extends NotificationListenerService {
             if (notificationWear.getPendingIntent() != null) {
                 logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
-                AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply success \n");
                 if(PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
                 }
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
-            AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tsendReply error: " + e.getLocalizedMessage() + "\n");
         }
     }
 

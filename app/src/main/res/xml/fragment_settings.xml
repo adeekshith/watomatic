@@ -14,8 +14,4 @@
         app:icon="@drawable/ic_notification"
         />
 
-    <Preference android:title="Share Logs"
-        app:icon="@drawable/ic_share"
-        android:key="@string/pref_share_logs"/>
-
 </PreferenceScreen>
