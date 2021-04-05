@@ -11,7 +11,6 @@
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
     <string name="mainAutoReplySwitchOnLabel">Automatische Antwort AN</string>
     <string name="mainAutoReplyEditBtnTooltip">Klick um Antworttext zu bearbeiten</string>
-    <string name="to_help_you_leave_whatsapp">Automatische Antwort um dir zu helfen WhatsApp \nzu verlassen (bald auch Facebook-Messenger)</string>
     <string name="decline">Ablehnen</string>
     <string name="accept">Zustimmen</string>
     <string name="sure">Ich bin mir sicher</string>
@@ -37,7 +36,7 @@
     <string name="save">Speichern</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Vorlagen aus der Community ansehen und eigene teilen ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Watomatic-Link anhängen, um uns zu unterstützen. Danke</string>
-    <string name="sent_using_Watomatic">Gesendet mit https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Gesendet mit git.io/watomatic</string>
     <string name="share_app_text">\"Ich benutze Watomatic um mich von WhatsApp zu lösen. Probiere es aus!\n https://git.io/watomatic</string>
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>

@@ -1,10 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Tentang</string>
+    <string name="settings">Pengaturan</string>
+    <string name="privacy_policy_label">Kebijakan Privasi</string>
+    <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
+    <string name="mainAutoReplyTextPlaceholder">(Balasan Kustom)</string>
+    <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
+    <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
+    <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
+    <string name="mainAutoReplySwitchOnLabel">Balasan otomatis AKTIF</string>
+    <string name="mainAutoReplyEditBtnTooltip">Klik untuk mengedit teks balasan otomatis</string>
+    <string name="to_help_you_leave_whatsapp">Balas otomatis untuk membantu Anda meninggalkan WhatsApp dan Facebook messenger</string>
+    <string name="decline">Tolak</string>
+    <string name="accept">Terima</string>
+    <string name="sure">Saya Yakin</string>
+    <string name="retry">Ulangi</string>
+    <string name="permission_dialog_title">Izin Diperlukan</string>
+    <string name="permission_dialog_msg">Aplikasi ini membutuhkan izin Akses Pemberitahuan agar berfungsi.</string>
+    <string name="permission_dialog_denied_title">Izin Ditolak</string>
+    <string name="permission_dialog_denied_msg">Tanpa izin ini, aplikasi tidak dapat membalas pemberitahuan secara otomatis. Anda yakin ingin menolak izin?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Aktifkan untuk aplikasi</string>
+    <string name="enable_auto_reply_switch_msg">Pertama Aktifkan Tombol Balas Otomatis.</string>
+    <string name="error_atleast_single_app_must_be_selected">Kesalahan: Pilih setidaknya satu aplikasi</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Balasan otomatis untuk Obrolan grup</string>
+    <string name="group_reply_on_info_message">Balasan otomatis diaktifkan untuk obrolan grup</string>
+    <string name="group_reply_off_info_message">Balasan otomatis dinonaktifkan untuk obrolan grup</string>
+    <string name="time_picker_title">Frekuensi balasan (BETA)</string>
+    <string name="time_picker_sub_title_default">Tanggapi semua pesan tanpa kontrol</string>
+    <string name="time_picker_sub_title">Tanggapi hanya sekali setiap %1$d hari untuk setiap orang\/grup</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Klik untuk mengedit jeda waktu di antara balasan</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Simpan</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Tambahkan arribusi Watomatic untuk membantu menyebarkan berita</string>
+    <string name="sent_using_Watomatic">Dikirim menggunakan git.io/watomatic</string>
+    <string name="share_app_text">\"Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah!\n https://git.io/watomatic</string>
+    <string name="share">Bagikan</string>
+    <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Bahasa Aplikasi</string>
 </resources>

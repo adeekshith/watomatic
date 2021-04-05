@@ -19,6 +19,7 @@ public class CustomRepliesData {
     public static final String KEY_CUSTOM_REPLY_ALL = "user_custom_reply_all";
     public static final int MAX_NUM_CUSTOM_REPLY = 10;
     public static final int MAX_STR_LENGTH_CUSTOM_REPLY = 500;
+    public static final String RTL_ALIGN_INVISIBLE_CHAR = " \u200F\u200F\u200E "; // https://android.stackexchange.com/a/190024
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
@@ -117,7 +118,7 @@ public class CustomRepliesData {
     public String getTextToSendOrElse (String defaultTextToSend) {
         String currentText = get();
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
-            currentText += "\n\n" + thisAppContext.getString(R.string.sent_using_Watomatic);
+            currentText += "\n\n"+ RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
         }
         return (currentText != null)
                 ? currentText

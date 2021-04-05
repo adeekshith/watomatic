@@ -11,7 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Désactiver la réponse automatique</string>
     <string name="mainAutoReplySwitchOnLabel">Activer la réponse automatique</string>
     <string name="mainAutoReplyEditBtnTooltip">Cliquer pour modifier</string>
-    <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider\nà quitter Whatsapp</string>
+    <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider à quitter Whatsapp et Facebook messenger</string>
     <string name="decline">refuser</string>
     <string name="accept">accepter</string>
     <string name="sure">Je suis sûr·e</string>
@@ -23,6 +23,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">activer pour les applications</string>
     <string name="enable_auto_reply_switch_msg">Activer la réponse automatique.</string>
+    <string name="error_atleast_single_app_must_be_selected">Erreur: Sélectionnez au moins une application</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Réponse automatique pour les conversations de groupe</string>
     <string name="group_reply_on_info_message">Réponse automatique pour les conversations de groupe activée</string>
@@ -37,7 +38,7 @@
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Ajouter le lien de l\'origine de la réponse automatique. Merci.</string>
-    <string name="sent_using_Watomatic">Envoyé grâce à https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Envoyé grâce à git.io/watomatic</string>
     <string name="share_app_text">\"Merci à Watomatic de m\'aider à me débarasser de Whatsapp. Essayez le !\n https://git.io/watomatic</string>
     <string name="share">Partager</string>
     <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>

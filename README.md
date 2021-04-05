@@ -46,20 +46,27 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 ### Support
 
-Help me offset development costs to keep this project alive and support further development
+Help us offset development costs to keep this project alive and support further development but there are other ways to help too:
 
+- ✍️ Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
+  is one of the easiest ways to help so please do that 😃
+- 🌏 Translate the app to your language via Crowdin (ask us if you need help getting started): https://crowdin.com/project/watomatic
 - [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) [![Liberapay financial goals badge](https://img.shields.io/liberapay/goal/dk?color=%23BF360C&label=%F0%9F%92%B0%20Goal%20%F0%9F%A4%92&style=for-the-badge)](https://liberapay.com/dk/donate)
 - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
 - BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
-- Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
-  is one of the easiest ways you help so please do that 😃
+- 👋 Or just say hi or thanks sometime and that keeps us going. Find me [here](#about-maintainer)
+- There are many other ways you can be a part of the project so if you are willing to help but not sure where to start, please contact us 👇  
 
-### Contact:
+### Contact
 
 - Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
-- Community: [r/watomatic](https://www.reddit.com/r/watomatic/)
+- Follow and discuss: [r/watomatic](https://www.reddit.com/r/watomatic/), [@watomatic](https://t.me/watomatic)
 - Email: watomatic@deekshith.in
 
-Connect with Deekshith on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
+#### About Maintainer
+
+Deekshith Allamaneni is a Software Engineer from Illinois, USA. 
+
+Say hi to me on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Telegram](https://t.me/adeekshith), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
 
 [scr-page-link]: ./media/screenshots/

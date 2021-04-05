@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -38,11 +39,9 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        AppLogs.getInstance(getApplicationContext()).writeToSDFile("===== Notification Received =======\n");
         if(canReply(sbn)) {
             sendReply(sbn);
         }
-        AppLogs.getInstance(getApplicationContext()).writeToSDFile("===== Notification End =======\n\n");
     }
 
     private boolean canReply(StatusBarNotification sbn){
@@ -182,28 +181,18 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
-        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tMessage from App: " + sbn.getPackageName() + "\n");
         return PreferencesManager.getPreferencesInstance(this)
                 .getEnabledApps()
                 .contains(sbn.getPackageName());
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
-        String title = sbn.getNotification().extras.getString("android.title");
-        if(title != null){
-            AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tMessage from: " + title + "\n");
-        }
-        String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
-        if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
-            return false;
-        }
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(getTitle(sbn), sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private void logReply(StatusBarNotification sbn){
-        String title = sbn.getNotification().extras.getString("android.title");
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         if(packageIndex <= 0){
@@ -211,8 +200,36 @@ public class NotificationService extends NotificationListenerService {
             messageLogsDB.appPackageDao().insertAppPackage(appPackage);
             packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         }
-        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
+        MessageLog logs = new MessageLog(packageIndex, getTitle(sbn), sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
         messageLogsDB.logsDao().logReply(logs);
+    }
+
+    private String getTitle(StatusBarNotification sbn) {
+        String title = "";
+        if(sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
+            title = sbn.getNotification().extras.getString("android.hiddenConversationTitle");
+            //Just to avoid null cases, if by any chance hiddenConversationTitle comes null for group message
+            // then extract group name from title
+            if(title == null) {
+                title = sbn.getNotification().extras.getString("android.title");
+                int index = title.indexOf(':');
+                if (index != -1) {
+                    title = title.substring(0, index);
+                }
+            }
+
+            //To eliminate the case where group title has number of messages count in it
+            Parcelable b[] = (Parcelable[]) sbn.getNotification().extras.get(Notification.EXTRA_MESSAGES);
+            if(b != null && b.length > 1){
+                int startIndex = title.lastIndexOf('(');
+                if (startIndex != -1) {
+                    title = title.substring(0, startIndex);
+                }
+            }
+        }else{
+            title = sbn.getNotification().extras.getString("android.title");
+        }
+        return title;
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
@@ -224,7 +241,6 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isServiceEnabled(){
-        AppLogs.getInstance(getApplicationContext()).writeToSDFile("\tisServiceEnabled: " + PreferencesManager.getPreferencesInstance(this).isServiceEnabled() + "\n");
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
     }
 
