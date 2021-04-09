@@ -6,8 +6,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
+
+import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.notification.NotificationIntentActivity;
 import com.parishod.watomatic.model.App;
@@ -70,6 +73,23 @@ public class NotificationHelper {
                 .setAutoCancel(true)
                 .setContentIntent(pIntent);
 
+        //logic to detect if notifications exists else generate summary notification
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+            for (App supportedApp: Constants.SUPPORTED_APPS) {
+                try {
+                    appsList.put(supportedApp.getPackageName(), false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            for (StatusBarNotification notification : notifications) {
+                if(notification.getPackageName().equalsIgnoreCase(BuildConfig.APPLICATION_ID)){
+                    setNotificationSummaryShown(notification.getNotification().getGroup());
+                }
+            }
+        }
+
         int notifId = (int)System.currentTimeMillis();
         notificationManager.notify(notifId, notificationBuilder.build());
         try {
@@ -83,6 +103,15 @@ public class NotificationHelper {
                         .setAutoCancel(true);
                 notificationManager.notify(notifId + 1, summaryNotificationBuilder.build());
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setNotificationSummaryShown(String packageName){
+        packageName = packageName.replace("watomatic-", "");
+        try {
+            appsList.put(packageName, true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
