@@ -91,7 +91,7 @@ public class NotificationHelper {
     public void markNotificationDismissed(String packageName){
         packageName = packageName.replace("watomatic-", "");
         try {
-            appsList.put(packageName, true);
+            appsList.put(packageName, false);
         } catch (JSONException e) {
             e.printStackTrace();
         }
