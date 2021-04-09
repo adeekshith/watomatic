@@ -39,6 +39,12 @@
             >
         </activity>
 
+        <activity
+            android:name="com.parishod.watomatic.activity.notification.NotificationIntentActivity"
+            android:launchMode="singleTop"
+            >
+        </activity>
+
         <service
             android:name="com.parishod.watomatic.NotificationService"
             android:label="@string/service_name"

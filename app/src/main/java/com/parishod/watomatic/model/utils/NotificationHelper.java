@@ -2,11 +2,14 @@ package com.parishod.watomatic.model.utils;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.notification.NotificationIntentActivity;
 import com.parishod.watomatic.model.App;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,13 +56,19 @@ public class NotificationHelper {
                 break;
             }
         }
+
+        Intent intent = new Intent(appContext, NotificationIntentActivity.class);
+        intent.putExtra("package", packageName);
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, 0);
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                 .setGroup("watomatic-" + packageName)
                 .setGroupSummary(false)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setContentIntent(pIntent);
 
         int notifId = (int)System.currentTimeMillis();
         notificationManager.notify(notifId, notificationBuilder.build());
