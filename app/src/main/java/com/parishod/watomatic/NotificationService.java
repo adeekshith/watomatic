@@ -256,12 +256,4 @@ public class NotificationService extends NotificationListenerService {
         return sbn.getNotification().when == 0 ||
                 (System.currentTimeMillis() - sbn.getNotification().when) < MAX_OLD_NOTIFICATION_CAN_BE_REPLIED_TIME_MS;
     }
-
-    @Override
-    public void onNotificationRemoved(StatusBarNotification sbn) {
-        super.onNotificationRemoved(sbn);
-        if(sbn.getPackageName().equalsIgnoreCase(BuildConfig.APPLICATION_ID)){
-            NotificationHelper.getInstance(getApplicationContext()).markNotificationDismissed(sbn.getGroupKey());
-        }
-    }
 }
