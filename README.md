@@ -40,7 +40,7 @@ This app is not associated with any company including WhatsApp, Facebook, Signal
 
 - Will this be available for iOS in the future
   
-  This app relies on Android specific notification quick replies feature to function. I am not aware of similar functionality on iOS but will look into it.
+  This app relies on Android specific notification quick replies feature to function. This may not be possible on iOS.
 
 Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
 
