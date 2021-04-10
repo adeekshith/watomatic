@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.main.MainActivity;
@@ -13,6 +14,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private ListPreference languagePref;
+    private SwitchPreference showNotificationPref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -31,6 +33,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+
+        showNotificationPref = findPreference(getString(R.string.pref_show_notification));
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+            showNotificationPref.setTitle(getString(R.string.show_notification_label) + "(Beta)");
+        }
     }
 
     private void restartApp() {
