@@ -13,11 +13,39 @@
     <string name="mainAutoReplyEditBtnTooltip">Clicca per modificare il testo della risposta automatica</string>
     <string name="to_help_you_leave_whatsapp">Risposta automatica per aiutarti a lasciare WhatsApp e Facebook Messenger</string>
     <string name="decline">Rifiuta</string>
+    <string name="accept">Accetta</string>
+    <string name="sure">Sì, procedi</string>
+    <string name="retry">Riprova</string>
+    <string name="permission_dialog_title">Autorizzazione Richiesta</string>
+    <string name="permission_dialog_msg">Questa app richiede le autorizzazioni di accesso alle notifiche per funzionare.</string>
+    <string name="permission_dialog_denied_title">Permesso Negato</string>
+    <string name="permission_dialog_denied_msg">Senza questa autorizzazione l\'app non è in grado di rispondere automaticamente alle notifiche. Sei sicuro di voler negare il permesso?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Abilita per tutte le app</string>
+    <string name="enable_auto_reply_switch_msg">Prima abilita la risposta automatica.</string>
+    <string name="error_atleast_single_app_must_be_selected">Errore: Seleziona almeno una app</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Risposta automatica per le chat di gruppo</string>
+    <string name="group_reply_on_info_message">Risposta automatica abilitata per le chat di gruppo</string>
+    <string name="group_reply_off_info_message">Risposta automatica disabilitata per le chat di gruppo</string>
+    <string name="time_picker_title">Frequenza di risposta (BETA)</string>
+    <string name="time_picker_sub_title_default">Rispondi ad ogni singolo messaggio</string>
+    <string name="time_picker_sub_title">Rispondi una sola volta ogni %1$d giorno/i per ogni chat</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Fai clic per modificare il ritardo tra le risposte</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Salva</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Visualizza i modelli della community e condividi anche il tuo ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Aggiungi il riferimento a Watomatic per far sapere agli altri questa app</string>
+    <string name="sent_using_Watomatic">Inviato con git.io/watomatic</string>
+    <string name="share_app_text">\"Sto usando Watomatic per staccarmi da WhatsApp. Provalo!\n https://git.io/watomatic</string>
+    <string name="share">Condividi</string>
+    <string name="share_subject">Watomatic: Risposta automatica per WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Discutiamo\nr/watomatic</u></string>
     <!-- keys and app internal strings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Lingua Applicazione</string>
 </resources>
