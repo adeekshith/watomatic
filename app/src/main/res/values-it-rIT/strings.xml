@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Info</string>
+    <string name="settings">Impostazioni</string>
+    <string name="privacy_policy_label">Norme sulla privacy</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
