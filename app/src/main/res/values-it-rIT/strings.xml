@@ -4,6 +4,15 @@
     <string name="about">Info</string>
     <string name="settings">Impostazioni</string>
     <string name="privacy_policy_label">Norme sulla privacy</string>
+    <string name="service_name">Ascoltatore Notifiche Messaggio In Arrivo</string>
+    <string name="mainAutoReplyTextPlaceholder">(Risposta Personalizzata)</string>
+    <string name="auto_reply_default_message">Risposta automatica\n⚠️ Utente non disponibile</string>
+    <string name="mainAutoReplyLabel">Testo di risposta automatica</string>
+    <string name="mainAutoReplySwitchOffLabel">Risposta automatica OFF</string>
+    <string name="mainAutoReplySwitchOnLabel">Risposta automatica ON</string>
+    <string name="mainAutoReplyEditBtnTooltip">Clicca per modificare il testo della risposta automatica</string>
+    <string name="to_help_you_leave_whatsapp">Risposta automatica per aiutarti a lasciare WhatsApp e Facebook Messenger</string>
+    <string name="decline">Rifiuta</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
