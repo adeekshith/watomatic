@@ -34,7 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        showNotificationPref = findPreference(getString(R.string.pref_show_notification));
+        showNotificationPref = findPreference(getString(R.string.pref_show_notification_replied_msg));
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             showNotificationPref.setTitle(getString(R.string.show_notification_label) + "(Beta)");
         }

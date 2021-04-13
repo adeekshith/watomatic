@@ -25,7 +25,7 @@ public class PreferencesManager {
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
-    private final String KEY_IS_SHOW_NOTIFICATIONS_ENABLED = "pref_show_notification";
+    private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
     private SharedPreferences _sharedPrefs;
@@ -50,8 +50,9 @@ public class PreferencesManager {
      * or app upgrade, etc.
      */
     private void init () {
-        // This key is used at more than one places so use key from string resource
+        // Use key from string resource
         KEY_SELECTED_APP_LANGUAGE = thisAppContext.getString(R.string.key_pref_app_language);
+        KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
 
         // For new installs, enable all the supported apps
         if (Constants.BETA_FACEBOOK_SUPPORT_ENABLED) {

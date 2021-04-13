@@ -64,7 +64,9 @@
 
     <!-- keys and app internal strings -->
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
-    <string name="pref_show_notification" translatable="false">pref_show_notification</string>
+    <string name="pref_show_notification_replied_msg" translatable="false">pref_show_notification_replied_msg</string>
+
+    <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
 
     <!-- Local language names (non translatable) -->

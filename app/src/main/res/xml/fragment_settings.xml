@@ -10,7 +10,7 @@
         app:useSimpleSummaryProvider="true"/>
 
     <SwitchPreference android:title="@string/show_notification_label"
-        android:key="@string/pref_show_notification"
+        android:key="@string/pref_show_notification_replied_msg"
         app:icon="@drawable/ic_notification"
         />
 
