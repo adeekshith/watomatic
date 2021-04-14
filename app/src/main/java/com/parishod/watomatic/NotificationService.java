@@ -17,6 +17,7 @@ import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.NotificationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,12 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void sendReply(StatusBarNotification sbn) {
-        NotificationWear notificationWear = extractWearNotification(sbn);
+        NotificationWear notificationWear;
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+            notificationWear = extractQuickReplyNotification(sbn);
+        }else{
+            notificationWear = extractWearNotification(sbn);
+        }
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear.getRemoteInputs().isEmpty()) { return;}
@@ -84,10 +90,44 @@ public class NotificationService extends NotificationListenerService {
             if (notificationWear.getPendingIntent() != null) {
                 logReply(sbn);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
+                if(PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
+                    NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
+                }
+                cancelNotification(sbn.getKey());
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
         }
+    }
+
+    private static NotificationWear extractQuickReplyNotification(StatusBarNotification sbn) {
+        Notification notification = sbn.getNotification();
+        List<NotificationCompat.Action> actions = new ArrayList<>();
+        for(int i = 0; i < NotificationCompat.getActionCount(notification); i++) {
+            NotificationCompat.Action action = NotificationCompat.getAction(notification, i);
+            actions.add(action);
+        }
+        List<RemoteInput> remoteInputs = new ArrayList<>();
+        PendingIntent pendingIntent = null;
+        for(NotificationCompat.Action act : actions) {
+            if(act != null && act.getRemoteInputs() != null) {
+                for(int x = 0; x < act.getRemoteInputs().length; x++) {
+                    RemoteInput remoteInput = act.getRemoteInputs()[x];
+                    remoteInputs.add(remoteInput);
+                    pendingIntent = act.actionIntent;
+                }
+            }
+        }
+
+        return new NotificationWear(
+                sbn.getPackageName(),
+                pendingIntent,
+                remoteInputs,
+                null,
+                sbn.getNotification().extras,
+                sbn.getTag(),
+                UUID.randomUUID().toString()
+        );
     }
 
     //unused for now
@@ -144,9 +184,14 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn){
+        String title = getTitle(sbn);
+        String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
+        if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+            return false;
+        }
         messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(getTitle(sbn), sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private void logReply(StatusBarNotification sbn){

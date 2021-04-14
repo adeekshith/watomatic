@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.parishod.watomatic">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -38,6 +39,12 @@
             >
         </activity>
 
+        <activity
+            android:name="com.parishod.watomatic.activity.notification.NotificationIntentActivity"
+            android:launchMode="singleTop"
+            >
+        </activity>
+
         <service
             android:name="com.parishod.watomatic.NotificationService"
             android:label="@string/service_name"
@@ -46,6 +53,7 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

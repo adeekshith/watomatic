@@ -55,8 +55,19 @@
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>
     <string name="watomatic_wato_message_url" translatable="false">https://www.reddit.com/r/watomatic/comments/lrkn7j/fellow_watos_share_your_creative_wato_message/</string>
 
+    <!-- Share debug logs -->
+    <string name="app_logs_file_name" translatable="false">WatomaticLogs.txt</string>
+    <string name="share_email_body" translatable="false">Hi Team Watomatic,\nPlease find the attachment of the app logs.</string>
+    <string name="share_email_subject" translatable="false">Watomatic AppLogs</string>
+    <string name="share_email_id" translatable="false">watomatic@deekshith.in</string>
+    <string name="share_email_err_msg" translatable="false">Couldnot find any application to process this request</string>
+
     <!-- keys and app internal strings -->
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
+    <string name="pref_show_notification_replied_msg" translatable="false">pref_show_notification_replied_msg</string>
+
+    <!-- app settings -->
+    <string name="show_notification_label">Show notification for replied messages</string>
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
