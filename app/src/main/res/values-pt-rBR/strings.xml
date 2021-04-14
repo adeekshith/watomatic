@@ -29,7 +29,9 @@
     <string name="share_app_text">\"Estou usando Watomatic para me livrar do WhatsApp. Experimente!\n https://git.io/watomatic</string>
     <string name="share">Compartilhar</string>
     <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
+    <!-- Share debug logs -->
     <!-- keys and app internal strings -->
+    <!-- app settings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
