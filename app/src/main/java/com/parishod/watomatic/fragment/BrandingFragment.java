@@ -14,6 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.GithubReleaseNotes;
+import com.parishod.watomatic.network.GetReleaseNotesService;
+import com.parishod.watomatic.network.RetrofitInstance;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BrandingFragment extends Fragment {
     private ImageButton githubBtn;
@@ -45,7 +52,25 @@ public class BrandingFragment extends Fragment {
             );
         });
 
+        getGthubReleaseNotes();
+
         return view;
+    }
+
+    private void getGthubReleaseNotes() {
+        GetReleaseNotesService releaseNotesService = RetrofitInstance.getRetrofitInstance().create(GetReleaseNotesService.class);
+        Call<GithubReleaseNotes> call = releaseNotesService.getReleaseNotes();
+        call.enqueue(new Callback<GithubReleaseNotes>() {
+            @Override
+            public void onResponse(Call<GithubReleaseNotes> call, Response<GithubReleaseNotes> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<GithubReleaseNotes> call, Throwable t) {
+
+            }
+        });
     }
 
     private void launchShareIntent() {
