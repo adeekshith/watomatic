@@ -22,7 +22,9 @@ import com.parishod.watomatic.network.GetReleaseNotesService;
 import com.parishod.watomatic.network.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 import retrofit2.Call;
@@ -73,16 +75,20 @@ public class BrandingFragment extends Fragment {
     }
 
     private void launchApp() {
+        boolean isLaunched = false;
         for(String url: whatsNewUrls){
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity().getPackageManager()
                     .queryIntentActivities(intent, 0);
-            boolean isLaunched = false;
+            List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+            Set<String> excludeIntents = new HashSet<>();
+            for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
+                excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+            }
             //Check for non browser application
             for(ResolveInfo resolveInfo: list) {
-                if (!resolveInfo.activityInfo.packageName.contains("com.android")
-                    && !resolveInfo.activityInfo.packageName.contains("broswer")
-                    && !resolveInfo.activityInfo.packageName.contains("chrome")) {
+                if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
                     PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
                     startActivity(intent);
@@ -93,6 +99,12 @@ public class BrandingFragment extends Fragment {
             if(isLaunched){
                 break;
             }
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            String url = getString(R.string.watomatic_github_latest_release_url);
+            startActivity (
+                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
+            );
         }
     }
 
