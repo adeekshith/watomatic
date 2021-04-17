@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.GithubReleaseNotes;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.network.GetReleaseNotesService;
 import com.parishod.watomatic.network.RetrofitInstance;
 
@@ -35,6 +36,7 @@ public class BrandingFragment extends Fragment {
     private ImageButton share_layout;
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
+    private int gitHubReleaseNotesId = -1;
 
     @Nullable
     @Override
@@ -82,6 +84,7 @@ public class BrandingFragment extends Fragment {
                     && !resolveInfo.activityInfo.packageName.contains("broswer")
                     && !resolveInfo.activityInfo.packageName.contains("chrome")) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
+                    PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
                     startActivity(intent);
                     isLaunched = true;
                     break;
@@ -110,9 +113,11 @@ public class BrandingFragment extends Fragment {
     }
 
     private void parseReleaseNotesResponse(GithubReleaseNotes releaseNotes) {
+        gitHubReleaseNotesId = releaseNotes.getId();
         String body = releaseNotes.getBody();
-        //Check if its not minor release
-        if(!body.contains("minor-release: true")) {
+        int gitHubId = PreferencesManager.getPreferencesInstance(getActivity()).getGithubReleaseNotesId();
+        //Check local githubid and id received id's are different and if its not minor release
+        if((gitHubId == 0 || gitHubId != gitHubReleaseNotesId) && !body.contains("minor-release: true")) {
             //Split the body into separate lines and search for line starting with "view release notes on"
             String[] splitStr = body.split("\n");
             if(splitStr.length > 0) {
