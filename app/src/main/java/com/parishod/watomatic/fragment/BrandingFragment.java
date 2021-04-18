@@ -1,8 +1,10 @@
 package com.parishod.watomatic.fragment;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -22,7 +24,9 @@ import com.parishod.watomatic.network.GetReleaseNotesService;
 import com.parishod.watomatic.network.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 import retrofit2.Call;
@@ -30,6 +34,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Intent.ACTION_VIEW;
+import static android.content.Intent.CATEGORY_BROWSABLE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT;
+import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER;
 
 public class BrandingFragment extends Fragment {
     private ImageButton githubBtn;
@@ -73,16 +81,53 @@ public class BrandingFragment extends Fragment {
     }
 
     private void launchApp() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            launchAppLegacy();
+            return;
+        }
+        boolean isLaunched = false;
+        for (String eachReleaseUrl: whatsNewUrls) {
+            if (isLaunched) { break;}
+            try {
+                // In order for this intent to be invoked, the system must directly launch a non-browser app.
+                // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
+                Intent intent = new Intent(ACTION_VIEW, Uri.parse(eachReleaseUrl))
+                        .addCategory(CATEGORY_BROWSABLE)
+                        .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
+                                FLAG_ACTIVITY_REQUIRE_DEFAULT);
+                startActivity(intent);
+                isLaunched = true;
+            } catch (ActivityNotFoundException e) {
+                // This code executes in one of the following cases:
+                // 1. Only browser apps can handle the intent.
+                // 2. The user has set a browser app as the default app.
+                // 3. The user hasn't set any app as the default for handling this URL.
+                isLaunched = false;
+            }
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            String url = getString(R.string.watomatic_github_latest_release_url);
+            startActivity (
+                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
+            );
+        }
+    }
+
+    private void launchAppLegacy() {
+        boolean isLaunched = false;
         for(String url: whatsNewUrls){
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity().getPackageManager()
                     .queryIntentActivities(intent, 0);
-            boolean isLaunched = false;
+            List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+            Set<String> excludeIntents = new HashSet<>();
+            for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
+                excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+            }
             //Check for non browser application
             for(ResolveInfo resolveInfo: list) {
-                if (!resolveInfo.activityInfo.packageName.contains("com.android")
-                    && !resolveInfo.activityInfo.packageName.contains("broswer")
-                    && !resolveInfo.activityInfo.packageName.contains("chrome")) {
+                if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
                     PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
                     startActivity(intent);
@@ -93,6 +138,12 @@ public class BrandingFragment extends Fragment {
             if(isLaunched){
                 break;
             }
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            String url = getString(R.string.watomatic_github_latest_release_url);
+            startActivity (
+                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
+            );
         }
     }
 
