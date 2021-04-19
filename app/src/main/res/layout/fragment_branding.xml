@@ -44,12 +44,14 @@
         android:text="@string/watomatic_whatsnew_label"
         android:textAllCaps="false"
         android:textColor="?attr/colorControlNormal"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/share_btn"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:drawableLeft="@drawable/ic_dot" />
 
     <!-- App share button -->
     <ImageButton
