@@ -43,6 +43,7 @@
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Was gibt’s Neues?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
