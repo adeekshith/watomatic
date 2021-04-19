@@ -95,7 +95,7 @@ public class BrandingFragment extends Fragment {
                         .addCategory(CATEGORY_BROWSABLE)
                         .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                                 FLAG_ACTIVITY_REQUIRE_DEFAULT);
-                startActivity(intent);
+                startactivity(intent);
                 isLaunched = true;
             } catch (ActivityNotFoundException e) {
                 // This code executes in one of the following cases:
@@ -107,9 +107,7 @@ public class BrandingFragment extends Fragment {
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
             String url = getString(R.string.watomatic_github_latest_release_url);
-            startActivity (
-                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
-            );
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
         }
     }
 
@@ -129,8 +127,7 @@ public class BrandingFragment extends Fragment {
             for(ResolveInfo resolveInfo: list) {
                 if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
-                    PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
-                    startActivity(intent);
+                    startactivity(intent);
                     isLaunched = true;
                     break;
                 }
@@ -141,10 +138,14 @@ public class BrandingFragment extends Fragment {
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
             String url = getString(R.string.watomatic_github_latest_release_url);
-            startActivity (
-                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
-            );
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
         }
+    }
+
+    private void startactivity(Intent intent){
+        PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
+        startActivity(intent);
+        showHideWhatsNewBtn(false);
     }
 
     private void getGthubReleaseNotes() {
@@ -175,13 +176,17 @@ public class BrandingFragment extends Fragment {
                 for (String s : splitStr) {
                     if (s.toLowerCase().startsWith("view release notes on")) {
                         whatsNewUrls = extractLinks(s);
-                        watomaticSubredditBtn.setVisibility(View.GONE);
-                        whatsNewBtn.setVisibility(View.VISIBLE);
+                        showHideWhatsNewBtn(true);
                         break;
                     }
                 }
             }
         }
+    }
+
+    private void showHideWhatsNewBtn(boolean show){
+        watomaticSubredditBtn.setVisibility(show ? View.GONE : View.VISIBLE);
+        whatsNewBtn.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public static List<String> extractLinks(String text) {
