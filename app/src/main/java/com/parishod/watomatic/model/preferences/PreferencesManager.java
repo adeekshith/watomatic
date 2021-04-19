@@ -25,6 +25,7 @@ public class PreferencesManager {
     private final String KEY_AUTO_REPLY_THROTTLE_TIME_MS = "pref_auto_reply_throttle_time_ms";
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
+    private final String KEY_GITHUB_RELEASE_NOTES_ID = "pref_github_release_notes_id";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
@@ -191,5 +192,15 @@ public class PreferencesManager {
 
     public boolean isShowNotificationEnabled(){
         return _sharedPrefs.getBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED,false);
+    }
+
+    public int getGithubReleaseNotesId(){
+        return _sharedPrefs.getInt(KEY_GITHUB_RELEASE_NOTES_ID,0);
+    }
+
+    public void setGithubReleaseNotesId(int id){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putInt(KEY_GITHUB_RELEASE_NOTES_ID, id);
+        editor.apply();
     }
 }

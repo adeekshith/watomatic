@@ -33,6 +33,26 @@
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- r/watomatic whatsnew button -->
+    <Button
+        android:id="@+id/whatsNewBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="@string/watomatic_whatsnew_label"
+        android:textAllCaps="false"
+        android:textColor="?attr/colorControlNormal"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/share_btn"
+        app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:drawableLeft="@drawable/ic_dot" />
+
     <!-- App share button -->
     <ImageButton
         android:id="@+id/share_btn"
