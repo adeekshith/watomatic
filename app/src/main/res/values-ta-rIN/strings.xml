@@ -43,6 +43,7 @@
     <string name="share">பகிர்</string>
     <string name="share_subject">Watomatic: Whatsapp தானியங்கு பதில்</string>
     <string name="watomatic_subreddit_label"><u>விவாதிக்கலாம்\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">புதியவை என்ன</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
