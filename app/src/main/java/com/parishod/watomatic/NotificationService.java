@@ -206,6 +206,10 @@ public class NotificationService extends NotificationListenerService {
         messageLogsDB.logsDao().logReply(logs);
     }
 
+    private static String getTitleRaw (StatusBarNotification sbn) {
+        return sbn.getNotification().extras.getString("android.title");
+    }
+
     private String getTitle(StatusBarNotification sbn) {
         String title = "";
         if(sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
@@ -235,8 +239,12 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
+        String rawTitle = getTitleRaw(sbn);
+        String rawText = sbn.getNotification().extras.getString("android.text");
+        // Detect possible group image message by checking for colon and text starts with camera icon #181
+        boolean isPossiblyAnImageGrpMsg = (rawTitle.contains(": ") && rawText.startsWith("\uD83D\uDCF7"));
         if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
-            return true;
+            return !isPossiblyAnImageGrpMsg;
         }else {
             return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
         }
