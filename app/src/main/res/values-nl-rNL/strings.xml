@@ -43,7 +43,9 @@
     <string name="share">Delen</string>
     <string name="share_subject">Watomatic: Auto-reactie voor WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Laten we bespreken\nr/watomatic</u></string>
+    <!-- Share debug logs -->
     <!-- keys and app internal strings -->
+    <!-- app settings -->
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->

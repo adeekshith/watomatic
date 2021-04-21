@@ -11,6 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
     <string name="mainAutoReplySwitchOnLabel">Automatische Antwort AN</string>
     <string name="mainAutoReplyEditBtnTooltip">Klick um Antworttext zu bearbeiten</string>
+    <string name="to_help_you_leave_whatsapp">Antworte automatisch, um WhatsApp und den Facebook Messenger schneller zu verlassen</string>
     <string name="decline">Ablehnen</string>
     <string name="accept">Zustimmen</string>
     <string name="sure">Ich bin mir sicher</string>
@@ -22,6 +23,7 @@
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Für Apps aktivieren</string>
     <string name="enable_auto_reply_switch_msg">Automatische Antwort-Schalter zuerst aktivieren.</string>
+    <string name="error_atleast_single_app_must_be_selected">Fehler: Wähle mindestens eine App aus</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Automatische Antwort für Gruppenchats</string>
     <string name="group_reply_on_info_message">Automatische Antwort für Gruppenchats</string>
@@ -41,7 +43,11 @@
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Was gibt’s Neues?</string>
+    <!-- Share debug logs -->
     <!-- keys and app internal strings -->
+    <!-- app settings -->
+    <string name="show_notification_label">Benachrichtigung für geantwortete Nachrichten anzeigen</string>
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->

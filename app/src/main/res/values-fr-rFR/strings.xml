@@ -43,7 +43,10 @@
     <string name="share">Partager</string>
     <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Parlons de\nr/watomatic</u></string>
+    <!-- Share debug logs -->
     <!-- keys and app internal strings -->
+    <!-- app settings -->
+    <string name="show_notification_label">Montrer la notification pour les messages répondus</string>
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
