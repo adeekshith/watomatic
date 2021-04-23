@@ -43,6 +43,7 @@
     <string name="share">Jaa</string>
     <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
+    <string name="watomatic_whatsnew_label">Mitä uutta?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
