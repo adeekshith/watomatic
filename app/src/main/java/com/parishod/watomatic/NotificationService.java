@@ -59,12 +59,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void sendReply(StatusBarNotification sbn) {
-        NotificationWear notificationWear;
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            notificationWear = extractQuickReplyNotification(sbn);
-        }else{
-            notificationWear = extractWearNotification(sbn);
-        }
+        NotificationWear notificationWear = extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear.getRemoteInputs().isEmpty()) { return;}
@@ -98,36 +93,6 @@ public class NotificationService extends NotificationListenerService {
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
         }
-    }
-
-    private static NotificationWear extractQuickReplyNotification(StatusBarNotification sbn) {
-        Notification notification = sbn.getNotification();
-        List<NotificationCompat.Action> actions = new ArrayList<>();
-        for(int i = 0; i < NotificationCompat.getActionCount(notification); i++) {
-            NotificationCompat.Action action = NotificationCompat.getAction(notification, i);
-            actions.add(action);
-        }
-        List<RemoteInput> remoteInputs = new ArrayList<>();
-        PendingIntent pendingIntent = null;
-        for(NotificationCompat.Action act : actions) {
-            if(act != null && act.getRemoteInputs() != null) {
-                for(int x = 0; x < act.getRemoteInputs().length; x++) {
-                    RemoteInput remoteInput = act.getRemoteInputs()[x];
-                    remoteInputs.add(remoteInput);
-                    pendingIntent = act.actionIntent;
-                }
-            }
-        }
-
-        return new NotificationWear(
-                sbn.getPackageName(),
-                pendingIntent,
-                remoteInputs,
-                null,
-                sbn.getNotification().extras,
-                sbn.getTag(),
-                UUID.randomUUID().toString()
-        );
     }
 
     //unused for now
