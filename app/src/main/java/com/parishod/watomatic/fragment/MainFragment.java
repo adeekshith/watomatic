@@ -149,11 +149,6 @@ public class MainFragment extends Fragment {
 
         createSupportedAppCheckboxes();
 
-        // TODO Hide incomplete facebook support issue #117
-        if (!Constants.BETA_FACEBOOK_SUPPORT_ENABLED) {
-            supportedAppsCard.setVisibility(View.GONE);
-        }
-
         return view;
     }
 

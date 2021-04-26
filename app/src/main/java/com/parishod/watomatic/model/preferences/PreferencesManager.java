@@ -56,12 +56,10 @@ public class PreferencesManager {
         KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
 
         // For new installs, enable all the supported apps
-        if (Constants.BETA_FACEBOOK_SUPPORT_ENABLED) {
-            boolean newInstall = !_sharedPrefs.contains(KEY_SERVICE_ENABLED)
-                    && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
-            if (newInstall) {
-                setAppsAsEnabled(Constants.SUPPORTED_APPS);
-            }
+        boolean newInstall = !_sharedPrefs.contains(KEY_SERVICE_ENABLED)
+                && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
+        if (newInstall) {
+            setAppsAsEnabled(Constants.SUPPORTED_APPS);
         }
 
         if (isFirstInstall(thisAppContext)) {
