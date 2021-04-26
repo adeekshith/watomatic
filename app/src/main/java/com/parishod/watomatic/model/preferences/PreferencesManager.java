@@ -56,12 +56,14 @@ public class PreferencesManager {
         KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
 
         // For new installs, enable all the supported apps
-        if (Constants.BETA_FACEBOOK_SUPPORT_ENABLED) {
-            boolean newInstall = !_sharedPrefs.contains(KEY_SERVICE_ENABLED)
-                    && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
-            if (newInstall) {
-                setAppsAsEnabled(Constants.SUPPORTED_APPS);
-            }
+        boolean newInstall = !_sharedPrefs.contains(KEY_SERVICE_ENABLED)
+                && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
+        if (newInstall) {
+            // Enable all supported apps for new install
+            setAppsAsEnabled(Constants.SUPPORTED_APPS);
+
+            // Set notifications ON for new installs
+            setShowNotificationPref(true);
         }
 
         if (isFirstInstall(thisAppContext)) {
@@ -192,6 +194,12 @@ public class PreferencesManager {
 
     public boolean isShowNotificationEnabled(){
         return _sharedPrefs.getBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED,false);
+    }
+
+    public void setShowNotificationPref(boolean enabled){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED, enabled);
+        editor.apply();
     }
 
     public int getGithubReleaseNotesId(){

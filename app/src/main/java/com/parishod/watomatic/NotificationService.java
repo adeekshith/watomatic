@@ -59,12 +59,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void sendReply(StatusBarNotification sbn) {
-        NotificationWear notificationWear;
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            notificationWear = extractQuickReplyNotification(sbn);
-        }else{
-            notificationWear = extractWearNotification(sbn);
-        }
+        NotificationWear notificationWear = extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear.getRemoteInputs().isEmpty()) { return;}
