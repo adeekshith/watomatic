@@ -46,8 +46,6 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 ### Support
 
-Help me offset development costs to keep this project alive and support further development
-
 - ❤️ **Buy me coffee**: [PayPal](https://paypal.me/deek), [Liberapay](https://liberapay.com/dk/donate)
 - BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
 - Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
