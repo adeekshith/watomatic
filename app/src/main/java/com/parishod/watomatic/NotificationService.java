@@ -95,6 +95,36 @@ public class NotificationService extends NotificationListenerService {
         }
     }
 
+    private static NotificationWear extractQuickReplyNotification(StatusBarNotification sbn) {
+        Notification notification = sbn.getNotification();
+        List<NotificationCompat.Action> actions = new ArrayList<>();
+        for(int i = 0; i < NotificationCompat.getActionCount(notification); i++) {
+            NotificationCompat.Action action = NotificationCompat.getAction(notification, i);
+            actions.add(action);
+        }
+        List<RemoteInput> remoteInputs = new ArrayList<>();
+        PendingIntent pendingIntent = null;
+        for(NotificationCompat.Action act : actions) {
+            if(act != null && act.getRemoteInputs() != null) {
+                for(int x = 0; x < act.getRemoteInputs().length; x++) {
+                    RemoteInput remoteInput = act.getRemoteInputs()[x];
+                    remoteInputs.add(remoteInput);
+                    pendingIntent = act.actionIntent;
+                }
+            }
+        }
+
+        return new NotificationWear(
+                sbn.getPackageName(),
+                pendingIntent,
+                remoteInputs,
+                null,
+                sbn.getNotification().extras,
+                sbn.getTag(),
+                UUID.randomUUID().toString()
+        );
+    }
+
     //unused for now
     private void getDetailsOfNotification(RemoteInput remoteInput) {
         //Some more details of RemoteInput... no idea what for but maybe it will be useful at some point
