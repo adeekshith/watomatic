@@ -100,7 +100,8 @@ public class NotificationHelper {
                         .setGroup("watomatic-" + packageName)
                         .setGroupSummary(true)
                         .setSmallIcon(R.drawable.ic_logo_full)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .setContentIntent(pIntent);
                 notificationManager.notify(notifId + 1, summaryNotificationBuilder.build());
             }
         } catch (JSONException e) {
