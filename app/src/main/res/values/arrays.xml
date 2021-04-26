@@ -2,17 +2,26 @@
 <resources>
     <string-array name="app_language">
         <item>@string/lang_en</item>
-        <item>@string/lang_fr_rFR</item>
         <item>@string/lang_de_rDE</item>
+        <item>@string/lang_fi_rFI</item>
+        <item>@string/lang_fr_rFR</item>
+        <item>@string/lang_in_rID</item>
+        <item>@string/lang_it_rIT</item>
         <item>@string/lang_nl_rNL</item>
         <item>@string/lang_pt_rBR</item>
+        <item>@string/lang_ta_rIN</item>
+
     </string-array>
 
     <string-array name="app_language_value">
         <item>@string/lang_code_en</item>
-        <item>@string/lang_code_fr_rFR</item>
         <item>@string/lang_code_de_rDE</item>
+        <item>@string/lang_code_fi_rFI</item>
+        <item>@string/lang_code_fr_rFR</item>
+        <item>@string/lang_code_in_rID</item>
+        <item>@string/lang_code_it_rIT</item>
         <item>@string/lang_code_nl_rNL</item>
         <item>@string/lang_code_pt_rBR</item>
+        <item>@string/lang_code_ta_rIN</item>
     </string-array>
 </resources>
