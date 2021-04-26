@@ -67,7 +67,7 @@ public class NotificationHelper {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                 .setGroup("watomatic-" + packageName)
                 .setGroupSummary(false)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_logo_full)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -99,7 +99,7 @@ public class NotificationHelper {
                 NotificationCompat.Builder summaryNotificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                         .setGroup("watomatic-" + packageName)
                         .setGroupSummary(true)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setSmallIcon(R.drawable.ic_logo_full)
                         .setAutoCancel(true);
                 notificationManager.notify(notifId + 1, summaryNotificationBuilder.build());
             }
