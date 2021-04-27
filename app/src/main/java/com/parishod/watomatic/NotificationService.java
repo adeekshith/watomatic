@@ -237,7 +237,7 @@ public class NotificationService extends NotificationListenerService {
         String rawTitle = getTitleRaw(sbn);
         String rawText = sbn.getNotification().extras.getString("android.text");
         // Detect possible group image message by checking for colon and text starts with camera icon #181
-        boolean isPossiblyAnImageGrpMsg = (rawTitle.contains(": ") && rawText.startsWith("\uD83D\uDCF7"));
+        boolean isPossiblyAnImageGrpMsg = (": ".contains(rawTitle) && ((rawText != null) && rawText.startsWith("\uD83D\uDCF7")));
         if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
             return !isPossiblyAnImageGrpMsg;
         }else {
