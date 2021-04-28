@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.text.SpannableString;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -235,9 +236,10 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
         String rawTitle = getTitleRaw(sbn);
-        String rawText = sbn.getNotification().extras.getString("android.text");
+        //android.text returning SpannableString
+        SpannableString rawText = SpannableString.valueOf("" + sbn.getNotification().extras.get("android.text"));
         // Detect possible group image message by checking for colon and text starts with camera icon #181
-        boolean isPossiblyAnImageGrpMsg = (": ".contains(rawTitle) && ((rawText != null) && rawText.startsWith("\uD83D\uDCF7")));
+        boolean isPossiblyAnImageGrpMsg = (": ".contains(rawTitle) && ((rawText != null) && rawText.toString().startsWith("\uD83D\uDCF7")));
         if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
             return !isPossiblyAnImageGrpMsg;
         }else {
