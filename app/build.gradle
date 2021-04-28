@@ -10,8 +10,8 @@ android {
         applicationId "com.parishod.watomatic"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 16
-        versionName "1.15"
+        versionCode 17
+        versionName "1.15.1"
 
         javaCompileOptions {
             annotationProcessorOptions {
