@@ -1,0 +1,8 @@
+.custom-email {
+    text-decoration: underline;
+}
+
+.custom-email:hover {
+    cursor: pointer;
+
+}

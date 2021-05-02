@@ -7,6 +7,8 @@
   <meta name="description" content="Auto reply for WhatsApp so you can break away from it">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="mail.css">
+  <!-- <link rel="stylesheet" href="theme.css"> -->
 </head>
 <body>
   <div id="app"></div>
@@ -26,6 +28,21 @@
         hideOtherSidebarContent: false, // whether or not to hide other sidebar content
         namespace: 'watomatic-home-1',
       },
+      plugins: [
+    function(hook) {
+      var footer = [
+        '<hr/>',
+        '<footer>',
+        '<span><a href="https://github.com/adeekshith">Deekshith Allamaneni</a> &copy;2021. </span>',
+        '<span>With help of <a href="https://mawoka.eu.org">Mawoka</a></span>',
+        '</footer>'
+      ].join('');
+
+      hook.afterEach(function(html) {
+        return html + footer;
+      });
+    }
+  ],
       loadSidebar: true,
       subMaxLevel: 2,
       loadNavbar: true,
