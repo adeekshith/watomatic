@@ -2,7 +2,7 @@
 
 Watomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten, damit deine Freunde wissen, dass du WhatsApp nicht mehr benutzt. 
 
-<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="60" /></a>
+<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='../assets/en_badge_web_generic.png' height="60" /></a>
 [<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
