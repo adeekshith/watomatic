@@ -1,3 +1,5 @@
+<script href="language.js"></script>
+
 # Watomatic - Auto reply for WhatsApp so you can stop using it
 
 Watomatic sends an automated reply to everyone contacting you on WhatsApp. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a vacation responder.
