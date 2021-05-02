@@ -2,15 +2,9 @@ function redir_lang() {
     var userLang = navigator.language || navigator.userLanguage; 
 
     var no_redir_cookie = getCookie("redir");
-    //if (userLang == "de" && no_redir_cookie == null) {
-    //    window.location.replace('/de/index.html')
-    //}
-    if (no_redir_cookie == null) {
-        alert("No cookie")
-    } else if (getCookie("redir") =! null) {
-        alert("Cookie is there")
+    if (userLang == "de" && no_redir_cookie == null) {
+        window.location.replace('/de/index.html')
     }
-
 
 }
 
