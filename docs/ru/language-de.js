@@ -1,5 +1,3 @@
-
-
 function set_cookie() {
     if (window.confirm("We will set a cookie if you click ok.")) {
         var myDate = new Date();
@@ -7,4 +5,3 @@ function set_cookie() {
         document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=localhost;path=/"
     }
 }
-

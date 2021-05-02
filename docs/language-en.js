@@ -4,6 +4,8 @@ function redir_lang() {
     var no_redir_cookie = getCookie("redir");
     if (userLang == "de" && no_redir_cookie == null) {
         window.location.replace('/watomatic/de/index.html')
+    } else if (userLang == "ru" && no_redir_cookie == null) {
+        window.location.replace('/watomatic/ru/index.html')
     }
 
 }
