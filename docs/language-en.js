@@ -3,7 +3,7 @@ function redir_lang() {
 
     var no_redir_cookie = getCookie("redir");
     if (userLang == "de" && no_redir_cookie == null) {
-        window.location.replace('/de/index.html')
+        window.location.replace('watomatic/de/index.html')
     }
 
 }
