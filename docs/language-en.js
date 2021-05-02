@@ -22,7 +22,7 @@ window.addEventListener("load", function() {
 function set_cookie() {
     var myDate = new Date();
     myDate.setMonth(myDate.getMonth() + 12);
-    document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=loclahost;path=/"
+    document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=mawoka-myblock.github.io;path=/"
 }
 
 
@@ -46,14 +46,3 @@ function getCookie(name) {
     //return unescape(dc.substring(begin + prefix.length, end));
     return decodeURI(dc.substring(begin + prefix.length, end));
 } 
-
-function doSomething() {
-    var myCookie = getCookie("no_redir");
-
-    if (myCookie == null) {
-        // do cookie doesn't exist stuff;
-    }
-    else {
-        // do cookie exists stuff
-    }
-}
