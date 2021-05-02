@@ -1,6 +1,6 @@
 # Privacy Policy - Watomatic Android App
 
-Watomatic does not automatically collect any personally identifiable data without the explicit consent of the user.
+Watomatic sammelt keine Daten.
 
-As of this version, no data is automatically collected by the app. This app uses github.com to check for updates and other information. View Github's privacy policy to check how it handles your data: https://docs.github.com/en/github/site-policy/github-privacy-statement
-This privacy policy will be updated if there are changes in the future and the developer will try to take necessary steps to comply with Google Play store or other other app store policies.
+Bis jetzt Watomatic benutzt keine Tracker, benutzt aber Github.com um auf Updates zu überprüfen. Guck dir die Datenschutzerklärung von Github hier an: https://docs.github.com/en/github/site-policy/github-privacy-statement
+Diese Datenschutzerklärung wird upgedatet, wenn es irgendwelche Änderungen gibt und der Entwickler wird die erforderlichen Schritte erfüllen, damit Watomatic gegen keine Regeln verstößt.
