@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="privacy_policy_label">Политика конфеденциальности</string>
+    <string name="service_name">Отслеживание уведомлений о входящих сообщениях</string>
+    <string name="mainAutoReplyTextPlaceholder">(Свой ответ)</string>
+    <string name="auto_reply_default_message">Автоматический ответ\n⚠️ Пользователь недоступен</string>
+    <string name="mainAutoReplyLabel">Текст автоматического ответа</string>
+    <string name="mainAutoReplySwitchOffLabel">Автоответ ВЫКЛ</string>
+    <string name="mainAutoReplySwitchOnLabel">Автоответ ВКЛ</string>
+    <string name="mainAutoReplyEditBtnTooltip">Нажмите для редактирования текста автоответа</string>
+    <string name="to_help_you_leave_whatsapp">Автоответчик для облегчения перехода с мессенджеров WhatsApp и Facebook</string>
+    <string name="decline">Отклонить</string>
+    <string name="accept">Разрешить</string>
+    <string name="sure">Да, точно</string>
+    <string name="retry">Повторить</string>
+    <string name="permission_dialog_title">Требуются разрешения</string>
+    <string name="permission_dialog_msg">Для работы приложения необходим доступ к уведомлениям.</string>
+    <string name="permission_dialog_denied_title">Доступ запрещен</string>
+    <string name="permission_dialog_denied_msg">Без данного разрешения приложение не сможет автоматически отвечать на уведомления. Вы точно хотите запретить доступ?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Разрешить для приложений</string>
+    <string name="enable_auto_reply_switch_msg">Сначала включите автоответчик.</string>
+    <string name="error_atleast_single_app_must_be_selected">Ошибка: выберите как минимум одно приложение</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Автоответ в групповые чаты</string>
+    <string name="group_reply_on_info_message">Включен автоответ в групповые чаты</string>
+    <string name="group_reply_off_info_message">Автоответ в групповые чаты выключен</string>
     <!-- Custom message editor -->
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
