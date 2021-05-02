@@ -15,8 +15,12 @@
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy Seguro</string>
     <string name="retry">Reintentar</string>
+    <string name="permission_dialog_title">Permiso requerido</string>
+    <string name="permission_dialog_msg">Esta aplicación requiere permisos de acceso a notificaciones para funcionar.</string>
     <string name="permission_dialog_denied_title">Permiso denegado</string>
+    <string name="permission_dialog_denied_msg">Sin este permiso la app no puede responder automáticamente a las notificaciones. Estas seguro de que quieres denegar este permiso?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Activar para las aplicaciones</string>
     <!-- Group chats -->
     <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
     <string name="app_version">v%1$s</string>
