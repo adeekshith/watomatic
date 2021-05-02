@@ -3,7 +3,7 @@
 
 * [Home]()
 - Translations
-    - <a href="/index.html" onclick="set_cookie()">:uk: English</a>
-    - <a href="/de/index.html" onclick="set_cookie()">:de: Deutsch</a>
+    - <a href="/watomatic/index.html" onclick="set_cookie()">:uk: English</a>
+    - <a href="/watomatic/de/index.html" onclick="set_cookie()">:de: Deutsch</a>
     
 

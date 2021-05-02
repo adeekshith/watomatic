@@ -1,3 +1,3 @@
 
-- [Home](/)
-- [Privacy Policy](/privacy-policy.md)
+- [Home](/watomatic/)
+- [Privacy Policy](/watomatic/privacy-policy.md)
