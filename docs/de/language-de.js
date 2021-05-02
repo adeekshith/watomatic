@@ -15,7 +15,7 @@ window.addEventListener("load", function() {
 function set_cookie() {
     var myDate = new Date();
     myDate.setMonth(myDate.getMonth() + 12);
-    document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=loclahost;path=/"
+    document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=localhost;path=/"
 }
 
 
