@@ -15,6 +15,7 @@
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy Seguro</string>
     <string name="retry">Reintentar</string>
+    <string name="permission_dialog_denied_title">Permiso denegado</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
