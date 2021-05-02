@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
     <string name="privacy_policy_label">Политика конфеденциальности</string>
@@ -27,11 +28,28 @@
     <string name="groupReplySwitchLabel">Автоответ в групповые чаты</string>
     <string name="group_reply_on_info_message">Включен автоответ в групповые чаты</string>
     <string name="group_reply_off_info_message">Автоответ в групповые чаты выключен</string>
+    <string name="time_picker_title">Частота ответа (БЕТА)</string>
+    <string name="time_picker_sub_title_default">Бесконтрольно отвечать на все сообщения</string>
+    <string name="time_picker_sub_title">Отвечать раз в %1$d дня\/s каждому человеку\/группе</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Нажмите, чтобы настроить время между ответами</string>
+    <string name="app_version">Версия %1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Сохранить</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Добавить ссылку на Watomatic, чтобы помочь другим</string>
+    <string name="sent_using_Watomatic">Отправлено с помощью git.io/watomatic</string>
+    <string name="share_app_text">\"Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы!\n https://git.io/watomatic</string>
+    <string name="share">Поделиться</string>
+    <string name="share_subject">Watomatic: Автоответчик для WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Обсуждаем\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Что нового?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Показывать уведомления сообщений, на которые отправлен автоматический ответ</string>
     <!-- Local language names (non translatable) -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Язык приложения</string>
 </resources>
