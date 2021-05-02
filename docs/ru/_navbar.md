@@ -1,4 +1,4 @@
-<script src="language-en.js"></script>
+<script src="language.js"></script>
 
 
 * [Home](/)
