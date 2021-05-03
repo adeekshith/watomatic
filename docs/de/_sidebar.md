@@ -1,2 +1,2 @@
-- [Start](../watomatic/de/index.html)
-- [Datenschutz](../watomatic/privacy-policy.md)
+- [Start](https://mawoka-myblock.github.io/watomatic/de/index.html)
+- [Datenschutz](https://mawoka-myblock.github.io/watomatic/privacy-policy.md)
