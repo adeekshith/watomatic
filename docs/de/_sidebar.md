@@ -1,2 +1,2 @@
-- <a href="index.html">Start</a>
-- <a href="index.html/#/privacy-policy">Start</a>
+- <a href="/watomatic/index.html">Start</a>
+- <a href="/watomatic/index.html/#/privacy-policy">Start</a>
