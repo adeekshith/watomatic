@@ -1,3 +1,2 @@
-<script src="language.js"></script>
-- [начинать](/watomatic/de/index.html)
-- [Политика конфиденциальности](/watomatic/privacy-policy.md)
+- <a href="/watomatic/ru/">начинать</a>
+- <a href="/watomatic/ru/#/privacy-policy">Политика конфиденциальности</a>

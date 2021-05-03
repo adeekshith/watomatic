@@ -1,3 +1,2 @@
-
-- [Home](/watomatic/)
-- [Privacy Policy](/watomatic/privacy-policy.md)
+- <a href="/watomatic/">Home</a>
+- <a href="/watomatic/#/privacy-policy">Privacy Policy</a>
