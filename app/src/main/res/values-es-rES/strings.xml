@@ -21,11 +21,20 @@
     <string name="permission_dialog_denied_msg">Sin este permiso la app no puede responder automáticamente a las notificaciones. Estas seguro de que quieres denegar este permiso?</string>
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Activar para las aplicaciones</string>
+    <string name="enable_auto_reply_switch_msg">Habilita el interruptor de respuesta automática primero.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Seleccione al menos una sola app</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Respuesta automática para chats grupales</string>
+    <string name="group_reply_on_info_message">Respuesta automática para chats grupales habilitada</string>
+    <string name="group_reply_off_info_message">Respuesta automática para chats grupales deshabilitada</string>
+    <string name="time_picker_title">Frecuencia de respuesta (BETA)</string>
+    <string name="time_picker_sub_title_default">Responder a todos los mensajes sin control</string>
+    <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
+    <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a difundir la palabra</string>
     <string name="sent_using_Watomatic">Enviar usando git.io/watomatic</string>
     <string name="share_app_text">\"Estoy usando Watomatic para salir de WhatsApp. Pruébalo!\n https://git.io/watomatic</string>
     <string name="share">Compartir</string>
