@@ -6,6 +6,7 @@
     <string name="privacy_policy_label">Políticas de privacidad</string>
     <string name="service_name">Escuchador de Notificación de Mensaje Entrante</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta Personalizada)</string>
+    <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de auto respuesta</string>
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática apagada</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática encendida</string>
@@ -34,11 +35,13 @@
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas tambien ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a difundir la palabra</string>
     <string name="sent_using_Watomatic">Enviar usando git.io/watomatic</string>
     <string name="share_app_text">\"Estoy usando Watomatic para salir de WhatsApp. Pruébalo!\n https://git.io/watomatic</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Watomatic: Respuesta automática para WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Discutamos en\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Qué hay de nuevo?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
