@@ -1,2 +1,2 @@
-- [Start](../index.html)
-- [Datenschutz](/#/privacy-policy.md)
+- [Start](/index.html)
+- [Datenschutz](#/privacy-policy.md)
