@@ -1,7 +1,8 @@
 function set_cookie() {
     var no_redir_cookie = getCookie("redir");
-    if (window.confirm("We will set a cookie if you click ok.") && no_redir_cookie == null) {
-        var myDate = new Date();
+    //if (window.confirm("We will set a cookie if you click ok.") && no_redir_cookie == null) {
+        if (no_redir_cookie == null) {
+       var myDate = new Date();
         myDate.setMonth(myDate.getMonth() + 12);
         document.cookie = "redir=no_redir" + ";expires=" + myDate + ";domain=adeekshith.github.io;path=/;secure"
     }
@@ -27,3 +28,5 @@ function getCookie(name) {
     //return unescape(dc.substring(begin + prefix.length, end));
     return decodeURI(dc.substring(begin + prefix.length, end));
 } 
+
+
