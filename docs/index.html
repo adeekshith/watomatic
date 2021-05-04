@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Auto reply for WhatsApp so you can break away from it">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="assets/vue.css">
+  <link rel="stylesheet" href="assets/mail.css">
+  <script src="language-en.js"></script>
 </head>
 <body>
   <div id="app"></div>
@@ -26,13 +28,30 @@
         hideOtherSidebarContent: false, // whether or not to hide other sidebar content
         namespace: 'watomatic-home-1',
       },
+      plugins: [
+    function(hook) {
+      var footer = [
+        '<hr/>',
+        '<footer>',
+        '<span><a href="https://github.com/adeekshith">Deekshith Allamaneni</a> &copy;2021. </span>',
+        '<span>With help of <a href="https://github.com/mawoka-myblock">Mawoka</a>. </span>',
+        '<span>Google Play and the Google Play logo are trademarks of Google LLC.</span>',
+        '</footer>'
+      ].join('');
+
+      hook.afterEach(function(html) {
+        return html + footer;
+      });
+    }
+  ],
       loadSidebar: true,
       subMaxLevel: 2,
       loadNavbar: true,
       auto2top: true
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="assets/emoji.min.js"></script>
+  <script src="assets/docsify.min.js"></script>
+  <script src="assets/search.min.js"></script>
 </body>
 </html>

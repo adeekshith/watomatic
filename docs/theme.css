@@ -6,10 +6,28 @@
 body {
 	display: grid;
 	grid-template-columns: minmax(100px, 850px);
-	justify-content: center;
+	/*justify-content: center; */
 	font-family: 'Fira Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 18px;
 	color: #333;
+	background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); 
+	animation: background_animation 15s ease infinite;
+	background-size: 400% 400%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+
+@keyframes background_animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 h2 {

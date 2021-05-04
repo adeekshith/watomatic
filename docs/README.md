@@ -1,9 +1,11 @@
+<script href="language.js"></script>
+
 # Watomatic - Auto reply for WhatsApp so you can stop using it
 
 Watomatic sends an automated reply to everyone contacting you on WhatsApp. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a vacation responder.
 
-<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="60" /></a>
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
+<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='assets/en_badge_web_generic.png' height="60" /></a>
+[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
 ### [Screenshots](/screenshots.md)
@@ -55,9 +57,15 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 
 - Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
 - Community: [r/watomatic](https://www.reddit.com/r/watomatic/)
-- Email: watomatic@deekshith.in
+- Email: <a class="custom-email" onclick="window.location.href = 'mailto:watomatic@deekshith.in'">watomatic@deekshith.in</a>
 
 Connect with Deekshith on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
 
 [scr-page-link]: https://github.com/adeekshith/watomatic/tree/main/media/screenshots
 
+
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
