@@ -30,7 +30,7 @@ jobs:
         run: |-
           git diff
           git config --global user.email "actions@users.noreply.github.com"
-          git config --global user.name "README-bot"
+          git config --global user.name "GitHub-Action"
           git add -A
-          git commit -m "Updated poll" || exit 0
+          git commit -m "Updated docsify" || exit 0
           git push
