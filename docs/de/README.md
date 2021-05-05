@@ -23,7 +23,7 @@ Watomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten,
 
 WhatsApp hat vor kurzem die Datenschutzerklärung geändert und hat damit viele Leute dazu gebracht, zu besseren Messengern zu wechseln. Das Problem ist aber dass viele Leute es schwierig finden, WhatsApp zu verlassen, da fast jeder WhatsApp benutzt. Watomatic hilft dir dabei, indem es deinen Freunden eine personalisierte Nachricht schickt, damit sie erfahren, dass du kein WhatsApp mehr benutzt, sondern nur noch Signal etc. benutzt.
 
-Diese App hat arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
+Diese App arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
 
 ### Problembehandlung
 
