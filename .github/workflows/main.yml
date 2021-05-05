@@ -1,0 +1,36 @@
+name: Docsify
+
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
+
+
+jobs:
+  update_docsify:
+    name: Update docsify
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+           ref: docs/ghpages
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install python dependencies
+        run: |
+          python -m pip install requests
+      - name: Start the action
+        run: |
+            python3 update_docsify.py
+      - name: Commit and push
+        run: |-
+          git diff
+          git config --global user.email "actions@users.noreply.github.com"
+          git config --global user.name "GitHub-Action"
+          git add -A
+          git commit -m "Updated docsify" || exit 0
+          git push
