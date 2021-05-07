@@ -30,6 +30,14 @@
             android:name="com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity"
             android:label="@string/mainAutoReplyLabel"
             android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity">
+            <intent-filter android:label="global-auto-reply-message-intent">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "watomatic://auto-reply” -->
+                <data android:scheme="watomatic"
+                    android:host="auto-reply" />
+            </intent-filter>
         </activity>
 
         <activity

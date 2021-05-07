@@ -35,7 +35,14 @@ public class CustomReplyEditorActivity extends BaseActivity {
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
         appendWatomaticAttribution = findViewById(R.id.appendWatomaticAttribution);
 
-        autoReplyText.setText(customRepliesData.get());
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();
+
+        autoReplyText.setText ((data != null)
+                ? data.getQueryParameter("message")
+                : customRepliesData.get());
+
         autoReplyText.requestFocus();
         autoReplyText.addTextChangedListener(new TextWatcher() {
             @Override
