@@ -1,0 +1,5 @@
+*  Support deep links to allow other apps/websites to suggest Watomatic message
+*  New Spanish translations by germe-fur on Crowdin
+*  New Russian translations by crlf on Crowdin
+*  Dutch translations by m2wz on Crowdin
+*  Finnish translations by rynach on Crowdin
