@@ -74,6 +74,7 @@
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
     <string name="lang_de_rDE" translatable="false">Deutsche (de-rDE)</string>
+    <string name="lang_es_rES" translatable="false">español (es-rES)</string>
     <string name="lang_fi_rFI" translatable="false">Suomi (fi_rFI)</string>
     <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
     <string name="lang_in_rID" translatable="false">Indonesian (in-rID)</string>
@@ -85,6 +86,7 @@
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
     <string name="lang_code_de_rDE" translatable="false">de-rDE</string>
+    <string name="lang_code_es_rES" translatable="false">es-rES</string>
     <string name="lang_code_fi_rFI" translatable="false">fi-rFI</string>
     <string name="lang_code_fr_rFR" translatable="false">fr-rFR</string>
     <string name="lang_code_in_rID" translatable="false">in-rID</string>
