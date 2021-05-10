@@ -81,6 +81,7 @@
     <string name="lang_it_rIT" translatable="false">Italiano (it_rIT)</string>
     <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
     <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
+    <string name="lang_ru_rRU" translatable="false">Portuguese (ru-rRU)</string>
     <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-rIN)</string>
 
     <!-- Language codes (non translatable) -->
@@ -93,6 +94,7 @@
     <string name="lang_code_it_rIT" translatable="false">it-rIT</string>
     <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
     <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
+    <string name="lang_code_ru_rRU" translatable="false">ru-rRU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-rIN</string>
 
     <!-- App Language selection -->
