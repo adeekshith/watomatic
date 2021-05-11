@@ -3,9 +3,9 @@ function redir_lang() {
 
     
     if (userLang == "de" && localStorage.getItem("redir") == null) {
-        window.location.replace('/watomatic/de/index.html')
+        window.location.replace('/de/index.html')
     } else if (userLang == "ru" && no_redir_cookie == null) {
-        window.location.replace('/watomatic/ru/index.html')
+        window.location.replace('/ru/index.html')
     }
 
 }
