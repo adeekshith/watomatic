@@ -1,2 +1,2 @@
-- <a href="/watomatic/">Home</a>
-- <a href="/watomatic/#/privacy-policy">Privacy Policy</a>
+- <a href="/">Home</a>
+- <a href="/#/privacy-policy">Privacy Policy</a>
