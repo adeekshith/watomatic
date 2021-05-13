@@ -27,7 +27,7 @@ Diese App arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
 
 ### Problembehandlung
 
-- Watomatic antwortet nich, obwohl es aktiviert its.
+- Watomatic antwortet nich, obwohl es aktiviert ist.
   
   Du musst die Benachrichtigungen aktiviert haben und den Fingerabdruck-Schutz deaktiviert haben.
 
@@ -37,7 +37,7 @@ Diese App arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
   
   Du kannst WhatsApp Business nicht benutzen, ohne die neuen Datenschutzrichtlinien anzunehmen, was wir probieren zu vermeiden.
 
-- WWird Watomatic auch auf iOS verfügbar sein?
+- Wird Watomatic auch auf iOS verfügbar sein?
   
   Diese App benutzt die Android-Benchrichtigungen, welche es nicht auf iOS gibt, wie der Name schon sagt.
 
@@ -45,13 +45,13 @@ Fehlende Features? Sag uns in einem [Issue](https://github.com/adeekshith/watoma
 
 ### Support
 
-- ❤️ **Kauf mir einen Kaffee**: [PayPal](https://paypal.me/deek), [Liberapay](https://liberapay.com/dk/donate)
+- ❤️ **Kaufe mir einen Kaffee**: [PayPal](https://paypal.me/deek), [Liberapay](https://liberapay.com/dk/donate)
 - **BTC**: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
 - Die App im [Play Store](https://play.google.com/store/apps/details?id=com.parishod.watomatic) zu bewerten ist die einfachste Methode zu helfen.
 
 ### Kontakt:
 
-- Bugs und Feature-Anfragen: [issues](https://github.com/adeekshith/watomatic/issues/)
+- Bugs und Feature-Anfragen: [Issues](https://github.com/adeekshith/watomatic/issues/)
 - Community: [r/watomatic](https://www.reddit.com/r/watomatic/)
 - Email: <a class="custom-email" onclick="window.location.href = 'mailto:watomatic@deekshith.in'">watomatic@deekshith.in</a>
 
