@@ -1,2 +1,2 @@
-- <a href="/watomatic/de/">Start</a>
-- <a href="/watomatic/de/#/privacy-policy">Datenschutzerklärung</a>
+- <a href="/de/">Start</a>
+- <a href="/de/#/privacy-policy">Datenschutzerklärung</a>

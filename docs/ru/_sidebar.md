@@ -1,2 +1,2 @@
-- <a href="/watomatic/ru/">На главную</a>
-- <a href="/watomatic/ru/#/privacy-policy">Политика конфиденциальности</a>
+- <a href="/ru/">На главную</a>
+- <a href="/ru/#/privacy-policy">Политика конфиденциальности</a>
