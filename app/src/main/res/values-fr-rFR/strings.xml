@@ -48,6 +48,7 @@
     <!-- app settings -->
     <string name="show_notification_label">Montrer la notification pour les messages répondus</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Langue de l\'application</string>
