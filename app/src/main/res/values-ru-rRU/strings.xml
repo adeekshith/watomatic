@@ -49,6 +49,7 @@
     <!-- app settings -->
     <string name="show_notification_label">Показывать уведомления сообщений, на которые отправлен автоматический ответ</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Язык приложения</string>
