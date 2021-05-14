@@ -4,6 +4,8 @@
         <item>@string/lang_en</item>
         <item>@string/lang_de_rDE</item>
         <item>@string/lang_es_rES</item>
+        <item>@string/lang_es_rMX</item>
+        <item>@string/lang_eu_rES</item>
         <item>@string/lang_fi_rFI</item>
         <item>@string/lang_fr_rFR</item>
         <item>@string/lang_in_rID</item>
@@ -19,6 +21,8 @@
         <item>@string/lang_code_en</item>
         <item>@string/lang_code_de_rDE</item>
         <item>@string/lang_code_es_rES</item>
+        <item>@string/lang_code_es_rMX</item>
+        <item>@string/lang_code_eu_rES</item>
         <item>@string/lang_code_fi_rFI</item>
         <item>@string/lang_code_fr_rFR</item>
         <item>@string/lang_code_in_rID</item>
