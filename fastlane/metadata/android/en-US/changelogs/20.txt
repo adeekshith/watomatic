@@ -1,0 +1,4 @@
+* New Türkçe (Turkish) translations by Tansel Karakaya @karakaya.tansel@crowdin (#272)
+* New Euskara (Basque) translation by Joxe Rojas @joxerg@crowdin (#261)
+* Pусский (Russian) translation improvements by @CRLF@crowdin (#261)
+* Updated underlying libraries for stability and security
