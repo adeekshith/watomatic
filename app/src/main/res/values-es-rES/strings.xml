@@ -11,13 +11,13 @@
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática apagada</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática encendida</string>
     <string name="mainAutoReplyEditBtnTooltip">Presione para editar el texto de la respuesta automática</string>
-    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a salir de WhatsApp y Facebook Messenger</string>
+    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a abandonar WhatsApp y Facebook Messenger</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy seguro</string>
     <string name="retry">Reintentar</string>
     <string name="permission_dialog_title">Se necesita permiso</string>
-    <string name="permission_dialog_msg">Esta aplicación requiere permisos de acceso a notificaciones para funcionar.</string>
+    <string name="permission_dialog_msg">Esta aplicación requiere permisos de acceso a las notificaciones para funcionar.</string>
     <string name="permission_dialog_denied_title">Permiso rechazado</string>
     <string name="permission_dialog_denied_msg">Sin este permiso la aplicación no puede responder automáticamente a las notificaciones. ¿Estás seguro de que deseas rechazar este permiso?</string>
     <!-- Select apps to auto reply -->
@@ -38,10 +38,10 @@
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a correr la voz</string>
-    <string name="sent_using_Watomatic">Enviar usando git.io/watomatic</string>
-    <string name="share_app_text">Estoy usando Watomatic para salir de WhatsApp. ¡Pruébalo!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Enviado a través de git.io/watomatic</string>
+    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo!\n https://git.io/watomatic</string>
     <string name="share">Compartir</string>
-    <string name="share_subject">Watomatic: respuesta automática a WhatsApp</string>
+    <string name="share_subject">Watomatic: respuesta automática para WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Hablemos de\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">¿Qué hay de nuevo?</string>
     <!-- Share debug logs -->
