@@ -49,6 +49,7 @@
     <!-- app settings -->
     <string name="show_notification_label">Näytä ilmoitus vastatuille viesteille</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Sovelluksen kieli</string>
