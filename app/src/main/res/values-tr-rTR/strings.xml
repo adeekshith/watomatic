@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Hakkında</string>
+    <string name="settings">Ayarlar</string>
+    <string name="privacy_policy_label">Gizlilik Politikası</string>
+    <string name="service_name">Gelen Mesaj Bildirim Dinleyicisi</string>
+    <string name="mainAutoReplyTextPlaceholder">(Özel Yanıt)</string>
+    <string name="auto_reply_default_message">Otomatik Yanıt \ n⚠️ Kullanıcı mevcut değil</string>
+    <string name="mainAutoReplyLabel">Otomatik yanıt metni</string>
+    <string name="mainAutoReplySwitchOffLabel">Otomatik yanıt KAPALI</string>
+    <string name="mainAutoReplySwitchOnLabel">Otomatik yanıt AÇIK</string>
+    <string name="mainAutoReplyEditBtnTooltip">Otomatik yanıt metnini düzenlemek için tıklayın</string>
+    <string name="to_help_you_leave_whatsapp">WhatsApp ve Facebook messenger\'dan ayrılmanıza yardımcı olacak otomatik yanıt</string>
+    <string name="decline">Reddet</string>
+    <string name="accept">Onayla</string>
+    <string name="sure">Eminim</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="permission_dialog_title">İzin Gerekli</string>
+    <string name="permission_dialog_msg">Bu uygulamanın çalışması için Bildirim Erişimi izinleri gerekir.</string>
+    <string name="permission_dialog_denied_title">İzin reddedildi</string>
+    <string name="permission_dialog_denied_msg">Bu izin olmadan uygulama bildirimlere otomatik yanıt veremez. İzni reddetmek istediğinizden emin misiniz?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Uygulamalar için etkinleştirin</string>
+    <string name="enable_auto_reply_switch_msg">Önce Otomatik Yanıt Anahtarını Etkinleştirin.</string>
+    <string name="error_atleast_single_app_must_be_selected">Hata: En az bir uygulama seçin</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Grup sohbetleri için otomatik yanıt</string>
+    <string name="group_reply_on_info_message">Grup sohbetleri için otomatik yanıt etkinleştirildi</string>
+    <string name="group_reply_off_info_message">Grup sohbetleri için otomatik yanıt devre dışı bırakıldı</string>
+    <string name="time_picker_title">Yanıt sıklığı (BETA)</string>
+    <string name="time_picker_sub_title_default">Tüm mesajlara kontrolsüz yanıt verin</string>
+    <string name="time_picker_sub_title">Her kişi \ / grup için her% 1 $ d günde bir yanıt verin</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Yanıtlar arasındaki zaman gecikmesini düzenlemek için tıklayın</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Kaydet</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Haberin yayılmasına yardımcı olmak için Otomatik atıf ekleyin</string>
+    <string name="sent_using_Watomatic">Git.io/watomatic kullanılarak gönderildi</string>
+    <string name="share_app_text">\"WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin! \ N https://git.io/watomatic</string>
+    <string name="share">Paylaş</string>
+    <string name="share_subject">Watomatic: WhatsApp için otomatik yanıt</string>
+    <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Neler Yeni?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Cevaplanan mesajlar için bildirim göster</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Uygulama Dili</string>
 </resources>
