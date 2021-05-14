@@ -11,7 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática apagada</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática encendida</string>
     <string name="mainAutoReplyEditBtnTooltip">Presione para editar el texto de la respuesta automática</string>
-    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a salir de WhatsApp y Facebook messenger</string>
+    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a salir de WhatsApp y Facebook Messenger</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy Seguro</string>
