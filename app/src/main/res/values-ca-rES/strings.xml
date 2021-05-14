@@ -4,6 +4,7 @@
     <string name="about">Informació</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privacitat</string>
+    <string name="service_name">Oient de notificacions de missatges entrants</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="mainAutoReplyLabel">Text de la resposta automàtica</string>
@@ -21,19 +22,35 @@
     <string name="permission_dialog_denied_msg">Sense aquest permís, la aplicació no serà capaç de respondre automàticament les notificacions. Estàs segur que vols rebutjar-lo?</string>
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Activar per les aplicacions</string>
+    <string name="enable_auto_reply_switch_msg">Activa primer l\'interruptor de Resposta automàtica.</string>
     <string name="error_atleast_single_app_must_be_selected">Error: Selecciona com a mínim una aplicació</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Respon automàticament a les converses grupals</string>
+    <string name="group_reply_on_info_message">Activades les respostes automàtiques a les converses grupals</string>
+    <string name="group_reply_off_info_message">Desactivades les respostes automàtiques a les converses grupals</string>
+    <string name="time_picker_title">Freqüència de resposta automàtica (BETA)</string>
+    <string name="time_picker_sub_title_default">Respon a tots els missatges sense límit</string>
+    <string name="time_picker_sub_title">Respon només una vegada cada %1$d dia\/es per persona\/grup</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Prem per editar el temps d\'espera entre respostes</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Desar</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Veure i compartir plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Afegir una atribució a Watomatic per ajudar a difondre la paraula</string>
-    <string name="sent_using_Watomatic">Enviant amb git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Enviat amb git.io/watomatic</string>
+    <string name="share_app_text">\"Estic utilitzant Watomatic per allunyar-me de WhatsApp. Prova-ho!\nhttps://git.io/watomatic</string>
+    <string name="share">Compartir</string>
+    <string name="share_subject">Watomatic: Resposta automàtica per WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Novetats</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Mostrar notificacions dels missatges respostos</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Idioma de l\'aplicació</string>
 </resources>
