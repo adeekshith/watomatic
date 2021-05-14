@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Informació</string>
+    <string name="settings">Configuració</string>
+    <string name="privacy_policy_label">Política de privacitat</string>
+    <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
+    <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
+    <string name="mainAutoReplyLabel">Text de la resposta automàtica</string>
+    <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
+    <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
+    <string name="mainAutoReplyEditBtnTooltip">Prem per editar el text de la resposta automàtica</string>
+    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-te a abandonar WhatsApp i Facebook messenger</string>
+    <string name="decline">Rebutjar</string>
+    <string name="accept">Acceptar</string>
+    <string name="sure">N\'estic segur</string>
+    <string name="retry">Reintentar</string>
+    <string name="permission_dialog_title">Permís necessari</string>
+    <string name="permission_dialog_msg">Aquesta aplicació necessita Accés a les Notificacions per funcionar.</string>
+    <string name="permission_dialog_denied_title">Permís denegat</string>
+    <string name="permission_dialog_denied_msg">Sense aquest permís, la aplicació no serà capaç de respondre automàticament les notificacions. Estàs segur que vols rebutjar-lo?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Activar per les aplicacions</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Selecciona com a mínim una aplicació</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Respon automàticament a les converses grupals</string>
     <!-- Custom message editor -->
+    <string name="save">Desar</string>
+    <string name="tip_view_messages_from_fellow_users">🦩<u>Veure i compartir plantilles amb la comunitat➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Afegir una atribució a Watomatic per ajudar a difondre la paraula</string>
+    <string name="sent_using_Watomatic">Enviant amb git.io/watomatic</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
