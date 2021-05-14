@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Honi buruz</string>
+    <string name="settings">Ezarpenak</string>
+    <string name="privacy_policy_label">Pribatutasun politika</string>
+    <string name="service_name">Sarrerako mezuei entzuteko morroia</string>
+    <string name="mainAutoReplyTextPlaceholder">(Erantzun pertsonalizatua)</string>
+    <string name="auto_reply_default_message">Erantzun automatikoa\n⚠️ Erabiltzailea ez dago eskuragarri</string>
+    <string name="mainAutoReplyLabel">Erantzun automatikoaren testua</string>
+    <string name="mainAutoReplySwitchOffLabel">Erantzun automatikoa OFF</string>
+    <string name="mainAutoReplySwitchOnLabel">Erantzun automatikoa ON</string>
+    <string name="mainAutoReplyEditBtnTooltip">Egin ttap erantzun automatikoaren testua editatzeko</string>
+    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsaap eta Facebook Messenger atzean uzten laguntzeko</string>
+    <string name="decline">Errefusatu</string>
+    <string name="accept">Onartu</string>
+    <string name="sure">Ziur nago</string>
+    <string name="retry">Saiatu berriro</string>
+    <string name="permission_dialog_title">Baimena behar da</string>
+    <string name="permission_dialog_msg">Aplikazio honek Jakinarazpenak Atzizeko baimenak behar ditu funtzionatzeko.</string>
+    <string name="permission_dialog_denied_title">Baimena ukatuta</string>
+    <string name="permission_dialog_denied_msg">Baimen hori gabe, aplikazioak ezin du automatikoki erantzun jakinarazpenetan. Ziur al zaude baimena ukatu nahi duzula?</string>
+    <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Gaitu aplikazio hauetan</string>
+    <string name="enable_auto_reply_switch_msg">Lehendabizi, piztu erantzun automatikoak.</string>
+    <string name="error_atleast_single_app_must_be_selected">Errorea: aukeratu gutxienez aplikazio bat</string>
+    <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Erantzun automatikoa taldeko elkarrizketetan</string>
+    <string name="group_reply_on_info_message">Taldeko elkarrizketetako erantzun automatikoa gaitu da</string>
+    <string name="group_reply_off_info_message">Taldeko elkarrizketetako erantzun automatikoa desgaitu da</string>
+    <string name="time_picker_title">Erantzuteko maiztasuna (BETA)</string>
+    <string name="time_picker_sub_title_default">Erantzun mezu guztiei mugarik gabe</string>
+    <string name="time_picker_sub_title">Erantzun behin %1$d eguneko, pertsona\/talde bakoitzeko</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Egin ttap erantzunen arteko atzerapena editatzeko</string>
+    <string name="app_version">v%1$s</string>
+    <!-- Custom message editor -->
+    <string name="save">Gorde</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Ikusi komunitatearen txantiloiak eta partekatu zeureak ere ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Gehitu Watomatic aitortza hitza zabaltzen laguntzeko</string>
+    <string name="sent_using_Watomatic">Honen bidez bidalia: git-io/watomatic</string>
+    <string name="share_app_text">\"Watomatic erabiltzen ari naiz Whatsappetik askatzeko. Probatu zeuk ere! \n https://git.io/watomatic</string>
+    <string name="share">Partekatu</string>
+    <string name="share_subject">Watomatic: Erantzun automatikoa WhatsApperako</string>
+    <string name="watomatic_subreddit_label"><u>Eztabaida dezagun\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Zer berri?</string>
+    <!-- Share debug logs -->
+    <!-- keys and app internal strings -->
+    <!-- app settings -->
+    <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
+    <!-- Local language names (non translatable) -->
+    <!-- Language codes (non translatable) -->
+    <!-- App Language selection -->
+    <string name="app_language">Aplikazioaren hizkuntza</string>
+</resources>

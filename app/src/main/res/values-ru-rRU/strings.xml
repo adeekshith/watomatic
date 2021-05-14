@@ -3,7 +3,7 @@
     <string name="app_name">Watomatic</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
-    <string name="privacy_policy_label">Политика конфеденциальности</string>
+    <string name="privacy_policy_label">Политика конфиденциальности</string>
     <string name="service_name">Отслеживание уведомлений о входящих сообщениях</string>
     <string name="mainAutoReplyTextPlaceholder">(Свой ответ)</string>
     <string name="auto_reply_default_message">Автоматический ответ\n⚠️ Пользователь недоступен</string>
@@ -38,8 +38,8 @@
     <string name="save">Сохранить</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Добавить ссылку на Watomatic, чтобы помочь другим</string>
-    <string name="sent_using_Watomatic">Отправлено с помощью git.io/watomatic</string>
-    <string name="share_app_text">\"Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Отправлено с помощью watomatic.app/ru</string>
+    <string name="share_app_text">\"Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы!\n https://watomatic.app/ru/</string>
     <string name="share">Поделиться</string>
     <string name="share_subject">Watomatic: Автоответчик для WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Обсуждаем\nr/watomatic</u></string>
