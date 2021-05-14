@@ -49,6 +49,7 @@
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Aplikazioaren hizkuntza</string>
