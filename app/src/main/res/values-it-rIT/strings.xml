@@ -49,6 +49,7 @@
     <!-- app settings -->
     <string name="show_notification_label">Mostra la notifica per i messaggi risposti in automatico</string>
     <!-- Local language names (non translatable) -->
+    <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Lingua Applicazione</string>
