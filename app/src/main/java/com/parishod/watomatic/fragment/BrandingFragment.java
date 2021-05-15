@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.GithubReleaseNotes;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -170,8 +171,10 @@ public class BrandingFragment extends Fragment {
         gitHubReleaseNotesId = releaseNotes.getId();
         String body = releaseNotes.getBody();
         int gitHubId = PreferencesManager.getPreferencesInstance(getActivity()).getGithubReleaseNotesId();
+        String appVersion = "v" + BuildConfig.VERSION_NAME;
         //Check local githubid and id received id's are different and if its not minor release
-        if((gitHubId == 0 || gitHubId != gitHubReleaseNotesId) && !body.contains("minor-release: true")) {
+        if((gitHubId == 0 || gitHubId != gitHubReleaseNotesId) && !body.contains("minor-release: true")
+            && releaseNotes.getTagName().equalsIgnoreCase(appVersion)) {
             //Split the body into separate lines and search for line starting with "view release notes on"
             String[] splitStr = body.split("\n");
             if(splitStr.length > 0) {
