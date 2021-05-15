@@ -30,7 +30,7 @@
     <string name="group_reply_off_info_message">Grup sohbetleri için otomatik yanıt devre dışı bırakıldı</string>
     <string name="time_picker_title">Yanıt sıklığı (BETA)</string>
     <string name="time_picker_sub_title_default">Tüm mesajlara kontrolsüz yanıt verin</string>
-    <string name="time_picker_sub_title">Her kişi \ / grup için her% 1 $ d günde bir yanıt verin</string>
+    <string name="time_picker_sub_title">Her kişi \ / grup için her %1$d günde bir yanıt verin</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Yanıtlar arasındaki zaman gecikmesini düzenlemek için tıklayın</string>
     <string name="app_version">v%1$s</string>
