@@ -105,4 +105,14 @@
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
+
+    <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">What do you think?</string>
+    <string name="app_rating_dialog_msg">We are interested in what you think of the app. Tap the stars above to rate it.</string>
+    <string name="app_rating_dialog_rate_button_title">Rate it!</string>
+    <string name="app_rating_dialog_rate_later_title">May be later</string>
+    <string name="app_rating_feedback_dialog_title">Connect with us?</string>
+    <string name="app_rating_feedback_dialog_msg">We value your feedback, Please connect with us and share your feedback.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Email Us</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>

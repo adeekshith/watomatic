@@ -14,4 +14,7 @@ public interface MessageLogsDao {
 
     @Insert
     void logReply(MessageLog log);
+
+    @Query("SELECT id FROM MESSAGE_LOGS")
+    long getNumReplies();
 }
