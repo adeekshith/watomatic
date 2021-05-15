@@ -154,7 +154,9 @@ public class BrandingFragment extends Fragment {
         call.enqueue(new Callback<GithubReleaseNotes>() {
             @Override
             public void onResponse(Call<GithubReleaseNotes> call, Response<GithubReleaseNotes> response) {
-                parseReleaseNotesResponse(response.body());
+                if (response.body() != null) {
+                    parseReleaseNotesResponse(response.body());
+                }
             }
 
             @Override
