@@ -14,9 +14,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
-import com.parishod.watomatic.model.logs.AppPackage;
-import com.parishod.watomatic.model.logs.MessageLog;
-import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.DbUtils;
@@ -31,7 +28,8 @@ import static java.lang.Math.max;
 public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
-    private MessageLogsDB messageLogsDB;
+    private DbUtils dbUtils;
+
     // Do not reply to consecutive notifications from same person/group that arrive in below time
     // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
     private final int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
@@ -86,14 +84,16 @@ public class NotificationService extends NotificationListenerService {
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
-                logReply(sbn);
+                if(dbUtils == null) {
+                    dbUtils = new DbUtils(getApplicationContext());
+                }
+                dbUtils.logReply(sbn, getTitle(sbn));
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 if(PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
                 }
                 cancelNotification(sbn.getKey());
                 if(canPurgeMessages()){
-                    DbUtils dbUtils = new DbUtils(getApplicationContext());
                     dbUtils.purgeMessageLogs();
                     PreferencesManager.getPreferencesInstance(this).setPurgeMessageTime(System.currentTimeMillis());
                 }
@@ -196,21 +196,11 @@ public class NotificationService extends NotificationListenerService {
         if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
             return false;
         }
-        messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
-        long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - messageLogsDB.logsDao().getLastReplyTimeStamp(title, sbn.getPackageName()) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
-    }
-
-    private void logReply(StatusBarNotification sbn){
-        messageLogsDB = MessageLogsDB.getInstance(getApplicationContext());
-        int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
-        if(packageIndex <= 0){
-            AppPackage appPackage = new AppPackage(sbn.getPackageName());
-            messageLogsDB.appPackageDao().insertAppPackage(appPackage);
-            packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
+        if(dbUtils == null) {
+            dbUtils = new DbUtils(getApplicationContext());
         }
-        MessageLog logs = new MessageLog(packageIndex, getTitle(sbn), sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
-        messageLogsDB.logsDao().logReply(logs);
+        long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
+        return (System.currentTimeMillis() - dbUtils.getLastRepliedTime(sbn.getPackageName(), title) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
     private static String getTitleRaw (StatusBarNotification sbn) {
