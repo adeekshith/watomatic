@@ -151,39 +151,44 @@ public class BrandingFragment extends Fragment {
 
     private void getGthubReleaseNotes() {
         GetReleaseNotesService releaseNotesService = RetrofitInstance.getRetrofitInstance().create(GetReleaseNotesService.class);
-        Call<GithubReleaseNotes> call = releaseNotesService.getReleaseNotes();
-        call.enqueue(new Callback<GithubReleaseNotes>() {
+        Call<List<GithubReleaseNotes>> call = releaseNotesService.getReleaseNotes();
+        call.enqueue(new Callback<List<GithubReleaseNotes>>() {
             @Override
-            public void onResponse(Call<GithubReleaseNotes> call, Response<GithubReleaseNotes> response) {
+            public void onResponse(Call<List<GithubReleaseNotes>> call, Response<List<GithubReleaseNotes>> response) {
                 if (response.body() != null) {
                     parseReleaseNotesResponse(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<GithubReleaseNotes> call, Throwable t) {
+            public void onFailure(Call<List<GithubReleaseNotes>> call, Throwable t) {
 
             }
         });
     }
 
-    private void parseReleaseNotesResponse(GithubReleaseNotes releaseNotes) {
-        gitHubReleaseNotesId = releaseNotes.getId();
-        String body = releaseNotes.getBody();
-        int gitHubId = PreferencesManager.getPreferencesInstance(getActivity()).getGithubReleaseNotesId();
-        String appVersion = "v" + BuildConfig.VERSION_NAME;
-        //Check local githubid and id received id's are different and if its not minor release
-        if((gitHubId == 0 || gitHubId != gitHubReleaseNotesId) && !body.contains("minor-release: true")
-            && releaseNotes.getTagName().equalsIgnoreCase(appVersion)) {
-            //Split the body into separate lines and search for line starting with "view release notes on"
-            String[] splitStr = body.split("\n");
-            if(splitStr.length > 0) {
-                for (String s : splitStr) {
-                    if (s.toLowerCase().startsWith("view release notes on")) {
-                        whatsNewUrls = extractLinks(s);
-                        showHideWhatsNewBtn(true);
-                        break;
+    private void parseReleaseNotesResponse(List<GithubReleaseNotes> releaseNotesList) {
+        for (GithubReleaseNotes releaseNotes: releaseNotesList
+             ) {
+            String appVersion = "v" + BuildConfig.VERSION_NAME;
+            //in the list of release notes, check the release notes for this version of app
+            if(releaseNotes.getTagName().equalsIgnoreCase(appVersion)) {
+                gitHubReleaseNotesId = releaseNotes.getId();
+                String body = releaseNotes.getBody();
+                int gitHubId = PreferencesManager.getPreferencesInstance(getActivity()).getGithubReleaseNotesId();
+                if ((gitHubId == 0 || gitHubId != gitHubReleaseNotesId) && !body.contains("minor-release: true")) {
+                    //Split the body into separate lines and search for line starting with "view release notes on"
+                    String[] splitStr = body.split("\n");
+                    if (splitStr.length > 0) {
+                        for (String s : splitStr) {
+                            if (s.toLowerCase().startsWith("view release notes on")) {
+                                whatsNewUrls = extractLinks(s);
+                                showHideWhatsNewBtn(true);
+                                break;
+                            }
+                        }
                     }
+                    break;
                 }
             }
         }
