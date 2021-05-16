@@ -17,4 +17,8 @@ public interface MessageLogsDao {
 
     @Query("SELECT id FROM MESSAGE_LOGS")
     long getNumReplies();
+
+    //https://stackoverflow.com/questions/11771580/deleting-android-sqlite-rows-older-than-x-days
+    @Query("DELETE FROM message_logs WHERE notif_reply_time <= strftime('%s', datetime('now', '-7 day'));")
+    void purgeMessageLogs();
 }

@@ -26,6 +26,7 @@ public class PreferencesManager {
     private final String KEY_SELECTED_APPS_ARR = "pref_selected_apps_arr";
     private final String KEY_IS_APPEND_WATOMATIC_ATTRIBUTION = "pref_is_append_watomatic_attribution";
     private final String KEY_GITHUB_RELEASE_NOTES_ID = "pref_github_release_notes_id";
+    private final String KEY_PURGE_MESSAGE_LOGS_LAST_TIME = "pref_purge_message_logs_last_time";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
@@ -209,6 +210,16 @@ public class PreferencesManager {
     public void setGithubReleaseNotesId(int id){
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putInt(KEY_GITHUB_RELEASE_NOTES_ID, id);
+        editor.apply();
+    }
+
+    public long getLastPurgedTime(){
+        return _sharedPrefs.getLong(KEY_PURGE_MESSAGE_LOGS_LAST_TIME,0);
+    }
+
+    public void setPurgeMessageTime(long purgeMessageTime){
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_PURGE_MESSAGE_LOGS_LAST_TIME, purgeMessageTime);
         editor.apply();
     }
 }

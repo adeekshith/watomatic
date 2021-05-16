@@ -15,4 +15,9 @@ public class DbUtils {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getNumReplies();
     }
+
+    public void purgeMessageLogs(){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        messageLogsDB.logsDao().purgeMessageLogs();
+    }
 }

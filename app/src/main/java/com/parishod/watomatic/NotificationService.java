@@ -18,6 +18,8 @@ import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.Constants;
+import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 
 import java.util.ArrayList;
@@ -90,10 +92,19 @@ public class NotificationService extends NotificationListenerService {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
                 }
                 cancelNotification(sbn.getKey());
+                if(canPurgeMessages()){
+                    DbUtils dbUtils = new DbUtils(getApplicationContext());
+                    dbUtils.purgeMessageLogs();
+                    PreferencesManager.getPreferencesInstance(this).setPurgeMessageTime(System.currentTimeMillis());
+                }
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
         }
+    }
+
+    private boolean canPurgeMessages() {
+        return (System.currentTimeMillis() - PreferencesManager.getPreferencesInstance(this).getLastPurgedTime()) > Constants.MAX_DAYS * 24 * 60 * 60 * 1000;
     }
 
     private static NotificationWear extractQuickReplyNotification(StatusBarNotification sbn) {
