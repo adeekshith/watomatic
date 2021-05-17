@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">За Watomatic</string>
+    <string name="settings">Поставки</string>
+    <string name="privacy_policy_label">Политика за приватност</string>
+    <string name="mainAutoReplyTextPlaceholder">(Прилагоден одговор)</string>
+    <string name="mainAutoReplySwitchOffLabel">Автоматскиот одговор е ИСКЛУЧЕН</string>
+    <string name="mainAutoReplySwitchOnLabel">Автоматскиот одговор е ВКЛУЧЕН</string>
+    <string name="mainAutoReplyEditBtnTooltip">Кликнете за да го уредите текстот за автоматски одговор</string>
+    <string name="to_help_you_leave_whatsapp">Автоматско одговарање за да ви помогнеме да го напуштите WhatsApp и Facebook messenger</string>
     <string name="decline">Одбиј</string>
     <string name="accept">Прифати</string>
     <string name="sure">Сигурен сум</string>
     <string name="retry">Обиди се повторно</string>
     <string name="permission_dialog_title">Потребна е дозвола</string>
+    <string name="permission_dialog_denied_msg">Без оваа дозвола, апликацијата не може автоматски да одговори на известувањата. Дали сте сигурни дека сакате да ја одбиете дозволата?</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Автоматски одговор за групни разговори</string>
+    <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
+    <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="app_version">Верзија%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Зачувај</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
+    <string name="sent_using_Watomatic">Испратено со git.io/watomatic</string>
     <string name="share">Сподели</string>
+    <string name="watomatic_whatsnew_label">Што е ново?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
@@ -16,4 +35,5 @@
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Јазик на апликација</string>
 </resources>
