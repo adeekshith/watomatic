@@ -4,50 +4,50 @@
     <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privadesa</string>
-    <string name="service_name">Missatges entrants</string>
+    <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
-    <string name="mainAutoReplyEditBtnTooltip">Prem per editar el text de la resposta automàtica</string>
-    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-te a abandonar WhatsApp i Facebook messenger</string>
-    <string name="decline">Rebutjar</string>
-    <string name="accept">Acceptar</string>
-    <string name="sure">N\'estic segur</string>
-    <string name="retry">Reintentar</string>
+    <string name="mainAutoReplyEditBtnTooltip">Toqueu per per editar el text de la resposta automàtica</string>
+    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-vos a deixar el WhatsApp i el Facebook messenger</string>
+    <string name="decline">Rebutja</string>
+    <string name="accept">Accepta</string>
+    <string name="sure">D\'acord</string>
+    <string name="retry">Torna-ho a provar</string>
     <string name="permission_dialog_title">Permís necessari</string>
-    <string name="permission_dialog_msg">Aquesta aplicació necessita Accés a les Notificacions per funcionar.</string>
-    <string name="permission_dialog_denied_title">Permís denegat</string>
-    <string name="permission_dialog_denied_msg">Sense aquest permís, la aplicació no serà capaç de respondre automàticament les notificacions. Estàs segur que vols rebutjar-lo?</string>
+    <string name="permission_dialog_msg">Aquesta aplicació necessita accés a les notificacions per funcionar.</string>
+    <string name="permission_dialog_denied_title">S\'ha rebutjat el permís</string>
+    <string name="permission_dialog_denied_msg">Sense aquest permís, l\'aplicació no podrà respondre automàticament les notificacions. Voleu continuar?</string>
     <!-- Select apps to auto reply -->
-    <string name="enable_for_apps">Activar per les aplicacions</string>
-    <string name="enable_auto_reply_switch_msg">Activa primer l\'interruptor de Resposta automàtica.</string>
-    <string name="error_atleast_single_app_must_be_selected">Error: Selecciona com a mínim una aplicació</string>
+    <string name="enable_for_apps">Activa per a les aplicacions</string>
+    <string name="enable_auto_reply_switch_msg">Activeu primer la Resposta automàtica.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Seleccioneu almenys una aplicació</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">Respon automàticament a les converses grupals</string>
-    <string name="group_reply_on_info_message">Activades les respostes automàtiques a les converses grupals</string>
-    <string name="group_reply_off_info_message">Desactivades les respostes automàtiques a les converses grupals</string>
+    <string name="groupReplySwitchLabel">Habilita als xats grupals</string>
+    <string name="group_reply_on_info_message">S\'ha activat la resposta automàtica als xats grupals</string>
+    <string name="group_reply_off_info_message">S\'ha desactivat la resposta automàtica als xats grupals</string>
     <string name="time_picker_title">Freqüència de resposta automàtica (BETA)</string>
     <string name="time_picker_sub_title_default">Respon a tots els missatges sense límit</string>
-    <string name="time_picker_sub_title">Respon només una vegada cada %1$d dia\/es per persona\/grup</string>
+    <string name="time_picker_sub_title">Respon només una vegada cada %1$d dies per persona\/grup</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Prem per editar el temps d\'espera entre respostes</string>
+    <string name="time_picker_edit_btn_tooltip">Premeu per editar el temps d\'espera entre respostes</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
-    <string name="save">Desar</string>
-    <string name="tip_view_messages_from_fellow_users">🦩<u>Veure i compartir plantilles amb la comunitat➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Afegir una atribució a Watomatic per ajudar a difondre la paraula</string>
+    <string name="save">Desa</string>
+    <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
     <string name="sent_using_Watomatic">Enviat amb git.io/watomatic</string>
-    <string name="share_app_text">\"Estic utilitzant Watomatic per allunyar-me de WhatsApp. Prova-ho!\nhttps://git.io/watomatic</string>
-    <string name="share">Compartir</string>
+    <string name="share_app_text">\"Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Prova-ho!\nhttps://git.io/watomatic</string>
+    <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novetats</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Mostrar notificacions dels missatges respostos</string>
+    <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
