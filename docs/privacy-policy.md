@@ -1,3 +1,4 @@
+<script href="language-pp.js"></script>
 # Privacy Policy - Watomatic Android App
 
 Watomatic does not automatically collect any personally identifiable data without the explicit consent of the user.
