@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="decline">Одбиј</string>
+    <string name="accept">Прифати</string>
+    <string name="sure">Сигурен сум</string>
+    <string name="retry">Обиди се повторно</string>
+    <string name="permission_dialog_title">Потребна е дозвола</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
