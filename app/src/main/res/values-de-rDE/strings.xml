@@ -9,45 +9,45 @@
     <string name="auto_reply_default_message">Automatische Antwort\n⚠️ Benutzer nicht verfügbar</string>
     <string name="mainAutoReplyLabel">Text für automatische Antwort</string>
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
-    <string name="mainAutoReplySwitchOnLabel">Automatische Antwort AN</string>
-    <string name="mainAutoReplyEditBtnTooltip">Klick um Antworttext zu bearbeiten</string>
-    <string name="to_help_you_leave_whatsapp">Antworte automatisch, um WhatsApp und den Facebook Messenger schneller zu verlassen</string>
+    <string name="mainAutoReplySwitchOnLabel">Automatische Antwort EIN</string>
+    <string name="mainAutoReplyEditBtnTooltip">Tippe, um den Antworttext zu bearbeiten</string>
+    <string name="to_help_you_leave_whatsapp">Antworte automatisch, um WhatsApp und den Facebook Messenger schneller zu verlassen.</string>
     <string name="decline">Ablehnen</string>
     <string name="accept">Zustimmen</string>
     <string name="sure">Ich bin mir sicher</string>
     <string name="retry">Wiederholen</string>
     <string name="permission_dialog_title">Erforderliche Berechtigungen</string>
-    <string name="permission_dialog_msg">Diese App benötigt Benachrichtigungszugriff um zu funktionieren.</string>
-    <string name="permission_dialog_denied_title">Erforderliche Berechtigungen</string>
+    <string name="permission_dialog_msg">Diese App benötigt Benachrichtigungszugriff, um zu funktionieren.</string>
+    <string name="permission_dialog_denied_title">Berechtigungen verweigert</string>
     <string name="permission_dialog_denied_msg">Ohne diese Berechtigung kann die App nicht automatisch auf die Benachrichtigungen antworten. Sind Sie sicher, dass Sie die Berechtigung verweigern möchten?</string>
     <!-- Select apps to auto reply -->
-    <string name="enable_for_apps">Für Apps aktivieren</string>
+    <string name="enable_for_apps">Für folgende Apps aktivieren</string>
     <string name="enable_auto_reply_switch_msg">Automatische Antwort-Schalter zuerst aktivieren.</string>
     <string name="error_atleast_single_app_must_be_selected">Fehler: Wähle mindestens eine App aus</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Automatische Antwort für Gruppenchats</string>
-    <string name="group_reply_on_info_message">Automatische Antwort für Gruppenchats</string>
-    <string name="group_reply_off_info_message">Automatische Antwort für Gruppenchats</string>
+    <string name="group_reply_on_info_message">Automatische Antwort für Gruppenchats EIN</string>
+    <string name="group_reply_off_info_message">Automatische Antwort für Gruppenchats AUS</string>
     <string name="time_picker_title">Antwort-Häufigkeit (BETA)</string>
     <string name="time_picker_sub_title_default">Auf alle Nachrichten ohne Limit antworten</string>
     <string name="time_picker_sub_title">Nur einmal alle %1$d Tag\/e je Chat</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Klick um Zeitverzögerung zwischen Antworten zu bearbeiten</string>
+    <string name="time_picker_edit_btn_tooltip">Tippe, um die Zeitverzögerung zwischen Antworten zu bearbeiten</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Speichern</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Vorlagen aus der Community ansehen und eigene teilen ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Watomatic-Link anhängen, um uns zu unterstützen. Danke</string>
+    <string name="append_watomatic_arribution_checkbox_label">Watomatic-Link anhängen, um uns zu unterstützen. Danke!</string>
     <string name="sent_using_Watomatic">Gesendet mit git.io/watomatic</string>
-    <string name="share_app_text">\"Ich benutze Watomatic um mich von WhatsApp zu lösen. Probiere es aus!\n https://git.io/watomatic</string>
+    <string name="share_app_text">\"Ich benutze Watomatic, um mich von WhatsApp zu lösen. Probiere es aus!\n https://git.io/watomatic</string>
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
-    <string name="watomatic_whatsnew_label">Was gibt’s Neues?</string>
+    <string name="watomatic_whatsnew_label">Was ist neu?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Benachrichtigung für geantwortete Nachrichten anzeigen</string>
+    <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
