@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
-    <string name="about">Informació</string>
+    <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
-    <string name="privacy_policy_label">Política de privacitat</string>
-    <string name="service_name">Oient de notificacions de missatges entrants</string>
+    <string name="privacy_policy_label">Política de privadesa</string>
+    <string name="service_name">Missatges entrants</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
-    <string name="mainAutoReplyLabel">Text de la resposta automàtica</string>
+    <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
     <string name="mainAutoReplyEditBtnTooltip">Prem per editar el text de la resposta automàtica</string>
