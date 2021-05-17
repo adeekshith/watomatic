@@ -73,7 +73,7 @@
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
-    <string name="lang_de_rDE" translatable="false">Deutsche (de-rDE)</string>
+    <string name="lang_de_rDE" translatable="false">Deutsch (de-rDE)</string>
     <string name="lang_es_rES" translatable="false">Español (es-rES)</string>
     <string name="lang_es_rMX" translatable="false">Español (México) (es-rMX)</string>
     <string name="lang_eu_rES" translatable="false">Euskara (eu-rES)</string> <!-- Basque -->
