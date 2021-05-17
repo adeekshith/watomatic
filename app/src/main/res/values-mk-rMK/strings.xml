@@ -3,6 +3,7 @@
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
+    <string name="share">Сподели</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
