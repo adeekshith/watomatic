@@ -92,7 +92,10 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canPurgeMessages() {
-        return (System.currentTimeMillis() - PreferencesManager.getPreferencesInstance(this).getLastPurgedTime()) > Constants.MAX_DAYS * 24 * 60 * 60 * 1000;
+        //Added L to avoind numeric overflow expression
+        //https://stackoverflow.com/questions/43801874/numeric-overflow-in-expression-manipulating-timestamps
+        long daysBeforePurgeInMS = 30 * 24 * 60 * 60 * 1000L;
+        return (System.currentTimeMillis() - PreferencesManager.getPreferencesInstance(this).getLastPurgedTime()) > daysBeforePurgeInMS;
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
