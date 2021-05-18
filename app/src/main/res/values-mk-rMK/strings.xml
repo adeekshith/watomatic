@@ -27,6 +27,7 @@
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
     <string name="sent_using_Watomatic">Испратено со git.io/watomatic</string>
     <string name="share">Сподели</string>
+    <string name="share_subject">Watomatic: Автоматски одговори за WhatsApp</string>
     <string name="watomatic_whatsnew_label">Што е ново?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
