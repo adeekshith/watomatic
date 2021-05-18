@@ -290,7 +290,7 @@ public class MainFragment extends Fragment {
                 if(v.getId() == R.id.email_button){
                     launchEmailCompose();
                 }else if(v.getId() == R.id.telegram_button){
-                    launchTelegramChat();
+                    launchFeedbackApp();
                 }
             }
         });
@@ -307,7 +307,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void launchTelegramChat() {
+    private void launchFeedbackApp() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             launchAppLegacy();
             return;
