@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,10 @@ public class CustomDialog {
         });
 
         AppCompatButton laterButton = dialog.findViewById(R.id.rate_later_button);
-        laterButton.setOnClickListener(v -> dialog.dismiss());
+        laterButton.setOnClickListener(v -> {
+            PreferencesManager.getPreferencesInstance(mContext).setPlayStoreRatingStatus("LATER");
+            dialog.dismiss();
+        });
 
         starViews.add(dialog.findViewById(R.id.star1));
         starViews.get(0).setOnClickListener(new View.OnClickListener() {

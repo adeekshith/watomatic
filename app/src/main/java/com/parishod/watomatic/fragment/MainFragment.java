@@ -257,22 +257,28 @@ public class MainFragment extends Fragment {
     }
 
     private void showAppRatingPopup() {
-        DbUtils dbUtils = new DbUtils(mActivity);
-        if(dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
-            CustomDialog customDialog = new CustomDialog(mActivity);
-            customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(v.getId() == R.id.rate_button){
-                        if(v.getTag() != null && (int)v.getTag() >= 3) {
-                            //Launch playstore rating page
-                            rateApp();
-                        }else{
-                            showFeedbackPopup();
+        String status = preferencesManager.getPlayStoreRatingStatus();
+        long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
+        if(!status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
+            DbUtils dbUtils = new DbUtils(mActivity);
+            if(dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
+                CustomDialog customDialog = new CustomDialog(mActivity);
+                customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(v.getId() == R.id.rate_button){
+                            if(v.getTag() != null && (int)v.getTag() >= 3) {
+                                //Launch playstore rating page
+                                rateApp();
+                                preferencesManager.setPlayStoreRatingStatus("DONE");
+                            }else{
+                                showFeedbackPopup();
+                            }
                         }
                     }
-                }
-            });
+                });
+                preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
+            }
         }
     }
 
