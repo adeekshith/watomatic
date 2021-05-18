@@ -14,8 +14,10 @@
     <string name="sure">Сигурен сум</string>
     <string name="retry">Обиди се повторно</string>
     <string name="permission_dialog_title">Потребна е дозвола</string>
+    <string name="permission_dialog_denied_title">Дозволата е одбиена</string>
     <string name="permission_dialog_denied_msg">Без оваа дозвола, апликацијата не може автоматски да одговори на известувањата. Дали сте сигурни дека сакате да ја одбиете дозволата?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Овозможи за овие апликации</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Автоматски одговор за групни разговори</string>
     <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
