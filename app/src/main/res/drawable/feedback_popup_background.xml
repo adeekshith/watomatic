@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke android:width="0.5dp"
-        android:color="?attr/colorControlNormal"/>
-    <solid android:color="@android:color/transparent"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="-1dp" android:right="-1dp" >
+        <shape>
+            <stroke android:width="0.001dp"
+                android:color="?attr/actionBarDivider"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+</layer-list>
