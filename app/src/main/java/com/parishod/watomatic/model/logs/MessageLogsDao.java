@@ -15,7 +15,7 @@ public interface MessageLogsDao {
     @Insert
     void logReply(MessageLog log);
 
-    @Query("SELECT id FROM MESSAGE_LOGS")
+    @Query("SELECT COUNT(id) FROM MESSAGE_LOGS")
     long getNumReplies();
 
     //https://stackoverflow.com/questions/11771580/deleting-android-sqlite-rows-older-than-x-days
