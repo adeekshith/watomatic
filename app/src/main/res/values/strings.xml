@@ -116,7 +116,7 @@
     <string name="app_rating_goto_store_dialog_button1_title">Not Interested</string>
     <string name="app_rating_goto_store_dialog_button2_title">Continue</string>
     <string name="app_rating_feedback_dialog_title">Contact us</string>
-    <string name="app_rating_feedback_dialog_msg">Ley us know how we can improve.</string>
+    <string name="app_rating_feedback_dialog_msg">Let us know how we can improve.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Email Us</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
