@@ -30,5 +30,5 @@ object Constants {
     const val MIN_REPLIES_TO_ASK_APP_RATING = 5
     const val EMAIL_ADDRESS = "watomatic@deekshith.in"
     const val EMAIL_SUBJECT = "Watomatic-Feedback"
-    const val TELEGRAM_URL = "https://t.me/WatomaticChat"
+    const val TELEGRAM_URL = "tg://resolve?domain=watomatic"
 }
