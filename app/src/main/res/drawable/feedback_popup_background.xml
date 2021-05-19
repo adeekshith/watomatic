@@ -3,7 +3,7 @@
     <item android:bottom="-1dp" android:right="-1dp" >
         <shape>
             <stroke android:width="0.001dp"
-                android:color="?attr/actionBarDivider"/>
+                android:color="?attr/colorButtonNormal"/>
             <solid android:color="@android:color/transparent"/>
         </shape>
     </item>
