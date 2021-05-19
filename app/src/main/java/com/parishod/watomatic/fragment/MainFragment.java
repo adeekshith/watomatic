@@ -259,22 +259,14 @@ public class MainFragment extends Fragment {
     private void showAppRatingPopup() {
         String status = preferencesManager.getPlayStoreRatingStatus();
         long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
-        if(!status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
+        if(!status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
             DbUtils dbUtils = new DbUtils(mActivity);
             if(dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
                 CustomDialog customDialog = new CustomDialog(mActivity);
                 customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(v.getId() == R.id.rate_button){
-                            if(v.getTag() != null && (int)v.getTag() >= 3) {
-                                //Launch playstore rating page
-                                rateApp();
-                                preferencesManager.setPlayStoreRatingStatus("DONE");
-                            }else{
-                                showFeedbackPopup();
-                            }
-                        }
+                        showFeedbackPopup((int)v.getTag());
                     }
                 });
                 preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
@@ -282,14 +274,21 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void showFeedbackPopup(){
+    private void showFeedbackPopup(int rating){
         CustomDialog customDialog = new CustomDialog(mActivity);
-        customDialog.showAppRatingDialog(new View.OnClickListener() {
+        customDialog.showAppRatingDialog(rating, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId() == R.id.email_button){
+                String tag = (String) v.getTag();
+                if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))){
+                    //not interested
+                    preferencesManager.setPlayStoreRatingStatus("Not Interested");
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))){
+                    //Launch playstore rating page
+                    rateApp();
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))){
                     launchEmailCompose();
-                }else if(v.getId() == R.id.telegram_button){
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))){
                     launchFeedbackApp();
                 }
             }

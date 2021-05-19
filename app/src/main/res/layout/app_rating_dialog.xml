@@ -19,8 +19,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toStartOf="@+id/star2"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -31,8 +31,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toStartOf="@+id/star3"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/star1"
@@ -42,8 +42,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toStartOf="@+id/star4"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/star2"
@@ -53,8 +53,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toStartOf="@+id/star5"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/star3"
@@ -64,8 +64,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star5"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/star4"
@@ -80,7 +80,7 @@
                 android:layout_margin="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/app_rating_dialog_title"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/star1" />
@@ -93,23 +93,10 @@
                 android:gravity="center_horizontal"
                 android:text="@string/app_rating_dialog_msg"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/rate_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="30dp"
-                android:text="@string/app_rating_dialog_rate_button_title"
-                app:layout_constraintEnd_toStartOf="@+id/rate_later_button"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/rate_later_button"
@@ -120,8 +107,11 @@
                 android:text="@string/app_rating_dialog_rate_later_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/rate_button"
-                app:layout_constraintTop_toBottomOf="@+id/message" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500"
+                android:background="@android:color/transparent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

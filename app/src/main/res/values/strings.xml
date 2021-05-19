@@ -110,9 +110,13 @@
     <string name="app_rating_dialog_title">What do you think?</string>
     <string name="app_rating_dialog_msg">We are interested in what you think of the app. Tap the stars above to rate it.</string>
     <string name="app_rating_dialog_rate_button_title">Rate it!</string>
-    <string name="app_rating_dialog_rate_later_title">May be later</string>
-    <string name="app_rating_feedback_dialog_title">Connect with us?</string>
-    <string name="app_rating_feedback_dialog_msg">We value your feedback, Please connect with us and share your feedback.</string>
+    <string name="app_rating_dialog_rate_later_title"><u>May be later</u></string>
+    <string name="app_rating_goto_store_dialog_title">We\'re happy you\'re happy.</string>
+    <string name="app_rating_goto_store_dialog_msg">Please share this rating of our app on the Google Play Store by tapping \"Continue\"\!.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Not Interested</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continue</string>
+    <string name="app_rating_feedback_dialog_title">Contact us</string>
+    <string name="app_rating_feedback_dialog_msg">Ley us know how we can improve.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Email Us</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
