@@ -21,4 +21,7 @@ public interface MessageLogsDao {
     //https://stackoverflow.com/questions/11771580/deleting-android-sqlite-rows-older-than-x-days
     @Query("DELETE FROM message_logs WHERE notif_reply_time <= strftime('%s', datetime('now', '-30 days'));")
     void purgeMessageLogs();
+
+    @Query("SELECT notif_reply_time FROM MESSAGE_LOGS ORDER BY notif_reply_time DESC LIMIT 1")
+    long getFirstRepliedTime();
 }
