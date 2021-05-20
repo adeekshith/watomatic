@@ -54,4 +54,5 @@
     <!-- App Language selection -->
     <string name="app_language">Язык приложения</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
