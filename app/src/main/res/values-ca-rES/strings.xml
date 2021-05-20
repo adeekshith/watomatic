@@ -54,4 +54,6 @@
     <!-- App Language selection -->
     <string name="app_language">Idioma de l\'aplicació</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Què en penseu?</string>
+    <string name="app_rating_dialog_rate_button_title">Voteu-hi!</string>
 </resources>
