@@ -157,8 +157,11 @@ public class CustomDialog {
         });
 
         if(rating > 3){
-            title.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_title));
-            message.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_msg));
+            title.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_title)
+                    + mContext.getResources().getString(R.string.celebrate_emoji));
+            message.setText(mContext.getResources().getString(R.string.app_rating_pitch)
+                    + "\n"
+                    + mContext.getResources().getString(R.string.app_rating_goto_store_dialog_msg));
 
             button1.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title));
             button1.setTag(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title));
