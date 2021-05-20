@@ -43,4 +43,9 @@ public class DbUtils {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getLastReplyTimeStamp(title, packageName);
     }
+
+    public long getFirstRepliedTime(){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.logsDao().getFirstRepliedTime();
+    }
 }
