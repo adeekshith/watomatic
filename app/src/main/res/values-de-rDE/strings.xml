@@ -54,4 +54,18 @@
     <!-- App Language selection -->
     <string name="app_language">App-Sprache</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Was hältst du davon?</string>
+    <string name="app_rating_dialog_msg">Wir möchten gerne wissen, was du von der App hältst. Tippe auf die Sterne oben, um sie zu bewerten.</string>
+    <string name="app_rating_dialog_rate_button_title">App bewerten!</string>
+    <string name="app_rating_dialog_rate_later_title">Vielleicht später</string>
+    <string name="app_rating_goto_store_dialog_title">Wir sind glücklich!</string>
+    <string name="app_rating_goto_store_dialog_msg">Bitte teilen Sie diese Bewertung unserer App im Google Play Store mit, indem Sie auf \"Weiter\" tippen!</string>
+    <string name="app_rating_pitch">Diese App ist kostenlos, ohne Werbung, ohne Verfolgung, Open Source und wird von Mitwirkenden wie du und mir entwickelt.
+        Dein Feedback ist unsere einzige Ermutigung.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Nicht interessiert</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Weiter</string>
+    <string name="app_rating_feedback_dialog_title">Kontakt aufnehmen</string>
+    <string name="app_rating_feedback_dialog_msg">Lass uns wissen, wie wir uns verbessern können.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Schick uns eine E-Mail</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
