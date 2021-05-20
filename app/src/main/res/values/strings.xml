@@ -82,7 +82,8 @@
     <string name="lang_fi_rFI" translatable="false">Suomi (fi_rFI)</string>
     <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
     <string name="lang_in_rID" translatable="false">Indonesian (in-rID)</string>
-    <string name="lang_it_rIT" translatable="false">Italiano (it_rIT)</string>
+    <string name="lang_it_rIT" translatable="false">Italiano (it-rIT)</string>
+    <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-rMK)</string>
     <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
     <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
     <string name="lang_ru_rRU" translatable="false">Pусский (ru-rRU)</string>
@@ -101,6 +102,7 @@
     <string name="lang_code_fr_rFR" translatable="false">fr-rFR</string>
     <string name="lang_code_in_rID" translatable="false">in-rID</string>
     <string name="lang_code_it_rIT" translatable="false">it-rIT</string>
+    <string name="lang_code_mk_rMK" translatable="false">mk-rMK</string>
     <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
     <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
     <string name="lang_code_ru_rRU" translatable="false">ru-rRU</string>
