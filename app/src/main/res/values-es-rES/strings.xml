@@ -54,4 +54,13 @@
     <!-- App Language selection -->
     <string name="app_language">Idioma de la aplicación</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Que es lo que piensas?</string>
+    <string name="app_rating_dialog_rate_button_title">Evalúala!</string>
+    <string name="app_rating_dialog_rate_later_title">Más tarde</string>
+    <string name="app_rating_goto_store_dialog_title">¡Estamos felices!</string>
+    <string name="app_rating_goto_store_dialog_button1_title">No me interesa</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continuar</string>
+    <string name="app_rating_feedback_dialog_title">Contáctanos</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Envíanos un correo</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
