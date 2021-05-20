@@ -53,4 +53,5 @@
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Sovelluksen kieli</string>
+    <!-- App Rating Dialog -->
 </resources>

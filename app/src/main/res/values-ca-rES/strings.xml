@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Quant a</string>
+    <string name="settings">Configuració</string>
+    <string name="privacy_policy_label">Política de privadesa</string>
+    <string name="service_name">Watomatic: Accés a missatges</string>
+    <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
+    <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
+    <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
+    <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
+    <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
+    <string name="mainAutoReplyEditBtnTooltip">Toqueu per editar el text de la resposta automàtica</string>
+    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-vos a deixar el WhatsApp i el Facebook Messenger</string>
+    <string name="decline">Rebutja</string>
+    <string name="accept">Accepta</string>
+    <string name="sure">D\'acord</string>
+    <string name="retry">Torna-ho a provar</string>
+    <string name="permission_dialog_title">Permís necessari</string>
+    <string name="permission_dialog_msg">Aquesta aplicació necessita accés a les notificacions per funcionar.</string>
+    <string name="permission_dialog_denied_title">S\'ha rebutjat el permís</string>
+    <string name="permission_dialog_denied_msg">Sense aquest permís, l\'aplicació no podrà respondre automàticament les notificacions. Voleu continuar?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Activa per a les aplicacions</string>
+    <string name="enable_auto_reply_switch_msg">Activeu primer la Resposta automàtica.</string>
+    <string name="error_atleast_single_app_must_be_selected">Error: Seleccioneu almenys una aplicació</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Habilita als xats grupals</string>
+    <string name="group_reply_on_info_message">S\'ha activat la resposta automàtica als xats grupals</string>
+    <string name="group_reply_off_info_message">S\'ha desactivat la resposta automàtica als xats grupals</string>
+    <string name="time_picker_title">Freqüència de resposta automàtica (BETA)</string>
+    <string name="time_picker_sub_title_default">Respon a tots els missatges sense límit</string>
+    <string name="time_picker_sub_title">Respon només un cop cada %1$d dies per persona\/grup</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Premeu per editar el temps d\'espera entre respostes</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Desa</string>
+    <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
+    <string name="sent_using_Watomatic">Enviat amb git.io/watomatic</string>
+    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho!\nhttps://git.io/watomatic</string>
+    <string name="share">Comparteix</string>
+    <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Novetats</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Idioma</string>
+    <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Què en penseu?</string>
+    <string name="app_rating_dialog_msg">Puntueu l\'aplicació amb els estels de sota per conèixer la vostra valoració.</string>
+    <string name="app_rating_dialog_rate_button_title">Puntueu-nos!</string>
+    <string name="app_rating_dialog_rate_later_title">Potser més tard</string>
+    <string name="app_rating_goto_store_dialog_title">Moltes gràcies!</string>
+    <string name="app_rating_goto_store_dialog_msg">Compartiu aquesta puntuació al Google Play Store, tocant el botó «Continua»\!</string>
+    <string name="app_rating_pitch">El Watomatic és gratuït, sense publicitat ni rastrejadors, de codi obert i mantingut per gent com ara vós o jo.
+        La vostra opinió és l\'únic que ens mou a continuar.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">No m’interessa</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continua</string>
+    <string name="app_rating_feedback_dialog_title">Contacteu-nos</string>
+    <string name="app_rating_feedback_dialog_msg">Digueu-nos com podem millorar.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Correu-e</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>

@@ -53,4 +53,19 @@
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Idioma de la App</string>
+    <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Tu opinión nos interesa</string>
+    <string name="app_rating_dialog_msg">Puntúa la aplicación mediante las estrellas de abajo para conocer tu valoración.</string>
+    <string name="app_rating_dialog_rate_button_title">Puntúa!</string>
+    <string name="app_rating_dialog_rate_later_title">Más tarde</string>
+    <string name="app_rating_goto_store_dialog_title">Gracias!</string>
+    <string name="app_rating_goto_store_dialog_msg">Por favor, comparte esta puntuación en Google Play Store, tocando el botón \"Continua\"\.</string>
+    <string name="app_rating_pitch">Esta aplicación es gratuita, sin anuncios ni rastreadores, de código libre y creada por personas como tú o yo.
+        Tus comentarios son nuestro único ánimo.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">No me interesa</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continuar</string>
+    <string name="app_rating_feedback_dialog_title">Contáctanos</string>
+    <string name="app_rating_feedback_dialog_msg">Haznos saber cómo podemos mejorar.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Correo-e</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>

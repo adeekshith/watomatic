@@ -52,4 +52,6 @@
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">செயலி மொழி</string>
+    <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">நீங்கள் என்ன நினைக்கிறீர்கள்?</string>
 </resources>
