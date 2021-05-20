@@ -60,6 +60,12 @@
     <string name="app_rating_dialog_rate_later_title">Не сейчас</string>
     <string name="app_rating_goto_store_dialog_title">Нам очень приятно!</string>
     <string name="app_rating_goto_store_dialog_msg">Пожалуйста, оцените наше приложение в Google Play Store, нажав \"Продолжить\"\!</string>
+    <string name="app_rating_pitch">Это приложение бесплатное, без рекламы, без отслеживания, с открытым исходным кодом и создается на энтузиазме таких людей, как вы и я.
+        Ваш отзыв - это единственная наша поддержка.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Не интересно</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Далее</string>
+    <string name="app_rating_feedback_dialog_title">Свяжитесь с нами</string>
+    <string name="app_rating_feedback_dialog_msg">Поделитесь мнением, как улучшить приложение.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Напишите нам</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
