@@ -9,6 +9,7 @@
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
+    <string name="watomatic_whatsnew_label">కొత్తవి ఏమిటి?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
@@ -16,4 +17,5 @@
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <!-- App Rating Dialog -->
 </resources>
