@@ -3,6 +3,7 @@
     <string-array name="app_language">
         <item>@string/lang_en</item>
         <item>@string/lang_ar_rSA</item>
+        <item>@string/lang_ca_rES</item>
         <item>@string/lang_de_rDE</item>
         <item>@string/lang_es_rES</item>
         <item>@string/lang_es_rMX</item>
@@ -22,6 +23,7 @@
     <string-array name="app_language_value">
         <item>@string/lang_code_en</item>
         <item>@string/lang_code_ar_rSA</item>
+        <item>@string/lang_code_ca_rES</item>
         <item>@string/lang_code_de_rDE</item>
         <item>@string/lang_code_es_rES</item>
         <item>@string/lang_code_es_rMX</item>

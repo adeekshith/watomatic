@@ -74,6 +74,7 @@
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
     <string name="lang_ar_rSA" translatable="false">اَلْعَرَبِيَّةُ (ar-rSA)</string>
+    <string name="lang_ca_rES" translatable="false">Català (ca-rES)</string>
     <string name="lang_de_rDE" translatable="false">Deutsch (de-rDE)</string>
     <string name="lang_es_rES" translatable="false">Español (es-rES)</string>
     <string name="lang_es_rMX" translatable="false">Español (México) (es-rMX)</string>
@@ -91,6 +92,7 @@
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
     <string name="lang_code_ar_rSA" translatable="false">ar-rSA</string>
+    <string name="lang_code_ca_rES" translatable="false">ca-rES</string>
     <string name="lang_code_de_rDE" translatable="false">de-rDE</string>
     <string name="lang_code_es_rES" translatable="false">es-rES</string>
     <string name="lang_code_es_rMX" translatable="false">es-rMX</string>
