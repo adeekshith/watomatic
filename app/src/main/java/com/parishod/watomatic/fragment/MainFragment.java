@@ -260,8 +260,7 @@ public class MainFragment extends Fragment {
         String status = preferencesManager.getPlayStoreRatingStatus();
         long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
         if(!status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
-            DbUtils dbUtils = new DbUtils(mActivity);
-            if(dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
+            if(isAppUsedSufficientlyToAskRating()){
                 CustomDialog customDialog = new CustomDialog(mActivity);
                 customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
                     @Override
@@ -272,6 +271,19 @@ public class MainFragment extends Fragment {
                 preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
             }
         }
+    }
+
+    private boolean isAppUsedSufficientlyToAskRating(){
+        DbUtils dbUtils = new DbUtils(mActivity);
+        try {
+            long appFirstInstallTime = mActivity.getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime;
+            if(System.currentTimeMillis() - appFirstInstallTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void showFeedbackPopup(int rating){
