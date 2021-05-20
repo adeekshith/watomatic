@@ -4,35 +4,35 @@
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
     <string name="privacy_policy_label">Política de privacidad</string>
-    <string name="service_name">Escucha de notificaciones de mensajes entrantes</string>
+    <string name="service_name">Watomatic: Acceso a mensajes</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta personalizada)</string>
     <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de respuesta automática</string>
-    <string name="mainAutoReplySwitchOffLabel">Respuesta automática apagada</string>
-    <string name="mainAutoReplySwitchOnLabel">Respuesta automática encendida</string>
-    <string name="mainAutoReplyEditBtnTooltip">Presione para editar el texto de la respuesta automática</string>
-    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a abandonar WhatsApp y Facebook Messenger</string>
+    <string name="mainAutoReplySwitchOffLabel">Respuesta automática INACTIVA</string>
+    <string name="mainAutoReplySwitchOnLabel">Respuesta automática ACTIVA</string>
+    <string name="mainAutoReplyEditBtnTooltip">Toque para editar el texto de la respuesta automática</string>
+    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudar a abandonar WhatsApp y Facebook Messenger</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy seguro</string>
     <string name="retry">Reintentar</string>
-    <string name="permission_dialog_title">Se necesita permiso</string>
-    <string name="permission_dialog_msg">Esta aplicación requiere permisos de acceso a las notificaciones para funcionar.</string>
+    <string name="permission_dialog_title">Permiso requerido</string>
+    <string name="permission_dialog_msg">Esta aplicación requiere permiso de acceso a las notificaciones para funcionar.</string>
     <string name="permission_dialog_denied_title">Permiso rechazado</string>
-    <string name="permission_dialog_denied_msg">Sin este permiso la aplicación no puede responder automáticamente a las notificaciones. ¿Estás seguro de que deseas rechazar este permiso?</string>
+    <string name="permission_dialog_denied_msg">Sin este permiso la aplicación no puede responder automáticamente a las notificaciones. ¿Seguro de que deses rechazar este permiso?</string>
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Activar para las aplicaciones</string>
-    <string name="enable_auto_reply_switch_msg">Habilita el interruptor de respuesta automática primero.</string>
+    <string name="enable_auto_reply_switch_msg">Activa primero el interruptor de respuesta automática.</string>
     <string name="error_atleast_single_app_must_be_selected">Error: selecciona al menos una aplicación</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Respuesta automática para chats grupales</string>
-    <string name="group_reply_on_info_message">Respuesta automática para chats grupales habilitada</string>
+    <string name="group_reply_on_info_message">Respuesta automática para chats grupales activada</string>
     <string name="group_reply_off_info_message">Respuesta automática para chats grupales deshabilitada</string>
     <string name="time_picker_title">Frecuencia de respuesta (BETA)</string>
-    <string name="time_picker_sub_title_default">Responder a todos los mensajes sin control</string>
+    <string name="time_picker_sub_title_default">Responder a todos los mensajes sin límite</string>
     <string name="time_picker_sub_title">Responder solo cada %1$d día(s) para esta persona o grupo</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
+    <string name="time_picker_edit_btn_tooltip">Toca para editar el retraso entre respuestas</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
@@ -43,7 +43,7 @@
     <string name="share">Compartir</string>
     <string name="share_subject">Watomatic: respuesta automática para WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Hablemos de\nr/watomatic</u></string>
-    <string name="watomatic_whatsnew_label">¿Qué hay de nuevo?</string>
+    <string name="watomatic_whatsnew_label">Novedades</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
@@ -52,15 +52,20 @@
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
-    <string name="app_language">Idioma de la aplicación</string>
+    <string name="app_language">Idioma</string>
     <!-- App Rating Dialog -->
-    <string name="app_rating_dialog_title">Que es lo que piensas?</string>
-    <string name="app_rating_dialog_rate_button_title">Evalúala!</string>
+    <string name="app_rating_dialog_title">Tu opinión nos interesa</string>
+    <string name="app_rating_dialog_msg">Puntúa la aplicación mediante las estrellas de abajo para conocer tu valoración.</string>
+    <string name="app_rating_dialog_rate_button_title">Puntúa!</string>
     <string name="app_rating_dialog_rate_later_title">Más tarde</string>
-    <string name="app_rating_goto_store_dialog_title">¡Estamos felices!</string>
+    <string name="app_rating_goto_store_dialog_title">Gracias!</string>
+    <string name="app_rating_goto_store_dialog_msg">Por favor, comparte esta puntuación en Google Play Store, tocando el botón \"Continua\"\.</string>
+    <string name="app_rating_pitch">Esta aplicación es gratuita, sin anuncios ni rastreadores, de código libre y creada por personas como tú o yo.
+        Tus comentarios son nuestro único ánimo.</string>
     <string name="app_rating_goto_store_dialog_button1_title">No me interesa</string>
     <string name="app_rating_goto_store_dialog_button2_title">Continuar</string>
     <string name="app_rating_feedback_dialog_title">Contáctanos</string>
-    <string name="app_rating_feedback_dialog_mail_button_title">Envíanos un correo</string>
+    <string name="app_rating_feedback_dialog_msg">Haznos saber cómo podemos mejorar.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Correo-e</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
