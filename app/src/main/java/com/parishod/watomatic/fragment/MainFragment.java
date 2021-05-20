@@ -275,13 +275,9 @@ public class MainFragment extends Fragment {
 
     private boolean isAppUsedSufficientlyToAskRating(){
         DbUtils dbUtils = new DbUtils(mActivity);
-        try {
-            long appFirstInstallTime = mActivity.getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime;
-            if(System.currentTimeMillis() - appFirstInstallTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
-                return true;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        long firstRepliedTime = dbUtils.getFirstRepliedTime();
+        if(firstRepliedTime >0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
+            return true;
         }
         return false;
     }
