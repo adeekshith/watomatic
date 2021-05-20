@@ -52,7 +52,7 @@
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
-    <string name="app_language">Idioma de l\'aplicació</string>
+    <string name="app_language">Idioma</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">Què en penseu?</string>
     <string name="app_rating_dialog_msg">Puntueu l\'aplicació amb els estels de sota per conèixer la vostra valoració.</string>
