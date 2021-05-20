@@ -27,4 +27,8 @@ object Constants {
 
     const val MIN_DAYS = 0
     const val MAX_DAYS = 7
+    const val MIN_REPLIES_TO_ASK_APP_RATING = 5
+    const val EMAIL_ADDRESS = "watomatic@deekshith.in"
+    const val EMAIL_SUBJECT = "Watomatic-Feedback"
+    const val TELEGRAM_URL = "tg://resolve?domain=watomatic"
 }

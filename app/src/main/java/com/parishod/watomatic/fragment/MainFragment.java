@@ -1,11 +1,14 @@
 package com.parishod.watomatic.fragment;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -28,6 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
@@ -38,13 +42,22 @@ import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
+import com.parishod.watomatic.model.utils.DbUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import static android.content.Intent.ACTION_VIEW;
+import static android.content.Intent.CATEGORY_BROWSABLE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT;
+import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER;
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
+import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_APP_RATING;
 
 public class MainFragment extends Fragment {
 
@@ -239,6 +252,154 @@ public class MainFragment extends Fragment {
 
         // Set user auto reply text
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
+
+        showAppRatingPopup();
+    }
+
+    private void showAppRatingPopup() {
+        String status = preferencesManager.getPlayStoreRatingStatus();
+        long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
+        if(!status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
+            if(isAppUsedSufficientlyToAskRating()){
+                CustomDialog customDialog = new CustomDialog(mActivity);
+                customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showFeedbackPopup((int)v.getTag());
+                    }
+                });
+                preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
+            }
+        }
+    }
+
+    private boolean isAppUsedSufficientlyToAskRating(){
+        DbUtils dbUtils = new DbUtils(mActivity);
+        try {
+            long appFirstInstallTime = mActivity.getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime;
+            if(System.currentTimeMillis() - appFirstInstallTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void showFeedbackPopup(int rating){
+        CustomDialog customDialog = new CustomDialog(mActivity);
+        customDialog.showAppRatingDialog(rating, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tag = (String) v.getTag();
+                if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))){
+                    //not interested
+                    preferencesManager.setPlayStoreRatingStatus("Not Interested");
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))){
+                    //Launch playstore rating page
+                    rateApp();
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))){
+                    launchEmailCompose();
+                }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))){
+                    launchFeedbackApp();
+                }
+            }
+        });
+    }
+
+    private void launchEmailCompose() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("plain/text");
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.EMAIL_ADDRESS});
+        intent.putExtra(Intent.EXTRA_SUBJECT, Constants.EMAIL_SUBJECT);
+        if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    private void launchFeedbackApp() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            launchAppLegacy();
+            return;
+        }
+        boolean isLaunched = false;
+        try {
+            // In order for this intent to be invoked, the system must directly launch a non-browser app.
+            // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
+            Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL))
+                    .addCategory(CATEGORY_BROWSABLE)
+                    .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
+                            FLAG_ACTIVITY_REQUIRE_DEFAULT);
+            mActivity.startActivity(intent);
+            isLaunched = true;
+        } catch (ActivityNotFoundException e) {
+            // This code executes in one of the following cases:
+            // 1. Only browser apps can handle the intent.
+            // 2. The user has set a browser app as the default app.
+            // 3. The user hasn't set any app as the default for handling this URL.
+            isLaunched = false;
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            String url = getString(R.string.watomatic_github_latest_release_url);
+            mActivity.startActivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+        }
+    }
+
+    private void launchAppLegacy() {
+        Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
+        List<ResolveInfo> list = getActivity().getPackageManager()
+                .queryIntentActivities(intent, 0);
+        List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
+                .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+        Set<String> excludeIntents = new HashSet<>();
+        for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
+            excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+        }
+        //Check for non browser application
+        for(ResolveInfo resolveInfo: list) {
+            if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
+                intent.setPackage(resolveInfo.activityInfo.packageName);
+                mActivity.startActivity(intent);
+                break;
+            }
+        }
+    }
+
+    /*
+     * Start with rating the app
+     * Determine if the Play Store is installed on the device
+     *
+     * */
+    public void rateApp()
+    {
+        try
+        {
+            Intent rateIntent = rateIntentForUrl("market://details");
+            startActivity(rateIntent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            Intent rateIntent = rateIntentForUrl("https://play.google.com/store/apps/details");
+            startActivity(rateIntent);
+        }
+    }
+
+    private Intent rateIntentForUrl(String url)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, BuildConfig.APPLICATION_ID)));
+        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+        if (Build.VERSION.SDK_INT >= 21)
+        {
+            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+        }
+        else
+        {
+            //noinspection deprecation
+            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+        }
+        intent.addFlags(flags);
+        return intent;
     }
 
     private void setSwitchState(){
