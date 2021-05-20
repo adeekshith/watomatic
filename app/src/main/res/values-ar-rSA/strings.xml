@@ -36,7 +36,7 @@
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">حفظ</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 &lt;u&gt;عرض القوالب من المجتمع ومشاركة قالبك أيضا &lt;unk&gt;&lt;/u&gt;</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>➚ عرض القوالب من المجتمع ومشاركة قالبك أيضا </u></string>
     <string name="append_watomatic_arribution_checkbox_label">ضع رابط تطبيق Watomatic لنشر التطبيق للغير</string>
     <string name="sent_using_Watomatic">تم الإرسال باستخدام git.io/watomatic</string>
     <string name="share_app_text">\"أنا أستخدم Watomatic للتخلص من WhatsApp. جربه!\n https://git.io/watomatic</string>
