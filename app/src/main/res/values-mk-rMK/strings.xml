@@ -29,6 +29,8 @@
     <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
     <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
+    <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
+    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден\/а на секоја личност\/група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -53,12 +55,16 @@
     <string name="app_language">Јазик на апликација</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">Што мислиш?</string>
+    <string name="app_rating_dialog_msg">Ние сме заинтересирани за тоа што мислите за апликацијата. Допрете на ѕвездите погоре за да ја оцените.</string>
     <string name="app_rating_dialog_rate_button_title">Оцени ја апликацијата!</string>
     <string name="app_rating_dialog_rate_later_title">Можеби подоцна</string>
     <string name="app_rating_goto_store_dialog_title">Ние сме среќни!</string>
+    <string name="app_rating_goto_store_dialog_msg">Споделете ја оваа оценка за нашата апликација на Google Play Store со кликнување на \"Продолжи\"\!</string>
+    <string name="app_rating_pitch">Оваа апликација е бесплатна, нема реклами, нема следење, со отворен код и е направена од соработници како вас и јас.        Вашите повратни информации се единствена наша поддршка.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Не сум заинтересиран</string>
     <string name="app_rating_goto_store_dialog_button2_title">Продолжи</string>
     <string name="app_rating_feedback_dialog_title">Контактирајте нè</string>
+    <string name="app_rating_feedback_dialog_msg">Споделете го вашето мислење за тоа како да ја подобриме апликацијата.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
