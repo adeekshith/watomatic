@@ -52,4 +52,13 @@
     <!-- App Language selection -->
     <string name="app_language">Јазик на апликација</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Што мислиш?</string>
+    <string name="app_rating_dialog_rate_button_title">Оцени ја апликацијата!</string>
+    <string name="app_rating_dialog_rate_later_title">Можеби подоцна</string>
+    <string name="app_rating_goto_store_dialog_title">Ние сме среќни!</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Не сум заинтересиран</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Продолжи</string>
+    <string name="app_rating_feedback_dialog_title">Контактирајте нè</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
 </resources>
