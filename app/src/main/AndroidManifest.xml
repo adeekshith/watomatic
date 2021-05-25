@@ -3,6 +3,7 @@
     package="com.parishod.watomatic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <queries>
         <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
@@ -68,6 +69,23 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <service android:name=".service.KeepAliveService"
+            android:stopWithTask="false"/>
+
+        <!--https://techstop.github.io/android-broadcastreceiver/-->
+        <receiver android:name=".receivers.NotificationServiceRestartReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <!--For HTC devices-->
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

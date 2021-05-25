@@ -1,6 +1,7 @@
 package com.parishod.watomatic.fragment;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,9 +42,11 @@ import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
+import com.parishod.watomatic.service.KeepAliveService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -118,7 +122,9 @@ public class MainFragment extends Fragment {
                 showPermissionsDialog();
             }else {
                 preferencesManager.setServicePref(isChecked);
-                enableService(isChecked);
+                if(isChecked){
+                    startNotificationService();
+                }
                 mainAutoReplySwitch.setText(
                         isChecked
                                 ? R.string.mainAutoReplySwitchOnLabel
@@ -163,6 +169,10 @@ public class MainFragment extends Fragment {
         createSupportedAppCheckboxes();
 
         return view;
+    }
+
+    private void checkAutoStartPermission() {
+        AutoStartHelper.getInstance().getAutoStartPermission(mActivity);
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
@@ -242,9 +252,9 @@ public class MainFragment extends Fragment {
             preferencesManager.setServicePref(false);
         }
 
-        if(!preferencesManager.isServiceEnabled()){
+        /*if(!preferencesManager.isServiceEnabled()){
             enableService(false);
-        }
+        }*/
         setSwitchState();
 
         // set group chat switch state
@@ -427,7 +437,7 @@ public class MainFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_TITLE, getString(R.string.permission_dialog_title));
         bundle.putString(Constants.PERMISSION_DIALOG_MSG, getString(R.string.permission_dialog_msg));
-        customDialog.showDialog(bundle, new DialogInterface.OnClickListener() {
+        customDialog.showDialog(bundle, null, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which == -2){
@@ -447,7 +457,7 @@ public class MainFragment extends Fragment {
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_TITLE, getString(R.string.permission_dialog_denied_title));
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_MSG, getString(R.string.permission_dialog_denied_msg));
         bundle.putBoolean(Constants.PERMISSION_DIALOG_DENIED, true);
-        customDialog.showDialog(bundle, new DialogInterface.OnClickListener() {
+        customDialog.showDialog(bundle, null, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which == -2){
@@ -462,7 +472,7 @@ public class MainFragment extends Fragment {
     }
 
     public void launchNotificationAccessSettings() {
-        enableService(true);//we need to enable the service for it so show in settings
+//        enableService(true);//we need to enable the service for it so show in settings
 
         final String NOTIFICATION_LISTENER_SETTINGS;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
@@ -480,6 +490,7 @@ public class MainFragment extends Fragment {
         if(requestCode == REQ_NOTIFICATION_LISTENER){
             if(isListenerEnabled(mActivity, NotificationService.class)){
                 Toast.makeText(mActivity, "Permission Granted", Toast.LENGTH_LONG).show();
+                startNotificationService();
                 preferencesManager.setServicePref(true);
                 setSwitchState();
             } else {
@@ -501,6 +512,33 @@ public class MainFragment extends Fragment {
 
     }
 
+    private void startNotificationService(){
+        if(!isMyServiceRunning(KeepAliveService.class)) {
+            Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
+            mActivity.startService(mServiceIntent);
+        }
+        if(!preferencesManager.isAutoStartPermissionEnabled()){
+            checkAutoStartPermission();
+        }
+    }
+
+    private void stopNotificationService(){
+        Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
+        mActivity.stopService(mServiceIntent);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) mActivity.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         mActivity.getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -519,5 +557,11 @@ public class MainFragment extends Fragment {
     private void loadSettingsActivity(){
         Intent intent = new Intent(mActivity, SettingsActivity.class);
         mActivity.startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        stopNotificationService();
+        super.onDestroy();
     }
 }

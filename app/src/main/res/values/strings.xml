@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
@@ -128,4 +129,11 @@
     <string name="app_rating_feedback_dialog_msg">Let us know how we can improve.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Email Us</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">AutoStart Permission</string>
+    <string name="auto_start_permission_dialog_message">It\'s recommended to ENABLE AUTOSTART permission in the setting. \n\nOtherwise, Watomatic may ocassionally stop working.
+        \n\nNote:Depending on the device the settings may vary slightly.\n</string>
+    <string name="enable_auto_start_setting">Enable Setting</string>
+    <string name="decline_auto_start_setting">I\'M OK</string>
 </resources>
