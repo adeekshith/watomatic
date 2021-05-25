@@ -21,6 +21,14 @@ object Constants {
     @JvmField
     val SUPPORTED_APPS: Set<App> = setOf(
             App("WhatsApp", "com.whatsapp"),
+            App("GBWhatsApp", "com.gbwhatsapp"),
+            App("YOWhatsApp", "com.yowhatsapp"),
+            App("FMWhatsApp", "com.fmwhatsapp"),
+            App("BlueWhatsApp Plus", "com.blueWAplus"),
+            App("CyberWhatsApp", "com.CyberWhatsapp"),
+            App("OGWhatsApp", "com.ogwhatsapp"),
+            App("JTWhatsApp", "com.jtwhatsapp"),
+
             App("Facebook Messenger", "com.facebook.orca"),
             // App("Facebook Messenger Lite", "com.facebook.mlite"),
     )
