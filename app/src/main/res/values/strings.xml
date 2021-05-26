@@ -92,22 +92,22 @@
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
-    <string name="lang_code_ar_rSA" translatable="false">ar-rSA</string>
-    <string name="lang_code_ca_rES" translatable="false">ca-rES</string>
-    <string name="lang_code_de_rDE" translatable="false">de-rDE</string>
-    <string name="lang_code_es_rES" translatable="false">es-rES</string>
-    <string name="lang_code_es_rMX" translatable="false">es-rMX</string>
-    <string name="lang_code_eu_rES" translatable="false">eu-rES</string>
-    <string name="lang_code_fi_rFI" translatable="false">fi-rFI</string>
-    <string name="lang_code_fr_rFR" translatable="false">fr-rFR</string>
-    <string name="lang_code_in_rID" translatable="false">in-rID</string>
-    <string name="lang_code_it_rIT" translatable="false">it-rIT</string>
-    <string name="lang_code_mk_rMK" translatable="false">mk-rMK</string>
-    <string name="lang_code_nl_rNL" translatable="false">nl-rNL</string>
-    <string name="lang_code_pt_rBR" translatable="false">pt-rBR</string>
-    <string name="lang_code_ru_rRU" translatable="false">ru-rRU</string>
-    <string name="lang_code_ta_rIN" translatable="false">ta-rIN</string>
-    <string name="lang_code_tr_rTR" translatable="false">tr-rTR</string>
+    <string name="lang_code_ar_rSA" translatable="false">ar-SA</string>
+    <string name="lang_code_ca_rES" translatable="false">ca-ES</string>
+    <string name="lang_code_de_rDE" translatable="false">de-DE</string>
+    <string name="lang_code_es_rES" translatable="false">es-ES</string>
+    <string name="lang_code_es_rMX" translatable="false">es-MX</string>
+    <string name="lang_code_eu_rES" translatable="false">eu-ES</string>
+    <string name="lang_code_fi_rFI" translatable="false">fi-FI</string>
+    <string name="lang_code_fr_rFR" translatable="false">fr-FR</string>
+    <string name="lang_code_in_rID" translatable="false">in-ID</string>
+    <string name="lang_code_it_rIT" translatable="false">it-IT</string>
+    <string name="lang_code_mk_rMK" translatable="false">mk-MK</string>
+    <string name="lang_code_nl_rNL" translatable="false">nl-NL</string>
+    <string name="lang_code_pt_rBR" translatable="false">pt-BR</string>
+    <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
+    <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
+    <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>

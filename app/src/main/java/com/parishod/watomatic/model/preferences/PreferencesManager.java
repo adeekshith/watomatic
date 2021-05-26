@@ -75,6 +75,11 @@ public class PreferencesManager {
                 setAppendWatomaticAttribution(true);
             }
         }
+        else {
+            //If it's first install, language preference is not set, so we don't have to worry
+            //Otherwise, check if language settings contains r, migrate to new language settings key
+            updateLegacyLanguageKey();
+        }
     }
 
     public boolean isServiceEnabled(){
@@ -184,6 +189,12 @@ public class PreferencesManager {
         return _sharedPrefs.getString(KEY_SELECTED_APP_LANGUAGE, defaultLangStr);
     }
 
+    public void setLanguageStr(String languageStr) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SELECTED_APP_LANGUAGE, languageStr);
+        editor.apply();
+    }
+
     public Locale getSelectedLocale () {
         String thisLangStr = getSelectedLanguageStr(null);
         if (thisLangStr == null || thisLangStr.isEmpty()) {
@@ -193,6 +204,20 @@ public class PreferencesManager {
         return (languageSplit.length == 2)
                 ? new Locale(languageSplit[0], languageSplit[1])
                 : new Locale(languageSplit[0]);
+    }
+
+    public void updateLegacyLanguageKey() {
+        String thisLangStr = getSelectedLanguageStr(null);
+        if (thisLangStr == null || thisLangStr.isEmpty()) {
+            return;
+        }
+        String[] languageSplit = thisLangStr.split("-");
+        if (languageSplit.length == 2) {
+            if (languageSplit[1].length() == 3) {
+                String newLangStr = thisLangStr.replace("-r", "-");
+                setLanguageStr(newLangStr);
+            }
+        }
     }
 
     public boolean isShowNotificationEnabled(){
