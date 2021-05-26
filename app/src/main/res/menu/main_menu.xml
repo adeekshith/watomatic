@@ -6,7 +6,7 @@
         android:id="@+id/setting"
         android:title="@string/settings"
         android:icon="@drawable/ic_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/about"
