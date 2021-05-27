@@ -476,7 +476,8 @@ public class MainFragment extends Fragment {
     }
 
     public void launchNotificationAccessSettings() {
-//        enableService(true);//we need to enable the service for it so show in settings
+        //We should remove it few versions later
+        enableService(true);//we need to enable the service for it so show in settings
 
         final String NOTIFICATION_LISTENER_SETTINGS;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
