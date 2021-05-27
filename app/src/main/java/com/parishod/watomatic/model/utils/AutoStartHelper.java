@@ -18,6 +18,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 import java.util.ArrayList;
 import java.util.List;
 
+//Ref: https://stackoverflow.com/questions/44383983/how-to-programmatically-enable-auto-start-and-floating-window-permissions
 public class AutoStartHelper {
 
     /***
@@ -136,7 +137,6 @@ public class AutoStartHelper {
         if (isPackageExists(context, packageName)) {
             showAlert(context, (dialog, which) -> {
                 try {
-//                    PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                     startIntent(context, packageName, PACKAGE_SAMSUNG_COMPONENT1, PACKAGE_SAMSUNG_COMPONENT2);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -151,7 +151,6 @@ public class AutoStartHelper {
 
             showAlert(context, (dialog, which) -> {
                 try {
-//                    PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                     startIntent(context, PACKAGE_ASUS_MAIN, PACKAGE_ASUS_COMPONENT);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -175,7 +174,6 @@ public class AutoStartHelper {
                 }else{
                     //Accept
                     onClickListener.onClick(dialog, which);
-                    PreferencesManager.getPreferencesInstance(context).setAutoStartPermissionPref(true);
                 }
             }
         });
@@ -185,7 +183,6 @@ public class AutoStartHelper {
         if (isPackageExists(context, PACKAGE_XIAOMI_MAIN)) {
             showAlert(context, (dialog, which) -> {
                 try {
-//                    PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                     startIntent(context, PACKAGE_XIAOMI_MAIN, PACKAGE_XIAOMI_COMPONENT);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -203,7 +200,6 @@ public class AutoStartHelper {
                 public void onClick(DialogInterface dialog, int which) {
 
                     try {
-//                        PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                         startIntent(context, PACKAGE_LETV_MAIN, PACKAGE_LETV_COMPONENT);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -223,7 +219,6 @@ public class AutoStartHelper {
                 public void onClick(DialogInterface dialog, int which) {
 
                     try {
-//                        PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                         startIntent(context, PACKAGE_HONOR_MAIN, PACKAGE_HONOR_COMPONENT);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -242,17 +237,14 @@ public class AutoStartHelper {
                 public void onClick(DialogInterface dialog, int which) {
 
                     try {
-//                        PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                         startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT);
                     } catch (Exception e) {
                         e.printStackTrace();
                         try {
-//                            PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                             startIntent(context, PACKAGE_OPPO_FALLBACK, PACKAGE_OPPO_COMPONENT_FALLBACK);
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             try {
-//                                PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                                 startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT_FALLBACK_A);
                             } catch (Exception exx) {
                                 exx.printStackTrace();
@@ -275,17 +267,14 @@ public class AutoStartHelper {
                 public void onClick(DialogInterface dialog, int which) {
 
                     try {
-//                        PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                         startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT);
                     } catch (Exception e) {
                         e.printStackTrace();
                         try {
-//                            PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                             startIntent(context, PACKAGE_VIVO_FALLBACK, PACKAGE_VIVO_COMPONENT_FALLBACK);
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             try {
-//                                PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                                 startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT_FALLBACK_A);
                             } catch (Exception exx) {
                                 exx.printStackTrace();
@@ -307,7 +296,6 @@ public class AutoStartHelper {
                 public void onClick(DialogInterface dialog, int which) {
 
                     try {
-//                        PrefUtil.writeBoolean(context, PrefUtil.PREF_KEY_APP_AUTO_START, true);
                         startIntent(context, PACKAGE_NOKIA_MAIN, PACKAGE_NOKIA_COMPONENT);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -326,6 +314,7 @@ public class AutoStartHelper {
              ) {
             try {
                 context.startActivity(intent);
+                PreferencesManager.getPreferencesInstance(context).setAutoStartPermissionPref(true);
                 return;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -338,6 +327,7 @@ public class AutoStartHelper {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(packageName, componentName));
             context.startActivity(intent);
+            PreferencesManager.getPreferencesInstance(context).setAutoStartPermissionPref(true);
         } catch (Exception var5) {
             var5.printStackTrace();
             throw var5;
