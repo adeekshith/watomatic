@@ -264,6 +264,10 @@ public class MainFragment extends Fragment {
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
 
         showAppRatingPopup();
+
+        if(preferencesManager.isServiceEnabled() && !preferencesManager.isAutoStartPermissionEnabled()){
+            checkAutoStartPermission();
+        }
     }
 
     private void showAppRatingPopup() {
