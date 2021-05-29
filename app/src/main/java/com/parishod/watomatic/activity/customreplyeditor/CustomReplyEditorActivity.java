@@ -8,11 +8,14 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.BaseActivity;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel;
 
 public class CustomReplyEditorActivity extends BaseActivity {
     TextInputEditText autoReplyText;
@@ -26,6 +29,8 @@ public class CustomReplyEditorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_reply_editor);
+
+        SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
 
         customRepliesData = CustomRepliesData.getInstance(this);
         preferencesManager = PreferencesManager.getPreferencesInstance(this);
