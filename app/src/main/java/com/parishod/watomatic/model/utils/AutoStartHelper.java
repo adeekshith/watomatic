@@ -8,15 +8,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-
-import androidx.appcompat.app.AlertDialog;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 //Ref: https://stackoverflow.com/questions/44383983/how-to-programmatically-enable-auto-start-and-floating-window-permissions
 public class AutoStartHelper {
@@ -25,6 +22,8 @@ public class AutoStartHelper {
      * Xiaomi
      */
     private final String BRAND_XIAOMI = "xiaomi";
+    private final String BRAND_XIAOMI_POCO = "poco";
+    private final String BRAND_XIAOMI_REDMI = "redmi";
     private String PACKAGE_XIAOMI_MAIN = "com.miui.securitycenter";
     private String PACKAGE_XIAOMI_COMPONENT = "com.miui.permcenter.autostart.AutoStartManagementActivity";
 
@@ -41,6 +40,7 @@ public class AutoStartHelper {
     private final String BRAND_ASUS = "asus";
     private String PACKAGE_ASUS_MAIN = "com.asus.mobilemanager";
     private String PACKAGE_ASUS_COMPONENT = "com.asus.mobilemanager.powersaver.PowerSaverSettings";
+    private String PACKAGE_ASUS_COMPONENT_FALLBACK = "com.asus.mobilemanager.autostart.AutoStartActivity";
 
     /***
      * Honor
@@ -48,6 +48,14 @@ public class AutoStartHelper {
     private final String BRAND_HONOR = "honor";
     private String PACKAGE_HONOR_MAIN = "com.huawei.systemmanager";
     private String PACKAGE_HONOR_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
+
+    /***
+     * Huawei
+     */
+    private final String BRAND_HUAWEI = "huawei";
+    private String PACKAGE_HUAWEI_MAIN = "com.huawei.systemmanager";
+    private String PACKAGE_HUAWEI_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
+    private String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
 
     /**
      * Oppo
@@ -87,6 +95,13 @@ public class AutoStartHelper {
     private String PACKAGE_SAMSUNG_COMPONENT1 = "com.samsung.android.sm.ui.battery.BatteryActivity";
     private String PACKAGE_SAMSUNG_COMPONENT2 = "com.samsung.android.sm.battery.ui.BatteryActivity";
 
+    /***
+     * One plus
+     */
+    private final String BRAND_ONE_PLUS = "oneplus";
+    private String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+    private String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+
     private AutoStartHelper() {
     }
 
@@ -97,12 +112,14 @@ public class AutoStartHelper {
 
     public void getAutoStartPermission(Context context) {
 
-        String build_info = Build.BRAND.toLowerCase();
+        String build_info = Build.BRAND.toLowerCase(Locale.getDefault());
         switch (build_info) {
             case BRAND_ASUS:
                 autoStartAsus(context);
                 break;
             case BRAND_XIAOMI:
+            case BRAND_XIAOMI_POCO:
+            case BRAND_XIAOMI_REDMI:
                 autoStartXiaomi(context);
                 break;
             case BRAND_LETV:
@@ -110,6 +127,9 @@ public class AutoStartHelper {
                 break;
             case BRAND_HONOR:
                 autoStartHonor(context);
+                break;
+            case BRAND_HUAWEI:
+                autoStartHuawei(context);
                 break;
             case BRAND_OPPO:
                 autoStartOppo(context);
@@ -123,11 +143,14 @@ public class AutoStartHelper {
             case BRAND_SAMSUNG:
                 autoStartSamsung(context);
                 break;
+            case BRAND_ONE_PLUS:
+                autoStartOnePlus(context);
+                break;
         }
 
     }
 
-    private void autoStartSamsung(Context context) {
+    private void autoStartSamsung(final Context context) {
         String packageName;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N)
             packageName = PACKAGE_SAMSUNG_MAIN1;
@@ -135,14 +158,21 @@ public class AutoStartHelper {
             packageName = PACKAGE_SAMSUNG_MAIN2;
 
         if (isPackageExists(context, packageName)) {
+
             showAlert(context, (dialog, which) -> {
                 try {
-                    startIntent(context, packageName, PACKAGE_SAMSUNG_COMPONENT1, PACKAGE_SAMSUNG_COMPONENT2);
+                    startIntent(context, packageName, PACKAGE_SAMSUNG_COMPONENT1);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    try {
+                        startIntent(context, packageName, PACKAGE_SAMSUNG_COMPONENT2);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 dialog.dismiss();
             });
+
         }
     }
 
@@ -154,6 +184,11 @@ public class AutoStartHelper {
                     startIntent(context, PACKAGE_ASUS_MAIN, PACKAGE_ASUS_COMPONENT);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    try {
+                        startIntent(context, PACKAGE_ASUS_MAIN, PACKAGE_ASUS_COMPONENT_FALLBACK);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 dialog.dismiss();
             });
@@ -226,6 +261,26 @@ public class AutoStartHelper {
                 }
             });
 
+
+        }
+    }
+
+    private void autoStartHuawei(final Context context) {
+        if (isPackageExists(context, PACKAGE_HUAWEI_MAIN)) {
+
+            showAlert(context, (dialog, which) -> {
+                try {
+                    startIntent(context, PACKAGE_HUAWEI_MAIN, PACKAGE_HUAWEI_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    try {
+                        startIntent(context, PACKAGE_HUAWEI_MAIN, PACKAGE_HUAWEI_COMPONENT_FALLBACK);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                dialog.dismiss();
+            });
 
         }
     }
@@ -305,20 +360,17 @@ public class AutoStartHelper {
         }
     }
 
-    private void startIntent(Context context, String packageName, String componentName, String componentName2) throws Exception {
-        List<Intent> possibleIntents = new ArrayList<>();
-        possibleIntents.add(new Intent().setComponent(new ComponentName(packageName, componentName)));
-        possibleIntents.add(new Intent().setComponent(new ComponentName(packageName, componentName2)));
-        possibleIntents.add(new Intent(Settings.ACTION_SETTINGS));
-        for (Intent intent:possibleIntents
-             ) {
-            try {
-                context.startActivity(intent);
-                PreferencesManager.getPreferencesInstance(context).setAutoStartPermissionPref(true);
-                return;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void autoStartOnePlus(final Context context) {
+        if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
+            showAlert(context, (dialog, which) -> {
+                try {
+                    startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+
         }
     }
 
