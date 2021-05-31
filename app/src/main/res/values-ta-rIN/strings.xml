@@ -47,6 +47,7 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">பதிலதித்த செய்திகளுக்கு அறிவிப்புகளை காட்டு</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -54,4 +55,11 @@
     <string name="app_language">செயலி மொழி</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">நீங்கள் என்ன நினைக்கிறீர்கள்?</string>
+    <string name="app_rating_dialog_rate_button_title">மதிப்பிடுக</string>
+    <string name="app_rating_dialog_rate_later_title">இப்பொழுது வேண்டாம்</string>
+    <string name="app_rating_goto_store_dialog_button1_title">விருப்பம் இல்லை</string>
+    <string name="app_rating_goto_store_dialog_button2_title">தொடர்க</string>
+    <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
+    <string name="app_rating_feedback_dialog_msg">எங்களை மேம்படுத்த எங்களுக்கு உதவுங்கள்</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">எங்களுக்கு மின்னஞ்சல் அனுப்ப</string>
 </resources>
