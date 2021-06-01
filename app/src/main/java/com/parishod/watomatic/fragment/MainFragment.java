@@ -171,9 +171,6 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    private void checkAutoStartPermission() {
-        AutoStartHelper.getInstance().getAutoStartPermission(mActivity);
-    }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
         for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
@@ -265,9 +262,6 @@ public class MainFragment extends Fragment {
 
         showAppRatingPopup();
 
-        if(preferencesManager.isServiceEnabled() && !preferencesManager.isAutoStartPermissionEnabled()){
-            checkAutoStartPermission();
-        }
     }
 
     private void showAppRatingPopup() {
@@ -521,9 +515,6 @@ public class MainFragment extends Fragment {
         if(!isMyServiceRunning(KeepAliveService.class)) {
             Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
             mActivity.startService(mServiceIntent);
-        }
-        if(!preferencesManager.isAutoStartPermissionEnabled()){
-            checkAutoStartPermission();
         }
     }
 
