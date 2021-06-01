@@ -11,10 +11,12 @@ import androidx.preference.SwitchPreference;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.AutoStartHelper;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private ListPreference languagePref;
     private SwitchPreference showNotificationPref;
+    private Preference autoStartPref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -37,6 +39,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         showNotificationPref = findPreference(getString(R.string.pref_show_notification_replied_msg));
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             showNotificationPref.setTitle(getString(R.string.show_notification_label) + "(Beta)");
+        }
+
+        autoStartPref = findPreference(getString(R.string.pref_auto_start_permission));
+        autoStartPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                checkAutoStartPermission();
+                return true;
+            }
+        });
+    }
+
+    private void checkAutoStartPermission() {
+        if(getActivity() != null) {
+            AutoStartHelper.getInstance().getAutoStartPermission(getActivity());
         }
     }
 
