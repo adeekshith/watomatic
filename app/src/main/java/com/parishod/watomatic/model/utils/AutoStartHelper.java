@@ -379,7 +379,6 @@ public class AutoStartHelper {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(packageName, componentName));
             context.startActivity(intent);
-            PreferencesManager.getPreferencesInstance(context).setAutoStartPermissionPref(true);
         } catch (Exception var5) {
             var5.printStackTrace();
             throw var5;

@@ -29,7 +29,6 @@ public class PreferencesManager {
     private final String KEY_PURGE_MESSAGE_LOGS_LAST_TIME = "pref_purge_message_logs_last_time";
     private final String KEY_PLAY_STORE_RATING_STATUS = "pref_play_store_rating_status";
     private final String KEY_PLAY_STORE_RATING_LAST_TIME = "pref_play_store_rating_last_time";
-    private final String KEY_PREF_AUTOSTART_PERMISSION = "pref_autostart_permission";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
@@ -268,16 +267,6 @@ public class PreferencesManager {
     public void setPlayStoreRatingLastTime(long purgeMessageTime){
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_PLAY_STORE_RATING_LAST_TIME, purgeMessageTime);
-        editor.apply();
-    }
-
-    public boolean isAutoStartPermissionEnabled(){
-        return _sharedPrefs.getBoolean(KEY_PREF_AUTOSTART_PERMISSION,false);
-    }
-
-    public void setAutoStartPermissionPref(boolean enabled){
-        SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putBoolean(KEY_PREF_AUTOSTART_PERMISSION, enabled);
         editor.apply();
     }
 }
