@@ -8,7 +8,6 @@ import com.parishod.watomatic.service.KeepAliveService
 
 class NotificationServiceRestartReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "NotificationServiceRestartReceiver onReceive", Toast.LENGTH_LONG).show()
         val action = intent?.action
         if(action?.equals(Intent.ACTION_BOOT_COMPLETED) == true
                 || action?.equals("Watomatic-RestartService-Broadcast") == true) {
