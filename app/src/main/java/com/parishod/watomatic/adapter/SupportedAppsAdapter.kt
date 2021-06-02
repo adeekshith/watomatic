@@ -13,9 +13,7 @@ import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.supported_apps_list.view.*
 
 
-class SupportedAppsAdapter(listType:Constants.EnabledAppsDisplayType, supportedAppsList: ArrayList<App>): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
-    private val listType = listType
-    private var supportedAppsList: ArrayList<App> = supportedAppsList
+class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: ArrayList<App>): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
