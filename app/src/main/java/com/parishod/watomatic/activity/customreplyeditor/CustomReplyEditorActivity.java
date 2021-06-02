@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
-import android.widget.CheckBox;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,7 +22,6 @@ public class CustomReplyEditorActivity extends BaseActivity {
     CustomRepliesData customRepliesData;
     PreferencesManager preferencesManager;
     Button watoMessageLinkBtn;
-    CheckBox appendWatomaticAttribution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,6 @@ public class CustomReplyEditorActivity extends BaseActivity {
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText);
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn);
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
-        appendWatomaticAttribution = findViewById(R.id.appendWatomaticAttribution);
 
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -77,9 +74,5 @@ public class CustomReplyEditorActivity extends BaseActivity {
             );
         });
 
-        appendWatomaticAttribution.setChecked(preferencesManager.isAppendWatomaticAttributionEnabled());
-        appendWatomaticAttribution.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            preferencesManager.setAppendWatomaticAttribution(isChecked);
-        });
     }
 }

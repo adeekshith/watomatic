@@ -75,17 +75,5 @@
         app:layout_constraintTop_toBottomOf="@+id/saveCustomReplyBtn"
         />
 
-    <!-- Append Watomatic Attribution Option -->
-    <CheckBox
-        android:id="@+id/appendWatomaticAttribution"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorControlNormal"
-        android:textSize="12sp"
-        android:text="@string/append_watomatic_arribution_checkbox_label"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/tip_wato_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
