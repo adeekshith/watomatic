@@ -38,6 +38,7 @@ import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
@@ -79,6 +80,7 @@ public class MainFragment extends Fragment {
     private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
     private List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
+    private ImageView editEnabledAppsButton;
 
     @Nullable
     @Override
@@ -98,6 +100,11 @@ public class MainFragment extends Fragment {
         autoReplyTextPreviewCard = view.findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = view.findViewById(R.id.textView4);
         supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
+
+        editEnabledAppsButton = view.findViewById(R.id.editEnabledAppsButton);
+        editEnabledAppsButton.setOnClickListener(v -> {
+            launchEnabledAppsActivity();
+        });
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -508,6 +515,11 @@ public class MainFragment extends Fragment {
 
     private void loadSettingsActivity(){
         Intent intent = new Intent(mActivity, SettingsActivity.class);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchEnabledAppsActivity(){
+        Intent intent = new Intent(mActivity, EnabledAppsActivity.class);
         mActivity.startActivity(intent);
     }
 
