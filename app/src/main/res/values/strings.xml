@@ -143,4 +143,5 @@
         \n\nNote:Depending on the device the settings may vary slightly.\n</string>
     <string name="enable_auto_start_setting">Enable Setting</string>
     <string name="decline_auto_start_setting">I\'M OK</string>
+    <string name="enabled_apps_title">Enabled Apps</string>
 </resources>
