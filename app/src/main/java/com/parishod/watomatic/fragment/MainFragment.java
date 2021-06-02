@@ -30,6 +30,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -40,6 +42,7 @@ import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
+import com.parishod.watomatic.adapter.SupportedAppsAdapter;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -81,6 +84,10 @@ public class MainFragment extends Fragment {
     private List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
     private ImageView editEnabledAppsButton;
+    private RecyclerView enabledAppsList;
+    private LinearLayoutManager layoutManager;
+    private SupportedAppsAdapter supportedAppsAdapter;
+    private ArrayList<App> enabledApps = new ArrayList<>();
 
     @Nullable
     @Override
@@ -105,6 +112,12 @@ public class MainFragment extends Fragment {
         editEnabledAppsButton.setOnClickListener(v -> {
             launchEnabledAppsActivity();
         });
+
+        enabledAppsList = view.findViewById(R.id.enabled_apps_list);
+        layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
+        enabledAppsList.setLayoutManager(layoutManager);
+        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, enabledApps);
+        enabledAppsList.setAdapter(supportedAppsAdapter);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -172,9 +185,25 @@ public class MainFragment extends Fragment {
         setNumDays();
 
 
+        if(supportedAppsAdapter != null){
+            getEnabledApps();
+            supportedAppsAdapter.updateList(enabledApps);
+        }
+
         return view;
     }
 
+    private void getEnabledApps() {
+        if(enabledApps != null) {
+            enabledApps.clear();
+        }
+        enabledApps = new ArrayList<>();
+        for(App app: Constants.SUPPORTED_APPS){
+            if(preferencesManager.isAppEnabled(app)){
+                enabledApps.add(app);
+            }
+        }
+    }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
         for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
