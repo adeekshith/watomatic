@@ -14,15 +14,13 @@ import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*
 
 class EnabledAppsFragment: Fragment() {
-    private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var supportedAppsAdapter: SupportedAppsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_enabled_apps, container, false)
 
-        layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
 
-        supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(Constants.SUPPORTED_APPS))
+        val supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(Constants.SUPPORTED_APPS))
         view.supportedAppsList.layoutManager = layoutManager
         view.supportedAppsList.adapter = supportedAppsAdapter
 
