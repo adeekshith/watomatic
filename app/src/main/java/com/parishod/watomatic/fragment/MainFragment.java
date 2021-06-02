@@ -42,7 +42,6 @@ import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
-import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
@@ -98,7 +97,6 @@ public class MainFragment extends Fragment {
         groupReplySwitch = view.findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = view.findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = view.findViewById(R.id.textView4);
-        supportedAppsLayout = view.findViewById(R.id.supportedPlatformsLayout);
         supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
@@ -166,7 +164,6 @@ public class MainFragment extends Fragment {
 
         setNumDays();
 
-        createSupportedAppCheckboxes();
 
         return view;
     }
@@ -181,47 +178,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void createSupportedAppCheckboxes() {
-        supportedAppsLayout.removeAllViews();
-
-        //inflate the views
-        LayoutInflater inflater = getLayoutInflater();
-        for (App supportedApp: Constants.SUPPORTED_APPS) {
-            View view = inflater.inflate(R.layout.enable_app_main_layout, null);
-
-            MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
-            checkBox.setText(supportedApp.getName());
-            checkBox.setTag(supportedApp);
-            checkBox.setChecked(preferencesManager.isAppEnabled(supportedApp));
-            checkBox.setEnabled(mainAutoReplySwitch.isChecked());
-            checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
-            supportedAppsCheckboxes.add(checkBox);
-
-            View platformDummyView = view.findViewById(R.id.platform_dummy_view);
-            if(mainAutoReplySwitch.isChecked()){
-                platformDummyView.setVisibility(View.GONE);
-            }
-            platformDummyView.setOnClickListener(v -> {
-                if(!mainAutoReplySwitch.isChecked()){
-                    Toast.makeText(mActivity, getResources().getString(R.string.enable_auto_reply_switch_msg), Toast.LENGTH_SHORT).show();
-                }
-            });
-            supportedAppsDummyViews.add(platformDummyView);
-            supportedAppsLayout.addView(view);
-        }
-    }
-
-    private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (!isChecked && preferencesManager.getEnabledApps().size() <= 1) { // Keep at-least one app selected
-                Toast.makeText(mActivity, getResources().getString(R.string.error_atleast_single_app_must_be_selected), Toast.LENGTH_SHORT).show();
-                buttonView.setChecked(true);
-            } else {
-                preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
-            }
-        }
-    };
 
     private void saveNumDays(){
         preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
