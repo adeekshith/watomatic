@@ -75,7 +75,7 @@
     <string name="preference_category_general_label">General</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
-    <string name="enable_auto_start_summary">click to launch settings</string>
+    <string name="enable_auto_start_summary">Enable Auto start for Watomatic from device settings</string>
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
