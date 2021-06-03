@@ -139,6 +139,7 @@
     <string name="auto_start_permission_dialog_title">AutoStart Permission</string>
     <string name="auto_start_permission_dialog_message">Enable \"Auto Start\" permission in device settings to allow Watomatic to start on device restart.</string>
     <string name="device_based_settings_message">Note: Settings may vary or may not be available based on your device</string>
+    <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
 </resources>

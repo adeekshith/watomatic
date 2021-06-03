@@ -8,9 +8,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -146,6 +146,9 @@ public class AutoStartHelper {
             case BRAND_ONE_PLUS:
                 autoStartOnePlus(context);
                 break;
+            default:
+                Toast.makeText(context, context.getString(R.string.setting_not_available_for_device),
+                        Toast.LENGTH_SHORT).show();
         }
 
     }
