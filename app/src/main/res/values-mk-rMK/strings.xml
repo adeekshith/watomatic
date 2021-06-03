@@ -67,4 +67,5 @@
     <string name="app_rating_feedback_dialog_msg">Споделете го вашето мислење за тоа како да ја подобриме апликацијата.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
 </resources>
