@@ -21,8 +21,7 @@
     <PreferenceCategory android:title="@string/preference_category_troubleshooting_label">
 
         <Preference android:title="@string/enable_auto_start_label"
-            android:key="@string/pref_auto_start_permission"
-            android:summary="@string/enable_auto_start_summary"/>
+            android:key="@string/pref_auto_start_permission" />
 
     </PreferenceCategory>
 
