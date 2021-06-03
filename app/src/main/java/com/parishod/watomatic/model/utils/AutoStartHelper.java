@@ -200,7 +200,10 @@ public class AutoStartHelper {
         CustomDialog customDialog = new CustomDialog(context);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_TITLE, context.getString(R.string.auto_start_permission_dialog_title));
-        bundle.putString(Constants.PERMISSION_DIALOG_MSG, context.getString(R.string.auto_start_permission_dialog_message));
+        bundle.putString(Constants.PERMISSION_DIALOG_MSG,
+                context.getString(R.string.auto_start_permission_dialog_message) +
+                        "\n\n" +
+                        context.getString(R.string.device_based_settings_message));
         customDialog.showDialog(bundle, "AutoStart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
