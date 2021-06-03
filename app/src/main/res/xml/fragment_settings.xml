@@ -2,16 +2,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference android:title="@string/app_language"
-        app:icon="@drawable/ic_language"
-        android:key="@string/key_pref_app_language"
-        android:entries="@array/app_language"
-        android:entryValues="@array/app_language_value"
-        app:useSimpleSummaryProvider="true"/>
+    <PreferenceCategory android:title="@string/preference_category_general_label">
 
-    <SwitchPreference android:title="@string/show_notification_label"
-        android:key="@string/pref_show_notification_replied_msg"
-        app:icon="@drawable/ic_notification"
-        />
+        <ListPreference android:title="@string/app_language"
+            app:icon="@drawable/ic_language"
+            android:key="@string/key_pref_app_language"
+            android:entries="@array/app_language"
+            android:entryValues="@array/app_language_value"
+            app:useSimpleSummaryProvider="true"/>
+
+        <SwitchPreference android:title="@string/show_notification_label"
+            android:key="@string/pref_show_notification_replied_msg"
+            app:icon="@drawable/ic_notification"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_category_troubleshooting_label">
+
+        <Preference android:title="@string/enable_auto_start_label"
+            android:key="@string/pref_auto_start_permission" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

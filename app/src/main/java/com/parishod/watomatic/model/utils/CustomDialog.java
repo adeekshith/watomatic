@@ -42,10 +42,17 @@ public class CustomDialog {
         this.mContext = context;
     }
 
-    public void showDialog(Bundle bundle, DialogInterface.OnClickListener onClickListener){
+    public void showDialog(Bundle bundle, String type, DialogInterface.OnClickListener onClickListener){
         if(bundle != null){
             MaterialAlertDialogBuilder materialAlertDialogBuilder;
-            if(bundle.containsKey(Constants.PERMISSION_DIALOG_DENIED)
+            if(type != null && type.equals("AutoStart")){
+                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
+                        .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
+                        .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
+                materialAlertDialogBuilder
+                        .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener::onClick)
+                        .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener::onClick);
+            }else if(bundle.containsKey(Constants.PERMISSION_DIALOG_DENIED)
                     && bundle.getBoolean(Constants.PERMISSION_DIALOG_DENIED)) {
                  materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_TITLE))

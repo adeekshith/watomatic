@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
@@ -67,9 +68,14 @@
     <!-- keys and app internal strings -->
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
     <string name="pref_show_notification_replied_msg" translatable="false">pref_show_notification_replied_msg</string>
+    <string name="pref_auto_start_permission" translatable="false">pref_auto_start_permission</string>
 
     <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
+    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_troubleshooting_label">Troubleshooting</string>
+    <string name="enable_auto_start_label">Enable Auto Start</string>
+    <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
@@ -128,4 +134,12 @@
     <string name="app_rating_feedback_dialog_msg">Let us know how we can improve.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Email Us</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">AutoStart Permission</string>
+    <string name="auto_start_permission_dialog_message">Enable \"Auto Start\" permission in device settings to allow Watomatic to start on device restart.</string>
+    <string name="device_based_settings_message">Note: Settings may vary or may not be available based on your device</string>
+    <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
+    <string name="enable_auto_start_setting">Proceed</string>
+    <string name="decline_auto_start_setting">Cancel</string>
 </resources>
