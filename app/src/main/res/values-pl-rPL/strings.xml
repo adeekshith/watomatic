@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">O</string>
+    <string name="settings">Ustawienia</string>
+    <string name="privacy_policy_label">Polityka prywatności</string>
+    <string name="service_name">Odbiornik powiadomień wiadomościach przychodzącyc</string>
+    <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <!-- Custom message editor -->
