@@ -67,4 +67,5 @@
     <string name="app_rating_feedback_dialog_msg">Nasıl geliştirebileceğimiz hakkında bizi bilgilendirin.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">E-posta gönderin </string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram </string>
+    <!--Autostart Permission Dialog-->
 </resources>
