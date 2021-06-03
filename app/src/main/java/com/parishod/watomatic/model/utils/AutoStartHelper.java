@@ -8,14 +8,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.List;
 import java.util.Locale;
 
-//Ref: https://stackoverflow.com/questions/44383983/how-to-programmatically-enable-auto-start-and-floating-window-permissions
+//Ref: https://stackoverflow.com/q/44383983
 public class AutoStartHelper {
 
     /***
@@ -146,6 +146,9 @@ public class AutoStartHelper {
             case BRAND_ONE_PLUS:
                 autoStartOnePlus(context);
                 break;
+            default:
+                Toast.makeText(context, context.getString(R.string.setting_not_available_for_device),
+                        Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -200,7 +203,10 @@ public class AutoStartHelper {
         CustomDialog customDialog = new CustomDialog(context);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_TITLE, context.getString(R.string.auto_start_permission_dialog_title));
-        bundle.putString(Constants.PERMISSION_DIALOG_MSG, context.getString(R.string.auto_start_permission_dialog_message));
+        bundle.putString(Constants.PERMISSION_DIALOG_MSG,
+                context.getString(R.string.auto_start_permission_dialog_message) +
+                        "\n\n" +
+                        context.getString(R.string.device_based_settings_message));
         customDialog.showDialog(bundle, "AutoStart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
