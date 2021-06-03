@@ -62,4 +62,5 @@
     <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
     <string name="app_rating_feedback_dialog_msg">எங்களை மேம்படுத்த எங்களுக்கு உதவுங்கள்</string>
     <string name="app_rating_feedback_dialog_mail_button_title">எங்களுக்கு மின்னஞ்சல் அனுப்ப</string>
+    <!--Autostart Permission Dialog-->
 </resources>
