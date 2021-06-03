@@ -15,7 +15,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 import java.util.List;
 import java.util.Locale;
 
-//Ref: https://stackoverflow.com/questions/44383983/how-to-programmatically-enable-auto-start-and-floating-window-permissions
+//Ref: https://stackoverflow.com/q/44383983
 public class AutoStartHelper {
 
     /***
