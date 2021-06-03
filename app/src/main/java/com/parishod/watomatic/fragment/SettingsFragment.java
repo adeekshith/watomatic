@@ -27,7 +27,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String thisLangStr = PreferencesManager.getPreferencesInstance(getActivity()).getSelectedLanguageStr(null);
-                if((thisLangStr != null) && !thisLangStr.equals(newValue)){
+                if(thisLangStr == null || !thisLangStr.equals(newValue)){
                     //switch app language here
                     //Should restart the app for language change to take into account
                     restartApp();

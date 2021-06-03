@@ -49,6 +49,7 @@ import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.service.KeepAliveService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -265,9 +266,10 @@ public class MainFragment extends Fragment {
     }
 
     private void showAppRatingPopup() {
+        boolean isFromStore = isAppInstalledFromStore(mActivity);
         String status = preferencesManager.getPlayStoreRatingStatus();
         long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
-        if(!status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
+        if(isFromStore && !status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
             if(isAppUsedSufficientlyToAskRating()){
                 CustomDialog customDialog = new CustomDialog(mActivity);
                 customDialog.showAppLocalRatingDialog(new View.OnClickListener() {
@@ -279,6 +281,18 @@ public class MainFragment extends Fragment {
                 preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
             }
         }
+    }
+
+    //REF: https://stackoverflow.com/questions/37539949/detect-if-an-app-is-installed-from-play-store
+    public static boolean isAppInstalledFromStore(Context context) {
+        // A list with valid installers package name
+        List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
+
+        // The package name of the app that has installed your app
+        final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+
+        // true if your app has been downloaded from Play Store
+        return installer != null && validInstallers.contains(installer);
     }
 
     private boolean isAppUsedSufficientlyToAskRating(){
