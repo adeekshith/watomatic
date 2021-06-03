@@ -84,7 +84,6 @@ public class MainFragment extends Fragment {
     private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
     private List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
-    private ImageView editEnabledAppsButton;
     private RecyclerView enabledAppsList;
     private LinearLayoutManager layoutManager;
     private SupportedAppsAdapter supportedAppsAdapter;
@@ -109,10 +108,7 @@ public class MainFragment extends Fragment {
         autoReplyTextPreview = view.findViewById(R.id.textView4);
         supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
 
-        editEnabledAppsButton = view.findViewById(R.id.editEnabledAppsButton);
-        editEnabledAppsButton.setOnClickListener(v -> {
-            launchEnabledAppsActivity();
-        });
+        supportedAppsCard.setOnClickListener(v -> launchEnabledAppsActivity());
 
         enabledAppsList = view.findViewById(R.id.enabled_apps_list);
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
