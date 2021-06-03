@@ -68,4 +68,5 @@
     <string name="app_rating_feedback_dialog_msg">Lass uns wissen, wie wir uns verbessern können.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Schick uns eine E-Mail</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
 </resources>
