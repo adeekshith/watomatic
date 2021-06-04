@@ -48,6 +48,8 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Покажи известување за автоматски одговорени пораки</string>
+    <string name="preference_category_general_label">Општо</string>
+    <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +70,7 @@
     <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
+    <string name="enable_auto_start_setting">Продолжи</string>
+    <string name="decline_auto_start_setting">Откажи</string>
 </resources>
