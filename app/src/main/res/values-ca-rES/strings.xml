@@ -48,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
+    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
+    <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
+    <string name="enable_auto_start_summary">Alguns dispositius necessiten que activeu de forma manual l\'inici automàtic per al Watomatic des del panel de configuració del dispositiu</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -69,4 +73,5 @@
     <string name="app_rating_feedback_dialog_mail_button_title">Correu-e</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Permís d\'inici automàtic</string>
 </resources>
