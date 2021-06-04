@@ -70,7 +70,9 @@
     <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Дозвола за автоматско стартување</string>
     <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
+    <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
 </resources>
