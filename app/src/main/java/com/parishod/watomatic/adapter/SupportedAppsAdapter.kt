@@ -16,8 +16,14 @@ import kotlinx.android.synthetic.main.supported_apps_list.view.*
 class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppsViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.supported_apps_list, parent, false)
+        val itemView: View
+        if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+            itemView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.supported_apps_list, parent, false)
+        }else{
+            itemView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.enabled_apps_grid_item, parent, false)
+        }
         return AppsViewHolder(itemView)
     }
 
@@ -51,11 +57,6 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 itemView.appEnableSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
                     PreferencesManager.getPreferencesInstance(itemView.context).saveEnabledApps(buttonView.tag as App, isChecked)
                 }
-            }else{
-                itemView.appEnableSwitch.visibility = View.GONE
-                val params = itemView.layoutParams as RecyclerView.LayoutParams
-                params.width = ViewGroup.LayoutParams.WRAP_CONTENT
-                itemView.layoutParams = params
             }
         }
     }

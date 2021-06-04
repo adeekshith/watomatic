@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -85,7 +85,7 @@ public class MainFragment extends Fragment {
     private List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
     private RecyclerView enabledAppsList;
-    private LinearLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
     private SupportedAppsAdapter supportedAppsAdapter;
     private List<App> enabledApps = new ArrayList<>();
 
@@ -111,7 +111,7 @@ public class MainFragment extends Fragment {
         supportedAppsCard.setOnClickListener(v -> launchEnabledAppsActivity());
 
         enabledAppsList = view.findViewById(R.id.enabled_apps_list);
-        layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new GridLayoutManager(mActivity, getSpanCount(mActivity));
         enabledAppsList.setLayoutManager(layoutManager);
         supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps());
         enabledAppsList.setAdapter(supportedAppsAdapter);
@@ -195,6 +195,13 @@ public class MainFragment extends Fragment {
             }
         }
         return enabledApps;
+    }
+
+    public static int getSpanCount(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 35; // You can vary the value held by the scalingFactor
+        return (int) (dpWidth / scalingFactor);
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
