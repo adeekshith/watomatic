@@ -68,6 +68,8 @@
     <string name="app_rating_feedback_dialog_mail_button_title">எங்களுக்கு மின்னஞ்சல் அனுப்ப</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">தானாக தொடங்கும் அனுமதி</string>
+    <string name="device_based_settings_message">குறிப்பு: உங்கள் சாதனத்தைப் பொறுத்து சில அமைப்புகள் மாறலாம் அல்லது உங்களுக்கு இல்லாமல் இருக்கலாம்</string>
+    <string name="setting_not_available_for_device">இந்த அமைப்பு உங்கள் சாதனத்தில் கிடைக்கப்பெறாது அல்லது உங்களுக்கு தேவைப்படாது.</string>
     <string name="enable_auto_start_setting">தொடரவும்</string>
     <string name="decline_auto_start_setting">ரத்து செய்</string>
 </resources>
