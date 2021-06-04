@@ -74,4 +74,9 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Permís d\'inici automàtic</string>
+    <string name="auto_start_permission_dialog_message">Habiliteu el permís \"Inicia automàticament\" a la configuració del dispositiu perquè el Watomatic s\'iniciï en arrencar.</string>
+    <string name="device_based_settings_message">Nota: Aquesta opció pot variar o no estar disponible al vostre dispositiu</string>
+    <string name="setting_not_available_for_device">Aquesta opció no està disponible o no és necessària al vostre dispositiu.</string>
+    <string name="enable_auto_start_setting">Continua</string>
+    <string name="decline_auto_start_setting">Cancel·la</string>
 </resources>
