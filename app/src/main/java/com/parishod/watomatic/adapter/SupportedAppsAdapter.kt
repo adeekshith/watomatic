@@ -55,7 +55,18 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 itemView.appEnableSwitch.tag = app
                 itemView.appEnableSwitch.isChecked = PreferencesManager.getPreferencesInstance(itemView.context).isAppEnabled(app)
                 itemView.appEnableSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-                    PreferencesManager.getPreferencesInstance(itemView.context).saveEnabledApps(buttonView.tag as App, isChecked)
+                    val preferencesManager = PreferencesManager.getPreferencesInstance(itemView.context)
+                    if (!isChecked && preferencesManager.enabledApps.size <= 1) { // Keep at-least one app selected
+                        // Keep at-least one app selected
+                        Toast.makeText(
+                            itemView.context,
+                            itemView.context.resources.getString(R.string.error_atleast_single_app_must_be_selected),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        buttonView.isChecked = true
+                    }else {
+                        preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
+                    }
                 }
             }
         }
