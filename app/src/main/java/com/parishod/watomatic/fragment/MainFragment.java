@@ -181,11 +181,6 @@ public class MainFragment extends Fragment {
 
         setNumDays();
 
-
-        if(supportedAppsAdapter != null) {
-            supportedAppsAdapter.updateList(getEnabledApps());
-        }
-
         return view;
     }
 
