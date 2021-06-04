@@ -48,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Cevaplanan mesajlar için bildirim göster</string>
+    <string name="preference_category_general_label">Genel</string>
+    <string name="preference_category_troubleshooting_label">Sorun Giderme</string>
+    <string name="enable_auto_start_label">Otomatik Başlatmayı Aktif Et</string>
+    <string name="enable_auto_start_summary">Bazı cihazlarda, cihaz ayarlarından Watomatic için Otomatik başlatmayı manuel olarak etkinleştirmeniz gerekebilir</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -67,4 +71,11 @@
     <string name="app_rating_feedback_dialog_msg">Nasıl geliştirebileceğimiz hakkında bizi bilgilendirin.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">E-posta gönderin </string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram </string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Otomatik Başlatma İzni</string>
+    <string name="auto_start_permission_dialog_message">Watomatic\'in cihaz yeniden başlatıldığında başlamasına izin vermek için cihaz ayarlarında \"Otomatik Başlatma\" iznini etkinleştirin.</string>
+    <string name="device_based_settings_message">Not: Ayarlar cihazınıza göre değişebilir veya kullanılamayabilir</string>
+    <string name="setting_not_available_for_device">Bu ayar cihazınız için mevcut değil veya gerekli olmayabilir.</string>
+    <string name="enable_auto_start_setting">Devam Et</string>
+    <string name="decline_auto_start_setting">İptal</string>
 </resources>

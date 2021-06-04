@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">O</string>
+    <string name="settings">Ustawienia</string>
+    <string name="privacy_policy_label">Polityka prywatności</string>
+    <string name="service_name">Odbiornik powiadomień wiadomościach przychodzącyc</string>
+    <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
+    <string name="auto_reply_default_message">Autom. odpowiedź\n⚠️ Użytkonik niedostępny</string>
+    <string name="mainAutoReplyLabel">Treść autom. odlowiedzi</string>
+    <string name="mainAutoReplySwitchOffLabel">Autom. odpowiedź WYŁ.</string>
+    <string name="mainAutoReplySwitchOnLabel">Autom. odpowiedź WŁ.</string>
+    <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować autom. odpowiedź</string>
+    <string name="to_help_you_leave_whatsapp">Autom. odpowiedź pomoże Ci opóścić WhatsApp i Facebook messenger</string>
+    <string name="decline">Odrzuć</string>
+    <string name="accept">Akceptuj</string>
+    <string name="sure">Jestem pewny(a)</string>
+    <string name="retry">Ponów</string>
+    <string name="permission_dialog_title">Wymagane uprawnienia</string>
+    <string name="permission_dialog_msg">Ta aplikacja wymaga uprawnień do Powiadomień aby działała.</string>
+    <string name="permission_dialog_denied_title">Uprawnienie odrzucone</string>
+    <string name="permission_dialog_denied_msg">Bez tego uprawnienia aplikacja nie jest w stanie automatycznie odpowiadać na powiadomienia. Czy na pewno chcesz odmówić uprawnień?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Włącz dla aplikacji</string>
+    <string name="enable_auto_reply_switch_msg">Najpierw włącz automatyczną odpowiedź.</string>
+    <string name="error_atleast_single_app_must_be_selected">Błąd: Wybierz przynajmniej jedną aplikację</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Autom. odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_on_info_message">Włącz autom. odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_off_info_message">Wyłącz autom. odpowiedź dla czatów grupowyc</string>
+    <string name="time_picker_title">Częstotliwość odpowiedzi (BETA)</string>
+    <string name="time_picker_sub_title_default">Odpowiadaj na wszystkie wiadomości bez kontroli</string>
+    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień\/dni dla każdej osoby\/grupy</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Stuknij aby edytować opóźnienie pomiędzy odpowiedziami</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">Zapisz</string>
+    <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Dołącz do Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
+    <string name="sent_using_Watomatic">Wysłano używając git.io/watomatic</string>
+    <string name="share_app_text">\"Używam Watomatic do przerw od WhatsApp. Spróbuj!\n https://git.io/watomatic</string>
+    <string name="share">Udostępnij</string>
+    <string name="share_subject">Watomatic: Autom. odpowiedź dla WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Omówmy\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Co nowego?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Pokaż powiadomienie o odpowiedzi na wiadomości</string>
+    <string name="preference_category_general_label">Ogólne</string>
+    <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
+    <string name="enable_auto_start_label">Wł. Automatyczny Start</string>
+    <string name="enable_auto_start_summary">Niektóre urządzenia mogą potrzebować ręcznego włączenia startu automatycznego dla Watomatic w ustawieniach urządzenia</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">Język aplikacji</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Co o tym myślisz?</string>
+    <string name="app_rating_dialog_msg">Interesujemy się tym, co myślisz o aplikacji. Dotknij gwiazdek powyżej aby ocenić.</string>
+    <string name="app_rating_dialog_rate_button_title">Oceń to!</string>
+    <string name="app_rating_dialog_rate_later_title">Może później</string>
+    <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
+    <string name="app_rating_goto_store_dialog_msg">Podziel się tą oceną aplikacji w Sklepie Google Play, klikając \"Kontynuuj\"\!</string>
+    <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia, otawrto-źródłowa i jest tworzona przez twórców takich jak Ty i ja.
+        Twoja opinia jest naszą jedyną zachętą.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany(a)</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Kontynuuj</string>
+    <string name="app_rating_feedback_dialog_title">Skontaktuj się z nami</string>
+    <string name="app_rating_feedback_dialog_msg">Daj nam znać, jak możemy coś poprawić.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Napisz do nas</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Uprawnienia AutoStart</string>
+    <string name="auto_start_permission_dialog_message">Włącz uprawnienia \"Auto Start\" w ustawieniach urządzenia, aby umożliwić Watomatic włączenie się przy uruchamianiu urządzenia.</string>
+    <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne w oparciu o twoje urządzenie</string>
+    <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
+    <string name="enable_auto_start_setting">Kontynuuj</string>
+    <string name="decline_auto_start_setting">Anuluj</string>
 </resources>

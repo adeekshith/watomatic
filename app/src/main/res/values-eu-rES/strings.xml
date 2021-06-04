@@ -48,10 +48,21 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
+    <string name="preference_category_general_label">Orokorra</string>
+    <string name="preference_category_troubleshooting_label">Arazoak konpontzea</string>
+    <string name="enable_auto_start_label">Gaitu abiatze automatikoa</string>
+    <string name="enable_auto_start_summary">Gailu batzuetan baliteke automatikoki abiatzeko aukera eskuz gaitu behar izatea gailuaren ezarpenetatik</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Aplikazioaren hizkuntza</string>
     <!-- App Rating Dialog -->
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Automatikoki abiatzeko baimena</string>
+    <string name="auto_start_permission_dialog_message">Gaitu \'Automatikoki abiatu\' baimena gailuaren ezarpenetan Watomatic automatikoki abiatzeko gailua berrabiaraztean.</string>
+    <string name="device_based_settings_message">Oharra: Baliteke ezarpenok aldatzea edo eskuragarri ez egotea, zure gailuaren arabera</string>
+    <string name="setting_not_available_for_device">Ezarpen hau ez dago eskuragarri edo ez da behar zure gailuan.</string>
+    <string name="enable_auto_start_setting">Jarraitu</string>
+    <string name="decline_auto_start_setting">Utzi</string>
 </resources>

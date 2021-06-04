@@ -54,4 +54,19 @@
     <!-- App Language selection -->
     <string name="app_language">Sovelluksen kieli</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Mitä mieltä olet?</string>
+    <string name="app_rating_dialog_msg">Olemme kiinnostuneita siitä, mitä mieltä olet sovelluksesta. Napauta yllä olevia tähtiä arvioidaksesi sen.</string>
+    <string name="app_rating_dialog_rate_button_title">Arvostele se!</string>
+    <string name="app_rating_dialog_rate_later_title">Ehkä myöhemmin</string>
+    <string name="app_rating_goto_store_dialog_title">Olemme iloisia!</string>
+    <string name="app_rating_goto_store_dialog_msg">Ole hyvä ja jaa tämä arvostelu sovelluksestamme Google Play Kaupassa napauttamalla \"Jatka\"!</string>
+    <string name="app_rating_pitch">Tämä sovellus on ilmainen, ei mainoksia, ei seurantaa, avointa lähdekoodia ja sen tekevät osallistujat kuten sinä ja minä.
+        Palautteesi on ainoa rohkaisumme.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">En ole kiinnostunut</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Jatka</string>
+    <string name="app_rating_feedback_dialog_title">Ota meihin yhteyttä</string>
+    <string name="app_rating_feedback_dialog_msg">Kerro meille, miten voimme parantaa.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Lähetä meille sähköpostia</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
 </resources>

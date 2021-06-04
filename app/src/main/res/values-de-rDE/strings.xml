@@ -48,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
+    <string name="preference_category_general_label">Allgemein</string>
+    <string name="preference_category_troubleshooting_label">Fehlersuche und -behebung</string>
+    <string name="enable_auto_start_label">Auto-Start aktivieren</string>
+    <string name="enable_auto_start_summary">Einige Geräte könnten es erfordern, Auto-Start in den Geräteeinstellungen für Watomatic manuell zu aktivieren</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +72,11 @@
     <string name="app_rating_feedback_dialog_msg">Lass uns wissen, wie wir uns verbessern können.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Schick uns eine E-Mail</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Auto-Start Berechtigung</string>
+    <string name="auto_start_permission_dialog_message">Erlaube die Auto-Start Berechtigung in den Geräteeinstellungen, um Watomatic automatisch zu starten.</string>
+    <string name="device_based_settings_message">Beachte: Einstellungen können variieren oder auf deinem Gerät nicht verfügbar sein</string>
+    <string name="setting_not_available_for_device">Diese Einstellung ist nicht verfügbar oder wird für dein Gerät möglicherweise nicht benötigt.</string>
+    <string name="enable_auto_start_setting">Weiter</string>
+    <string name="decline_auto_start_setting">Abbrechen</string>
 </resources>

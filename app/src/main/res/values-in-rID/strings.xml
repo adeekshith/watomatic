@@ -52,4 +52,5 @@
     <!-- App Language selection -->
     <string name="app_language">Bahasa Aplikasi</string>
     <!-- App Rating Dialog -->
+    <!--Autostart Permission Dialog-->
 </resources>
