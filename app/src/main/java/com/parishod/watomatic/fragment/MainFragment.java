@@ -87,7 +87,7 @@ public class MainFragment extends Fragment {
     private RecyclerView enabledAppsList;
     private LinearLayoutManager layoutManager;
     private SupportedAppsAdapter supportedAppsAdapter;
-    private ArrayList<App> enabledApps = new ArrayList<>();
+    private List<App> enabledApps = new ArrayList<>();
 
     @Nullable
     @Override
@@ -113,7 +113,7 @@ public class MainFragment extends Fragment {
         enabledAppsList = view.findViewById(R.id.enabled_apps_list);
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         enabledAppsList.setLayoutManager(layoutManager);
-        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, enabledApps);
+        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps());
         enabledAppsList.setAdapter(supportedAppsAdapter);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
@@ -182,15 +182,14 @@ public class MainFragment extends Fragment {
         setNumDays();
 
 
-        if(supportedAppsAdapter != null){
-            getEnabledApps();
-            supportedAppsAdapter.updateList(enabledApps);
+        if(supportedAppsAdapter != null) {
+            supportedAppsAdapter.updateList(getEnabledApps());
         }
 
         return view;
     }
 
-    private void getEnabledApps() {
+    private List<App> getEnabledApps() {
         if(enabledApps != null) {
             enabledApps.clear();
         }
@@ -200,6 +199,7 @@ public class MainFragment extends Fragment {
                 enabledApps.add(app);
             }
         }
+        return enabledApps;
     }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
@@ -248,6 +248,11 @@ public class MainFragment extends Fragment {
 
         // Set user auto reply text
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
+
+        // Update enabled apps list
+        if(supportedAppsAdapter != null) {
+            supportedAppsAdapter.updateList(getEnabledApps());
+        }
 
         showAppRatingPopup();
 
