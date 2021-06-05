@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Wyłącz autom. odpowiedź dla czatów grupowyc</string>
     <string name="time_picker_title">Częstotliwość odpowiedzi (BETA)</string>
     <string name="time_picker_sub_title_default">Odpowiadaj na wszystkie wiadomości bez kontroli</string>
-    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień\/dni dla każdej osoby\/grupy</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Stuknij aby edytować opóźnienie pomiędzy odpowiedziami</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,8 @@
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Dołącz do Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
-    <string name="sent_using_Watomatic">Wysłano używając git.io/watomatic</string>
-    <string name="share_app_text">\"Używam Watomatic do przerw od WhatsApp. Spróbuj!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Wysłano używając watomatic.app</string>
+    <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
     <string name="share_subject">Watomatic: Autom. odpowiedź dla WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Omówmy\nr/watomatic</u></string>

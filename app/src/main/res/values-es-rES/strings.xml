@@ -38,8 +38,8 @@
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a correr la voz</string>
-    <string name="sent_using_Watomatic">Enviado a través de git.io/watomatic</string>
-    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
+    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo: watomatic.app</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Watomatic: respuesta automática para WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Hablemos de\nr/watomatic</u></string>

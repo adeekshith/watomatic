@@ -26,7 +26,7 @@
     <string name="time_picker_sub_title">Responder apenas uma vez a cada %1$d dia(s) para cada pessoa\/grupo</string>
     <string name="time_picker_edit_btn_tooltip">Clique para editar o tempo de espera entre as respostas</string>
     <!-- Custom message editor -->
-    <string name="share_app_text">\"Estou usando Watomatic para me livrar do WhatsApp. Experimente!\n https://git.io/watomatic</string>
+    <string name="share_app_text">Estou usando Watomatic para me livrar do WhatsApp. Experimente: watomatic.app</string>
     <string name="share">Compartilhar</string>
     <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
     <!-- Share debug logs -->
