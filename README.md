@@ -43,18 +43,24 @@ This app is not associated with any company including WhatsApp, Facebook, Signal
 
 Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
 
-### Support
+### Contribute
 
-Help us offset development costs to keep this project alive and support further development but there are other ways to help too:
+Consider supporting us in any way you can if you would like this to be developed further:
 
-- ✍️ Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
-  is one of the easiest ways to help so please do that 😃
-- 🌏 Translate the app to your language via Crowdin (ask us if you need help getting started): https://crowdin.com/project/watomatic
-- [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) [![Liberapay financial goals badge](https://img.shields.io/liberapay/goal/dk?color=%23BF360C&label=%F0%9F%92%B0%20Goal%20%F0%9F%A4%92&style=for-the-badge)](https://liberapay.com/dk/donate)
-- Buy me coffee [paypal.me/deek](https://paypal.me/deek)
-- BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
-- 👋 Or just say hi or thanks sometime and that keeps us going. Find me [here](#about-maintainer)
-- There are many other ways you can be a part of the project so if you are willing to help but not sure where to start, please contact us 👇  
+- Moral support (easiest)
+  - ✍️ Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic) 
+    is one of the easiest ways to help so please do that.
+  - Join us on [Twitter](https://twitter.com/watomatic), [Telegram](https://t.me/watomatic/), Star on Github
+  - Consider sharing about us on social media (#watomatic) and with friends
+  - 🌏 Improve translations by joining us here: [translate.watomatic.app](https://translate.watomatic.app/)
+  - 💻 Browse our [Github issues](https://github.com/adeekshith/watomatic/issues) and see if you help fix anything
+- Money: 
+  Your generosity is our only income stream (free, no ads, no tracking) so please consider tipping us if you can afford. [see a user's message](https://github.com/adeekshith/watomatic/issues/249)
+  I am currently funding this with my personal savings and free time but that is not sustainable in the long run.
+  - [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/dk/donate) [![Liberapay financial goals badge](https://img.shields.io/liberapay/goal/dk?color=%23BF360C&label=%F0%9F%92%B0%20Goal%20%F0%9F%A4%92&style=for-the-badge)](https://liberapay.com/dk/donate)
+  - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
+  - BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
+- Feel free to ask us if you would like to help but do not know how to start
 
 ### Contact
 
