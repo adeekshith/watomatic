@@ -32,8 +32,10 @@ Consider supporting us in any way you can if you would like this to be developed
 - Moral support (easiest)
   - ✍️ Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic) 
     is one of the easiest ways to help so please do that.
-  - Join us on [Twitter](https://twitter.com/watomatic), [Telegram](https://t.me/watomatic/), Star on Github
+  - Follow us on [Twitter (@watomatic)](https://twitter.com/watomatic), [Telegram (@watomatic)](https://t.me/watomatic/), Star on Github
+  - Join and help fellow users on [Reddit (r/watomatic)](https://www.reddit.com/r/watomatic/) or [Telegram (@WatomaticChat)](https://t.me/WatomaticChat)
   - Consider sharing about us on social media (#watomatic) and with friends
+- Development
   - 🌏 Improve translations by joining us here: [translate.watomatic.app](https://translate.watomatic.app/)
   - 💻 Browse our [Github issues](https://github.com/adeekshith/watomatic/issues) and see if you help fix anything
 - Money: 
