@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Taldeko elkarrizketetako erantzun automatikoa desgaitu da</string>
     <string name="time_picker_title">Erantzuteko maiztasuna (BETA)</string>
     <string name="time_picker_sub_title_default">Erantzun mezu guztiei mugarik gabe</string>
-    <string name="time_picker_sub_title">Erantzun behin %1$d eguneko, pertsona\/talde bakoitzeko</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Egin ttap erantzunen arteko atzerapena editatzeko</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,6 @@
     <string name="save">Gorde</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ikusi komunitatearen txantiloiak eta partekatu zeureak ere ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Gehitu Watomatic aitortza hitza zabaltzen laguntzeko</string>
-    <string name="sent_using_Watomatic">Honen bidez bidalia: git.io/watomatic</string>
-    <string name="share_app_text">\"Watomatic erabiltzen ari naiz Whatsappetik askatzeko. Probatu zeuk ere! \n https://git.io/watomatic</string>
     <string name="share">Partekatu</string>
     <string name="share_subject">Watomatic: Erantzun automatikoa WhatsApperako</string>
     <string name="watomatic_subreddit_label"><u>Eztabaida dezagun\nr/watomatic</u></string>
