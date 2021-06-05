@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Balasan otomatis dinonaktifkan untuk obrolan grup</string>
     <string name="time_picker_title">Frekuensi balasan (BETA)</string>
     <string name="time_picker_sub_title_default">Tanggapi semua pesan tanpa kontrol</string>
-    <string name="time_picker_sub_title">Tanggapi hanya sekali setiap %1$d hari untuk setiap orang\/grup</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Klik untuk mengedit jeda waktu di antara balasan</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,6 @@
     <string name="save">Simpan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Tambahkan arribusi Watomatic untuk membantu menyebarkan berita</string>
-    <string name="sent_using_Watomatic">Dikirim menggunakan git.io/watomatic</string>
-    <string name="share_app_text">\"Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah!\n https://git.io/watomatic</string>
     <string name="share">Bagikan</string>
     <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
