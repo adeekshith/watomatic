@@ -37,6 +37,8 @@
     <string name="save">Сохранить</string>
     <string name="tip_view_messages_from_fellow_users"><u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Добавить ссылку на Watomatic, чтобы помочь другим</string>
+    <string name="sent_using_Watomatic">Отправлено с помощью watomatic.app</string>
+    <string name="share_app_text">Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы: https://watomatic.app/ru/</string>
     <string name="share">Поделиться</string>
     <string name="share_subject">Watomatic: Автоответчик для WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Обсуждаем\nr/watomatic</u></string>
