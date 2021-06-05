@@ -37,6 +37,7 @@
     <string name="save">Kaydet</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
     <string name="append_watomatic_arribution_checkbox_label">Haberin yayılmasına yardımcı olmak için Otomatik atıf ekleyin</string>
+    <string name="share_app_text">WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin: watomatic.app</string>
     <string name="share">Paylaş</string>
     <string name="share_subject">Watomatic: WhatsApp için otomatik yanıt</string>
     <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
