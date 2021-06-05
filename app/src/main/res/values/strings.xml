@@ -79,23 +79,23 @@
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
-    <string name="lang_ar_rSA" translatable="false">اَلْعَرَبِيَّةُ (ar-rSA)</string>
-    <string name="lang_ca_rES" translatable="false">Català (ca-rES)</string>
-    <string name="lang_de_rDE" translatable="false">Deutsch (de-rDE)</string>
-    <string name="lang_es_rES" translatable="false">Español (es-rES)</string>
-    <string name="lang_es_rMX" translatable="false">Español (México) (es-rMX)</string>
-    <string name="lang_eu_rES" translatable="false">Euskara (eu-rES)</string> <!-- Basque -->
-    <string name="lang_fi_rFI" translatable="false">Suomi (fi_rFI)</string>
-    <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
-    <string name="lang_in_rID" translatable="false">Indonesian (in-rID)</string>
-    <string name="lang_it_rIT" translatable="false">Italiano (it-rIT)</string>
-    <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-rMK)</string>
-    <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
-    <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
-    <string name="lang_pl_rPL" translatable="false">Polski (pl-rPL)</string>
-    <string name="lang_ru_rRU" translatable="false">Pусский (ru-rRU)</string>
-    <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-rIN)</string>
-    <string name="lang_tr_rTR" translatable="false">Türkçe (tr-rTR)</string>
+    <string name="lang_ar_rSA" translatable="false">اَلْعَرَبِيَّةُ (ar-SA)</string>
+    <string name="lang_ca_rES" translatable="false">Català (ca-ES)</string>
+    <string name="lang_de_rDE" translatable="false">Deutsch (de-DE)</string>
+    <string name="lang_es_rES" translatable="false">Español (es-ES)</string>
+    <string name="lang_es_rMX" translatable="false">Español (México) (es-MX)</string>
+    <string name="lang_eu_rES" translatable="false">Euskara (eu-ES)</string> <!-- Basque -->
+    <string name="lang_fi_rFI" translatable="false">Suomi (fi_FI)</string>
+    <string name="lang_fr_rFR" translatable="false">Français (fr-FR)</string>
+    <string name="lang_in_rID" translatable="false">Indonesian (in-ID)</string>
+    <string name="lang_it_rIT" translatable="false">Italiano (it-IT)</string>
+    <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-MK)</string>
+    <string name="lang_nl_rNL" translatable="false">Nederlands (nl-NL)</string>
+    <string name="lang_pt_rBR" translatable="false">Portuguese (pt-BR)</string>
+    <string name="lang_pl_rPL" translatable="false">Polski (pl-PL)</string>
+    <string name="lang_ru_rRU" translatable="false">Pусский (ru-RU)</string>
+    <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-IN)</string>
+    <string name="lang_tr_rTR" translatable="false">Türkçe (tr-TR)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
