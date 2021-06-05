@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Réponse automatique pour les conversations de groupe désactivée</string>
     <string name="time_picker_title">Fréquence d\'envoi (BETA)</string>
     <string name="time_picker_sub_title_default">Répondre sans limite à tous les messages</string>
-    <string name="time_picker_sub_title">Une fois tous les %1$d jour\/e par conversation</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Cliquer pour modifier la fréquence des réponses.</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,6 @@
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Ajouter le lien de l\'origine de la réponse automatique. Merci.</string>
-    <string name="sent_using_Watomatic">Envoyé grâce à git.io/watomatic</string>
-    <string name="share_app_text">\"Merci à Watomatic de m\'aider à me débarasser de Whatsapp. Essayez le !\n https://git.io/watomatic</string>
     <string name="share">Partager</string>
     <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Parlons de\nr/watomatic</u></string>
