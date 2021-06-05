@@ -25,24 +25,6 @@ WhatsApp's recent privacy policy changes have triggered a huge migration to more
 
 This app is not associated with any company including WhatsApp, Facebook, Signal.
 
-### Troubleshooting
-
-- Auto reply does not work even after Watomatic is enabled
-  
-  Watomatic relies on WhatsApp notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure WhatsApp notifications are enabled and WhatsApp fingerprint lock is disabled for this app to work.
-
-### FAQ
-
-- Why not use WhatsApp business account for auto replies?
-  
-  You cannot use business account without accepting the new privacy policy that everyone is trying to avoid.
-
-- Will this be available for iOS in the future
-  
-  This app relies on Android specific notification quick replies feature to function. This may not be possible on iOS.
-
-Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
-
 ### Contribute
 
 Consider supporting us in any way you can if you would like this to be developed further:
@@ -61,6 +43,25 @@ Consider supporting us in any way you can if you would like this to be developed
   - Buy me coffee [paypal.me/deek](https://paypal.me/deek)
   - BTC: `bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw`
 - Feel free to ask us if you would like to help but do not know how to start
+
+### Troubleshooting
+
+- Auto reply does not work even after Watomatic is enabled
+  
+  Watomatic relies on WhatsApp notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure WhatsApp notifications are enabled and WhatsApp fingerprint lock is disabled for this app to work.
+
+### FAQ
+
+- Why not use WhatsApp business account for auto replies?
+  
+  You cannot use business account without accepting the new privacy policy that everyone is trying to avoid.
+
+- Will this be available for iOS in the future
+  
+  This app relies on Android specific notification quick replies feature to function. This may not be possible on iOS.
+
+Missing any features? Let us know in the [issues](https://github.com/adeekshith/watomatic/issues)!
+
 
 ### Contact
 
