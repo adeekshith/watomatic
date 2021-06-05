@@ -37,6 +37,8 @@
     <string name="save">Зачувај</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Додадете Watomatic препорака за да ги известите другите за оваа апликација</string>
+    <string name="sent_using_Watomatic">Испратено со watomatic.app</string>
+    <string name="share_app_text">Јас го користам Watomatic за да го напуштам WhatsApp. Обидете се и вие: watomatic.app</string>
     <string name="share">Сподели</string>
     <string name="share_subject">Watomatic: Автоматски одговори за WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Ајде да дискутираме\nr/watomatic</u></string>
