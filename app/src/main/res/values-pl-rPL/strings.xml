@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Wyłącz autom. odpowiedź dla czatów grupowyc</string>
     <string name="time_picker_title">Częstotliwość odpowiedzi (BETA)</string>
     <string name="time_picker_sub_title_default">Odpowiadaj na wszystkie wiadomości bez kontroli</string>
+    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień\/dni dla każdej osoby\/grupy</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Stuknij aby edytować opóźnienie pomiędzy odpowiedziami</string>
     <string name="app_version">v%1$s</string>
