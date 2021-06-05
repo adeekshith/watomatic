@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Automaattinen vastaus ryhmäkeskusteluihin otettu pois käytöstä</string>
     <string name="time_picker_title">Vastaustiheys (BETA)</string>
     <string name="time_picker_sub_title_default">Vastaa kaikkiin viesteihin ilman rajoituksia</string>
-    <string name="time_picker_sub_title">Vastaa vain kerran %1$d päivässä\/s jokaiselle henkilölle\/ryhmälle</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Napauta muokataksesi vastausten välistä aikaviivettä</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,6 @@
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic-linkki auttaaksesi levittämään sanaa</string>
-    <string name="sent_using_Watomatic">Lähetetty käyttäen git.io/watomatic</string>
-    <string name="share_app_text">\"Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin!\"\n https://git.io/watomatic</string>
     <string name="share">Jaa</string>
     <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
