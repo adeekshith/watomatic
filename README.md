@@ -65,7 +65,7 @@ Consider supporting us in any way you can if you would like this to be developed
 ### Contact
 
 - Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
-- Follow and discuss: [r/watomatic](https://www.reddit.com/r/watomatic/), [@watomatic](https://t.me/watomatic)
+- Follow and discuss: [Telegram](https://t.me/watomatic), [Twitter](https://twitter.com/watomatic), [Reddit](https://www.reddit.com/r/watomatic/)
 - Email: watomatic@deekshith.in
 
 #### About Maintainer
