@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">S\'ha desactivat la resposta automàtica als xats grupals</string>
     <string name="time_picker_title">Freqüència de resposta automàtica (BETA)</string>
     <string name="time_picker_sub_title_default">Respon a tots els missatges sense límit</string>
+    <string name="time_picker_sub_title">Respon només un cop cada %1$d dies per persona o grup</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Premeu per editar el temps d\'espera entre respostes</string>
     <string name="app_version">v%1$s</string>
@@ -37,6 +38,7 @@
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
+    <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
