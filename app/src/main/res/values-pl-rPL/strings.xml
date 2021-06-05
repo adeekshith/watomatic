@@ -37,6 +37,8 @@
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Dołącz do Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
+    <string name="sent_using_Watomatic">Wysłano używając watomatic.app</string>
+    <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
     <string name="share_subject">Watomatic: Autom. odpowiedź dla WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Omówmy\nr/watomatic</u></string>
