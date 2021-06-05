@@ -37,7 +37,7 @@
 
     <string name="time_picker_title">Reply frequency (BETA)</string>
     <string name="time_picker_sub_title_default">Respond to all messages without control</string>
-    <string name="time_picker_sub_title">Respond only once every %1$d day\/s for each person\/group</string>
+    <string name="time_picker_sub_title">Respond only once every %1$d day(s) for each person or group</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
     <string name="app_version">v%1$s</string>
@@ -46,9 +46,9 @@
     <string name="save">Save</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
-    <string name="sent_using_Watomatic">Sent using git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Sent using watomatic.app</string>
 
-    <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
+    <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out: watomatic.app</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
