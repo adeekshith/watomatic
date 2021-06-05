@@ -39,6 +39,7 @@
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
     <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
+    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
