@@ -15,6 +15,7 @@
         <item>@string/lang_mk_rMK</item>
         <item>@string/lang_nl_rNL</item>
         <item>@string/lang_pt_rBR</item>
+        <item>@string/lang_pl_rPL</item>
         <item>@string/lang_ru_rRU</item>
         <item>@string/lang_ta_rIN</item>
         <item>@string/lang_tr_rTR</item>
@@ -36,6 +37,7 @@
         <item>@string/lang_code_mk_rMK</item>
         <item>@string/lang_code_nl_rNL</item>
         <item>@string/lang_code_pt_rBR</item>
+        <item>@string/lang_code_pl_rPL</item>
         <item>@string/lang_code_ru_rRU</item>
         <item>@string/lang_code_ta_rIN</item>
         <item>@string/lang_code_tr_rTR</item>

@@ -92,6 +92,7 @@
     <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-rMK)</string>
     <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
     <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
+    <string name="lang_pl_rPL" translatable="false">Polski (pl-rPL)</string>
     <string name="lang_ru_rRU" translatable="false">Pусский (ru-rRU)</string>
     <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-rIN)</string>
     <string name="lang_tr_rTR" translatable="false">Türkçe (tr-rTR)</string>
@@ -111,6 +112,7 @@
     <string name="lang_code_mk_rMK" translatable="false">mk-MK</string>
     <string name="lang_code_nl_rNL" translatable="false">nl-NL</string>
     <string name="lang_code_pt_rBR" translatable="false">pt-BR</string>
+    <string name="lang_code_pl_rPL" translatable="false">pl-PL</string>
     <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
     <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
