@@ -37,6 +37,8 @@
     <string name="save">حفظ</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>➚ عرض القوالب من المجتمع ومشاركة قالبك أيضا </u></string>
     <string name="append_watomatic_arribution_checkbox_label">ضع رابط تطبيق Watomatic لنشر التطبيق للغير</string>
+    <string name="sent_using_Watomatic">تم الإرسال باستخدام watomatic.app</string>
+    <string name="share_app_text">أنا أستخدم Watomatic للتخلص من WhatsApp. جربه: watomatic.app</string>
     <string name="share">مشاركة</string>
     <string name="share_subject">Watomatic - رد تلقائي على واتس اب و فيسبوك</string>
     <string name="watomatic_subreddit_label"><u>دعونا نتناقش\nr/watomatic</u></string>
