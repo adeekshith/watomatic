@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
     <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
-    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден\/а на секоја личност\/група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -38,8 +37,6 @@
     <string name="save">Зачувај</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Додадете Watomatic препорака за да ги известите другите за оваа апликација</string>
-    <string name="sent_using_Watomatic">Испратено со git.io/watomatic</string>
-    <string name="share_app_text">\"Јас го користам Watomatic за да го напуштам WhatsApp. Обидете се и вие!\n https://git.io/watomatic</string>
     <string name="share">Сподели</string>
     <string name="share_subject">Watomatic: Автоматски одговори за WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Ајде да дискутираме\nr/watomatic</u></string>
