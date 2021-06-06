@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
     <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
+    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден(а) на секоја личност или група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
