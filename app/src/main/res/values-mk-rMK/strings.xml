@@ -6,7 +6,7 @@
     <string name="privacy_policy_label">Политика за приватност</string>
     <string name="service_name">Следење на известувања за дојдовни пораки</string>
     <string name="mainAutoReplyTextPlaceholder">(Прилагоден одговор)</string>
-    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот е недостапен</string>
+    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот не е достапен</string>
     <string name="mainAutoReplyLabel">Текст за автоматско одговарање</string>
     <string name="mainAutoReplySwitchOffLabel">Автоматскиот одговор е ИСКЛУЧЕН</string>
     <string name="mainAutoReplySwitchOnLabel">Автоматскиот одговор е ВКЛУЧЕН</string>
@@ -47,9 +47,11 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Покажи известување за автоматски одговорени пораки</string>
+    <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
     <string name="preference_category_general_label">Општо</string>
+    <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -71,6 +73,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Дозвола за автоматско стартување</string>
+    <string name="auto_start_permission_dialog_message">Овозможете дозвола \"Автоматско стартување\" во поставките на уредот за да дозволите Watomatic да се вклучи на уредот по рестартирање.</string>
     <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
