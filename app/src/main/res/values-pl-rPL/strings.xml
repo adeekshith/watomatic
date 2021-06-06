@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
-    <string name="about">O</string>
+    <string name="about">O aplikacji</string>
     <string name="settings">Ustawienia</string>
     <string name="privacy_policy_label">Polityka prywatności</string>
-    <string name="service_name">Odbiornik powiadomień wiadomościach przychodzącyc</string>
+    <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
     <string name="auto_reply_default_message">Autom. odpowiedź\n⚠️ Użytkonik niedostępny</string>
-    <string name="mainAutoReplyLabel">Treść autom. odlowiedzi</string>
-    <string name="mainAutoReplySwitchOffLabel">Autom. odpowiedź WYŁ.</string>
-    <string name="mainAutoReplySwitchOnLabel">Autom. odpowiedź WŁ.</string>
-    <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować autom. odpowiedź</string>
-    <string name="to_help_you_leave_whatsapp">Autom. odpowiedź pomoże Ci opóścić WhatsApp i Facebook messenger</string>
+    <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
+    <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
+    <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
+    <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować automatyczną odpowiedź</string>
+    <string name="to_help_you_leave_whatsapp">Autom. odpowiedź pomoże Ci opuścić WhatsApp i Facebook messenger</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
     <string name="sure">Jestem pewny(a)</string>
     <string name="retry">Ponów</string>
     <string name="permission_dialog_title">Wymagane uprawnienia</string>
-    <string name="permission_dialog_msg">Ta aplikacja wymaga uprawnień do Powiadomień aby działała.</string>
+    <string name="permission_dialog_msg">Ta aplikacja wymaga uprawnień do powiadomień do działania.</string>
     <string name="permission_dialog_denied_title">Uprawnienie odrzucone</string>
     <string name="permission_dialog_denied_msg">Bez tego uprawnienia aplikacja nie jest w stanie automatycznie odpowiadać na powiadomienia. Czy na pewno chcesz odmówić uprawnień?</string>
     <!-- Select apps to auto reply -->
