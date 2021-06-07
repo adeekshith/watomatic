@@ -38,6 +38,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     @Override
+    public void onViewRecycled(@NonNull @NotNull ViewHolder holder) {
+        ContactListRowBinding binding = holder.getBinding();
+        binding.contactCheckbox.setOnCheckedChangeListener(null);
+        super.onViewRecycled(holder);
+    }
+
+    @Override
     public int getItemCount() {
         return contactHolderArrayList.size();
     }
