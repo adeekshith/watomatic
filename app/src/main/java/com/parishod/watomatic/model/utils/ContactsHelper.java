@@ -1,12 +1,18 @@
 package com.parishod.watomatic.model.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +28,7 @@ import java.util.Set;
 
 public class ContactsHelper {
 
+    public static final int CONTACT_PERMISSION_REQUEST_CODE = 1;
     private Context mContext;
     private PreferencesManager prefs;
 
@@ -98,5 +105,23 @@ public class ContactsHelper {
         }
 
         return contactList;
+    }
+
+    public boolean hasContactPermission() {
+        return (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void requestContactPermission(Activity mActivity) {
+        new MaterialAlertDialogBuilder(mContext)
+                .setTitle(R.string.permission_dialog_title)
+                .setMessage(R.string.contact_permission_dialog_msg)
+                .setPositiveButton(R.string.contact_permission_dialog_proceed, ((dialog, which) ->
+                        mActivity.requestPermissions(new String[]{ Manifest.permission.READ_CONTACTS }, CONTACT_PERMISSION_REQUEST_CODE)))
+                .setNegativeButton(R.string.contact_permission_dialog_cancel, ((dialog, which) -> {}))
+                .setCancelable(false)
+                .show();
+
     }
 }
