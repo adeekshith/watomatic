@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
@@ -144,4 +143,20 @@
     <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
+    <string name="advanced_settings">Advanced settings</string>
+    <string name="key_pref_advanced_settings">pref_advanced_settings</string>
+    <string name="contact_based_reply">Contact based replies</string>
+    <string name="pref_reply_contacts" translatable="false">pref_reply_contacts</string>
+    <string name="contact_reply_type">Reply to</string>
+    <string name="blacklist">Everyone except selected contacts</string>
+    <string name="whitelist">Nobody except selected contacts</string>
+    <string name="pref_code_blacklist" translatable="false">pref_blacklist</string>
+    <string name="pref_code_whitelist" translatable="false">pref_whitelist</string>
+    <string name="pref_reply_contacts_type" translatable="false">pref_reply_contacts_type</string>
+    <string name="enable_contact_based_reply">Enable contact based replies</string>
+    <string name="select_contacts">Select contacts</string>
+    <string name="key_pref_select_contacts" translatable="false">pref_select_contacts</string>
+    <string name="contact_selector">Contact selector</string>
+    <string name="select_all">Select all</string>
+    <string name="select_none">Select none</string>
 </resources>

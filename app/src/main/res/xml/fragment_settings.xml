@@ -25,4 +25,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/advanced_settings">
+        <Preference
+            app:title="@string/advanced_settings"
+            app:key="@string/key_pref_advanced_settings"
+            app:icon="@drawable/ic_baseline_miscellaneous_services_24"/>
+
+    </PreferenceCategory>
+
+
 </PreferenceScreen>

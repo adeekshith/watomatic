@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <queries>
         <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
@@ -52,6 +53,13 @@
             android:name="com.parishod.watomatic.activity.settings.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity"
+            >
+        </activity>
+
+        <activity
+            android:name="com.parishod.watomatic.activity.advancedsettings.AdvancedSettingsActivity"
+            android:label="@string/advanced_settings"
+            android:parentActivityName="com.parishod.watomatic.activity.settings.SettingsActivity"
             >
         </activity>
 

@@ -29,6 +29,9 @@ public class PreferencesManager {
     private final String KEY_PURGE_MESSAGE_LOGS_LAST_TIME = "pref_purge_message_logs_last_time";
     private final String KEY_PLAY_STORE_RATING_STATUS = "pref_play_store_rating_status";
     private final String KEY_PLAY_STORE_RATING_LAST_TIME = "pref_play_store_rating_last_time";
+    private final String KEY_REPLY_CONTACTS = "pref_reply_contacts";
+    private final String KEY_REPLY_CONTACTS_TYPE = "pref_reply_contacts_type";
+    private final String KEY_SELECTED_CONTACT_NAMES = "pref_selected_contacts_names";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
@@ -269,4 +272,23 @@ public class PreferencesManager {
         editor.putLong(KEY_PLAY_STORE_RATING_LAST_TIME, purgeMessageTime);
         editor.apply();
     }
+
+    public void setReplyToNames(Set<String> names) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putStringSet(KEY_SELECTED_CONTACT_NAMES, names);
+        editor.apply();
+    }
+
+    public Set<String> getReplyToNames() {
+        return _sharedPrefs.getStringSet(KEY_SELECTED_CONTACT_NAMES, new HashSet<>());
+    }
+
+    public boolean isContactReplyEnabled() {
+        return _sharedPrefs.getBoolean(KEY_REPLY_CONTACTS, false);
+    }
+
+    public Boolean isContactReplyBlacklistMode() {
+        return _sharedPrefs.getString(KEY_REPLY_CONTACTS_TYPE, "pref_blacklist").equals("pref_blacklist");
+    }
+
 }
