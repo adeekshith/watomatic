@@ -79,4 +79,17 @@
     <string name="setting_not_available_for_device">Diese Einstellung ist nicht verfügbar oder wird für dein Gerät möglicherweise nicht benötigt.</string>
     <string name="enable_auto_start_setting">Weiter</string>
     <string name="decline_auto_start_setting">Abbrechen</string>
+    <string name="advanced_settings">Erweiterte Einstellungen</string>
+    <string name="contact_based_reply">Kontakt-basierte Antworten</string>
+    <string name="contact_reply_type">Antwort an</string>
+    <string name="blacklist">Jeder außer ausgewählte Kontakte</string>
+    <string name="whitelist">Niemand außer ausgewählte Kontakte</string>
+    <string name="enable_contact_based_reply">Kontakt-basierte Antworten aktivieren</string>
+    <string name="select_contacts">Kontakte auswählen</string>
+    <string name="contact_selector">Kontaktauswahl</string>
+    <string name="select_all">Alle auswählen</string>
+    <string name="select_none">Keine auswählen</string>
+    <string name="contact_permission_dialog_msg">Der Lesezugriff auf die Kontakte ist erforderlich, um Namen zu filtern und diese Funktion zu aktivieren. Möchten Sie fortfahren?</string>
+    <string name="contact_permission_dialog_proceed">Weiter</string>
+    <string name="contact_permission_dialog_cancel">Abbrechen</string>
 </resources>
