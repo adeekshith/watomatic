@@ -65,4 +65,18 @@
     <string name="setting_not_available_for_device">Ezarpen hau ez dago eskuragarri edo ez da behar zure gailuan.</string>
     <string name="enable_auto_start_setting">Jarraitu</string>
     <string name="decline_auto_start_setting">Utzi</string>
+    <string name="advanced_settings">Ezarpen aurreratuak</string>
+    <string name="key_pref_advanced_settings">pref_advanced_settings</string>
+    <string name="contact_based_reply">Kontaktuaren araberako erantzunak</string>
+    <string name="contact_reply_type">Erantzun honi:</string>
+    <string name="blacklist">Kontaktu guztiei, hautatuei izan ezik</string>
+    <string name="whitelist">Hautatutako kontaktuei soilik</string>
+    <string name="enable_contact_based_reply">Gaitu kontaktuaren araberako erantzunak</string>
+    <string name="select_contacts">Hautatu kontaktuak</string>
+    <string name="contact_selector">Kontaktu hautatzailea</string>
+    <string name="select_all">Hautatu guztiak</string>
+    <string name="select_none">Ez hautatu bat ere</string>
+    <string name="contact_permission_dialog_msg">Aukera hau gaitzeko, kontaktuak irakurtzeko baimena behar da. Jarraitu nahi duzu? </string>
+    <string name="contact_permission_dialog_proceed">Jarraitu</string>
+    <string name="contact_permission_dialog_cancel">Utzi</string>
 </resources>
