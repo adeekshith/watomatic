@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/contact_based_reply">
+        <SwitchPreference android:title="@string/enable_contact_based_reply"
+            app:key="@string/pref_reply_contacts"
+            app:icon="@drawable/ic_baseline_person_24"
+            />
+
+        <ListPreference android:title="@string/contact_reply_type"
+            app:icon="@drawable/ic_baseline_message_24"
+            android:key="@string/pref_reply_contacts_type"
+            android:entries="@array/contact_reply_type"
+            android:entryValues="@array/contact_reply_type_value"
+            android:defaultValue="@string/pref_code_blacklist"
+            app:dependency="@string/pref_reply_contacts"
+            app:useSimpleSummaryProvider="true"/>
+
+        <Preference
+            app:title="@string/select_contacts"
+            app:key="@string/key_pref_select_contacts"
+            app:dependency="@string/pref_reply_contacts"
+            app:icon="@drawable/ic_baseline_people_24"
+            />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

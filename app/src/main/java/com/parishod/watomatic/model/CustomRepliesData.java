@@ -116,13 +116,11 @@ public class CustomRepliesData {
     }
 
     public String getTextToSendOrElse (String defaultTextToSend) {
-        String currentText = get();
+        String currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
             currentText += "\n\n"+ RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
         }
-        return (currentText != null)
-                ? currentText
-                : defaultTextToSend;
+        return currentText;
     }
 
     private JSONArray getAll() {
