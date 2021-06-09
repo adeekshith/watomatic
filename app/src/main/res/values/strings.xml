@@ -144,7 +144,7 @@
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
     <string name="advanced_settings">Advanced settings</string>
-    <string name="key_pref_advanced_settings">pref_advanced_settings</string>
+    <string name="key_pref_advanced_settings" translatable="false">pref_advanced_settings</string>
     <string name="contact_based_reply">Contact based replies</string>
     <string name="pref_reply_contacts" translatable="false">pref_reply_contacts</string>
     <string name="contact_reply_type">Reply to</string>
