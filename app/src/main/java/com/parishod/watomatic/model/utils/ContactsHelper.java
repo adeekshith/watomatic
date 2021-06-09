@@ -91,13 +91,16 @@ public class ContactsHelper {
         Cursor cursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, queryColumnAttribute, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC");
 
         if (cursor != null) {
-            cursor.moveToFirst();
-            do {
-                int columnIndex = cursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
-                String contactName = cursor.getString(columnIndex);
-                boolean contactChecked = previousSelectedContacts.contains(contactName);
-                contactList.add(new ContactHolder(contactName, contactChecked));
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    int columnIndex = cursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
+                    String contactName = cursor.getString(columnIndex);
+                    if (contactName != null && !contactName.isEmpty()) {
+                        boolean contactChecked = previousSelectedContacts.contains(contactName);
+                        contactList.add(new ContactHolder(contactName, contactChecked));
+                    }
+                } while (cursor.moveToNext());
+            }
         }
 
         if (cursor != null) {
