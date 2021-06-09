@@ -71,4 +71,14 @@
     <string name="setting_not_available_for_device">இந்த அமைப்பு உங்கள் சாதனத்தில் கிடைக்கப்பெறாது அல்லது உங்களுக்கு தேவைப்படாது.</string>
     <string name="enable_auto_start_setting">தொடரவும்</string>
     <string name="decline_auto_start_setting">ரத்து செய்</string>
+    <string name="advanced_settings">மேம்பட்ட அமைப்புகள்</string>
+    <string name="contact_reply_type">இவருக்கு பதிலளி</string>
+    <string name="blacklist">குறிக்கப்பட்ட தொடர்புகளை தவிர மற்ற அனைவருக்கும்</string>
+    <string name="whitelist">குறிக்கப்பட்ட தொடர்புகளுக்கு மட்டும்</string>
+    <string name="select_contacts">தொடர்புகளை தேர்ந்தெடு</string>
+    <string name="select_all">அனைத்தையும் குறி</string>
+    <string name="select_none">எதையும் குறிக்காதே</string>
+    <string name="contact_permission_dialog_msg">தொடர்புகளை வடிகட்டும் இந்த வசதியை பெற சாதனத்தின் தொடர்புகளை படிக்கும் அனுமதி வேண்டும். தொடர விரும்புகிறீர்களா?</string>
+    <string name="contact_permission_dialog_proceed">தொடரவும்</string>
+    <string name="contact_permission_dialog_cancel">ரத்து செய்</string>
 </resources>
