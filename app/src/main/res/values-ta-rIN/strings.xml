@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">குழு அரட்டைகளுக்கு தானாக பதில் அளிக்கும் முறை நிறுத்தப்பட்டது.</string>
     <string name="time_picker_title">பதில் எண்ணிக்கை(பீட்டா)</string>
     <string name="time_picker_sub_title_default">எல்லா செய்திகளுக்கும் கட்டுப்பாடு இல்லாமல் பதிலளிக்கவும்</string>
+    <string name="time_picker_sub_title">ஒவ்வொரு நபருக்கும் அல்லது குழுவுக்கும் (ஒவ்வொரு) %1$d நாளுக்கு ஒரு முறை மட்டும் பதிலளி</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">பதில்களுக்கு இடையில் நேர தாமதத்தைத் திருத்த கிளிக் செய்க</string>
     <string name="app_version">v%1$s</string>
@@ -58,8 +59,11 @@
     <string name="app_language">செயலி மொழி</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">நீங்கள் என்ன நினைக்கிறீர்கள்?</string>
+    <string name="app_rating_dialog_msg">இந்த செயலியை பற்றி நீங்கள் என்ன நினைக்கிறீர்கள் என அறிய ஆவலாக உள்ளோம். மேலே உள்ள நட்சத்திரங்களை தொடுவதன் மூலம் எங்களை மதிப்பிடுங்கள்</string>
     <string name="app_rating_dialog_rate_button_title">மதிப்பிடுக</string>
     <string name="app_rating_dialog_rate_later_title">இப்பொழுது வேண்டாம்</string>
+    <string name="app_rating_goto_store_dialog_title">நாங்கள் மகிழ்கிறோம்!</string>
+    <string name="app_rating_goto_store_dialog_msg">இந்த மதிப்பீட்டை \"தொடர்\" என்பதை தொடுவதன் மூலம் Google Play Store-ல் பகிரலாம்!</string>
     <string name="app_rating_goto_store_dialog_button1_title">விருப்பம் இல்லை</string>
     <string name="app_rating_goto_store_dialog_button2_title">தொடர்க</string>
     <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
