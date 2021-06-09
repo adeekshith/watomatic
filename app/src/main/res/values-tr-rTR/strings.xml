@@ -76,4 +76,18 @@
     <string name="setting_not_available_for_device">Bu ayar cihazınız için mevcut değil veya gerekli olmayabilir.</string>
     <string name="enable_auto_start_setting">Devam Et</string>
     <string name="decline_auto_start_setting">İptal</string>
+    <string name="advanced_settings">Gelişmiş Seçenekler</string>
+    <string name="key_pref_advanced_settings">Gelişmiş Ayar Tercihleri</string>
+    <string name="contact_based_reply">Kişi bazlı yanıtlar</string>
+    <string name="contact_reply_type">... cevap ver</string>
+    <string name="blacklist">Seçilen kişiler dışındaki herkes</string>
+    <string name="whitelist">Seçilen kişiler dışında hiç kimse</string>
+    <string name="enable_contact_based_reply">Kişi bazlı yanıtları etkinleştir</string>
+    <string name="select_contacts">Seçili kişiler</string>
+    <string name="contact_selector">Kişi seçicisi</string>
+    <string name="select_all">Tümünü seç</string>
+    <string name="select_none">Hiçbirini seçme</string>
+    <string name="contact_permission_dialog_msg">İsimleri filtrelemek ve bu özelliği etkinleştirmek için kişi okuma erişimi gereklidir. Devam etmek istiyor musunuz?</string>
+    <string name="contact_permission_dialog_proceed">İlerle</string>
+    <string name="contact_permission_dialog_cancel">İptal</string>
 </resources>
