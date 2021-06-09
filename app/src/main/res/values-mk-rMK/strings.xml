@@ -78,4 +78,6 @@
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
+    <string name="advanced_settings">Напредни поставки</string>
+    <string name="select_contacts">Избери контакти</string>
 </resources>
