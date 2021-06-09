@@ -80,7 +80,6 @@
     <string name="enable_auto_start_setting">Continua</string>
     <string name="decline_auto_start_setting">Cancel·la</string>
     <string name="advanced_settings">Opcions avançades</string>
-    <string name="key_pref_advanced_settings">pref_opcions_avançades</string>
     <string name="contact_based_reply">Respostes basades en contactes</string>
     <string name="contact_reply_type">Respon a</string>
     <string name="blacklist">Tothom excepte els contactes seleccionats</string>
