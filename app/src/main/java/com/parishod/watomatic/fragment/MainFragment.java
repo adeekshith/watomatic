@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -63,7 +64,7 @@ import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_APP_RATING;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private final int MINUTE_FACTOR = 60;
@@ -124,6 +125,8 @@ public class MainFragment extends Fragment {
                 preferencesManager.setServicePref(isChecked);
                 if(isChecked){
                     startNotificationService();
+                }else{
+                    stopNotificationService();
                 }
                 mainAutoReplySwitch.setText(
                         isChecked
@@ -512,9 +515,15 @@ public class MainFragment extends Fragment {
     }
 
     private void startNotificationService(){
-        if(!isMyServiceRunning(KeepAliveService.class)) {
-            Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
-            mActivity.startService(mServiceIntent);
+        if(preferencesManager.isForegroundServiceNotificationEnabled()) {
+            if (!isMyServiceRunning(KeepAliveService.class)) {
+                Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    mActivity.startForegroundService(mServiceIntent);
+                }else{
+                    mActivity.startService(mServiceIntent);
+                }
+            }
         }
     }
 
@@ -559,5 +568,16 @@ public class MainFragment extends Fragment {
     public void onDestroy() {
         stopNotificationService();
         super.onDestroy();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(getString(R.string.pref_show_foreground_service_notification))){
+            if(sharedPreferences.getBoolean(key, false)){
+                startNotificationService();
+            }else{
+                stopNotificationService();
+            }
+        }
     }
 }
