@@ -26,4 +26,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/preference_category_advance_label">
+
+        <SwitchPreference android:title="@string/enable_foreground_service_label"
+            android:key="@string/pref_show_foreground_service_notification"
+            app:icon="@drawable/ic_notification"
+            />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
