@@ -80,6 +80,7 @@
     <string name="enable_auto_start_setting">Continua</string>
     <string name="decline_auto_start_setting">Cancel·la</string>
     <string name="advanced_settings">Opcions avançades</string>
+    <string name="key_pref_advanced_settings">pref_opcions_avançades</string>
     <string name="contact_based_reply">Respostes basades en contactes</string>
     <string name="contact_reply_type">Respon a</string>
     <string name="blacklist">Tothom excepte els contactes seleccionats</string>
@@ -89,4 +90,7 @@
     <string name="contact_selector">Selecció de contactes</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_none">No en seleccionis cap</string>
+    <string name="contact_permission_dialog_msg">L\'accés a contactes és necessari per habilitar la característica de filtre de contactes. Voleu continuar?</string>
+    <string name="contact_permission_dialog_proceed">Continua</string>
+    <string name="contact_permission_dialog_cancel">Cancel·la</string>
 </resources>
