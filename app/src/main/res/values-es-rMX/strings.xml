@@ -30,7 +30,7 @@
     <string name="group_reply_off_info_message">Respuesta automática para chats grupales deshabilitada</string>
     <string name="time_picker_title">Frecuencia de respuesta (BETA)</string>
     <string name="time_picker_sub_title_default">Responder a todos los mensajes sin control</string>
-    <string name="time_picker_sub_title">Responder solo cada %1$d día\/s para esta persona\/grupo</string>
+    <string name="time_picker_sub_title">Responder solo cada %1$d día(s) para esta persona o grupo</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +38,8 @@
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas tambien ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a difundir la palabra</string>
-    <string name="sent_using_Watomatic">Enviar usando git.io/watomatic</string>
-    <string name="share_app_text">\"Estoy usando Watomatic para salir de WhatsApp. Pruébalo!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
+    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo: watomatic.app</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Watomatic: Respuesta automática para WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Discutamos en\nr/watomatic</u></string>
@@ -48,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostrar una notificación para los mensajes contestados</string>
+    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_troubleshooting_label">Resolución de problemas</string>
+    <string name="enable_auto_start_label">Habilitar el inicio automático</string>
+    <string name="enable_auto_start_summary">Algunos dispositivos pueden necesitar habilitar manualmente el inicio automático para Watomatic desde la configuración del dispositivo</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +72,11 @@
     <string name="app_rating_feedback_dialog_msg">Haznos saber cómo podemos mejorar.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Correo-e</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Permiso de inicio automático</string>
+    <string name="auto_start_permission_dialog_message">Activa el permiso de \"Inicio automático\" en la configuración del dispositivo para permitir que Watomatic se inicie al reiniciar el dispositivo.</string>
+    <string name="device_based_settings_message">Nota: la configuración puede variar o no estar disponible para este dispositivo</string>
+    <string name="setting_not_available_for_device">Esta configuración no está disponible o no es necesaria para este dispositivo.</string>
+    <string name="enable_auto_start_setting">Continuar</string>
+    <string name="decline_auto_start_setting">Cancelar</string>
 </resources>

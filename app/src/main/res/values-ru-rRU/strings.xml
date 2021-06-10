@@ -30,16 +30,15 @@
     <string name="group_reply_off_info_message">Автоответ в групповые чаты выключен</string>
     <string name="time_picker_title">Частота ответа (БЕТА)</string>
     <string name="time_picker_sub_title_default">Бесконтрольно отвечать на все сообщения</string>
-    <string name="time_picker_sub_title">Отвечать раз в %1$d дня\/s каждому человеку\/группе</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Нажмите, чтобы настроить время между ответами</string>
     <string name="app_version">Версия %1$s</string>
     <!-- Custom message editor -->
     <string name="save">Сохранить</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 <u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
+    <string name="tip_view_messages_from_fellow_users"><u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Добавить ссылку на Watomatic, чтобы помочь другим</string>
-    <string name="sent_using_Watomatic">Отправлено с помощью watomatic.app/ru</string>
-    <string name="share_app_text">\"Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы!\n https://watomatic.app/ru/</string>
+    <string name="sent_using_Watomatic">Отправлено с помощью watomatic.app</string>
+    <string name="share_app_text">Я использую Watomatic для миграции с WhatsApp. Попробуйте и вы: https://watomatic.app/ru/</string>
     <string name="share">Поделиться</string>
     <string name="share_subject">Watomatic: Автоответчик для WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Обсуждаем\nr/watomatic</u></string>
@@ -48,6 +47,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Показывать уведомления сообщений, на которые отправлен автоматический ответ</string>
+    <string name="preference_category_general_label">Общие</string>
+    <string name="preference_category_troubleshooting_label">Помощь</string>
+    <string name="enable_auto_start_label">Запускать при загрузке</string>
+    <string name="enable_auto_start_summary">Для некоторых устройств может потребоваться включить автоматический запуск Watomatic при загрузке в настройках устройства</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +71,11 @@
     <string name="app_rating_feedback_dialog_msg">Поделитесь мнением, как улучшить приложение.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Напишите нам</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Разрешить автозапуск</string>
+    <string name="auto_start_permission_dialog_message">Включите \"Автоматический запуск\" в настройках устройства, чтобы позволить Watomatic запускаться при перезагрузке устройства.</string>
+    <string name="device_based_settings_message">Примечание: В зависимости от устройства настройки могут отличаться или отсутствовать</string>
+    <string name="setting_not_available_for_device">Этот параметр недоступен либо не требуется для вашего устройства.</string>
+    <string name="enable_auto_start_setting">Продолжить</string>
+    <string name="decline_auto_start_setting">Отменить</string>
 </resources>

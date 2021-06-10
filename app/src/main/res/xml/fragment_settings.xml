@@ -21,17 +21,21 @@
     <PreferenceCategory android:title="@string/preference_category_troubleshooting_label">
 
         <Preference android:title="@string/enable_auto_start_label"
-            android:key="@string/pref_auto_start_permission"
-            android:summary="@string/enable_auto_start_summary"/>
+            android:key="@string/pref_auto_start_permission" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/preference_category_advance_label">
-
-        <SwitchPreference android:title="@string/enable_foreground_service_label"
+    <PreferenceCategory app:title="@string/advanced_settings">
+      
+      <SwitchPreference android:title="@string/enable_foreground_service_label"
             android:key="@string/pref_show_foreground_service_notification"
             app:icon="@drawable/ic_notification"
             />
+      
+        <Preference
+            app:title="@string/advanced_settings"
+            app:key="@string/key_pref_advanced_settings"
+            app:icon="@drawable/ic_baseline_miscellaneous_services_24"/>
 
     </PreferenceCategory>
 

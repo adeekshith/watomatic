@@ -12,7 +12,6 @@ import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
-import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
@@ -27,7 +26,7 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(canReply(sbn)) {
+        if(canReply(sbn) && shouldReply(sbn)) {
             sendReply(sbn);
         }
     }
@@ -38,6 +37,32 @@ public class NotificationService extends NotificationListenerService {
                 NotificationUtils.isNewNotification(sbn) &&
                 isGroupMessageAndReplyAllowed(sbn) &&
                 canSendReplyNow(sbn);
+    }
+
+    private boolean shouldReply(StatusBarNotification sbn){
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+        boolean isGroup = sbn.getNotification().extras.getBoolean("android.isGroupConversation");
+
+        //Check contact based replies
+        if (prefs.isContactReplyEnabled() && !isGroup) {
+            //Title contains sender name (at least on WhatsApp)
+            String senderName = sbn.getNotification().extras.getString("android.title");
+            //Check if should reply to contact
+            boolean isNameSelected = prefs.getReplyToNames().contains(senderName);
+            if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
+                !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
+                //If contact is on the list and contact reply is on blacklist mode, 
+                // or contact is not in the list and reply is on whitelist mode,
+                // we don't want to reply
+
+                return false;
+            }
+        }
+
+        //Check more conditions on future feature implementations
+
+        //If we got here, all conditions to reply are met
+        return true;
     }
 
     @Override
@@ -52,7 +77,6 @@ public class NotificationService extends NotificationListenerService {
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear.getRemoteInputs().isEmpty()) { return;}
-
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
@@ -92,7 +116,7 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean canPurgeMessages() {
-        //Added L to avoind numeric overflow expression
+        //Added L to avoid numeric overflow expression
         //https://stackoverflow.com/questions/43801874/numeric-overflow-in-expression-manipulating-timestamps
         long daysBeforePurgeInMS = 30 * 24 * 60 * 60 * 1000L;
         return (System.currentTimeMillis() - PreferencesManager.getPreferencesInstance(this).getLastPurgedTime()) > daysBeforePurgeInMS;

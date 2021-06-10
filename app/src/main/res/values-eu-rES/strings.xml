@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Taldeko elkarrizketetako erantzun automatikoa desgaitu da</string>
     <string name="time_picker_title">Erantzuteko maiztasuna (BETA)</string>
     <string name="time_picker_sub_title_default">Erantzun mezu guztiei mugarik gabe</string>
-    <string name="time_picker_sub_title">Erantzun behin %1$d eguneko, pertsona\/talde bakoitzeko</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Egin ttap erantzunen arteko atzerapena editatzeko</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,8 @@
     <string name="save">Gorde</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ikusi komunitatearen txantiloiak eta partekatu zeureak ere ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Gehitu Watomatic aitortza hitza zabaltzen laguntzeko</string>
-    <string name="sent_using_Watomatic">Honen bidez bidalia: git.io/watomatic</string>
-    <string name="share_app_text">\"Watomatic erabiltzen ari naiz Whatsappetik askatzeko. Probatu zeuk ere! \n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Honen bidez bidalia: watomatic.app</string>
+    <string name="share_app_text">Watomatic erabiltzen ari naiz Whatsappetik askatzeko. Probatu zeuk ere: watomatic.app</string>
     <string name="share">Partekatu</string>
     <string name="share_subject">Watomatic: Erantzun automatikoa WhatsApperako</string>
     <string name="watomatic_subreddit_label"><u>Eztabaida dezagun\nr/watomatic</u></string>
@@ -48,10 +47,21 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
+    <string name="preference_category_general_label">Orokorra</string>
+    <string name="preference_category_troubleshooting_label">Arazoak konpontzea</string>
+    <string name="enable_auto_start_label">Gaitu abiatze automatikoa</string>
+    <string name="enable_auto_start_summary">Gailu batzuetan baliteke automatikoki abiatzeko aukera eskuz gaitu behar izatea gailuaren ezarpenetatik</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Aplikazioaren hizkuntza</string>
     <!-- App Rating Dialog -->
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Automatikoki abiatzeko baimena</string>
+    <string name="auto_start_permission_dialog_message">Gaitu \'Automatikoki abiatu\' baimena gailuaren ezarpenetan Watomatic automatikoki abiatzeko gailua berrabiaraztean.</string>
+    <string name="device_based_settings_message">Oharra: Baliteke ezarpenok aldatzea edo eskuragarri ez egotea, zure gailuaren arabera</string>
+    <string name="setting_not_available_for_device">Ezarpen hau ez dago eskuragarri edo ez da behar zure gailuan.</string>
+    <string name="enable_auto_start_setting">Jarraitu</string>
+    <string name="decline_auto_start_setting">Utzi</string>
 </resources>

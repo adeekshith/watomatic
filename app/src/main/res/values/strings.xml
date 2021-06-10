@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
@@ -37,7 +36,7 @@
 
     <string name="time_picker_title">Reply frequency (BETA)</string>
     <string name="time_picker_sub_title_default">Respond to all messages without control</string>
-    <string name="time_picker_sub_title">Respond only once every %1$d day\/s for each person\/group</string>
+    <string name="time_picker_sub_title">Respond only once every %1$d day(s) for each person or group</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
     <string name="app_version">v%1$s</string>
@@ -46,9 +45,9 @@
     <string name="save">Save</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
-    <string name="sent_using_Watomatic">Sent using git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Sent using watomatic.app</string>
 
-    <string name="share_app_text">"I am using Watomatic to break away from WhatsApp. Try it out!\n https://git.io/watomatic</string>
+    <string name="share_app_text">I am using Watomatic to break away from WhatsApp. Try it out: watomatic.app</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
@@ -77,27 +76,28 @@
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="preference_category_advance_label">Advance</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
-    <string name="enable_auto_start_summary">click to launch settings</string>
     <string name="enable_foreground_service_label">Enable Service Notification</string>
+    <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
-    <string name="lang_ar_rSA" translatable="false">اَلْعَرَبِيَّةُ (ar-rSA)</string>
-    <string name="lang_ca_rES" translatable="false">Català (ca-rES)</string>
-    <string name="lang_de_rDE" translatable="false">Deutsch (de-rDE)</string>
-    <string name="lang_es_rES" translatable="false">Español (es-rES)</string>
-    <string name="lang_es_rMX" translatable="false">Español (México) (es-rMX)</string>
-    <string name="lang_eu_rES" translatable="false">Euskara (eu-rES)</string> <!-- Basque -->
-    <string name="lang_fi_rFI" translatable="false">Suomi (fi_rFI)</string>
-    <string name="lang_fr_rFR" translatable="false">Français (fr-rFR)</string>
-    <string name="lang_in_rID" translatable="false">Indonesian (in-rID)</string>
-    <string name="lang_it_rIT" translatable="false">Italiano (it-rIT)</string>
-    <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-rMK)</string>
-    <string name="lang_nl_rNL" translatable="false">Nederlands (nl-rNL)</string>
-    <string name="lang_pt_rBR" translatable="false">Portuguese (pt-rBR)</string>
-    <string name="lang_ru_rRU" translatable="false">Pусский (ru-rRU)</string>
-    <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-rIN)</string>
-    <string name="lang_tr_rTR" translatable="false">Türkçe (tr-rTR)</string>
+    <string name="lang_ar_rSA" translatable="false">اَلْعَرَبِيَّةُ (ar-SA)</string>
+    <string name="lang_ca_rES" translatable="false">Català (ca-ES)</string>
+    <string name="lang_de_rDE" translatable="false">Deutsch (de-DE)</string>
+    <string name="lang_es_rES" translatable="false">Español (es-ES)</string>
+    <string name="lang_es_rMX" translatable="false">Español (México) (es-MX)</string>
+    <string name="lang_eu_rES" translatable="false">Euskara (eu-ES)</string> <!-- Basque -->
+    <string name="lang_fi_rFI" translatable="false">Suomi (fi_FI)</string>
+    <string name="lang_fr_rFR" translatable="false">Français (fr-FR)</string>
+    <string name="lang_in_rID" translatable="false">Indonesian (in-ID)</string>
+    <string name="lang_it_rIT" translatable="false">Italiano (it-IT)</string>
+    <string name="lang_mk_rMK" translatable="false">македонски јазик (mk-MK)</string>
+    <string name="lang_nl_rNL" translatable="false">Nederlands (nl-NL)</string>
+    <string name="lang_pt_rBR" translatable="false">Portuguese (pt-BR)</string>
+    <string name="lang_pl_rPL" translatable="false">Polski (pl-PL)</string>
+    <string name="lang_ru_rRU" translatable="false">Pусский (ru-RU)</string>
+    <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-IN)</string>
+    <string name="lang_tr_rTR" translatable="false">Türkçe (tr-TR)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
@@ -114,6 +114,7 @@
     <string name="lang_code_mk_rMK" translatable="false">mk-MK</string>
     <string name="lang_code_nl_rNL" translatable="false">nl-NL</string>
     <string name="lang_code_pt_rBR" translatable="false">pt-BR</string>
+    <string name="lang_code_pl_rPL" translatable="false">pl-PL</string>
     <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
     <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
@@ -140,9 +141,29 @@
 
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">AutoStart Permission</string>
-    <string name="auto_start_permission_dialog_message">It\'s recommended to ENABLE AUTOSTART permission in the setting. \n\nOtherwise, Watomatic may ocassionally stop working.
-        \n\nNote:Depending on the device the settings may vary slightly.\n</string>
-    <string name="enable_auto_start_setting">Enable Setting</string>
-    <string name="decline_auto_start_setting">I\'M OK</string>
     <string name="foreground_service_summary">Watomatic app is currently active</string>
+    <string name="auto_start_permission_dialog_message">Enable \"Auto Start\" permission in device settings to allow Watomatic to start on device restart.</string>
+    <string name="device_based_settings_message">Note: Settings may vary or may not be available based on your device</string>
+    <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
+    <string name="enable_auto_start_setting">Proceed</string>
+    <string name="decline_auto_start_setting">Cancel</string>
+    <string name="advanced_settings">Advanced settings</string>
+    <string name="key_pref_advanced_settings" translatable="false">pref_advanced_settings</string>
+    <string name="contact_based_reply">Contact based replies</string>
+    <string name="pref_reply_contacts" translatable="false">pref_reply_contacts</string>
+    <string name="contact_reply_type">Reply to</string>
+    <string name="blacklist">Everyone except selected contacts</string>
+    <string name="whitelist">Nobody except selected contacts</string>
+    <string name="pref_code_blacklist" translatable="false">pref_blacklist</string>
+    <string name="pref_code_whitelist" translatable="false">pref_whitelist</string>
+    <string name="pref_reply_contacts_type" translatable="false">pref_reply_contacts_type</string>
+    <string name="enable_contact_based_reply">Enable contact based replies</string>
+    <string name="select_contacts">Select contacts</string>
+    <string name="key_pref_select_contacts" translatable="false">pref_select_contacts</string>
+    <string name="contact_selector">Contact selector</string>
+    <string name="select_all">Select all</string>
+    <string name="select_none">Select none</string>
+    <string name="contact_permission_dialog_msg">Contact read access is required in order to filter names and enable this feature. Do you want to continue?</string>
+    <string name="contact_permission_dialog_proceed">Proceed</string>
+    <string name="contact_permission_dialog_cancel">Cancel</string>
 </resources>
