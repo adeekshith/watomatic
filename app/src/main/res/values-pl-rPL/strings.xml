@@ -79,4 +79,17 @@
     <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
     <string name="enable_auto_start_setting">Kontynuuj</string>
     <string name="decline_auto_start_setting">Anuluj</string>
+    <string name="advanced_settings">Ustawienia zaawansowane</string>
+    <string name="contact_based_reply">Odpowiedzi bazujace na kontaktach</string>
+    <string name="contact_reply_type">Odpowiedz do</string>
+    <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
+    <string name="whitelist">Nikt z wyjątkiem wybranych kontaktów</string>
+    <string name="enable_contact_based_reply">Włącz odpowiedzi oparte na kontaktach</string>
+    <string name="select_contacts">Wybierz kontakty</string>
+    <string name="contact_selector">Wybór kontaktów</string>
+    <string name="select_all">Zaznacz wszystko</string>
+    <string name="select_none">Odznacz wszystko</string>
+    <string name="contact_permission_dialog_msg">Dostęp do odczytu kontaktu jest wymagany aby filtrować nazwy i włączyć tę funkcję. Czy chcesz kontynuować?</string>
+    <string name="contact_permission_dialog_proceed">Kontynuuj</string>
+    <string name="contact_permission_dialog_cancel">Anuluj</string>
 </resources>
