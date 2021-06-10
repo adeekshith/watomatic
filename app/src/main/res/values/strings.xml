@@ -73,8 +73,8 @@
     <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
     <string name="preference_category_general_label">General</string>
+    <string name="preference_category_notifications_label">Notifications</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
-    <string name="preference_category_advance_label">Advance</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
     <string name="enable_foreground_service_label">Enable Service Notification</string>
     <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
