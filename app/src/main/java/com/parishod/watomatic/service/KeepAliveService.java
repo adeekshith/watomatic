@@ -17,6 +17,7 @@ import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
+import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.receivers.NotificationServiceRestartReceiver;
 
 public class KeepAliveService extends Service {
@@ -98,28 +99,7 @@ public class KeepAliveService extends Service {
 
     private void startForeground(Service service) {
         Log.e("DEBUG", "startForeground");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel notificationChannel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        NotificationCompat.Builder notificationBuilder;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setGroup("ForegroundService")
-                    .setContentTitle(getString(R.string.app_name))
-                    .setContentText(getString(R.string.foreground_service_summary))
-                    .setPriority(NotificationManager.IMPORTANCE_HIGH);
-        }else{
-            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setGroup("ForegroundService")
-                    .setContentTitle(getString(R.string.app_name))
-                    .setContentText(getString(R.string.foreground_service_summary));
-        }
-
+        NotificationCompat.Builder notificationBuilder = NotificationHelper.getInstance(getApplicationContext()).getForegroundServiceNotification(service);
         service.startForeground(FOREGROUND_NOTIFICATION_ID, notificationBuilder.build());
     }
 }

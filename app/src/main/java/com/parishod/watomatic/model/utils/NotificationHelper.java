@@ -3,6 +3,7 @@ package com.parishod.watomatic.model.utils;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -125,5 +126,36 @@ public class NotificationHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public NotificationCompat.Builder getForegroundServiceNotification(Service service){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Intent intent = new Intent(appContext, NotificationIntentActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, 0);
+
+        NotificationCompat.Builder notificationBuilder;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_logo_full)
+                    .setGroup("ForegroundService")
+                    .setContentTitle(appContext.getString(R.string.app_name))
+                    .setContentText(appContext.getString(R.string.foreground_service_summary))
+                    .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                    .setContentIntent(pIntent);
+        }else{
+            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_logo_full)
+                    .setGroup("ForegroundService")
+                    .setContentTitle(appContext.getString(R.string.app_name))
+                    .setContentText(appContext.getString(R.string.foreground_service_summary))
+                    .setContentIntent(pIntent);
+        }
+
+        return notificationBuilder;
     }
 }
