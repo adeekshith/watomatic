@@ -69,6 +69,7 @@
     <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
     <string name="app_rating_feedback_dialog_msg">எங்களை மேம்படுத்த எங்களுக்கு உதவுங்கள்</string>
     <string name="app_rating_feedback_dialog_mail_button_title">எங்களுக்கு மின்னஞ்சல் அனுப்ப</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">தானாக தொடங்கும் அனுமதி</string>
     <string name="device_based_settings_message">குறிப்பு: உங்கள் சாதனத்தைப் பொறுத்து சில அமைப்புகள் மாறலாம் அல்லது உங்களுக்கு இல்லாமல் இருக்கலாம்</string>
