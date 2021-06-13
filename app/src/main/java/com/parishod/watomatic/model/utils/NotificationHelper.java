@@ -144,7 +144,7 @@ public class NotificationHelper {
                     .setSmallIcon(R.drawable.ic_logo_full)
                     .setGroup("ForegroundService")
                     .setContentTitle(appContext.getString(R.string.app_name))
-                    .setContentText(appContext.getString(R.string.foreground_service_summary))
+                    .setContentText(appContext.getString(R.string.running_in_the_background))
                     .setPriority(NotificationManager.IMPORTANCE_HIGH)
                     .setContentIntent(pIntent);
         }else{
@@ -152,7 +152,7 @@ public class NotificationHelper {
                     .setSmallIcon(R.drawable.ic_logo_full)
                     .setGroup("ForegroundService")
                     .setContentTitle(appContext.getString(R.string.app_name))
-                    .setContentText(appContext.getString(R.string.foreground_service_summary))
+                    .setContentText(appContext.getString(R.string.running_in_the_background))
                     .setContentIntent(pIntent);
         }
 
