@@ -11,5 +11,7 @@ public class AdvancedSettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_settings);
+
+        setTitle(R.string.advanced_settings);
     }
 }
