@@ -20,8 +20,9 @@
             app:icon="@drawable/ic_notification"
             />
 
-        <SwitchPreference android:title="@string/enable_foreground_service_label"
+        <SwitchPreference android:title="@string/always_on_notification"
             android:key="@string/pref_show_foreground_service_notification"
+            android:summary="@string/display_persistent_notification_summary"
             app:icon="@drawable/ic_notification"
             />
     </PreferenceCategory>

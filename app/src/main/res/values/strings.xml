@@ -76,7 +76,8 @@
     <string name="preference_category_notifications_label">Notifications</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
-    <string name="enable_foreground_service_label">Enable Service Notification</string>
+    <string name="always_on_notification">Always-On notification</string>
+    <string name="display_persistent_notification_summary">Display a persistent notification to ensure Watomatic is not killed by the system</string>
     <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
 
     <!-- Local language names (non translatable) -->
