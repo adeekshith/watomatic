@@ -22,14 +22,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:maxLines="2"
         android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/watomatic_subreddit_label"
         android:textAllCaps="false"
         android:textColor="?attr/colorControlNormal"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/share_btn"
+        app:layout_constraintEnd_toStartOf="@+id/circularProgressBar"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,21 +46,26 @@
         android:textColor="?attr/colorControlNormal"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/share_btn"
+        app:layout_constraintEnd_toStartOf="@+id/circularProgressBar"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:drawableLeft="@drawable/ic_dot" />
 
-    <!-- App share button -->
-    <ImageButton
-        android:id="@+id/share_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="?android:selectableItemBackground"
-        android:src="@drawable/ic_share"
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressBar"
+        android:layout_width="45dp"
+        android:layout_height="match_parent"
+        app:cpb_background_progressbar_color="#d42b2d"
+        app:cpb_background_progressbar_width="3dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="#71cc75"
+        app:cpb_progressbar_width="4dp"
+        app:cpb_progress="10"
+        app:cpb_progress_max="100"
+        android:layout_margin="0dp"
+        app:cpb_round_border="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

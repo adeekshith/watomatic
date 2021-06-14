@@ -53,14 +53,11 @@ public class BrandingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_branding, container, false);
 
         githubBtn = view.findViewById(R.id.watomaticGithubBtn);
-        share_layout = view.findViewById(R.id.share_btn);
         watomaticSubredditBtn = view.findViewById(R.id.watomaticSubredditBtn);
         whatsNewBtn = view.findViewById(R.id.whatsNewBtn);
         whatsNewBtn.setOnClickListener(v -> {
             launchApp();
         });
-
-        share_layout.setOnClickListener(v -> launchShareIntent());
 
         watomaticSubredditBtn.setOnClickListener(v -> {
             String url = getString(R.string.watomatic_subreddit_url);
