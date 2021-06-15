@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -43,11 +42,10 @@ import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
-import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
-import com.parishod.watomatic.service.KeepAliveService;
+import com.parishod.watomatic.model.utils.ServieUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +63,7 @@ import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_APP_RATING;
 
-public class MainFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainFragment extends Fragment {
 
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private final int MINUTE_FACTOR = 60;
@@ -530,20 +528,12 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
 
     private void startNotificationService(){
         if(preferencesManager.isForegroundServiceNotificationEnabled()) {
-            if (!isMyServiceRunning(KeepAliveService.class)) {
-                Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    mActivity.startForegroundService(mServiceIntent);
-                }else{
-                    mActivity.startService(mServiceIntent);
-                }
-            }
+            ServieUtils.getInstance(mActivity).startNotificationService();
         }
     }
 
     private void stopNotificationService(){
-        Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
-        mActivity.stopService(mServiceIntent);
+        ServieUtils.getInstance(mActivity).stopNotificationService();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -584,14 +574,4 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
         super.onDestroy();
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(getString(R.string.pref_show_foreground_service_notification))){
-            if(sharedPreferences.getBoolean(key, false)){
-                startNotificationService();
-            }else{
-                stopNotificationService();
-            }
-        }
-    }
 }
