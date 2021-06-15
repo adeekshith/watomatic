@@ -63,7 +63,8 @@ public class NotificationHelper {
 
         Intent intent = new Intent(appContext, NotificationIntentActivity.class);
         intent.putExtra("package", packageName);
-        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, 0);
+        intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                 .setGroup("watomatic-" + packageName)
@@ -111,11 +112,13 @@ public class NotificationHelper {
     }
 
     private void setNotificationSummaryShown(String packageName){
-        packageName = packageName.replace("watomatic-", "");
-        try {
-            appsList.put(packageName, true);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(packageName != null) {
+            packageName = packageName.replace("watomatic-", "");
+            try {
+                appsList.put(packageName, true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -136,13 +139,13 @@ public class NotificationHelper {
         }
 
         Intent intent = new Intent(appContext, NotificationIntentActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, 0);
+        intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_logo_full)
-                    .setGroup("ForegroundService")
                     .setContentTitle(appContext.getString(R.string.app_name))
                     .setContentText(appContext.getString(R.string.foreground_service_summary))
                     .setPriority(NotificationManager.IMPORTANCE_HIGH)
@@ -150,7 +153,6 @@ public class NotificationHelper {
         }else{
             notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_logo_full)
-                    .setGroup("ForegroundService")
                     .setContentTitle(appContext.getString(R.string.app_name))
                     .setContentText(appContext.getString(R.string.foreground_service_summary))
                     .setContentIntent(pIntent);
