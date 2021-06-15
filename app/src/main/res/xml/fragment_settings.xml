@@ -13,16 +13,17 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/preference_category_notifications_label">
+    <PreferenceCategory android:title="@string/preference_category_notifications_label"
+        android:icon="@drawable/ic_notification"
+        >
 
         <SwitchPreference android:title="@string/show_notification_label"
             android:key="@string/pref_show_notification_replied_msg"
-            app:icon="@drawable/ic_notification"
             />
 
-        <SwitchPreference android:title="@string/enable_foreground_service_label"
+        <SwitchPreference android:title="@string/always_on_notification"
             android:key="@string/pref_show_foreground_service_notification"
-            app:icon="@drawable/ic_notification"
+            android:summary="@string/display_persistent_notification_summary"
             />
     </PreferenceCategory>
 

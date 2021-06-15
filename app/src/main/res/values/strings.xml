@@ -76,7 +76,8 @@
     <string name="preference_category_notifications_label">Notifications</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
-    <string name="enable_foreground_service_label">Enable Service Notification</string>
+    <string name="always_on_notification">Always-On notification</string>
+    <string name="display_persistent_notification_summary">Display a persistent notification to ensure Watomatic is not killed by the system</string>
     <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
 
     <!-- Local language names (non translatable) -->
@@ -141,7 +142,7 @@
 
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">AutoStart Permission</string>
-    <string name="foreground_service_summary">Watomatic app is currently active</string>
+    <string name="running_in_the_background">Running in the background</string>
     <string name="auto_start_permission_dialog_message">Enable \"Auto Start\" permission in device settings to allow Watomatic to start on device restart.</string>
     <string name="device_based_settings_message">Note: Settings may vary or may not be available based on your device</string>
     <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
