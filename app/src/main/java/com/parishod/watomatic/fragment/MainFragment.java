@@ -42,11 +42,10 @@ import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
-import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
-import com.parishod.watomatic.service.KeepAliveService;
+import com.parishod.watomatic.model.utils.ServieUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,6 +124,8 @@ public class MainFragment extends Fragment {
                 preferencesManager.setServicePref(isChecked);
                 if(isChecked){
                     startNotificationService();
+                }else{
+                    stopNotificationService();
                 }
                 mainAutoReplySwitch.setText(
                         isChecked
@@ -526,15 +527,13 @@ public class MainFragment extends Fragment {
     }
 
     private void startNotificationService(){
-        if(!isMyServiceRunning(KeepAliveService.class)) {
-            Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
-            mActivity.startService(mServiceIntent);
+        if(preferencesManager.isForegroundServiceNotificationEnabled()) {
+            ServieUtils.getInstance(mActivity).startNotificationService();
         }
     }
 
     private void stopNotificationService(){
-        Intent mServiceIntent = new Intent(mActivity, KeepAliveService.class);
-        mActivity.stopService(mServiceIntent);
+        ServieUtils.getInstance(mActivity).stopNotificationService();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -574,4 +573,5 @@ public class MainFragment extends Fragment {
         stopNotificationService();
         super.onDestroy();
     }
+
 }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.BaseActivity;
+import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 
 public class NotificationIntentActivity extends BaseActivity {
@@ -25,6 +26,8 @@ public class NotificationIntentActivity extends BaseActivity {
                 String packageName = extras.getString("package");
                 NotificationHelper.getInstance(getApplicationContext()).markNotificationDismissed(packageName);
                 launchApp(packageName);
+            }else{
+                launchHomeScreen();
             }
         }
     }
@@ -45,6 +48,13 @@ public class NotificationIntentActivity extends BaseActivity {
 
         startActivity(intent);
 
+        finish();
+    }
+
+    private void launchHomeScreen(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 }

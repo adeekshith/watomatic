@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.receivers.NotificationServiceRestartReceiver;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,10 +30,13 @@ public class SwipeToKillAppDetectViewModel extends AndroidViewModel {
     }
 
     public void tryReconnectService() {
-        Log.d("DEBUG", "KeepAliveService tryReconnectService");
-        //Send broadcast to restart service
-        Intent broadcastIntent = new Intent(context, NotificationServiceRestartReceiver.class);
-        broadcastIntent.setAction("Watomatic-RestartService-Broadcast");
-        context.sendBroadcast(broadcastIntent);
+        if(PreferencesManager.getPreferencesInstance(context).isServiceEnabled()
+            && PreferencesManager.getPreferencesInstance(context).isForegroundServiceNotificationEnabled()) {
+            Log.d("DEBUG", "viewmodel tryReconnectService");
+            //Send broadcast to restart service
+            Intent broadcastIntent = new Intent(context, NotificationServiceRestartReceiver.class);
+            broadcastIntent.setAction("Watomatic-RestartService-Broadcast");
+            context.sendBroadcast(broadcastIntent);
+        }
     }
 }

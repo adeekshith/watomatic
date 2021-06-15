@@ -1,23 +1,33 @@
 package com.parishod.watomatic.service;
 
 import android.app.ActivityManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.parishod.watomatic.NotificationService;
+import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.Constants;
+import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.receivers.NotificationServiceRestartReceiver;
 
 public class KeepAliveService extends Service {
+    private static final int FOREGROUND_NOTIFICATION_ID = 10;
 
     @Override
     public void onCreate() {
         Log.d("DEBUG", "KeepAliveService onCreate");
         super.onCreate();
+        startForeground(this);
     }
 
     @Override
@@ -57,11 +67,14 @@ public class KeepAliveService extends Service {
     }
 
     public void tryReconnectService() {
-        Log.d("DEBUG", "KeepAliveService tryReconnectService");
-        //Send broadcast to restart service
-        Intent broadcastIntent = new Intent(getApplicationContext(), NotificationServiceRestartReceiver.class);
-        broadcastIntent.setAction("Watomatic-RestartService-Broadcast");
-        sendBroadcast(broadcastIntent);
+        if(PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()
+                && PreferencesManager.getPreferencesInstance(getApplicationContext()).isForegroundServiceNotificationEnabled()) {
+            Log.d("DEBUG", "KeepAliveService tryReconnectService");
+            //Send broadcast to restart service
+            Intent broadcastIntent = new Intent(getApplicationContext(), NotificationServiceRestartReceiver.class);
+            broadcastIntent.setAction("Watomatic-RestartService-Broadcast");
+            sendBroadcast(broadcastIntent);
+        }
     }
 
     private void startNotificationService(){
@@ -82,5 +95,11 @@ public class KeepAliveService extends Service {
         }
         Log.i ("isMyServiceRunning?", false+"");
         return false;
+    }
+
+    private void startForeground(Service service) {
+        Log.e("DEBUG", "startForeground");
+        NotificationCompat.Builder notificationBuilder = NotificationHelper.getInstance(getApplicationContext()).getForegroundServiceNotification(service);
+        service.startForeground(FOREGROUND_NOTIFICATION_ID, notificationBuilder.build());
     }
 }
