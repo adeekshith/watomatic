@@ -49,8 +49,11 @@
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
     <string name="preference_category_general_label">General</string>
+    <string name="preference_category_notifications_label">Notificacions</string>
     <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
     <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
+    <string name="always_on_notification">Mostra sempre les notificacions</string>
+    <string name="display_persistent_notification_summary">Mostra una notificació persistent per evitar que el Watomatic sigui tancat pel sistema</string>
     <string name="enable_auto_start_summary">Alguns dispositius necessiten que activeu de forma manual l\'inici automàtic per al Watomatic des del panel de configuració del dispositiu</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -74,6 +77,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Permís d\'inici automàtic</string>
+    <string name="running_in_the_background">Execució en rerefons</string>
     <string name="auto_start_permission_dialog_message">Habiliteu el permís \"Inicia automàticament\" a la configuració del dispositiu perquè el Watomatic s\'iniciï en arrencar.</string>
     <string name="device_based_settings_message">Nota: Aquesta opció pot variar o no estar disponible al vostre dispositiu</string>
     <string name="setting_not_available_for_device">Aquesta opció no està disponible o no és necessària al vostre dispositiu.</string>
