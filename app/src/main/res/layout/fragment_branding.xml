@@ -55,7 +55,7 @@
 
     <RelativeLayout
         android:id="@+id/circularProgressBar"
-        android:layout_width="45dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
@@ -66,14 +66,15 @@
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cpb_background_progressbar_color="#cb406c"
-            app:cpb_background_progressbar_width="2dp"
+            app:cpb_background_progressbar_color="#b43041"
+            app:cpb_background_progressbar_width="15dp"
             app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="#16aa9d"
-            app:cpb_progressbar_width="6dp"
+            app:cpb_progressbar_color="#599c0e"
+            app:cpb_progressbar_width="15dp"
             app:cpb_progress="10"
             app:cpb_progress_max="100"
-            app:cpb_round_border="true"
+            app:cpb_round_border="false"
+            app:cpb_indeterminate_mode="false"
             android:layout_centerHorizontal="true"
             />
 
@@ -81,7 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="12dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
             android:text="$"
             android:textStyle="bold"
             />
