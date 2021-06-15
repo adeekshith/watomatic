@@ -6,12 +6,12 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Autom. odpowiedź\n⚠️ Użytkonik niedostępny</string>
+    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkonik niedostępny</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
     <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować automatyczną odpowiedź</string>
-    <string name="to_help_you_leave_whatsapp">Autom. odpowiedź pomoże Ci opuścić WhatsApp i Facebook messenger</string>
+    <string name="to_help_you_leave_whatsapp">Automatyczna odpowiedź pomoże Ci opuścić WhatsApp i Facebook messenger</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
     <string name="sure">Jestem pewny(a)</string>
@@ -37,21 +37,24 @@
     <!-- Custom message editor -->
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Dołącz do Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
+    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
     <string name="sent_using_Watomatic">Wysłano używając watomatic.app</string>
     <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
-    <string name="share_subject">Watomatic: Autom. odpowiedź dla WhatsApp</string>
-    <string name="watomatic_subreddit_label"><u>Omówmy\nr/watomatic</u></string>
+    <string name="share_subject">Watomatic: Automatyczna odpowiedź dla WhatsApp</string>
+    <string name="watomatic_subreddit_label"><u>Dyskutujmy\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Co nowego?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Pokaż powiadomienie o odpowiedzi na wiadomości</string>
     <string name="preference_category_general_label">Ogólne</string>
+    <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
     <string name="enable_auto_start_label">Wł. Automatyczny Start</string>
-    <string name="enable_auto_start_summary">Niektóre urządzenia mogą potrzebować ręcznego włączenia startu automatycznego dla Watomatic w ustawieniach urządzenia</string>
+    <string name="always_on_notification">Powiadomienie Always-On</string>
+    <string name="display_persistent_notification_summary">Wyświetlaj trwałe powiadomienie, aby mieć pewność, że Watomatic nie został wyłączony przez system</string>
+    <string name="enable_auto_start_summary">Niektóre urządzenia mogą potrzebować ręcznego włączenia automatycznego startu dla Watomatic w ustawieniach urządzenia</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -74,6 +77,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Uprawnienia AutoStart</string>
+    <string name="running_in_the_background">Działa w tle</string>
     <string name="auto_start_permission_dialog_message">Włącz uprawnienia \"Auto Start\" w ustawieniach urządzenia, aby umożliwić Watomatic włączenie się przy uruchamianiu urządzenia.</string>
     <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne w oparciu o twoje urządzenie</string>
     <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
