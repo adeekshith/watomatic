@@ -49,6 +49,7 @@
     <!-- app settings -->
     <string name="show_notification_label">பதிலதித்த செய்திகளுக்கு அறிவிப்புகளை காட்டு</string>
     <string name="preference_category_general_label">பொதுவானவை</string>
+    <string name="preference_category_notifications_label">அறிவிப்புகள்</string>
     <string name="preference_category_troubleshooting_label">பழுது கண்டறிதல்</string>
     <string name="enable_auto_start_label">தானாகத் தொடங்குவதை இயக்கு</string>
     <string name="enable_auto_start_summary">சில சாதனங்களில் நீங்களாக சாதனத்தின் அமைப்புகளுக்கு சென்று Watomatic தானாக தொடங்க அனுமதிக்க வேண்டும்</string>
@@ -72,6 +73,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">தானாக தொடங்கும் அனுமதி</string>
+    <string name="running_in_the_background">பின்புலத்தில் இயங்குகிறது</string>
     <string name="device_based_settings_message">குறிப்பு: உங்கள் சாதனத்தைப் பொறுத்து சில அமைப்புகள் மாறலாம் அல்லது உங்களுக்கு இல்லாமல் இருக்கலாம்</string>
     <string name="setting_not_available_for_device">இந்த அமைப்பு உங்கள் சாதனத்தில் கிடைக்கப்பெறாது அல்லது உங்களுக்கு தேவைப்படாது.</string>
     <string name="enable_auto_start_setting">தொடரவும்</string>
