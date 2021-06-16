@@ -83,7 +83,8 @@ public class ContactsHelper {
     }
 
     private ArrayList<ContactHolder> getContactList() {
-        ArrayList<ContactHolder> contactList = new ArrayList<>();
+        ArrayList<ContactHolder> unselectedContactList = new ArrayList<>();
+        ArrayList<ContactHolder> selectedContactList = new ArrayList<>();
         Set<String> previousSelectedContacts = prefs.getReplyToNames();
 
         ContentResolver contentResolver = mContext.getContentResolver();
@@ -97,7 +98,12 @@ public class ContactsHelper {
                     String contactName = cursor.getString(columnIndex);
                     if (contactName != null && !contactName.isEmpty()) {
                         boolean contactChecked = previousSelectedContacts.contains(contactName);
-                        contactList.add(new ContactHolder(contactName, contactChecked));
+                        if (contactChecked) {
+                            selectedContactList.add(new ContactHolder(contactName, true));
+                        }
+                        else {
+                            unselectedContactList.add(new ContactHolder(contactName, false));
+                        }
                     }
                 } while (cursor.moveToNext());
             }
@@ -107,7 +113,9 @@ public class ContactsHelper {
             cursor.close();
         }
 
-        return contactList;
+        selectedContactList.addAll(unselectedContactList);
+
+        return selectedContactList;
     }
 
     public boolean hasContactPermission() {
