@@ -1,6 +1,8 @@
 package com.parishod.watomatic.adapter
 
 import android.content.pm.PackageManager
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -50,8 +52,13 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
                 if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
-                    (itemView.appEnableSwitch as SwitchMaterial).isEnabled = false
-                    itemView.appInstallText.visibility = View.VISIBLE
+                    (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
+                        Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                        itemView.appEnableSwitch.isChecked = false
+                    }
+                    itemView.appIcon.setOnClickListener {
+                        Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
