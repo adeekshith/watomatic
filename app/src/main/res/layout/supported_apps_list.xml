@@ -28,4 +28,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appInstallText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/appIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
+        android:text="@string/app_not_installed_text"
+        android:textColor="?attr/colorControlNormal"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

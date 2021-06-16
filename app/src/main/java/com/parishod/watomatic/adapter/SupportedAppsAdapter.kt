@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.App
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -48,6 +49,10 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 itemView.appIcon.setImageDrawable(icon)
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
+                if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                    (itemView.appEnableSwitch as SwitchMaterial).isEnabled = false
+                    itemView.appInstallText.visibility = View.VISIBLE
+                }
             }
 
             if(listType == Constants.EnabledAppsDisplayType.VERTICAL){

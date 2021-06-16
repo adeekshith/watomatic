@@ -144,4 +144,5 @@
     <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
+    <string name="app_not_installed_text">Not installed</string>
 </resources>
