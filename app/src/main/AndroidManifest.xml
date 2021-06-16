@@ -66,6 +66,13 @@
         </activity>
 
         <activity
+            android:name=".activity.contactselector.ContactSelectorActivity"
+            android:label="@string/contact_selector"
+            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity"
+            >
+        </activity>
+
+        <activity
             android:name="com.parishod.watomatic.activity.notification.NotificationIntentActivity"
             android:launchMode="singleTop"
             >

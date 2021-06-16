@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
 import com.parishod.watomatic.model.utils.ContactsHelper;
 
 public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
@@ -40,7 +42,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         advancedPref = findPreference(getString(R.string.key_pref_select_contacts));
         advancedPref.setOnPreferenceClickListener(preference -> {
             if (contactsHelper.hasContactPermission())
-                contactsHelper.showContactPicker();
+                startActivity(new Intent(getActivity(), ContactSelectorActivity.class));
             else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     contactsHelper.requestContactPermission(getActivity());
