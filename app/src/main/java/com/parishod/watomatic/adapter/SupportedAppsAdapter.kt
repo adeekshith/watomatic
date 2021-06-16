@@ -52,6 +52,11 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
                 if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                    val matrix = ColorMatrix()
+                    matrix.setSaturation(0f) //0 means grayscale
+                    val cf = ColorMatrixColorFilter(matrix)
+                    itemView.appIcon.setColorFilter(cf)
+
                     (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
                         Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
                         itemView.appEnableSwitch.isChecked = false
