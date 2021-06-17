@@ -6,6 +6,8 @@
     <string name="privacy_policy_label">Privateca Politiko</string>
     <string name="mainAutoReplyTextPlaceholder">(Propra Respondo)</string>
     <string name="mainAutoReplyLabel">Aŭtomata responda teksto</string>
+    <string name="accept">Akcepti</string>
+    <string name="sure">Mi estas certa</string>
     <string name="retry">Reprovi</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
@@ -19,6 +21,7 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="preference_category_general_label">Ĝenerala</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
