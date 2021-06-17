@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">تم تعطيل الرد التلقائي على دردشة المجموعات</string>
     <string name="time_picker_title">تكرار الرد (تجريبي)</string>
     <string name="time_picker_sub_title_default">الرد على جميع الرسائل بدون التحكم</string>
+    <string name="time_picker_sub_title">الرد مرة واحدة فقط كل %1$d يوم لكل شخص أو مجموعة</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">انقر لتحرير تأخير الوقت بين الردود</string>
     <string name="app_version">v%1$s</string>
@@ -47,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">إظهار الإشعار للرسائل المُجاب عليها</string>
+    <string name="preference_category_general_label">عام</string>
+    <string name="preference_category_troubleshooting_label">استكشاف الأخطاء</string>
+    <string name="enable_auto_start_label">تمكين المزامنة التلقائية</string>
+    <string name="enable_auto_start_summary">قد تحتاج بعض الأجهزة إلى تمكين التشغيل التلقائي للبرنامج يدوياً من إعدادات الجهاز</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +73,10 @@
     <string name="app_rating_feedback_dialog_mail_button_title">ارسل لنا</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">تيليجرام</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">إذن البدء التلقائي</string>
+    <string name="auto_start_permission_dialog_message">تمكين إذن \"بدء التشغيل التلقائي\" في إعدادات الجهاز للسماح للبرنامج بالبدء عند إعادة تشغيل الجهاز.</string>
+    <string name="device_based_settings_message">ملاحظة: قد تختلف الإعدادات أو قد لا تكون متاحة بناءً على جهازك</string>
+    <string name="setting_not_available_for_device">هذا الإعداد غير متوفر أو قد لا يكون مطلوبا لجهازك.</string>
+    <string name="enable_auto_start_setting">المتابعة</string>
+    <string name="decline_auto_start_setting">إلغاء</string>
 </resources>

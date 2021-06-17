@@ -6,7 +6,7 @@
     <string name="privacy_policy_label">Политика за приватност</string>
     <string name="service_name">Следење на известувања за дојдовни пораки</string>
     <string name="mainAutoReplyTextPlaceholder">(Прилагоден одговор)</string>
-    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот е недостапен</string>
+    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот не е достапен</string>
     <string name="mainAutoReplyLabel">Текст за автоматско одговарање</string>
     <string name="mainAutoReplySwitchOffLabel">Автоматскиот одговор е ИСКЛУЧЕН</string>
     <string name="mainAutoReplySwitchOnLabel">Автоматскиот одговор е ВКЛУЧЕН</string>
@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
     <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
+    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден(а) на секоја личност или група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -46,9 +47,12 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Покажи известување за автоматски одговорени пораки</string>
+    <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
     <string name="preference_category_general_label">Општо</string>
+    <string name="preference_category_notifications_label">Известувања</string>
+    <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -70,8 +74,14 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Дозвола за автоматско стартување</string>
+    <string name="auto_start_permission_dialog_message">Овозможете дозвола \"Автоматско стартување\" во поставките на уредот за да дозволите Watomatic да се вклучи на уредот по рестартирање.</string>
     <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
+    <string name="advanced_settings">Напредни поставки</string>
+    <string name="contact_reply_type">Одговори на</string>
+    <string name="select_contacts">Избери контакти</string>
+    <string name="contact_permission_dialog_proceed">Продолжи</string>
+    <string name="contact_permission_dialog_cancel">Откажи</string>
 </resources>

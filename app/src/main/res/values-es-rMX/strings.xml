@@ -30,7 +30,7 @@
     <string name="group_reply_off_info_message">Respuesta automática para chats grupales deshabilitada</string>
     <string name="time_picker_title">Frecuencia de respuesta (BETA)</string>
     <string name="time_picker_sub_title_default">Responder a todos los mensajes sin control</string>
-    <string name="time_picker_sub_title">Responder solo cada %1$d día(s) para esta persona o grupo</string>
+    <string name="time_picker_sub_title">Responder solo una vez cada %1$d día(s) para cada persona o grupo</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Presiona para editar el retraso entre respuestas</string>
     <string name="app_version">v%1$s</string>
@@ -79,4 +79,17 @@
     <string name="setting_not_available_for_device">Esta configuración no está disponible o no es necesaria para este dispositivo.</string>
     <string name="enable_auto_start_setting">Continuar</string>
     <string name="decline_auto_start_setting">Cancelar</string>
+    <string name="advanced_settings">Ajustes avanzados</string>
+    <string name="contact_based_reply">Respuestas basadas en contactos</string>
+    <string name="contact_reply_type">Responder a</string>
+    <string name="blacklist">Todos exceptuando los contactos seleccionados</string>
+    <string name="whitelist">Nadie exceptuando los contactos seleccionados</string>
+    <string name="enable_contact_based_reply">Habilitar respuestas basadas en contactos</string>
+    <string name="select_contacts">Seleccionar contactos</string>
+    <string name="contact_selector">Selector de contactos</string>
+    <string name="select_all">Seleccionar todo</string>
+    <string name="select_none">De-seleccionar todo</string>
+    <string name="contact_permission_dialog_msg">El acceso a contactos es requerido para filtrar nombres y habilitar esta función. ¿Quieres continuar?</string>
+    <string name="contact_permission_dialog_proceed">Proceder</string>
+    <string name="contact_permission_dialog_cancel">Cancelar</string>
 </resources>

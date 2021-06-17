@@ -49,8 +49,11 @@
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
     <string name="preference_category_general_label">General</string>
+    <string name="preference_category_notifications_label">Notificacions</string>
     <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
     <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
+    <string name="always_on_notification">Mostra sempre les notificacions</string>
+    <string name="display_persistent_notification_summary">Mostra una notificació persistent per evitar que el Watomatic sigui tancat pel sistema</string>
     <string name="enable_auto_start_summary">Alguns dispositius necessiten que activeu de forma manual l\'inici automàtic per al Watomatic des del panel de configuració del dispositiu</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -74,9 +77,23 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Permís d\'inici automàtic</string>
+    <string name="running_in_the_background">Execució en rerefons</string>
     <string name="auto_start_permission_dialog_message">Habiliteu el permís \"Inicia automàticament\" a la configuració del dispositiu perquè el Watomatic s\'iniciï en arrencar.</string>
     <string name="device_based_settings_message">Nota: Aquesta opció pot variar o no estar disponible al vostre dispositiu</string>
     <string name="setting_not_available_for_device">Aquesta opció no està disponible o no és necessària al vostre dispositiu.</string>
     <string name="enable_auto_start_setting">Continua</string>
     <string name="decline_auto_start_setting">Cancel·la</string>
+    <string name="advanced_settings">Opcions avançades</string>
+    <string name="contact_based_reply">Respostes basades en contactes</string>
+    <string name="contact_reply_type">Respon a</string>
+    <string name="blacklist">Tothom excepte els contactes seleccionats</string>
+    <string name="whitelist">Cap contacte excepte els seleccionats</string>
+    <string name="enable_contact_based_reply">Habilita les respostes basades en contactes</string>
+    <string name="select_contacts">Trieu els contactes</string>
+    <string name="contact_selector">Selecció de contactes</string>
+    <string name="select_all">Selecciona-ho tot</string>
+    <string name="select_none">No en seleccionis cap</string>
+    <string name="contact_permission_dialog_msg">L\'accés a contactes és necessari per habilitar la característica de filtre de contactes. Voleu continuar?</string>
+    <string name="contact_permission_dialog_proceed">Continua</string>
+    <string name="contact_permission_dialog_cancel">Cancel·la</string>
 </resources>

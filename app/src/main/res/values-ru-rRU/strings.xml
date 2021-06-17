@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Автоответ в групповые чаты выключен</string>
     <string name="time_picker_title">Частота ответа (БЕТА)</string>
     <string name="time_picker_sub_title_default">Бесконтрольно отвечать на все сообщения</string>
+    <string name="time_picker_sub_title">Отвечать раз в %1$d дня(-ей) каждому человеку или группе</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Нажмите, чтобы настроить время между ответами</string>
     <string name="app_version">Версия %1$s</string>
@@ -78,4 +79,17 @@
     <string name="setting_not_available_for_device">Этот параметр недоступен либо не требуется для вашего устройства.</string>
     <string name="enable_auto_start_setting">Продолжить</string>
     <string name="decline_auto_start_setting">Отменить</string>
+    <string name="advanced_settings">Расширенные настройки</string>
+    <string name="contact_based_reply">Ответы в зависимости от контакта</string>
+    <string name="contact_reply_type">Отвечать</string>
+    <string name="blacklist">Всем, кроме выбранных контактов</string>
+    <string name="whitelist">Никому, кроме выбранных контактов</string>
+    <string name="enable_contact_based_reply">Включить ответы в зависимости от контакта</string>
+    <string name="select_contacts">Выберите контакты</string>
+    <string name="contact_selector">Выбор контактов</string>
+    <string name="select_all">Выбрать все</string>
+    <string name="select_none">Снять выбор</string>
+    <string name="contact_permission_dialog_msg">Для работы этой функции и фильтра имен требуется доступ на чтение контактов. Вы хотите продолжить?</string>
+    <string name="contact_permission_dialog_proceed">Продолжить</string>
+    <string name="contact_permission_dialog_cancel">Отменить</string>
 </resources>
