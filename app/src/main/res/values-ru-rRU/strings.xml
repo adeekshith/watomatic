@@ -49,8 +49,11 @@
     <!-- app settings -->
     <string name="show_notification_label">Показывать уведомления сообщений, на которые отправлен автоматический ответ</string>
     <string name="preference_category_general_label">Общие</string>
+    <string name="preference_category_notifications_label">Уведомления</string>
     <string name="preference_category_troubleshooting_label">Помощь</string>
     <string name="enable_auto_start_label">Запускать при загрузке</string>
+    <string name="always_on_notification">Постоянно отображаемое уведомление</string>
+    <string name="display_persistent_notification_summary">Отображать постоянное уведомление для предотвращения остановки Watomatic системой</string>
     <string name="enable_auto_start_summary">Для некоторых устройств может потребоваться включить автоматический запуск Watomatic при загрузке в настройках устройства</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -74,6 +77,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Разрешить автозапуск</string>
+    <string name="running_in_the_background">Работает в фоновом режиме</string>
     <string name="auto_start_permission_dialog_message">Включите \"Автоматический запуск\" в настройках устройства, чтобы позволить Watomatic запускаться при перезагрузке устройства.</string>
     <string name="device_based_settings_message">Примечание: В зависимости от устройства настройки могут отличаться или отсутствовать</string>
     <string name="setting_not_available_for_device">Этот параметр недоступен либо не требуется для вашего устройства.</string>
