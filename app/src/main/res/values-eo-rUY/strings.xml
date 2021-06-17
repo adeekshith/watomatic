@@ -25,5 +25,9 @@
     <!-- App Language selection -->
     <string name="app_language">App Lingvo</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_goto_store_dialog_title">Ni estas feliĉa!</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Daŭrigu</string>
+    <string name="app_rating_feedback_dialog_title">Kontaktu nin</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
 </resources>
