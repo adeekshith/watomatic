@@ -6,6 +6,9 @@
     <string name="privacy_policy_label">Privateca Politiko</string>
     <string name="mainAutoReplyTextPlaceholder">(Propra Respondo)</string>
     <string name="mainAutoReplyLabel">Aŭtomata responda teksto</string>
+    <string name="mainAutoReplySwitchOffLabel">Aŭtomata responda malŝalita</string>
+    <string name="mainAutoReplySwitchOnLabel">Aŭtomata responda ŝalita</string>
+    <string name="decline">Malakcepti</string>
     <string name="accept">Akcepti</string>
     <string name="sure">Mi estas certa</string>
     <string name="retry">Reprovi</string>
@@ -28,6 +31,7 @@
     <!-- App Language selection -->
     <string name="app_language">App Lingvo</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_rate_later_title">Eble poste</string>
     <string name="app_rating_goto_store_dialog_title">Ni estas feliĉa!</string>
     <string name="app_rating_goto_store_dialog_button2_title">Daŭrigu</string>
     <string name="app_rating_feedback_dialog_title">Kontaktu nin</string>
