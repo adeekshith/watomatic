@@ -6,6 +6,7 @@
     <string name="privacy_policy_label">Privateca Politiko</string>
     <string name="mainAutoReplyTextPlaceholder">(Propra Respondo)</string>
     <string name="mainAutoReplyLabel">Aŭtomata responda teksto</string>
+    <string name="retry">Reprovi</string>
     <!-- Select apps to auto reply -->
     <!-- Group chats -->
     <string name="time_format_placeholder">00:00</string>
@@ -14,6 +15,7 @@
     <string name="save">Konservu</string>
     <string name="share">Kunhavigi</string>
     <string name="share_subject">Watomatic: Aŭtomata Respondo por WhatsApp</string>
+    <string name="watomatic_whatsnew_label">Kio novas?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
