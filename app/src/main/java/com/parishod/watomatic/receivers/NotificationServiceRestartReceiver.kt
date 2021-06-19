@@ -3,6 +3,7 @@ package com.parishod.watomatic.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.parishod.watomatic.service.KeepAliveService
 
@@ -17,6 +18,11 @@ class NotificationServiceRestartReceiver: BroadcastReceiver() {
 
     private fun restartService(context: Context) {
         val serviceIntent = Intent(context, KeepAliveService::class.java)
-        context.startService(serviceIntent)
+        // ToDo: Should probably start using foreground service to prevent IllegalState exception below
+        try {
+            context.startService(serviceIntent)
+        } catch (e: IllegalStateException) {
+            Log.e("NotifServiceRestart","Unable to restart notification service")
+        }
     }
 }

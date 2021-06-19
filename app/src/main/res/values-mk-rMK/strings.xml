@@ -6,7 +6,7 @@
     <string name="privacy_policy_label">Политика за приватност</string>
     <string name="service_name">Следење на известувања за дојдовни пораки</string>
     <string name="mainAutoReplyTextPlaceholder">(Прилагоден одговор)</string>
-    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот е недостапен</string>
+    <string name="auto_reply_default_message">Автоматско одговарање\n⚠️ Корисникот не е достапен</string>
     <string name="mainAutoReplyLabel">Текст за автоматско одговарање</string>
     <string name="mainAutoReplySwitchOffLabel">Автоматскиот одговор е ИСКЛУЧЕН</string>
     <string name="mainAutoReplySwitchOnLabel">Автоматскиот одговор е ВКЛУЧЕН</string>
@@ -29,6 +29,8 @@
     <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
     <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
+    <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
+    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден(а) на секоја личност или група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -36,8 +38,8 @@
     <string name="save">Зачувај</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Додадете Watomatic препорака за да ги известите другите за оваа апликација</string>
-    <string name="sent_using_Watomatic">Испратено со git.io/watomatic</string>
-    <string name="share_app_text">\"Јас го користам Watomatic за да го напуштам WhatsApp. Обидете се и вие!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Испратено со watomatic.app</string>
+    <string name="share_app_text">Јас го користам Watomatic за да го напуштам WhatsApp. Обидете се и вие: watomatic.app</string>
     <string name="share">Сподели</string>
     <string name="share_subject">Watomatic: Автоматски одговори за WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Ајде да дискутираме\nr/watomatic</u></string>
@@ -45,11 +47,41 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Покажи известување за автоматски одговорени пораки</string>
+    <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
+    <string name="preference_category_general_label">Општо</string>
+    <string name="preference_category_notifications_label">Известувања</string>
+    <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
+    <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Јазик на апликација</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Што мислиш?</string>
+    <string name="app_rating_dialog_msg">Ние сме заинтересирани за тоа што мислите за апликацијата. Допрете на ѕвездите погоре за да ја оцените.</string>
+    <string name="app_rating_dialog_rate_button_title">Оцени ја апликацијата!</string>
+    <string name="app_rating_dialog_rate_later_title">Можеби подоцна</string>
+    <string name="app_rating_goto_store_dialog_title">Ние сме среќни!</string>
+    <string name="app_rating_goto_store_dialog_msg">Споделете ја оваа оценка за нашата апликација на Google Play Store со кликнување на \"Продолжи\"\!</string>
+    <string name="app_rating_pitch">Оваа апликација е бесплатна, нема реклами, нема следење, со отворен код и е направена од соработници како вас и јас.        Вашите повратни информации се единствена наша поддршка.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Не сум заинтересиран</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Продолжи</string>
+    <string name="app_rating_feedback_dialog_title">Контактирајте нè</string>
+    <string name="app_rating_feedback_dialog_msg">Споделете го вашето мислење за тоа како да ја подобриме апликацијата.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Испратете ни е-пошта</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Дозвола за автоматско стартување</string>
+    <string name="auto_start_permission_dialog_message">Овозможете дозвола \"Автоматско стартување\" во поставките на уредот за да дозволите Watomatic да се вклучи на уредот по рестартирање.</string>
+    <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
+    <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
+    <string name="enable_auto_start_setting">Продолжи</string>
+    <string name="decline_auto_start_setting">Откажи</string>
+    <string name="advanced_settings">Напредни поставки</string>
+    <string name="contact_reply_type">Одговори на</string>
+    <string name="select_contacts">Избери контакти</string>
+    <string name="contact_permission_dialog_proceed">Продолжи</string>
+    <string name="contact_permission_dialog_cancel">Откажи</string>
 </resources>

@@ -11,15 +11,25 @@
             android:entryValues="@array/app_language_value"
             app:useSimpleSummaryProvider="true"/>
 
-        <SwitchPreference android:title="@string/show_notification_label"
-            android:key="@string/pref_show_notification_replied_msg"
-            app:icon="@drawable/ic_notification"
-            />
-
         <CheckBoxPreference android:title="@string/add_attribution_label"
             android:icon="@drawable/ic_attribution"
             android:key="@string/pref_is_append_watomatic_attribution"
             android:summary="@string/append_watomatic_arribution_checkbox_label"/>
+      
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_category_notifications_label"
+        android:icon="@drawable/ic_notification"
+        >
+
+        <SwitchPreference android:title="@string/show_notification_label"
+            android:key="@string/pref_show_notification_replied_msg"
+            />
+
+        <SwitchPreference android:title="@string/always_on_notification"
+            android:key="@string/pref_show_foreground_service_notification"
+            android:summary="@string/display_persistent_notification_summary"
+            />
 
     </PreferenceCategory>
 
@@ -27,6 +37,15 @@
 
         <Preference android:title="@string/enable_auto_start_label"
             android:key="@string/pref_auto_start_permission" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/advanced_settings">
+
+        <Preference
+            app:title="@string/advanced_settings"
+            app:key="@string/key_pref_advanced_settings"
+            app:icon="@drawable/ic_baseline_miscellaneous_services_24"/>
 
     </PreferenceCategory>
 

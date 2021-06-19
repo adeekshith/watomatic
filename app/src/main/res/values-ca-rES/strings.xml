@@ -30,7 +30,7 @@
     <string name="group_reply_off_info_message">S\'ha desactivat la resposta automàtica als xats grupals</string>
     <string name="time_picker_title">Freqüència de resposta automàtica (BETA)</string>
     <string name="time_picker_sub_title_default">Respon a tots els missatges sense límit</string>
-    <string name="time_picker_sub_title">Respon només un cop cada %1$d dies per persona\/grup</string>
+    <string name="time_picker_sub_title">Respon només un cop cada %1$d dies per persona o grup</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Premeu per editar el temps d\'espera entre respostes</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +38,8 @@
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
-    <string name="sent_using_Watomatic">Enviat amb git.io/watomatic</string>
-    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho!\nhttps://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
+    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
@@ -48,6 +48,13 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
+    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_notifications_label">Notificacions</string>
+    <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
+    <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
+    <string name="always_on_notification">Mostra sempre les notificacions</string>
+    <string name="display_persistent_notification_summary">Mostra una notificació persistent per evitar que el Watomatic sigui tancat pel sistema</string>
+    <string name="enable_auto_start_summary">Alguns dispositius necessiten que activeu de forma manual l\'inici automàtic per al Watomatic des del panel de configuració del dispositiu</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +75,25 @@
     <string name="app_rating_feedback_dialog_msg">Digueu-nos com podem millorar.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Correu-e</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Permís d\'inici automàtic</string>
+    <string name="running_in_the_background">Execució en rerefons</string>
+    <string name="auto_start_permission_dialog_message">Habiliteu el permís \"Inicia automàticament\" a la configuració del dispositiu perquè el Watomatic s\'iniciï en arrencar.</string>
+    <string name="device_based_settings_message">Nota: Aquesta opció pot variar o no estar disponible al vostre dispositiu</string>
+    <string name="setting_not_available_for_device">Aquesta opció no està disponible o no és necessària al vostre dispositiu.</string>
+    <string name="enable_auto_start_setting">Continua</string>
+    <string name="decline_auto_start_setting">Cancel·la</string>
+    <string name="advanced_settings">Opcions avançades</string>
+    <string name="contact_based_reply">Respostes basades en contactes</string>
+    <string name="contact_reply_type">Respon a</string>
+    <string name="blacklist">Tothom excepte els contactes seleccionats</string>
+    <string name="whitelist">Cap contacte excepte els seleccionats</string>
+    <string name="enable_contact_based_reply">Habilita les respostes basades en contactes</string>
+    <string name="select_contacts">Trieu els contactes</string>
+    <string name="contact_selector">Selecció de contactes</string>
+    <string name="select_all">Selecciona-ho tot</string>
+    <string name="select_none">No en seleccionis cap</string>
+    <string name="contact_permission_dialog_msg">L\'accés a contactes és necessari per habilitar la característica de filtre de contactes. Voleu continuar?</string>
+    <string name="contact_permission_dialog_proceed">Continua</string>
+    <string name="contact_permission_dialog_cancel">Cancel·la</string>
 </resources>

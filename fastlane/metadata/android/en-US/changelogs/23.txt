@@ -1,0 +1,13 @@
+* Prevent Watomatic service from getting killed in the background on some devices by SP Uday Kumar
+* Make language setting work on all devices by Hèctor Godoy
+* Show settings button on main screen instead of pinning to the menu
+* New Polish translations by Patryk Prawada
+* Russian translations by crlf
+* Macedonian translations by Soma Dima
+* Spanish translations by Benet R. i Camps and Diego Muñoz
+* Finnish translations by Rynach
+* Tamil translations by HarishBeWe
+* German translations by daengi
+* Basque translations by Joxe Rojas
+* Turkish translations by Tansel Karakaya
+* Catalan translations by Benet R. i Camp

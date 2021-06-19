@@ -3,9 +3,11 @@ package com.parishod.watomatic.activity.notification;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.BaseActivity;
+import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 
 public class NotificationIntentActivity extends BaseActivity {
@@ -24,6 +26,8 @@ public class NotificationIntentActivity extends BaseActivity {
                 String packageName = extras.getString("package");
                 NotificationHelper.getInstance(getApplicationContext()).markNotificationDismissed(packageName);
                 launchApp(packageName);
+            }else{
+                launchHomeScreen();
             }
         }
     }
@@ -33,10 +37,24 @@ public class NotificationIntentActivity extends BaseActivity {
         PackageManager pm = getPackageManager();
 
         intent = pm.getLaunchIntentForPackage(packageName);
+
+        // ToDo: Getting null intent sometimes when service restart is implemented #291 (Google Play report)
+        if (intent == null) {
+            // Toast.makeText("Unable to open application").show();
+            return;
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         startActivity(intent);
 
+        finish();
+    }
+
+    private void launchHomeScreen(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 }

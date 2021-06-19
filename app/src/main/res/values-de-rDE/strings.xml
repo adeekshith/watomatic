@@ -30,7 +30,7 @@
     <string name="group_reply_off_info_message">Automatische Antwort für Gruppenchats AUS</string>
     <string name="time_picker_title">Antwort-Häufigkeit (BETA)</string>
     <string name="time_picker_sub_title_default">Auf alle Nachrichten ohne Limit antworten</string>
-    <string name="time_picker_sub_title">Nur einmal alle %1$d Tag\/e je Chat</string>
+    <string name="time_picker_sub_title">Nur einmal alle %1$d Tag(e) je Chat</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Tippe, um die Zeitverzögerung zwischen Antworten zu bearbeiten</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +38,8 @@
     <string name="save">Speichern</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Vorlagen aus der Community ansehen und eigene teilen ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Watomatic-Link anhängen, um uns zu unterstützen. Danke!</string>
-    <string name="sent_using_Watomatic">Gesendet mit git.io/watomatic</string>
-    <string name="share_app_text">\"Ich benutze Watomatic, um mich von WhatsApp zu lösen. Probiere es aus!\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Gesendet mit watomatic.app</string>
+    <string name="share_app_text">Ich benutze Watomatic, um mich von WhatsApp zu lösen. Probiere es aus: watomatic.app</string>
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
@@ -48,6 +48,13 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
+    <string name="preference_category_general_label">Allgemein</string>
+    <string name="preference_category_notifications_label">Benachrichtigungen</string>
+    <string name="preference_category_troubleshooting_label">Fehlersuche und -behebung</string>
+    <string name="enable_auto_start_label">Auto-Start aktivieren</string>
+    <string name="always_on_notification">Ständige Benachrichtigungen</string>
+    <string name="display_persistent_notification_summary">Zeigt eine dauerhafte Benachrichtigung an, um sicherzustellen, dass Watomatic nicht vom System beendet wird</string>
+    <string name="enable_auto_start_summary">Einige Geräte könnten es erfordern, Auto-Start in den Geräteeinstellungen für Watomatic manuell zu aktivieren</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +75,25 @@
     <string name="app_rating_feedback_dialog_msg">Lass uns wissen, wie wir uns verbessern können.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">Schick uns eine E-Mail</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Auto-Start Berechtigung</string>
+    <string name="running_in_the_background">Läuft im Hintergrund</string>
+    <string name="auto_start_permission_dialog_message">Erlaube die Auto-Start Berechtigung in den Geräteeinstellungen, um Watomatic automatisch zu starten.</string>
+    <string name="device_based_settings_message">Beachte: Einstellungen können variieren oder auf deinem Gerät nicht verfügbar sein</string>
+    <string name="setting_not_available_for_device">Diese Einstellung ist nicht verfügbar oder wird für dein Gerät möglicherweise nicht benötigt.</string>
+    <string name="enable_auto_start_setting">Weiter</string>
+    <string name="decline_auto_start_setting">Abbrechen</string>
+    <string name="advanced_settings">Erweiterte Einstellungen</string>
+    <string name="contact_based_reply">Kontakt-basierte Antworten</string>
+    <string name="contact_reply_type">Antwort an</string>
+    <string name="blacklist">Jeder außer ausgewählte Kontakte</string>
+    <string name="whitelist">Niemand außer ausgewählte Kontakte</string>
+    <string name="enable_contact_based_reply">Kontakt-basierte Antworten aktivieren</string>
+    <string name="select_contacts">Kontakte auswählen</string>
+    <string name="contact_selector">Kontaktauswahl</string>
+    <string name="select_all">Alle auswählen</string>
+    <string name="select_none">Keine auswählen</string>
+    <string name="contact_permission_dialog_msg">Der Lesezugriff auf die Kontakte ist erforderlich, um Namen zu filtern und diese Funktion zu aktivieren. Möchten Sie fortfahren?</string>
+    <string name="contact_permission_dialog_proceed">Weiter</string>
+    <string name="contact_permission_dialog_cancel">Abbrechen</string>
 </resources>

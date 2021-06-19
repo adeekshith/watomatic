@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Grup sohbetleri için otomatik yanıt devre dışı bırakıldı</string>
     <string name="time_picker_title">Yanıt sıklığı (BETA)</string>
     <string name="time_picker_sub_title_default">Tüm mesajlara kontrolsüz yanıt verin</string>
-    <string name="time_picker_sub_title">Her kişi \ / grup için her %1$d günde bir yanıt verin</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Yanıtlar arasındaki zaman gecikmesini düzenlemek için tıklayın</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,7 @@
     <string name="save">Kaydet</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
     <string name="append_watomatic_arribution_checkbox_label">Haberin yayılmasına yardımcı olmak için Otomatik atıf ekleyin</string>
-    <string name="sent_using_Watomatic">Git.io/watomatic kullanılarak gönderildi</string>
-    <string name="share_app_text">\"WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin! \ N https://git.io/watomatic</string>
+    <string name="share_app_text">WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin: watomatic.app</string>
     <string name="share">Paylaş</string>
     <string name="share_subject">Watomatic: WhatsApp için otomatik yanıt</string>
     <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
@@ -48,6 +46,13 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Cevaplanan mesajlar için bildirim göster</string>
+    <string name="preference_category_general_label">Genel</string>
+    <string name="preference_category_notifications_label">Bildirimler</string>
+    <string name="preference_category_troubleshooting_label">Sorun Giderme</string>
+    <string name="enable_auto_start_label">Otomatik Başlatmayı Aktif Et</string>
+    <string name="always_on_notification">Her zaman açık bildirimi</string>
+    <string name="display_persistent_notification_summary">Watomatic\'in sistem tarafından durdurulmadığından emin olmak için kalıcı bir bildirim görüntüleyin</string>
+    <string name="enable_auto_start_summary">Bazı cihazlarda, cihaz ayarlarından Watomatic için Otomatik başlatmayı manuel olarak etkinleştirmeniz gerekebilir</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -67,4 +72,25 @@
     <string name="app_rating_feedback_dialog_msg">Nasıl geliştirebileceğimiz hakkında bizi bilgilendirin.</string>
     <string name="app_rating_feedback_dialog_mail_button_title">E-posta gönderin </string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram </string>
+    <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Otomatik Başlatma İzni</string>
+    <string name="running_in_the_background">Arka planda çalıştır</string>
+    <string name="auto_start_permission_dialog_message">Watomatic\'in cihaz yeniden başlatıldığında başlamasına izin vermek için cihaz ayarlarında \"Otomatik Başlatma\" iznini etkinleştirin.</string>
+    <string name="device_based_settings_message">Not: Ayarlar cihazınıza göre değişebilir veya kullanılamayabilir</string>
+    <string name="setting_not_available_for_device">Bu ayar cihazınız için mevcut değil veya gerekli olmayabilir.</string>
+    <string name="enable_auto_start_setting">Devam Et</string>
+    <string name="decline_auto_start_setting">İptal</string>
+    <string name="advanced_settings">Gelişmiş Seçenekler</string>
+    <string name="contact_based_reply">Kişi bazlı yanıtlar</string>
+    <string name="contact_reply_type">... cevap ver</string>
+    <string name="blacklist">Seçilen kişiler dışındaki herkes</string>
+    <string name="whitelist">Seçilen kişiler dışında hiç kimse</string>
+    <string name="enable_contact_based_reply">Kişi bazlı yanıtları etkinleştir</string>
+    <string name="select_contacts">Seçili kişiler</string>
+    <string name="contact_selector">Kişi seçicisi</string>
+    <string name="select_all">Tümünü seç</string>
+    <string name="select_none">Hiçbirini seçme</string>
+    <string name="contact_permission_dialog_msg">İsimleri filtrelemek ve bu özelliği etkinleştirmek için kişi okuma erişimi gereklidir. Devam etmek istiyor musunuz?</string>
+    <string name="contact_permission_dialog_proceed">İlerle</string>
+    <string name="contact_permission_dialog_cancel">İptal</string>
 </resources>

@@ -9,13 +9,17 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.advancedsettings.AdvancedSettingsActivity;
+import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
+import com.parishod.watomatic.model.utils.ServieUtils;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private ListPreference languagePref;
-    private SwitchPreference showNotificationPref;
+    private SwitchPreference showNotificationPref, foregroundServiceNotifPref;
+    private Preference advancedPref;
     private Preference autoStartPref;
 
     @Override
@@ -46,6 +50,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 checkAutoStartPermission();
+                return true;
+            }
+        });
+
+        advancedPref = findPreference(getString(R.string.key_pref_advanced_settings));
+        advancedPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent advancedSettings = new Intent(getActivity(), AdvancedSettingsActivity.class);
+                getActivity().startActivity(advancedSettings);
+                return false;
+            }
+        });
+
+        foregroundServiceNotifPref = findPreference(getString(R.string.pref_show_foreground_service_notification));
+        foregroundServiceNotifPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if(newValue.equals(true)){
+                    ServieUtils.getInstance(getActivity()).startNotificationService();
+                }else{
+                    ServieUtils.getInstance(getActivity()).stopNotificationService();
+                }
                 return true;
             }
         });

@@ -16,6 +16,8 @@ class AboutActivity : BaseActivity () {
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = getString(R.string.about)
+
         val viewModel = ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
 
         binding.appVersion.text = String.format(resources.getString(R.string.app_version), BuildConfig.VERSION_NAME)

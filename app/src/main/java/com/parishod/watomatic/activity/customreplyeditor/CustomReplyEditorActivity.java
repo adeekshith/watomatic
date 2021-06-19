@@ -28,6 +28,8 @@ public class CustomReplyEditorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_reply_editor);
 
+        setTitle(R.string.mainAutoReplyLabel);
+
         SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
 
         customRepliesData = CustomRepliesData.getInstance(this);

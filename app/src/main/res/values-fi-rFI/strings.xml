@@ -30,7 +30,6 @@
     <string name="group_reply_off_info_message">Automaattinen vastaus ryhmäkeskusteluihin otettu pois käytöstä</string>
     <string name="time_picker_title">Vastaustiheys (BETA)</string>
     <string name="time_picker_sub_title_default">Vastaa kaikkiin viesteihin ilman rajoituksia</string>
-    <string name="time_picker_sub_title">Vastaa vain kerran %1$d päivässä\/s jokaiselle henkilölle\/ryhmälle</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Napauta muokataksesi vastausten välistä aikaviivettä</string>
     <string name="app_version">v%1$s</string>
@@ -38,8 +37,8 @@
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic-linkki auttaaksesi levittämään sanaa</string>
-    <string name="sent_using_Watomatic">Lähetetty käyttäen git.io/watomatic</string>
-    <string name="share_app_text">\"Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin!\"\n https://git.io/watomatic</string>
+    <string name="sent_using_Watomatic">Lähetetty käyttäen watomatic.app</string>
+    <string name="share_app_text">Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin: watomatic.app</string>
     <string name="share">Jaa</string>
     <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
@@ -54,4 +53,19 @@
     <!-- App Language selection -->
     <string name="app_language">Sovelluksen kieli</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Mitä mieltä olet?</string>
+    <string name="app_rating_dialog_msg">Olemme kiinnostuneita siitä, mitä mieltä olet sovelluksesta. Napauta yllä olevia tähtiä arvioidaksesi sen.</string>
+    <string name="app_rating_dialog_rate_button_title">Arvostele se!</string>
+    <string name="app_rating_dialog_rate_later_title">Ehkä myöhemmin</string>
+    <string name="app_rating_goto_store_dialog_title">Olemme iloisia!</string>
+    <string name="app_rating_goto_store_dialog_msg">Ole hyvä ja jaa tämä arvostelu sovelluksestamme Google Play Kaupassa napauttamalla \"Jatka\"!</string>
+    <string name="app_rating_pitch">Tämä sovellus on ilmainen, ei mainoksia, ei seurantaa, avointa lähdekoodia ja sen tekevät osallistujat kuten sinä ja minä.
+        Palautteesi on ainoa rohkaisumme.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">En ole kiinnostunut</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Jatka</string>
+    <string name="app_rating_feedback_dialog_title">Ota meihin yhteyttä</string>
+    <string name="app_rating_feedback_dialog_msg">Kerro meille, miten voimme parantaa.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Lähetä meille sähköpostia</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
+    <!--Autostart Permission Dialog-->
 </resources>

@@ -3,6 +3,7 @@ package com.parishod.watomatic.model.utils;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -62,7 +63,8 @@ public class NotificationHelper {
 
         Intent intent = new Intent(appContext, NotificationIntentActivity.class);
         intent.putExtra("package", packageName);
-        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, 0);
+        intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                 .setGroup("watomatic-" + packageName)
@@ -110,11 +112,13 @@ public class NotificationHelper {
     }
 
     private void setNotificationSummaryShown(String packageName){
-        packageName = packageName.replace("watomatic-", "");
-        try {
-            appsList.put(packageName, true);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(packageName != null) {
+            packageName = packageName.replace("watomatic-", "");
+            try {
+                appsList.put(packageName, true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -125,5 +129,35 @@ public class NotificationHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public NotificationCompat.Builder getForegroundServiceNotification(Service service){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Intent intent = new Intent(appContext, NotificationIntentActivity.class);
+        intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_logo_full)
+                    .setContentTitle(appContext.getString(R.string.app_name))
+                    .setContentText(appContext.getString(R.string.running_in_the_background))
+                    .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                    .setContentIntent(pIntent);
+        }else{
+            notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_logo_full)
+                    .setContentTitle(appContext.getString(R.string.app_name))
+                    .setContentText(appContext.getString(R.string.running_in_the_background))
+                    .setContentIntent(pIntent);
+        }
+
+        return notificationBuilder;
     }
 }
