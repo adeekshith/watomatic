@@ -73,7 +73,7 @@
 
     <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
-    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_general_label">General settings</string>
     <string name="preference_category_notifications_label">Notifications</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>

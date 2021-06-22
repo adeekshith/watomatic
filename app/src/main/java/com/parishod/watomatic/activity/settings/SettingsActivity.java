@@ -1,8 +1,12 @@
 package com.parishod.watomatic.activity.settings;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.parishod.watomatic.R;
@@ -17,7 +21,31 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
 
         setTitle(R.string.settings);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragmentManager.getBackStackEntryCount() > 1){
+            fragmentManager.popBackStack();
+        }else{
+            super.onBackPressed();
+        }
     }
 }
