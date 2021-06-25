@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Automaattinen vastaus ryhmäkeskusteluihin otettu pois käytöstä</string>
     <string name="time_picker_title">Vastaustiheys (BETA)</string>
     <string name="time_picker_sub_title_default">Vastaa kaikkiin viesteihin ilman rajoituksia</string>
+    <string name="time_picker_sub_title">Vastaa vain kerran joka %1$d. päivä joka henkilölle tai ryhmälle</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Napauta muokataksesi vastausten välistä aikaviivettä</string>
     <string name="app_version">v%1$s</string>
@@ -47,6 +48,13 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Näytä ilmoitus vastatuille viesteille</string>
+    <string name="preference_category_general_label">Yleinen</string>
+    <string name="preference_category_notifications_label">Ilmoitukset</string>
+    <string name="preference_category_troubleshooting_label">Vianmääritys</string>
+    <string name="enable_auto_start_label">Salli automaattinen käynnistys</string>
+    <string name="always_on_notification">Ilmoitus aina päällä</string>
+    <string name="display_persistent_notification_summary">Näytä pysyvä ilmoitus varmistaaksesi, ettei järjestelmä lopeta Watomaticia</string>
+    <string name="enable_auto_start_summary">Jotkut laitteet saattavat tarvita ottamaan automattisen käynnistyksen Watomaticille manuaalisesti käyttöön laitteen asetusten kautta</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
@@ -68,4 +76,14 @@
     <string name="app_rating_feedback_dialog_mail_button_title">Lähetä meille sähköpostia</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Automaattisen käynnistyksen käyttölupa</string>
+    <string name="running_in_the_background">Käynnissä taustalla</string>
+    <string name="auto_start_permission_dialog_message">Salli \"automaattinen käynnistys\" -käyttöoikeus laitteen asetuksissa, jotta sallit Watomaticille käynnistyksen laitteen käynnistyessä uudelleen.</string>
+    <string name="device_based_settings_message">Huomaa: Asetukset voivat vaihdella tai eivät ole saatavilla laitteesi perusteella</string>
+    <string name="setting_not_available_for_device">Tämä asetus ei ole saatavilla tai ei saata olla tarpeellinen laitteellesi.</string>
+    <string name="enable_auto_start_setting">Jatka</string>
+    <string name="decline_auto_start_setting">Peruuta</string>
+    <string name="advanced_settings">Edistyneet asetukset</string>
+    <string name="contact_based_reply">Yhteystietoihin perustuvat vastaukset</string>
+    <string name="contact_reply_type">Vastaa</string>
 </resources>
