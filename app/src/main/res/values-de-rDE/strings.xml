@@ -48,9 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
+    <string name="preference_category_general_label">Allgemeine Einstellungen</string>
     <string name="preference_category_notifications_label">Benachrichtigungen</string>
     <string name="preference_category_troubleshooting_label">Fehlersuche und -behebung</string>
     <string name="enable_auto_start_label">Auto-Start aktivieren</string>
+    <string name="add_attribution_label">Attribut hinzufügen</string>
+    <string name="enabled_apps_title">Aktivierte Apps</string>
     <string name="always_on_notification">Ständige Benachrichtigungen</string>
     <string name="display_persistent_notification_summary">Zeigt eine dauerhafte Benachrichtigung an, um sicherzustellen, dass Watomatic nicht vom System beendet wird</string>
     <string name="enable_auto_start_summary">Einige Geräte könnten es erfordern, Auto-Start in den Geräteeinstellungen für Watomatic manuell zu aktivieren</string>
@@ -82,6 +85,7 @@
     <string name="setting_not_available_for_device">Diese Einstellung ist nicht verfügbar oder wird für dein Gerät möglicherweise nicht benötigt.</string>
     <string name="enable_auto_start_setting">Weiter</string>
     <string name="decline_auto_start_setting">Abbrechen</string>
+    <string name="app_not_installed_text">Nicht installiert</string>
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="contact_based_reply">Kontakt-basierte Antworten</string>
     <string name="contact_reply_type">Antwort an</string>
