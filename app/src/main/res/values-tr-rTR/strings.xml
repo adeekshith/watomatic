@@ -46,7 +46,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Cevaplanan mesajlar için bildirim göster</string>
-    <string name="preference_category_general_label">Genel</string>
     <string name="preference_category_notifications_label">Bildirimler</string>
     <string name="preference_category_troubleshooting_label">Sorun Giderme</string>
     <string name="enable_auto_start_label">Otomatik Başlatmayı Aktif Et</string>
