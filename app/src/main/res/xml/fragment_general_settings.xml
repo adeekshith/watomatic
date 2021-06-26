@@ -12,7 +12,6 @@
             app:useSimpleSummaryProvider="true"/>
 
         <CheckBoxPreference android:title="@string/add_attribution_label"
-            android:icon="@drawable/ic_attribution"
             android:key="@string/pref_is_append_watomatic_attribution"
             android:summary="@string/append_watomatic_arribution_checkbox_label"/>
       
