@@ -48,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Показывать уведомления сообщений, на которые отправлен автоматический ответ</string>
-    <string name="preference_category_general_label">Общие</string>
     <string name="preference_category_notifications_label">Уведомления</string>
     <string name="preference_category_troubleshooting_label">Помощь</string>
     <string name="enable_auto_start_label">Запускать при загрузке</string>
