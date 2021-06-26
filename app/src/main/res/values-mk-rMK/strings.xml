@@ -48,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
-    <string name="preference_category_general_label">Општо</string>
     <string name="preference_category_notifications_label">Известувања</string>
     <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
