@@ -25,7 +25,6 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="preference_category_general_label">Ĝenerala</string>
     <string name="preference_category_notifications_label">Sciigoj</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
