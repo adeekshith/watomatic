@@ -48,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
-    <string name="preference_category_general_label">Orokorra</string>
     <string name="preference_category_notifications_label">Jakinarazpenak</string>
     <string name="preference_category_troubleshooting_label">Arazoak konpontzea</string>
     <string name="enable_auto_start_label">Gaitu abiatze automatikoa</string>
