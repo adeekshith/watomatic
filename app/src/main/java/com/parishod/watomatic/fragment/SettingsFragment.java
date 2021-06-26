@@ -21,42 +21,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey);
 
-
         showNotificationPref = findPreference(getString(R.string.pref_show_notification_replied_msg));
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             showNotificationPref.setTitle(getString(R.string.show_notification_label) + "(Beta)");
         }
 
         autoStartPref = findPreference(getString(R.string.pref_auto_start_permission));
-        autoStartPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                checkAutoStartPermission();
-                return true;
-            }
+        autoStartPref.setOnPreferenceClickListener(preference -> {
+            checkAutoStartPermission();
+            return true;
         });
 
         advancedPref = findPreference(getString(R.string.key_pref_advanced_settings));
-        advancedPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent advancedSettings = new Intent(getActivity(), AdvancedSettingsActivity.class);
-                getActivity().startActivity(advancedSettings);
-                return false;
-            }
+        advancedPref.setOnPreferenceClickListener(preference -> {
+            Intent advancedSettings = new Intent(getActivity(), AdvancedSettingsActivity.class);
+            getActivity().startActivity(advancedSettings);
+            return false;
         });
 
         foregroundServiceNotifPref = findPreference(getString(R.string.pref_show_foreground_service_notification));
-        foregroundServiceNotifPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if(newValue.equals(true)){
-                    ServieUtils.getInstance(getActivity()).startNotificationService();
-                }else{
-                    ServieUtils.getInstance(getActivity()).stopNotificationService();
-                }
-                return true;
+        foregroundServiceNotifPref.setOnPreferenceChangeListener((preference, newValue) -> {
+            if(newValue.equals(true)){
+                ServieUtils.getInstance(getActivity()).startNotificationService();
+            }else{
+                ServieUtils.getInstance(getActivity()).stopNotificationService();
             }
+            return true;
         });
     }
 
