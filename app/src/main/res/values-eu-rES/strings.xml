@@ -48,9 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
+    <string name="preference_category_general_label">Ezarpen orokorrak</string>
     <string name="preference_category_notifications_label">Jakinarazpenak</string>
     <string name="preference_category_troubleshooting_label">Arazoak konpontzea</string>
     <string name="enable_auto_start_label">Gaitu abiatze automatikoa</string>
+    <string name="add_attribution_label">Gehitu atribuzioa</string>
+    <string name="enabled_apps_title">Gaitutako aplikazioak</string>
     <string name="always_on_notification">Jakinarazpen iraunkorra</string>
     <string name="display_persistent_notification_summary">Erakutsi jakinarazpen iraunkorra ziurtatzeko sistemak ez duela Watomatic ixten</string>
     <string name="enable_auto_start_summary">Gailu batzuetan baliteke automatikoki abiatzeko aukera eskuz gaitu behar izatea gailuaren ezarpenetatik</string>
@@ -81,6 +84,7 @@
     <string name="setting_not_available_for_device">Ezarpen hau ez dago eskuragarri edo ez da behar zure gailuan.</string>
     <string name="enable_auto_start_setting">Jarraitu</string>
     <string name="decline_auto_start_setting">Utzi</string>
+    <string name="app_not_installed_text">Instalatu gabe</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="contact_based_reply">Kontaktuaren araberako erantzunak</string>
     <string name="contact_reply_type">Erantzun honi:</string>
