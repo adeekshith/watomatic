@@ -12,6 +12,11 @@ object Constants {
     const val NOTIFICATION_CHANNEL_ID = "watomatic"
     const val NOTIFICATION_CHANNEL_NAME = "watomatic_channel"
 
+    enum class EnabledAppsDisplayType{
+        VERTICAL,
+        HORIZONTAL
+    }
+
     // Beta feature flags
     const val BETA_FACEBOOK_SUPPORT_ENABLED = true
 

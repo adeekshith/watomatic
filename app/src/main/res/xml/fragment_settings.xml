@@ -3,14 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/preference_category_general_label">
-
-        <ListPreference android:title="@string/app_language"
-            app:icon="@drawable/ic_language"
-            android:key="@string/key_pref_app_language"
-            android:entries="@array/app_language"
-            android:entryValues="@array/app_language_value"
-            app:useSimpleSummaryProvider="true"/>
-
+        <Preference android:title="@string/preference_category_general_label"
+            android:fragment="com.parishod.watomatic.fragment.GeneralSettingsFragment"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preference_category_notifications_label"
@@ -25,6 +20,7 @@
             android:key="@string/pref_show_foreground_service_notification"
             android:summary="@string/display_persistent_notification_summary"
             />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preference_category_troubleshooting_label">

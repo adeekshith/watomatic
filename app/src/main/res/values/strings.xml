@@ -68,14 +68,17 @@
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
     <string name="pref_show_notification_replied_msg" translatable="false">pref_show_notification_replied_msg</string>
     <string name="pref_auto_start_permission" translatable="false">pref_auto_start_permission</string>
+    <string name="pref_is_append_watomatic_attribution" translatable="false">pref_is_append_watomatic_attribution</string>
     <string name="pref_show_foreground_service_notification" translatable="false">pref_show_foreground_service_notification</string>
 
     <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
-    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_general_label">General settings</string>
     <string name="preference_category_notifications_label">Notifications</string>
     <string name="preference_category_troubleshooting_label">Troubleshooting</string>
     <string name="enable_auto_start_label">Enable Auto Start</string>
+    <string name="add_attribution_label">Add Attribution</string>
+    <string name="enabled_apps_title">Enabled Apps</string>
     <string name="always_on_notification">Always-On notification</string>
     <string name="display_persistent_notification_summary">Display a persistent notification to ensure Watomatic is not killed by the system</string>
     <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
@@ -148,6 +151,7 @@
     <string name="setting_not_available_for_device">This setting is not available or may not be needed for your device.</string>
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
+    <string name="app_not_installed_text">Not installed</string>
     <string name="advanced_settings">Advanced settings</string>
     <string name="key_pref_advanced_settings" translatable="false">pref_advanced_settings</string>
     <string name="contact_based_reply">Contact based replies</string>

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +30,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -38,7 +40,9 @@ import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
+import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
+import com.parishod.watomatic.adapter.SupportedAppsAdapter;
 import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -80,6 +84,10 @@ public class MainFragment extends Fragment {
     private List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
     private List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
+    private RecyclerView enabledAppsList;
+    private GridLayoutManager layoutManager;
+    private SupportedAppsAdapter supportedAppsAdapter;
+    private List<App> enabledApps = new ArrayList<>();
 
     @Nullable
     @Override
@@ -98,8 +106,15 @@ public class MainFragment extends Fragment {
         groupReplySwitch = view.findViewById(R.id.groupReplySwitch);
         autoReplyTextPreviewCard = view.findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = view.findViewById(R.id.textView4);
-        supportedAppsLayout = view.findViewById(R.id.supportedPlatformsLayout);
         supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
+
+        supportedAppsCard.setOnClickListener(v -> launchEnabledAppsActivity());
+
+        enabledAppsList = view.findViewById(R.id.enabled_apps_list);
+        layoutManager = new GridLayoutManager(mActivity, getSpanCount(mActivity));
+        enabledAppsList.setLayoutManager(layoutManager);
+        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps());
+        enabledAppsList.setAdapter(supportedAppsAdapter);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
 
@@ -168,11 +183,28 @@ public class MainFragment extends Fragment {
 
         setNumDays();
 
-        createSupportedAppCheckboxes();
-
         return view;
     }
 
+    private List<App> getEnabledApps() {
+        if(enabledApps != null) {
+            enabledApps.clear();
+        }
+        enabledApps = new ArrayList<>();
+        for(App app: Constants.SUPPORTED_APPS){
+            if(preferencesManager.isAppEnabled(app)){
+                enabledApps.add(app);
+            }
+        }
+        return enabledApps;
+    }
+
+    public static int getSpanCount(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 35; // You can vary the value held by the scalingFactor
+        return (int) (dpWidth / scalingFactor);
+    }
 
     private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
         for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
@@ -183,47 +215,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void createSupportedAppCheckboxes() {
-        supportedAppsLayout.removeAllViews();
-
-        //inflate the views
-        LayoutInflater inflater = getLayoutInflater();
-        for (App supportedApp: Constants.SUPPORTED_APPS) {
-            View view = inflater.inflate(R.layout.enable_app_main_layout, null);
-
-            MaterialCheckBox checkBox = view.findViewById(R.id.platform_checkbox);
-            checkBox.setText(supportedApp.getName());
-            checkBox.setTag(supportedApp);
-            checkBox.setChecked(preferencesManager.isAppEnabled(supportedApp));
-            checkBox.setEnabled(mainAutoReplySwitch.isChecked());
-            checkBox.setOnCheckedChangeListener(supportedAppsCheckboxListener);
-            supportedAppsCheckboxes.add(checkBox);
-
-            View platformDummyView = view.findViewById(R.id.platform_dummy_view);
-            if(mainAutoReplySwitch.isChecked()){
-                platformDummyView.setVisibility(View.GONE);
-            }
-            platformDummyView.setOnClickListener(v -> {
-                if(!mainAutoReplySwitch.isChecked()){
-                    Toast.makeText(mActivity, getResources().getString(R.string.enable_auto_reply_switch_msg), Toast.LENGTH_SHORT).show();
-                }
-            });
-            supportedAppsDummyViews.add(platformDummyView);
-            supportedAppsLayout.addView(view);
-        }
-    }
-
-    private CompoundButton.OnCheckedChangeListener supportedAppsCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (!isChecked && preferencesManager.getEnabledApps().size() <= 1) { // Keep at-least one app selected
-                Toast.makeText(mActivity, getResources().getString(R.string.error_atleast_single_app_must_be_selected), Toast.LENGTH_SHORT).show();
-                buttonView.setChecked(true);
-            } else {
-                preferencesManager.saveEnabledApps((App) buttonView.getTag(), isChecked);
-            }
-        }
-    };
 
     private void saveNumDays(){
         preferencesManager.setAutoReplyDelay(days * 24 * 60 * 60 * 1000);//Save in Milliseconds
@@ -261,6 +252,11 @@ public class MainFragment extends Fragment {
 
         // Set user auto reply text
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
+
+        // Update enabled apps list
+        if(supportedAppsAdapter != null) {
+            supportedAppsAdapter.updateList(getEnabledApps());
+        }
 
         showAppRatingPopup();
 
@@ -565,6 +561,11 @@ public class MainFragment extends Fragment {
 
     private void loadSettingsActivity(){
         Intent intent = new Intent(mActivity, SettingsActivity.class);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchEnabledAppsActivity(){
+        Intent intent = new Intent(mActivity, EnabledAppsActivity.class);
         mActivity.startActivity(intent);
     }
 

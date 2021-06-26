@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.utils.AppUtils;
 import com.parishod.watomatic.model.utils.Constants;
 
 import java.lang.reflect.Type;
@@ -143,9 +144,13 @@ public class PreferencesManager {
     }
 
     public String setAppsAsEnabled (Collection<App> apps) {
+        AppUtils appUtils = AppUtils.getInstance(thisAppContext);
         Set<String> packageNames = new HashSet<>();
         for (App app: apps) {
-            packageNames.add(app.getPackageName());
+            //check if the app is installed only then add it to enabled list
+            if(appUtils.isPackageInstalled(app.getPackageName())) {
+                packageNames.add(app.getPackageName());
+            }
         }
         return serializeAndSetEnabledPackageList(packageNames);
     }

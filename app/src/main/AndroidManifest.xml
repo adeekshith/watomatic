@@ -12,6 +12,7 @@
         <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
         <package android:name="com.facebook.orca" />
+        <package android:name="com.facebook.mlite" />
     </queries>
 
     <application
@@ -77,6 +78,10 @@
             android:launchMode="singleTop"
             >
         </activity>
+
+        <activity android:name=".activity.enabledapps.EnabledAppsActivity"
+            android:label="@string/enabled_apps_title"
+            android:parentActivityName=".activity.main.MainActivity"/>
 
         <service
             android:name="com.parishod.watomatic.NotificationService"
