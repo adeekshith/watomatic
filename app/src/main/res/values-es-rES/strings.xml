@@ -48,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostrar una notificación para los mensajes respondidos</string>
-    <string name="preference_category_general_label">General</string>
     <string name="preference_category_notifications_label">Notificaciones</string>
     <string name="preference_category_troubleshooting_label">Resolución de problemas</string>
     <string name="enable_auto_start_label">Habilitar el inicio automático</string>
