@@ -11,7 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Erantzun automatikoa OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Erantzun automatikoa ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Egin ttap erantzun automatikoaren testua editatzeko</string>
-    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsaap eta Facebook Messenger atzean uzten laguntzeko</string>
+    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsapp eta Facebook Messenger atzean uzten laguntzeko</string>
     <string name="decline">Errefusatu</string>
     <string name="accept">Onartu</string>
     <string name="sure">Ziur nago</string>
