@@ -1,5 +1,6 @@
 package com.parishod.watomatic.model.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,16 +9,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.parishod.watomatic.databinding.ContactListRowBinding;
 import com.parishod.watomatic.model.data.ContactHolder;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
     private final ArrayList<ContactHolder> contactHolderArrayList;
+    private Set<String> contactArrayCheckpoint = new HashSet<>();
+    private final Context mContext;
 
-    public ContactListAdapter(ArrayList<ContactHolder> contactHolderArrayList) {
+    public ContactListAdapter(Context context, ArrayList<ContactHolder> contactHolderArrayList) {
         this.contactHolderArrayList = contactHolderArrayList;
+        mContext = context;
     }
 
     @NonNull
@@ -33,8 +40,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         ContactListRowBinding binding = holder.getBinding();
         binding.contactCheckbox.setChecked(contactHolderArrayList.get(position).isChecked());
         binding.contactCheckbox.setText(contactHolderArrayList.get(position).getContactName());
-        binding.contactCheckbox.setOnCheckedChangeListener((buttonView, isChecked) ->
-                contactHolderArrayList.get(position).setChecked(isChecked));
+        binding.contactCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                contactHolderArrayList.get(position).setChecked(isChecked);
+                saveSelectedContactList();
+        });
     }
 
     @Override
@@ -42,6 +51,28 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         ContactListRowBinding binding = holder.getBinding();
         binding.contactCheckbox.setOnCheckedChangeListener(null);
         super.onViewRecycled(holder);
+    }
+
+    public void saveSelectedContactList() {
+        Set<String> selectedContacts = new HashSet<>();
+        for (ContactHolder contact : contactHolderArrayList) {
+            if (contact.isChecked()) selectedContacts.add(contact.getContactName());
+        }
+        PreferencesManager.getPreferencesInstance(mContext).setReplyToNames(selectedContacts);
+    }
+
+    public void createCheckpoint() {
+        contactArrayCheckpoint = new HashSet<>();
+        for (ContactHolder contact : contactHolderArrayList) {
+            if (contact.isChecked()) contactArrayCheckpoint.add(contact.getContactName());
+        }
+    }
+
+    public void restoreCheckpoint() {
+        for (ContactHolder contact : contactHolderArrayList) {
+            contact.setChecked(contactArrayCheckpoint.contains(contact.getContactName()));
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -54,7 +85,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         return position;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private final ContactListRowBinding binding;
         public ViewHolder(@NonNull @NotNull ContactListRowBinding binding) {
             super(binding.getRoot());
