@@ -48,9 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
+    <string name="preference_category_general_label">Configuració general</string>
     <string name="preference_category_notifications_label">Notificacions</string>
     <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
     <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
+    <string name="add_attribution_label">Afegeix una atribució</string>
+    <string name="enabled_apps_title">Aplicacions habilitades</string>
     <string name="always_on_notification">Mostra sempre les notificacions</string>
     <string name="display_persistent_notification_summary">Mostra una notificació persistent per evitar que el Watomatic sigui tancat pel sistema</string>
     <string name="enable_auto_start_summary">Alguns dispositius necessiten que activeu de forma manual l\'inici automàtic per al Watomatic des del panel de configuració del dispositiu</string>
@@ -82,6 +85,7 @@
     <string name="setting_not_available_for_device">Aquesta opció no està disponible o no és necessària al vostre dispositiu.</string>
     <string name="enable_auto_start_setting">Continua</string>
     <string name="decline_auto_start_setting">Cancel·la</string>
+    <string name="app_not_installed_text">Sense instal·lar</string>
     <string name="advanced_settings">Opcions avançades</string>
     <string name="contact_based_reply">Respostes basades en contactes</string>
     <string name="contact_reply_type">Respon a</string>
