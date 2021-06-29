@@ -99,4 +99,7 @@
     <string name="contact_permission_dialog_msg">Der Lesezugriff auf die Kontakte ist erforderlich, um Namen zu filtern und diese Funktion zu aktivieren. Möchten Sie fortfahren?</string>
     <string name="contact_permission_dialog_proceed">Weiter</string>
     <string name="contact_permission_dialog_cancel">Abbrechen</string>
+    <string name="undo">Rückgängig machen</string>
+    <string name="all_contacts_selected">Alle Kontakte ausgewählt</string>
+    <string name="all_contacts_unselected">Alle Kontakte nicht ausgewählt</string>
 </resources>
