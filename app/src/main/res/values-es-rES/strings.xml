@@ -99,4 +99,7 @@
     <string name="contact_permission_dialog_msg">El acceso a contactos es requerido para filtrar nombres y habilitar esta función. ¿Quieres continuar?</string>
     <string name="contact_permission_dialog_proceed">Proceder</string>
     <string name="contact_permission_dialog_cancel">Cancelar</string>
+    <string name="undo">Deshacer</string>
+    <string name="all_contacts_selected">Todos los contactos seleccionados</string>
+    <string name="all_contacts_unselected">Todos los contactos desseleccionados</string>
 </resources>
