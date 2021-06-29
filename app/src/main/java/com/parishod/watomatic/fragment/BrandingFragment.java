@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,7 @@ public class BrandingFragment extends Fragment {
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
     private int gitHubReleaseNotesId = -1;
+    private RelativeLayout circularProgressBarLayout;
 
     @Nullable
     @Override
@@ -77,6 +79,13 @@ public class BrandingFragment extends Fragment {
         });
 
         getGthubReleaseNotes();
+
+        if(BuildConfig.FLAVOR.equalsIgnoreCase("Default")){
+            share_layout.setVisibility(View.GONE);
+
+            circularProgressBarLayout = view.findViewById(R.id.circularProgressBar);
+            circularProgressBarLayout.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

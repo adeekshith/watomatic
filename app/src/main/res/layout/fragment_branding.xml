@@ -29,7 +29,7 @@
         android:textColor="?attr/colorControlNormal"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/share_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,12 +46,19 @@
         android:textColor="?attr/colorControlNormal"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/share_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/watomaticGithubBtn"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:drawableLeft="@drawable/ic_dot" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.89" />
 
     <!-- App share button -->
     <ImageButton
@@ -64,5 +71,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/circularProgressBar"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        >
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cpb_background_progressbar_color="#b43041"
+            app:cpb_background_progressbar_width="15dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#599c0e"
+            app:cpb_progressbar_width="15dp"
+            app:cpb_progress="10"
+            app:cpb_progress_max="100"
+            app:cpb_round_border="false"
+            app:cpb_indeterminate_mode="false"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:text="$"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
