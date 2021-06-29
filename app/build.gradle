@@ -49,6 +49,15 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    flavorDimensions 'version'
+    productFlavors {
+        GooglePlay {
+            dimension 'version'
+        }
+        Default {
+            dimension 'version'
+        }
+    }
 }
 
 dependencies {
