@@ -90,4 +90,7 @@
     <string name="contact_permission_dialog_msg">தொடர்புகளை வடிகட்டும் இந்த வசதியை பெற சாதனத்தின் தொடர்புகளை படிக்கும் அனுமதி வேண்டும். தொடர விரும்புகிறீர்களா?</string>
     <string name="contact_permission_dialog_proceed">தொடரவும்</string>
     <string name="contact_permission_dialog_cancel">ரத்து செய்</string>
+    <string name="undo">செயல்தவிர்</string>
+    <string name="all_contacts_selected">அனைத்து தொடர்புகளும் தேர்ந்தெடுக்கப்பட்டுள்ளன</string>
+    <string name="all_contacts_unselected">அனைத்து தொடர்புகளும் தேர்வு நீக்கம் செய்யப்பட்டுள்ளன</string>
 </resources>
