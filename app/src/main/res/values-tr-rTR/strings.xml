@@ -96,4 +96,5 @@
     <string name="contact_permission_dialog_msg">İsimleri filtrelemek ve bu özelliği etkinleştirmek için kişi okuma erişimi gereklidir. Devam etmek istiyor musunuz?</string>
     <string name="contact_permission_dialog_proceed">İlerle</string>
     <string name="contact_permission_dialog_cancel">İptal</string>
+    <string name="undo">Geri Al</string>
 </resources>
