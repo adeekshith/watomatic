@@ -48,9 +48,11 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
+    <string name="preference_category_general_label">Општи поставки</string>
     <string name="preference_category_notifications_label">Известувања</string>
     <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="enabled_apps_title">Овозможени апликации</string>
     <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -78,6 +80,7 @@
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
+    <string name="app_not_installed_text">Не е инсталирана</string>
     <string name="advanced_settings">Напредни поставки</string>
     <string name="contact_based_reply">Одговори базирани на контакти</string>
     <string name="contact_reply_type">Одговори на</string>
@@ -88,4 +91,6 @@
     <string name="contact_selector">Избор на контакти</string>
     <string name="contact_permission_dialog_proceed">Продолжи</string>
     <string name="contact_permission_dialog_cancel">Откажи</string>
+    <string name="undo">Врати</string>
+    <string name="all_contacts_selected">Избрани се сите контакти</string>
 </resources>
