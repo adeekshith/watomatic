@@ -26,11 +26,11 @@
     <string name="error_atleast_single_app_must_be_selected">Грешка: Изберете најмалку една апликација</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Автоматски одговор за групни разговори</string>
-    <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
-    <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
+    <string name="group_reply_on_info_message">Вклучен автоматски одговор за групни разговори</string>
+    <string name="group_reply_off_info_message">Искличен автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
     <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
-    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден(а) на секоја личност или група</string>
+    <string name="time_picker_sub_title">Одговори само еднаш на секои %1$d ден(а) на секоја личност или група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -52,6 +52,7 @@
     <string name="preference_category_notifications_label">Известувања</string>
     <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="add_attribution_label">Додај атрибут</string>
     <string name="enabled_apps_title">Овозможени апликации</string>
     <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
@@ -89,6 +90,9 @@
     <string name="enable_contact_based_reply">Овозможи одговори базирани на контакти</string>
     <string name="select_contacts">Избери контакти</string>
     <string name="contact_selector">Избор на контакти</string>
+    <string name="select_all">Избери ги сите</string>
+    <string name="select_none">Отстрани избор</string>
+    <string name="contact_permission_dialog_msg">Потребен е пристап до контактите за филтрирање на имињата и овозможување на оваа функција. Дали сакате да продолжите?</string>
     <string name="contact_permission_dialog_proceed">Продолжи</string>
     <string name="contact_permission_dialog_cancel">Откажи</string>
     <string name="undo">Врати</string>
