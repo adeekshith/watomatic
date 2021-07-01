@@ -171,4 +171,15 @@
     <string name="contact_permission_dialog_msg">Contact read access is required in order to filter names and enable this feature. Do you want to continue?</string>
     <string name="contact_permission_dialog_proceed">Proceed</string>
     <string name="contact_permission_dialog_cancel">Cancel</string>
+
+    <string name="donations_activity_title">Donations</string>
+    <string name="donations_data_fetch_error">Something went wrong, please try again later</string>
+    <string name="donations_goal_title_20">Survive</string>
+    <string name="donations_goal_20">Keep the project alive including daily maintenance and critical fixes</string>
+    <string name="donations_goal_title_30">Reliable</string>
+    <string name="donations_goal_30">Help afford better testing infrastructure and improve reliability</string>
+    <string name="donations_goal_title_70">Improve</string>
+    <string name="donations_goal_70">Support minor feature additions and better user interface</string>
+    <string name="donations_goal_title_100">Next Level</string>
+    <string name="donations_goal_100">Help make Watomatic the most powerful auto reply app</string>
 </resources>

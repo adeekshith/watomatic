@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.donation.DonationActivity;
 import com.parishod.watomatic.model.GithubReleaseNotes;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.network.GetReleaseNotesService;
@@ -85,6 +86,10 @@ public class BrandingFragment extends Fragment {
 
             circularProgressBarLayout = view.findViewById(R.id.circularProgressBar);
             circularProgressBarLayout.setVisibility(View.VISIBLE);
+            circularProgressBarLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), DonationActivity.class);
+                startactivity(intent);
+            });
         }
 
         return view;
