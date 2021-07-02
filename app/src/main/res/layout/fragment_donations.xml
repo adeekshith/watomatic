@@ -4,11 +4,31 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/donation_pct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="20%"
+        android:textAlignment="center"
+        android:tooltipText="Current donation progress"
+        android:textSize="60sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/donation_progress_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="of monthly goal"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/donation_pct"/>
+
     <com.transferwise.sequencelayout.SequenceLayout
         android:id="@+id/donationsProgressLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donation_progress_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline_above_donation_btns"
