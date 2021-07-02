@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,12 +12,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/librapay"
+        app:layout_constraintBottom_toTopOf="@id/guideline_above_donation_btns"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp">
 
     </com.transferwise.sequencelayout.SequenceLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_above_donation_btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/librapay"
@@ -25,6 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/paypal"
+        app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
         android:layout_marginBottom="10dp"
         android:paddingStart="10dp"
         android:background="@drawable/donation_btn_background"
@@ -41,6 +49,7 @@
         app:layout_constraintStart_toEndOf="@+id/librapay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
         android:layout_marginBottom="10dp"
         android:paddingStart="10dp"
         android:background="@drawable/donation_btn_background"
