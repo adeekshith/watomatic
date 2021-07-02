@@ -8,8 +8,6 @@
         android:id="@+id/donationsProgressLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:progressForegroundColor="@color/design_default_color_primary"
-        app:progressBackgroundColor="@color/material_on_background_disabled"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
