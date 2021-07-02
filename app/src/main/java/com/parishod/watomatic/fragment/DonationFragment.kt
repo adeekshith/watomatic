@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_donations.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.roundToInt
 
 class DonationFragment: Fragment() {
     private val url = "https://home.deekshith.in/tmp/donations.txt"
@@ -79,6 +80,8 @@ class DonationFragment: Fragment() {
         val totalGoal : Float = response.subSequence(totalGoalStartIndex + "total-goal = ".length, unitStartIndex).toString().toFloat()
 
         val percentReceived = (donationReceived * 100) / totalGoal
+
+        fragmentView.donation_pct.text = percentReceived.roundToInt().toString() + "%"
 
         val items = getData()
         when {

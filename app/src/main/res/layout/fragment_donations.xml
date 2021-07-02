@@ -8,7 +8,7 @@
         android:id="@+id/donation_pct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="20%"
+        android:text="0%"
         android:textAlignment="center"
         android:tooltipText="Current donation progress"
         android:textSize="60sp"
