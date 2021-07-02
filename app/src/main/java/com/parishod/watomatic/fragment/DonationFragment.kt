@@ -106,7 +106,7 @@ class DonationFragment: Fragment() {
     }
 
     private fun getData() = listOf(
-        DonationProgressItem(false, "0%", "", ""),
+        DonationProgressItem(false, "0%", resources.getString(R.string.donations_goal_title_0), resources.getString(R.string.donations_goal_0)),
         DonationProgressItem(false, "20%", resources.getString(R.string.donations_goal_title_20), resources.getString(R.string.donations_goal_20)),
         DonationProgressItem(false, "30%", resources.getString(R.string.donations_goal_title_30),resources.getString(R.string.donations_goal_30)),
         DonationProgressItem(false, "70%", resources.getString(R.string.donations_goal_title_70),resources.getString(R.string.donations_goal_70)),
