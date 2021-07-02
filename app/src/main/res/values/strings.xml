@@ -171,6 +171,9 @@
     <string name="contact_permission_dialog_msg">Contact read access is required in order to filter names and enable this feature. Do you want to continue?</string>
     <string name="contact_permission_dialog_proceed">Proceed</string>
     <string name="contact_permission_dialog_cancel">Cancel</string>
+    <string name="undo">Undo</string>
+    <string name="all_contacts_selected">All contacts selected</string>
+    <string name="all_contacts_unselected">All contacts unselected</string>
 
     <string name="donations_activity_title">Donations</string>
     <string name="donations_data_fetch_error">Something went wrong, please try again later</string>

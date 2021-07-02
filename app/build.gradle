@@ -23,6 +23,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    //Disable split language resources on .aab, necessary to allow the language changing
+    //option to work
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
     buildTypes {
         release {
             // Enables code shrinking, obfuscation, and optimization for only

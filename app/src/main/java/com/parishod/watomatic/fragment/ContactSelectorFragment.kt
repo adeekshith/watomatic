@@ -1,9 +1,12 @@
 package com.parishod.watomatic.fragment
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.parishod.watomatic.R
 import com.parishod.watomatic.databinding.FragmentContactSelectorBinding
 import com.parishod.watomatic.model.adapters.ContactListAdapter
@@ -12,7 +15,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.ContactsHelper
 import java.util.*
 
-class ContactSelectorFragment: Fragment() {
+class ContactSelectorFragment : Fragment() {
 
     private var _binding: FragmentContactSelectorBinding? = null
     private val binding get() = _binding!!
@@ -21,11 +24,6 @@ class ContactSelectorFragment: Fragment() {
     private lateinit var prefs: PreferencesManager
 
     private lateinit var contactList: ArrayList<ContactHolder>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,41 +44,35 @@ class ContactSelectorFragment: Fragment() {
         contactList = contactsHelper.contactList
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
-        binding.contactList.adapter = ContactListAdapter(contactList)
+        binding.contactList.adapter = ContactListAdapter(activity, contactList)
 
         binding.buttonSelectAll.setOnClickListener {
-            for (contact in contactList) {
-                contact.isChecked = true
-            }
-            binding.contactList.adapter!!.notifyDataSetChanged()
+            toggleSelection(true)
         }
 
         binding.buttonSelectNone.setOnClickListener {
-            for (contact in contactList) {
-                contact.isChecked = false
-            }
-            binding.contactList.adapter!!.notifyDataSetChanged()
+            toggleSelection(false)
         }
     }
 
-    private fun saveAndExit() {
-        val selectedContacts = HashSet<String>()
+    private fun toggleSelection(checked: Boolean) {
+        val adapter = (binding.contactList.adapter!! as ContactListAdapter)
+        adapter.createCheckpoint()
         for (contact in contactList) {
-            if (contact.isChecked) selectedContacts.add(contact.contactName)
+            contact.isChecked = checked
         }
-        prefs.replyToNames = selectedContacts
-        activity?.finish()
-    }
+        adapter.saveSelectedContactList()
+        adapter.notifyDataSetChanged()
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.save_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.ic_save -> saveAndExit()
+        val snackbar = Snackbar.make(
+            binding.root,
+            if (checked) R.string.all_contacts_selected else R.string.all_contacts_unselected,
+            Snackbar.LENGTH_LONG
+        )
+        snackbar.setAction(R.string.undo) {
+            adapter.restoreCheckpoint()
+            adapter.saveSelectedContactList()
         }
-        return super.onOptionsItemSelected(item)
+        snackbar.show()
     }
 }
