@@ -1,9 +1,11 @@
 package com.parishod.watomatic.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.adapters.DonationsAdapter
@@ -23,7 +25,19 @@ class DonationFragment: Fragment() {
 
         fetchDonationsProgressData()
 
+        fragmentView.librapay.setOnClickListener {
+            launchUrl("https://liberapay.com/dk")
+        }
+        fragmentView.paypal.setOnClickListener{
+            launchUrl("https://paypal.me/deek")
+        }
         return fragmentView
+    }
+
+    private fun launchUrl(url: String) {
+        val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
+        val customTabsIntent: CustomTabsIntent = builder.build()
+        customTabsIntent.launchUrl(fragmentView.context, Uri.parse(url))
     }
 
     private fun fetchDonationsProgressData() {

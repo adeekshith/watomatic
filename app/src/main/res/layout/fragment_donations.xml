@@ -13,10 +13,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/librapay"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
 
     </com.transferwise.sequencelayout.SequenceLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/librapay"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/paypal"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/donation_btn_background"
+        android:text="Liberapay"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:drawableStart="@drawable/ic_liberapay"
+        android:drawablePadding="10dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/paypal"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/librapay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/donation_btn_background"
+        android:text="Paypal"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:drawableStart="@drawable/ic_paypal"
+        android:drawablePadding="10dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/errorText"
