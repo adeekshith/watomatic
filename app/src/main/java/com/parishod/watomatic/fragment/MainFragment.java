@@ -324,8 +324,7 @@ public class MainFragment extends Fragment {
 
     private void launchEmailCompose() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setType("plain/text");
-        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.setDataAndType(Uri.parse("mailto:"), "plain/text"); // only email apps should handle this
         intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.EMAIL_ADDRESS});
         intent.putExtra(Intent.EXTRA_SUBJECT, Constants.EMAIL_SUBJECT);
         if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
