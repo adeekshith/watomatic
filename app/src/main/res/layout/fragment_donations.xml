@@ -4,21 +4,45 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/donation_pct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:textAlignment="center"
+        android:tooltipText="Current donation progress"
+        android:textSize="60sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/donation_progress_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/donation_progress_label"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/donation_pct"/>
+
     <com.transferwise.sequencelayout.SequenceLayout
         android:id="@+id/donationsProgressLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:progressForegroundColor="@color/design_default_color_primary"
-        app:progressBackgroundColor="@color/material_on_background_disabled"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donation_progress_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/librapay"
+        app:layout_constraintBottom_toTopOf="@id/guideline_above_donation_btns"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp">
 
     </com.transferwise.sequencelayout.SequenceLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_above_donation_btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/librapay"
@@ -27,10 +51,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/paypal"
+        app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
         android:layout_marginBottom="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="0dp"
         android:background="@drawable/donation_btn_background"
-        android:text="Liberapay"
+        android:text="@string/liberapay"
         android:textColor="@color/white"
         android:textAlignment="textStart"
         android:drawableStart="@drawable/ic_liberapay"
@@ -43,10 +69,12 @@
         app:layout_constraintStart_toEndOf="@+id/librapay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
         android:layout_marginBottom="10dp"
         android:paddingStart="10dp"
+        android:paddingEnd="0dp"
         android:background="@drawable/donation_btn_background"
-        android:text="Paypal"
+        android:text="@string/paypal"
         android:textColor="@color/white"
         android:textAlignment="textStart"
         android:drawableStart="@drawable/ic_paypal"
