@@ -1,11 +1,11 @@
 package com.parishod.watomatic.fragment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.adapters.DonationsAdapter
@@ -35,9 +35,8 @@ class DonationFragment: Fragment() {
     }
 
     private fun launchUrl(url: String) {
-        val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
-        val customTabsIntent: CustomTabsIntent = builder.build()
-        customTabsIntent.launchUrl(fragmentView.context, Uri.parse(url))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun fetchDonationsProgressData() {
