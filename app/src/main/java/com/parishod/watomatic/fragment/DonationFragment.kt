@@ -76,13 +76,9 @@ class DonationFragment: Fragment() {
 
         val receivedStartIndex : Int = response.indexOf("total-received-pct = ", 0, false)
         val totalGoalStartIndex : Int = response.indexOf("total-goal = ", receivedStartIndex, false)
-        val unitStartIndex : Int = response.indexOf("unit = ", totalGoalStartIndex, false)
-        val donationReceived : Float = response.subSequence(receivedStartIndex + "total-received-pct = ".length, totalGoalStartIndex).toString().toFloat()
-        val totalGoal : Float = response.subSequence(totalGoalStartIndex + "total-goal = ".length, unitStartIndex).toString().toFloat()
+        val percentReceived : Float = response.subSequence(receivedStartIndex + "total-received-pct = ".length, totalGoalStartIndex).toString().toFloat()
 
-        val percentReceived = (donationReceived * 100) / totalGoal
-
-        fragmentView.donation_pct.text = percentReceived.roundToInt().toString() + "%"
+        fragmentView.donation_pct.text = "$percentReceived%"
 
         val items = getData()
         when {
