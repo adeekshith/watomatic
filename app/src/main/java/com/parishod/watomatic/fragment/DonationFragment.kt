@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -70,6 +71,7 @@ class DonationFragment: Fragment() {
         fragmentView.errorText.text = message?:resources.getString(R.string.donations_data_fetch_error)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun parseResponse(response: String) {
         fragmentView.progress.visibility = View.GONE
 
