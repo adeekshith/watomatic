@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.89" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <!-- App share button -->
     <ImageButton
@@ -68,41 +68,36 @@
         android:layout_margin="15dp"
         android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_share"
+        app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/circularProgressBar"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
         >
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cpb_background_progressbar_color="#b43041"
-            app:cpb_background_progressbar_width="15dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="#599c0e"
-            app:cpb_progressbar_width="15dp"
-            app:cpb_progress="10"
-            app:cpb_progress_max="100"
-            app:cpb_round_border="false"
-            app:cpb_indeterminate_mode="false"
-            android:layout_centerHorizontal="true"
-            />
+            app:trackThickness="15dp"
+            app:trackColor="#b43041"
+            android:progress="15"
+            app:indicatorColor="#599c0e"
+            app:indicatorSize="32dp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:paddingTop="5dp"
             android:textColor="@color/white"
             android:text="$"
             android:textStyle="bold"
