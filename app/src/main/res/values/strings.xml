@@ -187,4 +187,7 @@
     <string name="donations_goal_70">Minor features and interface improvements</string>
     <string name="donations_goal_title_100">Boost mode</string>
     <string name="donations_goal_100">Help us make it a powerful auto reply app with lots of advanced features</string>
+    <string name="donation_progress_label">of monthly goal</string>
+    <string name="liberapay" translatable="false">Liberapay</string>
+    <string name="paypal" translatable="false">Paypal</string>
 </resources>
