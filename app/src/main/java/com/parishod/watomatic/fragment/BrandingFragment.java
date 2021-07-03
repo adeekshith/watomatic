@@ -88,7 +88,7 @@ public class BrandingFragment extends Fragment {
             circularProgressBarLayout.setVisibility(View.VISIBLE);
             circularProgressBarLayout.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), DonationActivity.class);
-                startactivity(intent);
+                startActivity(intent);
             });
         }
 
