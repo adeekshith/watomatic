@@ -75,8 +75,9 @@ class DonationFragment: Fragment() {
         fragmentView.progress.visibility = View.GONE
 
         val percentReceived: Float = response.lines()
-            .find { thisStr -> thisStr.startsWith("total-received-pct =") }
-            ?.substringAfterLast("=")?.trim()?.toFloat() ?: 0F;
+            .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
+            .find { kvp -> kvp.first().equals("total-received-pct") }
+            ?.last()?.toFloat() ?: 0F;
 
         fragmentView.donation_pct.text = "$percentReceived%"
 
