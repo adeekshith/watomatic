@@ -70,7 +70,6 @@ class DonationFragment: Fragment() {
         fragmentView.errorText.text = message?:resources.getString(R.string.donations_data_fetch_error)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun parseResponse(response: String) {
         fragmentView.progress.visibility = View.GONE
 
