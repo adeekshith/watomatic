@@ -74,9 +74,9 @@ class DonationFragment: Fragment() {
     private fun parseResponse(response: String) {
         fragmentView.progress.visibility = View.GONE
 
-        val receivedStartIndex : Int = response.indexOf("total-received-pct = ", 0, false)
-        val totalGoalStartIndex : Int = response.indexOf("total-goal = ", receivedStartIndex, false)
-        val percentReceived : Float = response.subSequence(receivedStartIndex + "total-received-pct = ".length, totalGoalStartIndex).toString().toFloat()
+        val percentReceived: Float = response.lines()
+            .find { thisStr -> thisStr.startsWith("total-received-pct =") }
+            ?.substringAfterLast("=")?.trim()?.toFloat() ?: 0F;
 
         fragmentView.donation_pct.text = "$percentReceived%"
 
