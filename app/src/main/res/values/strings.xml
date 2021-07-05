@@ -176,7 +176,7 @@
     <string name="all_contacts_unselected">All contacts unselected</string>
 
     <string name="donations_activity_title">Donations</string>
-    <string name="donations_data_fetch_error">Something went wrong, please try again later</string>
+    <string name="donations_data_fetch_error">Unable to fetch latest data</string>
     <string name="donations_goal_title_0">Struggling</string>
     <string name="donations_goal_0">Every penny counts to help it survive</string>
     <string name="donations_goal_title_20">Just Surviving</string>

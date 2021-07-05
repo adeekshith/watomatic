@@ -53,11 +53,13 @@ class DonationFragment: Fragment() {
                     }
                 }else{
                     showDonationProgressData(0F)
+                    Toast.makeText(activity, resources.getString(R.string.donations_data_fetch_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<String?>, t: Throwable) {
                 showDonationProgressData(0F)
+                Toast.makeText(activity, resources.getString(R.string.donations_data_fetch_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
