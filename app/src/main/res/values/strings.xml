@@ -177,13 +177,13 @@
 
     <string name="donations_activity_title">Donations</string>
     <string name="donations_data_fetch_error">Something went wrong, please try again later</string>
-    <string name="donations_goal_title_0">Drowning</string>
+    <string name="donations_goal_title_0">Struggling</string>
     <string name="donations_goal_0">Every penny counts to help it survive</string>
-    <string name="donations_goal_title_20">Surviving</string>
+    <string name="donations_goal_title_20">Just Surviving</string>
     <string name="donations_goal_20">Supports daily maintenance and critical fixes</string>
-    <string name="donations_goal_title_30">Nothing new but healthy</string>
+    <string name="donations_goal_title_30">Stable</string>
     <string name="donations_goal_30">Quicker bug fixes and keeping it current</string>
-    <string name="donations_goal_title_70">Slow progress</string>
+    <string name="donations_goal_title_70">Slow and steady progress</string>
     <string name="donations_goal_70">Minor features and interface improvements</string>
     <string name="donations_goal_title_100">Boost mode</string>
     <string name="donations_goal_100">Help us make it a powerful auto reply app with lots of advanced features</string>
