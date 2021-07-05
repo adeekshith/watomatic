@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.adapters.DonationsAdapter
@@ -51,25 +52,19 @@ class DonationFragment: Fragment() {
                         parseResponse(it)
                     }
                 }else{
-                    showError(resources.getString(R.string.donations_data_fetch_error))
+                    showDonationProgressData(0F)
                 }
             }
 
             override fun onFailure(call: Call<String?>, t: Throwable) {
-                showError(t.localizedMessage)
+                showDonationProgressData(0F)
             }
         })
     }
 
-    private fun showError(message: String?) {
-        fragmentView.progress.visibility = View.GONE
 
-        fragmentView.errorText.visibility = View.VISIBLE
-        fragmentView.errorText.text = message?:resources.getString(R.string.donations_data_fetch_error)
-    }
 
     private fun parseResponse(response: String) {
-        fragmentView.progress.visibility = View.GONE
 
         val percentReceived: Float = response.lines()
             .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
@@ -82,6 +77,7 @@ class DonationFragment: Fragment() {
     }
 
     private fun showDonationProgressData(percentReceived: Float){
+        fragmentView.progress.visibility = View.GONE
         val items = getData()
         when {
             percentReceived < 15 -> {
