@@ -1,6 +1,5 @@
 package com.parishod.watomatic.fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_donations.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.roundToInt
 
 class DonationFragment: Fragment() {
     private val url = "https://home.deekshith.in/tmp/donations.txt"
@@ -76,10 +74,14 @@ class DonationFragment: Fragment() {
         val percentReceived: Float = response.lines()
             .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
             .find { kvp -> kvp.first().equals("total-received-pct") }
-            ?.last()?.toFloat() ?: 0F;
+            ?.last()?.toFloat() ?: 0F
 
         fragmentView.donation_pct.text = "$percentReceived%"
 
+        showDonationProgressData(percentReceived)
+    }
+
+    private fun showDonationProgressData(percentReceived: Float){
         val items = getData()
         when {
             percentReceived < 15 -> {
@@ -98,11 +100,8 @@ class DonationFragment: Fragment() {
                 items.elementAt(4).isActive = true
             }
         }
-        showDonationProgressData(items)
-    }
-
-    private fun showDonationProgressData(items: List<DonationProgressItem>){
         fragmentView.donationsProgressLayout.setAdapter(DonationsAdapter(items))
+        fragmentView.donationsProgressLayout.visibility = View.VISIBLE
     }
 
     private fun getData() = listOf(
