@@ -106,4 +106,5 @@
     <string name="donations_data_fetch_error">No s\'ha pogut recuperar les dades més recents</string>
     <string name="donations_goal_0">Cada cèntim compta per sobreviure</string>
     <string name="donations_goal_title_30">Estable</string>
+    <string name="donation_progress_label">de l\'objectiu mensual</string>
 </resources>
