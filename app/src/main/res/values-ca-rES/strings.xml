@@ -104,8 +104,14 @@
     <string name="all_contacts_unselected">No s\'ha seleccionat cap contacte</string>
     <string name="donations_activity_title">Donacions</string>
     <string name="donations_data_fetch_error">No s\'ha pogut recuperar les dades més recents</string>
+    <string name="donations_goal_title_0">Lluitant</string>
     <string name="donations_goal_0">Cada cèntim compta per sobreviure</string>
+    <string name="donations_goal_title_20">Simplement sobrevivint</string>
+    <string name="donations_goal_20">Suport de manteniment diari i solucions crítiques</string>
     <string name="donations_goal_title_30">Estable</string>
+    <string name="donations_goal_30">Correcció d\'errors més ràpida i manteniment actualitzat</string>
+    <string name="donations_goal_title_70">Progrés lent i constant</string>
+    <string name="donations_goal_70">Característiques menors i millores de la interfície</string>
     <string name="donations_goal_100">Ajudeu-nos a convertir el Watomatic en l\'aplicació de resposta automàtica més avançada</string>
     <string name="donation_progress_label">de l\'objectiu mensual</string>
 </resources>
