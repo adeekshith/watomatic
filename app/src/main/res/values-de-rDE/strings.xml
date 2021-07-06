@@ -102,4 +102,16 @@
     <string name="undo">Rückgängig machen</string>
     <string name="all_contacts_selected">Alle Kontakte ausgewählt</string>
     <string name="all_contacts_unselected">Alle Kontakte nicht ausgewählt</string>
+    <string name="donations_activity_title">Spenden</string>
+    <string name="donations_data_fetch_error">Neueste Daten können nicht abgerufen werden</string>
+    <string name="donations_goal_0">Jeder Cent zählt, beim Überleben zu helfen</string>
+    <string name="donations_goal_title_20">Nur überleben</string>
+    <string name="donations_goal_20">Unterstützt tägliche Wartung und wichtige Korrekturen</string>
+    <string name="donations_goal_title_30">Stabil</string>
+    <string name="donations_goal_30">Schnellere Fehlerbehebungen und aktuell halten</string>
+    <string name="donations_goal_title_70">Langsamer und stetiger Fortschritt</string>
+    <string name="donations_goal_70">Kleinere Funktionen und Verbesserungen der Benutzeroberfläche</string>
+    <string name="donations_goal_title_100">Boost-Modus</string>
+    <string name="donations_goal_100">Hilf uns, es zu einer leistungsstarken Auto-Antwort-App mit vielen modernen Funktionen zu machen</string>
+    <string name="donation_progress_label">des monatlichen Ziels</string>
 </resources>
