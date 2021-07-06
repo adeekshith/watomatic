@@ -104,11 +104,12 @@
     <string name="all_contacts_unselected">Todos los contactos desseleccionados</string>
     <string name="donations_activity_title">Donativos</string>
     <string name="donations_data_fetch_error">No se pueden obtener los datos más recientes</string>
+    <string name="donations_goal_title_0">Luchando</string>
     <string name="donations_goal_0">Cada céntimo cuenta para ayudarlo a sobrevivir</string>
-    <string name="donations_goal_title_20">Sólo sobreviviendo</string>
+    <string name="donations_goal_title_20">Simplemente sobreviviendo</string>
     <string name="donations_goal_20">Soporta mantenimiento diario y correcciones críticas</string>
     <string name="donations_goal_title_30">Estable</string>
-    <string name="donations_goal_30">Corrige errores rápidamente y lo mantiene actualizado</string>
+    <string name="donations_goal_30">Corrección de errores más rápido y mantenimiento actualizado</string>
     <string name="donations_goal_title_70">Progreso lento y constante</string>
     <string name="donations_goal_70">Características menores y mejoras de la interfaz</string>
     <string name="donations_goal_100">Ayúdanos a convertirla en una potente aplicación de respuesta automática con muchas características avanzadas</string>
