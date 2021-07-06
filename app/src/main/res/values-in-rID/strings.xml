@@ -65,6 +65,21 @@
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">Apa pendapat Anda?</string>
     <string name="app_rating_dialog_msg">Kami tertarik dengan pendapat Anda tentang aplikasi tersebut. Ketuk bintang di atas untuk menilainya.</string>
+    <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
+    <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Lanjutkan</string>
+    <string name="app_rating_feedback_dialog_title">Hubungi kami</string>
+    <string name="app_rating_feedback_dialog_msg">Bantu kami untuk menjadi lebih baik.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Email Kami</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Izin Mulai Otomatis</string>
+    <string name="enable_auto_start_setting">Diproses</string>
+    <string name="decline_auto_start_setting">Batal</string>
+    <string name="app_not_installed_text">Tidak terpasang</string>
+    <string name="advanced_settings">Pengaturan lanjutan</string>
+    <string name="contact_reply_type">Balasan untuk</string>
+    <string name="select_all">Pilih Semua</string>
     <string name="donations_activity_title">Donasi</string>
 </resources>
