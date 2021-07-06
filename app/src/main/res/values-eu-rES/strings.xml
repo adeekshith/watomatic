@@ -98,4 +98,17 @@
     <string name="contact_permission_dialog_msg">Aukera hau gaitzeko, kontaktuak irakurtzeko baimena behar da. Jarraitu nahi duzu? </string>
     <string name="contact_permission_dialog_proceed">Jarraitu</string>
     <string name="contact_permission_dialog_cancel">Utzi</string>
+    <string name="donations_activity_title">Dohaintzak</string>
+    <string name="donations_data_fetch_error">Ezin azken datuak jaso</string>
+    <string name="donations_goal_title_0">Borrokan</string>
+    <string name="donations_goal_0">Zentimo bakoitzak kontatzen du bizirauten laguntzeko</string>
+    <string name="donations_goal_title_20">Doi-doi bizirauten</string>
+    <string name="donations_goal_20">Eguneroko mantenua eta zuzenketa kritikoak soportatzen ditu</string>
+    <string name="donations_goal_title_30">Egonkorra</string>
+    <string name="donations_goal_30">Errore zuzenketa azkarragoak eta egunean mantentzea</string>
+    <string name="donations_goal_title_70">Garapen geldo eta jarraia</string>
+    <string name="donations_goal_70">Ezaugarri txikiak eta interfaze hobekuntzak</string>
+    <string name="donations_goal_title_100">Bultzada modua</string>
+    <string name="donations_goal_100">Lagundu erantzungailu automatiko ahaltsua bihurtzen, ezaugarri aurreratu mordoarekin</string>
+    <string name="donation_progress_label">hileko helburutik</string>
 </resources>
