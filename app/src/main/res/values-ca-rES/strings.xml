@@ -102,4 +102,8 @@
     <string name="undo">Desfés</string>
     <string name="all_contacts_selected">S\'han seleccionat tots els contactes</string>
     <string name="all_contacts_unselected">No s\'ha seleccionat cap contacte</string>
+    <string name="donations_activity_title">Donacions</string>
+    <string name="donations_data_fetch_error">No s\'ha pogut recuperar les dades més recents</string>
+    <string name="donations_goal_0">Cada cèntim compta per sobreviure</string>
+    <string name="donations_goal_title_30">Estable</string>
 </resources>
