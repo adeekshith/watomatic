@@ -99,4 +99,17 @@
     <string name="undo">Geri Al</string>
     <string name="all_contacts_selected">Tüm bağlantılar seçildi</string>
     <string name="all_contacts_unselected">Tüm kişilerin seçimi kaldırıldı</string>
+    <string name="donations_activity_title">Bağış</string>
+    <string name="donations_data_fetch_error">En son veriler alınamadı</string>
+    <string name="donations_goal_title_0">Mücadele</string>
+    <string name="donations_goal_0">Her kuruş programın hayatta kalmasına yardımcı olmak için önemlidir</string>
+    <string name="donations_goal_title_20">Sadece hayatta kalmak</string>
+    <string name="donations_goal_20">Günlük bakım ve kritik düzeltmeleri destekler</string>
+    <string name="donations_goal_title_30">Kararlı</string>
+    <string name="donations_goal_30">Daha hızlı hata düzeltmeleri ve güncellik</string>
+    <string name="donations_goal_title_70">Yavaş ve istikrarlı ilerleme</string>
+    <string name="donations_goal_70">Küçük özellikler ve arayüz iyileştirmeleri</string>
+    <string name="donations_goal_title_100">Destek modu</string>
+    <string name="donations_goal_100">Birçok gelişmiş özelliğe sahip güçlü bir otomatik yanıt uygulaması yapmamıza yardımcı olun</string>
+    <string name="donation_progress_label">Aylık hedefin</string>
 </resources>
