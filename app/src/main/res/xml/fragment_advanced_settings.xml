@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Preference android:title="Add Custom Package(Beta)"
+        app:key="@string/pref_add_package_to_supported_apps"
+        android:summary="Add any chat application"/>
+
     <PreferenceCategory app:title="@string/contact_based_reply">
         <SwitchPreference android:title="@string/enable_contact_based_reply"
             app:key="@string/pref_reply_contacts"

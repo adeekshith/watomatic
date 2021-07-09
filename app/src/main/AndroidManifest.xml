@@ -87,6 +87,10 @@
             android:label="@string/donations_activity_title"
             android:parentActivityName=".activity.main.MainActivity"/>
 
+        <activity android:name=".activity.customapp.CustomAppsAdditionActivity"
+            android:label="@string/custom_apps_activity_title"
+            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity"/>
+
         <service
             android:name="com.parishod.watomatic.NotificationService"
             android:label="@string/service_name"
