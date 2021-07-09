@@ -10,6 +10,7 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.adapter.SupportedAppsAdapter
 import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.utils.Constants
+import com.parishod.watomatic.model.utils.DbUtils
 
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*
 
@@ -20,7 +21,8 @@ class EnabledAppsFragment: Fragment() {
 
         val layoutManager = LinearLayoutManager(context)
 
-        val supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(Constants.SUPPORTED_APPS))
+        val dbUtils = DbUtils(context)
+        val supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(dbUtils.supportedApps))
         view.supportedAppsList.layoutManager = layoutManager
         view.supportedAppsList.adapter = supportedAppsAdapter
 

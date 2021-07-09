@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.logs.App;
 import com.parishod.watomatic.model.utils.AppUtils;
-import com.parishod.watomatic.model.utils.Constants;
+import com.parishod.watomatic.model.utils.DbUtils;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -68,7 +68,7 @@ public class PreferencesManager {
                 && !_sharedPrefs.contains(KEY_SELECTED_APPS_ARR);
         if (newInstall) {
             // Enable all supported apps for new install
-            setAppsAsEnabled(Constants.SUPPORTED_APPS);
+            setAppsAsEnabled(new DbUtils(thisAppContext).getSupportedApps());
 
             // Set notifications ON for new installs
             setShowNotificationPref(true);

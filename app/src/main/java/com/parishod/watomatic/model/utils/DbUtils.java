@@ -4,9 +4,13 @@ import android.content.Context;
 import android.service.notification.StatusBarNotification;
 
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.logs.App;
 import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class DbUtils {
     private Context mContext;
@@ -47,5 +51,15 @@ public class DbUtils {
     public long getFirstRepliedTime(){
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getFirstRepliedTime();
+    }
+
+    public Set<App> getSupportedApps(){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return new HashSet<>(messageLogsDB.supportedAppsDao().getSupportedApps());
+    }
+
+    public void insertSupportedApp(App app){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        messageLogsDB.supportedAppsDao().insertSupportedApp(app);
     }
 }

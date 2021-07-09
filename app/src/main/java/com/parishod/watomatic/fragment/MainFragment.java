@@ -88,6 +88,8 @@ public class MainFragment extends Fragment {
     private GridLayoutManager layoutManager;
     private SupportedAppsAdapter supportedAppsAdapter;
     private List<App> enabledApps = new ArrayList<>();
+    private Set<App> supportedApps;
+    private DbUtils dbUtils;
 
     @Nullable
     @Override
@@ -97,6 +99,16 @@ public class MainFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mActivity = getActivity();
+
+        dbUtils = new DbUtils(mActivity);
+        supportedApps = dbUtils.getSupportedApps();
+        if(supportedApps.isEmpty()){
+            supportedApps = Constants.SUPPORTED_APPS;
+            for (App app: supportedApps
+            ) {
+                dbUtils.insertSupportedApp(app);
+            }
+        }
 
         customRepliesData = CustomRepliesData.getInstance(mActivity);
         preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
@@ -191,7 +203,7 @@ public class MainFragment extends Fragment {
             enabledApps.clear();
         }
         enabledApps = new ArrayList<>();
-        for(App app: Constants.SUPPORTED_APPS){
+        for(App app: supportedApps){
             if(preferencesManager.isAppEnabled(app)){
                 enabledApps.add(app);
             }
@@ -293,7 +305,6 @@ public class MainFragment extends Fragment {
     }
 
     private boolean isAppUsedSufficientlyToAskRating(){
-        DbUtils dbUtils = new DbUtils(mActivity);
         long firstRepliedTime = dbUtils.getFirstRepliedTime();
         if(firstRepliedTime >0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING){
             return true;

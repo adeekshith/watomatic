@@ -18,11 +18,15 @@ import com.parishod.watomatic.model.logs.App;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
 public class NotificationHelper {
     final private Context appContext;
     private static NotificationHelper _INSTANCE;
     private static NotificationManager notificationManager;
     private static JSONObject appsList = new JSONObject();
+    private Set<App> supportedApps;
+    private DbUtils dbUtils;
 
     private NotificationHelper(Context appContext){
         this.appContext = appContext;
@@ -37,7 +41,9 @@ public class NotificationHelper {
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
-        for (App supportedApp: Constants.SUPPORTED_APPS) {
+        dbUtils = new DbUtils(appContext);
+        supportedApps = dbUtils.getSupportedApps();
+        for (App supportedApp: supportedApps) {
             try {
                 appsList.put(supportedApp.getPackageName(), false);
             } catch (JSONException e) {
@@ -54,7 +60,7 @@ public class NotificationHelper {
     }
 
     public void sendNotification(String title, String message, String packageName){
-        for (App supportedApp: Constants.SUPPORTED_APPS) {
+        for (App supportedApp: supportedApps) {
             if(supportedApp.getPackageName().equalsIgnoreCase(packageName)){
                 title = supportedApp.getName() + ":" + title;
                 break;
@@ -78,7 +84,7 @@ public class NotificationHelper {
         //logic to detect if notifications exists else generate summary notification
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
-            for (App supportedApp: Constants.SUPPORTED_APPS) {
+            for (App supportedApp: supportedApps) {
                 try {
                     appsList.put(supportedApp.getPackageName(), false);
                 } catch (JSONException e) {
