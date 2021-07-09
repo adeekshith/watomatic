@@ -124,7 +124,7 @@ public class PreferencesManager {
         // For upgrading users, preserve functionality by enabling only WhatsApp
         //   (remove this when time most users would have updated. May be in 3 weeks after deploying this?)
         if (enabledAppsJsonStr == null || enabledAppsJsonStr.equals("[]")) {
-            enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App("WhatsApp", "com.whatsapp")));
+            enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App(1, "WhatsApp", "com.whatsapp")));
         }
 
         Type type = new TypeToken<Set<String>>(){}.getType();
