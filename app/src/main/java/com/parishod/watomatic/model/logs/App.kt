@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "supported_apps")
 data class App(
-        @PrimaryKey(autoGenerate = true) val id:Int,
         @ColumnInfo(name = "app_name") val name:String,
-        @ColumnInfo(name = "package_name") val packageName:String,
+        @PrimaryKey @ColumnInfo(name = "package_name") val packageName:String,
 )

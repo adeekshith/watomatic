@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "f0a16badd4937ca91d1282f6c510fd7d",
+    "identityHash": "7e7d32963dbe325d983a4c069be65e75",
     "entities": [
       {
         "tableName": "message_logs",
@@ -115,14 +115,8 @@
       },
       {
         "tableName": "supported_apps",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `app_name` TEXT NOT NULL, `package_name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`app_name` TEXT NOT NULL, `package_name` TEXT NOT NULL, PRIMARY KEY(`package_name`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "name",
             "columnName": "app_name",
@@ -138,9 +132,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "package_name"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -149,7 +143,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f0a16badd4937ca91d1282f6c510fd7d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e7d32963dbe325d983a4c069be65e75')"
     ]
   }
 }
