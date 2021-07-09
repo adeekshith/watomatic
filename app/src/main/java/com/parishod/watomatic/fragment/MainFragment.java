@@ -43,7 +43,7 @@ import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivi
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.adapter.SupportedAppsAdapter;
-import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.logs.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;

@@ -1,4 +1,4 @@
-package com.parishod.watomatic.model
+package com.parishod.watomatic.model.logs
 
 data class App(
         val name:String,

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parishod.watomatic.R
 import com.parishod.watomatic.adapter.SupportedAppsAdapter
-import com.parishod.watomatic.model.App
+import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.utils.Constants
 
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*

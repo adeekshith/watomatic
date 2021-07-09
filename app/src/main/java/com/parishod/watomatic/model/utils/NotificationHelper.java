@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.notification.NotificationIntentActivity;
-import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.logs.App;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.parishod.watomatic.R
-import com.parishod.watomatic.model.App
+import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.supported_apps_list.view.*

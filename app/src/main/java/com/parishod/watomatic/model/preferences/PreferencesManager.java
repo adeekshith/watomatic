@@ -9,7 +9,7 @@ import androidx.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.logs.App;
 import com.parishod.watomatic.model.utils.AppUtils;
 import com.parishod.watomatic.model.utils.Constants;
 
