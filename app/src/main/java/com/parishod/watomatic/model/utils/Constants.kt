@@ -1,6 +1,6 @@
 package com.parishod.watomatic.model.utils
 
-import com.parishod.watomatic.model.App
+import com.parishod.watomatic.model.logs.App
 
 object Constants {
     const val PERMISSION_DIALOG_TITLE = "permission_dialog_title"
