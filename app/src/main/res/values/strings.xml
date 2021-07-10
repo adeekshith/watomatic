@@ -194,4 +194,6 @@
     <string name="custom_app_name_hint">App Name</string>
     <string name="custom_app_package_name_hint">Package Name</string>
     <string name="custom_apps_activity_title">CustomApps</string>
+    <string name="install">Install</string>
+    <string name="app_not_detect_text">We couldn\'t detect the app, please install the app if its not present already.</string>
 </resources>

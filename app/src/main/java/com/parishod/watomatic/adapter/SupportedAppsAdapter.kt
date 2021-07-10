@@ -1,15 +1,20 @@
 package com.parishod.watomatic.adapter
 
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.content.pm.PackageManager
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.parishod.watomatic.BuildConfig
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -51,18 +56,20 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 itemView.appIcon.setImageDrawable(icon)
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-                if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
-                    val matrix = ColorMatrix()
-                    matrix.setSaturation(0f) //0 means grayscale
-                    val cf = ColorMatrixColorFilter(matrix)
-                    itemView.appIcon.setColorFilter(cf)
-
-                    (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
-                        Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
-                        itemView.appEnableSwitch.isChecked = false
-                    }
-                    itemView.appIcon.setOnClickListener {
-                        Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                if(Constants.SUPPORTED_APPS.contains(app)) {
+                    if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                        val matrix = ColorMatrix()
+                        matrix.setSaturation(0f) //0 means grayscale
+                        val cf = ColorMatrixColorFilter(matrix)
+                        itemView.appIcon.setColorFilter(cf)
+    
+                        (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
+                            Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                            itemView.appEnableSwitch.isChecked = false
+                        }
+                        itemView.appIcon.setOnClickListener {
+                            Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -83,6 +90,20 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                         buttonView.isChecked = true
                     }else {
                         preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
+                        if(isChecked && !Constants.SUPPORTED_APPS.contains(buttonView.tag as App)){
+                            val snackBar = Snackbar.make(itemView.rootView.findViewById(android.R.id.content), itemView.context.resources.getString(R.string.app_not_detect_text), Snackbar.LENGTH_LONG)
+                            if(BuildConfig.FLAVOR == "GooglePlay") {
+                                snackBar.setAction(itemView.context.resources.getString(R.string.install)) {
+                                    itemView.context.startActivity(
+                                        Intent(
+                                            ACTION_VIEW,
+                                            Uri.parse("https://play.google.com/store/apps/details?id=${(buttonView.tag as App).packageName}")
+                                        )
+                                    )
+                                }
+                            }
+                            snackBar.show()
+                        }
                     }
                 }
             }
