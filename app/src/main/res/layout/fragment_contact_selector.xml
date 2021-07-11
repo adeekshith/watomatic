@@ -47,4 +47,15 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@id/dialog_buttons" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="16dp"
+        android:id="@+id/add_custom_button"
+        android:src="@drawable/ic_baseline_add_24"
+        android:contentDescription="@string/add_custom_contact" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

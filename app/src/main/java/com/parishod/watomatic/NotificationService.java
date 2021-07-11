@@ -48,7 +48,8 @@ public class NotificationService extends NotificationListenerService {
             //Title contains sender name (at least on WhatsApp)
             String senderName = sbn.getNotification().extras.getString("android.title");
             //Check if should reply to contact
-            boolean isNameSelected = prefs.getReplyToNames().contains(senderName);
+            boolean isNameSelected = prefs.getReplyToNames().contains(senderName) ||
+                    prefs.getCustomReplyNames().contains(senderName);
             if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
                 !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
                 //If contact is on the list and contact reply is on blacklist mode, 

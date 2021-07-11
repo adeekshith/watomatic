@@ -190,4 +190,5 @@
     <string name="donation_progress_label">of monthly goal</string>
     <string name="liberapay" translatable="false">Liberapay</string>
     <string name="paypal" translatable="false">Paypal</string>
+    <string name="add_custom_contact">Add custom contact name</string>
 </resources>
