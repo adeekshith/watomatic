@@ -63,11 +63,11 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                         itemView.appIcon.setColorFilter(cf)
     
                         (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
-                            Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                            showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
                             itemView.appEnableSwitch.isChecked = false
                         }
                         itemView.appIcon.setOnClickListener {
-                            Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()
+                            showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
                         }
                     }
                 }
@@ -90,20 +90,24 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                     }else {
                         preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
                         if(isChecked && !Constants.SUPPORTED_APPS.contains(buttonView.tag as App)){
-                            val snackBar = Snackbar.make(itemView.rootView.findViewById(android.R.id.content), itemView.context.resources.getString(R.string.app_not_detect_text), Snackbar.LENGTH_LONG)
-                            snackBar.setAction(itemView.context.resources.getString(R.string.install)) {
-                                itemView.context.startActivity(
-                                    Intent(
-                                        ACTION_VIEW,
-                                        Uri.parse("https://play.google.com/store/apps/details?id=${(buttonView.tag as App).packageName}")
-                                    )
-                                )
-                            }
-                            snackBar.show()
+                            showSnackBar(itemView, (buttonView.tag as App).packageName, itemView.context.resources.getString(R.string.app_not_detect_text))
                         }
                     }
                 }
             }
+        }
+
+        private fun showSnackBar(itemView: View, packageName: String, msg: String) {
+            val snackBar = Snackbar.make(itemView.rootView.findViewById(android.R.id.content), msg, Snackbar.LENGTH_LONG)
+            snackBar.setAction(itemView.context.resources.getString(R.string.install)) {
+                itemView.context.startActivity(
+                    Intent(
+                        ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+                )
+            }
+            snackBar.show()
         }
     }
 }
