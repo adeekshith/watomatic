@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.parishod.watomatic.BuildConfig
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -92,15 +91,13 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                         preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
                         if(isChecked && !Constants.SUPPORTED_APPS.contains(buttonView.tag as App)){
                             val snackBar = Snackbar.make(itemView.rootView.findViewById(android.R.id.content), itemView.context.resources.getString(R.string.app_not_detect_text), Snackbar.LENGTH_LONG)
-                            if(BuildConfig.FLAVOR == "GooglePlay") {
-                                snackBar.setAction(itemView.context.resources.getString(R.string.install)) {
-                                    itemView.context.startActivity(
-                                        Intent(
-                                            ACTION_VIEW,
-                                            Uri.parse("https://play.google.com/store/apps/details?id=${(buttonView.tag as App).packageName}")
-                                        )
+                            snackBar.setAction(itemView.context.resources.getString(R.string.install)) {
+                                itemView.context.startActivity(
+                                    Intent(
+                                        ACTION_VIEW,
+                                        Uri.parse("https://play.google.com/store/apps/details?id=${(buttonView.tag as App).packageName}")
                                     )
-                                }
+                                )
                             }
                             snackBar.show()
                         }
