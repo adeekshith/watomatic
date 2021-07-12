@@ -114,4 +114,5 @@
     <string name="donations_goal_70">Características menores y mejoras de la interfaz</string>
     <string name="donations_goal_100">Ayúdanos a convertirla en una potente aplicación de respuesta automática con muchas características avanzadas</string>
     <string name="donation_progress_label">del objetivo mensual</string>
+    <string name="add_custom_contact">Añadir nombre de contacto personalizado</string>
 </resources>
