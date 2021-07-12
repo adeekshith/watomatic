@@ -12,4 +12,6 @@ public interface SupportedAppsDao {
     List<App> getSupportedApps();
     @Insert
     void insertSupportedApp(App app);
+    @Query("SELECT * FROM supported_apps WHERE package_name=:packageName")
+    App getAppData(String packageName);
 }

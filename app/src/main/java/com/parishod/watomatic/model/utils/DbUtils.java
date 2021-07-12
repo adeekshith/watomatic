@@ -62,4 +62,9 @@ public class DbUtils {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         messageLogsDB.supportedAppsDao().insertSupportedApp(app);
     }
+
+    public boolean isPackageAlreadyAdded(String packageName){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.supportedAppsDao().getAppData(packageName) != null;
+    }
 }

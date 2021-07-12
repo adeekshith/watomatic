@@ -59,14 +59,20 @@ class CustomAppsAdditionFragment: Fragment()  {
                 }
                 else -> {
                     val dbutils = DbUtils(activity)
+                    val name = fragmentView.customAppTextInputEditText.text.toString()
+                    val packageName = fragmentView.customPackageTextInputEditText.text.toString()
                     val app = App(
-                        fragmentView.customAppTextInputEditText.text.toString(),
-                        fragmentView.customPackageTextInputEditText.text.toString()
+                        name,
+                        packageName
                     )
-                    dbutils.insertSupportedApp(app)
-                    (fragmentView.customAppTextInputEditText.text as Editable).clear()
-                    (fragmentView.customPackageTextInputEditText.text as Editable).clear()
-                    Toast.makeText(activity, "Custom App Saved", Toast.LENGTH_SHORT).show()
+                    if(dbutils.isPackageAlreadyAdded(packageName)){
+                        Toast.makeText(activity, "The package already exists, try some other app.", Toast.LENGTH_SHORT).show()
+                    }else {
+                        dbutils.insertSupportedApp(app)
+                        (fragmentView.customAppTextInputEditText.text as Editable).clear()
+                        (fragmentView.customPackageTextInputEditText.text as Editable).clear()
+                        Toast.makeText(activity, "Custom App Saved", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
