@@ -114,4 +114,5 @@
     <string name="donations_goal_title_100">Boost-Modus</string>
     <string name="donations_goal_100">Hilf uns, es zu einer leistungsstarken Auto-Antwort-App mit vielen modernen Funktionen zu machen</string>
     <string name="donation_progress_label">des monatlichen Ziels</string>
+    <string name="add_custom_contact">Eigenen Kontaktnamen hinzufügen</string>
 </resources>
