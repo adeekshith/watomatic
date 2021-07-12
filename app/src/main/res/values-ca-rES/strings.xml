@@ -114,4 +114,5 @@
     <string name="donations_goal_70">Característiques menors i millores de la interfície</string>
     <string name="donations_goal_100">Ajudeu-nos a convertir el Watomatic en l\'aplicació de resposta automàtica més avançada</string>
     <string name="donation_progress_label">de l\'objectiu mensual</string>
+    <string name="add_custom_contact">Afegeix un nom de contacte personalitzat</string>
 </resources>
