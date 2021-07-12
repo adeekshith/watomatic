@@ -38,6 +38,8 @@ public class ContactsHelper {
     public ArrayList<ContactHolder> getContactList() {
         ArrayList<ContactHolder> unselectedContactList = new ArrayList<>();
         ArrayList<ContactHolder> selectedContactList = new ArrayList<>();
+        ArrayList<ContactHolder> customContactList = new ArrayList<>();
+
         Set<String> previousSelectedContacts = prefs.getReplyToNames();
 
         ContentResolver contentResolver = mContext.getContentResolver();
@@ -66,9 +68,15 @@ public class ContactsHelper {
             cursor.close();
         }
 
-        selectedContactList.addAll(unselectedContactList);
+        Set<String> savedCustomContacts = prefs.getCustomReplyNames();
+        for (String name : savedCustomContacts) {
+            customContactList.add(new ContactHolder(name, true, true));
+        }
 
-        return selectedContactList;
+        customContactList.addAll(selectedContactList);
+        customContactList.addAll(unselectedContactList);
+
+        return customContactList;
     }
 
     public boolean hasContactPermission() {
