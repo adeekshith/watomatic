@@ -10,12 +10,11 @@ import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
-import com.parishod.watomatic.activity.customapp.CustomAppsAdditionActivity;
 import com.parishod.watomatic.model.utils.ContactsHelper;
 
 public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
 
-    private Preference advancedPref, appPackagePreference;
+    private Preference advancedPref;
     private SwitchPreference enable_contact_replies_preference;
     private ContactsHelper contactsHelper;
 
@@ -49,12 +48,6 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     contactsHelper.requestContactPermission(getActivity());
                 }
             }
-            return true;
-        });
-
-        appPackagePreference = findPreference(getString(R.string.pref_add_package_to_supported_apps));
-        appPackagePreference.setOnPreferenceClickListener(preference -> {
-            startActivity(new Intent(getActivity(), CustomAppsAdditionActivity.class));
             return true;
         });
     }

@@ -70,7 +70,6 @@
     <string name="pref_auto_start_permission" translatable="false">pref_auto_start_permission</string>
     <string name="pref_is_append_watomatic_attribution" translatable="false">pref_is_append_watomatic_attribution</string>
     <string name="pref_show_foreground_service_notification" translatable="false">pref_show_foreground_service_notification</string>
-    <string name="pref_add_package_to_supported_apps" translatable="false">pref_add_package_to_supported_apps</string>
 
     <!-- app settings -->
     <string name="show_notification_label">Show notification for replied messages</string>
@@ -196,4 +195,5 @@
     <string name="custom_apps_activity_title">CustomApps</string>
     <string name="install">Install</string>
     <string name="app_not_detect_text">We couldn\'t detect the app, please install the app if its not present already.</string>
+    <string name="add_fab_content_desc">Add Custom Package(Beta)</string>
 </resources>
