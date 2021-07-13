@@ -72,6 +72,7 @@ class CustomAppsAdditionFragment: Fragment()  {
                         (fragmentView.customAppTextInputEditText.text as Editable).clear()
                         (fragmentView.customPackageTextInputEditText.text as Editable).clear()
                         Toast.makeText(activity, "Custom App Saved", Toast.LENGTH_SHORT).show()
+                        activity?.finish()
                     }
                 }
             }
