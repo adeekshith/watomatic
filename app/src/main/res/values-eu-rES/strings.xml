@@ -98,6 +98,9 @@
     <string name="contact_permission_dialog_msg">Aukera hau gaitzeko, kontaktuak irakurtzeko baimena behar da. Jarraitu nahi duzu? </string>
     <string name="contact_permission_dialog_proceed">Jarraitu</string>
     <string name="contact_permission_dialog_cancel">Utzi</string>
+    <string name="undo">Desegin</string>
+    <string name="all_contacts_selected">Kontaktu guztiak hautatuta</string>
+    <string name="all_contacts_unselected">Kontaktu guztiak deshautatuta</string>
     <string name="donations_activity_title">Dohaintzak</string>
     <string name="donations_data_fetch_error">Ezin azken datuak jaso</string>
     <string name="donations_goal_title_0">Borrokan</string>
@@ -111,4 +114,5 @@
     <string name="donations_goal_title_100">Bultzada modua</string>
     <string name="donations_goal_100">Lagundu erantzungailu automatiko ahaltsua bihurtzen, ezaugarri aurreratu mordoarekin</string>
     <string name="donation_progress_label">hileko helburutik</string>
+    <string name="add_custom_contact">Gehitu kontaktu izen pertsonalizatua</string>
 </resources>
