@@ -113,7 +113,9 @@ public class MainFragment extends Fragment {
         enabledAppsList = view.findViewById(R.id.enabled_apps_list);
         layoutManager = new GridLayoutManager(mActivity, getSpanCount(mActivity));
         enabledAppsList.setLayoutManager(layoutManager);
-        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps());
+        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps(), v ->
+            launchEnabledAppsActivity()
+        );
         enabledAppsList.setAdapter(supportedAppsAdapter);
 
         autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);

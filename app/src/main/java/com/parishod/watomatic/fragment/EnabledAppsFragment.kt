@@ -20,7 +20,7 @@ class EnabledAppsFragment: Fragment() {
 
         val layoutManager = LinearLayoutManager(context)
 
-        val supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(Constants.SUPPORTED_APPS))
+        val supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(Constants.SUPPORTED_APPS), null)
         view.supportedAppsList.layoutManager = layoutManager
         view.supportedAppsList.adapter = supportedAppsAdapter
 
