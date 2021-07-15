@@ -97,4 +97,5 @@
     <string name="contact_permission_dialog_cancel">Откажи</string>
     <string name="undo">Врати</string>
     <string name="all_contacts_selected">Избрани се сите контакти</string>
+    <string name="donations_activity_title">Донации</string>
 </resources>
