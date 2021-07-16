@@ -48,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">إظهار الإشعار للرسائل المُجاب عليها</string>
-    <string name="preference_category_general_label">عام</string>
     <string name="preference_category_troubleshooting_label">استكشاف الأخطاء</string>
     <string name="enable_auto_start_label">تمكين المزامنة التلقائية</string>
     <string name="enable_auto_start_summary">قد تحتاج بعض الأجهزة إلى تمكين التشغيل التلقائي للبرنامج يدوياً من إعدادات الجهاز</string>

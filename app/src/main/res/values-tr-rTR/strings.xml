@@ -46,10 +46,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Cevaplanan mesajlar için bildirim göster</string>
-    <string name="preference_category_general_label">Genel</string>
+    <string name="preference_category_general_label">Genel Ayarlar</string>
     <string name="preference_category_notifications_label">Bildirimler</string>
     <string name="preference_category_troubleshooting_label">Sorun Giderme</string>
     <string name="enable_auto_start_label">Otomatik Başlatmayı Aktif Et</string>
+    <string name="add_attribution_label">Atıf Ekle</string>
+    <string name="enabled_apps_title">Etkin Uygulamalar</string>
     <string name="always_on_notification">Her zaman açık bildirimi</string>
     <string name="display_persistent_notification_summary">Watomatic\'in sistem tarafından durdurulmadığından emin olmak için kalıcı bir bildirim görüntüleyin</string>
     <string name="enable_auto_start_summary">Bazı cihazlarda, cihaz ayarlarından Watomatic için Otomatik başlatmayı manuel olarak etkinleştirmeniz gerekebilir</string>
@@ -80,6 +82,7 @@
     <string name="setting_not_available_for_device">Bu ayar cihazınız için mevcut değil veya gerekli olmayabilir.</string>
     <string name="enable_auto_start_setting">Devam Et</string>
     <string name="decline_auto_start_setting">İptal</string>
+    <string name="app_not_installed_text">Yüklü değil</string>
     <string name="advanced_settings">Gelişmiş Seçenekler</string>
     <string name="contact_based_reply">Kişi bazlı yanıtlar</string>
     <string name="contact_reply_type">... cevap ver</string>
@@ -93,4 +96,20 @@
     <string name="contact_permission_dialog_msg">İsimleri filtrelemek ve bu özelliği etkinleştirmek için kişi okuma erişimi gereklidir. Devam etmek istiyor musunuz?</string>
     <string name="contact_permission_dialog_proceed">İlerle</string>
     <string name="contact_permission_dialog_cancel">İptal</string>
+    <string name="undo">Geri Al</string>
+    <string name="all_contacts_selected">Tüm bağlantılar seçildi</string>
+    <string name="all_contacts_unselected">Tüm kişilerin seçimi kaldırıldı</string>
+    <string name="donations_activity_title">Bağış</string>
+    <string name="donations_data_fetch_error">En son veriler alınamadı</string>
+    <string name="donations_goal_title_0">Mücadele</string>
+    <string name="donations_goal_0">Her kuruş programın hayatta kalmasına yardımcı olmak için önemlidir</string>
+    <string name="donations_goal_title_20">Sadece hayatta kalmak</string>
+    <string name="donations_goal_20">Günlük bakım ve kritik düzeltmeleri destekler</string>
+    <string name="donations_goal_title_30">Kararlı</string>
+    <string name="donations_goal_30">Daha hızlı hata düzeltmeleri ve güncellik</string>
+    <string name="donations_goal_title_70">Yavaş ve istikrarlı ilerleme</string>
+    <string name="donations_goal_70">Küçük özellikler ve arayüz iyileştirmeleri</string>
+    <string name="donations_goal_title_100">Destek modu</string>
+    <string name="donations_goal_100">Birçok gelişmiş özelliğe sahip güçlü bir otomatik yanıt uygulaması yapmamıza yardımcı olun</string>
+    <string name="donation_progress_label">Aylık hedefin</string>
 </resources>

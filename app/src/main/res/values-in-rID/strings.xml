@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Balasan otomatis dinonaktifkan untuk obrolan grup</string>
     <string name="time_picker_title">Frekuensi balasan (BETA)</string>
     <string name="time_picker_sub_title_default">Tanggapi semua pesan tanpa kontrol</string>
+    <string name="time_picker_sub_title">Tanggapi hanya sekali setiap %1$d hari untuk setiap orang atau grup</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Klik untuk mengedit jeda waktu di antara balasan</string>
     <string name="app_version">v%1$s</string>
@@ -42,14 +43,43 @@
     <string name="share">Bagikan</string>
     <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Apa yang Baru?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Tampilkan pemberitahuan untuk pesan yang dibalas</string>
+    <string name="preference_category_general_label">Pengaturan umum</string>
+    <string name="preference_category_notifications_label">Pemberitahuan</string>
+    <string name="preference_category_troubleshooting_label">Penyelesaian masalah</string>
+    <string name="enable_auto_start_label">Aktifkan Mulai Otomatis</string>
+    <string name="add_attribution_label">Tambahkan Atribusi</string>
+    <string name="enabled_apps_title">Aplikasi yang Diaktifkan</string>
+    <string name="always_on_notification">Notifikasi Selalu Aktif</string>
+    <string name="display_persistent_notification_summary">Tampilkan pemberitahuan terus-menerus untuk memastikan Watomatic tidak dimatikan oleh sistem</string>
+    <string name="enable_auto_start_summary">Beberapa perangkat mungkin memerlukan Anda untuk mengaktifkan Mulai otomatis untuk Otomatis dari pengaturan perangkat secara manual</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Bahasa Aplikasi</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Apa pendapat Anda?</string>
+    <string name="app_rating_dialog_msg">Kami tertarik dengan pendapat Anda tentang aplikasi tersebut. Ketuk bintang di atas untuk menilainya.</string>
+    <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
+    <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Lanjutkan</string>
+    <string name="app_rating_feedback_dialog_title">Hubungi kami</string>
+    <string name="app_rating_feedback_dialog_msg">Bantu kami untuk menjadi lebih baik.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Email Kami</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Izin Mulai Otomatis</string>
+    <string name="enable_auto_start_setting">Diproses</string>
+    <string name="decline_auto_start_setting">Batal</string>
+    <string name="app_not_installed_text">Tidak terpasang</string>
+    <string name="advanced_settings">Pengaturan lanjutan</string>
+    <string name="contact_reply_type">Balasan untuk</string>
+    <string name="select_all">Pilih Semua</string>
+    <string name="donations_activity_title">Donasi</string>
 </resources>

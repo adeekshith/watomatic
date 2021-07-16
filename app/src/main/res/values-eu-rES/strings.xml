@@ -11,7 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Erantzun automatikoa OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Erantzun automatikoa ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Egin ttap erantzun automatikoaren testua editatzeko</string>
-    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsaap eta Facebook Messenger atzean uzten laguntzeko</string>
+    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsapp eta Facebook Messenger atzean uzten laguntzeko</string>
     <string name="decline">Errefusatu</string>
     <string name="accept">Onartu</string>
     <string name="sure">Ziur nago</string>
@@ -48,9 +48,14 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Erakutsi jakinarazpena erantzundako mezuentzat</string>
-    <string name="preference_category_general_label">Orokorra</string>
+    <string name="preference_category_general_label">Ezarpen orokorrak</string>
+    <string name="preference_category_notifications_label">Jakinarazpenak</string>
     <string name="preference_category_troubleshooting_label">Arazoak konpontzea</string>
     <string name="enable_auto_start_label">Gaitu abiatze automatikoa</string>
+    <string name="add_attribution_label">Gehitu atribuzioa</string>
+    <string name="enabled_apps_title">Gaitutako aplikazioak</string>
+    <string name="always_on_notification">Jakinarazpen iraunkorra</string>
+    <string name="display_persistent_notification_summary">Erakutsi jakinarazpen iraunkorra ziurtatzeko sistemak ez duela Watomatic ixten</string>
     <string name="enable_auto_start_summary">Gailu batzuetan baliteke automatikoki abiatzeko aukera eskuz gaitu behar izatea gailuaren ezarpenetatik</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -58,13 +63,28 @@
     <!-- App Language selection -->
     <string name="app_language">Aplikazioaren hizkuntza</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Zer deritzozu?</string>
+    <string name="app_rating_dialog_msg">Jakin nahi dugu zer deritzozun aplikazioari. Egin ttap gaineko izarretan kalifikazioa emateko.</string>
+    <string name="app_rating_dialog_rate_button_title">Kalifikatu!</string>
+    <string name="app_rating_dialog_rate_later_title">Geroago agian</string>
+    <string name="app_rating_goto_store_dialog_title">Pozik gaude!</string>
+    <string name="app_rating_goto_store_dialog_msg">Mesedez, partekatu aplikazioaren kalifikazio hau Google Play Store-n, \"Jarraitu\"\ botoian ttap eginez.</string>
+    <string name="app_rating_pitch">Aplikazioa doan da, iragarkirik ez, jarraipenik ez, kode irekikoa, eta zu eta ni bezalako boluntarioek egindakoa.        Zure iritzia da gure ordain bakarra.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Ez zait interesatzen</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Jarraitu</string>
+    <string name="app_rating_feedback_dialog_title">Jarri gurekin harremanetan</string>
+    <string name="app_rating_feedback_dialog_msg">Esaiguzu nola hobetu dezakegun.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Bidaliguzu posta elektroniko bat</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Automatikoki abiatzeko baimena</string>
+    <string name="running_in_the_background">Atzealdean lanean</string>
     <string name="auto_start_permission_dialog_message">Gaitu \'Automatikoki abiatu\' baimena gailuaren ezarpenetan Watomatic automatikoki abiatzeko gailua berrabiaraztean.</string>
     <string name="device_based_settings_message">Oharra: Baliteke ezarpenok aldatzea edo eskuragarri ez egotea, zure gailuaren arabera</string>
     <string name="setting_not_available_for_device">Ezarpen hau ez dago eskuragarri edo ez da behar zure gailuan.</string>
     <string name="enable_auto_start_setting">Jarraitu</string>
     <string name="decline_auto_start_setting">Utzi</string>
+    <string name="app_not_installed_text">Instalatu gabe</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="contact_based_reply">Kontaktuaren araberako erantzunak</string>
     <string name="contact_reply_type">Erantzun honi:</string>
@@ -78,4 +98,21 @@
     <string name="contact_permission_dialog_msg">Aukera hau gaitzeko, kontaktuak irakurtzeko baimena behar da. Jarraitu nahi duzu? </string>
     <string name="contact_permission_dialog_proceed">Jarraitu</string>
     <string name="contact_permission_dialog_cancel">Utzi</string>
+    <string name="undo">Desegin</string>
+    <string name="all_contacts_selected">Kontaktu guztiak hautatuta</string>
+    <string name="all_contacts_unselected">Kontaktu guztiak deshautatuta</string>
+    <string name="donations_activity_title">Dohaintzak</string>
+    <string name="donations_data_fetch_error">Ezin azken datuak jaso</string>
+    <string name="donations_goal_title_0">Borrokan</string>
+    <string name="donations_goal_0">Zentimo bakoitzak kontatzen du bizirauten laguntzeko</string>
+    <string name="donations_goal_title_20">Doi-doi bizirauten</string>
+    <string name="donations_goal_20">Eguneroko mantenua eta zuzenketa kritikoak soportatzen ditu</string>
+    <string name="donations_goal_title_30">Egonkorra</string>
+    <string name="donations_goal_30">Errore zuzenketa azkarragoak eta egunean mantentzea</string>
+    <string name="donations_goal_title_70">Garapen geldo eta jarraia</string>
+    <string name="donations_goal_70">Ezaugarri txikiak eta interfaze hobekuntzak</string>
+    <string name="donations_goal_title_100">Bultzada modua</string>
+    <string name="donations_goal_100">Lagundu erantzungailu automatiko ahaltsua bihurtzen, ezaugarri aurreratu mordoarekin</string>
+    <string name="donation_progress_label">hileko helburutik</string>
+    <string name="add_custom_contact">Gehitu kontaktu izen pertsonalizatua</string>
 </resources>
