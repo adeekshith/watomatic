@@ -102,4 +102,18 @@
     <string name="undo">Cofnij</string>
     <string name="all_contacts_selected">Wybrano wszystkie kontakty</string>
     <string name="all_contacts_unselected">Odznaczono wszystkie kontakty</string>
+    <string name="donations_activity_title">Darowizny</string>
+    <string name="donations_data_fetch_error">Nie można pobrać najnowszych danych</string>
+    <string name="donations_goal_title_0">Walczy</string>
+    <string name="donations_goal_0">Liczy się każdy grosz, aby pomóc mu przetrwać</string>
+    <string name="donations_goal_title_20">Po prostu przetrwanie</string>
+    <string name="donations_goal_20">Obsługuje codzienną konserwację i krytyczne poprawki</string>
+    <string name="donations_goal_title_30">Stabilna</string>
+    <string name="donations_goal_30">Szybsze poprawki błędów i utrzymanie ich na aktualnym poziomie</string>
+    <string name="donations_goal_title_70">Powolny i stały postęp</string>
+    <string name="donations_goal_70">Niewielkie funkcje i ulepszenia interfejsu</string>
+    <string name="donations_goal_title_100">Tryb doładowania</string>
+    <string name="donations_goal_100">Pomóż nam uczynić z niej potężną aplikację do automatycznej odpowiedzi z wieloma zaawansowanymi funkcjami</string>
+    <string name="donation_progress_label">celu miesięcznego</string>
+    <string name="add_custom_contact">Dodaj niestandardową nazwę kontaktu</string>
 </resources>
