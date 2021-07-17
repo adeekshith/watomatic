@@ -11,6 +11,7 @@ import com.parishod.watomatic.databinding.ContactListRowBinding;
 import com.parishod.watomatic.databinding.CustomContactListRowBinding;
 import com.parishod.watomatic.model.data.ContactHolder;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.ContactsHelper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -97,7 +98,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 selectedContacts.add(contact.getContactName());
         }
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(mContext);
-        prefs.setReplyToNames(selectedContacts);
+        if (ContactsHelper.getInstance(mContext).hasContactPermission())
+            prefs.setReplyToNames(selectedContacts);
         prefs.setCustomReplyNames(customContacts);
     }
 
