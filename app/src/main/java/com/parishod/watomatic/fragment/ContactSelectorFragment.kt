@@ -48,6 +48,8 @@ class ContactSelectorFragment : Fragment() {
     }
 
     fun loadContactList() {
+        binding.dialogButtons.visibility = if (contactsHelper.hasContactPermission()) View.VISIBLE else View.GONE
+
         contactList = contactsHelper.contactList
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
