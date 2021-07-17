@@ -12,6 +12,7 @@ import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
@@ -48,7 +49,9 @@ public class NotificationService extends NotificationListenerService {
             //Title contains sender name (at least on WhatsApp)
             String senderName = sbn.getNotification().extras.getString("android.title");
             //Check if should reply to contact
-            boolean isNameSelected = prefs.getReplyToNames().contains(senderName) ||
+            boolean isNameSelected =
+                    (ContactsHelper.getInstance(this).hasContactPermission()
+                            && prefs.getReplyToNames().contains(senderName)) ||
                     prefs.getCustomReplyNames().contains(senderName);
             if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
                 !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
