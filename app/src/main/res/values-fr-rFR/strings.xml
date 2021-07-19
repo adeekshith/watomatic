@@ -53,4 +53,9 @@
     <string name="app_language">Langue de l\'application</string>
     <!-- App Rating Dialog -->
     <!--Autostart Permission Dialog-->
+    <string name="donations_activity_title">Faire un don</string>
+    <string name="donations_data_fetch_error">Impossible de récupérer les dernières données</string>
+    <string name="donations_goal_title_0">En difficulté</string>
+    <string name="donations_goal_0">Chaque centime compte pour l\'aider à survivre</string>
+    <string name="add_custom_contact">Ajouter un nom de contact personnalisé</string>
 </resources>
