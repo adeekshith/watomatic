@@ -115,4 +115,8 @@
     <string name="donations_goal_100">Hilf uns, es zu einer leistungsstarken Auto-Antwort-App mit vielen modernen Funktionen zu machen</string>
     <string name="donation_progress_label">des monatlichen Ziels</string>
     <string name="add_custom_contact">Eigenen Kontaktnamen hinzufügen</string>
+    <string name="contact_permission_suggestion_dialog_msg">Der Lesezugriff für Kontakte ist erforderlich, um Antworten nach Kontaktnamen zu filtern. Wenn der Zugriff nicht aktiviert ist, sind nur manuell eingegebene Namen erlaubt. Möchten Sie ihn aktivieren?</string>
+    <string name="contact_permission_dialog_enable_permission">Berechtigung für Kontakte aktivieren</string>
+    <string name="contact_permission_dialog_not_now">Jetzt nicht</string>
+    <string name="contact_permission_dialog_title">Lesezugriff für Kontakt</string>
 </resources>
