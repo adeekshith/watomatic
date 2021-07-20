@@ -1,11 +1,10 @@
 package com.parishod.watomatic.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +35,11 @@ class ContactSelectorFragment : Fragment() {
     ): View {
         _binding = FragmentContactSelectorBinding.inflate(inflater, container, false)
 
-        contactsHelper = ContactsHelper.getInstance(requireContext())
+        contactsHelper = ContactsHelper.getInstance(requireContext()).also {
+            if (!it.hasContactPermission()) {
+                setHasOptionsMenu(true)
+            }
+        }
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
 
         loadContactList()
@@ -44,7 +47,9 @@ class ContactSelectorFragment : Fragment() {
         return binding.root
     }
 
-    private fun loadContactList() {
+    fun loadContactList() {
+        binding.dialogButtons.visibility = if (contactsHelper.hasContactPermission()) View.VISIBLE else View.GONE
+
         contactList = contactsHelper.contactList
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
@@ -106,5 +111,19 @@ class ContactSelectorFragment : Fragment() {
             it.setView(input, margin.toInt(), 0, margin.toInt(), 0)
             it.show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.enable_contact_permission_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.enable_contact_permission) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                contactsHelper.requestContactPermission(activity)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
