@@ -48,9 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Näytä ilmoitus vastatuille viesteille</string>
+    <string name="preference_category_general_label">Yleiset asetukset</string>
     <string name="preference_category_notifications_label">Ilmoitukset</string>
     <string name="preference_category_troubleshooting_label">Vianmääritys</string>
     <string name="enable_auto_start_label">Salli automaattinen käynnistys</string>
+    <string name="add_attribution_label">Lisää määrite</string>
+    <string name="enabled_apps_title">Sallitut sovellukset</string>
     <string name="always_on_notification">Ilmoitus aina päällä</string>
     <string name="display_persistent_notification_summary">Näytä pysyvä ilmoitus varmistaaksesi, ettei järjestelmä lopeta Watomaticia</string>
     <string name="enable_auto_start_summary">Jotkut laitteet saattavat tarvita ottamaan automattisen käynnistyksen Watomaticille manuaalisesti käyttöön laitteen asetusten kautta</string>
@@ -82,6 +85,7 @@
     <string name="setting_not_available_for_device">Tämä asetus ei ole saatavilla tai ei saata olla tarpeellinen laitteellesi.</string>
     <string name="enable_auto_start_setting">Jatka</string>
     <string name="decline_auto_start_setting">Peruuta</string>
+    <string name="app_not_installed_text">Ei asennettu</string>
     <string name="advanced_settings">Edistyneet asetukset</string>
     <string name="contact_based_reply">Yhteystietoihin perustuvat vastaukset</string>
     <string name="contact_reply_type">Vastaa</string>
@@ -95,4 +99,25 @@
     <string name="contact_permission_dialog_msg">Yhteystiedon lukemiseen pääsy vaaditaan, jotta nimiä voidaan suodattaa ja tämä toiminto voidaan ottaa käyttöön. Haluatko jatkaa?</string>
     <string name="contact_permission_dialog_proceed">Jatka</string>
     <string name="contact_permission_dialog_cancel">Peruuta</string>
+    <string name="undo">Kumoa</string>
+    <string name="all_contacts_selected">Kaikki yhteystiedot valittu</string>
+    <string name="all_contacts_unselected">Kaikki yhteystiedot valitsematta</string>
+    <string name="donations_activity_title">Lahjoitukset</string>
+    <string name="donations_data_fetch_error">Uusimpien tietojen noutaminen epäonnistui</string>
+    <string name="donations_goal_title_0">Rimpuilee</string>
+    <string name="donations_goal_0">Jokainen sentti auttaa sitä selviytymään</string>
+    <string name="donations_goal_title_20">Vain selviytdytään</string>
+    <string name="donations_goal_20">Tukee päivittäistä ylläpitoa ja kriittisiä korjauksia</string>
+    <string name="donations_goal_title_30">Vakaa</string>
+    <string name="donations_goal_30">Nopeammat bugien korjaukset ja sen pitäminen uutena</string>
+    <string name="donations_goal_title_70">Hidas ja vakaa edistyminen</string>
+    <string name="donations_goal_70">Pieniä ominaisuuksia ja käyttöliittymän parannuksia</string>
+    <string name="donations_goal_title_100">Tehostettu tila</string>
+    <string name="donations_goal_100">Auta meitä tekemään siitä tehokkaan sovelluksen automaattisille vastauksille useilla edistyneillä ominaisuuksilla</string>
+    <string name="donation_progress_label">kuukausittaisesta tavoitteesta</string>
+    <string name="add_custom_contact">Lisää mukautettu yhteystiedon nimi</string>
+    <string name="contact_permission_suggestion_dialog_msg">Yhteystietojen lukemiseen pääsyä tarvitaan, jotta vastauksia voidaan suodattaa yhteystietojen nimien mukaan. Jos tätä pääsyä ei anneta, sallitaan vain käsin kirjoitetut nimet. Haluatko ottaa sen käyttöön?</string>
+    <string name="contact_permission_dialog_enable_permission">Salli yhteystietojen käyttöoikeus</string>
+    <string name="contact_permission_dialog_not_now">Ei nyt</string>
+    <string name="contact_permission_dialog_title">Yhteystietojen lukemisen käyttölupa</string>
 </resources>
