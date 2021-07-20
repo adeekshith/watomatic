@@ -112,6 +112,8 @@
     <string name="donations_goal_30">Corrección de errores más rápido y mantenimiento actualizado</string>
     <string name="donations_goal_title_70">Progreso lento y constante</string>
     <string name="donations_goal_70">Características menores y mejoras de la interfaz</string>
+    <string name="donations_goal_title_100">Modo Boost</string>
     <string name="donations_goal_100">Ayúdanos a convertirla en una potente aplicación de respuesta automática con muchas características avanzadas</string>
     <string name="donation_progress_label">del objetivo mensual</string>
+    <string name="add_custom_contact">Añadir nombre de contacto personalizado</string>
 </resources>
