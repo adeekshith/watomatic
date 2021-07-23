@@ -6,13 +6,12 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
+    <permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <queries>
-        <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
-        <package android:name="com.whatsapp" />
-        <package android:name="com.facebook.orca" />
-        <package android:name="com.facebook.mlite" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
     </queries>
 
     <application
