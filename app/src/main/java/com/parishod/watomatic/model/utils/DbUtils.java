@@ -67,4 +67,9 @@ public class DbUtils {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.supportedAppsDao().getAppData(packageName) != null;
     }
+
+    public void removeSupportedApp(App app){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        messageLogsDB.supportedAppsDao().removeSupportedApp(app);
+    }
 }
