@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parishod.watomatic.R
@@ -42,6 +43,9 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
     ): View {
         fragmentView = inflater.inflate(R.layout.fragment_custom_apps, container, false)
         fragmentView.shimmerFrameLayout.startShimmerAnimation()
+
+        fragmentView.saveCustomPackagesFab.visibility = View.GONE
+        fragmentView.saveCustomPackagesFab.setOnClickListener { saveCustomApps() }
 
         CoroutineScope(Dispatchers.Main).launch {
             installedApps = getInstalledApps(context)
@@ -97,5 +101,25 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
     override fun itemClick(newlyAddedApps: List<App>) {
         this.newlyAddedApps.clear()
         this.newlyAddedApps.addAll(newlyAddedApps)
+
+        fragmentView.saveCustomPackagesFab.visibility = if(newlyAddedApps.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    private fun saveCustomApps() {
+        val enabledApps = ArrayList(dbUtils.supportedApps)
+        val(add, remove) = enabledApps.partition {
+            newlyAddedApps.contains(it)
+        }
+        newlyAddedApps.forEach{
+                app ->
+            if(!dbUtils.isPackageAlreadyAdded(app.packageName)) {
+                this.dbUtils.insertSupportedApp(app)
+            }
+        }
+        remove.forEach{
+                app -> dbUtils.removeSupportedApp(app)
+        }
+        Toast.makeText(context, "App list refreshed succesfully!", Toast.LENGTH_SHORT).show()
+        activity?.finish()
     }
 }
