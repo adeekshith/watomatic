@@ -41,6 +41,7 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
         savedInstanceState: Bundle?
     ): View {
         fragmentView = inflater.inflate(R.layout.fragment_custom_apps, container, false)
+        fragmentView.shimmerFrameLayout.startShimmerAnimation()
 
         CoroutineScope(Dispatchers.Main).launch {
             installedApps = getInstalledApps(context)
@@ -51,6 +52,9 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
     }
 
     private fun showInstalledApps() {
+        fragmentView.shimmerFrameLayout.stopShimmerAnimation()
+        fragmentView.shimmerFrameLayout.visibility = View.GONE
+
         val layoutManager = LinearLayoutManager(context)
         installedAppsAdapter = InstalledAppsAdapter(this@CustomAppsAdditionFragment as InstalledAppsAdapter.ItemClickListener, installedApps)
         fragmentView.installedAppsList.layoutManager = layoutManager
