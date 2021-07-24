@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.parishod.watomatic.R
@@ -55,23 +55,23 @@ class InstalledAppsAdapter(private var installedAppsList: List<App>): RecyclerVi
             itemView.appName.text = app.name
             itemView.appName.tag = app
             itemView.appName.isChecked = newlyAddedApps.contains(app)
-            itemView.appName.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener{
-                override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                    if(isChecked){
-                        if(!dbUtils.isPackageAlreadyAdded((buttonView?.tag as App).packageName)) {
-                            dbUtils.insertSupportedApp(buttonView.tag as App)
-                            itemView.context?.let {
-                                Toast.makeText(it, "${(buttonView.tag as App).name} added to list.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }else{
-                        dbUtils.removeSupportedApp(buttonView?.tag as App)
+            itemView.appName.setOnClickListener {
+                val view = it as CheckBox
+                if(view.isChecked){
+                    if(!dbUtils.isPackageAlreadyAdded((view.tag as App).packageName)) {
+                        dbUtils.insertSupportedApp(view.tag as App)
                         itemView.context?.let {
-                            Toast.makeText(it, "${(buttonView.tag as App).name} removed from list.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(it, "${(view.tag as App).name} added to list.", Toast.LENGTH_SHORT).show()
                         }
                     }
+
+                }else{
+                    dbUtils.removeSupportedApp(view.tag as App)
+                    itemView.context?.let {
+                        Toast.makeText(it, "${(view.tag as App).name} removed from list.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            })
+            }
         }
     }
 }
