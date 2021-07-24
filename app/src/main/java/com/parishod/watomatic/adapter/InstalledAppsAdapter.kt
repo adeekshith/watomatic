@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.installed_apps_list.view.*
 import kotlinx.android.synthetic.main.supported_apps_list.view.appIcon
 
 
-class InstalledAppsAdapter(private var itemClickListener: ItemClickListener, private var installedAppsList: List<App>): RecyclerView.Adapter<InstalledAppsAdapter.AppsViewHolder>() {
+class InstalledAppsAdapter(private var installedAppsList: List<App>): RecyclerView.Adapter<InstalledAppsAdapter.AppsViewHolder>() {
     lateinit var dbUtils: DbUtils
     var newlyAddedApps: MutableList<App> = ArrayList()
 
@@ -37,11 +37,6 @@ class InstalledAppsAdapter(private var itemClickListener: ItemClickListener, pri
 
     override fun getItemCount(): Int {
         return installedAppsList.size
-    }
-
-    fun updateList(installedAppsList: List<App>){
-        this.installedAppsList = installedAppsList
-        notifyDataSetChanged()
     }
 
     inner class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -78,9 +73,5 @@ class InstalledAppsAdapter(private var itemClickListener: ItemClickListener, pri
                 }
             })
         }
-    }
-
-    interface ItemClickListener{
-        fun itemClick(newlyAddedApps: List<App>)
     }
 }

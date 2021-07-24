@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.UserManager
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -25,12 +24,10 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickListener  {
+class CustomAppsAdditionFragment: Fragment(){
     lateinit var fragmentView: View
     lateinit var installedApps: List<App>
     lateinit var installedAppsAdapter: InstalledAppsAdapter
-    lateinit var saveMenu: MenuItem
-    var newlyAddedApps: MutableList<App> = ArrayList()
     val dbUtils: DbUtils by lazy {
         DbUtils(context)
     }
@@ -56,7 +53,7 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
         fragmentView.shimmerFrameLayout.visibility = View.GONE
 
         val layoutManager = LinearLayoutManager(context)
-        installedAppsAdapter = InstalledAppsAdapter(this@CustomAppsAdditionFragment as InstalledAppsAdapter.ItemClickListener, installedApps)
+        installedAppsAdapter = InstalledAppsAdapter(installedApps)
         fragmentView.installedAppsList.layoutManager = layoutManager
         fragmentView.installedAppsList.adapter = installedAppsAdapter
     }
@@ -93,9 +90,4 @@ class CustomAppsAdditionFragment: Fragment(), InstalledAppsAdapter.ItemClickList
             }
             return@withContext apps.sortedBy { it.name }
         }
-
-    override fun itemClick(newlyAddedApps: List<App>) {
-        this.newlyAddedApps.clear()
-        this.newlyAddedApps.addAll(newlyAddedApps)
-    }
 }
