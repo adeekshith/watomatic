@@ -116,4 +116,8 @@
     <string name="donations_goal_100">Pomóż nam uczynić z niej potężną aplikację do automatycznej odpowiedzi z wieloma zaawansowanymi funkcjami</string>
     <string name="donation_progress_label">celu miesięcznego</string>
     <string name="add_custom_contact">Dodaj niestandardową nazwę kontaktu</string>
+    <string name="contact_permission_suggestion_dialog_msg">Dostęp do odczytu kontaktu jest wymagany w celu filtrowania odpowiedzi według nazw kontaktów. Jeśli dostęp nie jest przyznany, dozwolone będą tylko ręcznie wprowadzone nazwy. Czy chcesz przyznać dostęp?</string>
+    <string name="contact_permission_dialog_enable_permission">Przyznaj uprawnienia do kontaktu</string>
+    <string name="contact_permission_dialog_not_now">Nie teraz</string>
+    <string name="contact_permission_dialog_title">Dostęp do odczytu kontaktu</string>
 </resources>
