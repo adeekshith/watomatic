@@ -36,39 +36,49 @@ public class ContactsHelper {
     }
 
     public ArrayList<ContactHolder> getContactList() {
-        ArrayList<ContactHolder> unselectedContactList = new ArrayList<>();
-        ArrayList<ContactHolder> selectedContactList = new ArrayList<>();
-        Set<String> previousSelectedContacts = prefs.getReplyToNames();
+        ArrayList<ContactHolder> customContactList = new ArrayList<>();
 
-        ContentResolver contentResolver = mContext.getContentResolver();
-        String[] queryColumnAttribute = {ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
-        Cursor cursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, queryColumnAttribute, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC");
+        Set<String> savedCustomContacts = prefs.getCustomReplyNames();
+        for (String name : savedCustomContacts) {
+            customContactList.add(new ContactHolder(name, true, true));
+        }
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    int columnIndex = cursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
-                    String contactName = cursor.getString(columnIndex);
-                    if (contactName != null && !contactName.isEmpty()) {
-                        boolean contactChecked = previousSelectedContacts.contains(contactName);
-                        if (contactChecked) {
-                            selectedContactList.add(new ContactHolder(contactName, true));
+        if (hasContactPermission()) {
+            ArrayList<ContactHolder> unselectedContactList = new ArrayList<>();
+            ArrayList<ContactHolder> selectedContactList = new ArrayList<>();
+            Set<String> previousSelectedContacts = prefs.getReplyToNames();
+
+            ContentResolver contentResolver = mContext.getContentResolver();
+            String[] queryColumnAttribute = {ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
+            Cursor cursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, queryColumnAttribute, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC");
+
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        int columnIndex = cursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
+                        String contactName = cursor.getString(columnIndex);
+                        if (contactName != null && !contactName.isEmpty()) {
+                            boolean contactChecked = previousSelectedContacts.contains(contactName);
+                            if (contactChecked) {
+                                selectedContactList.add(new ContactHolder(contactName, true));
+                            }
+                            else {
+                                unselectedContactList.add(new ContactHolder(contactName, false));
+                            }
                         }
-                        else {
-                            unselectedContactList.add(new ContactHolder(contactName, false));
-                        }
-                    }
-                } while (cursor.moveToNext());
+                    } while (cursor.moveToNext());
+                }
             }
+
+            if (cursor != null) {
+                cursor.close();
+            }
+
+            customContactList.addAll(selectedContactList);
+            customContactList.addAll(unselectedContactList);
         }
 
-        if (cursor != null) {
-            cursor.close();
-        }
-
-        selectedContactList.addAll(unselectedContactList);
-
-        return selectedContactList;
+        return customContactList;
     }
 
     public boolean hasContactPermission() {
@@ -79,11 +89,11 @@ public class ContactsHelper {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void requestContactPermission(Activity mActivity) {
         new MaterialAlertDialogBuilder(mContext)
-                .setTitle(R.string.permission_dialog_title)
-                .setMessage(R.string.contact_permission_dialog_msg)
-                .setPositiveButton(R.string.contact_permission_dialog_proceed, ((dialog, which) ->
+                .setTitle(R.string.contact_permission_dialog_title)
+                .setMessage(R.string.contact_permission_suggestion_dialog_msg)
+                .setPositiveButton(R.string.contact_permission_dialog_enable_permission, ((dialog, which) ->
                         mActivity.requestPermissions(new String[]{ Manifest.permission.READ_CONTACTS }, CONTACT_PERMISSION_REQUEST_CODE)))
-                .setNegativeButton(R.string.contact_permission_dialog_cancel, ((dialog, which) -> {}))
+                .setNegativeButton(R.string.contact_permission_dialog_not_now, ((dialog, which) -> {}))
                 .setCancelable(false)
                 .show();
 

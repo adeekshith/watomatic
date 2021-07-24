@@ -12,6 +12,7 @@ import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
@@ -48,7 +49,10 @@ public class NotificationService extends NotificationListenerService {
             //Title contains sender name (at least on WhatsApp)
             String senderName = sbn.getNotification().extras.getString("android.title");
             //Check if should reply to contact
-            boolean isNameSelected = prefs.getReplyToNames().contains(senderName);
+            boolean isNameSelected =
+                    (ContactsHelper.getInstance(this).hasContactPermission()
+                            && prefs.getReplyToNames().contains(senderName)) ||
+                    prefs.getCustomReplyNames().contains(senderName);
             if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
                 !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
                 //If contact is on the list and contact reply is on blacklist mode, 
@@ -150,8 +154,8 @@ public class NotificationService extends NotificationListenerService {
         //android.text returning SpannableString
         SpannableString rawText = SpannableString.valueOf("" + sbn.getNotification().extras.get("android.text"));
         // Detect possible group image message by checking for colon and text starts with camera icon #181
-        boolean isPossiblyAnImageGrpMsg = ((rawTitle != null) && ": ".contains(rawTitle))
-                && ((rawText != null) && rawText.toString().startsWith("\uD83D\uDCF7"));
+        boolean isPossiblyAnImageGrpMsg = ((rawTitle != null) && (": ".contains(rawTitle) || "@ ".contains(rawTitle)))
+                && ((rawText != null) && rawText.toString().contains("\uD83D\uDCF7"));
         if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
             return !isPossiblyAnImageGrpMsg;
         }else {

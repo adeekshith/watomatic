@@ -33,6 +33,7 @@ public class PreferencesManager {
     private final String KEY_SHOW_FOREGROUND_SERVICE_NOTIFICATION = "pref_show_foreground_service_notification";
     private final String KEY_REPLY_CONTACTS = "pref_reply_contacts";
     private final String KEY_REPLY_CONTACTS_TYPE = "pref_reply_contacts_type";
+    private final String KEY_REPLY_CUSTOM_NAMES = "pref_reply_custom_names";
     private final String KEY_SELECTED_CONTACT_NAMES = "pref_selected_contacts_names";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
@@ -297,6 +298,16 @@ public class PreferencesManager {
 
     public Set<String> getReplyToNames() {
         return _sharedPrefs.getStringSet(KEY_SELECTED_CONTACT_NAMES, new HashSet<>());
+    }
+
+    public Set<String> getCustomReplyNames() {
+        return _sharedPrefs.getStringSet(KEY_REPLY_CUSTOM_NAMES, new HashSet<>());
+    }
+
+    public void setCustomReplyNames(Set<String> names) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putStringSet(KEY_REPLY_CUSTOM_NAMES, names);
+        editor.apply();
     }
 
     public boolean isContactReplyEnabled() {

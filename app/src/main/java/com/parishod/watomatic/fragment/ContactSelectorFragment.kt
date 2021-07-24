@@ -1,11 +1,14 @@
 package com.parishod.watomatic.fragment
 
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.InputType
+import android.util.TypedValue
+import android.view.*
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.parishod.watomatic.R
 import com.parishod.watomatic.databinding.FragmentContactSelectorBinding
@@ -32,7 +35,11 @@ class ContactSelectorFragment : Fragment() {
     ): View {
         _binding = FragmentContactSelectorBinding.inflate(inflater, container, false)
 
-        contactsHelper = ContactsHelper.getInstance(requireContext())
+        contactsHelper = ContactsHelper.getInstance(requireContext()).also {
+            if (!it.hasContactPermission()) {
+                setHasOptionsMenu(true)
+            }
+        }
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
 
         loadContactList()
@@ -40,7 +47,9 @@ class ContactSelectorFragment : Fragment() {
         return binding.root
     }
 
-    private fun loadContactList() {
+    fun loadContactList() {
+        binding.dialogButtons.visibility = if (contactsHelper.hasContactPermission()) View.VISIBLE else View.GONE
+
         contactList = contactsHelper.contactList
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
@@ -53,6 +62,8 @@ class ContactSelectorFragment : Fragment() {
         binding.buttonSelectNone.setOnClickListener {
             toggleSelection(false)
         }
+
+        binding.addCustomButton.setOnClickListener { addCustomContactDialog() }
     }
 
     private fun toggleSelection(checked: Boolean) {
@@ -74,5 +85,45 @@ class ContactSelectorFragment : Fragment() {
             adapter.saveSelectedContactList()
         }
         snackbar.show()
+    }
+
+    private fun addCustomContactDialog() {
+        val builder = MaterialAlertDialogBuilder(requireActivity())
+            .setTitle(R.string.add_custom_contact)
+
+        val input = EditText(activity).also {
+            it.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+        }
+
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
+            val name = input.text.toString()
+            val adapter = binding.contactList.adapter as ContactListAdapter
+            adapter.addCustomName(name)
+            binding.contactList.scrollToPosition(0)
+        }
+
+        builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.create().also {
+            val margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, activity?.resources?.displayMetrics)
+            it.setView(input, margin.toInt(), 0, margin.toInt(), 0)
+            it.show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.enable_contact_permission_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.enable_contact_permission) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                contactsHelper.requestContactPermission(activity)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
