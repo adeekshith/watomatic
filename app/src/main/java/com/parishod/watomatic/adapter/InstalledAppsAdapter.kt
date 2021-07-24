@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.logs.App
@@ -56,26 +58,25 @@ class InstalledAppsAdapter(private var itemClickListener: ItemClickListener, pri
                 itemView.appIcon.colorFilter = cf
             }
             itemView.appName.text = app.name
-            itemView.parentLayout.tag = app
-            itemView.parentLayout.setOnClickListener {
-                if(itemView.appCheckBox.visibility == View.VISIBLE){
-                    itemView.appCheckBox.visibility = View.GONE
-                    itemView.parentLayout.setBackgroundColor(itemView.context.resources.getColor(R.color.white))
-                    newlyAddedApps.remove(app)
-                }else{
-                    itemView.appCheckBox.visibility = View.VISIBLE
-                    itemView.parentLayout.setBackgroundColor(itemView.context.resources.getColor(R.color.platinum))
-                    newlyAddedApps.add(app)
+            itemView.appName.tag = app
+            itemView.appName.isChecked = newlyAddedApps.contains(app)
+            itemView.appName.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener{
+                override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                    if(isChecked){
+                        if(!dbUtils.isPackageAlreadyAdded((buttonView?.tag as App).packageName)) {
+                            dbUtils.insertSupportedApp(buttonView.tag as App)
+                            itemView.context?.let {
+                                Toast.makeText(it, "${(buttonView.tag as App).name} added to list.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }else{
+                        dbUtils.removeSupportedApp(buttonView?.tag as App)
+                        itemView.context?.let {
+                            Toast.makeText(it, "${(buttonView.tag as App).name} removed from list.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
-                itemClickListener.itemClick(newlyAddedApps)
-            }
-            if(newlyAddedApps.contains(app)){
-                itemView.appCheckBox.visibility = View.VISIBLE
-                itemView.parentLayout.setBackgroundColor(itemView.context.resources.getColor(R.color.platinum))
-            }else{
-                itemView.appCheckBox.visibility = View.GONE
-                itemView.parentLayout.setBackgroundColor(itemView.context.resources.getColor(R.color.white))
-            }
+            })
         }
     }
 

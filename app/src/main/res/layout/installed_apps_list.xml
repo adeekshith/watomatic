@@ -20,25 +20,16 @@
         app:strokeColor="@android:color/darker_gray"
         android:padding="2dp"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_check_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/appIcon"
-        app:layout_constraintEnd_toEndOf="@+id/appIcon"
-        android:visibility="gone"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
+    <!-- Using layout direction rtl to show check box on right side, this might show odd id design view but it'll be right in device-->
+    <CheckBox
         android:id="@+id/appName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/appIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"/>
+        android:layoutDirection="rtl"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
