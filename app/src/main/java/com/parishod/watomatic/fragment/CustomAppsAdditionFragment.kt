@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.parishod.watomatic.R
 import com.parishod.watomatic.adapter.InstalledAppsAdapter
 import com.parishod.watomatic.model.logs.App
+import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.model.utils.DbUtils
 import kotlinx.android.synthetic.main.fragment_custom_apps.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -78,7 +79,7 @@ class CustomAppsAdditionFragment: Fragment(){
                                 resolveInfo?.let {
                                     if((resolveInfo.activityInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 1) {
                                         val app = App(resolveInfo.loadLabel(pm) as String, resolveInfo.activityInfo.packageName)//AppInfo(resolveInfo.loadLabel(pm) as String, resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.loadIcon(pm))
-                                        if(!apps.contains(app)) {
+                                        if(!Constants.SUPPORTED_APPS.contains(app) && !apps.contains(app)) {
                                             apps.add(app)
                                         }
                                     }
