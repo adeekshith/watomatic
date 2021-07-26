@@ -89,6 +89,6 @@ class CustomAppsAdditionFragment: Fragment(){
                     }
                 }
             }
-            return@withContext apps.sortedBy { it.name }
+            return@withContext apps.sortedWith(compareBy<App> { !ArrayList<App>(dbUtils.supportedApps).contains(it) }.thenBy { it.name.lowercase() })
         }
 }
