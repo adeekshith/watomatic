@@ -115,4 +115,8 @@
     <string name="donations_goal_100">Ajudeu-nos a convertir el Watomatic en l\'aplicació de resposta automàtica més avançada</string>
     <string name="donation_progress_label">de l\'objectiu mensual</string>
     <string name="add_custom_contact">Afegeix un nom de contacte personalitzat</string>
+    <string name="contact_permission_suggestion_dialog_msg">Es requereix l\'accés als contactes per crear filtres de resposta basats en aquest criteri. Si no permeteu l\'accés, només podreu crear filtres inserint la informació manualment. Voleu habilitar-ho?</string>
+    <string name="contact_permission_dialog_enable_permission">Permet l\'accés a contactes</string>
+    <string name="contact_permission_dialog_not_now">Ara no</string>
+    <string name="contact_permission_dialog_title">Accés als contactes</string>
 </resources>
