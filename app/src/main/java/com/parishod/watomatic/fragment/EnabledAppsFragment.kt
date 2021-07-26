@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.parishod.watomatic.activity.customapp.CustomAppsAdditionActivity
 import com.parishod.watomatic.adapter.SupportedAppsAdapter
 import com.parishod.watomatic.model.logs.App
 import com.parishod.watomatic.model.utils.Constants
+import com.parishod.watomatic.model.utils.CustomDialog
 import com.parishod.watomatic.model.utils.DbUtils
 
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*
@@ -31,7 +33,24 @@ class EnabledAppsFragment: Fragment() {
         fragmentView.supportedAppsList.adapter = supportedAppsAdapter
 
         fragmentView.addCustomPackageButton.setOnClickListener {
-            startActivity(Intent(activity, CustomAppsAdditionActivity::class.java))
+            val bundle = Bundle()
+            bundle.putString(
+                Constants.BETA_FEATURE_ALERT_DIALOG_TITLE,
+                getString(R.string.beta_feature_alert_dialog_title)
+            )
+            bundle.putString(
+                Constants.BETA_FEATURE_ALERT_DIALOG_MSG,
+                getString(R.string.beta_feature_alert_dialog_msg)
+            )
+            CustomDialog(activity).showDialog(bundle, null
+            ) { _, which ->
+                if (which == -2) {
+                    //Decline
+                } else {
+                    //Accept
+                    startActivity(Intent(activity, CustomAppsAdditionActivity::class.java))
+                }
+            }
         }
         return fragmentView
     }
