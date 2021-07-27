@@ -2,34 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".activity.enabledapps.EnabledAppsActivity"
-    android:id="@+id/parentLayout">
+    tools:context=".activity.enabledapps.EnabledAppsActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/appIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:padding="2dp"
         android:src="@drawable/ic_android_default_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-        app:strokeWidth="3dp"
         app:strokeColor="@android:color/darker_gray"
-        android:padding="2dp"/>
+        app:strokeWidth="3dp" />
 
-    <!-- Using layout direction rtl to show check box on right side, this might show odd id design view but it'll be right in device-->
-    <CheckBox
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="60dp"
-        app:layout_constraintStart_toEndOf="@+id/appIcon"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/appIcon"
         app:layout_constraintTop_toTopOf="parent"
-        android:layoutDirection="rtl"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <CheckBox
+        android:id="@+id/appNameCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

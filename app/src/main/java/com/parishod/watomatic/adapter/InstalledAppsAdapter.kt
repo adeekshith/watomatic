@@ -53,24 +53,40 @@ class InstalledAppsAdapter(private var installedAppsList: List<App>): RecyclerVi
                 itemView.appIcon.colorFilter = cf
             }
             itemView.appName.text = app.name
-            itemView.appName.tag = app
-            itemView.appName.isChecked = newlyAddedApps.contains(app)
-            itemView.appName.setOnClickListener {
+            itemView.appNameCheckBox.tag = app
+            itemView.appNameCheckBox.isChecked = newlyAddedApps.contains(app)
+            itemView.appNameCheckBox.setOnClickListener{
                 val view = it as CheckBox
                 if(view.isChecked){
-                    if(!dbUtils.isPackageAlreadyAdded((view.tag as App).packageName)) {
-                        dbUtils.insertSupportedApp(view.tag as App)
-                        itemView.context?.let {
-                            Toast.makeText(it, "${(view.tag as App).name} added to list.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
+                    addToList(view.tag as App)
                 }else{
-                    dbUtils.removeSupportedApp(view.tag as App)
-                    itemView.context?.let {
-                        Toast.makeText(it, "${(view.tag as App).name} removed from list.", Toast.LENGTH_SHORT).show()
-                    }
+                    removeFromList(view.tag as App)
                 }
+            }
+            itemView.setOnClickListener {
+                val view = itemView.appNameCheckBox as CheckBox
+                view.isChecked = !view.isChecked //Toggle checkbox
+                if(view.isChecked){
+                    addToList(view.tag as App)
+                }else{
+                    removeFromList(view.tag as App)
+                }
+            }
+        }
+
+        fun addToList(app: App){
+            if(!dbUtils.isPackageAlreadyAdded(app.packageName)) {
+                dbUtils.insertSupportedApp(app)
+                itemView.context?.let {
+                    Toast.makeText(it, "${app.name} added to list.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        fun removeFromList(app: App){
+            dbUtils.removeSupportedApp(app)
+            itemView.context?.let {
+                Toast.makeText(it, "${app.name} removed from list.", Toast.LENGTH_SHORT).show()
             }
         }
     }
