@@ -50,25 +50,28 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
     class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
         fun setData(app: App, listType: Constants.EnabledAppsDisplayType){
+            var isAppInstalled = true
             try {
                 val icon: Drawable = itemView.context.packageManager.getApplicationIcon(app.packageName)
                 itemView.appIcon.setImageDrawable(icon)
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-                if(Constants.SUPPORTED_APPS.contains(app)) {
-                    if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
-                        val matrix = ColorMatrix()
-                        matrix.setSaturation(0f) //0 means grayscale
-                        val cf = ColorMatrixColorFilter(matrix)
-                        itemView.appIcon.setColorFilter(cf)
-    
-                        (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
-                            showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
-                            itemView.appEnableSwitch.isChecked = false
-                        }
-                        itemView.appIcon.setOnClickListener {
-                            showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
-                        }
+                isAppInstalled = false
+                if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                    val matrix = ColorMatrix()
+                    matrix.setSaturation(0f) //0 means grayscale
+                    val cf = ColorMatrixColorFilter(matrix)
+                    itemView.appIcon.setColorFilter(cf)
+
+                    (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
+                        showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
+                        itemView.appEnableSwitch.isChecked = false
+                        PreferencesManager.getPreferencesInstance(itemView.context).saveEnabledApps(itemView.appEnableSwitch.tag as App, itemView.appEnableSwitch.isChecked)
+                    }
+                    itemView.appIcon.setOnClickListener {
+                        showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
+                        itemView.appEnableSwitch.isChecked = false
+                        PreferencesManager.getPreferencesInstance(itemView.context).saveEnabledApps(itemView.appEnableSwitch.tag as App, itemView.appEnableSwitch.isChecked)
                     }
                 }
             }
@@ -77,20 +80,23 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 itemView.appEnableSwitch.text = app.name
                 itemView.appEnableSwitch.tag = app
                 itemView.appEnableSwitch.isChecked = PreferencesManager.getPreferencesInstance(itemView.context).isAppEnabled(app)
-                itemView.appEnableSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-                    val preferencesManager = PreferencesManager.getPreferencesInstance(itemView.context)
-                    if (!isChecked && preferencesManager.enabledApps.size <= 1) { // Keep at-least one app selected
-                        // Keep at-least one app selected
-                        Toast.makeText(
-                            itemView.context,
-                            itemView.context.resources.getString(R.string.error_atleast_single_app_must_be_selected),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        buttonView.isChecked = true
-                    }else {
-                        preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
-                        if(isChecked && !Constants.SUPPORTED_APPS.contains(buttonView.tag as App)){
-                            showSnackBar(itemView, (buttonView.tag as App).packageName, itemView.context.resources.getString(R.string.app_not_detect_text))
+                if(isAppInstalled) {
+                    (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
+                        val preferencesManager =
+                            PreferencesManager.getPreferencesInstance(itemView.context)
+                        if (!itemView.appEnableSwitch.isChecked && preferencesManager.enabledApps.size <= 1) { // Keep at-least one app selected
+                            // Keep at-least one app selected
+                            Toast.makeText(
+                                itemView.context,
+                                itemView.context.resources.getString(R.string.error_atleast_single_app_must_be_selected),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            itemView.appEnableSwitch.isChecked = true
+                        }else {
+                            preferencesManager.saveEnabledApps(
+                                itemView.appEnableSwitch.tag as App,
+                                itemView.appEnableSwitch.isChecked
+                            )
                         }
                     }
                 }
