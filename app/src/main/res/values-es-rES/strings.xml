@@ -48,10 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostrar una notificación para los mensajes respondidos</string>
-    <string name="preference_category_general_label">General</string>
+    <string name="preference_category_general_label">Configuraciones Generales</string>
     <string name="preference_category_notifications_label">Notificaciones</string>
     <string name="preference_category_troubleshooting_label">Resolución de problemas</string>
     <string name="enable_auto_start_label">Habilitar el inicio automático</string>
+    <string name="add_attribution_label">Añadir Atribución</string>
+    <string name="enabled_apps_title">Aplicaciones habilitadas</string>
     <string name="always_on_notification">Notificación siempre activa</string>
     <string name="display_persistent_notification_summary">Crea una notificación persistente para evitar que el sistema finalice el Watomatic</string>
     <string name="enable_auto_start_summary">Algunos dispositivos pueden necesitar habilitar manualmente el inicio automático para Watomatic desde la configuración del dispositivo</string>
@@ -83,6 +85,7 @@
     <string name="setting_not_available_for_device">Esta configuración no está disponible o no es necesaria para este dispositivo.</string>
     <string name="enable_auto_start_setting">Continuar</string>
     <string name="decline_auto_start_setting">Cancelar</string>
+    <string name="app_not_installed_text">Sin instalar</string>
     <string name="advanced_settings">Ajustes avanzados</string>
     <string name="contact_based_reply">Respuestas basadas en contactos</string>
     <string name="contact_reply_type">Responder a</string>
@@ -96,4 +99,25 @@
     <string name="contact_permission_dialog_msg">El acceso a contactos es requerido para filtrar nombres y habilitar esta función. ¿Quieres continuar?</string>
     <string name="contact_permission_dialog_proceed">Proceder</string>
     <string name="contact_permission_dialog_cancel">Cancelar</string>
+    <string name="undo">Deshacer</string>
+    <string name="all_contacts_selected">Todos los contactos seleccionados</string>
+    <string name="all_contacts_unselected">Todos los contactos desseleccionados</string>
+    <string name="donations_activity_title">Donativos</string>
+    <string name="donations_data_fetch_error">No se pueden obtener los datos más recientes</string>
+    <string name="donations_goal_title_0">Luchando</string>
+    <string name="donations_goal_0">Cada céntimo cuenta para ayudarlo a sobrevivir</string>
+    <string name="donations_goal_title_20">Simplemente sobreviviendo</string>
+    <string name="donations_goal_20">Soporta mantenimiento diario y correcciones críticas</string>
+    <string name="donations_goal_title_30">Estable</string>
+    <string name="donations_goal_30">Corrección de errores más rápido y mantenimiento actualizado</string>
+    <string name="donations_goal_title_70">Progreso lento y constante</string>
+    <string name="donations_goal_70">Características menores y mejoras de la interfaz</string>
+    <string name="donations_goal_title_100">Modo Boost</string>
+    <string name="donations_goal_100">Ayúdanos a convertirla en una potente aplicación de respuesta automática con muchas características avanzadas</string>
+    <string name="donation_progress_label">del objetivo mensual</string>
+    <string name="add_custom_contact">Añadir nombre de contacto personalizado</string>
+    <string name="contact_permission_suggestion_dialog_msg">Se requiere el acceso de lectura de contactos para filtrar las respuestas por los nombres de contacto. Si el acceso no está habilitado, sólo se permitirán los nombres introducidos manualmente. ¿Desea activarlo?</string>
+    <string name="contact_permission_dialog_enable_permission">Activar permiso de contactos</string>
+    <string name="contact_permission_dialog_not_now">Ahora no</string>
+    <string name="contact_permission_dialog_title">Acceso a lectura de contactos</string>
 </resources>

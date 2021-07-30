@@ -26,11 +26,11 @@
     <string name="error_atleast_single_app_must_be_selected">Грешка: Изберете најмалку една апликација</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Автоматски одговор за групни разговори</string>
-    <string name="group_reply_on_info_message">Овозможи автоматски одговор за групни разговори</string>
-    <string name="group_reply_off_info_message">Оневозможи автоматски одговор за групни разговори</string>
+    <string name="group_reply_on_info_message">Вклучен автоматски одговор за групни разговори</string>
+    <string name="group_reply_off_info_message">Искличен автоматски одговор за групни разговори</string>
     <string name="time_picker_title">Број на одговори (BETA)</string>
     <string name="time_picker_sub_title_default">Одговорете на сите пораки без ограничувања</string>
-    <string name="time_picker_sub_title">Одговорете само еднаш на секои %1$d ден(а) на секоја личност или група</string>
+    <string name="time_picker_sub_title">Одговори само еднаш на секои %1$d ден(а) на секоја личност или група</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Кликнете за да го прилагодите времето помеѓу одговорите</string>
     <string name="app_version">Верзија%1$s</string>
@@ -48,10 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Прикажи известување за автоматски одговорени пораки</string>
-    <string name="preference_category_general_label">Општо</string>
+    <string name="preference_category_general_label">Општи поставки</string>
     <string name="preference_category_notifications_label">Известувања</string>
     <string name="preference_category_troubleshooting_label">Решавање на проблеми</string>
     <string name="enable_auto_start_label">Овозможи автоматско стартување</string>
+    <string name="add_attribution_label">Додај атрибут</string>
+    <string name="enabled_apps_title">Овозможени апликации</string>
     <string name="enable_auto_start_summary">На некои можеби ќе треба рачно да вклучите Автоматско Стартување за Watomatic во поставките на уредот</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -79,9 +81,22 @@
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
+    <string name="app_not_installed_text">Не е инсталирана</string>
     <string name="advanced_settings">Напредни поставки</string>
+    <string name="contact_based_reply">Одговори базирани на контакти</string>
     <string name="contact_reply_type">Одговори на</string>
+    <string name="blacklist">Сите други, освен избраните контакти</string>
+    <string name="whitelist">Никој друг, освен избраните контакти</string>
+    <string name="enable_contact_based_reply">Овозможи одговори базирани на контакти</string>
     <string name="select_contacts">Избери контакти</string>
+    <string name="contact_selector">Избор на контакти</string>
+    <string name="select_all">Избери ги сите</string>
+    <string name="select_none">Отстрани избор</string>
+    <string name="contact_permission_dialog_msg">Потребен е пристап до контактите за филтрирање на имињата и овозможување на оваа функција. Дали сакате да продолжите?</string>
     <string name="contact_permission_dialog_proceed">Продолжи</string>
     <string name="contact_permission_dialog_cancel">Откажи</string>
+    <string name="undo">Врати</string>
+    <string name="all_contacts_selected">Избрани се сите контакти</string>
+    <string name="donations_activity_title">Донации</string>
+    <string name="contact_permission_dialog_not_now">Не сега</string>
 </resources>
