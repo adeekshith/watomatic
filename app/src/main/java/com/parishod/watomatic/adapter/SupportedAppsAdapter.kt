@@ -17,7 +17,7 @@ import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.supported_apps_list.view.*
 
 
-class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
+class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>, private var onClickListener: View.OnClickListener?): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppsViewHolder {
         val itemView = if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
@@ -31,7 +31,7 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
     }
 
     override fun onBindViewHolder(holder: AppsViewHolder, position: Int) {
-        holder.setData(supportedAppsList[position], listType)
+        holder.setData(supportedAppsList[position], listType, onClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -45,10 +45,15 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
 
     class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-        fun setData(app: App, listType: Constants.EnabledAppsDisplayType){
+        fun setData(app: App, listType: Constants.EnabledAppsDisplayType, onClickListener: View.OnClickListener?){
             try {
                 val icon: Drawable = itemView.context.packageManager.getApplicationIcon(app.packageName)
                 itemView.appIcon.setImageDrawable(icon)
+                onClickListener?.let {
+                    itemView.setOnClickListener {
+                        onClickListener.onClick(it)
+                    }
+                }
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
                 if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
