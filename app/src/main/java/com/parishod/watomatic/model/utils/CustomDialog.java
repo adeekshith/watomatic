@@ -5,17 +5,16 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -50,24 +49,24 @@ public class CustomDialog {
                         .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
                         .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
                 materialAlertDialogBuilder
-                        .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener::onClick)
-                        .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener::onClick);
+                        .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener)
+                        .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener);
             }else if(bundle.containsKey(Constants.PERMISSION_DIALOG_DENIED)
                     && bundle.getBoolean(Constants.PERMISSION_DIALOG_DENIED)) {
                  materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_TITLE))
-                    .setIcon(mContext.getResources().getDrawable(R.drawable.ic_alert))
+                    .setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_alert))
                     .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_MSG));
                 materialAlertDialogBuilder
-                        .setNegativeButton(mContext.getResources().getString(R.string.sure), onClickListener::onClick)
-                        .setPositiveButton(mContext.getResources().getString(R.string.retry), onClickListener::onClick);
+                        .setNegativeButton(mContext.getResources().getString(R.string.sure), onClickListener)
+                        .setPositiveButton(mContext.getResources().getString(R.string.retry), onClickListener);
             }else{
                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
                     .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
                 materialAlertDialogBuilder
-                        .setNegativeButton(mContext.getResources().getString(R.string.decline), onClickListener::onClick)
-                        .setPositiveButton(mContext.getResources().getString(R.string.accept), onClickListener::onClick);
+                        .setNegativeButton(mContext.getResources().getString(R.string.decline), onClickListener)
+                        .setPositiveButton(mContext.getResources().getString(R.string.accept), onClickListener);
             }
             materialAlertDialogBuilder
                 .setCancelable(false)
@@ -93,12 +92,9 @@ public class CustomDialog {
             dialog.dismiss();
         });
 
-        View.OnClickListener starsClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onClick(v);
-                dialog.dismiss();
-            }
+        View.OnClickListener starsClickListener = v -> {
+            onClickListener.onClick(v);
+            dialog.dismiss();
         };
 
         starViews.add(dialog.findViewById(R.id.star1));
@@ -164,11 +160,13 @@ public class CustomDialog {
         });
 
         if(rating > 3){
-            title.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_title)
-                    + mContext.getResources().getString(R.string.celebrate_emoji));
-            message.setText(mContext.getResources().getString(R.string.app_rating_pitch)
-                    + "\n"
-                    + mContext.getResources().getString(R.string.app_rating_goto_store_dialog_msg));
+            title.setText(String.format("%s%s",
+                    mContext.getResources().getString(R.string.app_rating_goto_store_dialog_title),
+                    mContext.getResources().getString(R.string.celebrate_emoji)));
+
+            message.setText(String.format("%s\n%s",
+                    mContext.getResources().getString(R.string.app_rating_pitch),
+                    mContext.getResources().getString(R.string.app_rating_goto_store_dialog_msg)));
 
             button1.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title));
             button1.setTag(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title));

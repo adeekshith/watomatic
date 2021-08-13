@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import com.parishod.watomatic.service.KeepAliveService
 
 class NotificationServiceRestartReceiver: BroadcastReceiver() {

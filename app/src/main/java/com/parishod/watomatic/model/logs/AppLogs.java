@@ -5,15 +5,14 @@ import android.content.Context;
 import com.parishod.watomatic.R;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AppLogs {
     private static AppLogs _instance;
-    private Context thisContext;
-    private String logsFileName;
+    private final Context thisContext;
+    private final String logsFileName;
     public AppLogs(Context context){
         thisContext = context;
         logsFileName = thisContext.getString(R.string.app_logs_file_name);
@@ -55,9 +54,7 @@ public class AppLogs {
                 sb.append(line);
             }
             inputStreamReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

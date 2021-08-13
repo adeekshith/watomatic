@@ -23,10 +23,8 @@ public class CustomRepliesData {
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
-    private Context thisAppContext;
-    private PreferencesManager preferencesManager;
-
-    private CustomRepliesData() {}
+    private final Context thisAppContext;
+    private final PreferencesManager preferencesManager;
 
     private CustomRepliesData (Context context) {
         thisAppContext = context.getApplicationContext();
@@ -115,7 +113,7 @@ public class CustomRepliesData {
                 : defaultText;
     }
 
-    public String getTextToSendOrElse (String defaultTextToSend) {
+    public String getTextToSendOrElse() {
         String currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
             currentText += "\n\n"+ RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);

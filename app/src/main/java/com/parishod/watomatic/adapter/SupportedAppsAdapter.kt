@@ -60,7 +60,7 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                     val matrix = ColorMatrix()
                     matrix.setSaturation(0f) //0 means grayscale
                     val cf = ColorMatrixColorFilter(matrix)
-                    itemView.appIcon.setColorFilter(cf)
+                    itemView.appIcon.colorFilter = cf
 
                     (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
                         Toast.makeText(itemView.context, itemView.context.resources.getString(R.string.app_not_installed_text), Toast.LENGTH_SHORT).show()

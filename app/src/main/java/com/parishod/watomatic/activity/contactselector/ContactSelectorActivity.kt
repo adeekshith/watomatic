@@ -10,7 +10,7 @@ import com.parishod.watomatic.model.utils.ContactsHelper
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
 class ContactSelectorActivity: BaseActivity() {
-    lateinit var contactSelectorFragment: ContactSelectorFragment
+    private lateinit var contactSelectorFragment: ContactSelectorFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class ContactSelectorActivity: BaseActivity() {
 
         title = getString(R.string.contact_selector)
 
-        val viewModel = ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
+        ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
     }
 
     override fun onRequestPermissionsResult(

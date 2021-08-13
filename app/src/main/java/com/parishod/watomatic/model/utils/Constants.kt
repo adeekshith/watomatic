@@ -17,9 +17,6 @@ object Constants {
         HORIZONTAL
     }
 
-    // Beta feature flags
-    const val BETA_FACEBOOK_SUPPORT_ENABLED = true
-
     /**
      * Set of apps this app can auto reply
      */

@@ -58,7 +58,6 @@ public class NotificationService extends NotificationListenerService {
                 //If contact is on the list and contact reply is on blacklist mode, 
                 // or contact is not in the list and reply is on whitelist mode,
                 // we don't want to reply
-
                 return false;
             }
         }
@@ -93,7 +92,7 @@ public class NotificationService extends NotificationListenerService {
         for(RemoteInput remoteIn : notificationWear.getRemoteInputs()){
             remoteInputs[i] = remoteIn;
             // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse(null));
+            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse());
             i++;
         }
 
@@ -139,7 +138,7 @@ public class NotificationService extends NotificationListenerService {
 
         String title = NotificationUtils.getTitle(sbn);
         String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
-        if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+        if(title != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
             return false;
         }
         if(dbUtils == null) {

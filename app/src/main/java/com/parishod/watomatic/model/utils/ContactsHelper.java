@@ -23,8 +23,8 @@ import java.util.Set;
 public class ContactsHelper {
 
     public static final int CONTACT_PERMISSION_REQUEST_CODE = 1;
-    private Context mContext;
-    private PreferencesManager prefs;
+    private final Context mContext;
+    private final PreferencesManager prefs;
 
     public ContactsHelper(Context context) {
         mContext = context;

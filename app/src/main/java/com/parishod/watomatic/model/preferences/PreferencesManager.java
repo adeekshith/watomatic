@@ -38,8 +38,8 @@ public class PreferencesManager {
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private static PreferencesManager _instance;
-    private SharedPreferences _sharedPrefs;
-    private Context thisAppContext;
+    private final SharedPreferences _sharedPrefs;
+    private final Context thisAppContext;
 
     private PreferencesManager(Context context) {
         thisAppContext = context;
@@ -181,7 +181,7 @@ public class PreferencesManager {
     /**
      * Check if it is first install on this device.
      * ref: https://stackoverflow.com/a/34194960 
-     * @param context
+     * @param context context value
      * @return true if first install or else false if it is installed from an update
      */
     public static boolean isFirstInstall(Context context) {

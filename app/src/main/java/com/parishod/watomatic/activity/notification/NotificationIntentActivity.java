@@ -3,7 +3,6 @@ package com.parishod.watomatic.activity.notification;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.BaseActivity;
@@ -11,8 +10,6 @@ import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 
 public class NotificationIntentActivity extends BaseActivity {
-
-    private static final String TAG = NotificationIntentActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
