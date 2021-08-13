@@ -69,11 +69,13 @@ class ContactSelectorFragment : Fragment() {
     private fun toggleSelection(checked: Boolean) {
         val adapter = (binding.contactList.adapter!! as ContactListAdapter)
         adapter.createCheckpoint()
-        for (contact in contactList) {
-            contact.isChecked = checked
+        contactList.forEachIndexed { position, contact ->
+            if (contact.isChecked != checked) {
+                contact.isChecked = checked
+                adapter.notifyItemChanged(position)
+            }
         }
         adapter.saveSelectedContactList()
-        adapter.notifyDataSetChanged()
 
         val snackbar = Snackbar.make(
             binding.root,

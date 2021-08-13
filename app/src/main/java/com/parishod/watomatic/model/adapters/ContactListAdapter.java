@@ -70,9 +70,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             binding.contactName.setText(contactHolderArrayList.get(position).getContactName());
             binding.deleteButton.setOnClickListener((v -> {
                 contactHolderArrayList.remove(position);
-                //Notify dataset changed to update the positions of all elements,
-                //for its click listeners to work
-                notifyDataSetChanged();
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, contactHolderArrayList.size());
                 saveSelectedContactList();
             }));
         }
@@ -111,15 +110,20 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void restoreCheckpoint() {
-        for (ContactHolder contact : contactHolderArrayList) {
-            contact.setChecked(contactArrayCheckpoint.contains(contact.getContactName()));
+        for (int position = 0; position < contactHolderArrayList.size(); position++) {
+            ContactHolder contact = contactHolderArrayList.get(position);
+            boolean checked = contactArrayCheckpoint.contains(contact.getContactName());
+            if (contact.isChecked() != checked) {
+                contact.setChecked(checked);
+                notifyItemChanged(position);
+            }
         }
-        notifyDataSetChanged();
     }
 
     public void addCustomName(String name) {
         contactHolderArrayList.add(0, new ContactHolder(name, true, true));
-        notifyDataSetChanged();
+        notifyItemInserted(0);
+        notifyItemRangeChanged(1, contactHolderArrayList.size());
         saveSelectedContactList();
     }
 
