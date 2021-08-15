@@ -99,6 +99,8 @@
     <string name="undo">Врати</string>
     <string name="all_contacts_selected">Избрани се сите контакти</string>
     <string name="donations_activity_title">Донации</string>
+    <string name="donations_goal_title_70">Бавен и стабилен напредок</string>
+    <string name="donations_goal_70">Мали подобрувања на функциите и интерфејсот</string>
     <string name="add_custom_contact">Додај сопствено име за контакт</string>
     <string name="contact_permission_suggestion_dialog_msg">Потребен е пристап за читање на контакти за да се филтрираат одговорите по имиња на контакти. Ако пристапот не е овозможен, ќе бидат дозволени само рачно внесени имиња. Дали сакате да го овозможите пристапот?</string>
     <string name="contact_permission_dialog_enable_permission">Овозможете дозвола за контакти</string>
