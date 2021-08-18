@@ -39,8 +39,9 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
     private void restartApp() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
-        if (getActivity() != null)
+        if (getActivity() != null) {
             getActivity().startActivity(intent);
-        getActivity().finishAffinity();
+            getActivity().finishAffinity();
+        }
     }
 }
