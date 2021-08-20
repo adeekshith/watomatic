@@ -76,6 +76,7 @@
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
     <string name="auto_start_permission_dialog_title">Дозвола за автоматско стартување</string>
+    <string name="running_in_the_background">Работи во позадина</string>
     <string name="auto_start_permission_dialog_message">Овозможете дозвола \"Автоматско стартување\" во поставките на уредот за да дозволите Watomatic да се вклучи на уредот по рестартирање.</string>
     <string name="device_based_settings_message">Забелешка: Во зависност од вашиот уред, поставките може да бидат различни или да не се достапни</string>
     <string name="setting_not_available_for_device">Оваа поставка не е достапна или можеби не е потребна за вашиот уред.</string>
@@ -98,5 +99,11 @@
     <string name="undo">Врати</string>
     <string name="all_contacts_selected">Избрани се сите контакти</string>
     <string name="donations_activity_title">Донации</string>
+    <string name="donations_goal_title_70">Бавен и стабилен напредок</string>
+    <string name="donations_goal_70">Мали подобрувања на функциите и интерфејсот</string>
+    <string name="add_custom_contact">Додај сопствено име за контакт</string>
+    <string name="contact_permission_suggestion_dialog_msg">Потребен е пристап за читање на контакти за да се филтрираат одговорите по имиња на контакти. Ако пристапот не е овозможен, ќе бидат дозволени само рачно внесени имиња. Дали сакате да го овозможите пристапот?</string>
+    <string name="contact_permission_dialog_enable_permission">Овозможете дозвола за контакти</string>
     <string name="contact_permission_dialog_not_now">Не сега</string>
+    <string name="contact_permission_dialog_title">Пристап до читање на контакти</string>
 </resources>
