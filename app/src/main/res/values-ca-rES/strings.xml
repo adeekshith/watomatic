@@ -119,4 +119,5 @@
     <string name="contact_permission_dialog_enable_permission">Permet l\'accés a contactes</string>
     <string name="contact_permission_dialog_not_now">Ara no</string>
     <string name="contact_permission_dialog_title">Accés als contactes</string>
+    <string name="error_name_cannot_be_blank">El nom no pot estar en blanc</string>
 </resources>
