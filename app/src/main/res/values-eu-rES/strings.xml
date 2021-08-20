@@ -115,4 +115,5 @@
     <string name="donations_goal_100">Lagundu erantzungailu automatiko ahaltsua bihurtzen, ezaugarri aurreratu mordoarekin</string>
     <string name="donation_progress_label">hileko helburutik</string>
     <string name="add_custom_contact">Gehitu kontaktu izen pertsonalizatua</string>
+    <string name="error_name_cannot_be_blank">Izena ezin da hutsik egon</string>
 </resources>
