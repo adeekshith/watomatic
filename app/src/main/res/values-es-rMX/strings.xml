@@ -116,4 +116,8 @@
     <string name="donations_goal_100">Ayúdanos a convertirla en una potente aplicación de respuesta automática con muchas características avanzadas</string>
     <string name="donation_progress_label">del objetivo mensual</string>
     <string name="add_custom_contact">Añadir nombre de contacto personalizado</string>
+    <string name="contact_permission_suggestion_dialog_msg">Se requiere el acceso de lectura de contactos para filtrar las respuestas por los nombres de contacto. Si el acceso no está habilitado, sólo se permitirán los nombres introducidos manualmente. ¿Desea activarlo?</string>
+    <string name="contact_permission_dialog_enable_permission">Activar permiso de contactos</string>
+    <string name="contact_permission_dialog_not_now">Ahora no</string>
+    <string name="contact_permission_dialog_title">Acceso a lectura de contactos</string>
 </resources>
