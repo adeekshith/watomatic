@@ -89,19 +89,25 @@ class ContactSelectorFragment : Fragment() {
         snackbar.show()
     }
 
-    private fun addCustomContactDialog() {
+    private fun addCustomContactDialog(errorMessage: String = "") {
         val builder = MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.add_custom_contact)
 
         val input = EditText(activity).also {
             it.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+            if (errorMessage.isNotEmpty()) it.error = errorMessage
         }
 
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             val name = input.text.toString()
             val adapter = binding.contactList.adapter as ContactListAdapter
-            adapter.addCustomName(name)
-            binding.contactList.scrollToPosition(0)
+            if (name.isBlank()) {
+                addCustomContactDialog(getString(R.string.error_name_cannot_be_blank))
+            }
+            else {
+                adapter.addCustomName(name)
+                binding.contactList.scrollToPosition(0)
+            }
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->

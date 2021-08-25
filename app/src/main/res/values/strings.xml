@@ -201,4 +201,5 @@
     <string name="decrease_frequency">Decrease frequency</string>
     <string name="increase_frequency">Increase frequency</string>
     <string name="current_donation_progress">Current donation progress</string>
+    <string name="error_name_cannot_be_blank">Name cannot be blank</string>
 </resources>
