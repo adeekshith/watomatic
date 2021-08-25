@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -87,35 +88,42 @@ class ContactSelectorFragment : Fragment() {
         snackbar.show()
     }
 
-    private fun addCustomContactDialog(errorMessage: String = "") {
+    private fun addCustomContactDialog() {
         val builder = MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.add_custom_contact)
 
         val input = EditText(activity).also {
             it.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
-            if (errorMessage.isNotEmpty()) it.error = errorMessage
         }
 
-        builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            val name = input.text.toString()
-            val adapter = binding.contactList.adapter as ContactListAdapter
-            if (name.isBlank()) {
-                addCustomContactDialog(getString(R.string.error_name_cannot_be_blank))
-            }
-            else {
-                adapter.addCustomName(name)
-                binding.contactList.scrollToPosition(0)
-            }
-        }
+        builder.setPositiveButton(android.R.string.ok, null)
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
             dialog.cancel()
         }
 
-        builder.create().also {
+        builder.create().also { dialog ->
             val margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, activity?.resources?.displayMetrics)
-            it.setView(input, margin.toInt(), 0, margin.toInt(), 0)
-            it.show()
+            dialog.setView(input, margin.toInt(), 0, margin.toInt(), 0)
+
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    val name = input.text.toString()
+                    val adapter = binding.contactList.adapter as ContactListAdapter
+                    if (name.isBlank()) {
+                        input.error = getString(R.string.error_name_cannot_be_blank)
+                        //Make sure error text is shown by focusing input
+                        input.requestFocus()
+                    }
+                    else {
+                        adapter.addCustomName(name)
+                        binding.contactList.scrollToPosition(0)
+                        dialog.dismiss()
+                    }
+                }
+            }
+
+            dialog.show()
         }
     }
 
