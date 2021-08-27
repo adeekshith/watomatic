@@ -93,4 +93,5 @@
     <string name="undo">செயல்தவிர்</string>
     <string name="all_contacts_selected">அனைத்து தொடர்புகளும் தேர்ந்தெடுக்கப்பட்டுள்ளன</string>
     <string name="all_contacts_unselected">அனைத்து தொடர்புகளும் தேர்வு நீக்கம் செய்யப்பட்டுள்ளன</string>
+    <string name="error_name_cannot_be_blank">பெயர் புலம் ஏதுமின்றி இருக்க இயலாது</string>
 </resources>
