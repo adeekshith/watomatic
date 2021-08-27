@@ -109,22 +109,37 @@ class ContactSelectorFragment : Fragment() {
             dialog.setOnShowListener {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     val name = input.text.toString()
-                    val adapter = binding.contactList.adapter as ContactListAdapter
-                    if (name.isBlank()) {
-                        input.error = getString(R.string.error_name_cannot_be_blank)
-                        //Make sure error text is shown by focusing input
-                        input.requestFocus()
-                    }
-                    else {
-                        adapter.addCustomName(name)
-                        binding.contactList.scrollToPosition(0)
-                        dialog.dismiss()
+                    when {
+                        name.isBlank() -> {
+                            input.error = getString(R.string.error_name_cannot_be_blank)
+                            //Make sure error text is shown by focusing input
+                            input.requestFocus()
+                        }
+                        customExists(name) -> {
+                            input.error = getString(R.string.error_name_cannot_be_duplicate)
+                            input.requestFocus()
+                        }
+                        else -> {
+                            val adapter = binding.contactList.adapter as ContactListAdapter
+                            adapter.addCustomName(name)
+                            binding.contactList.scrollToPosition(0)
+                            dialog.dismiss()
+                        }
                     }
                 }
             }
 
             dialog.show()
         }
+    }
+
+    private fun customExists(name: String): Boolean {
+        contactList.forEach { contact ->
+            if (contact.contactName == name) return true
+            //Custom contacts are first
+            else if (!contact.isCustom) return false
+        }
+        return false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
