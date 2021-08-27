@@ -32,22 +32,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <!-- Main Auto Reply enable switch -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mainAutoReplySwitchCardView"
+    <com.parishod.watomatic.views.customviews.ComposeSwitchView
+        android:id="@+id/mainAutoReplySwitch1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/mainAutoReplyTextCardView"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:layout_editor_absoluteX="154dp">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/mainAutoReplySwitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/mainAutoReplySwitchOffLabel" />
-    </com.google.android.material.card.MaterialCardView>
+        android:padding="2dp"
+        tools:layout_editor_absoluteX="154dp"/>
 
     <!-- Custom auto reply text card -->
     <com.google.android.material.card.MaterialCardView
@@ -55,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitchCardView"
+        app:layout_constraintTop_toBottomOf="@+id/mainAutoReplySwitch1"
         tools:layout_editor_absoluteX="134dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -156,21 +150,14 @@
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Group reply switch card -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/groupReplySwitchCardView"
+    <com.parishod.watomatic.views.customviews.ComposeSwitchView
+        android:id="@+id/groupReplySwitch1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintTop_toBottomOf="@+id/supportedAppsSelectorCardView"
-        tools:layout_editor_absoluteX="154dp">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/groupReplySwitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/groupReplySwitchLabel" />
-    </com.google.android.material.card.MaterialCardView>
+        tools:layout_editor_absoluteX="154dp"/>
 
     <!-- Reply frequency Time picker -->
     <com.google.android.material.card.MaterialCardView
@@ -178,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/groupReplySwitchCardView"
+        app:layout_constraintTop_toBottomOf="@+id/groupReplySwitch1"
         tools:layout_editor_absoluteX="134dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
