@@ -34,7 +34,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
@@ -50,6 +49,7 @@ import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.ServieUtils;
+import com.parishod.watomatic.views.customviews.ComposeSwitchView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +75,6 @@ public class MainFragment extends Fragment {
     TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
     CustomRepliesData customRepliesData;
     String autoReplyTextPlaceholder;
-    SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
     CardView supportedAppsCard;
     private PreferencesManager preferencesManager;
     private int days = 0;
@@ -88,6 +87,7 @@ public class MainFragment extends Fragment {
     private GridLayoutManager layoutManager;
     private SupportedAppsAdapter supportedAppsAdapter;
     private List<App> enabledApps = new ArrayList<>();
+    private ComposeSwitchView mainAutoReplySwitch, groupReplySwitch;
 
     @Nullable
     @Override
@@ -103,7 +103,47 @@ public class MainFragment extends Fragment {
 
         // Assign Views
         mainAutoReplySwitch = view.findViewById(R.id.mainAutoReplySwitch);
+        mainAutoReplySwitch.setOnClick(() -> {
+//            Toast.makeText(mActivity, "switch clicked " + !mainAutoReplySwitch1.getChecked(), Toast.LENGTH_LONG).show();
+            preferencesManager.setServicePref(!mainAutoReplySwitch.getChecked());
+            setSwitchState();
+            return null;
+        });
+
+        mainAutoReplySwitch.setOnChecked(() -> {
+//            Toast.makeText(mActivity, "switch clicked " + mainAutoReplySwitch1.getChecked(), Toast.LENGTH_LONG).show();
+            preferencesManager.setServicePref(mainAutoReplySwitch.getChecked());
+            setSwitchState();
+            return null;
+        });
+
         groupReplySwitch = view.findViewById(R.id.groupReplySwitch);
+        groupReplySwitch.setTitleText(getString(R.string.groupReplySwitchLabel));
+        groupReplySwitch.setOnClick(() -> {
+            if(groupReplySwitch.getSwitchEnabled()) {
+                if (!groupReplySwitch.getChecked()) {
+                    Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mActivity, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
+                }
+                preferencesManager.setGroupReplyPref(!groupReplySwitch.getChecked());
+                groupReplySwitch.setChecked(!groupReplySwitch.getChecked());
+            }else{
+                Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
+            }
+            return null;
+        });
+
+        groupReplySwitch.setOnChecked(() -> {
+            if(groupReplySwitch.getChecked()){
+                Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(mActivity, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
+            }
+            preferencesManager.setGroupReplyPref(groupReplySwitch.getChecked());
+            return null;
+        });
+
         autoReplyTextPreviewCard = view.findViewById(R.id.mainAutoReplyTextCardView);
         autoReplyTextPreview = view.findViewById(R.id.textView4);
         supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
@@ -131,43 +171,7 @@ public class MainFragment extends Fragment {
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse(autoReplyTextPlaceholder));
         // Enable group chat switch only if main switch id ON
-        groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
-
-        mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked && !isListenerEnabled(mActivity, NotificationService.class)){
-//                launchNotificationAccessSettings();
-                showPermissionsDialog();
-            }else {
-                preferencesManager.setServicePref(isChecked);
-                if(isChecked){
-                    startNotificationService();
-                }else{
-                    stopNotificationService();
-                }
-                mainAutoReplySwitch.setText(
-                        isChecked
-                                ? R.string.mainAutoReplySwitchOnLabel
-                                : R.string.mainAutoReplySwitchOffLabel
-                );
-
-                setSwitchState();
-
-                // Enable group chat switch only if main switch id ON
-                groupReplySwitch.setEnabled(isChecked);
-            }
-        });
-
-        groupReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Ignore if this is not triggered by user action but just UI update in onResume() #62
-            if (preferencesManager.isGroupReplyEnabled() == isChecked) { return;}
-
-            if(isChecked){
-                Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(mActivity, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
-            }
-            preferencesManager.setGroupReplyPref(isChecked);
-        });
+        groupReplySwitch.setSwitchEnabled(mainAutoReplySwitch.getChecked());
 
         imgMinus.setOnClickListener(v -> {
             if(days > MIN_DAYS){
@@ -244,6 +248,7 @@ public class MainFragment extends Fragment {
             preferencesManager.setServicePref(false);
         }
 
+        mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
         /*if(!preferencesManager.isServiceEnabled()){
             enableService(false);
         }*/
@@ -419,9 +424,10 @@ public class MainFragment extends Fragment {
     }
 
     private void setSwitchState(){
+        mainAutoReplySwitch.setTitleText(preferencesManager.isServiceEnabled() ? getString(R.string.mainAutoReplySwitchOnLabel) : getString(R.string.mainAutoReplySwitchOffLabel));
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
-        groupReplySwitch.setEnabled(preferencesManager.isServiceEnabled());
-        enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
+        groupReplySwitch.setSwitchEnabled(preferencesManager.isServiceEnabled());
+        enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.getChecked());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115
