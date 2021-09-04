@@ -2,7 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.BrandingFragment">
 
     <!-- Github button -->
     <ImageButton
@@ -14,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_github" />
+        app:srcCompat="@drawable/ic_github"
+        android:contentDescription="@string/github" />
 
     <!-- r/watomatic subreddit button -->
     <Button
@@ -51,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:drawableLeft="@drawable/ic_dot" />
+        android:drawableStart="@drawable/ic_dot" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -71,7 +74,8 @@
         app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/share" />
 
     <RelativeLayout
         android:id="@+id/circularProgressBar"
@@ -99,7 +103,7 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="$"
+            android:text="@string/dollar_sign"
             android:textStyle="bold"
             />
 

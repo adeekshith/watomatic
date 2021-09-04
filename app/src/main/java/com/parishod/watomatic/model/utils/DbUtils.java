@@ -9,8 +9,7 @@ import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 
 public class DbUtils {
-    private Context mContext;
-    private CustomRepliesData customRepliesData;
+    private final Context mContext;
 
     public DbUtils(Context context){
         mContext = context;
@@ -27,7 +26,7 @@ public class DbUtils {
     }
 
     public void logReply(StatusBarNotification sbn, String title){
-        customRepliesData = CustomRepliesData.getInstance(mContext);
+        CustomRepliesData customRepliesData = CustomRepliesData.getInstance(mContext);
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         if(packageIndex <= 0){
@@ -35,7 +34,7 @@ public class DbUtils {
             messageLogsDB.appPackageDao().insertAppPackage(appPackage);
             packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         }
-        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(null), System.currentTimeMillis());
+        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(), System.currentTimeMillis());
         messageLogsDB.logsDao().logReply(logs);
     }
 

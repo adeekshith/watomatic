@@ -22,7 +22,7 @@ public class NotificationHelper {
     final private Context appContext;
     private static NotificationHelper _INSTANCE;
     private static NotificationManager notificationManager;
-    private static JSONObject appsList = new JSONObject();
+    private static final JSONObject appsList = new JSONObject();
 
     private NotificationHelper(Context appContext){
         this.appContext = appContext;

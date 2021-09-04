@@ -43,25 +43,20 @@ import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT;
 import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER;
 
 public class BrandingFragment extends Fragment {
-    private ImageButton githubBtn;
-    private ImageButton share_layout;
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
     private int gitHubReleaseNotesId = -1;
-    private RelativeLayout circularProgressBarLayout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_branding, container, false);
 
-        githubBtn = view.findViewById(R.id.watomaticGithubBtn);
-        share_layout = view.findViewById(R.id.share_btn);
+        ImageButton githubBtn = view.findViewById(R.id.watomaticGithubBtn);
+        ImageButton share_layout = view.findViewById(R.id.share_btn);
         watomaticSubredditBtn = view.findViewById(R.id.watomaticSubredditBtn);
         whatsNewBtn = view.findViewById(R.id.whatsNewBtn);
-        whatsNewBtn.setOnClickListener(v -> {
-            launchApp();
-        });
+        whatsNewBtn.setOnClickListener(v -> launchApp());
 
         share_layout.setOnClickListener(v -> launchShareIntent());
 
@@ -84,7 +79,7 @@ public class BrandingFragment extends Fragment {
         if(BuildConfig.FLAVOR.equalsIgnoreCase("Default")){
             share_layout.setVisibility(View.GONE);
 
-            circularProgressBarLayout = view.findViewById(R.id.circularProgressBar);
+            RelativeLayout circularProgressBarLayout = view.findViewById(R.id.circularProgressBar);
             circularProgressBarLayout.setVisibility(View.VISIBLE);
             circularProgressBarLayout.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), DonationActivity.class);
@@ -130,23 +125,33 @@ public class BrandingFragment extends Fragment {
         boolean isLaunched = false;
         for(String url: whatsNewUrls){
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
-            List<ResolveInfo> list = getActivity().getPackageManager()
-                    .queryIntentActivities(intent, 0);
-            List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
-                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+            List<ResolveInfo> list = getActivity() != null ?
+                    getActivity().getPackageManager().queryIntentActivities(intent, 0) :
+                    null;
+            List<ResolveInfo> possibleBrowserIntents = getActivity() != null ?
+                    getActivity().getPackageManager()
+                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0) :
+                    null;
+
             Set<String> excludeIntents = new HashSet<>();
-            for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
-                excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
-            }
-            //Check for non browser application
-            for(ResolveInfo resolveInfo: list) {
-                if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
-                    intent.setPackage(resolveInfo.activityInfo.packageName);
-                    startactivity(intent);
-                    isLaunched = true;
-                    break;
+            if (possibleBrowserIntents != null) {
+                for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
+                    excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
                 }
             }
+
+            //Check for non browser application
+            if (list != null) {
+                for(ResolveInfo resolveInfo: list) {
+                    if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
+                        intent.setPackage(resolveInfo.activityInfo.packageName);
+                        startactivity(intent);
+                        isLaunched = true;
+                        break;
+                    }
+                }
+            }
+
             if(isLaunched){
                 break;
             }
@@ -168,14 +173,14 @@ public class BrandingFragment extends Fragment {
         Call<List<GithubReleaseNotes>> call = releaseNotesService.getReleaseNotes();
         call.enqueue(new Callback<List<GithubReleaseNotes>>() {
             @Override
-            public void onResponse(Call<List<GithubReleaseNotes>> call, Response<List<GithubReleaseNotes>> response) {
+            public void onResponse(@NonNull Call<List<GithubReleaseNotes>> call, @NonNull Response<List<GithubReleaseNotes>> response) {
                 if (response.body() != null) {
                     parseReleaseNotesResponse(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<GithubReleaseNotes>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<GithubReleaseNotes>> call, @NonNull Throwable t) {
 
             }
         });
@@ -214,7 +219,7 @@ public class BrandingFragment extends Fragment {
     }
 
     public static List<String> extractLinks(String text) {
-        List<String> links = new ArrayList<String>();
+        List<String> links = new ArrayList<>();
         Matcher m = Patterns.WEB_URL.matcher(text);
         while (m.find()) {
             String url = m.group();

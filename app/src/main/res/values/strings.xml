@@ -195,6 +195,12 @@
     <string name="contact_permission_dialog_enable_permission">Enable contact permission</string>
     <string name="contact_permission_dialog_not_now">Not now</string>
     <string name="contact_permission_dialog_title">Contact read access</string>
+    <string name="delete">Delete</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="dollar_sign" translatable="false">$</string>
+    <string name="decrease_frequency">Decrease frequency</string>
+    <string name="increase_frequency">Increase frequency</string>
+    <string name="current_donation_progress">Current donation progress</string>
     <string name="error_name_cannot_be_blank">Name cannot be blank</string>
     <string name="error_name_cannot_be_duplicate">Name already present</string>
 </resources>

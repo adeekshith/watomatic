@@ -2,6 +2,7 @@ package com.parishod.watomatic.fragment
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,12 @@ class DonationFragment: Fragment() {
     private lateinit var fragmentView: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater.inflate(R.layout.fragment_donations, container, false)
+
+        //Set value to default while fetching data
+        fragmentView.donation_pct.text = "0%"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fragmentView.donation_pct.tooltipText = getString(R.string.current_donation_progress)
+        }
 
         fetchDonationsProgressData()
 
@@ -70,10 +77,10 @@ class DonationFragment: Fragment() {
 
         val percentReceived: Float = response.lines()
             .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
-            .find { kvp -> kvp.first().equals("total-received-pct") }
+            .find { kvp -> kvp.first() == "total-received-pct" }
             ?.last()?.toFloat() ?: 0F
 
-        fragmentView.donation_pct.text = "$percentReceived%"
+        fragmentView.donation_pct.text = String.format("%.1f%%", percentReceived)
 
         showDonationProgressData(percentReceived)
     }

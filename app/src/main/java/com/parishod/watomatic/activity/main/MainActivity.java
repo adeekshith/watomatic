@@ -15,6 +15,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
+        new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
     }
 }

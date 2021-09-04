@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/contact_name"
         android:padding="8dp"
-        android:text="contact_name"
         android:layout_gravity="center_vertical"
         android:textColor="?colorOnSurface"/>
 
@@ -20,5 +19,6 @@
         android:layout_height="wrap_content"
         style="?android:attr/buttonBarButtonStyle"
         android:src="@drawable/ic_baseline_delete_24"
-        android:id="@+id/delete_button"/>
+        android:id="@+id/delete_button"
+        android:contentDescription="@string/delete" />
 </LinearLayout>

@@ -30,7 +30,7 @@ public class CustomReplyEditorActivity extends BaseActivity {
 
         setTitle(R.string.mainAutoReplyLabel);
 
-        SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
+        new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
 
         customRepliesData = CustomRepliesData.getInstance(this);
         preferencesManager = PreferencesManager.getPreferencesInstance(this);
@@ -40,7 +40,6 @@ public class CustomReplyEditorActivity extends BaseActivity {
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
 
         Intent intent = getIntent();
-        String action = intent.getAction();
         Uri data = intent.getData();
 
         autoReplyText.setText ((data != null)
