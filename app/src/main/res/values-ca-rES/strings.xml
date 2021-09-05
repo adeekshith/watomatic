@@ -119,6 +119,10 @@
     <string name="contact_permission_dialog_enable_permission">Permet l\'accés a contactes</string>
     <string name="contact_permission_dialog_not_now">Ara no</string>
     <string name="contact_permission_dialog_title">Accés als contactes</string>
+    <string name="delete">Suprimeix</string>
+    <string name="decrease_frequency">Redueix la freqüència</string>
+    <string name="increase_frequency">Augmenta la freqüència</string>
+    <string name="current_donation_progress">Estat actual de la donació</string>
     <string name="error_name_cannot_be_blank">El nom no pot estar en blanc</string>
     <string name="error_name_cannot_be_duplicate">Aquest nom ja existeix</string>
 </resources>
