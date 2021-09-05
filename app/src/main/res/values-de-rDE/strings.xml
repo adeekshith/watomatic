@@ -119,5 +119,9 @@
     <string name="contact_permission_dialog_enable_permission">Berechtigung für Kontakte aktivieren</string>
     <string name="contact_permission_dialog_not_now">Jetzt nicht</string>
     <string name="contact_permission_dialog_title">Lesezugriff für Kontakt</string>
+    <string name="delete">Löschen</string>
+    <string name="decrease_frequency">Häufigkeit verringern</string>
+    <string name="increase_frequency">Häufigkeit erhöhen</string>
+    <string name="current_donation_progress">Aktueller Spendenfortschritt</string>
     <string name="error_name_cannot_be_duplicate">Name bereits vorhanden</string>
 </resources>
