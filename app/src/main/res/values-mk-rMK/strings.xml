@@ -106,5 +106,8 @@
     <string name="contact_permission_dialog_enable_permission">Овозможете дозвола за контакти</string>
     <string name="contact_permission_dialog_not_now">Не сега</string>
     <string name="contact_permission_dialog_title">Пристап до читање на контакти</string>
+    <string name="delete">Избриши</string>
+    <string name="decrease_frequency">Намали ја фреквенцијата</string>
+    <string name="increase_frequency">Зголеми ја фреквенцијата</string>
     <string name="error_name_cannot_be_blank">Името не може да биде празно</string>
 </resources>
