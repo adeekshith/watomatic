@@ -110,4 +110,5 @@
     <string name="decrease_frequency">Намали ја фреквенцијата</string>
     <string name="increase_frequency">Зголеми ја фреквенцијата</string>
     <string name="error_name_cannot_be_blank">Името не може да биде празно</string>
+    <string name="error_name_cannot_be_duplicate">Името веќе постои</string>
 </resources>
