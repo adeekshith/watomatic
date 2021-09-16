@@ -120,6 +120,10 @@
     <string name="contact_permission_dialog_enable_permission">Przyznaj uprawnienia do kontaktu</string>
     <string name="contact_permission_dialog_not_now">Nie teraz</string>
     <string name="contact_permission_dialog_title">Dostęp do odczytu kontaktu</string>
+    <string name="delete">Usuń</string>
+    <string name="decrease_frequency">Zmniejsz częstotliwość</string>
+    <string name="increase_frequency">Zwiększ częstotliwość</string>
+    <string name="current_donation_progress">Bieżący postęp darowizny</string>
     <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
     <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
 </resources>
