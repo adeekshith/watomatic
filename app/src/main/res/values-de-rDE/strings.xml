@@ -123,5 +123,6 @@
     <string name="decrease_frequency">Häufigkeit verringern</string>
     <string name="increase_frequency">Häufigkeit erhöhen</string>
     <string name="current_donation_progress">Aktueller Spendenfortschritt</string>
+    <string name="error_name_cannot_be_blank">Name darf nicht leer sein</string>
     <string name="error_name_cannot_be_duplicate">Name bereits vorhanden</string>
 </resources>
