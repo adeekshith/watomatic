@@ -4,7 +4,7 @@ import android.app.PendingIntent
 import android.os.Bundle
 import androidx.core.app.RemoteInput
 
-data class NotificationWear (
+data class NotificationWear(
         val packageName: String,
         val pendingIntent: PendingIntent?,
         val remoteInputs: List<RemoteInput>,

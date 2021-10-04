@@ -13,7 +13,7 @@ public class AppPackage {
     @ColumnInfo(name = "package_name")
     private String packageName;
 
-    public AppPackage(String packageName){
+    public AppPackage(String packageName) {
         this.packageName = packageName;
     }
 

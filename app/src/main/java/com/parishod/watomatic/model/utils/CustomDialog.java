@@ -37,48 +37,48 @@ public class CustomDialog {
     private List<AppCompatImageView> starViews;
     Dialog dialog;
 
-    public CustomDialog(Context context){
+    public CustomDialog(Context context) {
         this.mContext = context;
     }
 
-    public void showDialog(Bundle bundle, String type, DialogInterface.OnClickListener onClickListener){
-        if(bundle != null){
+    public void showDialog(Bundle bundle, String type, DialogInterface.OnClickListener onClickListener) {
+        if (bundle != null) {
             MaterialAlertDialogBuilder materialAlertDialogBuilder;
-            if(type != null && type.equals("AutoStart")){
+            if (type != null && type.equals("AutoStart")) {
                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                         .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
                         .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
                 materialAlertDialogBuilder
                         .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener)
                         .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener);
-            }else if(bundle.containsKey(Constants.PERMISSION_DIALOG_DENIED)
+            } else if (bundle.containsKey(Constants.PERMISSION_DIALOG_DENIED)
                     && bundle.getBoolean(Constants.PERMISSION_DIALOG_DENIED)) {
-                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                    .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_TITLE))
-                    .setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_alert))
-                    .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_MSG));
+                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
+                        .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_TITLE))
+                        .setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_alert))
+                        .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_DENIED_MSG));
                 materialAlertDialogBuilder
                         .setNegativeButton(mContext.getResources().getString(R.string.sure), onClickListener)
                         .setPositiveButton(mContext.getResources().getString(R.string.retry), onClickListener);
-            }else{
+            } else {
                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                    .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
-                    .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
+                        .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
+                        .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
                 materialAlertDialogBuilder
                         .setNegativeButton(mContext.getResources().getString(R.string.decline), onClickListener)
                         .setPositiveButton(mContext.getResources().getString(R.string.accept), onClickListener);
             }
             materialAlertDialogBuilder
-                .setCancelable(false)
-                .show();
+                    .setCancelable(false)
+                    .show();
         }
     }
 
-    public void showAppLocalRatingDialog(View.OnClickListener onClickListener){
-        if(dialog != null){
+    public void showAppLocalRatingDialog(View.OnClickListener onClickListener) {
+        if (dialog != null) {
             dialog.dismiss();
         }
-        if(starViews != null) {
+        if (starViews != null) {
             starViews.clear();
         }
         starViews = new ArrayList<>();
@@ -120,11 +120,11 @@ public class CustomDialog {
         dialog.show();
     }
 
-    public void showAppRatingDialog(int rating, View.OnClickListener onClickListener){
-        if(dialog != null){
+    public void showAppRatingDialog(int rating, View.OnClickListener onClickListener) {
+        if (dialog != null) {
             dialog.dismiss();
         }
-        if(starViews != null) {
+        if (starViews != null) {
             starViews.clear();
         }
         starViews = new ArrayList<>();
@@ -159,7 +159,7 @@ public class CustomDialog {
             dialog.dismiss();
         });
 
-        if(rating > 3){
+        if (rating > 3) {
             title.setText(String.format("%s%s",
                     mContext.getResources().getString(R.string.app_rating_goto_store_dialog_title),
                     mContext.getResources().getString(R.string.celebrate_emoji)));
@@ -173,7 +173,7 @@ public class CustomDialog {
 
             button2.setText(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title));
             button2.setTag(mContext.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title));
-        }else{
+        } else {
             title.setText(mContext.getResources().getString(R.string.app_rating_feedback_dialog_title));
             message.setText(mContext.getResources().getString(R.string.app_rating_feedback_dialog_msg));
 
@@ -183,7 +183,7 @@ public class CustomDialog {
             button2.setText(mContext.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title));
             button2.setTag(mContext.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title));
 
-            if(!isTelegramAppInstalled()){
+            if (!isTelegramAppInstalled()) {
                 button2.setVisibility(View.GONE);
             }
         }
@@ -191,22 +191,22 @@ public class CustomDialog {
         dialog.show();
     }
 
-    private void updateRating(int rating){
+    private void updateRating(int rating) {
         //Reset the stars
-        for (AppCompatImageView starView: starViews
+        for (AppCompatImageView starView : starViews
         ) {
             starView.setImageResource(R.drawable.ic_star_border);
         }
 
         //set selected num of stars
-        for(int i = 0; i < rating; i++){
-            if(starViews.get(i) != null){
+        for (int i = 0; i < rating; i++) {
+            if (starViews.get(i) != null) {
                 starViews.get(i).setImageResource(R.drawable.ic_star_filled);
             }
         }
     }
 
-    private boolean isTelegramAppInstalled(){
+    private boolean isTelegramAppInstalled() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
             List<ResolveInfo> list = mContext.getPackageManager()
@@ -214,17 +214,17 @@ public class CustomDialog {
             List<ResolveInfo> possibleBrowserIntents = mContext.getPackageManager()
                     .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
             Set<String> excludeIntents = new HashSet<>();
-            for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
+            for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
                 excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
             }
             //Check for non browser application
-            for(ResolveInfo resolveInfo: list) {
+            for (ResolveInfo resolveInfo : list) {
                 if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
                     return true;
                 }
             }
-        }else {
+        } else {
             try {
                 // In order for this intent to be invoked, the system must directly launch a non-browser app.
                 // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
@@ -232,7 +232,7 @@ public class CustomDialog {
                         .addCategory(CATEGORY_BROWSABLE)
                         .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                                 FLAG_ACTIVITY_REQUIRE_DEFAULT);
-                if(intent.resolveActivity(mContext.getPackageManager()) != null){
+                if (intent.resolveActivity(mContext.getPackageManager()) != null) {
                     return true;
                 }
             } catch (ActivityNotFoundException e) {

@@ -39,8 +39,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (viewType == ITEM_TYPE_CONTACT) {
             ContactListRowBinding binding = ContactListRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new ViewHolder(binding);
-        }
-        else {
+        } else {
             CustomContactListRowBinding binding = CustomContactListRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new CustomHolder(binding);
         }
@@ -139,10 +138,12 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ContactListRowBinding binding;
+
         public ViewHolder(@NonNull @NotNull ContactListRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
+
         public ContactListRowBinding getBinding() {
             return binding;
         }
@@ -150,10 +151,12 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class CustomHolder extends RecyclerView.ViewHolder {
         private final CustomContactListRowBinding binding;
+
         public CustomHolder(@NonNull @NotNull CustomContactListRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
+
         public CustomContactListRowBinding getBinding() {
             return binding;
         }

@@ -18,18 +18,17 @@ public class NotificationIntentActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if (extras != null && extras.getString("package") != null)
-            {
+            if (extras != null && extras.getString("package") != null) {
                 String packageName = extras.getString("package");
                 NotificationHelper.getInstance(getApplicationContext()).markNotificationDismissed(packageName);
                 launchApp(packageName);
-            }else{
+            } else {
                 launchHomeScreen();
             }
         }
     }
 
-    private void launchApp(String packageName){
+    private void launchApp(String packageName) {
         Intent intent;
         PackageManager pm = getPackageManager();
 
@@ -48,7 +47,7 @@ public class NotificationIntentActivity extends BaseActivity {
         finish();
     }
 
-    private void launchHomeScreen(){
+    private void launchHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

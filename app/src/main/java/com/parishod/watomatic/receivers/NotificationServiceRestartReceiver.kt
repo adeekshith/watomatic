@@ -10,10 +10,10 @@ import com.parishod.watomatic.NotificationService
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.service.KeepAliveService
 
-class NotificationServiceRestartReceiver: BroadcastReceiver() {
+class NotificationServiceRestartReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val action = intent?.action
-        if(action?.equals(Intent.ACTION_BOOT_COMPLETED) == true
+        if (action?.equals(Intent.ACTION_BOOT_COMPLETED) == true
                 || action?.equals("Watomatic-RestartService-Broadcast") == true) {
             context?.let { restartService(context = context) }
         }
@@ -21,7 +21,7 @@ class NotificationServiceRestartReceiver: BroadcastReceiver() {
 
     private fun restartService(context: Context) {
         val preferencesManager = PreferencesManager.getPreferencesInstance(context)
-        if(preferencesManager.isForegroundServiceNotificationEnabled) {
+        if (preferencesManager.isForegroundServiceNotificationEnabled) {
             val serviceIntent = Intent(context, KeepAliveService::class.java)
             // ToDo: Should probably start using foreground service to prevent IllegalState exception below
             try {
@@ -29,7 +29,7 @@ class NotificationServiceRestartReceiver: BroadcastReceiver() {
             } catch (e: IllegalStateException) {
                 Log.e("NotifServiceRestart", "Unable to restart notification service")
             }
-        }else{
+        } else {
             enableService(context)
         }
     }
@@ -40,9 +40,9 @@ class NotificationServiceRestartReceiver: BroadcastReceiver() {
         val settingCode = PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         // enable notificationservicelistener (as it is disabled in the manifest.xml)
         packageManager.setComponentEnabledSetting(
-            componentName,
-            settingCode,
-            PackageManager.DONT_KILL_APP
+                componentName,
+                settingCode,
+                PackageManager.DONT_KILL_APP
         )
     }
 }

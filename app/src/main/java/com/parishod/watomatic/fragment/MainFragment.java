@@ -107,7 +107,7 @@ public class MainFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, getSpanCount(mActivity));
         enabledAppsList.setLayoutManager(layoutManager);
         supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps(), v ->
-            launchEnabledAppsActivity()
+                launchEnabledAppsActivity()
         );
         enabledAppsList.setAdapter(supportedAppsAdapter);
 
@@ -127,14 +127,14 @@ public class MainFragment extends Fragment {
         groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
 
         mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked && !isListenerEnabled(mActivity, NotificationService.class)){
+            if (isChecked && !isListenerEnabled(mActivity, NotificationService.class)) {
 //                launchNotificationAccessSettings();
                 showPermissionsDialog();
-            }else {
+            } else {
                 preferencesManager.setServicePref(isChecked);
-                if(isChecked){
+                if (isChecked) {
                     startNotificationService();
-                }else{
+                } else {
                     stopNotificationService();
                 }
                 mainAutoReplySwitch.setText(
@@ -152,25 +152,27 @@ public class MainFragment extends Fragment {
 
         groupReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Ignore if this is not triggered by user action but just UI update in onResume() #62
-            if (preferencesManager.isGroupReplyEnabled() == isChecked) { return;}
+            if (preferencesManager.isGroupReplyEnabled() == isChecked) {
+                return;
+            }
 
-            if(isChecked){
+            if (isChecked) {
                 Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(mActivity, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
             }
             preferencesManager.setGroupReplyPref(isChecked);
         });
 
         imgMinus.setOnClickListener(v -> {
-            if(days > MIN_DAYS){
+            if (days > MIN_DAYS) {
                 days--;
                 saveNumDays();
             }
         });
 
         imgPlus.setOnClickListener(v -> {
-            if(days < MAX_DAYS){
+            if (days < MAX_DAYS) {
                 days++;
                 saveNumDays();
             }
@@ -182,12 +184,12 @@ public class MainFragment extends Fragment {
     }
 
     private List<App> getEnabledApps() {
-        if(enabledApps != null) {
+        if (enabledApps != null) {
             enabledApps.clear();
         }
         enabledApps = new ArrayList<>();
-        for(App app: Constants.SUPPORTED_APPS){
-            if(preferencesManager.isAppEnabled(app)){
+        for (App app : Constants.SUPPORTED_APPS) {
+            if (preferencesManager.isAppEnabled(app)) {
                 enabledApps.add(app);
             }
         }
@@ -201,28 +203,28 @@ public class MainFragment extends Fragment {
         return (int) (dpWidth / scalingFactor);
     }
 
-    private void enableOrDisableEnabledAppsCheckboxes(boolean enabled){
-        for (MaterialCheckBox checkbox: supportedAppsCheckboxes) {
+    private void enableOrDisableEnabledAppsCheckboxes(boolean enabled) {
+        for (MaterialCheckBox checkbox : supportedAppsCheckboxes) {
             checkbox.setEnabled(enabled);
         }
-        for (View dummyView: supportedAppsDummyViews) {
+        for (View dummyView : supportedAppsDummyViews) {
             dummyView.setVisibility(enabled ? View.GONE : View.VISIBLE);
         }
     }
 
 
-    private void saveNumDays(){
+    private void saveNumDays() {
         preferencesManager.setAutoReplyDelay((long) days * 24 * 60 * 60 * 1000);//Save in Milliseconds
         setNumDays();
     }
 
-    private void setNumDays(){
-        long timeDelay = (preferencesManager.getAutoReplyDelay()/(60 * 1000));//convert back to minutes
-        days = (int)timeDelay/(60 * 24);//convert back to days
-        if(days == 0){
+    private void setNumDays() {
+        long timeDelay = (preferencesManager.getAutoReplyDelay() / (60 * 1000));//convert back to minutes
+        days = (int) timeDelay / (60 * 24);//convert back to days
+        if (days == 0) {
             timeSelectedTextPreview.setText("•");
             timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
-        }else{
+        } else {
             timeSelectedTextPreview.setText(String.valueOf(days));
             timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), days));
         }
@@ -233,7 +235,7 @@ public class MainFragment extends Fragment {
         super.onResume();
         //If user directly goes to Settings and removes notifications permission
         //when app is launched check for permission and set appropriate app state
-        if(!isListenerEnabled(mActivity, NotificationService.class)){
+        if (!isListenerEnabled(mActivity, NotificationService.class)) {
             preferencesManager.setServicePref(false);
         }
 
@@ -246,7 +248,7 @@ public class MainFragment extends Fragment {
         autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse());
 
         // Update enabled apps list
-        if(supportedAppsAdapter != null) {
+        if (supportedAppsAdapter != null) {
             supportedAppsAdapter.updateList(getEnabledApps());
         }
 
@@ -258,10 +260,10 @@ public class MainFragment extends Fragment {
         boolean isFromStore = isAppInstalledFromStore(mActivity);
         String status = preferencesManager.getPlayStoreRatingStatus();
         long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
-        if(isFromStore && !status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))){
-            if(isAppUsedSufficientlyToAskRating()){
+        if (isFromStore && !status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))) {
+            if (isAppUsedSufficientlyToAskRating()) {
                 CustomDialog customDialog = new CustomDialog(mActivity);
-                customDialog.showAppLocalRatingDialog(v -> showFeedbackPopup((int)v.getTag()));
+                customDialog.showAppLocalRatingDialog(v -> showFeedbackPopup((int) v.getTag()));
                 preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
             }
         }
@@ -279,25 +281,25 @@ public class MainFragment extends Fragment {
         return installer != null && validInstallers.contains(installer);
     }
 
-    private boolean isAppUsedSufficientlyToAskRating(){
+    private boolean isAppUsedSufficientlyToAskRating() {
         DbUtils dbUtils = new DbUtils(mActivity);
         long firstRepliedTime = dbUtils.getFirstRepliedTime();
         return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
     }
 
-    private void showFeedbackPopup(int rating){
+    private void showFeedbackPopup(int rating) {
         CustomDialog customDialog = new CustomDialog(mActivity);
         customDialog.showAppRatingDialog(rating, v -> {
             String tag = (String) v.getTag();
-            if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))){
+            if (tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))) {
                 //not interested
                 preferencesManager.setPlayStoreRatingStatus("Not Interested");
-            }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))){
+            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))) {
                 //Launch playstore rating page
                 rateApp();
-            }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))){
+            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))) {
                 launchEmailCompose();
-            }else if(tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))){
+            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))) {
                 launchFeedbackApp();
             }
         });
@@ -348,11 +350,11 @@ public class MainFragment extends Fragment {
         List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
                 .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
         Set<String> excludeIntents = new HashSet<>();
-        for (ResolveInfo eachPossibleBrowserIntent: possibleBrowserIntents) {
+        for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
             excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
         }
         //Check for non browser application
-        for(ResolveInfo resolveInfo: list) {
+        for (ResolveInfo resolveInfo : list) {
             if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                 intent.setPackage(resolveInfo.activityInfo.packageName);
                 mActivity.startActivity(intent);
@@ -366,29 +368,24 @@ public class MainFragment extends Fragment {
      * Determine if the Play Store is installed on the device
      *
      * */
-    public void rateApp()
-    {
-        try
-        {
+    public void rateApp() {
+        try {
             Intent rateIntent = rateIntentForUrl("market://details");
             startActivity(rateIntent);
-        }
-        catch (ActivityNotFoundException e)
-        {
+        } catch (ActivityNotFoundException e) {
             Intent rateIntent = rateIntentForUrl("https://play.google.com/store/apps/details");
             startActivity(rateIntent);
         }
     }
 
-    private Intent rateIntentForUrl(String url)
-    {
+    private Intent rateIntentForUrl(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, BuildConfig.APPLICATION_ID)));
         int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
         intent.addFlags(flags);
         return intent;
     }
 
-    private void setSwitchState(){
+    private void setSwitchState() {
         mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
         groupReplySwitch.setEnabled(preferencesManager.isServiceEnabled());
         enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
@@ -412,33 +409,33 @@ public class MainFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void showPermissionsDialog(){
+    private void showPermissionsDialog() {
         CustomDialog customDialog = new CustomDialog(mActivity);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_TITLE, getString(R.string.permission_dialog_title));
         bundle.putString(Constants.PERMISSION_DIALOG_MSG, getString(R.string.permission_dialog_msg));
         customDialog.showDialog(bundle, null, (dialog, which) -> {
-            if(which == -2){
+            if (which == -2) {
                 //Decline
                 showPermissionDeniedDialog();
-            }else{
+            } else {
                 //Accept
                 launchNotificationAccessSettings();
             }
         });
     }
 
-    private void showPermissionDeniedDialog(){
+    private void showPermissionDeniedDialog() {
         CustomDialog customDialog = new CustomDialog(mActivity);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_TITLE, getString(R.string.permission_dialog_denied_title));
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_MSG, getString(R.string.permission_dialog_denied_msg));
         bundle.putBoolean(Constants.PERMISSION_DIALOG_DENIED, true);
         customDialog.showDialog(bundle, null, (dialog, which) -> {
-            if(which == -2){
+            if (which == -2) {
                 //Decline
                 setSwitchState();
-            }else{
+            } else {
                 //Accept
                 launchNotificationAccessSettings();
             }
@@ -450,9 +447,9 @@ public class MainFragment extends Fragment {
         enableService(true);//we need to enable the service for it so show in settings
 
         final String NOTIFICATION_LISTENER_SETTINGS;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             NOTIFICATION_LISTENER_SETTINGS = ACTION_NOTIFICATION_LISTENER_SETTINGS;
-        }else{
+        } else {
             NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
         }
         Intent i = new Intent(NOTIFICATION_LISTENER_SETTINGS);
@@ -462,8 +459,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQ_NOTIFICATION_LISTENER){
-            if(isListenerEnabled(mActivity, NotificationService.class)){
+        if (requestCode == REQ_NOTIFICATION_LISTENER) {
+            if (isListenerEnabled(mActivity, NotificationService.class)) {
                 Toast.makeText(mActivity, "Permission Granted", Toast.LENGTH_LONG).show();
                 startNotificationService();
                 preferencesManager.setServicePref(true);
@@ -486,13 +483,13 @@ public class MainFragment extends Fragment {
 
     }
 
-    private void startNotificationService(){
-        if(preferencesManager.isForegroundServiceNotificationEnabled()) {
+    private void startNotificationService() {
+        if (preferencesManager.isForegroundServiceNotificationEnabled()) {
             ServieUtils.getInstance(mActivity).startNotificationService();
         }
     }
 
-    private void stopNotificationService(){
+    private void stopNotificationService() {
         ServieUtils.getInstance(mActivity).stopNotificationService();
     }
 
@@ -500,11 +497,11 @@ public class MainFragment extends Fragment {
         ActivityManager manager = (ActivityManager) mActivity.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("isMyServiceRunning?", true+"");
+                Log.i("isMyServiceRunning?", true + "");
                 return true;
             }
         }
-        Log.i ("isMyServiceRunning?", false+"");
+        Log.i("isMyServiceRunning?", false + "");
         return false;
     }
 
@@ -515,20 +512,20 @@ public class MainFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.about){
+        if (item.getItemId() == R.id.about) {
             openAboutActivity();
-        }else if(item.getItemId() == R.id.setting){
+        } else if (item.getItemId() == R.id.setting) {
             loadSettingsActivity();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadSettingsActivity(){
+    private void loadSettingsActivity() {
         Intent intent = new Intent(mActivity, SettingsActivity.class);
         mActivity.startActivity(intent);
     }
 
-    private void launchEnabledAppsActivity(){
+    private void launchEnabledAppsActivity() {
         Intent intent = new Intent(mActivity, EnabledAppsActivity.class);
         mActivity.startActivity(intent);
     }

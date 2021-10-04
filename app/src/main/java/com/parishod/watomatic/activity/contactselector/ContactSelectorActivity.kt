@@ -9,7 +9,7 @@ import com.parishod.watomatic.fragment.ContactSelectorFragment
 import com.parishod.watomatic.model.utils.ContactsHelper
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
-class ContactSelectorActivity: BaseActivity() {
+class ContactSelectorActivity : BaseActivity() {
     private lateinit var contactSelectorFragment: ContactSelectorFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +27,9 @@ class ContactSelectorActivity: BaseActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == ContactsHelper.CONTACT_PERMISSION_REQUEST_CODE && this::contactSelectorFragment.isInitialized) {

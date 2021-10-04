@@ -10,7 +10,7 @@ import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.databinding.ActivityAboutBinding
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
-class AboutActivity : BaseActivity () {
+class AboutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAboutBinding.inflate(layoutInflater)

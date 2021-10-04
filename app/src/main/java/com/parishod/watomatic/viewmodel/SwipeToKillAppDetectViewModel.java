@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 //Ref: https://stackoverflow.com/questions/19568315/how-to-handle-running-service-when-app-is-killed-by-swiping-in-android
 public class SwipeToKillAppDetectViewModel extends AndroidViewModel {
     private Context context;
+
     public SwipeToKillAppDetectViewModel(@NonNull @NotNull Application application) {
         super(application);
         this.context = application;
@@ -30,8 +31,8 @@ public class SwipeToKillAppDetectViewModel extends AndroidViewModel {
     }
 
     public void tryReconnectService() {
-        if(PreferencesManager.getPreferencesInstance(context).isServiceEnabled()
-            && PreferencesManager.getPreferencesInstance(context).isForegroundServiceNotificationEnabled()) {
+        if (PreferencesManager.getPreferencesInstance(context).isServiceEnabled()
+                && PreferencesManager.getPreferencesInstance(context).isForegroundServiceNotificationEnabled()) {
             Log.d("DEBUG", "viewmodel tryReconnectService");
             //Send broadcast to restart service
             Intent broadcastIntent = new Intent(context, NotificationServiceRestartReceiver.class);

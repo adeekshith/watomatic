@@ -17,15 +17,15 @@ import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.supported_apps_list.view.*
 
 
-class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>, private var onClickListener: View.OnClickListener?): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
+class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>, private var onClickListener: View.OnClickListener?) : RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppsViewHolder {
-        val itemView = if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+        val itemView = if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.supported_apps_list, parent, false)
-        }else{
+                    .inflate(R.layout.supported_apps_list, parent, false)
+        } else {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.enabled_apps_grid_item, parent, false)
+                    .inflate(R.layout.enabled_apps_grid_item, parent, false)
         }
         return AppsViewHolder(itemView)
     }
@@ -38,14 +38,14 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
         return supportedAppsList.size
     }
 
-    fun updateList(supportedAppsList: List<App>){
+    fun updateList(supportedAppsList: List<App>) {
         this.supportedAppsList = supportedAppsList
         notifyDataSetChanged()
     }
 
-    class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun setData(app: App, listType: Constants.EnabledAppsDisplayType, onClickListener: View.OnClickListener?){
+        fun setData(app: App, listType: Constants.EnabledAppsDisplayType, onClickListener: View.OnClickListener?) {
             try {
                 val icon: Drawable = itemView.context.packageManager.getApplicationIcon(app.packageName)
                 itemView.appIcon.setImageDrawable(icon)
@@ -56,7 +56,7 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 }
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-                if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
                     val matrix = ColorMatrix()
                     matrix.setSaturation(0f) //0 means grayscale
                     val cf = ColorMatrixColorFilter(matrix)
@@ -72,7 +72,7 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 }
             }
 
-            if(listType == Constants.EnabledAppsDisplayType.VERTICAL){
+            if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
                 itemView.appEnableSwitch.text = app.name
                 itemView.appEnableSwitch.tag = app
                 itemView.appEnableSwitch.isChecked = PreferencesManager.getPreferencesInstance(itemView.context).isAppEnabled(app)
@@ -81,12 +81,12 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                     if (!isChecked && preferencesManager.enabledApps.size <= 1) { // Keep at-least one app selected
                         // Keep at-least one app selected
                         Toast.makeText(
-                            itemView.context,
-                            itemView.context.resources.getString(R.string.error_atleast_single_app_must_be_selected),
-                            Toast.LENGTH_SHORT
+                                itemView.context,
+                                itemView.context.resources.getString(R.string.error_atleast_single_app_must_be_selected),
+                                Toast.LENGTH_SHORT
                         ).show()
                         buttonView.isChecked = true
-                    }else {
+                    } else {
                         preferencesManager.saveEnabledApps(buttonView.tag as App, isChecked)
                     }
                 }

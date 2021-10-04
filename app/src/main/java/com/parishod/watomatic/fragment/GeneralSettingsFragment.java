@@ -20,7 +20,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         if (languagePref != null) {
             languagePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 String thisLangStr = PreferencesManager.getPreferencesInstance(getActivity()).getSelectedLanguageStr(null);
-                if(thisLangStr == null || !thisLangStr.equals(newValue)){
+                if (thisLangStr == null || !thisLangStr.equals(newValue)) {
                     //switch app language here
                     //Should restart the app for language change to take into account
                     restartApp();

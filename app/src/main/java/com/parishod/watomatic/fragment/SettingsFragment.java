@@ -32,9 +32,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         SwitchPreference foregroundServiceNotifPref = findPreference(getString(R.string.pref_show_foreground_service_notification));
         if (foregroundServiceNotifPref != null) {
             foregroundServiceNotifPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                if(newValue.equals(true)){
+                if (newValue.equals(true)) {
                     ServieUtils.getInstance(getActivity()).startNotificationService();
-                }else{
+                } else {
                     ServieUtils.getInstance(getActivity()).stopNotificationService();
                 }
                 return true;
@@ -50,7 +50,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void checkAutoStartPermission() {
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             AutoStartHelper.getInstance().getAutoStartPermission(getActivity());
         }
     }

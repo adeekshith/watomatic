@@ -62,7 +62,7 @@ public class KeepAliveService extends Service {
     }
 
     public void tryReconnectService() {
-        if(PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()
+        if (PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()
                 && PreferencesManager.getPreferencesInstance(getApplicationContext()).isForegroundServiceNotificationEnabled()) {
             Log.d("DEBUG", "KeepAliveService tryReconnectService");
             //Send broadcast to restart service
@@ -72,8 +72,8 @@ public class KeepAliveService extends Service {
         }
     }
 
-    private void startNotificationService(){
-        if(!isMyServiceRunning()) {
+    private void startNotificationService() {
+        if (!isMyServiceRunning()) {
             Log.d("DEBUG", "KeepAliveService startNotificationService");
             Intent mServiceIntent = new Intent(this, NotificationService.class);
             startService(mServiceIntent);
@@ -84,11 +84,11 @@ public class KeepAliveService extends Service {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (NotificationService.class.equals(service.service.getClassName())) {
-                Log.i ("isMyServiceRunning?", true+"");
+                Log.i("isMyServiceRunning?", true + "");
                 return true;
             }
         }
-        Log.i ("isMyServiceRunning?", false+"");
+        Log.i("isMyServiceRunning?", false + "");
         return false;
     }
 
