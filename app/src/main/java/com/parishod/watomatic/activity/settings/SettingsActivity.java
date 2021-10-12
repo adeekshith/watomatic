@@ -40,9 +40,9 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getBackStackEntryCount() > 1){
+        if (fragmentManager.getBackStackEntryCount() > 1) {
             fragmentManager.popBackStack();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

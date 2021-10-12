@@ -47,8 +47,8 @@ public class PreferencesManager {
         init();
     }
 
-    public static PreferencesManager getPreferencesInstance(Context context){
-        if(_instance == null){
+    public static PreferencesManager getPreferencesInstance(Context context) {
+        if (_instance == null) {
             _instance = new PreferencesManager(context.getApplicationContext());
         }
         return _instance;
@@ -59,7 +59,7 @@ public class PreferencesManager {
      * when the instance is first created goes here. For example, set specific keys based on new install
      * or app upgrade, etc.
      */
-    private void init () {
+    private void init() {
         // Use key from string resource
         KEY_SELECTED_APP_LANGUAGE = thisAppContext.getString(R.string.key_pref_app_language);
         KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
@@ -80,45 +80,44 @@ public class PreferencesManager {
             if (!_sharedPrefs.contains(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION)) {
                 setAppendWatomaticAttribution(true);
             }
-        }
-        else {
+        } else {
             //If it's first install, language preference is not set, so we don't have to worry
             //Otherwise, check if language settings contains r, migrate to new language settings key
             updateLegacyLanguageKey();
         }
     }
 
-    public boolean isServiceEnabled(){
-        return _sharedPrefs.getBoolean(KEY_SERVICE_ENABLED,false);
+    public boolean isServiceEnabled() {
+        return _sharedPrefs.getBoolean(KEY_SERVICE_ENABLED, false);
     }
 
-    public void setServicePref(boolean enabled){
+    public void setServicePref(boolean enabled) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putBoolean(KEY_SERVICE_ENABLED, enabled);
         editor.apply();
     }
 
-    public boolean isGroupReplyEnabled(){
-        return _sharedPrefs.getBoolean(KEY_GROUP_REPLY_ENABLED,false);
+    public boolean isGroupReplyEnabled() {
+        return _sharedPrefs.getBoolean(KEY_GROUP_REPLY_ENABLED, false);
     }
 
-    public void setGroupReplyPref(boolean enabled){
+    public void setGroupReplyPref(boolean enabled) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putBoolean(KEY_GROUP_REPLY_ENABLED, enabled);
         editor.apply();
     }
 
-    public long getAutoReplyDelay(){
-        return _sharedPrefs.getLong(KEY_AUTO_REPLY_THROTTLE_TIME_MS,0);
+    public long getAutoReplyDelay() {
+        return _sharedPrefs.getLong(KEY_AUTO_REPLY_THROTTLE_TIME_MS, 0);
     }
 
-    public void setAutoReplyDelay(long delay){
+    public void setAutoReplyDelay(long delay) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_AUTO_REPLY_THROTTLE_TIME_MS, delay);
         editor.apply();
     }
 
-    public Set<String> getEnabledApps(){
+    public Set<String> getEnabledApps() {
         String enabledAppsJsonStr = _sharedPrefs.getString(KEY_SELECTED_APPS_ARR, null);
 
         // Users upgrading from v1.7 and before
@@ -128,15 +127,16 @@ public class PreferencesManager {
             enabledAppsJsonStr = setAppsAsEnabled(Collections.singleton(new App("WhatsApp", "com.whatsapp")));
         }
 
-        Type type = new TypeToken<Set<String>>(){}.getType();
+        Type type = new TypeToken<Set<String>>() {
+        }.getType();
         return new Gson().fromJson(enabledAppsJsonStr, type);
     }
 
-    public boolean isAppEnabled (App thisApp) {
+    public boolean isAppEnabled(App thisApp) {
         return getEnabledApps().contains(thisApp.getPackageName());
     }
 
-    private String serializeAndSetEnabledPackageList (Collection<String> packageList) {
+    private String serializeAndSetEnabledPackageList(Collection<String> packageList) {
         String jsonStr = new Gson().toJson(packageList);
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putString(KEY_SELECTED_APPS_ARR, jsonStr);
@@ -144,24 +144,24 @@ public class PreferencesManager {
         return jsonStr;
     }
 
-    public String setAppsAsEnabled (Collection<App> apps) {
+    public String setAppsAsEnabled(Collection<App> apps) {
         AppUtils appUtils = AppUtils.getInstance(thisAppContext);
         Set<String> packageNames = new HashSet<>();
-        for (App app: apps) {
+        for (App app : apps) {
             //check if the app is installed only then add it to enabled list
-            if(appUtils.isPackageInstalled(app.getPackageName())) {
+            if (appUtils.isPackageInstalled(app.getPackageName())) {
                 packageNames.add(app.getPackageName());
             }
         }
         return serializeAndSetEnabledPackageList(packageNames);
     }
 
-    public String saveEnabledApps(App app, boolean isSelected){
+    public String saveEnabledApps(App app, boolean isSelected) {
         Set<String> enabledPackages = getEnabledApps();
-        if(!isSelected) {
+        if (!isSelected) {
             //remove the given platform
             enabledPackages.remove(app.getPackageName());
-        }else{
+        } else {
             //add the given platform
             enabledPackages.add(app.getPackageName());
         }
@@ -175,12 +175,13 @@ public class PreferencesManager {
     }
 
     public boolean isAppendWatomaticAttributionEnabled() {
-        return _sharedPrefs.getBoolean(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION,false);
+        return _sharedPrefs.getBoolean(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION, false);
     }
 
     /**
      * Check if it is first install on this device.
-     * ref: https://stackoverflow.com/a/34194960 
+     * ref: https://stackoverflow.com/a/34194960
+     *
      * @param context context value
      * @return true if first install or else false if it is installed from an update
      */
@@ -195,7 +196,7 @@ public class PreferencesManager {
         }
     }
 
-    public String getSelectedLanguageStr(String defaultLangStr){
+    public String getSelectedLanguageStr(String defaultLangStr) {
         return _sharedPrefs.getString(KEY_SELECTED_APP_LANGUAGE, defaultLangStr);
     }
 
@@ -205,7 +206,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public Locale getSelectedLocale () {
+    public Locale getSelectedLocale() {
         String thisLangStr = getSelectedLanguageStr(null);
         if (thisLangStr == null || thisLangStr.isEmpty()) {
             return Locale.getDefault();
@@ -230,51 +231,51 @@ public class PreferencesManager {
         }
     }
 
-    public boolean isShowNotificationEnabled(){
-        return _sharedPrefs.getBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED,false);
+    public boolean isShowNotificationEnabled() {
+        return _sharedPrefs.getBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED, false);
     }
 
-    public void setShowNotificationPref(boolean enabled){
+    public void setShowNotificationPref(boolean enabled) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putBoolean(KEY_IS_SHOW_NOTIFICATIONS_ENABLED, enabled);
         editor.apply();
     }
 
-    public int getGithubReleaseNotesId(){
-        return _sharedPrefs.getInt(KEY_GITHUB_RELEASE_NOTES_ID,0);
+    public int getGithubReleaseNotesId() {
+        return _sharedPrefs.getInt(KEY_GITHUB_RELEASE_NOTES_ID, 0);
     }
 
-    public void setGithubReleaseNotesId(int id){
+    public void setGithubReleaseNotesId(int id) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putInt(KEY_GITHUB_RELEASE_NOTES_ID, id);
         editor.apply();
     }
 
-    public long getLastPurgedTime(){
-        return _sharedPrefs.getLong(KEY_PURGE_MESSAGE_LOGS_LAST_TIME,0);
+    public long getLastPurgedTime() {
+        return _sharedPrefs.getLong(KEY_PURGE_MESSAGE_LOGS_LAST_TIME, 0);
     }
 
-    public void setPurgeMessageTime(long purgeMessageTime){
+    public void setPurgeMessageTime(long purgeMessageTime) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_PURGE_MESSAGE_LOGS_LAST_TIME, purgeMessageTime);
         editor.apply();
     }
 
-    public String getPlayStoreRatingStatus(){
+    public String getPlayStoreRatingStatus() {
         return _sharedPrefs.getString(KEY_PLAY_STORE_RATING_STATUS, "");
     }
 
-    public void setPlayStoreRatingStatus(String status){
+    public void setPlayStoreRatingStatus(String status) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putString(KEY_PLAY_STORE_RATING_STATUS, status);
         editor.apply();
     }
 
-    public long getPlayStoreRatingLastTime(){
-        return _sharedPrefs.getLong(KEY_PLAY_STORE_RATING_LAST_TIME,0);
+    public long getPlayStoreRatingLastTime() {
+        return _sharedPrefs.getLong(KEY_PLAY_STORE_RATING_LAST_TIME, 0);
     }
 
-    public void setPlayStoreRatingLastTime(long purgeMessageTime){
+    public void setPlayStoreRatingLastTime(long purgeMessageTime) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_PLAY_STORE_RATING_LAST_TIME, purgeMessageTime);
         editor.apply();
@@ -287,7 +288,7 @@ public class PreferencesManager {
     }
 
     public boolean isForegroundServiceNotificationEnabled() {
-        return _sharedPrefs.getBoolean(KEY_SHOW_FOREGROUND_SERVICE_NOTIFICATION,false);
+        return _sharedPrefs.getBoolean(KEY_SHOW_FOREGROUND_SERVICE_NOTIFICATION, false);
     }
 
     public void setReplyToNames(Set<String> names) {

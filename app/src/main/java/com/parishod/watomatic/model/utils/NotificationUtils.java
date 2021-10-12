@@ -19,11 +19,11 @@ public class NotificationUtils {
 
     public static String getTitle(StatusBarNotification sbn) {
         String title;
-        if(sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
+        if (sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
             title = sbn.getNotification().extras.getString("android.hiddenConversationTitle");
             //Just to avoid null cases, if by any chance hiddenConversationTitle comes null for group message
             // then extract group name from title
-            if(title == null) {
+            if (title == null) {
                 title = sbn.getNotification().extras.getString("android.title");
                 int index = title.indexOf(':');
                 if (index != -1) {
@@ -33,13 +33,13 @@ public class NotificationUtils {
 
             //To eliminate the case where group title has number of messages count in it
             Parcelable[] b = (Parcelable[]) sbn.getNotification().extras.get("android.messages");
-            if(b != null && b.length > 1){
+            if (b != null && b.length > 1) {
                 int startIndex = title.lastIndexOf('(');
                 if (startIndex != -1) {
                     title = title.substring(0, startIndex);
                 }
             }
-        }else{
+        } else {
             title = sbn.getNotification().extras.getString("android.title");
         }
         return title;
@@ -49,7 +49,7 @@ public class NotificationUtils {
    This method is used to avoid replying to unreplied notifications
    which are posted again when next message is received
     */
-    public static boolean isNewNotification(StatusBarNotification sbn){
+    public static boolean isNewNotification(StatusBarNotification sbn) {
         //For apps targeting {@link android.os.Build.VERSION_CODES#N} and above, this time is not shown
         //by default unless explicitly set by the apps hence checking not 0
         return sbn.getNotification().when == 0 ||
@@ -66,9 +66,9 @@ public class NotificationUtils {
         List<NotificationCompat.Action> actions = wearableExtender.getActions();
         List<RemoteInput> remoteInputs = new ArrayList<>(actions.size());
         PendingIntent pendingIntent = null;
-        for(NotificationCompat.Action act : actions) {
-            if(act != null && act.getRemoteInputs() != null) {
-                for(int x = 0; x < act.getRemoteInputs().length; x++) {
+        for (NotificationCompat.Action act : actions) {
+            if (act != null && act.getRemoteInputs() != null) {
+                for (int x = 0; x < act.getRemoteInputs().length; x++) {
                     RemoteInput remoteInput = act.getRemoteInputs()[x];
                     remoteInputs.add(remoteInput);
                     pendingIntent = act.actionIntent;
@@ -86,7 +86,7 @@ public class NotificationUtils {
         );
     }
 
-    public static String getTitleRaw (StatusBarNotification sbn) {
+    public static String getTitleRaw(StatusBarNotification sbn) {
         return sbn.getNotification().extras.getString("android.title");
     }
 }

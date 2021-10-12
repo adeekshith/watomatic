@@ -13,7 +13,7 @@ import com.parishod.watomatic.model.utils.Constants
 
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*
 
-class EnabledAppsFragment: Fragment() {
+class EnabledAppsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_enabled_apps, container, false)

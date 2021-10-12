@@ -76,7 +76,7 @@ public class BrandingFragment extends Fragment {
 
         getGthubReleaseNotes();
 
-        if(BuildConfig.FLAVOR.equalsIgnoreCase("Default")){
+        if (BuildConfig.FLAVOR.equalsIgnoreCase("Default")) {
             share_layout.setVisibility(View.GONE);
 
             RelativeLayout circularProgressBarLayout = view.findViewById(R.id.circularProgressBar);
@@ -96,8 +96,10 @@ public class BrandingFragment extends Fragment {
             return;
         }
         boolean isLaunched = false;
-        for (String eachReleaseUrl: whatsNewUrls) {
-            if (isLaunched) { break;}
+        for (String eachReleaseUrl : whatsNewUrls) {
+            if (isLaunched) {
+                break;
+            }
             try {
                 // In order for this intent to be invoked, the system must directly launch a non-browser app.
                 // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
@@ -123,7 +125,7 @@ public class BrandingFragment extends Fragment {
 
     private void launchAppLegacy() {
         boolean isLaunched = false;
-        for(String url: whatsNewUrls){
+        for (String url : whatsNewUrls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
                     getActivity().getPackageManager().queryIntentActivities(intent, 0) :
@@ -142,7 +144,7 @@ public class BrandingFragment extends Fragment {
 
             //Check for non browser application
             if (list != null) {
-                for(ResolveInfo resolveInfo: list) {
+                for (ResolveInfo resolveInfo : list) {
                     if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                         intent.setPackage(resolveInfo.activityInfo.packageName);
                         startactivity(intent);
@@ -152,7 +154,7 @@ public class BrandingFragment extends Fragment {
                 }
             }
 
-            if(isLaunched){
+            if (isLaunched) {
                 break;
             }
         }
@@ -162,7 +164,7 @@ public class BrandingFragment extends Fragment {
         }
     }
 
-    private void startactivity(Intent intent){
+    private void startactivity(Intent intent) {
         PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
         startActivity(intent);
         showHideWhatsNewBtn(false);
@@ -187,11 +189,11 @@ public class BrandingFragment extends Fragment {
     }
 
     private void parseReleaseNotesResponse(List<GithubReleaseNotes> releaseNotesList) {
-        for (GithubReleaseNotes releaseNotes: releaseNotesList
-             ) {
+        for (GithubReleaseNotes releaseNotes : releaseNotesList
+        ) {
             String appVersion = "v" + BuildConfig.VERSION_NAME;
             //in the list of release notes, check the release notes for this version of app
-            if(releaseNotes.getTagName().equalsIgnoreCase(appVersion)) {
+            if (releaseNotes.getTagName().equalsIgnoreCase(appVersion)) {
                 gitHubReleaseNotesId = releaseNotes.getId();
                 String body = releaseNotes.getBody();
                 int gitHubId = PreferencesManager.getPreferencesInstance(getActivity()).getGithubReleaseNotesId();
@@ -213,7 +215,7 @@ public class BrandingFragment extends Fragment {
         }
     }
 
-    private void showHideWhatsNewBtn(boolean show){
+    private void showHideWhatsNewBtn(boolean show) {
         watomaticSubredditBtn.setVisibility(show ? View.GONE : View.VISIBLE);
         whatsNewBtn.setVisibility(show ? View.VISIBLE : View.GONE);
     }

@@ -42,17 +42,19 @@ public class CustomReplyEditorActivity extends BaseActivity {
         Intent intent = getIntent();
         Uri data = intent.getData();
 
-        autoReplyText.setText ((data != null)
+        autoReplyText.setText((data != null)
                 ? data.getQueryParameter("message")
                 : customRepliesData.get());
 
         autoReplyText.requestFocus();
         autoReplyText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {

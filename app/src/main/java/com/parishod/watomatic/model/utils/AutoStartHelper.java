@@ -208,7 +208,7 @@ public class AutoStartHelper {
                         "\n\n" +
                         context.getString(R.string.device_based_settings_message));
         customDialog.showDialog(bundle, "AutoStart", (dialog, which) -> {
-            if(which != -2){
+            if (which != -2) {
                 //Decline
                 onClickListener.onClick(dialog, which);
             }

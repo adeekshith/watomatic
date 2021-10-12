@@ -30,9 +30,9 @@ class ContactSelectorFragment : Fragment() {
     private lateinit var contactList: ArrayList<ContactHolder>
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentContactSelectorBinding.inflate(inflater, container, false)
 
@@ -79,9 +79,9 @@ class ContactSelectorFragment : Fragment() {
         adapter.saveSelectedContactList()
 
         val snackbar = Snackbar.make(
-            binding.root,
-            if (checked) R.string.all_contacts_selected else R.string.all_contacts_unselected,
-            Snackbar.LENGTH_LONG
+                binding.root,
+                if (checked) R.string.all_contacts_selected else R.string.all_contacts_unselected,
+                Snackbar.LENGTH_LONG
         )
         snackbar.setAction(R.string.undo) {
             adapter.restoreCheckpoint()
@@ -92,7 +92,7 @@ class ContactSelectorFragment : Fragment() {
 
     private fun addCustomContactDialog() {
         val builder = MaterialAlertDialogBuilder(requireActivity())
-            .setTitle(R.string.add_custom_contact)
+                .setTitle(R.string.add_custom_contact)
 
         val input = EditText(activity).also {
             it.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
