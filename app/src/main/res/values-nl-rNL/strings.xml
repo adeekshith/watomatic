@@ -52,11 +52,76 @@
     <string name="preference_category_notifications_label">Meldingen</string>
     <string name="preference_category_troubleshooting_label">Probleemoplossing</string>
     <string name="enable_auto_start_label">Automatisch starten inschakelen</string>
+    <string name="enabled_apps_title">Ingeschakelde apps</string>
+    <string name="always_on_notification">Always-On notificatie</string>
+    <string name="display_persistent_notification_summary">Toon een aanhoudende melding om ervoor te zorgen dat Watomatic niet wordt gestopt door het systeem</string>
+    <string name="enable_auto_start_summary">Sommige apparaten vereisen mogelijk dat je Auto start voor Watomatic handmatig inschakelt vanuit de instellingen van het apparaat</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">App taal</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Wat vind je ervan?</string>
+    <string name="app_rating_dialog_msg">We zijn geïnteresseerd in wat je vindt van de app. Tik op de bovenstaande sterren om het te beoordelen.</string>
+    <string name="app_rating_dialog_rate_button_title">Beoordeel het!</string>
+    <string name="app_rating_goto_store_dialog_title">We zijn blij!</string>
+    <string name="app_rating_goto_store_dialog_msg">Deel deze beoordeling van onze app op de Google Play Store door op \"Doorgaan\" te klikken!</string>
+    <string name="app_rating_pitch">Deze app is gratis, geen advertenties, geen tracking, open source en wordt gemaakt door bijdragers zoals jij en ik.
+        Je feedback is onze enige aanmoediging.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Niet geïnteresseerd</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Doorgaan</string>
+    <string name="app_rating_feedback_dialog_title">Contact opnemen</string>
+    <string name="app_rating_feedback_dialog_msg">Laat ons weten hoe we kunnen verbeteren.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">E-mail ons</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">AutoStart-machtiging</string>
+    <string name="running_in_the_background">Wordt op de achtergrond uitgevoerd</string>
+    <string name="auto_start_permission_dialog_message">Schakel \"Auto Start\" toestemming in bij apparaatinstellingen om Watomatic te laten starten bij het opnieuw opstarten van het apparaat.</string>
+    <string name="device_based_settings_message">Opmerking: Instellingen kunnen variëren of niet beschikbaar zijn op basis van je apparaat</string>
+    <string name="setting_not_available_for_device">Deze instelling is niet beschikbaar of is mogelijk niet nodig voor je apparaat.</string>
+    <string name="enable_auto_start_setting">Doorgaan</string>
+    <string name="decline_auto_start_setting">Annuleren</string>
+    <string name="app_not_installed_text">Niet geinstalleerd</string>
+    <string name="advanced_settings">Geavanceerde instellingen</string>
+    <string name="contact_based_reply">Contact-gebaseerde antwoorden</string>
+    <string name="contact_reply_type">Antwoord op</string>
+    <string name="blacklist">Iedereen behalve geselecteerde contacten</string>
+    <string name="whitelist">Niemand behalve geselecteerde contacten</string>
+    <string name="enable_contact_based_reply">Contact-gebaseerde antwoorden inschakelen</string>
+    <string name="select_contacts">Contacten selecteren</string>
+    <string name="contact_selector">Contacten-kiezer</string>
+    <string name="select_all">Alles selecteren</string>
+    <string name="select_none">Niets selecteren</string>
+    <string name="contact_permission_dialog_msg">\'Contacten lezen\'-toegang is nodig om namen te filteren en deze functie in te schakelen. Wil je doorgaan?</string>
+    <string name="contact_permission_dialog_proceed">Doorgaan</string>
+    <string name="contact_permission_dialog_cancel">Annuleren</string>
+    <string name="undo">Ongedaan maken</string>
+    <string name="all_contacts_selected">Alle contacten geselecteerd</string>
+    <string name="all_contacts_unselected">Alle contacten niet geselecteerd</string>
+    <string name="donations_activity_title">Donaties</string>
+    <string name="donations_data_fetch_error">De laatste gegevens kunnen niet worden opgehaald</string>
+    <string name="donations_goal_title_0">Lastig</string>
+    <string name="donations_goal_0">Elke cent telt om het te helpen overleven</string>
+    <string name="donations_goal_title_20">Net levend</string>
+    <string name="donations_goal_20">Ondersteunt dagelijks onderhoud en kritieke fixes</string>
+    <string name="donations_goal_title_30">Stabiel</string>
+    <string name="donations_goal_30">Sneller bugfixes en de app bijhouden</string>
+    <string name="donations_goal_title_70">Langzame en stabiele vooruitgang</string>
+    <string name="donations_goal_70">Kleine functie- en interface-verbeteringen</string>
+    <string name="donations_goal_title_100">Boost-modus</string>
+    <string name="donations_goal_100">Help ons om het een krachtige app voor automatisch antwoorden te maken met veel geavanceerde functies</string>
+    <string name="donation_progress_label">van maandelijks doel</string>
+    <string name="add_custom_contact">Aangepaste contactnaam toevoegen</string>
+    <string name="contact_permission_suggestion_dialog_msg">\'Contacten lezen\'-machtiging is nodig om reacties te filteren op contactnaam. Als toegang niet is ingeschakeld, worden alleen handmatig ingevoerde namen toegestaan. Wil je dit inschakelen?</string>
+    <string name="contact_permission_dialog_enable_permission">\'Contacten\'-machtiging inschakelen</string>
+    <string name="contact_permission_dialog_not_now">Niet nu</string>
+    <string name="contact_permission_dialog_title">\'Contacten lezen\'-machtiging</string>
+    <string name="delete">Verwijderen</string>
+    <string name="decrease_frequency">Frequentie verlagen</string>
+    <string name="increase_frequency">Frequentie verhogen</string>
+    <string name="current_donation_progress">Huidige donatievoortgang</string>
+    <string name="error_name_cannot_be_blank">Naam kan niet leeg zijn</string>
+    <string name="error_name_cannot_be_duplicate">Naam al aanwezig</string>
 </resources>
