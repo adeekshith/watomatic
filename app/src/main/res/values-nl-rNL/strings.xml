@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Auto-reactie uitgeschakeld voor groepsapps</string>
     <string name="time_picker_title">Reactie-frequentie (BETA)</string>
     <string name="time_picker_sub_title_default">Reageer op alle berichten zonder controle</string>
+    <string name="time_picker_sub_title">Reageer slechts eens in de %1$d dag(en) per persoon of groep</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Klik om de tijdsvertraging tussen de reacties aan te passen</string>
     <string name="app_version">v%1$s</string>
@@ -47,6 +48,10 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Melding weergeven voor beantwoorde berichten</string>
+    <string name="preference_category_general_label">Algemene instellingen</string>
+    <string name="preference_category_notifications_label">Meldingen</string>
+    <string name="preference_category_troubleshooting_label">Probleemoplossing</string>
+    <string name="enable_auto_start_label">Automatisch starten inschakelen</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
