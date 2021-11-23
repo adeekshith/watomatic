@@ -3,8 +3,6 @@
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="adeekshith_twitter_handle" translatable="false">\@adeekshith</string>
     <string name="url_adeekshith_twitter" translatable="false">https://twitter.com/adeekshith</string>
-    <string name="contributers_will_appear_here" translatable="false">contributers will appear here</string>
-
     <string name="about">About</string>
     <string name="settings">Settings</string>
     <string name="privacy_policy_label">Privacy Policy</string>

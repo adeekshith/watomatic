@@ -111,7 +111,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
-            android:text="@string/contributers_will_appear_here"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/developerLink"
