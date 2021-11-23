@@ -10,7 +10,7 @@ import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.databinding.ActivityAboutBinding
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
-class AboutActivity : BaseActivity () {
+class AboutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAboutBinding.inflate(layoutInflater)
@@ -18,11 +18,11 @@ class AboutActivity : BaseActivity () {
 
         title = getString(R.string.about)
 
-        val viewModel = ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
+        ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
 
         binding.appVersion.text = String.format(resources.getString(R.string.app_version), BuildConfig.VERSION_NAME)
         binding.privacyPolicyCardView.setOnClickListener {
-            val url = getString(R.string.url_privacy_policy);
+            val url = getString(R.string.url_privacy_policy)
             val i = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             startActivity(i)
         }

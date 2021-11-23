@@ -48,10 +48,11 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">பதிலதித்த செய்திகளுக்கு அறிவிப்புகளை காட்டு</string>
-    <string name="preference_category_general_label">பொதுவானவை</string>
+    <string name="preference_category_general_label">பொதுவான அமைப்புகள்</string>
     <string name="preference_category_notifications_label">அறிவிப்புகள்</string>
     <string name="preference_category_troubleshooting_label">பழுது கண்டறிதல்</string>
     <string name="enable_auto_start_label">தானாகத் தொடங்குவதை இயக்கு</string>
+    <string name="add_attribution_label">பண்புகளை சேர்</string>
     <string name="enable_auto_start_summary">சில சாதனங்களில் நீங்களாக சாதனத்தின் அமைப்புகளுக்கு சென்று Watomatic தானாக தொடங்க அனுமதிக்க வேண்டும்</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -78,6 +79,7 @@
     <string name="setting_not_available_for_device">இந்த அமைப்பு உங்கள் சாதனத்தில் கிடைக்கப்பெறாது அல்லது உங்களுக்கு தேவைப்படாது.</string>
     <string name="enable_auto_start_setting">தொடரவும்</string>
     <string name="decline_auto_start_setting">ரத்து செய்</string>
+    <string name="app_not_installed_text">நிறுவப்படவில்லை</string>
     <string name="advanced_settings">மேம்பட்ட அமைப்புகள்</string>
     <string name="contact_reply_type">இவருக்கு பதிலளி</string>
     <string name="blacklist">குறிக்கப்பட்ட தொடர்புகளை தவிர மற்ற அனைவருக்கும்</string>
@@ -88,4 +90,10 @@
     <string name="contact_permission_dialog_msg">தொடர்புகளை வடிகட்டும் இந்த வசதியை பெற சாதனத்தின் தொடர்புகளை படிக்கும் அனுமதி வேண்டும். தொடர விரும்புகிறீர்களா?</string>
     <string name="contact_permission_dialog_proceed">தொடரவும்</string>
     <string name="contact_permission_dialog_cancel">ரத்து செய்</string>
+    <string name="undo">செயல்தவிர்</string>
+    <string name="all_contacts_selected">அனைத்து தொடர்புகளும் தேர்ந்தெடுக்கப்பட்டுள்ளன</string>
+    <string name="all_contacts_unselected">அனைத்து தொடர்புகளும் தேர்வு நீக்கம் செய்யப்பட்டுள்ளன</string>
+    <string name="delete">நீக்கு</string>
+    <string name="error_name_cannot_be_blank">பெயர் புலம் ஏதுமின்றி இருக்க இயலாது</string>
+    <string name="error_name_cannot_be_duplicate">பெயர் ஏற்கனவே உள்ளது</string>
 </resources>

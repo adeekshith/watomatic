@@ -13,12 +13,12 @@ public abstract class MessageLogsDB extends RoomDatabase {
     private static final String DB_NAME = Constants.LOGS_DB_NAME;
     private static MessageLogsDB _instance;
 
-    public static synchronized MessageLogsDB getInstance(Context context){
-        if(_instance == null){
+    public static synchronized MessageLogsDB getInstance(Context context) {
+        if (_instance == null) {
             _instance = Room.databaseBuilder(context.getApplicationContext(), MessageLogsDB.class, DB_NAME)
-            .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
-            .build();
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build();
         }
         return _instance;
     }

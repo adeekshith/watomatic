@@ -25,26 +25,24 @@ public class SettingsActivity extends BaseActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
+        new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getBackStackEntryCount() > 1){
+        if (fragmentManager.getBackStackEntryCount() > 1) {
             fragmentManager.popBackStack();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

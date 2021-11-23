@@ -27,12 +27,12 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if(canReply(sbn) && shouldReply(sbn)) {
+        if (canReply(sbn) && shouldReply(sbn)) {
             sendReply(sbn);
         }
     }
 
-    private boolean canReply(StatusBarNotification sbn){
+    private boolean canReply(StatusBarNotification sbn) {
         return isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
                 NotificationUtils.isNewNotification(sbn) &&
@@ -40,7 +40,7 @@ public class NotificationService extends NotificationListenerService {
                 canSendReplyNow(sbn);
     }
 
-    private boolean shouldReply(StatusBarNotification sbn){
+    private boolean shouldReply(StatusBarNotification sbn) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
         boolean isGroup = sbn.getNotification().extras.getBoolean("android.isGroupConversation");
 
@@ -52,13 +52,12 @@ public class NotificationService extends NotificationListenerService {
             boolean isNameSelected =
                     (ContactsHelper.getInstance(this).hasContactPermission()
                             && prefs.getReplyToNames().contains(senderName)) ||
-                    prefs.getCustomReplyNames().contains(senderName);
+                            prefs.getCustomReplyNames().contains(senderName);
             if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
-                !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
+                    !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
                 //If contact is on the list and contact reply is on blacklist mode, 
                 // or contact is not in the list and reply is on whitelist mode,
                 // we don't want to reply
-
                 return false;
             }
         }
@@ -80,7 +79,9 @@ public class NotificationService extends NotificationListenerService {
         NotificationWear notificationWear = NotificationUtils.extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
-        if (notificationWear.getRemoteInputs().isEmpty()) { return;}
+        if (notificationWear.getRemoteInputs().isEmpty()) {
+            return;
+        }
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
@@ -90,26 +91,26 @@ public class NotificationService extends NotificationListenerService {
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle localBundle = new Bundle();//notificationWear.bundle;
         int i = 0;
-        for(RemoteInput remoteIn : notificationWear.getRemoteInputs()){
+        for (RemoteInput remoteIn : notificationWear.getRemoteInputs()) {
             remoteInputs[i] = remoteIn;
             // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse(null));
+            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse());
             i++;
         }
 
         RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
-                if(dbUtils == null) {
+                if (dbUtils == null) {
                     dbUtils = new DbUtils(getApplicationContext());
                 }
                 dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn));
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
-                if(PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
+                if (PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
                 }
                 cancelNotification(sbn.getKey());
-                if(canPurgeMessages()){
+                if (canPurgeMessages()) {
                     dbUtils.purgeMessageLogs();
                     PreferencesManager.getPreferencesInstance(this).setPurgeMessageTime(System.currentTimeMillis());
                 }
@@ -132,38 +133,38 @@ public class NotificationService extends NotificationListenerService {
                 .contains(sbn.getPackageName());
     }
 
-    private boolean canSendReplyNow(StatusBarNotification sbn){
+    private boolean canSendReplyNow(StatusBarNotification sbn) {
         // Do not reply to consecutive notifications from same person/group that arrive in below time
         // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
         int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
 
         String title = NotificationUtils.getTitle(sbn);
         String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
-        if(title != null && selfDisplayName != null && title.equalsIgnoreCase(selfDisplayName)){ //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+        if (title != null && title.equalsIgnoreCase(selfDisplayName)) { //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
             return false;
         }
-        if(dbUtils == null) {
+        if (dbUtils == null) {
             dbUtils = new DbUtils(getApplicationContext());
         }
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
         return (System.currentTimeMillis() - dbUtils.getLastRepliedTime(sbn.getPackageName(), title) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
     }
 
-    private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn){
+    private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn) {
         String rawTitle = NotificationUtils.getTitleRaw(sbn);
         //android.text returning SpannableString
         SpannableString rawText = SpannableString.valueOf("" + sbn.getNotification().extras.get("android.text"));
         // Detect possible group image message by checking for colon and text starts with camera icon #181
         boolean isPossiblyAnImageGrpMsg = ((rawTitle != null) && (": ".contains(rawTitle) || "@ ".contains(rawTitle)))
                 && ((rawText != null) && rawText.toString().contains("\uD83D\uDCF7"));
-        if(!sbn.getNotification().extras.getBoolean("android.isGroupConversation")){
+        if (!sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
             return !isPossiblyAnImageGrpMsg;
-        }else {
+        } else {
             return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
         }
     }
 
-    private boolean isServiceEnabled(){
+    private boolean isServiceEnabled() {
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
     }
 }

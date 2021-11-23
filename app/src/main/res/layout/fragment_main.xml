@@ -146,6 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/editEnabledAppsButton"
@@ -228,16 +229,16 @@
                     android:layout_height="30dp"
                     android:src="@drawable/minus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:contentDescription="@string/decrease_frequency" />
 
                 <TextView
                     android:id="@+id/timeSelectedText"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text=""
                     android:textSize="20sp"
                     android:gravity="center_horizontal"
-                    android:inputType="number"
                     android:textColor="?attr/colorOnSurface"
                     app:layout_constraintTop_toTopOf="@+id/imgMinus"
                     app:layout_constraintBottom_toBottomOf="@id/imgMinus"
@@ -249,7 +250,8 @@
                     android:layout_height="30dp"
                     android:src="@drawable/plus"
                     app:layout_constraintStart_toEndOf="@+id/timeSelectedText"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/increase_frequency" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

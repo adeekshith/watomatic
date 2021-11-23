@@ -23,8 +23,8 @@ import java.util.Set;
 public class ContactsHelper {
 
     public static final int CONTACT_PERMISSION_REQUEST_CODE = 1;
-    private Context mContext;
-    private PreferencesManager prefs;
+    private final Context mContext;
+    private final PreferencesManager prefs;
 
     public ContactsHelper(Context context) {
         mContext = context;
@@ -61,8 +61,7 @@ public class ContactsHelper {
                             boolean contactChecked = previousSelectedContacts.contains(contactName);
                             if (contactChecked) {
                                 selectedContactList.add(new ContactHolder(contactName, true));
-                            }
-                            else {
+                            } else {
                                 unselectedContactList.add(new ContactHolder(contactName, false));
                             }
                         }
@@ -92,8 +91,9 @@ public class ContactsHelper {
                 .setTitle(R.string.contact_permission_dialog_title)
                 .setMessage(R.string.contact_permission_suggestion_dialog_msg)
                 .setPositiveButton(R.string.contact_permission_dialog_enable_permission, ((dialog, which) ->
-                        mActivity.requestPermissions(new String[]{ Manifest.permission.READ_CONTACTS }, CONTACT_PERMISSION_REQUEST_CODE)))
-                .setNegativeButton(R.string.contact_permission_dialog_not_now, ((dialog, which) -> {}))
+                        mActivity.requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACT_PERMISSION_REQUEST_CODE)))
+                .setNegativeButton(R.string.contact_permission_dialog_not_now, ((dialog, which) -> {
+                }))
                 .setCancelable(false)
                 .show();
 

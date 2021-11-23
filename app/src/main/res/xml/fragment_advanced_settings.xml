@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.AdvancedSettingsFragment">
 
     <PreferenceCategory app:title="@string/contact_based_reply">
         <SwitchPreference android:title="@string/enable_contact_based_reply"

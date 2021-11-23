@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.SettingsFragment">
 
     <Preference android:title="@string/preference_category_general_label"
         android:icon="@drawable/ic_settings"
@@ -31,7 +33,7 @@
 
     <Preference
         app:title="@string/advanced_settings"
-        app:key="@string/key_pref_advanced_settings"
-        app:icon="@drawable/ic_baseline_miscellaneous_services_24"/>
+        app:icon="@drawable/ic_baseline_miscellaneous_services_24"
+        android:fragment="com.parishod.watomatic.fragment.AdvancedSettingsFragment"/>
 
 </PreferenceScreen>

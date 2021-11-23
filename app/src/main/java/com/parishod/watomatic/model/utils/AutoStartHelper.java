@@ -24,83 +24,83 @@ public class AutoStartHelper {
     private final String BRAND_XIAOMI = "xiaomi";
     private final String BRAND_XIAOMI_POCO = "poco";
     private final String BRAND_XIAOMI_REDMI = "redmi";
-    private String PACKAGE_XIAOMI_MAIN = "com.miui.securitycenter";
-    private String PACKAGE_XIAOMI_COMPONENT = "com.miui.permcenter.autostart.AutoStartManagementActivity";
+    private final String PACKAGE_XIAOMI_MAIN = "com.miui.securitycenter";
+    private final String PACKAGE_XIAOMI_COMPONENT = "com.miui.permcenter.autostart.AutoStartManagementActivity";
 
     /***
      * Letv
      */
     private final String BRAND_LETV = "letv";
-    private String PACKAGE_LETV_MAIN = "com.letv.android.letvsafe";
-    private String PACKAGE_LETV_COMPONENT = "com.letv.android.letvsafe.AutobootManageActivity";
+    private final String PACKAGE_LETV_MAIN = "com.letv.android.letvsafe";
+    private final String PACKAGE_LETV_COMPONENT = "com.letv.android.letvsafe.AutobootManageActivity";
 
     /***
      * ASUS ROG
      */
     private final String BRAND_ASUS = "asus";
-    private String PACKAGE_ASUS_MAIN = "com.asus.mobilemanager";
-    private String PACKAGE_ASUS_COMPONENT = "com.asus.mobilemanager.powersaver.PowerSaverSettings";
-    private String PACKAGE_ASUS_COMPONENT_FALLBACK = "com.asus.mobilemanager.autostart.AutoStartActivity";
+    private final String PACKAGE_ASUS_MAIN = "com.asus.mobilemanager";
+    private final String PACKAGE_ASUS_COMPONENT = "com.asus.mobilemanager.powersaver.PowerSaverSettings";
+    private final String PACKAGE_ASUS_COMPONENT_FALLBACK = "com.asus.mobilemanager.autostart.AutoStartActivity";
 
     /***
      * Honor
      */
     private final String BRAND_HONOR = "honor";
-    private String PACKAGE_HONOR_MAIN = "com.huawei.systemmanager";
-    private String PACKAGE_HONOR_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
+    private final String PACKAGE_HONOR_MAIN = "com.huawei.systemmanager";
+    private final String PACKAGE_HONOR_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
 
     /***
      * Huawei
      */
     private final String BRAND_HUAWEI = "huawei";
-    private String PACKAGE_HUAWEI_MAIN = "com.huawei.systemmanager";
-    private String PACKAGE_HUAWEI_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
-    private String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
+    private final String PACKAGE_HUAWEI_MAIN = "com.huawei.systemmanager";
+    private final String PACKAGE_HUAWEI_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
+    private final String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
 
     /**
      * Oppo
      */
     private final String BRAND_OPPO = "oppo";
-    private String PACKAGE_OPPO_MAIN = "com.coloros.safecenter";
-    private String PACKAGE_OPPO_FALLBACK = "com.oppo.safe";
-    private String PACKAGE_OPPO_COMPONENT = "com.coloros.safecenter.permission.startup.StartupAppListActivity";
-    private String PACKAGE_OPPO_COMPONENT_FALLBACK = "com.oppo.safe.permission.startup.StartupAppListActivity";
-    private String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "com.coloros.safecenter.startupapp.StartupAppListActivity";
+    private final String PACKAGE_OPPO_MAIN = "com.coloros.safecenter";
+    private final String PACKAGE_OPPO_FALLBACK = "com.oppo.safe";
+    private final String PACKAGE_OPPO_COMPONENT = "com.coloros.safecenter.permission.startup.StartupAppListActivity";
+    private final String PACKAGE_OPPO_COMPONENT_FALLBACK = "com.oppo.safe.permission.startup.StartupAppListActivity";
+    private final String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "com.coloros.safecenter.startupapp.StartupAppListActivity";
 
     /**
      * Vivo
      */
 
     private final String BRAND_VIVO = "vivo";
-    private String PACKAGE_VIVO_MAIN = "com.iqoo.secure";
-    private String PACKAGE_VIVO_FALLBACK = "com.vivo.perm;issionmanager";
-    private String PACKAGE_VIVO_COMPONENT = "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity";
-    private String PACKAGE_VIVO_COMPONENT_FALLBACK = "com.vivo.permissionmanager.activity.BgStartUpManagerActivity";
-    private String PACKAGE_VIVO_COMPONENT_FALLBACK_A = "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager";
+    private final String PACKAGE_VIVO_MAIN = "com.iqoo.secure";
+    private final String PACKAGE_VIVO_FALLBACK = "com.vivo.perm;issionmanager";
+    private final String PACKAGE_VIVO_COMPONENT = "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity";
+    private final String PACKAGE_VIVO_COMPONENT_FALLBACK = "com.vivo.permissionmanager.activity.BgStartUpManagerActivity";
+    private final String PACKAGE_VIVO_COMPONENT_FALLBACK_A = "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager";
 
     /**
      * Nokia
      */
 
     private final String BRAND_NOKIA = "nokia";
-    private String PACKAGE_NOKIA_MAIN = "com.evenwell.powersaving.g3";
-    private String PACKAGE_NOKIA_COMPONENT = "com.evenwell.powersaving.g3.exception.PowerSaverExceptionActivity";
+    private final String PACKAGE_NOKIA_MAIN = "com.evenwell.powersaving.g3";
+    private final String PACKAGE_NOKIA_COMPONENT = "com.evenwell.powersaving.g3.exception.PowerSaverExceptionActivity";
 
     /**
      * Samsung
      */
     private final String BRAND_SAMSUNG = "samsung";
-    private String PACKAGE_SAMSUNG_MAIN1 = "com.samsung.android.lool";
-    private String PACKAGE_SAMSUNG_MAIN2 = "com.samsung.android.sm";
-    private String PACKAGE_SAMSUNG_COMPONENT1 = "com.samsung.android.sm.ui.battery.BatteryActivity";
-    private String PACKAGE_SAMSUNG_COMPONENT2 = "com.samsung.android.sm.battery.ui.BatteryActivity";
+    private final String PACKAGE_SAMSUNG_MAIN1 = "com.samsung.android.lool";
+    private final String PACKAGE_SAMSUNG_MAIN2 = "com.samsung.android.sm";
+    private final String PACKAGE_SAMSUNG_COMPONENT1 = "com.samsung.android.sm.ui.battery.BatteryActivity";
+    private final String PACKAGE_SAMSUNG_COMPONENT2 = "com.samsung.android.sm.battery.ui.BatteryActivity";
 
     /***
      * One plus
      */
     private final String BRAND_ONE_PLUS = "oneplus";
-    private String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
-    private String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+    private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+    private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
 
     private AutoStartHelper() {
     }
@@ -207,15 +207,10 @@ public class AutoStartHelper {
                 context.getString(R.string.auto_start_permission_dialog_message) +
                         "\n\n" +
                         context.getString(R.string.device_based_settings_message));
-        customDialog.showDialog(bundle, "AutoStart", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which == -2){
-                    //Decline
-                }else{
-                    //Accept
-                    onClickListener.onClick(dialog, which);
-                }
+        customDialog.showDialog(bundle, "AutoStart", (dialog, which) -> {
+            if (which != -2) {
+                //Decline
+                onClickListener.onClick(dialog, which);
             }
         });
     }
@@ -236,15 +231,12 @@ public class AutoStartHelper {
 
     private void autoStartLetv(final Context context) {
         if (isPackageExists(context, PACKAGE_LETV_MAIN)) {
-            showAlert(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            showAlert(context, (dialog, which) -> {
 
-                    try {
-                        startIntent(context, PACKAGE_LETV_MAIN, PACKAGE_LETV_COMPONENT);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    startIntent(context, PACKAGE_LETV_MAIN, PACKAGE_LETV_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -255,15 +247,12 @@ public class AutoStartHelper {
 
     private void autoStartHonor(final Context context) {
         if (isPackageExists(context, PACKAGE_HONOR_MAIN)) {
-            showAlert(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            showAlert(context, (dialog, which) -> {
 
-                    try {
-                        startIntent(context, PACKAGE_HONOR_MAIN, PACKAGE_HONOR_COMPONENT);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    startIntent(context, PACKAGE_HONOR_MAIN, PACKAGE_HONOR_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -293,27 +282,24 @@ public class AutoStartHelper {
 
     private void autoStartOppo(final Context context) {
         if (isPackageExists(context, PACKAGE_OPPO_MAIN) || isPackageExists(context, PACKAGE_OPPO_FALLBACK)) {
-            showAlert(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            showAlert(context, (dialog, which) -> {
 
+                try {
+                    startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
                     try {
-                        startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        startIntent(context, PACKAGE_OPPO_FALLBACK, PACKAGE_OPPO_COMPONENT_FALLBACK);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                         try {
-                            startIntent(context, PACKAGE_OPPO_FALLBACK, PACKAGE_OPPO_COMPONENT_FALLBACK);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            try {
-                                startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT_FALLBACK_A);
-                            } catch (Exception exx) {
-                                exx.printStackTrace();
-                            }
-
+                            startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT_FALLBACK_A);
+                        } catch (Exception exx) {
+                            exx.printStackTrace();
                         }
 
                     }
+
                 }
             });
 
@@ -323,44 +309,38 @@ public class AutoStartHelper {
 
     private void autoStartVivo(final Context context) {
         if (isPackageExists(context, PACKAGE_VIVO_MAIN) || isPackageExists(context, PACKAGE_VIVO_FALLBACK)) {
-            showAlert(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            showAlert(context, (dialog, which) -> {
 
+                try {
+                    startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
                     try {
-                        startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        startIntent(context, PACKAGE_VIVO_FALLBACK, PACKAGE_VIVO_COMPONENT_FALLBACK);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                         try {
-                            startIntent(context, PACKAGE_VIVO_FALLBACK, PACKAGE_VIVO_COMPONENT_FALLBACK);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            try {
-                                startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT_FALLBACK_A);
-                            } catch (Exception exx) {
-                                exx.printStackTrace();
-                            }
-
+                            startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT_FALLBACK_A);
+                        } catch (Exception exx) {
+                            exx.printStackTrace();
                         }
 
                     }
 
                 }
+
             });
         }
     }
 
     private void autoStartNokia(final Context context) {
         if (isPackageExists(context, PACKAGE_NOKIA_MAIN)) {
-            showAlert(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            showAlert(context, (dialog, which) -> {
 
-                    try {
-                        startIntent(context, PACKAGE_NOKIA_MAIN, PACKAGE_NOKIA_COMPONENT);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    startIntent(context, PACKAGE_NOKIA_MAIN, PACKAGE_NOKIA_COMPONENT);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -380,7 +360,7 @@ public class AutoStartHelper {
         }
     }
 
-    private void startIntent(Context context, String packageName, String componentName) throws Exception {
+    private void startIntent(Context context, String packageName, String componentName) {
         try {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(packageName, componentName));

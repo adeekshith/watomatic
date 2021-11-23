@@ -30,6 +30,7 @@
     <string name="group_reply_off_info_message">Balasan otomatis dinonaktifkan untuk obrolan grup</string>
     <string name="time_picker_title">Frekuensi balasan (BETA)</string>
     <string name="time_picker_sub_title_default">Tanggapi semua pesan tanpa kontrol</string>
+    <string name="time_picker_sub_title">Tanggapi hanya sekali setiap %1$d hari untuk setiap orang atau grup</string>
     <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Klik untuk mengedit jeda waktu di antara balasan</string>
     <string name="app_version">v%1$s</string>
@@ -42,14 +43,87 @@
     <string name="share">Bagikan</string>
     <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">Apa yang Baru?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">Tampilkan pemberitahuan untuk pesan yang dibalas</string>
+    <string name="preference_category_general_label">Pengaturan umum</string>
+    <string name="preference_category_notifications_label">Pemberitahuan</string>
+    <string name="preference_category_troubleshooting_label">Penyelesaian masalah</string>
+    <string name="enable_auto_start_label">Aktifkan Mulai Otomatis</string>
+    <string name="add_attribution_label">Tambahkan Atribusi</string>
+    <string name="enabled_apps_title">Aplikasi yang Diaktifkan</string>
+    <string name="always_on_notification">Notifikasi Selalu Aktif</string>
+    <string name="display_persistent_notification_summary">Tampilkan pemberitahuan terus-menerus untuk memastikan Watomatic tidak dimatikan oleh sistem</string>
+    <string name="enable_auto_start_summary">Beberapa perangkat mungkin memerlukan Anda untuk mengaktifkan Mulai otomatis untuk Otomatis dari pengaturan perangkat secara manual</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <string name="app_language">Bahasa Aplikasi</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Apa pendapat Anda?</string>
+    <string name="app_rating_dialog_msg">Kami tertarik dengan pendapat Anda tentang aplikasi tersebut. Ketuk bintang di atas untuk menilainya.</string>
+    <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
+    <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
+    <string name="app_rating_goto_store_dialog_title">Kami senang!</string>
+    <string name="app_rating_goto_store_dialog_msg">Silakan bagikan peringkat aplikasi kami ini di Google Play Store dengan mengetuk \"Lanjutkan\"\!</string>
+    <string name="app_rating_pitch">Aplikasi ini gratis, tanpa iklan, tanpa pelacakan, sumber terbuka dan dibuat oleh kontributor seperti Anda dan saya.
+        Umpan balik Anda adalah satu-satunya dorongan kami.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Lanjutkan</string>
+    <string name="app_rating_feedback_dialog_title">Hubungi kami</string>
+    <string name="app_rating_feedback_dialog_msg">Bantu kami untuk menjadi lebih baik.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Email Kami</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Izin Mulai Otomatis</string>
+    <string name="running_in_the_background">Berjalan di belakang</string>
+    <string name="auto_start_permission_dialog_message">Aktifkan izin \"Mulai Otomatis\" di pengaturan perangkat untuk memungkinkan Watomatic memulai saat perangkat dihidupkan ulang.</string>
+    <string name="device_based_settings_message">Catatan: Pengaturan dapat bervariasi atau mungkin tidak tersedia berdasarkan perangkat Anda</string>
+    <string name="setting_not_available_for_device">Pengaturan ini tidak tersedia atau mungkin tidak diperlukan untuk perangkat Anda.</string>
+    <string name="enable_auto_start_setting">Diproses</string>
+    <string name="decline_auto_start_setting">Batal</string>
+    <string name="app_not_installed_text">Tidak terpasang</string>
+    <string name="advanced_settings">Pengaturan lanjutan</string>
+    <string name="contact_based_reply">Balasan berbasis kontak</string>
+    <string name="contact_reply_type">Balasan untuk</string>
+    <string name="blacklist">Semua orang kecuali kontak yang dipilih</string>
+    <string name="whitelist">Tidak seorang pun kecuali kontak yang dipilih</string>
+    <string name="enable_contact_based_reply">Aktifkan balasan berbasis kontak</string>
+    <string name="select_contacts">Pilih kontak</string>
+    <string name="contact_selector">Pemilih kontak</string>
+    <string name="select_all">Pilih Semua</string>
+    <string name="select_none">Kosongkan Pilihan</string>
+    <string name="contact_permission_dialog_msg">Akses baca kontak diperlukan untuk memfilter nama dan mengaktifkan fitur ini. Apakah Anda ingin melanjutkan?</string>
+    <string name="contact_permission_dialog_proceed">Memproses</string>
+    <string name="contact_permission_dialog_cancel">Batal</string>
+    <string name="undo">Urungkan</string>
+    <string name="all_contacts_selected">Semua kontak dipilih</string>
+    <string name="all_contacts_unselected">Semua kontak tidak dipilih</string>
+    <string name="donations_activity_title">Donasi</string>
+    <string name="donations_data_fetch_error">Tidak dapat mengambil data terbaru</string>
+    <string name="donations_goal_title_0">Berjuang</string>
+    <string name="donations_goal_0">Setiap sen penting untuk membantunya bertahan hidup</string>
+    <string name="donations_goal_title_20">Hanya bertahan hidup</string>
+    <string name="donations_goal_20">Mendukung perawatan harian dan perbaikan kritis</string>
+    <string name="donations_goal_title_30">Stabil</string>
+    <string name="donations_goal_30">Perbaikan bug lebih cepat dan menjaganya tetap terkini</string>
+    <string name="donations_goal_title_70">Kemajuan lambat dan mantap</string>
+    <string name="donations_goal_70">Fitur kecil dan peningkatan antarmuka</string>
+    <string name="donations_goal_title_100">Mode peningkatan</string>
+    <string name="donations_goal_100">Bantu kami menjadikannya aplikasi balasan otomatis yang kuat dengan banyak fitur canggih</string>
+    <string name="donation_progress_label">dari target bulanan</string>
+    <string name="add_custom_contact">Tambahkan nama kontak khusus</string>
+    <string name="contact_permission_suggestion_dialog_msg">Akses baca kontak diperlukan untuk memfilter balasan menurut nama kontak. Jika akses tidak diaktifkan, hanya nama yang dimasukkan secara manual yang akan diizinkan. Apakah Anda ingin mengaktifkannya?</string>
+    <string name="contact_permission_dialog_enable_permission">Aktifkan izin kontak</string>
+    <string name="contact_permission_dialog_not_now">Tidak sekarang</string>
+    <string name="contact_permission_dialog_title">Akses baca kontakl</string>
+    <string name="delete">Hapus</string>
+    <string name="decrease_frequency">Turunkan frekuensi</string>
+    <string name="increase_frequency">Naikkan frekuensi</string>
+    <string name="current_donation_progress">Kemajuan donasi saat ini</string>
+    <string name="error_name_cannot_be_blank">Nama tidak boleh kosong</string>
+    <string name="error_name_cannot_be_duplicate">Nama sudah ada</string>
 </resources>

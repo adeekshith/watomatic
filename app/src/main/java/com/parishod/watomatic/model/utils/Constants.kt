@@ -14,13 +14,10 @@ object Constants {
     const val NOTIFICATION_CHANNEL_ID = "watomatic"
     const val NOTIFICATION_CHANNEL_NAME = "watomatic_channel"
 
-    enum class EnabledAppsDisplayType{
+    enum class EnabledAppsDisplayType {
         VERTICAL,
         HORIZONTAL
     }
-
-    // Beta feature flags
-    const val BETA_FACEBOOK_SUPPORT_ENABLED = true
 
     /**
      * Set of apps this app can auto reply
@@ -33,7 +30,7 @@ object Constants {
     )
 
     const val MIN_DAYS = 0
-    const val MAX_DAYS = 7
+    const val MAX_DAYS = 30
     const val MIN_REPLIES_TO_ASK_APP_RATING = 5
     const val EMAIL_ADDRESS = "watomatic@deekshith.in"
     const val EMAIL_SUBJECT = "Watomatic-Feedback"

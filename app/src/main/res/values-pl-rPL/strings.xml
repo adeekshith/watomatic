@@ -48,10 +48,12 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Pokaż powiadomienie o odpowiedzi na wiadomości</string>
-    <string name="preference_category_general_label">Ogólne</string>
+    <string name="preference_category_general_label">Ogólne ustawienia</string>
     <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
     <string name="enable_auto_start_label">Wł. Automatyczny Start</string>
+    <string name="add_attribution_label">Dodaj atrybut</string>
+    <string name="enabled_apps_title">Włącz aplikacje</string>
     <string name="always_on_notification">Powiadomienie Always-On</string>
     <string name="display_persistent_notification_summary">Wyświetlaj trwałe powiadomienie, aby mieć pewność, że Watomatic nie został wyłączony przez system</string>
     <string name="enable_auto_start_summary">Niektóre urządzenia mogą potrzebować ręcznego włączenia automatycznego startu dla Watomatic w ustawieniach urządzenia</string>
@@ -83,6 +85,7 @@
     <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
     <string name="enable_auto_start_setting">Kontynuuj</string>
     <string name="decline_auto_start_setting">Anuluj</string>
+    <string name="app_not_installed_text">Nie zainstalowana</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="contact_based_reply">Odpowiedzi bazujace na kontaktach</string>
     <string name="contact_reply_type">Odpowiedz do</string>
@@ -96,4 +99,31 @@
     <string name="contact_permission_dialog_msg">Dostęp do odczytu kontaktu jest wymagany aby filtrować nazwy i włączyć tę funkcję. Czy chcesz kontynuować?</string>
     <string name="contact_permission_dialog_proceed">Kontynuuj</string>
     <string name="contact_permission_dialog_cancel">Anuluj</string>
+    <string name="undo">Cofnij</string>
+    <string name="all_contacts_selected">Wybrano wszystkie kontakty</string>
+    <string name="all_contacts_unselected">Odznaczono wszystkie kontakty</string>
+    <string name="donations_activity_title">Darowizny</string>
+    <string name="donations_data_fetch_error">Nie można pobrać najnowszych danych</string>
+    <string name="donations_goal_title_0">Walczy</string>
+    <string name="donations_goal_0">Liczy się każdy grosz, aby pomóc mu przetrwać</string>
+    <string name="donations_goal_title_20">Po prostu przetrwanie</string>
+    <string name="donations_goal_20">Obsługuje codzienną konserwację i krytyczne poprawki</string>
+    <string name="donations_goal_title_30">Stabilna</string>
+    <string name="donations_goal_30">Szybsze poprawki błędów i utrzymanie ich na aktualnym poziomie</string>
+    <string name="donations_goal_title_70">Powolny i stały postęp</string>
+    <string name="donations_goal_70">Niewielkie funkcje i ulepszenia interfejsu</string>
+    <string name="donations_goal_title_100">Tryb doładowania</string>
+    <string name="donations_goal_100">Pomóż nam uczynić z niej potężną aplikację do automatycznej odpowiedzi z wieloma zaawansowanymi funkcjami</string>
+    <string name="donation_progress_label">celu miesięcznego</string>
+    <string name="add_custom_contact">Dodaj niestandardową nazwę kontaktu</string>
+    <string name="contact_permission_suggestion_dialog_msg">Dostęp do odczytu kontaktu jest wymagany w celu filtrowania odpowiedzi według nazw kontaktów. Jeśli dostęp nie jest przyznany, dozwolone będą tylko ręcznie wprowadzone nazwy. Czy chcesz przyznać dostęp?</string>
+    <string name="contact_permission_dialog_enable_permission">Przyznaj uprawnienia do kontaktu</string>
+    <string name="contact_permission_dialog_not_now">Nie teraz</string>
+    <string name="contact_permission_dialog_title">Dostęp do odczytu kontaktu</string>
+    <string name="delete">Usuń</string>
+    <string name="decrease_frequency">Zmniejsz częstotliwość</string>
+    <string name="increase_frequency">Zwiększ częstotliwość</string>
+    <string name="current_donation_progress">Bieżący postęp darowizny</string>
+    <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
+    <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
 </resources>

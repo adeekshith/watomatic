@@ -30,7 +30,7 @@ public class CustomReplyEditorActivity extends BaseActivity {
 
         setTitle(R.string.mainAutoReplyLabel);
 
-        SwipeToKillAppDetectViewModel viewModel = new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
+        new ViewModelProvider(this).get(SwipeToKillAppDetectViewModel.class);
 
         customRepliesData = CustomRepliesData.getInstance(this);
         preferencesManager = PreferencesManager.getPreferencesInstance(this);
@@ -40,20 +40,21 @@ public class CustomReplyEditorActivity extends BaseActivity {
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message);
 
         Intent intent = getIntent();
-        String action = intent.getAction();
         Uri data = intent.getData();
 
-        autoReplyText.setText ((data != null)
+        autoReplyText.setText((data != null)
                 ? data.getQueryParameter("message")
                 : customRepliesData.get());
 
         autoReplyText.requestFocus();
         autoReplyText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {

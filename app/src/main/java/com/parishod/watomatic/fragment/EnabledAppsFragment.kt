@@ -1,6 +1,5 @@
 package com.parishod.watomatic.fragment
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,29 +17,29 @@ import com.parishod.watomatic.model.utils.DbUtils
 
 import kotlinx.android.synthetic.main.fragment_enabled_apps.view.*
 
-class EnabledAppsFragment: Fragment() {
-    lateinit var fragmentView:View
-    lateinit var dbUtils: DbUtils
-    lateinit var supportedAppsAdapter: SupportedAppsAdapter
+class EnabledAppsFragment : Fragment() {
+    private lateinit var fragmentView: View
+    private lateinit var dbUtils: DbUtils
+    private lateinit var supportedAppsAdapter: SupportedAppsAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater.inflate(R.layout.fragment_enabled_apps, container, false)
 
         val layoutManager = LinearLayoutManager(context)
 
         dbUtils = DbUtils(context)
-        supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(dbUtils.supportedApps))
+        supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(dbUtils.supportedApps), null)
         fragmentView.supportedAppsList.layoutManager = layoutManager
         fragmentView.supportedAppsList.adapter = supportedAppsAdapter
 
         fragmentView.addCustomPackageButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(
-                Constants.BETA_FEATURE_ALERT_DIALOG_TITLE,
-                getString(R.string.beta_feature_alert_dialog_title)
+                    Constants.BETA_FEATURE_ALERT_DIALOG_TITLE,
+                    getString(R.string.beta_feature_alert_dialog_title)
             )
             bundle.putString(
-                Constants.BETA_FEATURE_ALERT_DIALOG_MSG,
-                getString(R.string.beta_feature_alert_dialog_msg)
+                    Constants.BETA_FEATURE_ALERT_DIALOG_MSG,
+                    getString(R.string.beta_feature_alert_dialog_msg)
             )
             CustomDialog(activity).showDialog(bundle, null
             ) { _, which ->
@@ -58,7 +57,7 @@ class EnabledAppsFragment: Fragment() {
     override fun onResume() {
         super.onResume()
 
-        supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(dbUtils.supportedApps))
+        supportedAppsAdapter = SupportedAppsAdapter(Constants.EnabledAppsDisplayType.VERTICAL, ArrayList<App>(dbUtils.supportedApps), null)
         fragmentView.supportedAppsList.adapter = supportedAppsAdapter
     }
 }

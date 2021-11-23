@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -29,9 +30,9 @@ class ContactSelectorFragment : Fragment() {
     private lateinit var contactList: ArrayList<ContactHolder>
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentContactSelectorBinding.inflate(inflater, container, false)
 
@@ -69,16 +70,18 @@ class ContactSelectorFragment : Fragment() {
     private fun toggleSelection(checked: Boolean) {
         val adapter = (binding.contactList.adapter!! as ContactListAdapter)
         adapter.createCheckpoint()
-        for (contact in contactList) {
-            contact.isChecked = checked
+        contactList.forEachIndexed { position, contact ->
+            if (contact.isChecked != checked) {
+                contact.isChecked = checked
+                adapter.notifyItemChanged(position)
+            }
         }
         adapter.saveSelectedContactList()
-        adapter.notifyDataSetChanged()
 
         val snackbar = Snackbar.make(
-            binding.root,
-            if (checked) R.string.all_contacts_selected else R.string.all_contacts_unselected,
-            Snackbar.LENGTH_LONG
+                binding.root,
+                if (checked) R.string.all_contacts_selected else R.string.all_contacts_unselected,
+                Snackbar.LENGTH_LONG
         )
         snackbar.setAction(R.string.undo) {
             adapter.restoreCheckpoint()
@@ -89,28 +92,56 @@ class ContactSelectorFragment : Fragment() {
 
     private fun addCustomContactDialog() {
         val builder = MaterialAlertDialogBuilder(requireActivity())
-            .setTitle(R.string.add_custom_contact)
+                .setTitle(R.string.add_custom_contact)
 
         val input = EditText(activity).also {
             it.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         }
 
-        builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            val name = input.text.toString()
-            val adapter = binding.contactList.adapter as ContactListAdapter
-            adapter.addCustomName(name)
-            binding.contactList.scrollToPosition(0)
-        }
+        builder.setPositiveButton(android.R.string.ok, null)
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
             dialog.cancel()
         }
 
-        builder.create().also {
+        builder.create().also { dialog ->
             val margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, activity?.resources?.displayMetrics)
-            it.setView(input, margin.toInt(), 0, margin.toInt(), 0)
-            it.show()
+            dialog.setView(input, margin.toInt(), 0, margin.toInt(), 0)
+
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    val name = input.text.toString()
+                    when {
+                        name.isBlank() -> {
+                            input.error = getString(R.string.error_name_cannot_be_blank)
+                            //Make sure error text is shown by focusing input
+                            input.requestFocus()
+                        }
+                        customExists(name) -> {
+                            input.error = getString(R.string.error_name_cannot_be_duplicate)
+                            input.requestFocus()
+                        }
+                        else -> {
+                            val adapter = binding.contactList.adapter as ContactListAdapter
+                            adapter.addCustomName(name)
+                            binding.contactList.scrollToPosition(0)
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            }
+
+            dialog.show()
         }
+    }
+
+    private fun customExists(name: String): Boolean {
+        contactList.forEach { contact ->
+            if (contact.contactName == name) return true
+            //Custom contacts are first
+            else if (!contact.isCustom) return false
+        }
+        return false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

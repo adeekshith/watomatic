@@ -23,12 +23,10 @@ public class CustomRepliesData {
     private static final String APP_SHARED_PREFS = CustomRepliesData.class.getSimpleName();
     private static SharedPreferences _sharedPrefs;
     private static CustomRepliesData _INSTANCE;
-    private Context thisAppContext;
-    private PreferencesManager preferencesManager;
+    private final Context thisAppContext;
+    private final PreferencesManager preferencesManager;
 
-    private CustomRepliesData() {}
-
-    private CustomRepliesData (Context context) {
+    private CustomRepliesData(Context context) {
         thisAppContext = context.getApplicationContext();
         _sharedPrefs = context.getApplicationContext()
                 .getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
@@ -36,7 +34,7 @@ public class CustomRepliesData {
         init();
     }
 
-    public static CustomRepliesData getInstance (Context context) {
+    public static CustomRepliesData getInstance(Context context) {
         if (_INSTANCE == null) {
             _INSTANCE = new CustomRepliesData(context);
         }
@@ -48,7 +46,7 @@ public class CustomRepliesData {
      * when the instance is first created goes here. For example, set specific keys based on new install
      * or app upgrade, etc.
      */
-    private void init () {
+    private void init() {
         // Set default auto reply message on first install
         if (!_sharedPrefs.contains(KEY_CUSTOM_REPLY_ALL)) {
             set(thisAppContext.getString(R.string.auto_reply_default_message));
@@ -57,6 +55,7 @@ public class CustomRepliesData {
 
     /**
      * Stores given auto reply text to the database and sets it as current
+     *
      * @param customReply String that needs to be set as current auto reply
      * @return String that is stored in the database as current custom reply
      */
@@ -77,6 +76,7 @@ public class CustomRepliesData {
 
     /**
      * Stores given auto reply text to the database and sets it as current
+     *
      * @param customReply Editable that needs to be set as current auto reply
      * @return String that is stored in the database as current custom reply
      */
@@ -89,6 +89,7 @@ public class CustomRepliesData {
     /**
      * Get last set auto reply text
      * Prefer using {@link CustomRepliesData::getOrElse} to avoid {@code null}
+     *
      * @return Auto reply text or {@code null} if not set
      */
     public String get() {
@@ -105,6 +106,7 @@ public class CustomRepliesData {
 
     /**
      * Get last set auto reply text if present or else return {@param defaultText}
+     *
      * @param defaultText default auto reply text
      * @return Return auto reply text if present or else return given {@param defaultText}
      */
@@ -115,10 +117,10 @@ public class CustomRepliesData {
                 : defaultText;
     }
 
-    public String getTextToSendOrElse (String defaultTextToSend) {
+    public String getTextToSendOrElse() {
         String currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
-            currentText += "\n\n"+ RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
+            currentText += "\n\n" + RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
         }
         return currentText;
     }
@@ -133,13 +135,13 @@ public class CustomRepliesData {
         return allCustomReplies;
     }
 
-    public static boolean isValidCustomReply (String userInput) {
+    public static boolean isValidCustomReply(String userInput) {
         return (userInput != null) &&
                 !userInput.isEmpty() &&
                 (userInput.length() <= MAX_STR_LENGTH_CUSTOM_REPLY);
     }
 
-    public static boolean isValidCustomReply (Editable userInput) {
+    public static boolean isValidCustomReply(Editable userInput) {
         return (userInput != null) &&
                 isValidCustomReply(userInput.toString());
     }

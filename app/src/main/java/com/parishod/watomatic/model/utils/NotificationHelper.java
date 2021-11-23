@@ -15,6 +15,7 @@ import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.notification.NotificationIntentActivity;
 import com.parishod.watomatic.model.logs.App;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,11 +25,11 @@ public class NotificationHelper {
     final private Context appContext;
     private static NotificationHelper _INSTANCE;
     private static NotificationManager notificationManager;
-    private static JSONObject appsList = new JSONObject();
+    private static final JSONObject appsList = new JSONObject();
     private Set<App> supportedApps;
     private DbUtils dbUtils;
 
-    private NotificationHelper(Context appContext){
+    private NotificationHelper(Context appContext) {
         this.appContext = appContext;
         init();
     }
@@ -43,7 +44,7 @@ public class NotificationHelper {
 
         dbUtils = new DbUtils(appContext);
         supportedApps = dbUtils.getSupportedApps();
-        for (App supportedApp: supportedApps) {
+        for (App supportedApp : supportedApps) {
             try {
                 appsList.put(supportedApp.getPackageName(), false);
             } catch (JSONException e) {
@@ -52,16 +53,16 @@ public class NotificationHelper {
         }
     }
 
-    public static NotificationHelper getInstance (Context context) {
+    public static NotificationHelper getInstance(Context context) {
         if (_INSTANCE == null) {
             _INSTANCE = new NotificationHelper(context);
         }
         return _INSTANCE;
     }
 
-    public void sendNotification(String title, String message, String packageName){
-        for (App supportedApp: supportedApps) {
-            if(supportedApp.getPackageName().equalsIgnoreCase(packageName)){
+    public void sendNotification(String title, String message, String packageName) {
+        for (App supportedApp : supportedApps) {
+            if (supportedApp.getPackageName().equalsIgnoreCase(packageName)) {
                 title = supportedApp.getName() + ":" + title;
                 break;
             }
@@ -84,7 +85,7 @@ public class NotificationHelper {
         //logic to detect if notifications exists else generate summary notification
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
-            for (App supportedApp: supportedApps) {
+            for (App supportedApp : supportedApps) {
                 try {
                     appsList.put(supportedApp.getPackageName(), false);
                 } catch (JSONException e) {
@@ -92,16 +93,16 @@ public class NotificationHelper {
                 }
             }
             for (StatusBarNotification notification : notifications) {
-                if(notification.getPackageName().equalsIgnoreCase(BuildConfig.APPLICATION_ID)){
+                if (notification.getPackageName().equalsIgnoreCase(BuildConfig.APPLICATION_ID)) {
                     setNotificationSummaryShown(notification.getNotification().getGroup());
                 }
             }
         }
 
-        int notifId = (int)System.currentTimeMillis();
+        int notifId = (int) System.currentTimeMillis();
         notificationManager.notify(notifId, notificationBuilder.build());
         try {
-            if(!appsList.getBoolean(packageName)) {
+            if (!appsList.getBoolean(packageName)) {
                 appsList.put(packageName, true);
                 //Need to create one summary notification, this will help group all individual notifications
                 NotificationCompat.Builder summaryNotificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
@@ -117,8 +118,8 @@ public class NotificationHelper {
         }
     }
 
-    private void setNotificationSummaryShown(String packageName){
-        if(packageName != null) {
+    private void setNotificationSummaryShown(String packageName) {
+        if (packageName != null) {
             packageName = packageName.replace("watomatic-", "");
             try {
                 appsList.put(packageName, true);
@@ -128,7 +129,7 @@ public class NotificationHelper {
         }
     }
 
-    public void markNotificationDismissed(String packageName){
+    public void markNotificationDismissed(String packageName) {
         packageName = packageName.replace("watomatic-", "");
         try {
             appsList.put(packageName, false);
@@ -137,7 +138,7 @@ public class NotificationHelper {
         }
     }
 
-    public NotificationCompat.Builder getForegroundServiceNotification(Service service){
+    public NotificationCompat.Builder getForegroundServiceNotification(Service service) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel notificationChannel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
@@ -156,7 +157,7 @@ public class NotificationHelper {
                     .setContentText(appContext.getString(R.string.running_in_the_background))
                     .setPriority(NotificationManager.IMPORTANCE_HIGH)
                     .setContentIntent(pIntent);
-        }else{
+        } else {
             notificationBuilder = new NotificationCompat.Builder(service, Constants.NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_logo_full)
                     .setContentTitle(appContext.getString(R.string.app_name))

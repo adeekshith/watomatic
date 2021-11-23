@@ -2,6 +2,7 @@ package com.parishod.watomatic.fragment
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,18 +19,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DonationFragment: Fragment() {
+class DonationFragment : Fragment() {
     private val url = "https://home.deekshith.in/tmp/donations.txt"
     private lateinit var fragmentView: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater.inflate(R.layout.fragment_donations, container, false)
+
+        //Set value to default while fetching data
+        fragmentView.donation_pct.text = "0%"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fragmentView.donation_pct.tooltipText = getString(R.string.current_donation_progress)
+        }
 
         fetchDonationsProgressData()
 
         fragmentView.librapay.setOnClickListener {
             launchUrl("https://liberapay.com/dk")
         }
-        fragmentView.paypal.setOnClickListener{
+        fragmentView.paypal.setOnClickListener {
             launchUrl("https://paypal.me/deek")
         }
         return fragmentView
@@ -43,15 +50,15 @@ class DonationFragment: Fragment() {
     private fun fetchDonationsProgressData() {
         fragmentView.progress.visibility = View.VISIBLE
         val donationsProgressService = RetrofitInstance.getRetrofitInstance()
-            .create(GetDonationsProgressService::class.java)
+                .create(GetDonationsProgressService::class.java)
         val call = donationsProgressService.getDonationProgress(url)
-        call.enqueue(object : Callback<String?>{
+        call.enqueue(object : Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     response.body()?.let {
                         parseResponse(it)
                     }
-                }else{
+                } else {
                     showDonationProgressData(0F)
                     Toast.makeText(activity, resources.getString(R.string.donations_data_fetch_error), Toast.LENGTH_SHORT).show()
                 }
@@ -65,20 +72,19 @@ class DonationFragment: Fragment() {
     }
 
 
-
     private fun parseResponse(response: String) {
 
         val percentReceived: Float = response.lines()
-            .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
-            .find { kvp -> kvp.first().equals("total-received-pct") }
-            ?.last()?.toFloat() ?: 0F
+                .map { thisStr -> thisStr.split("=").map { s -> s.trim() } } // Split to KV pairs
+                .find { kvp -> kvp.first() == "total-received-pct" }
+                ?.last()?.toFloat() ?: 0F
 
-        fragmentView.donation_pct.text = "$percentReceived%"
+        fragmentView.donation_pct.text = String.format("%.1f%%", percentReceived)
 
         showDonationProgressData(percentReceived)
     }
 
-    private fun showDonationProgressData(percentReceived: Float){
+    private fun showDonationProgressData(percentReceived: Float) {
         fragmentView.progress.visibility = View.GONE
         val items = getData()
         when {
@@ -103,10 +109,10 @@ class DonationFragment: Fragment() {
     }
 
     private fun getData() = listOf(
-        DonationProgressItem(false, "0%", resources.getString(R.string.donations_goal_title_0), resources.getString(R.string.donations_goal_0)),
-        DonationProgressItem(false, "20%", resources.getString(R.string.donations_goal_title_20), resources.getString(R.string.donations_goal_20)),
-        DonationProgressItem(false, "30%", resources.getString(R.string.donations_goal_title_30),resources.getString(R.string.donations_goal_30)),
-        DonationProgressItem(false, "70%", resources.getString(R.string.donations_goal_title_70),resources.getString(R.string.donations_goal_70)),
-        DonationProgressItem(false, "100%", resources.getString(R.string.donations_goal_title_100), resources.getString(R.string.donations_goal_100))
+            DonationProgressItem(false, "0%", resources.getString(R.string.donations_goal_title_0), resources.getString(R.string.donations_goal_0)),
+            DonationProgressItem(false, "20%", resources.getString(R.string.donations_goal_title_20), resources.getString(R.string.donations_goal_20)),
+            DonationProgressItem(false, "30%", resources.getString(R.string.donations_goal_title_30), resources.getString(R.string.donations_goal_30)),
+            DonationProgressItem(false, "70%", resources.getString(R.string.donations_goal_title_70), resources.getString(R.string.donations_goal_70)),
+            DonationProgressItem(false, "100%", resources.getString(R.string.donations_goal_title_100), resources.getString(R.string.donations_goal_100))
     )
 }

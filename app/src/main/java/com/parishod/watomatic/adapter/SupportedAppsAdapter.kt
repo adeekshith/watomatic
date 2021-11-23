@@ -21,47 +21,52 @@ import com.parishod.watomatic.model.utils.Constants
 import kotlinx.android.synthetic.main.supported_apps_list.view.*
 
 
-class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>): RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
+class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayType, private var supportedAppsList: List<App>, private var onClickListener: View.OnClickListener?) : RecyclerView.Adapter<SupportedAppsAdapter.AppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppsViewHolder {
-        val itemView = if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+        val itemView = if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.supported_apps_list, parent, false)
-        }else{
+                    .inflate(R.layout.supported_apps_list, parent, false)
+        } else {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.enabled_apps_grid_item, parent, false)
+                    .inflate(R.layout.enabled_apps_grid_item, parent, false)
         }
         return AppsViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: AppsViewHolder, position: Int) {
-        holder.setData(supportedAppsList[position], listType)
+        holder.setData(supportedAppsList[position], listType, onClickListener)
     }
 
     override fun getItemCount(): Int {
         return supportedAppsList.size
     }
 
-    fun updateList(supportedAppsList: List<App>){
+    fun updateList(supportedAppsList: List<App>) {
         this.supportedAppsList = supportedAppsList
         notifyDataSetChanged()
     }
 
-    class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class AppsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun setData(app: App, listType: Constants.EnabledAppsDisplayType){
-            var isAppInstalled = true
+        fun setData(app: App, listType: Constants.EnabledAppsDisplayType, onClickListener: View.OnClickListener?) {
+            var isAppInstalled = true;
             try {
                 val icon: Drawable = itemView.context.packageManager.getApplicationIcon(app.packageName)
                 itemView.appIcon.setImageDrawable(icon)
+                onClickListener?.let {
+                    itemView.setOnClickListener {
+                        onClickListener.onClick(it)
+                    }
+                }
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
                 isAppInstalled = false
-                if(listType == Constants.EnabledAppsDisplayType.VERTICAL) {
+                if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
                     val matrix = ColorMatrix()
                     matrix.setSaturation(0f) //0 means grayscale
                     val cf = ColorMatrixColorFilter(matrix)
-                    itemView.appIcon.setColorFilter(cf)
+                    itemView.appIcon.colorFilter = cf
 
                     (itemView.appEnableSwitch as SwitchMaterial).setOnClickListener {
                         showSnackBar(itemView, app.packageName, itemView.context.resources.getString(R.string.app_not_installed_text))
@@ -76,7 +81,7 @@ class SupportedAppsAdapter(private val listType: Constants.EnabledAppsDisplayTyp
                 }
             }
 
-            if(listType == Constants.EnabledAppsDisplayType.VERTICAL){
+            if (listType == Constants.EnabledAppsDisplayType.VERTICAL) {
                 itemView.appEnableSwitch.text = app.name
                 itemView.appEnableSwitch.tag = app
                 itemView.appEnableSwitch.isChecked = PreferencesManager.getPreferencesInstance(itemView.context).isAppEnabled(app)

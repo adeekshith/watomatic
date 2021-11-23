@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey;
                 onDelete = ForeignKey.CASCADE
         )},
         indices = {
-            @Index(value = "index")
+                @Index(value = "index")
         })
 public class MessageLog {
     @PrimaryKey(autoGenerate = true)
@@ -41,7 +41,7 @@ public class MessageLog {
                       long notifArrivedTime,
                       String notifRepliedMsg,
                       long notifReplyTime
-        ) {
+    ) {
         this.index = index;
         this.notifId = null;
         this.notifTitle = notifTitle;
