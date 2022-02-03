@@ -70,6 +70,11 @@
     <string name="contact_selector">Selecionador de contactos</string>
     <string name="select_all">Selecionar todos</string>
     <string name="select_none">Desmarcar todos</string>
+    <string name="donations_goal_title_30">Estável</string>
+    <string name="donations_goal_title_100">Modo de otimização</string>
+    <string name="donations_goal_100">Ajuda-nos a torná-lo uma poderosa aplicação de respostas automáticas com vários recursos avançados</string>
+    <string name="add_custom_contact">Adicionar nome de contato personalizado</string>
+    <string name="contact_permission_dialog_enable_permission">Ativar permissão de contato</string>
     <string name="contact_permission_dialog_not_now">Agora não</string>
     <string name="delete">Eliminar</string>
     <string name="decrease_frequency">Diminuir frequência</string>
