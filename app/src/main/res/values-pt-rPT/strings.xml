@@ -10,6 +10,7 @@
     <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
     <string name="mainAutoReplyEditBtnTooltip">Clica para editar o texto da resposta automática</string>
     <string name="to_help_you_leave_whatsapp">Resposta automática para te ajudar a deixar o WhatsApp e o Facebook Messenger</string>
+    <string name="decline">Recusar</string>
     <string name="accept">Aceitar</string>
     <string name="sure">Tenho a certeza</string>
     <string name="retry">Tentar novamente</string>
@@ -25,6 +26,7 @@
     <string name="time_picker_sub_title_default">Responder a todas as mensagens sem controlo</string>
     <string name="time_picker_sub_title">Responder apenas uma vez por %1$d dia(s) para cada pessoa ou grupo</string>
     <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Clique para editar o intervalo de tempo entre respostas</string>
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
     <string name="sent_using_Watomatic">Enviado através do watomatic.app</string>
@@ -68,4 +70,11 @@
     <string name="contact_selector">Selecionador de contactos</string>
     <string name="select_all">Selecionar todos</string>
     <string name="select_none">Desmarcar todos</string>
+    <string name="contact_permission_dialog_not_now">Agora não</string>
+    <string name="delete">Eliminar</string>
+    <string name="decrease_frequency">Diminuir frequência</string>
+    <string name="increase_frequency">Aumentar frequência</string>
+    <string name="current_donation_progress">Progresso atual da doação</string>
+    <string name="error_name_cannot_be_blank">O nome não pode ficar em branco</string>
+    <string name="error_name_cannot_be_duplicate">Nome já utilizado</string>
 </resources>
