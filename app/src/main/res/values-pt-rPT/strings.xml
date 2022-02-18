@@ -1,15 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">Sobre</string>
+    <string name="settings">Definições</string>
+    <string name="privacy_policy_label">Política de Privacidade</string>
+    <string name="mainAutoReplyTextPlaceholder">(Resposta Personalizada)</string>
+    <string name="mainAutoReplyLabel">Texto da resposta automática</string>
+    <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
+    <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
+    <string name="mainAutoReplyEditBtnTooltip">Clica para editar o texto da resposta automática</string>
+    <string name="to_help_you_leave_whatsapp">Resposta automática para te ajudar a deixar o WhatsApp e o Facebook Messenger</string>
+    <string name="decline">Recusar</string>
+    <string name="accept">Aceitar</string>
+    <string name="sure">Tenho a certeza</string>
+    <string name="retry">Tentar novamente</string>
+    <string name="permission_dialog_title">Permissão Necessária</string>
+    <string name="permission_dialog_denied_title">Permissão Negada</string>
     <!-- Select apps to auto reply -->
+    <string name="error_atleast_single_app_must_be_selected">Erro: Selecione pelo menos uma aplicação</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Resposta automática para chats de grupo</string>
+    <string name="group_reply_on_info_message">Ativar resposta automática para chats de grupo</string>
+    <string name="group_reply_off_info_message">Desativar resposta automática para chats de grupo</string>
+    <string name="time_picker_title">Frequência de resposta (BETA)</string>
+    <string name="time_picker_sub_title_default">Responder a todas as mensagens sem controlo</string>
+    <string name="time_picker_sub_title">Responder apenas uma vez por %1$d dia(s) para cada pessoa ou grupo</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Clique para editar o intervalo de tempo entre respostas</string>
     <!-- Custom message editor -->
+    <string name="save">Guardar</string>
+    <string name="sent_using_Watomatic">Enviado através do watomatic.app</string>
+    <string name="share_app_text">Estou a usar Watomatic para deixar o WhatsApp. Experimente: watomatic.app</string>
+    <string name="share">Partilhar</string>
+    <string name="share_subject">Watomatic: Resposta automática para WhatsApp</string>
+    <string name="watomatic_whatsnew_label">O que há de novo?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="preference_category_general_label">Definições gerais</string>
+    <string name="preference_category_notifications_label">Notificações</string>
+    <string name="enable_auto_start_label">Ativar início automático</string>
+    <string name="enabled_apps_title">Aplicações ativadas</string>
+    <string name="always_on_notification">Notificação sempre ativa</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_rate_button_title">Avaliar!</string>
+    <string name="app_rating_dialog_rate_later_title">Talvez mais tarde</string>
+    <string name="app_rating_goto_store_dialog_title">Estamos felizes!</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Não estou interessado</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continuar</string>
+    <string name="app_rating_feedback_dialog_title">Contacta-nos</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Envie-nos um e-mail</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Permissões de início automático</string>
+    <string name="running_in_the_background">Executar em segundo plano</string>
+    <string name="decline_auto_start_setting">Cancelar</string>
+    <string name="app_not_installed_text">Não instalado</string>
+    <string name="advanced_settings">Definições avançadas</string>
+    <string name="contact_based_reply">Respostas baseadas nos contactos</string>
+    <string name="contact_reply_type">Responder a</string>
+    <string name="blacklist">Todos exceto os contatos selecionados</string>
+    <string name="whitelist">Ninguém exceto os contatos selecionados</string>
+    <string name="enable_contact_based_reply">Permitir respostas baseadas nos contactos</string>
+    <string name="select_contacts">Selecionar contactos</string>
+    <string name="contact_selector">Selecionador de contactos</string>
+    <string name="select_all">Selecionar todos</string>
+    <string name="select_none">Desmarcar todos</string>
+    <string name="donations_goal_title_30">Estável</string>
+    <string name="donations_goal_title_100">Modo de otimização</string>
+    <string name="donations_goal_100">Ajuda-nos a torná-lo uma poderosa aplicação de respostas automáticas com vários recursos avançados</string>
+    <string name="add_custom_contact">Adicionar nome de contato personalizado</string>
+    <string name="contact_permission_dialog_enable_permission">Ativar permissão de contato</string>
+    <string name="contact_permission_dialog_not_now">Agora não</string>
+    <string name="delete">Eliminar</string>
+    <string name="decrease_frequency">Diminuir frequência</string>
+    <string name="increase_frequency">Aumentar frequência</string>
+    <string name="current_donation_progress">Progresso atual da doação</string>
+    <string name="error_name_cannot_be_blank">O nome não pode ficar em branco</string>
+    <string name="error_name_cannot_be_duplicate">Nome já utilizado</string>
 </resources>
