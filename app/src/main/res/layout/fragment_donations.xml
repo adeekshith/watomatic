@@ -47,20 +47,13 @@
 
         </com.transferwise.sequencelayout.SequenceLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_above_donation_btns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/donationsProgressLayout"
-            android:orientation="horizontal" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/librapay"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/paypal"
-            app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
+            app:layout_constraintTop_toBottomOf="@id/donationsProgressLayout"
             android:layout_marginBottom="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
@@ -77,7 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/librapay"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_above_donation_btns"
+            app:layout_constraintTop_toBottomOf="@id/donationsProgressLayout"
             android:layout_marginBottom="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
