@@ -20,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DonationFragment : Fragment() {
-    private val url = "https://home.deekshith.in/tmp/donations.txt"
+    private val url = "https://health.watomatic.app/data/donations.txt"
     private lateinit var fragmentView: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater.inflate(R.layout.fragment_donations, container, false)
