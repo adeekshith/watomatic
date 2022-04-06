@@ -190,6 +190,9 @@
     <string name="donation_progress_label">of monthly goal</string>
     <string name="liberapay" translatable="false">Liberapay</string>
     <string name="paypal" translatable="false">Paypal</string>
+    <string name="custom_apps_activity_title">CustomApps</string>
+    <string name="install">Install</string>
+    <string name="add_fab_content_desc">Add Custom Package(Beta)</string>
     <string name="add_custom_contact">Add custom contact name</string>
     <string name="contact_permission_suggestion_dialog_msg">Contact read access is required in order to filter replies by contact names. If the access is not enabled, only manually entered names will be allowed. Do you want to enable it?</string>
     <string name="contact_permission_dialog_enable_permission">Enable contact permission</string>
@@ -203,4 +206,6 @@
     <string name="current_donation_progress">Current donation progress</string>
     <string name="error_name_cannot_be_blank">Name cannot be blank</string>
     <string name="error_name_cannot_be_duplicate">Name already present</string>
+    <string name="beta_feature_alert_dialog_title">Warning!</string>
+    <string name="beta_feature_alert_dialog_msg">This Feature is in Beta. Not tested to work with apps in the list and can cause unintended issues.</string>
 </resources>

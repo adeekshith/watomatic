@@ -60,6 +60,14 @@ public class CustomDialog {
                 materialAlertDialogBuilder
                         .setNegativeButton(mContext.getResources().getString(R.string.sure), onClickListener)
                         .setPositiveButton(mContext.getResources().getString(R.string.retry), onClickListener);
+            } else if (bundle.containsKey(Constants.BETA_FEATURE_ALERT_DIALOG_TITLE)) {
+                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
+                        .setTitle(bundle.getString(Constants.BETA_FEATURE_ALERT_DIALOG_TITLE))
+                        .setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_alert))
+                        .setMessage(bundle.getString(Constants.BETA_FEATURE_ALERT_DIALOG_MSG));
+                materialAlertDialogBuilder
+                        .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener)
+                        .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener);
             } else {
                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                         .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))

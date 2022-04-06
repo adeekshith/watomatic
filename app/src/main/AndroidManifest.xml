@@ -6,13 +6,12 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
+    <permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <queries>
-        <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
-        <package android:name="com.whatsapp" />
-        <package android:name="com.facebook.orca" />
-        <package android:name="com.facebook.mlite" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
     </queries>
 
     <application
@@ -86,6 +85,10 @@
         <activity android:name=".activity.donation.DonationActivity"
             android:label="@string/donations_activity_title"
             android:parentActivityName=".activity.main.MainActivity"/>
+
+        <activity android:name=".activity.customapp.CustomAppsAdditionActivity"
+            android:label="@string/custom_apps_activity_title"
+            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity"/>
 
         <service
             android:name="com.parishod.watomatic.NotificationService"

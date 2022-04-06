@@ -41,7 +41,7 @@ import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivi
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.adapter.SupportedAppsAdapter;
-import com.parishod.watomatic.model.App;
+import com.parishod.watomatic.model.logs.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
@@ -81,6 +81,8 @@ public class MainFragment extends Fragment {
     private Activity mActivity;
     private SupportedAppsAdapter supportedAppsAdapter;
     private List<App> enabledApps = new ArrayList<>();
+    private Set<App> supportedApps;
+    private DbUtils dbUtils;
 
     @Nullable
     @Override
@@ -90,6 +92,16 @@ public class MainFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mActivity = getActivity();
+
+        dbUtils = new DbUtils(mActivity);
+        supportedApps = dbUtils.getSupportedApps();
+        if(supportedApps.isEmpty()){
+            supportedApps = Constants.SUPPORTED_APPS;
+            for (App app: supportedApps
+            ) {
+                dbUtils.insertSupportedApp(app);
+            }
+        }
 
         customRepliesData = CustomRepliesData.getInstance(mActivity);
         preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
@@ -188,8 +200,8 @@ public class MainFragment extends Fragment {
             enabledApps.clear();
         }
         enabledApps = new ArrayList<>();
-        for (App app : Constants.SUPPORTED_APPS) {
-            if (preferencesManager.isAppEnabled(app)) {
+        for (App app : supportedApps) {
+            if(preferencesManager.isAppEnabled(app)){
                 enabledApps.add(app);
             }
         }
@@ -282,7 +294,6 @@ public class MainFragment extends Fragment {
     }
 
     private boolean isAppUsedSufficientlyToAskRating() {
-        DbUtils dbUtils = new DbUtils(mActivity);
         long firstRepliedTime = dbUtils.getFirstRepliedTime();
         return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
     }
