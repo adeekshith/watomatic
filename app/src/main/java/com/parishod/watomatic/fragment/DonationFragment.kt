@@ -37,7 +37,7 @@ class DonationFragment : Fragment() {
             launchUrl("https://liberapay.com/dk")
         }
         fragmentView.paypal.setOnClickListener {
-            launchUrl("https://paypal.me/deek")
+            launchUrl("https://www.paypal.com/paypalme/deek")
         }
         return fragmentView
     }
