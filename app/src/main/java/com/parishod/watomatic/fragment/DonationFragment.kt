@@ -1,9 +1,11 @@
 package com.parishod.watomatic.fragment
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +41,22 @@ class DonationFragment : Fragment() {
         fragmentView.paypal.setOnClickListener {
             launchUrl("https://www.paypal.com/paypalme/deek")
         }
+
+        fragmentView.bitcoin.setOnClickListener {
+            launchBitcoin()
+        }
         return fragmentView
+    }
+
+    private fun launchBitcoin(){
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse("bitcoin:bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw")
+
+        try {
+            startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "Bitcoin wallets not found", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun launchUrl(url: String) {
