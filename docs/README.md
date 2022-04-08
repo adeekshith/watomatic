@@ -52,11 +52,17 @@ Missing any features? Let us know in the [issues](https://github.com/adeekshith/
 - Reviewing the app [on Google Play](https://play.google.com/store/apps/details?id=com.parishod.watomatic)
   is one of the easiest ways you help so please do that 😃
 
+### Social
+
+<a rel="me" href="https://fosstodon.org/@watomatic">Mastodon</a>,
+<a rel="me" href="https://www.reddit.com/r/watomatic/">Reddit</a>, 
+<a rel="me" href="https://twitter.com/watomatic">Twitter</a>
+
 ### Contact:
 
 - Bugs, feature requests: [issues](https://github.com/adeekshith/watomatic/issues/)
-- Community: [r/watomatic](https://www.reddit.com/r/watomatic/)
 - Email: <a class="custom-email" onclick="window.location.href = 'mailto:watomatic@deekshith.in'">watomatic@deekshith.in</a>
+
 
 Connect with Deekshith on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
 
