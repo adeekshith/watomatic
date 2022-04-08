@@ -55,7 +55,7 @@ class DonationFragment : Fragment() {
         try {
             startActivity(i)
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(context, "Bitcoin wallets not found", Toast.LENGTH_LONG).show()
+            launchUrl("https://www.blockchain.com/btc/address/bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw")
         }
     }
 
