@@ -1,9 +1,11 @@
 package com.parishod.watomatic.fragment
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.adapters.DonationsAdapter
 import com.parishod.watomatic.model.data.DonationProgressItem
+import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.network.GetDonationsProgressService
 import com.parishod.watomatic.network.RetrofitInstance
 import kotlinx.android.synthetic.main.fragment_donations.view.*
@@ -34,12 +37,27 @@ class DonationFragment : Fragment() {
         fetchDonationsProgressData()
 
         fragmentView.librapay.setOnClickListener {
-            launchUrl("https://liberapay.com/dk")
+            launchUrl(Constants.libraPayUrl)
         }
         fragmentView.paypal.setOnClickListener {
-            launchUrl("https://www.paypal.com/paypalme/deek")
+            launchUrl(Constants.paypalUrl)
+        }
+
+        fragmentView.bitcoin.setOnClickListener {
+            launchBitcoin()
         }
         return fragmentView
+    }
+
+    private fun launchBitcoin(){
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse("bitcoin:${Constants.BITCOIN_ADDRESS}")
+
+        try {
+            startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            launchUrl("${Constants.btcUrl}${Constants.BITCOIN_ADDRESS}")
+        }
     }
 
     private fun launchUrl(url: String) {
