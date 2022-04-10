@@ -33,11 +33,8 @@ jobs:
 
       - name: Upload GooglePlay Apk
         uses: actions/upload-artifact@v2
-        id: upload
+        id: upload1
         with:
-          name: PR-${{ github.event.number }}
+          name: PR-${{ github.event.number }}-googleplay
           path: app/build/outputs/apk/GooglePlay/app-GooglePlay-debug.apk
           retention-days: 2
-
-      - name: Echo Path
-        run: echo ${{ steps.upload.outputs.upload-path }}
