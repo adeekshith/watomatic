@@ -23,27 +23,33 @@ jobs:
       - name: Build Project
         run: ./gradlew assemble
 
+      - name: Get apk path
+        id: apk-path
+        run: |
+            apkPath=$(find app -name "*.apk" | head -1)
+            echo "Found apk at $apkPath"
+
       - name: Upload Default Apk
         uses: actions/upload-artifact@v2
         id: upload
-        run: |
-          apkPath=$(find app -name "*.apk" | head -1)
-          echo "Found apk at $apkPath"
         with:
           name: PR-${{ github.event.number }}
-          path: ${{ apkPath }}
+          path: $(find app -name "*.apk" | head -1)
           retention-days: 2
 
       - name: Build GooglePlay Variant
         run: ./gradlew assembleGooglePlay
 
-      - name: Upload GooglePlay Apk
-        uses: actions/upload-artifact@v2
-        id: upload-google-play
+      - name: Get GooglePlay apk path
+        id: play-apk-path
         run: |
           playApkPath=$(find app -name "*GooglePlay*.apk" | head -1)
           echo "Found apk at $playApkPath"
+
+      - name: Upload GooglePlay Apk
+        uses: actions/upload-artifact@v2
+        id: upload-google-play
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: ${{ playApkPath }}
+          path: $(find app -name "*GooglePlay*.apk" | head -1)
           retention-days: 2
