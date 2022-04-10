@@ -28,15 +28,13 @@ jobs:
         run: |
             apkPath=$(find app -name "*.apk" | head -1)
             echo "Found apk at $apkPath"
-            path=$(find **/build/outputs/apk -name '*.apk' -type f | head -1)
-            echo "::set-output name=path::$path"
 
       - name: Upload Default Apk
         uses: actions/upload-artifact@v2
         id: upload
         with:
           name: PR-${{ github.event.number }}
-          path: app/build/outputs/apk/Default/app-Default-debug.apk
+          path: app/build/outputs/apk/Default/release/app-Default-release-unsigned.apk
           retention-days: 2
 
       - name: Build GooglePlay Variant
@@ -47,5 +45,5 @@ jobs:
         id: upload1
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: app/build/outputs/apk/GooglePlay/app-GooglePlay-debug.apk
+          path: app/build/outputs/apk/GooglePlay/release/app-GooglePlay-release-unsigned.apk
           retention-days: 2
