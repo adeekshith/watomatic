@@ -23,12 +23,20 @@ jobs:
       - name: Build Project
         run: ./gradlew assemble
 
-      - name: Upload Apk
+      - name: Upload Default Apk
         uses: actions/upload-artifact@v2
         id: upload
         with:
           name: PR-${{ github.event.number }}
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/Default/app-Default-debug.apk
+          retention-days: 2
+
+      - name: Upload GooglePlay Apk
+        uses: actions/upload-artifact@v2
+        id: upload
+        with:
+          name: PR-${{ github.event.number }}
+          path: app/build/outputs/apk/GooglePlay/app-GooglePlay-debug.apk
           retention-days: 2
 
       - name: Echo Path
