@@ -34,7 +34,7 @@ jobs:
         id: upload
         with:
           name: PR-${{ github.event.number }}
-          path: ${{ steps.apk-path.outputs.apkPath }}
+          path: ${{ steps.apk-path.apkPath }}
           retention-days: 2
 
       - name: Build GooglePlay Variant
@@ -51,5 +51,5 @@ jobs:
         id: upload-google-play
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: ${{ steps.apk-path.outputs.playApkPath }}
+          path: ${{ steps.play-apk-path.playApkPath }}
           retention-days: 2
