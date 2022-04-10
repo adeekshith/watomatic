@@ -34,16 +34,22 @@ jobs:
         id: upload
         with:
           name: PR-${{ github.event.number }}
-          path: app/build/outputs/apk/Default/release/app-Default-release-unsigned.apk
+          path: ${{ steps.apk-path.outputs.apkPath }}
           retention-days: 2
 
       - name: Build GooglePlay Variant
         run: ./gradlew assembleGooglePlay
 
+      - name: Get GooglePlay apk path
+        id: play-apk-path
+        run: |
+          playApkPath=$(find app -name "*GooglePlay*.apk" | head -1)
+          echo "Found apk at $playApkPath"
+
       - name: Upload GooglePlay Apk
         uses: actions/upload-artifact@v2
-        id: upload1
+        id: upload-google-play
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: app/build/outputs/apk/GooglePlay/release/app-GooglePlay-release-unsigned.apk
+          path: ${{ steps.apk-path.outputs.playApkPath }}
           retention-days: 2
