@@ -1,0 +1,35 @@
+name: Android Build
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Build Project
+        run: ./gradlew assemble
+
+      - name: Upload Apk
+        uses: actions/upload-artifact@v2
+        id: upload
+        with:
+          name: PR-${{ github.event.number }}
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 2
+
+      - name: Echo Path
+        run: echo ${{ steps.upload.outputs.upload-path }}
