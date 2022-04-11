@@ -26,7 +26,7 @@ jobs:
       - name: Get apk path
         id: apk-path
         run: |
-          apkPath=$(find app -name "*GooglePlay*.apk" | head -1)
+          apkPath=$(find app -name "*.apk" | head -1)
           echo "::set-output name=apkpath::$(apkPath)"
 
       - name: Upload Default Apk
