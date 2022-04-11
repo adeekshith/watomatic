@@ -26,30 +26,30 @@ jobs:
       - name: Get apk path
         id: apk-path
         run: |
-            apkPath=$(find app -name "*.apk" | head -1)
-            echo "Found apk at $apkPath"
+          apkPath=$(find app -name "*GooglePlay*.apk" | head -1)
+          echo "::set-output name=apkpath::$(apkPath)"
 
       - name: Upload Default Apk
         uses: actions/upload-artifact@v2
         id: upload
         with:
           name: PR-${{ github.event.number }}
-          path: $(find app -name "*.apk" | head -1)
+          path: ${{ steps.apk-path.outputs.apkpath }}
           retention-days: 2
 
       - name: Build GooglePlay Variant
         run: ./gradlew assembleGooglePlay
 
-      - name: Get GooglePlay apk path
-        id: play-apk-path
+      - name: Get apk path
+        id: google-play-apk-path
         run: |
           playApkPath=$(find app -name "*GooglePlay*.apk" | head -1)
-          echo "Found apk at $playApkPath"
+          echo "::set-output name=google-apk-path::$(playApkPath)"
 
       - name: Upload GooglePlay Apk
         uses: actions/upload-artifact@v2
-        id: upload-google-play
+        id: upload-googpe-play
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: $(find app -name "*GooglePlay*.apk" | head -1)
+          path: ${{ steps.apk-path.outputs.google-apk-path }}
           retention-days: 2
