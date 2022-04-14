@@ -16,10 +16,10 @@
     <string name="accept">Zustimmen</string>
     <string name="sure">Ich bin mir sicher</string>
     <string name="retry">Wiederholen</string>
-    <string name="permission_dialog_title">Erforderliche Berechtigungen</string>
-    <string name="permission_dialog_msg">Diese App benötigt Benachrichtigungszugriff, um zu funktionieren.</string>
+    <string name="permission_dialog_title">Erforderliche Berechtigung</string>
+    <string name="permission_dialog_msg">Diese App benötigt Zugriff auf die Benachrichtigungen, um zu funktionieren.</string>
     <string name="permission_dialog_denied_title">Berechtigungen verweigert</string>
-    <string name="permission_dialog_denied_msg">Ohne diese Berechtigung kann die App nicht automatisch auf die Benachrichtigungen antworten. Sind Sie sicher, dass Sie die Berechtigung verweigern möchten?</string>
+    <string name="permission_dialog_denied_msg">Ohne diese Berechtigung kann die App nicht automatisch auf die Benachrichtigungen antworten. Bist du sicher, dass du die Berechtigung verweigern möchtest?</string>
     <!-- Select apps to auto reply -->
     <string name="enable_for_apps">Für folgende Apps aktivieren</string>
     <string name="enable_auto_reply_switch_msg">Automatische Antwort-Schalter zuerst aktivieren.</string>
@@ -104,6 +104,7 @@
     <string name="all_contacts_unselected">Alle Kontakte nicht ausgewählt</string>
     <string name="donations_activity_title">Spenden</string>
     <string name="donations_data_fetch_error">Neueste Daten können nicht abgerufen werden</string>
+    <string name="donations_goal_title_0">Schwierig</string>
     <string name="donations_goal_0">Jeder Cent zählt, beim Überleben zu helfen</string>
     <string name="donations_goal_title_20">Nur überleben</string>
     <string name="donations_goal_20">Unterstützt tägliche Wartung und wichtige Korrekturen</string>
