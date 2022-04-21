@@ -56,7 +56,7 @@ public class BrandingFragment extends Fragment {
         ImageButton share_layout = view.findViewById(R.id.share_btn);
         watomaticSubredditBtn = view.findViewById(R.id.watomaticSubredditBtn);
         whatsNewBtn = view.findViewById(R.id.whatsNewBtn);
-        whatsNewBtn.setOnClickListener(v -> launchApp());
+        whatsNewBtn.setOnClickListener(v -> launchApp(whatsNewUrls, getString(R.string.watomatic_github_latest_release_url)));
 
         share_layout.setOnClickListener(v -> launchShareIntent());
 
@@ -90,13 +90,13 @@ public class BrandingFragment extends Fragment {
         return view;
     }
 
-    private void launchApp() {
+    private void launchApp(List<String> urls, String fallbackUrl) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            launchAppLegacy();
+            launchAppLegacy(urls, fallbackUrl);
             return;
         }
         boolean isLaunched = false;
-        for (String eachReleaseUrl : whatsNewUrls) {
+        for (String eachReleaseUrl : urls) {
             if (isLaunched) {
                 break;
             }
@@ -118,14 +118,13 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            String url = getString(R.string.watomatic_github_latest_release_url);
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
-    private void launchAppLegacy() {
+    private void launchAppLegacy(List<String> urls, String fallbackUrl) {
         boolean isLaunched = false;
-        for (String url : whatsNewUrls) {
+        for (String url : urls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
                     getActivity().getPackageManager().queryIntentActivities(intent, 0) :
@@ -159,8 +158,7 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            String url = getString(R.string.watomatic_github_latest_release_url);
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
