@@ -27,6 +27,7 @@ import com.parishod.watomatic.network.GetReleaseNotesService;
 import com.parishod.watomatic.network.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +47,10 @@ public class BrandingFragment extends Fragment {
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
     private int gitHubReleaseNotesId = -1;
+    private final List<String> communityUrls = Arrays.asList("https://t.me/watomatic",
+            "https://fosstodon.org/@watomatic",
+            "https://twitter.com/watomatic",
+            "https://www.reddit.com/r/watomatic");
 
     @Nullable
     @Override
@@ -61,10 +66,7 @@ public class BrandingFragment extends Fragment {
         share_layout.setOnClickListener(v -> launchShareIntent());
 
         watomaticSubredditBtn.setOnClickListener(v -> {
-            String url = getString(R.string.watomatic_subreddit_url);
-            startActivity(
-                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
-            );
+            launchApp(communityUrls, getString(R.string.watomatic_subreddit_url));
         });
 
         githubBtn.setOnClickListener(v -> {
@@ -104,7 +106,6 @@ public class BrandingFragment extends Fragment {
                 // In order for this intent to be invoked, the system must directly launch a non-browser app.
                 // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
                 Intent intent = new Intent(ACTION_VIEW, Uri.parse(eachReleaseUrl))
-                        .addCategory(CATEGORY_BROWSABLE)
                         .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                                 FLAG_ACTIVITY_REQUIRE_DEFAULT);
                 startactivity(intent);
