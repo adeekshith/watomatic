@@ -1,0 +1,53 @@
+name: Android Build
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Build Project
+        run: ./gradlew assemble
+
+      - name: Get apk path
+        id: apk-path-id
+        run: echo "::set-output name=apk-path::$(find app -name "*.apk" | head -1)"
+        shell: bash
+
+      - name: Upload Default Apk
+        uses: actions/upload-artifact@v2
+        id: upload
+        with:
+          name: PR-${{ github.event.number }}
+          path: ${{ steps.apk-path-id.outputs.apk-path }}
+          retention-days: 2
+
+      - name: Build GooglePlay Variant
+        run: ./gradlew assembleGooglePlay
+
+      - name: Get apk path
+        id: google-play-apk-path-id
+        run: echo "::set-output name=google-play-apk-path::$(find app -name "*GooglePlay*.apk" | head -1)"
+        shell: bash
+
+      - name: Upload GooglePlay Apk
+        uses: actions/upload-artifact@v2
+        id: upload-googpe-play
+        with:
+          name: PR-${{ github.event.number }}-googleplay
+          path: ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }}
+          retention-days: 2
