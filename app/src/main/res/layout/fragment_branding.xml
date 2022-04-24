@@ -27,7 +27,7 @@
         android:background="?android:selectableItemBackground"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="@string/watomatic_subreddit_label"
+        android:text="@string/watomatic_community_label"
         android:textAllCaps="false"
         android:textColor="?attr/colorControlNormal"
         android:textSize="12sp"
