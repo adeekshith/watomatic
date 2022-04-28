@@ -50,6 +50,7 @@
     <string name="share_app_text">I am using Watomatic to break away from WhatsApp. Try it out: watomatic.app</string>
     <string name="share">Share</string>
     <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="watomatic_community_label"><u>Community</u></string>
     <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
     <string name="watomatic_github_url" translatable="false">https://github.com/adeekshith/watomatic</string>

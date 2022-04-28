@@ -27,6 +27,7 @@ import com.parishod.watomatic.network.GetReleaseNotesService;
 import com.parishod.watomatic.network.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +47,10 @@ public class BrandingFragment extends Fragment {
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
     private int gitHubReleaseNotesId = -1;
+    private final List<String> communityUrls = Arrays.asList("https://t.me/watomatic",
+            "https://fosstodon.org/@watomatic",
+            "https://twitter.com/watomatic",
+            "https://www.reddit.com/r/watomatic");
 
     @Nullable
     @Override
@@ -56,15 +61,12 @@ public class BrandingFragment extends Fragment {
         ImageButton share_layout = view.findViewById(R.id.share_btn);
         watomaticSubredditBtn = view.findViewById(R.id.watomaticSubredditBtn);
         whatsNewBtn = view.findViewById(R.id.whatsNewBtn);
-        whatsNewBtn.setOnClickListener(v -> launchApp());
+        whatsNewBtn.setOnClickListener(v -> launchApp(whatsNewUrls, getString(R.string.watomatic_github_latest_release_url)));
 
         share_layout.setOnClickListener(v -> launchShareIntent());
 
         watomaticSubredditBtn.setOnClickListener(v -> {
-            String url = getString(R.string.watomatic_subreddit_url);
-            startActivity(
-                    new Intent(ACTION_VIEW).setData(Uri.parse(url))
-            );
+            launchApp(communityUrls, getString(R.string.watomatic_subreddit_url));
         });
 
         githubBtn.setOnClickListener(v -> {
@@ -90,13 +92,13 @@ public class BrandingFragment extends Fragment {
         return view;
     }
 
-    private void launchApp() {
+    private void launchApp(List<String> urls, String fallbackUrl) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            launchAppLegacy();
+            launchAppLegacy(urls, fallbackUrl);
             return;
         }
         boolean isLaunched = false;
-        for (String eachReleaseUrl : whatsNewUrls) {
+        for (String eachReleaseUrl : urls) {
             if (isLaunched) {
                 break;
             }
@@ -104,7 +106,6 @@ public class BrandingFragment extends Fragment {
                 // In order for this intent to be invoked, the system must directly launch a non-browser app.
                 // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
                 Intent intent = new Intent(ACTION_VIEW, Uri.parse(eachReleaseUrl))
-                        .addCategory(CATEGORY_BROWSABLE)
                         .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                                 FLAG_ACTIVITY_REQUIRE_DEFAULT);
                 startactivity(intent);
@@ -118,14 +119,13 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            String url = getString(R.string.watomatic_github_latest_release_url);
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
-    private void launchAppLegacy() {
+    private void launchAppLegacy(List<String> urls, String fallbackUrl) {
         boolean isLaunched = false;
-        for (String url : whatsNewUrls) {
+        for (String url : urls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
                     getActivity().getPackageManager().queryIntentActivities(intent, 0) :
@@ -159,8 +159,7 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            String url = getString(R.string.watomatic_github_latest_release_url);
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
