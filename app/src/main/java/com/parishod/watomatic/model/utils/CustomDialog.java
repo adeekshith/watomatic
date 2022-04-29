@@ -44,7 +44,14 @@ public class CustomDialog {
     public void showDialog(Bundle bundle, String type, DialogInterface.OnClickListener onClickListener) {
         if (bundle != null) {
             MaterialAlertDialogBuilder materialAlertDialogBuilder;
-            if (type != null && type.equals("AutoStart")) {
+            if (type != null && type.equals("ClearData")) {
+                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
+                        .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
+                        .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
+                materialAlertDialogBuilder
+                        .setNegativeButton(mContext.getResources().getString(R.string.decline_auto_start_setting), onClickListener)
+                        .setPositiveButton(mContext.getResources().getString(R.string.enable_auto_start_setting), onClickListener);
+            }else if (type != null && type.equals("AutoStart")) {
                 materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mContext)
                         .setTitle(bundle.getString(Constants.PERMISSION_DIALOG_TITLE))
                         .setMessage(bundle.getString(Constants.PERMISSION_DIALOG_MSG));
