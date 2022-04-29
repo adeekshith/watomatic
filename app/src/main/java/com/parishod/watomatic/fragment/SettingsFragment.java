@@ -5,17 +5,13 @@ import static android.content.Context.ACTIVITY_SERVICE;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
-import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
@@ -87,7 +83,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         try {
             // clearing app data
             ((ActivityManager)getActivity().getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData(); // note: it has a return value!
-            Runtime.getRuntime().exec("am start -a android.intent.action.MAIN -n com.parishod.watomatic/.activity.main.MainActivity");
         } catch (Exception e) {
             e.printStackTrace();
         }
