@@ -42,6 +42,7 @@
     <string name="share_app_text">Ich benutze Watomatic, um mich von WhatsApp zu lösen. Probiere es aus: watomatic.app</string>
     <string name="share">Teilen</string>
     <string name="share_subject">Watomatic: Automatische Antwort für WhatsApp</string>
+    <string name="watomatic_community_label"><u>Community</u></string>
     <string name="watomatic_subreddit_label"><u>Lass uns diskutieren\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Was ist neu?</string>
     <!-- Share debug logs -->
