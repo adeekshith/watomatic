@@ -71,6 +71,10 @@
     <string name="contact_permission_dialog_enable_permission">Autoriser l\'accès aux contacts</string>
     <string name="contact_permission_dialog_not_now">Pas maintenant</string>
     <string name="contact_permission_dialog_title">Accès aux contacts en lecture</string>
+    <string name="delete">Supprimer</string>
+    <string name="decrease_frequency">Diminuer la fréquence</string>
+    <string name="increase_frequency">Augmenter la fréquence</string>
+    <string name="current_donation_progress">Montant actuel des dons</string>
     <string name="error_name_cannot_be_blank">Le nom ne peut pas être vide</string>
     <string name="error_name_cannot_be_duplicate">Le nom est déjà présent</string>
 </resources>

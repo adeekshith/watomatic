@@ -42,6 +42,7 @@
     <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
+    <string name="watomatic_community_label"><u>Comunitat</u></string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novetats</string>
     <!-- Share debug logs -->

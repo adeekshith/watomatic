@@ -120,6 +120,10 @@
     <string name="contact_permission_dialog_enable_permission">Activar permiso de contactos</string>
     <string name="contact_permission_dialog_not_now">Ahora no</string>
     <string name="contact_permission_dialog_title">Acceso a lectura de contactos</string>
+    <string name="delete">Suprimir</string>
+    <string name="decrease_frequency">Disminuir la frecuencia</string>
+    <string name="increase_frequency">Aumentar la frecuencia</string>
+    <string name="current_donation_progress">Estado actual de la donación</string>
     <string name="error_name_cannot_be_blank">El nombre no puede estar en blanco</string>
     <string name="error_name_cannot_be_duplicate">Contacto ya existente</string>
 </resources>
