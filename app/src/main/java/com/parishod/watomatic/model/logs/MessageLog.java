@@ -35,12 +35,16 @@ public class MessageLog {
     private String notifRepliedMsg;
     @ColumnInfo(name = "notif_reply_time")
     private long notifReplyTime;
+    @ColumnInfo(name = "notif_event")
+    private String notifEvent;
 
     public MessageLog(int index,
                       String notifTitle,
                       long notifArrivedTime,
                       String notifRepliedMsg,
-                      long notifReplyTime
+                      long notifReplyTime,
+                      boolean notifIsReplied,
+                      String notifEvent
     ) {
         this.index = index;
         this.notifId = null;
@@ -48,7 +52,8 @@ public class MessageLog {
         this.notifArrivedTime = notifArrivedTime;
         this.notifRepliedMsg = notifRepliedMsg;
         this.notifReplyTime = notifReplyTime;
-        this.notifIsReplied = true;
+        this.notifIsReplied = notifIsReplied;
+        this.notifEvent = notifEvent;
     }
 
     public int getId() {
@@ -113,5 +118,13 @@ public class MessageLog {
 
     public void setNotifReplyTime(long notifReplyTime) {
         this.notifReplyTime = notifReplyTime;
+    }
+
+    public String getNotifEvent() {
+        return notifEvent;
+    }
+
+    public void setNotifEvent(String notifEvent) {
+        this.notifEvent = notifEvent;
     }
 }

@@ -10,10 +10,13 @@ import android.util.Log;
 
 import androidx.core.app.RemoteInput;
 
+import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
+import com.parishod.watomatic.model.utils.EventLogger;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
 
@@ -23,16 +26,27 @@ public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
     CustomRepliesData customRepliesData;
     private DbUtils dbUtils;
+    private EventLogger eventLogger;
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
+        eventLogger = new EventLogger();
         if (canReply(sbn) && shouldReply(sbn)) {
             sendReply(sbn);
+        }else{
+            //if notification is from supported apps only log the data
+            for (App supportedApp : Constants.SUPPORTED_APPS) {
+                if(supportedApp.getPackageName().equalsIgnoreCase(sbn.getPackageName())){
+                    dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn), false, eventLogger.getEvent().toString());
+                    break;
+                }
+            }
         }
     }
 
     private boolean canReply(StatusBarNotification sbn) {
+        eventLogger.setNewNotification(NotificationUtils.isNewNotification(sbn));
         return isServiceEnabled() &&
                 isSupportedPackage(sbn) &&
                 NotificationUtils.isNewNotification(sbn) &&
@@ -43,11 +57,26 @@ public class NotificationService extends NotificationListenerService {
     private boolean shouldReply(StatusBarNotification sbn) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
         boolean isGroup = sbn.getNotification().extras.getBoolean("android.isGroupConversation");
+        boolean isContactsReplyEnabled = prefs.isContactReplyEnabled();
+
+        eventLogger.setContactsReplyEnabled(isContactsReplyEnabled);
 
         //Check contact based replies
-        if (prefs.isContactReplyEnabled() && !isGroup) {
+        if (isContactsReplyEnabled && !isGroup) {
             //Title contains sender name (at least on WhatsApp)
             String senderName = sbn.getNotification().extras.getString("android.title");
+            if (!ContactsHelper.getInstance(this).hasContactPermission()){
+                eventLogger.setContactsReplyReason("Contacts Permission Denied");
+            }
+            if (ContactsHelper.getInstance(this).hasContactPermission() && !prefs.getReplyToNames().contains(senderName)){
+                eventLogger.setContactsReplyReason("Contact didnot match");
+            }
+            if (!prefs.getCustomReplyNames().contains(senderName)){
+                eventLogger.setContactsReplyReason("Contact didnot match");
+            }
+            if(prefs.isContactReplyBlacklistMode()){
+                eventLogger.setContactsReplyReason("Contact Blacklisted");
+            }
             //Check if should reply to contact
             boolean isNameSelected =
                     (ContactsHelper.getInstance(this).hasContactPermission()
@@ -80,8 +109,12 @@ public class NotificationService extends NotificationListenerService {
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
         if (notificationWear.getRemoteInputs().isEmpty()) {
+            eventLogger.setRemoteInputsEmpty(true);
+            dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn), false, eventLogger.getEvent().toString());
             return;
         }
+
+        eventLogger.setRemoteInputsEmpty(false);
 
         customRepliesData = CustomRepliesData.getInstance(this);
 
@@ -104,7 +137,7 @@ public class NotificationService extends NotificationListenerService {
                 if (dbUtils == null) {
                     dbUtils = new DbUtils(getApplicationContext());
                 }
-                dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn));
+                dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn), true, eventLogger.getEvent().toString());
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 if (PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
@@ -117,6 +150,8 @@ public class NotificationService extends NotificationListenerService {
             }
         } catch (PendingIntent.CanceledException e) {
             Log.e(TAG, "replyToLastNotification error: " + e.getLocalizedMessage());
+            eventLogger.setReplyErrReason(e.getLocalizedMessage());
+            dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn), false, eventLogger.getEvent().toString());
         }
     }
 
@@ -128,9 +163,11 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isSupportedPackage(StatusBarNotification sbn) {
-        return PreferencesManager.getPreferencesInstance(this)
+        boolean isSupportedPackage = PreferencesManager.getPreferencesInstance(this)
                 .getEnabledApps()
                 .contains(sbn.getPackageName());
+        eventLogger.setSupportedPackage(isSupportedPackage);
+        return isSupportedPackage;
     }
 
     private boolean canSendReplyNow(StatusBarNotification sbn) {
@@ -141,13 +178,16 @@ public class NotificationService extends NotificationListenerService {
         String title = NotificationUtils.getTitle(sbn);
         String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
         if (title != null && title.equalsIgnoreCase(selfDisplayName)) { //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
+            eventLogger.setReplyErrReason("Possibly Duplicate Reply");
             return false;
         }
         if (dbUtils == null) {
             dbUtils = new DbUtils(getApplicationContext());
         }
         long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - dbUtils.getLastRepliedTime(sbn.getPackageName(), title) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        boolean canReplyNow = (System.currentTimeMillis() - dbUtils.getLastRepliedTime(sbn.getPackageName(), title) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
+        eventLogger.setCanSendReplyNow(canReplyNow);
+        return canReplyNow;
     }
 
     private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn) {
@@ -157,6 +197,8 @@ public class NotificationService extends NotificationListenerService {
         // Detect possible group image message by checking for colon and text starts with camera icon #181
         boolean isPossiblyAnImageGrpMsg = ((rawTitle != null) && (": ".contains(rawTitle) || "@ ".contains(rawTitle)))
                 && ((rawText != null) && rawText.toString().contains("\uD83D\uDCF7"));
+        eventLogger.setGroupReplyEnabled(PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled());
+        eventLogger.setIsGroupMessage(sbn.getNotification().extras.getBoolean("android.isGroupConversation"));
         if (!sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
             return !isPossiblyAnImageGrpMsg;
         } else {
@@ -165,6 +207,8 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private boolean isServiceEnabled() {
-        return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+        boolean isServiceEnabled = PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+        eventLogger.setServiceEnabled(isServiceEnabled);
+        return isServiceEnabled;
     }
 }
