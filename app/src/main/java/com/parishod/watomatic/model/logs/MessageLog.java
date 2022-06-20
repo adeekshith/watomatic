@@ -127,4 +127,9 @@ public class MessageLog {
     public void setNotifEvent(String notifEvent) {
         this.notifEvent = notifEvent;
     }
+
+    public String toString(){
+        return "" + id + "; " + index + "; " + notifId + "; " + notifTitle + "; " + notifArrivedTime + "; " + notifIsReplied + "; "
+                + notifReplyTime + "; " + notifEvent;
+    }
 }

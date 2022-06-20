@@ -12,4 +12,7 @@ public interface AppPackageDao {
 
     @Insert
     void insertAppPackage(AppPackage appPackage);
+
+    @Query("SELECT package_name FROM app_packages WHERE [index]=:index")
+    String getPackageName(int index);
 }

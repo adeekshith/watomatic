@@ -10,15 +10,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 
 import java.util.ArrayList;
@@ -244,5 +247,52 @@ public class CustomDialog {
             }
         }
         return false;
+    }
+
+    public void showAppLogsShareDialog(){
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.app_logs_share_dialog);
+        dialog.setCancelable(false);
+
+        AppCompatTextView appLogsMessage = dialog.findViewById(R.id.app_log_message);
+
+        DbUtils dbUtils = new DbUtils(mContext);
+        List<MessageLog> applogs = dbUtils.getAppLogs();
+
+        StringBuilder applog = new StringBuilder();
+        for (MessageLog messageLog: applogs
+             ) {
+            applog.append(dbUtils.getPackageName(messageLog.getIndex())).append("; ").append(messageLog.toString()).append("\n");
+        }
+
+        appLogsMessage.setText(applog.toString());
+
+        AppCompatButton sendBtn = dialog.findViewById(R.id.send_button);
+        sendBtn.setOnClickListener(v -> {
+            AppUtils.getInstance(mContext).launchEmailCompose(Constants.APP_LOGS_EMAIL_SUBJECT, applog.toString());
+        });
+
+        AppCompatButton cancelBtn = dialog.findViewById(R.id.cancel_button);
+        cancelBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        MaterialCheckBox consentCheckBox = dialog.findViewById(R.id.consent_checkbox);
+        consentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    sendBtn.setEnabled(true);
+                }else{
+                    sendBtn.setEnabled(false);
+                }
+            }
+        });
+
+        dialog.show();
     }
 }

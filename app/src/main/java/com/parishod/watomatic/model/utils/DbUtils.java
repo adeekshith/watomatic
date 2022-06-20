@@ -8,6 +8,8 @@ import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 
+import java.util.List;
+
 public class DbUtils {
     private final Context mContext;
 
@@ -47,5 +49,15 @@ public class DbUtils {
     public long getFirstRepliedTime() {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getFirstRepliedTime();
+    }
+
+    public List<MessageLog> getAppLogs(){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.logsDao().getAppLogs();
+    }
+
+    public String getPackageName(int index){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.appPackageDao().getPackageName(index);
     }
 }

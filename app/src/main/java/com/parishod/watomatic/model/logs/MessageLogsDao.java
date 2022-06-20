@@ -4,6 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface MessageLogsDao {
     @Query("SELECT message_logs.notif_reply_time FROM MESSAGE_LOGS " +
@@ -24,4 +26,7 @@ public interface MessageLogsDao {
 
     @Query("SELECT notif_reply_time FROM MESSAGE_LOGS ORDER BY notif_reply_time DESC LIMIT 1")
     long getFirstRepliedTime();
+
+    @Query("SELECT * FROM MESSAGE_LOGS")
+    List<MessageLog> getAppLogs();
 }

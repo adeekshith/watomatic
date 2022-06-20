@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/send_app_logs"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollview"
+            />
+
+        <ScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintBottom_toTopOf="@+id/consent_checkbox"
+            android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/app_log_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text=""
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"/>
+        </ScrollView>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/consent_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollview"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/i_agree_to_send_the_above_logs"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_button"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consent_checkbox"
+            app:layout_constraintEnd_toStartOf="@+id/send_button"
+            android:text="@string/contact_permission_dialog_cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/cancel_button_bg"
+            app:layout_constraintBottom_toTopOf="@+id/view"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/cancel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consent_checkbox"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            android:text="@string/send"
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/donation_btn_background"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

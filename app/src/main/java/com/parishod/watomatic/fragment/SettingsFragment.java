@@ -8,6 +8,7 @@ import androidx.preference.SwitchPreference;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
+import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.ServieUtils;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -40,6 +41,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+
+        Preference sendAppLogsPref = findPreference(getString(R.string.pref_send_app_logs));
+        if (sendAppLogsPref != null) {
+            sendAppLogsPref.setOnPreferenceClickListener(preference -> {
+                if(getActivity() != null)
+                    new CustomDialog(getActivity()).showAppLogsShareDialog();
+                return true;
+            });
+        }
+
     }
 
     @Override
