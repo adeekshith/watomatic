@@ -209,4 +209,7 @@
     <string name="error_name_cannot_be_duplicate">Name already present</string>
     <string name="i_agree_to_send_the_above_logs">I Agree to send the above logs.</string>
     <string name="send">send</string>
+    <string name="log_msg_contact_permission_denied" translatable="false">Contacts Permission Denied</string>
+    <string name="log_msg_contact_mismatch" translatable="false">Contact didnot match</string>
+    <string name="log_msg_contact_blacklisted" translatable="false">Contact Blacklisted</string>
 </resources>
