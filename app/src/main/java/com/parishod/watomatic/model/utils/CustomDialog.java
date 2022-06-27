@@ -274,6 +274,7 @@ public class CustomDialog {
         AppCompatButton sendBtn = dialog.findViewById(R.id.send_button);
         sendBtn.setOnClickListener(v -> {
             AppUtils.getInstance(mContext).launchEmailCompose(Constants.APP_LOGS_EMAIL_SUBJECT, applog.toString());
+            dialog.dismiss();
         });
 
         AppCompatButton cancelBtn = dialog.findViewById(R.id.cancel_button);
