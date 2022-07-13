@@ -69,5 +69,13 @@
     <string name="app_rating_dialog_rate_button_title">דרגו אותנו!</string>
     <string name="app_rating_dialog_rate_later_title">אולי מאוחר יותר</string>
     <string name="app_rating_goto_store_dialog_title">אנחנו שמחים!</string>
+    <string name="app_rating_goto_store_dialog_msg">אנא שתפו את הדירוג של האפליקציה בחנות גוגל פליי בהקשה על \"/המשך\"!</string>
+    <string name="app_rating_pitch">אפליקציה זו היא בחינם, ללא פרסומות, ללא מעקב, בקוד פתוח ונוצרה על ידי מתנדבים ותורמים כמוני וכמוך. התגובה והדירוג שלכם היא העידוד שלנו.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">לא מעוניין/ת</string>
+    <string name="app_rating_goto_store_dialog_button2_title">המשך</string>
+    <string name="app_rating_feedback_dialog_title">צרו קשר</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">טלגרם</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">הרשאה להתחלה אוטומטית</string>
+    <string name="running_in_the_background">עבודה ברקע</string>
 </resources>
