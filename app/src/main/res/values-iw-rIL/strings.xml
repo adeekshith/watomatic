@@ -1,15 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Watomatic</string>
+    <string name="about">אודות</string>
+    <string name="settings">אפשרויות</string>
+    <string name="privacy_policy_label">מדיניות פרטיות</string>
+    <string name="service_name">התראות אודות הודעות נכנסות</string>
+    <string name="mainAutoReplyTextPlaceholder">(מענה מותאם אישית)</string>
+    <string name="auto_reply_default_message">מענה אוטומטי\n המשתמש אינו זמין</string>
+    <string name="mainAutoReplyLabel">תוכן מענה אוטומטי</string>
+    <string name="mainAutoReplySwitchOffLabel">מענה אוטומטי כבוי</string>
+    <string name="mainAutoReplySwitchOnLabel">מענה אוטומטי מופעל</string>
+    <string name="mainAutoReplyEditBtnTooltip">הקליקו כדי לערוך הודעה מותאמת אישית</string>
+    <string name="to_help_you_leave_whatsapp">מענה אוטומטי שעוזר להתרחק מוואטסאפ ופייסבוק מסנג\'ר</string>
+    <string name="decline">סירוב</string>
+    <string name="accept">קבלה</string>
+    <string name="sure">אני בטוח/ה</string>
+    <string name="retry">נסו שוב</string>
+    <string name="permission_dialog_title">נדרשת הרשאה</string>
+    <string name="permission_dialog_msg">כדי לפעול כראוי אפליקציה זו דורשת גישה להתראות.</string>
+    <string name="permission_dialog_denied_title">הרשאה נדחתה</string>
+    <string name="permission_dialog_denied_msg">ללא הרשאה זו האפליקציה לא יכולה להשיב אוטומטית להודעות. האם בכל זאת לדחות הרשאות גישה?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">מאופשר עבור אפליקציות</string>
+    <string name="enable_auto_reply_switch_msg">נא ראשית לאפשר הודעות אוטומטיות.</string>
+    <string name="error_atleast_single_app_must_be_selected">שגיאה: נא לבחור לפחות אפליקציה אחת</string>
     <!-- Group chats -->
+    <string name="groupReplySwitchLabel">מענה אוטומטי לשיחות קבוצתיות</string>
+    <string name="group_reply_on_info_message">מאופשר מענה אוטומטי לשיחות קבוצתיות</string>
+    <string name="group_reply_off_info_message">מופסק מענה אוטומטי לשיחות קבוצתיות</string>
+    <string name="time_picker_title">תדירות מענה (נסיוני)</string>
+    <string name="time_picker_sub_title_default">מענה אוטומטי לכל ההודעות ללא אבחנה</string>
+    <string name="time_picker_sub_title">מענה אוטומטי פעם ב- %1$ימים עבור כל אדם או קבוצה</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">הקליקו כאן כדי לקבוע פרק זמן בין הודעות</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
+    <string name="save">שמירה</string>
+    <string name="tip_view_messages_from_fellow_users">צפו בתבניות מוצעות על ידי הקהילה וחלוק גם את שלך</string>
+    <string name="append_watomatic_arribution_checkbox_label">אישור סיומת מאת יוצרי Watomatic כדי לעזור להפיץ את הבשורה</string>
+    <string name="sent_using_Watomatic">נשלח באמצעות Watomatic.app</string>
+    <string name="share_app_text">אני עושה שימוש ב-Watomatic כדי להתאוורר ולהתרחק מוואטסאפ. נסו זאת בעצמכם watomatic.app</string>
+    <string name="share">שיתוף</string>
+    <string name="share_subject">Watomatic: מענה אוטומטי לוואטסאפ</string>
+    <string name="watomatic_community_label"><u>קהילה</u></string>
+    <string name="watomatic_subreddit_label"><u>בואו לדון\n r/watomatic</u></string>
+    <string name="watomatic_whatsnew_label">מה חדש?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
+    <string name="show_notification_label">הראה התראות על מענה אוטומטי להודעות</string>
+    <string name="preference_category_general_label">אפשרויות כלליות</string>
+    <string name="preference_category_notifications_label">התראות</string>
+    <string name="preference_category_troubleshooting_label">פתרון בעיות</string>
+    <string name="enable_auto_start_label">אפשר התחלה אוטומטית</string>
+    <string name="add_attribution_label">הוספת תכונה</string>
+    <string name="enabled_apps_title">אפליקציות מאופשרות</string>
+    <string name="always_on_notification">התראות מאופשרות תמיד</string>
+    <string name="display_persistent_notification_summary">אפשר הצגת התראות ללא הפסקה כדי להבטיח ש-Watomatic לא מכובה על ידי המערכת</string>
+    <string name="enable_auto_start_summary">חלק מהמכשירים דורשים הגדרה ידנית של התחלה אוטומטית באפשרויות המכשיר</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
+    <string name="app_language">שפת האפליקציה</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">מה דעתך?</string>
+    <string name="app_rating_dialog_msg">דעתך חשובה לנו. נא בחרו בכוכבים מעל כדי לדרג אותנו.</string>
+    <string name="app_rating_dialog_rate_button_title">דרגו אותנו!</string>
+    <string name="app_rating_dialog_rate_later_title">אולי מאוחר יותר</string>
+    <string name="app_rating_goto_store_dialog_title">אנחנו שמחים!</string>
     <!--Autostart Permission Dialog-->
 </resources>
