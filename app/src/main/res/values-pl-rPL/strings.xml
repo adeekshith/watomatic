@@ -42,6 +42,7 @@
     <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
     <string name="share_subject">Watomatic: Automatyczna odpowiedź dla WhatsApp</string>
+    <string name="watomatic_community_label"><u>Społeczność</u></string>
     <string name="watomatic_subreddit_label"><u>Dyskutujmy\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Co nowego?</string>
     <!-- Share debug logs -->
