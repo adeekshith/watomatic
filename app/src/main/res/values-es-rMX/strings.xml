@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Watomatic</string>
+    <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="about">Acerca</string>
     <string name="settings">Ajustes</string>
     <string name="privacy_policy_label">Políticas de privacidad</string>
@@ -42,6 +43,7 @@
     <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo: watomatic.app</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Watomatic: Respuesta automática para WhatsApp</string>
+    <string name="watomatic_community_label"><u>Comunidad</u></string>
     <string name="watomatic_subreddit_label"><u>Discutamos en\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Qué hay de nuevo?</string>
     <!-- Share debug logs -->
