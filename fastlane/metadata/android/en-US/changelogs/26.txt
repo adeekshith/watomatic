@@ -1,13 +1,15 @@
-* New feature to exclude or include auto reply based on contacts Hèctor Godoy (#316, #325, #326)
-* New feature to enable persistent notification to prevent app being put to sleep by SP Uday Kumar (#319)
-* Translations:
-  * Polish translations by Patryk Prawda
-  * Spanish and Catalan translations by Benet R. i Camps
-  * Macedonian translations by Soma Dima
-  * Basque translations by Joxe Rojas
-  * Russian translations by crlf
-  * Arabic translations by nasyaldnya
-  * Spanish translations by germe-fur
-  * German translations by daengi
-  * Tamil translations by HarishBeWe
-  * Turkish translations by Tansel Karakaya
+* Increase max "Reply Frequency" from 7 days to 30 days
+* Add custom contact names to exclude or include list by @hegocre
+* Allow contact filter feature without contact read permission by @hegocre
+* Custom name adding dialog improvements and avoid duplicate custom names by @hegocre
+* Fix image received in group sometimes not recognized as group
+* Fix always ON notification showing up on restart even when not set
+* Improved user interface for app selection
+* Improve settings UI
+* Performance improvements
+* Upgrade underlying dependencies
+* Add undo button for bulk changes on contact selector by @hegocre
+* Fix language changing option not working when app downloaded from play store by @hegocre
+* New donation interface for non Google Play versions
+* Improved code formatting by @tobiasschuerg
+* New translations for Polish, Catalan, Hebrew, German, Spanish and French
