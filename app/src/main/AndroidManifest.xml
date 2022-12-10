@@ -11,6 +11,7 @@
     <queries>
         <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
     </queries>
