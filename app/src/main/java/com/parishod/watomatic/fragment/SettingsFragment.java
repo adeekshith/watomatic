@@ -28,18 +28,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
-
-        SwitchPreference foregroundServiceNotifPref = findPreference(getString(R.string.pref_show_foreground_service_notification));
-        if (foregroundServiceNotifPref != null) {
-            foregroundServiceNotifPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                if (newValue.equals(true)) {
-                    ServieUtils.getInstance(getActivity()).startNotificationService();
-                } else {
-                    ServieUtils.getInstance(getActivity()).stopNotificationService();
-                }
-                return true;
-            });
-        }
     }
 
     @Override

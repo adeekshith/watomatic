@@ -31,8 +31,7 @@ public class SwipeToKillAppDetectViewModel extends AndroidViewModel {
     }
 
     public void tryReconnectService() {
-        if (PreferencesManager.getPreferencesInstance(context).isServiceEnabled()
-                && PreferencesManager.getPreferencesInstance(context).isForegroundServiceNotificationEnabled()) {
+        if (PreferencesManager.getPreferencesInstance(context).isServiceEnabled()) {
             Log.d("DEBUG", "viewmodel tryReconnectService");
             //Send broadcast to restart service
             Intent broadcastIntent = new Intent(context, NotificationServiceRestartReceiver.class);

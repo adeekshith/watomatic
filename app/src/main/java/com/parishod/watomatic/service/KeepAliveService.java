@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -62,8 +63,7 @@ public class KeepAliveService extends Service {
     }
 
     public void tryReconnectService() {
-        if (PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()
-                && PreferencesManager.getPreferencesInstance(getApplicationContext()).isForegroundServiceNotificationEnabled()) {
+        if (PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()) {
             Log.d("DEBUG", "KeepAliveService tryReconnectService");
             //Send broadcast to restart service
             Intent broadcastIntent = new Intent(getApplicationContext(), NotificationServiceRestartReceiver.class);
@@ -94,7 +94,9 @@ public class KeepAliveService extends Service {
 
     private void startForeground(Service service) {
         Log.e("DEBUG", "startForeground");
-        NotificationCompat.Builder notificationBuilder = NotificationHelper.getInstance(getApplicationContext()).getForegroundServiceNotification(service);
-        service.startForeground(FOREGROUND_NOTIFICATION_ID, notificationBuilder.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder notificationBuilder = NotificationHelper.getInstance(getApplicationContext()).getForegroundServiceNotification(service);
+            service.startForeground(FOREGROUND_NOTIFICATION_ID, notificationBuilder.build());
+        }
     }
 }

@@ -484,9 +484,7 @@ public class MainFragment extends Fragment {
     }
 
     private void startNotificationService() {
-        if (preferencesManager.isForegroundServiceNotificationEnabled()) {
-            ServieUtils.getInstance(mActivity).startNotificationService();
-        }
+        ServieUtils.getInstance(mActivity).startNotificationService();
     }
 
     private void stopNotificationService() {
