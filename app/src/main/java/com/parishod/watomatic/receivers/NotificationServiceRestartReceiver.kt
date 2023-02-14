@@ -21,16 +21,21 @@ class NotificationServiceRestartReceiver : BroadcastReceiver() {
     }
 
     private fun restartService(context: Context) {
-        val serviceIntent = Intent(context, KeepAliveService::class.java)
-        // ToDo: Should probably start using foreground service to prevent IllegalState exception below
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(serviceIntent)
-            }else{
-                context.startService(serviceIntent)
+        val preferencesManager = PreferencesManager.getPreferencesInstance(context)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled) {
+            val serviceIntent = Intent(context, KeepAliveService::class.java)
+            // ToDo: Should probably start using foreground service to prevent IllegalState exception below
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent)
+                } else {
+                    context.startService(serviceIntent)
+                }
+            } catch (e: IllegalStateException) {
+                Log.e("NotifServiceRestart", "Unable to restart notification service")
             }
-        } catch (e: IllegalStateException) {
-            Log.e("NotifServiceRestart", "Unable to restart notification service")
+        }else{
+            enableService(context)
         }
     }
 

@@ -63,7 +63,8 @@ public class KeepAliveService extends Service {
     }
 
     public void tryReconnectService() {
-        if (PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()) {
+        if (PreferencesManager.getPreferencesInstance(getApplicationContext()).isServiceEnabled()
+            && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || PreferencesManager.getPreferencesInstance(getApplicationContext()).isForegroundServiceNotificationEnabled())) {
             Log.d("DEBUG", "KeepAliveService tryReconnectService");
             //Send broadcast to restart service
             Intent broadcastIntent = new Intent(getApplicationContext(), NotificationServiceRestartReceiver.class);

@@ -3,6 +3,7 @@ package com.parishod.watomatic.viewmodel;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,8 @@ public class SwipeToKillAppDetectViewModel extends AndroidViewModel {
     }
 
     public void tryReconnectService() {
-        if (PreferencesManager.getPreferencesInstance(context).isServiceEnabled()) {
+        if (PreferencesManager.getPreferencesInstance(context).isServiceEnabled()
+            && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || PreferencesManager.getPreferencesInstance(context).isForegroundServiceNotificationEnabled())) {
             Log.d("DEBUG", "viewmodel tryReconnectService");
             //Send broadcast to restart service
             Intent broadcastIntent = new Intent(context, NotificationServiceRestartReceiver.class);
