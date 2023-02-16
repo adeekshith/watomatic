@@ -58,7 +58,7 @@ jobs:
           response = $(curl --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk)
           run: echo "name name=apk-path::$(response)
 
-      -name: upload
+      - name: upload
         uses: mshick/add-pr-comment@v2
         with:
           message: |
