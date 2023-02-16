@@ -53,9 +53,9 @@ jobs:
           retention-days: 2
 
       - name: upload apk
-          uses: wei/curl@v1
-          with:
-            args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
+        uses: wei/curl@v1
+        with:
+          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
 
 
       - name: upload apk
