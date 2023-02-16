@@ -44,16 +44,6 @@ jobs:
         run: echo "::set-output name=google-play-apk-path::$(find app -name "*GooglePlay*.apk" | head -1)"
         shell: bash
 
-      - name: Upload
-        curl:
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@master
-            - name: curl
-              uses: wei/curl@v1
-              with:
-                args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
-
       - name: Upload GooglePlay Apk
         uses: actions/upload-artifact@v2
         id: upload-googpe-play
@@ -61,3 +51,8 @@ jobs:
           name: PR-${{ github.event.number }}-googleplay
           path: ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }}
           retention-days: 2
+
+      - name: upload apk
+        uses: wei/curl@v1
+        with:
+          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
