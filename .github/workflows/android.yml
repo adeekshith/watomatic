@@ -53,6 +53,13 @@ jobs:
           retention-days: 2
 
       - name: upload apk
-        uses: wei/curl@v1
+        id: apk-path-id
+        run: | 
+          response = $(curl --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk)
+          run: echo "name name=apk-path::$(response)
+
+      -name: upload
+        uses: mshick/add-pr-comment@v2
         with:
-          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
+          message: |
+            **Download apk from path: ${{ steps.apk-path-id.outputs.apk-path }}**
