@@ -53,13 +53,13 @@ jobs:
           retention-days: 2
 
       - name: upload apk
-        id: apk-path-id
+        id: upload-apk-path-id
         run: | 
-          response = $(curl --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk)
+          response = $(curl --upload-file ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk)
           run: echo "name name=apk-path::$(response)
 
       - name: upload
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            **Download apk from path: ${{ steps.apk-path-id.outputs.apk-path }}**
+            **Download apk from path: ${{ steps.upload-apk-path-id.outputs.apk-path }}**
