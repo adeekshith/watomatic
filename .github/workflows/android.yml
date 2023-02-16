@@ -55,13 +55,13 @@ jobs:
       - name: upload apk
         uses: wei/curl@v1
         with:
-          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk
+          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk -o apkpath.txt
 
 
       - name: upload apk
         id: upload-apk-path-id
         run: | 
-          echo "name name=apk-path::$($(curl --upload-file ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk))
+          echo "name name=apk-path::$(cat apkpath.txt)
         shell: bash
 
       - name: commit
