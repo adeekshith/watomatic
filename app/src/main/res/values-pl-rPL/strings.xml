@@ -6,15 +6,15 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkonik niedostępny</string>
+    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkownik niedostępny</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
-    <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować automatyczną odpowiedź</string>
+    <string name="mainAutoReplyEditBtnTooltip">Stuknij, aby edytować automatyczną odpowiedź</string>
     <string name="to_help_you_leave_whatsapp">Automatyczna odpowiedź pomoże Ci opuścić WhatsApp i Facebook messenger</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
-    <string name="sure">Jestem pewny(a)</string>
+    <string name="sure">Jestem pewny</string>
     <string name="retry">Ponów</string>
     <string name="permission_dialog_title">Wymagane uprawnienia</string>
     <string name="permission_dialog_msg">Ta aplikacja wymaga uprawnień do powiadomień do działania.</string>
@@ -25,19 +25,19 @@
     <string name="enable_auto_reply_switch_msg">Najpierw włącz automatyczną odpowiedź.</string>
     <string name="error_atleast_single_app_must_be_selected">Błąd: Wybierz przynajmniej jedną aplikację</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">Autom. odpowiedź dla czatów grupowych</string>
-    <string name="group_reply_on_info_message">Włącz autom. odpowiedź dla czatów grupowych</string>
-    <string name="group_reply_off_info_message">Wyłącz autom. odpowiedź dla czatów grupowyc</string>
+    <string name="groupReplySwitchLabel">Automatyczna odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_on_info_message">Włącz automatyczną odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_off_info_message">Wyłącz automatyczną odpowiedź dla czatów grupowych</string>
     <string name="time_picker_title">Częstotliwość odpowiedzi (BETA)</string>
     <string name="time_picker_sub_title_default">Odpowiadaj na wszystkie wiadomości bez kontroli</string>
-    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień\/dni dla każdej osoby\/grupy</string>
+    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień (dni) dla każdej osoby\/grupy</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Stuknij aby edytować opóźnienie pomiędzy odpowiedziami</string>
+    <string name="time_picker_edit_btn_tooltip">Stuknij, aby edytować opóźnienie pomiędzy odpowiedziami</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
+    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatic, aby pomóc w rozpowszechnieniu tego słowa</string>
     <string name="sent_using_Watomatic">Wysłano używając watomatic.app</string>
     <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
@@ -52,7 +52,7 @@
     <string name="preference_category_general_label">Ogólne ustawienia</string>
     <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
-    <string name="enable_auto_start_label">Wł. Automatyczny Start</string>
+    <string name="enable_auto_start_label">Włącz automatyczny Start</string>
     <string name="add_attribution_label">Dodaj atrybut</string>
     <string name="enabled_apps_title">Włącz aplikacje</string>
     <string name="always_on_notification">Powiadomienie Always-On</string>
@@ -65,7 +65,7 @@
     <string name="app_language">Język aplikacji</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">Co o tym myślisz?</string>
-    <string name="app_rating_dialog_msg">Interesujemy się tym, co myślisz o aplikacji. Dotknij gwiazdek powyżej aby ocenić.</string>
+    <string name="app_rating_dialog_msg">Interesujemy się tym, co myślisz o aplikacji. Dotknij gwiazdek powyżej, aby ocenić.</string>
     <string name="app_rating_dialog_rate_button_title">Oceń to!</string>
     <string name="app_rating_dialog_rate_later_title">Może później</string>
     <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
