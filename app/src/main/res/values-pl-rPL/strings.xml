@@ -70,9 +70,9 @@
     <string name="app_rating_dialog_rate_later_title">Może później</string>
     <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
     <string name="app_rating_goto_store_dialog_msg">Podziel się tą oceną aplikacji w Sklepie Google Play, klikając \"Kontynuuj\"\!</string>
-    <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia, otawrto-źródłowa i jest tworzona przez twórców takich jak Ty i ja.
+    <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia z otwartym źródłem i jest tworzona przez twórców takich jak Ty i ja.
         Twoja opinia jest naszą jedyną zachętą.</string>
-    <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany(a)</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany/a</string>
     <string name="app_rating_goto_store_dialog_button2_title">Kontynuuj</string>
     <string name="app_rating_feedback_dialog_title">Skontaktuj się z nami</string>
     <string name="app_rating_feedback_dialog_msg">Daj nam znać, jak możemy coś poprawić.</string>
@@ -82,13 +82,13 @@
     <string name="auto_start_permission_dialog_title">Uprawnienia AutoStart</string>
     <string name="running_in_the_background">Działa w tle</string>
     <string name="auto_start_permission_dialog_message">Włącz uprawnienia \"Auto Start\" w ustawieniach urządzenia, aby umożliwić Watomatic włączenie się przy uruchamianiu urządzenia.</string>
-    <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne w oparciu o twoje urządzenie</string>
+    <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne na podstawie twoje urządzenie</string>
     <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
     <string name="enable_auto_start_setting">Kontynuuj</string>
     <string name="decline_auto_start_setting">Anuluj</string>
     <string name="app_not_installed_text">Nie zainstalowana</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
-    <string name="contact_based_reply">Odpowiedzi bazujace na kontaktach</string>
+    <string name="contact_based_reply">Odpowiedzi bazujące na kontaktach</string>
     <string name="contact_reply_type">Odpowiedz do</string>
     <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
     <string name="whitelist">Nikt z wyjątkiem wybranych kontaktów</string>
