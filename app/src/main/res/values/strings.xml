@@ -69,6 +69,7 @@
     <string name="key_pref_app_language" translatable="false">pref_app_language</string>
     <string name="pref_show_notification_replied_msg" translatable="false">pref_show_notification_replied_msg</string>
     <string name="pref_auto_start_permission" translatable="false">pref_auto_start_permission</string>
+    <string name="pref_restore_app_defaults" translatable="false">pref_restore_app_defaults</string>
     <string name="pref_is_append_watomatic_attribution" translatable="false">pref_is_append_watomatic_attribution</string>
     <string name="pref_show_foreground_service_notification" translatable="false">pref_show_foreground_service_notification</string>
 
@@ -83,6 +84,7 @@
     <string name="always_on_notification">Always-On notification</string>
     <string name="display_persistent_notification_summary">Display a persistent notification to ensure Watomatic is not killed by the system</string>
     <string name="enable_auto_start_summary">Some devices might need you to manually enable Auto start for Watomatic from device settings</string>
+    <string name="restore_app_default_label">Reset Watomatic</string>
 
     <!-- Local language names (non translatable) -->
     <string name="lang_en" translatable="false">English (en)</string>
@@ -175,6 +177,10 @@
     <string name="undo">Undo</string>
     <string name="all_contacts_selected">All contacts selected</string>
     <string name="all_contacts_unselected">All contacts unselected</string>
+
+    <!--Clear Data popup messages -->
+    <string name="clear_data_alert_title">Information</string>
+    <string name="clear_data_alert_messge">This operation will exit the app. You have to manually relaunch</string>
 
     <string name="donations_activity_title">Donations</string>
     <string name="donations_data_fetch_error">Unable to fetch latest data</string>
