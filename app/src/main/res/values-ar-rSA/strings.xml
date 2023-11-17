@@ -42,14 +42,18 @@
     <string name="share_app_text">أنا أستخدم Watomatic للتخلص من WhatsApp. جربه: watomatic.app</string>
     <string name="share">مشاركة</string>
     <string name="share_subject">Watomatic - رد تلقائي على واتس اب و فيسبوك</string>
+    <string name="watomatic_community_label"><u>المجتمع</u></string>
     <string name="watomatic_subreddit_label"><u>دعونا نتناقش\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">ما الجديد؟</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">إظهار الإشعار للرسائل المُجاب عليها</string>
+    <string name="preference_category_general_label">الإعدادات العامة</string>
+    <string name="preference_category_notifications_label">الإشعارات</string>
     <string name="preference_category_troubleshooting_label">استكشاف الأخطاء</string>
     <string name="enable_auto_start_label">تمكين المزامنة التلقائية</string>
+    <string name="enabled_apps_title">التطبيقات المفعلة</string>
     <string name="enable_auto_start_summary">قد تحتاج بعض الأجهزة إلى تمكين التشغيل التلقائي للبرنامج يدوياً من إعدادات الجهاز</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
