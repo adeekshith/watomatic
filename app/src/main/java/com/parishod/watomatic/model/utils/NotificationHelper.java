@@ -65,7 +65,7 @@ public class NotificationHelper {
         Intent intent = new Intent(appContext, NotificationIntentActivity.class);
         intent.putExtra("package", packageName);
         intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
-        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(appContext, Constants.NOTIFICATION_CHANNEL_ID)
                 .setGroup("watomatic-" + packageName)
@@ -141,7 +141,7 @@ public class NotificationHelper {
 
         Intent intent = new Intent(appContext, NotificationIntentActivity.class);
         intent.setAction(Long.toString(System.currentTimeMillis()));//This is needed to generate unique pending intents, else when we create multiple pending intents they will be overwritten by last one
-        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pIntent = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {

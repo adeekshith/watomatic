@@ -51,3 +51,21 @@ jobs:
           name: PR-${{ github.event.number }}-googleplay
           path: ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }}
           retention-days: 2
+
+      - name: upload apk
+        uses: wei/curl@v1
+        with:
+          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk -o apkpath.txt
+
+
+      - name: upload apk
+        id: upload-apk-path-id
+        run: | 
+          echo "::set-output name=apk-path::$(cat apkpath.txt)"
+        shell: bash
+
+      - name: commit
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **Download apk from path: ${{ steps.upload-apk-path-id.outputs.apk-path }}**
