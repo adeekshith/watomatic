@@ -13,6 +13,8 @@
         <package android:name="com.whatsapp" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
+        <package android:name="com.android.vending" />
+        <package android:name="com.google.android.feedback" />
     </queries>
 
     <application
