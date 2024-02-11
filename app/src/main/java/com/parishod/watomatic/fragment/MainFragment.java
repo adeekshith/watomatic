@@ -274,11 +274,15 @@ public class MainFragment extends Fragment {
         // A list with valid installers package name
         List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
 
-        // The package name of the app that has installed your app
-        final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+        try {
+            // The package name of the app that has installed your app
+            final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
 
-        // true if your app has been downloaded from Play Store
-        return installer != null && validInstallers.contains(installer);
+            // true if your app has been downloaded from Play Store
+            return installer != null && validInstallers.contains(installer);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private boolean isAppUsedSufficientlyToAskRating() {
@@ -344,21 +348,23 @@ public class MainFragment extends Fragment {
     }
 
     private void launchAppLegacy() {
-        Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
-        List<ResolveInfo> list = getActivity().getPackageManager()
-                .queryIntentActivities(intent, 0);
-        List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
-                .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
-        Set<String> excludeIntents = new HashSet<>();
-        for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
-            excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
-        }
-        //Check for non browser application
-        for (ResolveInfo resolveInfo : list) {
-            if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
-                intent.setPackage(resolveInfo.activityInfo.packageName);
-                mActivity.startActivity(intent);
-                break;
+        if(getActivity() != null) {
+            Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
+            List<ResolveInfo> list = getActivity().getPackageManager()
+                    .queryIntentActivities(intent, 0);
+            List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+            Set<String> excludeIntents = new HashSet<>();
+            for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
+                excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+            }
+            //Check for non browser application
+            for (ResolveInfo resolveInfo : list) {
+                if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
+                    intent.setPackage(resolveInfo.activityInfo.packageName);
+                    mActivity.startActivity(intent);
+                    break;
+                }
             }
         }
     }
