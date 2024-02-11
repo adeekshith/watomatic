@@ -29,6 +29,9 @@
         <Preference android:title="@string/enable_auto_start_label"
             android:key="@string/pref_auto_start_permission" />
 
+        <Preference android:title="@string/send_app_logs"
+            android:key="@string/pref_send_app_logs" />
+
     </PreferenceCategory>
 
     <Preference
