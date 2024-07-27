@@ -1,18 +1,18 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
 }
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 33
 
     defaultConfig {
+        namespace "com.parishod.watomatic"
         applicationId "com.parishod.watomatic"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 26
-        versionName "1.21"
+        versionCode 27
+        versionName "1.22"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -50,12 +50,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
     flavorDimensions 'version'
     productFlavors {
