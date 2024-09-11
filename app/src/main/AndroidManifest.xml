@@ -6,13 +6,15 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
 
     <queries>
         <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
+        <package android:name="com.android.vending" />
+        <package android:name="com.google.android.feedback" />
     </queries>
 
     <application
@@ -100,15 +102,25 @@
             android:name="com.parishod.watomatic.NotificationService"
             android:label="@string/service_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:foregroundServiceType="dataSync">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+            <meta-data
+                android:name="android. service. notification. default_filter_types"
+                android:value="conversations|alerting">
+            </meta-data>
+            <meta-data
+                android:name="android. service. notification. disabled_filter_types"
+                android:value="ongoing|silent">
+            </meta-data>
         </service>
 
         <service android:name=".service.KeepAliveService"
             android:stopWithTask="false"
-            android:exported="true"/>
+            android:exported="true"
+            android:foregroundServiceType="dataSync"/>
 
         <!--https://techstop.github.io/android-broadcastreceiver/-->
         <receiver android:name=".receivers.NotificationServiceRestartReceiver"
