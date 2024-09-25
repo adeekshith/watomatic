@@ -1,5 +1,6 @@
 package com.parishod.watomatic.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
@@ -25,6 +26,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (autoStartPref != null) {
             autoStartPref.setOnPreferenceClickListener(preference -> {
                 checkAutoStartPermission();
+                return true;
+            });
+        }
+
+        SwitchPreference foregroundServiceNotifPref = findPreference(getString(R.string.pref_show_foreground_service_notification));
+        if (foregroundServiceNotifPref != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                foregroundServiceNotifPref.setVisible(false);
+            }
+            foregroundServiceNotifPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (newValue.equals(true)) {
+                    ServieUtils.getInstance(getActivity()).startNotificationService();
+                } else {
+                    ServieUtils.getInstance(getActivity()).stopNotificationService();
+                }
                 return true;
             });
         }
