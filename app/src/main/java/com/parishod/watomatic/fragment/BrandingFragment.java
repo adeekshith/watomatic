@@ -47,7 +47,7 @@ public class BrandingFragment extends Fragment {
     private Button watomaticSubredditBtn, whatsNewBtn;
     private List<String> whatsNewUrls;
     private int gitHubReleaseNotesId = -1;
-    private final List<String> communityUrls = Arrays.asList("https://t.me/watomatic",
+    private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
             "https://twitter.com/watomatic",
             "https://www.reddit.com/r/watomatic");
