@@ -2,6 +2,9 @@ package com.parishod.watomatic.model.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import androidx.core.app.ShareCompat;
+import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.settings.SettingsActivity;
 
 public class AppUtils {
     final private Context appContext;
@@ -27,5 +30,22 @@ public class AppUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void launchEmailCompose(String subject, String body) {
+        try {
+            ShareCompat.IntentBuilder intentBuilder = new ShareCompat.IntentBuilder(appContext);
+            intentBuilder
+                    .setType("text/plain")
+                    .addEmailTo(Constants.EMAIL_ADDRESS)
+                    .setSubject(subject)
+                    .setText(body)
+                    //.setHtmlText(body) //If you are using HTML in your body text
+                    .setChooserTitle(appContext.getResources().getString(R.string.send_app_logs))
+                    .startChooser();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

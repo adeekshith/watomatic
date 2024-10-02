@@ -37,4 +37,5 @@ object Constants {
     const val EMAIL_ADDRESS = "watomatic@deekshith.in"
     const val EMAIL_SUBJECT = "Watomatic-Feedback"
     const val TELEGRAM_URL = "tg://resolve?domain=watomatic"
+    const val APP_LOGS_EMAIL_SUBJECT = "Watomatic App Logs"
 }

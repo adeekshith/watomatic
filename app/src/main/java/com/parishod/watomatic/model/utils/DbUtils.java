@@ -8,6 +8,8 @@ import com.parishod.watomatic.model.logs.AppPackage;
 import com.parishod.watomatic.model.logs.MessageLog;
 import com.parishod.watomatic.model.logs.MessageLogsDB;
 
+import java.util.List;
+
 public class DbUtils {
     private final Context mContext;
 
@@ -25,7 +27,7 @@ public class DbUtils {
         messageLogsDB.logsDao().purgeMessageLogs();
     }
 
-    public void logReply(StatusBarNotification sbn, String title) {
+    public void logReply(StatusBarNotification sbn, String title, boolean isReplied, String event) {
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(mContext);
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
@@ -34,7 +36,8 @@ public class DbUtils {
             messageLogsDB.appPackageDao().insertAppPackage(appPackage);
             packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         }
-        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(), System.currentTimeMillis());
+        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(),
+                System.currentTimeMillis(), isReplied, event);
         messageLogsDB.logsDao().logReply(logs);
     }
 
@@ -46,5 +49,15 @@ public class DbUtils {
     public long getFirstRepliedTime() {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getFirstRepliedTime();
+    }
+
+    public List<MessageLog> getAppLogs(){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.logsDao().getAppLogs();
+    }
+
+    public String getPackageName(int index){
+        MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
+        return messageLogsDB.appPackageDao().getPackageName(index);
     }
 }
