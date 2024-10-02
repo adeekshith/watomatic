@@ -127,4 +127,6 @@
     <string name="current_donation_progress">Estat actual de la donació</string>
     <string name="error_name_cannot_be_blank">El nom no pot estar en blanc</string>
     <string name="error_name_cannot_be_duplicate">Aquest nom ja existeix</string>
+    <string name="post_notification_permission_snackbar_text">Aquesta aplicació requereix permisos de notificacions. Habiliteu-los a la configuració.</string>
+    <string name="post_notification_permission_snackbar_setting">Configuració</string>
 </resources>
