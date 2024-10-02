@@ -205,4 +205,7 @@
     <string name="current_donation_progress">Current donation progress</string>
     <string name="error_name_cannot_be_blank">Name cannot be blank</string>
     <string name="error_name_cannot_be_duplicate">Name already present</string>
+
+    <string name="post_notification_permission_snackbar_text">Notification permissions are required for this app. Enable it in settings.</string>
+    <string name="post_notification_permission_snackbar_setting">Settings</string>
 </resources>
