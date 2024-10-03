@@ -7,12 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Setup JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: '17'
+          distribution: 'zulu'
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -29,7 +30,7 @@ jobs:
         shell: bash
 
       - name: Upload Default Apk
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         id: upload
         with:
           name: PR-${{ github.event.number }}
@@ -45,7 +46,7 @@ jobs:
         shell: bash
 
       - name: Upload GooglePlay Apk
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         id: upload-googpe-play
         with:
           name: PR-${{ github.event.number }}-googleplay
