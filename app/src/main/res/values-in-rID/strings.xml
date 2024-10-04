@@ -42,6 +42,7 @@
     <string name="share_app_text">Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah: watomatic.app</string>
     <string name="share">Bagikan</string>
     <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
+    <string name="watomatic_community_label"><u>Komunitas</u></string>
     <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Apa yang Baru?</string>
     <!-- Share debug logs -->
