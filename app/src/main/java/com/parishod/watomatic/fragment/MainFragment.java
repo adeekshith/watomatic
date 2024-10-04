@@ -27,11 +27,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.NotificationService;
@@ -68,6 +71,7 @@ import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_AP
 public class MainFragment extends Fragment {
 
     private static final int REQ_NOTIFICATION_LISTENER = 100;
+    private static final int NOTIFICATION_REQUEST_CODE = 101;
     CardView autoReplyTextPreviewCard, timePickerCard;
     TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
     CustomRepliesData customRepliesData;
@@ -131,6 +135,12 @@ public class MainFragment extends Fragment {
 //                launchNotificationAccessSettings();
                 showPermissionsDialog();
             } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (!isPostNotificationPermissionGranted()) {
+                        checkNotificationPermission();
+                        return;
+                    }
+                }
                 preferencesManager.setServicePref(isChecked);
                 if (isChecked) {
                     startNotificationService();
@@ -179,8 +189,47 @@ public class MainFragment extends Fragment {
         });
 
         setNumDays();
-
+        if (!isPostNotificationPermissionGranted()) {
+            checkNotificationPermission();
+        }
         return view;
+    }
+
+    private void checkNotificationPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(mActivity, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST_CODE);
+        }
+    }
+
+    private boolean isPostNotificationPermissionGranted(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+        }
+        return true;
+    }
+
+    private void showPostNotificationPermissionDeniedSnackbar(View view){
+        Snackbar.make(view, mActivity.getResources().getString(R.string.post_notification_permission_snackbar_text), Snackbar.LENGTH_INDEFINITE)
+                .setAction(mActivity.getResources().getString(R.string.post_notification_permission_snackbar_setting), view1 -> {
+                    // Open app settings
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", view1.getContext().getPackageName(), null);
+                    intent.setData(uri);
+                    view1.getContext().startActivity(intent);
+                }).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == NOTIFICATION_REQUEST_CODE){
+            // If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Displaying a toast
+            } else {
+                // Displaying another toast if permission is not granted
+                showPostNotificationPermissionDeniedSnackbar(mainAutoReplySwitch);
+            }
+        }
     }
 
     private List<App> getEnabledApps() {
@@ -274,11 +323,15 @@ public class MainFragment extends Fragment {
         // A list with valid installers package name
         List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
 
-        // The package name of the app that has installed your app
-        final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+        try {
+            // The package name of the app that has installed your app
+            final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
 
-        // true if your app has been downloaded from Play Store
-        return installer != null && validInstallers.contains(installer);
+            // true if your app has been downloaded from Play Store
+            return installer != null && validInstallers.contains(installer);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private boolean isAppUsedSufficientlyToAskRating() {
@@ -344,21 +397,23 @@ public class MainFragment extends Fragment {
     }
 
     private void launchAppLegacy() {
-        Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
-        List<ResolveInfo> list = getActivity().getPackageManager()
-                .queryIntentActivities(intent, 0);
-        List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
-                .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
-        Set<String> excludeIntents = new HashSet<>();
-        for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
-            excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
-        }
-        //Check for non browser application
-        for (ResolveInfo resolveInfo : list) {
-            if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
-                intent.setPackage(resolveInfo.activityInfo.packageName);
-                mActivity.startActivity(intent);
-                break;
+        if(getActivity() != null) {
+            Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
+            List<ResolveInfo> list = getActivity().getPackageManager()
+                    .queryIntentActivities(intent, 0);
+            List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+            Set<String> excludeIntents = new HashSet<>();
+            for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
+                excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+            }
+            //Check for non browser application
+            for (ResolveInfo resolveInfo : list) {
+                if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
+                    intent.setPackage(resolveInfo.activityInfo.packageName);
+                    mActivity.startActivity(intent);
+                    break;
+                }
             }
         }
     }
@@ -484,7 +539,7 @@ public class MainFragment extends Fragment {
     }
 
     private void startNotificationService() {
-        if (preferencesManager.isForegroundServiceNotificationEnabled()) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled()) {
             ServieUtils.getInstance(mActivity).startNotificationService();
         }
     }

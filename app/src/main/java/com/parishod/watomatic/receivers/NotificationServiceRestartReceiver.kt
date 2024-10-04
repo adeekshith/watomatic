@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
 import com.parishod.watomatic.NotificationService
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -21,15 +22,19 @@ class NotificationServiceRestartReceiver : BroadcastReceiver() {
 
     private fun restartService(context: Context) {
         val preferencesManager = PreferencesManager.getPreferencesInstance(context)
-        if (preferencesManager.isForegroundServiceNotificationEnabled) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled) {
             val serviceIntent = Intent(context, KeepAliveService::class.java)
             // ToDo: Should probably start using foreground service to prevent IllegalState exception below
             try {
-                context.startService(serviceIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent)
+                } else {
+                    context.startService(serviceIntent)
+                }
             } catch (e: IllegalStateException) {
                 Log.e("NotifServiceRestart", "Unable to restart notification service")
             }
-        } else {
+        }else{
             enableService(context)
         }
     }

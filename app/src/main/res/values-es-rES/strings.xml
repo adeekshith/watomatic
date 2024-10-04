@@ -128,4 +128,6 @@
     <string name="current_donation_progress">Estado actual de la donación</string>
     <string name="error_name_cannot_be_blank">El nombre no puede estar en blanco</string>
     <string name="error_name_cannot_be_duplicate">Contacto ya existente</string>
+    <string name="post_notification_permission_snackbar_text">Se requieren permisos de notificación para esta aplicación. Habilítelo en Configuración.</string>
+    <string name="post_notification_permission_snackbar_setting">Configuración</string>
 </resources>

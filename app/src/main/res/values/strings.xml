@@ -103,6 +103,7 @@
     <string name="lang_ru_rRU" translatable="false">Pусский (ru-RU)</string>
     <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-IN)</string>
     <string name="lang_tr_rTR" translatable="false">Türkçe (tr-TR)</string>
+    <string name="lang_hi_rIN" translatable="false">हिंदी (hi-IN)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
@@ -123,6 +124,7 @@
     <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
     <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
+    <string name="lang_code_hi_rIN" translatable="false">hi-IN</string>
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
@@ -205,4 +207,7 @@
     <string name="current_donation_progress">Current donation progress</string>
     <string name="error_name_cannot_be_blank">Name cannot be blank</string>
     <string name="error_name_cannot_be_duplicate">Name already present</string>
+
+    <string name="post_notification_permission_snackbar_text">Notification permissions are required for this app. Enable it in settings.</string>
+    <string name="post_notification_permission_snackbar_setting">Settings</string>
 </resources>
