@@ -19,6 +19,7 @@
         <item>@string/lang_ru_rRU</item>
         <item>@string/lang_ta_rIN</item>
         <item>@string/lang_tr_rTR</item>
+        <item>@string/lang_hi_rIN</item>
 
     </string-array>
 
@@ -41,6 +42,7 @@
         <item>@string/lang_code_ru_rRU</item>
         <item>@string/lang_code_ta_rIN</item>
         <item>@string/lang_code_tr_rTR</item>
+        <item>@string/lang_code_hi_rIN</item>
     </string-array>
 
     <string-array name="contact_reply_type">

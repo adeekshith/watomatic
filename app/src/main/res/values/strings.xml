@@ -103,6 +103,7 @@
     <string name="lang_ru_rRU" translatable="false">Pусский (ru-RU)</string>
     <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-IN)</string>
     <string name="lang_tr_rTR" translatable="false">Türkçe (tr-TR)</string>
+    <string name="lang_hi_rIN" translatable="false">हिंदी (hi-IN)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
@@ -123,6 +124,7 @@
     <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
     <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
+    <string name="lang_code_hi_rIN" translatable="false">hi-IN</string>
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
