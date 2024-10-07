@@ -10,7 +10,7 @@
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
     <string name="mainAutoReplySwitchOnLabel">Balasan otomatis AKTIF</string>
-    <string name="mainAutoReplyEditBtnTooltip">Klik untuk mengedit teks balasan otomatis</string>
+    <string name="mainAutoReplyEditBtnTooltip">Klik untuk mengubah teks balasan otomatis</string>
     <string name="to_help_you_leave_whatsapp">Balas otomatis untuk membantu Anda meninggalkan WhatsApp dan Facebook messenger</string>
     <string name="decline">Tolak</string>
     <string name="accept">Terima</string>
@@ -127,4 +127,6 @@
     <string name="current_donation_progress">Kemajuan donasi saat ini</string>
     <string name="error_name_cannot_be_blank">Nama tidak boleh kosong</string>
     <string name="error_name_cannot_be_duplicate">Nama sudah ada</string>
+    <string name="post_notification_permission_snackbar_text">Izin notifikasi diperlukan untuk aplikasi ini. Aktifkan di pengaturan.</string>
+    <string name="post_notification_permission_snackbar_setting">Pengaturan</string>
 </resources>
