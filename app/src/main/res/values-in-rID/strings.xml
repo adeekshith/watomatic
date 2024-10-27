@@ -5,7 +5,7 @@
     <string name="settings">Pengaturan</string>
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
-    <string name="mainAutoReplyTextPlaceholder">(Balasan Kustom)</string>
+    <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
     <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
@@ -25,7 +25,7 @@
     <string name="enable_auto_reply_switch_msg">Pertama Aktifkan Tombol Balas Otomatis.</string>
     <string name="error_atleast_single_app_must_be_selected">Kesalahan: Pilih setidaknya satu aplikasi</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">Balasan otomatis untuk Obrolan grup</string>
+    <string name="groupReplySwitchLabel">Balasan otomatis untuk obrolan Grup</string>
     <string name="group_reply_on_info_message">Balasan otomatis diaktifkan untuk obrolan grup</string>
     <string name="group_reply_off_info_message">Balasan otomatis dinonaktifkan untuk obrolan grup</string>
     <string name="time_picker_title">Frekuensi balasan (BETA)</string>
@@ -37,7 +37,7 @@
     <!-- Custom message editor -->
     <string name="save">Simpan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Tambahkan arribusi Watomatic untuk membantu menyebarkan berita</string>
+    <string name="append_watomatic_arribution_checkbox_label">Tambahkan atribusi Watomatic untuk membantu menyebarkan berita</string>
     <string name="sent_using_Watomatic">Dikirim menggunakan watomatic.app</string>
     <string name="share_app_text">Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah: watomatic.app</string>
     <string name="share">Bagikan</string>
