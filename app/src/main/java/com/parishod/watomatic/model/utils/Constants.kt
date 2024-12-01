@@ -28,7 +28,7 @@ object Constants {
     val SUPPORTED_APPS: Set<App> = setOf(
             App("WhatsApp", "com.whatsapp"),
             App("Facebook Messenger", "com.facebook.orca"),
-            // App("Facebook Messenger Lite", "com.facebook.mlite"),
+            App("WhatsApp Business", "com.whatsapp.w4b")
     )
 
     const val MIN_DAYS = 0
