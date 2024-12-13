@@ -1,104 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">वॉटोमैटिक</string>
-    <string name="about">ऐप के बारे में</string>
-    <string name="settings">सेटिंग</string>
-    <string name="privacy_policy_label">गोपनीयता नीति</string>
-    <string name="service_name">आने वाले मेसिज नोटिफिकेशन सुननेवाला</string>
-    <string name="mainAutoReplyTextPlaceholder">(कस्टम रिप्लाई)</string>
-    <string name="auto_reply_default_message">ऑटो रिप्लाई\n⚠️ यूजर उपलब्ध नहीं है</string>
-    <string name="mainAutoReplyLabel">ऑटो रिप्लाई मेसिज</string>
-    <string name="mainAutoReplySwitchOffLabel">ऑटो रिप्लाई बंद</string>
-    <string name="mainAutoReplySwitchOnLabel">ऑटो रिप्लाई चालू</string>
-    <string name="mainAutoReplyEditBtnTooltip">ऑटो रिप्लाई मेसिज को एडिट करने के लिए क्लिक करें</string>
-    <string name="to_help_you_leave_whatsapp">व्हाट्सएप और फेसबुक मैसेंजर छोड़ने में आपकी मदद के लिए ऑटो रिप्लाई</string>
-    <string name="decline">अस्वीकार</string>
-    <string name="accept">स्वीकार करें</string>
-    <string name="sure">मुझे यकीन है</string>
-    <string name="retry">फिर से प्रयास करें</string>
-    <string name="permission_dialog_title">अनुमति आवश्यक है</string>
-    <string name="permission_dialog_msg">इस ऐप को काम करने के लिए नोटिफिकेशन एक्सेस अनुमतियों की आवश्यकता है।</string>
-    <string name="permission_dialog_denied_title">अनुमति नहीं मिली</string>
-    <string name="permission_dialog_denied_msg">इस अनुमति के बिना ऐप नोटिफिकेशन का ऑटो-रिप्लाई करने में असमर्थ है। क्या आप वाकई अनुमति अस्वीकार करना चाहते हैं?</string>
     <!-- Select apps to auto reply -->
-    <string name="enable_for_apps">इन ऐप्स के लिए चालू करें</string>
-    <string name="enable_auto_reply_switch_msg">पहले ऑटो रिप्लाई स्विच चालू करें।</string>
-    <string name="error_atleast_single_app_must_be_selected">एरर: कम से कम एक ऐप चुनें</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">ग्रुप चैट के लिए ऑटो रिप्लाई</string>
-    <string name="group_reply_on_info_message">ग्रुप चैट के लिए ऑटो रिप्लाई चालू है</string>
-    <string name="group_reply_off_info_message">रुप चैट के लिए ऑटो रिप्लाई बंद है</string>
-    <string name="time_picker_title">रिप्लाई आवृत्ति (बीटा)</string>
-    <string name="time_picker_sub_title_default">बिना नियंत्रण के सभी संदेशों का उत्तर दें</string>
-    <string name="time_picker_sub_title">प्रत्येक व्यक्ति या ग्रुप के लिए प्रत्येक %1$d दिन में केवल एक बार उत्तर दें</string>
-    <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">रिप्लाई के बीच समय विलंब को एडिट करने के लिए क्लिक करें</string>
-    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
-    <string name="save">सेव</string>
-    <string name="tip_view_messages_from_fellow_users">🦩 <u>कम्युनिटी से टेम्प्लेट देखें और अपना भी साझा करें ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">इसे फैलाने में मदद के लिए वॉटोमैटिक ऐट्रिब्यूशन जोड़ें</string>
-    <string name="sent_using_Watomatic">watomatic.app का उपयोग करके भेजा गया</string>
-    <string name="share_app_text">मैं व्हाट्सएप से अलग होने के लिए वॉटोमैटिक का उपयोग कर रहा हूं। इसे आज़माएं: watomatic.app</string>
-    <string name="share">शेयर</string>
-    <string name="share_subject">वॉटोमैटिक: व्हाट्सएप के लिए ऑटो रिप्लाई</string>
-    <string name="watomatic_community_label"><u>कम्युनिटी</u></string>
-    <string name="watomatic_subreddit_label"><u>आइये चर्चा करते हैं\nr/watomatic</u></string>
-    <string name="watomatic_whatsnew_label">क्या नया है?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">रिप्लाई दिए गए संदेशों के लिए नोटिफिकेशन दिखाएं</string>
-    <string name="preference_category_general_label">सामान्य सेटिंग्स</string>
-    <string name="preference_category_notifications_label">नोटिफिकेशन</string>
-    <string name="preference_category_troubleshooting_label">समस्या निवारण</string>
-    <string name="enable_auto_start_label">ऑटो स्टार्ट चालू करें</string>
-    <string name="add_attribution_label">ऐट्रिब्यूशन जोड़ें</string>
-    <string name="always_on_notification">ऑल्वेज़-ऑन नोटिफिकेशन</string>
-    <string name="display_persistent_notification_summary">यह सुनिश्चित करने के लिए लगातार नोटिफिकेशन प्रदर्शित करें कि सिस्टम द्वारा वॉटोमैटिक को बंद न किया जाए</string>
-    <string name="enable_auto_start_summary">कुछ डिवाइसों के लिए आपको डिवाइस सेटिंग्स से वॉटोमैटिक के लिए ऑटो स्टार्ट को मैन्युअल रूप से सक्षम करने की आवश्यकता हो सकती है</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
-    <string name="app_language">ऐप भाषा</string>
     <!-- App Rating Dialog -->
-    <string name="app_rating_dialog_title">क्या हैं आपकी राय?</string>
-    <string name="app_rating_dialog_msg">हमें इसमें रुचि है कि आप ऐप के बारे में क्या सोचते हैं। इसे रेट करने के लिए ऊपर दिए गए सितारों को टैप करें।</string>
-    <string name="app_rating_dialog_rate_button_title">रेट करें!</string>
-    <string name="app_rating_dialog_rate_later_title">बाद में</string>
-    <string name="app_rating_goto_store_dialog_title">हमें खुशी हैं!</string>
-    <string name="app_rating_goto_store_dialog_msg">कृपया हमारे ऐप की इस रेटिंग को \"जारी रखें\" पर टैप करके Google Play Store पर साझा करें!</string>
-    <string name="app_rating_goto_store_dialog_button1_title">रुचि नहीं हैं</string>
-    <string name="app_rating_goto_store_dialog_button2_title">जारी रखें</string>
-    <string name="app_rating_feedback_dialog_title">संपर्क करें</string>
-    <string name="app_rating_feedback_dialog_msg">हमें बताएं कि हम कैसे सुधार कर सकते हैं।</string>
-    <string name="app_rating_feedback_dialog_mail_button_title">हमें ईमेल करें</string>
-    <string name="app_rating_feedback_dialog_telegram_button_title">टेलीग्राम</string>
     <!--Autostart Permission Dialog-->
-    <string name="auto_start_permission_dialog_title">ऑटोस्टार्ट अनुमति</string>
-    <string name="running_in_the_background">बैकग्राउंड में चल रहा है</string>
-    <string name="device_based_settings_message">नोट: आपके डिवाइस के आधार पर सेटिंग्स अलग या अनुपलब्ध भी हो सकती हैं</string>
-    <string name="setting_not_available_for_device">यह सेटिंग उपलब्ध नहीं है या आपके डिवाइस के लिए इसकी आवश्यकता नहीं हो सकती है।</string>
-    <string name="enable_auto_start_setting">आगे बढ़े</string>
-    <string name="decline_auto_start_setting">रद्द करें</string>
-    <string name="app_not_installed_text">इन्स्टॉल्ड नहीं हे</string>
-    <string name="advanced_settings">एडवांस सेटिंग</string>
-    <string name="contact_based_reply">संपर्क आधारित रिप्लाई करें</string>
-    <string name="contact_reply_type">किन्हे रिप्लाई करें</string>
-    <string name="blacklist">चयनित संपर्कों को छोड़कर सभी</string>
-    <string name="whitelist">चयनित संपर्कों को छोड़कर कोई नहीं</string>
-    <string name="enable_contact_based_reply">संपर्क आधारित रिप्लाई चालू करें</string>
-    <string name="select_contacts">संपर्क चुनें</string>
-    <string name="select_all">सबका चयन करें</string>
-    <string name="select_none">कुछ मत चुनिए</string>
-    <string name="contact_permission_dialog_msg">नामों को फ़िल्टर करने और इस सुविधा को चालू करने के लिए संपर्क पढ़ने की अनुमति आवश्यक है। क्या आप जारी रखना चाहते हैं?</string>
-    <string name="contact_permission_dialog_proceed">आगे बढ़े</string>
-    <string name="contact_permission_dialog_cancel">रद्द करें</string>
-    <string name="undo">नष्त करें</string>
-    <string name="all_contacts_selected">सभी संपर्क चयनित</string>
-    <string name="all_contacts_unselected">सभी संपर्क अचयनित</string>
-    <string name="delete">डिलीट</string>
-    <string name="error_name_cannot_be_blank">नाम रिक्त नहीं हो सकता</string>
-    <string name="error_name_cannot_be_duplicate">नाम पहले से मौजूद है</string>
 </resources>
