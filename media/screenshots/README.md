@@ -1,6 +1,6 @@
 [❰ Back to home](../../README.md)
 
-# Screenshots | Watomatic
+# Screenshots | Atomatic
 
 | <img src="./1.png" alt="Scr 1">  |  <img src="./2.png" alt="scr 2">  |  <img src="./3.png" alt="Scr 3">  |  <img src="./4.png" alt="Scr 4">  |
 | ------------------------------------------- | ------------------------------------------ | ------- | ------ |
