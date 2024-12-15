@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
+    <string name="app_name">Atomatic</string>
     <string name="about">Honi buruz</string>
     <string name="settings">Ezarpenak</string>
     <string name="privacy_policy_label">Pribatutasun politika</string>

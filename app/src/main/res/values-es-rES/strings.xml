@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
+    <string name="app_name">Atomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
     <string name="privacy_policy_label">Política de privacidad</string>
-    <string name="service_name">Watomatic: Acceso a mensajes</string>
+    <string name="service_name">Atomatic: Acceso a mensajes</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta personalizada)</string>
     <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de respuesta automática</string>
