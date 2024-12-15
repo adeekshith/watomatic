@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">Pri</string>
     <string name="settings">Agordoj</string>
     <string name="privacy_policy_label">Privateca Politiko</string>
@@ -20,7 +19,7 @@
     <!-- Custom message editor -->
     <string name="save">Konservu</string>
     <string name="share">Kunhavigi</string>
-    <string name="share_subject">Atomatic: Aŭtomata Respondo por WhatsApp</string>
+    <string name="share_subject">Watomatic: Aŭtomata Respondo por WhatsApp</string>
     <string name="watomatic_whatsnew_label">Kio novas?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
