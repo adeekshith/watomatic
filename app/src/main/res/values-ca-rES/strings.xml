@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Atomatic</string>
     <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privadesa</string>
