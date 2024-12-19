@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
-    <string name="about">À propos de Atomatic</string>
+    <string name="about">À propos de Watomatic</string>
     <string name="settings">Paramètres</string>
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="service_name">Nom du service</string>

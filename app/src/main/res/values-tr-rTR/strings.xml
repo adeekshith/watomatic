@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">Hakkında </string>
     <string name="settings">Ayarlar </string>
     <string name="privacy_policy_label">Gizlilik Politikası </string>

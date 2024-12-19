@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">பற்றி</string>
     <string name="settings">அமைப்புகள்</string>
     <string name="privacy_policy_label">தனியுரிமைக் கொள்கை</string>

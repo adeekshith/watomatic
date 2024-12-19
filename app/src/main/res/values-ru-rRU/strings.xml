@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
     <string name="privacy_policy_label">Политика конфиденциальности</string>

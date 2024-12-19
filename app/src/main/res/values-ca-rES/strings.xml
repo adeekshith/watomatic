@@ -4,7 +4,7 @@
     <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privadesa</string>
-    <string name="service_name">Atomatic: Accés a missatges</string>
+    <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
@@ -38,8 +38,8 @@
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
-    <string name="sent_using_Watomatic">Enviat amb atomatic.app</string>
-    <string name="share_app_text">Utilitzo el Atomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
+    <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
+    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
     <string name="watomatic_community_label"><u>Comunitat</u></string>

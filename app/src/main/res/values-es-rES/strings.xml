@@ -5,7 +5,7 @@
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
     <string name="privacy_policy_label">Política de privacidad</string>
-    <string name="service_name">Atomatic: Acceso a mensajes</string>
+    <string name="service_name">Watomatic: Acceso a mensajes</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta personalizada)</string>
     <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de respuesta automática</string>
