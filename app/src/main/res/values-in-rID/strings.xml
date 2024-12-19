@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Atomatic</string>
     <string name="about">Tentang</string>
     <string name="settings">Pengaturan</string>
     <string name="privacy_policy_label">Kebijakan Privasi</string>
