@@ -14,7 +14,7 @@
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook messenger</string>
+    <string name="to_help_you_leave_whatsapp">Setup auto-reply to help you leave messaging apps</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
@@ -44,12 +44,12 @@
     <!-- Custom message editor -->
     <string name="save">Save</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
+    <string name="append_watomatic_arribution_checkbox_label">Append Atomatic arribution to help spread the word</string>
     <string name="sent_using_Watomatic">Sent using watomatic.app</string>
 
-    <string name="share_app_text">I am using Watomatic to break away from WhatsApp. Try it out: watomatic.app</string>
+    <string name="share_app_text">I am using Atomatic to break away from messaging apps. Try it out: watomatic.app</string>
     <string name="share">Share</string>
-    <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="share_subject">Atomatic: Auto Reply for Messaging apps</string>
     <string name="watomatic_community_label"><u>Community</u></string>
     <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
