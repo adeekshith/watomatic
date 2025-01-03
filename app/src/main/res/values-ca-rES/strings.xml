@@ -11,7 +11,6 @@
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
     <string name="mainAutoReplyEditBtnTooltip">Toqueu per editar el text de la resposta automàtica</string>
-    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-vos a deixar el WhatsApp i el Facebook Messenger</string>
     <string name="decline">Rebutja</string>
     <string name="accept">Accepta</string>
     <string name="sure">D\'acord</string>
@@ -37,11 +36,8 @@
     <!-- Custom message editor -->
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
     <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
-    <string name="share_app_text">Utilitzo el Watomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
     <string name="share">Comparteix</string>
-    <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
     <string name="watomatic_community_label"><u>Comunitat</u></string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novetats</string>
