@@ -10,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">מענה אוטומטי כבוי</string>
     <string name="mainAutoReplySwitchOnLabel">מענה אוטומטי מופעל</string>
     <string name="mainAutoReplyEditBtnTooltip">הקליקו כדי לערוך הודעה מותאמת אישית</string>
-    <string name="to_help_you_leave_whatsapp">מענה אוטומטי שעוזר להתרחק מוואטסאפ ופייסבוק מסנג\'ר</string>
     <string name="decline">סירוב</string>
     <string name="accept">קבלה</string>
     <string name="sure">אני בטוח/ה</string>
@@ -36,11 +35,8 @@
     <!-- Custom message editor -->
     <string name="save">שמירה</string>
     <string name="tip_view_messages_from_fellow_users">צפו בתבניות מוצעות על ידי הקהילה וחלוק גם את שלך</string>
-    <string name="append_watomatic_arribution_checkbox_label">אישור סיומת מאת יוצרי Watomatic כדי לעזור להפיץ את הבשורה</string>
     <string name="sent_using_Watomatic">נשלח באמצעות Watomatic.app</string>
-    <string name="share_app_text">אני עושה שימוש ב-Watomatic כדי להתאוורר ולהתרחק מוואטסאפ. נסו זאת בעצמכם watomatic.app</string>
     <string name="share">שיתוף</string>
-    <string name="share_subject">Watomatic: מענה אוטומטי לוואטסאפ</string>
     <string name="watomatic_community_label"><u>קהילה</u></string>
     <string name="watomatic_subreddit_label"><u>בואו לדון\n r/watomatic</u></string>
     <string name="watomatic_whatsnew_label">מה חדש?</string>
