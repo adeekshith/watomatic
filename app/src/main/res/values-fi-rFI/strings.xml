@@ -10,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Automaattinen vastaus pois käytöstä</string>
     <string name="mainAutoReplySwitchOnLabel">Automaattinen vastaus käytössä</string>
     <string name="mainAutoReplyEditBtnTooltip">Napsauta muokataksesi automaattisen vastauksen tekstiä</string>
-    <string name="to_help_you_leave_whatsapp">Automaattinen vastaus auttaa sinua poistumaan WhatsAppista ja Facebook Messengeristä</string>
     <string name="decline">Kieltäydy</string>
     <string name="accept">Hyväksy</string>
     <string name="sure">Olen varma</string>
@@ -36,11 +35,8 @@
     <!-- Custom message editor -->
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic-linkki auttaaksesi levittämään sanaa</string>
     <string name="sent_using_Watomatic">Lähetetty käyttäen watomatic.app</string>
-    <string name="share_app_text">Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin: watomatic.app</string>
     <string name="share">Jaa</string>
-    <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
     <string name="watomatic_whatsnew_label">Mitä uutta?</string>
     <!-- Share debug logs -->
