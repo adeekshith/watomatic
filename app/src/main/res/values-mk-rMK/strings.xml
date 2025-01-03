@@ -10,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Автоматскиот одговор е ИСКЛУЧЕН</string>
     <string name="mainAutoReplySwitchOnLabel">Автоматскиот одговор е ВКЛУЧЕН</string>
     <string name="mainAutoReplyEditBtnTooltip">Кликнете за да го уредите текстот за автоматски одговор</string>
-    <string name="to_help_you_leave_whatsapp">Автоматско одговарање за да ви помогнеме да го напуштите WhatsApp и Facebook messenger</string>
     <string name="decline">Одбиј</string>
     <string name="accept">Прифати</string>
     <string name="sure">Сигурен сум</string>
@@ -36,11 +35,8 @@
     <!-- Custom message editor -->
     <string name="save">Зачувај</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Прегледајте ги шаблоните од заедницата и споделете ги и вашите ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Додадете Watomatic препорака за да ги известите другите за оваа апликација</string>
     <string name="sent_using_Watomatic">Испратено со watomatic.app</string>
-    <string name="share_app_text">Јас го користам Watomatic за да го напуштам WhatsApp. Обидете се и вие: watomatic.app</string>
     <string name="share">Сподели</string>
-    <string name="share_subject">Watomatic: Автоматски одговори за WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Ајде да дискутираме\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Што е ново?</string>
     <!-- Share debug logs -->
