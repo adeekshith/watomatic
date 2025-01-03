@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Atomatic</string>
     <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="about">Acerca</string>
     <string name="settings">Ajustes</string>
@@ -11,7 +12,6 @@
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática apagada</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática encendida</string>
     <string name="mainAutoReplyEditBtnTooltip">Presione para editar el texto de la respuesta automática</string>
-    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudarte a salir de WhatsApp y Facebook messenger</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy Seguro</string>
@@ -37,11 +37,8 @@
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas tambien ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a difundir la palabra</string>
     <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
-    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. ¡Pruébalo: watomatic.app</string>
     <string name="share">Compartir</string>
-    <string name="share_subject">Watomatic: Respuesta automática para WhatsApp</string>
     <string name="watomatic_community_label"><u>Comunidad</u></string>
     <string name="watomatic_subreddit_label"><u>Discutamos en\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Qué hay de nuevo?</string>
