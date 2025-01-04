@@ -12,6 +12,7 @@
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática INACTIVA</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática ACTIVA</string>
     <string name="mainAutoReplyEditBtnTooltip">Toque para editar el texto de la respuesta automática</string>
+    <string name="to_help_you_leave_whatsapp">Configura la respuesta automática para ayudar a dejar las aplicaciones de mensajería</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy seguro</string>
@@ -37,8 +38,11 @@
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Permitir a Atomatic difundir su mensaje</string>
     <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
+    <string name="share_app_text">Utilizo Atomatic para desintoxicarme de aplicaciones de mensajería. Pruébalo en: watomatic.app</string>
     <string name="share">Compartir</string>
+    <string name="share_subject">Atomatic: Respuesta automática en aplicaciones de mensajería</string>
     <string name="watomatic_community_label"><u>Comunidad</u></string>
     <string name="watomatic_subreddit_label"><u>Hablemos de\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novedades</string>
