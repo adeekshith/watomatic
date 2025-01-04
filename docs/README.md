@@ -1,8 +1,8 @@
 <script href="language.js"></script>
 
-# Watomatic - Auto reply for WhatsApp so you can stop using it
+# Atomatic - Auto reply for messaging apps so you can stop using it
 
-Watomatic sends an automated reply to everyone contacting you on WhatsApp. This is especially useful if you are planning to migrate away from WhatsApp but can also be used as a vacation responder.
+Atomatic sends an automated reply to everyone contacting you on supported messaging apps. This is especially useful if you are planning to migrate away from them but can also be used as a vacation responder.
 
 <a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='assets/en_badge_web_generic.png' height="60" /></a>
 [<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
@@ -16,22 +16,23 @@ Watomatic sends an automated reply to everyone contacting you on WhatsApp. This 
 [**❯ More screenshots**](/screenshots.md)
 
 ### Features:
-- Auto reply to every WhatsApp message
+- Auto reply to every message
 - Set your own auto reply message
 - Auto reply to group chats
 - Respects your privacy
   - No analytics or tracking
 - Free an open source
 
-WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Watomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
+Example:
+WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy-friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Atomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
 
 This app is not associated with any company including WhatsApp, Facebook, Signal.
 
 ### Troubleshooting
 
-- Auto reply does not work even after Watomatic is enabled
+- Auto reply does not work even after Atomatic is enabled
   
-  Watomatic relies on WhatsApp notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure WhatsApp notifications are enabled and WhatsApp fingerprint lock is disabled for this app to work.
+  Atomatic relies on notifications for auto reply to work. Most users usually have notifications enabled so should work straight out of the box but otherwise please make sure notifications permissions are enabled and fingerprint lock is disabled for this app to work.
 
 ### FAQ
 
