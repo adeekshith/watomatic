@@ -11,6 +11,7 @@
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
     <string name="mainAutoReplyEditBtnTooltip">Toqueu per editar el text de la resposta automàtica</string>
+    <string name="to_help_you_leave_whatsapp">Configura la resposta automàtica per ajudar-vos a deixar les aplicacions de missatgeria</string>
     <string name="decline">Rebutja</string>
     <string name="accept">Accepta</string>
     <string name="sure">D\'acord</string>
