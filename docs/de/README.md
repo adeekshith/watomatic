@@ -1,6 +1,6 @@
-# Watomatic - Antwortet automatisch, damit du WhatsApp nicht mehr benutzen musst
+# Atomatic - Antwortet automatisch, damit du WhatsApp nicht mehr benutzen musst
 
-Watomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten, damit deine Freunde wissen, dass du WhatsApp nicht mehr benutzt. 
+Atomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten, damit deine Freunde wissen, dass du WhatsApp nicht mehr benutzt. 
 
 <a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='../assets/en_badge_web_generic.png' height="60" /></a>
 [<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
@@ -21,23 +21,23 @@ Watomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten,
   - Keine Analytics oder Tracker
 - Kostenlos und Open Source
 
-WhatsApp hat vor kurzem die Datenschutzerklärung geändert und hat damit viele Leute dazu gebracht, zu besseren Messengern zu wechseln. Das Problem ist aber dass viele Leute es schwierig finden, WhatsApp zu verlassen, da fast jeder WhatsApp benutzt. Watomatic hilft dir dabei, indem es deinen Freunden eine personalisierte Nachricht schickt, damit sie erfahren, dass du kein WhatsApp mehr benutzt, sondern nur noch Signal etc. benutzt.
+WhatsApp hat vor kurzem die Datenschutzerklärung geändert und hat damit viele Leute dazu gebracht, zu besseren Messengern zu wechseln. Das Problem ist aber dass viele Leute es schwierig finden, WhatsApp zu verlassen, da fast jeder WhatsApp benutzt. Atomatic hilft dir dabei, indem es deinen Freunden eine personalisierte Nachricht schickt, damit sie erfahren, dass du kein WhatsApp mehr benutzt, sondern nur noch Signal etc. benutzt.
 
 Diese App arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
 
 ### Problembehandlung
 
-- Watomatic antwortet nich, obwohl es aktiviert ist.
+- Atomatic antwortet nich, obwohl es aktiviert ist.
   
   Du musst die Benachrichtigungen aktiviert haben und den Fingerabdruck-Schutz deaktiviert haben.
 
 ### FAQ
 
-- Wieso benutzt Watomatic nicht WhatsApp Business für die Antworten?
+- Wieso benutzt Atomatic nicht WhatsApp Business für die Antworten?
   
   Du kannst WhatsApp Business nicht benutzen, ohne die neuen Datenschutzrichtlinien anzunehmen, was wir probieren zu vermeiden.
 
-- Wird Watomatic auch auf iOS verfügbar sein?
+- Wird Atomatic auch auf iOS verfügbar sein?
   
   Diese App benutzt die Android-Benchrichtigungen, welche es nicht auf iOS gibt, wie der Name schon sagt.
 
