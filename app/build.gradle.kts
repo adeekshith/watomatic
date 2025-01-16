@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         namespace = "com.parishod.watomatic"
