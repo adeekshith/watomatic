@@ -5,13 +5,13 @@
 Atomatic sends an automated reply to everyone contacting you on supported messaging apps. This is especially useful if you are planning to migrate away from them but can also be used as a vacation responder.
 
 <a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='assets/en_badge_web_generic.png' height="60" /></a>
-[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
+<a href='https://f-droid.org/en/packages/com.parishod.watomatic/'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg' height="60" /></a>
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
 ### [Screenshots](/screenshots.md)
 
-| [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/1.png" alt="Scr 1">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/2.png" alt="scr 2">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/3.png" alt="Scr 3">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/4.png" alt="Scr 4">][scr-page-link]  |
-| ------------------------------------------- | ------------------------------------------ | ------- | ------ |
+| [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/1.png" alt="Scr 1">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/2.png" alt="scr 2">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/3.png" alt="Scr 3">][scr-page-link]  |
+| ------------------------------------------- | ------------------------------------------ | ------- |
 
 [**❯ More screenshots**](/screenshots.md)
 
