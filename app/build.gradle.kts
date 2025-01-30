@@ -69,9 +69,6 @@ android {
             dimension = "version"
         }
     }
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
 }
 
 dependencies {
