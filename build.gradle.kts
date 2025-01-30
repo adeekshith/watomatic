@@ -1,13 +1,19 @@
 buildscript {
     extra.apply {
-        set("kotlin_version", "1.9.22")
+        set("kotlin_version", "2.1.0")
     }
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.7.3")
+        classpath("com.android.tools.build:gradle:8.8.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.extra["kotlin_version"]}")
 
         // NOTE: Do not place your application dependencies here; they belong
