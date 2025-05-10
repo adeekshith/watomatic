@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
-    <string name="about">À propos de Atomatic</string>
+    <string name="about">À propos de Watomatic</string>
     <string name="settings">Paramètres</string>
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="service_name">Nom du service</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Désactiver la réponse automatique</string>
     <string name="mainAutoReplySwitchOnLabel">Activer la réponse automatique</string>
     <string name="mainAutoReplyEditBtnTooltip">Cliquer pour modifier</string>
-    <string name="to_help_you_leave_whatsapp">Réponse automatique pour vous aider à quitter Whatsapp et Facebook messenger</string>
     <string name="decline">refuser</string>
     <string name="accept">accepter</string>
     <string name="sure">Je suis sûr·e</string>
@@ -36,11 +34,8 @@
     <!-- Custom message editor -->
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Ajouter le lien de l\'origine de la réponse automatique. Merci.</string>
     <string name="sent_using_Watomatic">Envoyé grâce à watomatic.app</string>
-    <string name="share_app_text">Merci à Watomatic de m\'aider à me débarasser de Whatsapp. Essayez le: watomatic.app</string>
     <string name="share">Partager</string>
-    <string name="share_subject">Watomatic: réponse automatique pour WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Parlons de\nr/watomatic</u></string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
