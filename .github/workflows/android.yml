@@ -53,20 +53,20 @@ jobs:
           path: ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }}
           retention-days: 2
 
-      - name: upload apk
-        uses: wei/curl@v1
-        with:
-          args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk -o apkpath.txt
+      # Diabled as uploading to transfer.sh is not working. Need to find another provider or self host one to get this working again
+      #- name: upload apk
+      #  uses: wei/curl@v1
+      #  with:
+      #    args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk -o apkpath.txt
 
+      #- name: upload apk
+      #  id: upload-apk-path-id
+      #  run: | 
+      #    echo "::set-output name=apk-path::$(cat apkpath.txt)"
+      #  shell: bash
 
-      - name: upload apk
-        id: upload-apk-path-id
-        run: | 
-          echo "::set-output name=apk-path::$(cat apkpath.txt)"
-        shell: bash
-
-      - name: commit
-        uses: mshick/add-pr-comment@v2
-        with:
-          message: |
-            **Download apk from path: ${{ steps.upload-apk-path-id.outputs.apk-path }}**
+      #- name: comment on PR with download link
+      #  uses: mshick/add-pr-comment@v2
+      #  with:
+      #    message: |
+      #      **Download apk from path: ${{ steps.upload-apk-path-id.outputs.apk-path }}**
