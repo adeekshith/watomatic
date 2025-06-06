@@ -64,6 +64,7 @@ android {
     productFlavors {
         create("GooglePlay") {
             dimension = "version"
+            applicationId = "com.parishod.atomatic"
         }
         create("Default") {
             dimension = "version"
