@@ -18,9 +18,11 @@ retrofit = "2.9.0"
 roomCompiler = "2.6.1"
 sequenceLayout = "1.1.1"
 workRuntime = "2.10.0"
+securityCrypto = "1.0.0"
 
 
 [libraries]
+security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 activity = { module = "androidx.activity:activity", version.ref = "activity" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 browser = { module = "androidx.browser:browser", version.ref = "browser" }

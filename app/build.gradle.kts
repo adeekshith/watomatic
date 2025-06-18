@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.sequence.layout)
     implementation(libs.browser)
+    implementation(libs.security.crypto)
 }
 repositories {
     mavenCentral()
