@@ -59,10 +59,11 @@ public class PreferencesManager {
         try {
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
 
+            // Corrected order: fileName, masterKeyAlias, context, scheme, scheme
             _encryptedSharedPrefs = EncryptedSharedPreferences.create(
-                context, // Use the context passed to the constructor
-                "watomatic_secure_prefs", // Changed file name
-                masterKeyAlias,
+                "watomatic_secure_prefs", // File name (String)
+                masterKeyAlias,           // Master Key Alias (String)
+                context,                  // Context
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
