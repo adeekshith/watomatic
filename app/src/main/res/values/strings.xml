@@ -210,4 +210,11 @@
 
     <string name="post_notification_permission_snackbar_text">Notification permissions are required for this app. Enable it in settings.</string>
     <string name="post_notification_permission_snackbar_setting">Settings</string>
+
+    <string name="pref_enable_openai_replies_title">Enable OpenAI Auto-Replies</string>
+    <string name="pref_enable_openai_replies_summary">Use OpenAI to generate smart replies</string>
+    <string name="pref_openai_api_key_title">OpenAI API Key</string>
+    <string name="pref_openai_api_key_summary_not_set">API Key not set</string>
+    <string name="pref_openai_api_key_summary_set">API Key is set</string>
+    <string name="pref_openai_api_key_dialog_title">Enter OpenAI API Key</string>
 </resources>

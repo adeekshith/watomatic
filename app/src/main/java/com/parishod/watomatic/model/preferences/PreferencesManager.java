@@ -3,8 +3,11 @@ package com.parishod.watomatic.model.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.util.Log; // Ensure Log is imported
 
 import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +17,12 @@ import com.parishod.watomatic.model.utils.AppUtils;
 import com.parishod.watomatic.model.utils.Constants;
 
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -37,13 +46,31 @@ public class PreferencesManager {
     private final String KEY_SELECTED_CONTACT_NAMES = "pref_selected_contacts_names";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
+    private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
+    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
+    private SharedPreferences _encryptedSharedPrefs;
     private final Context thisAppContext;
 
     private PreferencesManager(Context context) {
         thisAppContext = context;
         _sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+            // Corrected order: fileName, masterKeyAlias, context, scheme, scheme
+            _encryptedSharedPrefs = EncryptedSharedPreferences.create(
+                "watomatic_secure_prefs", // File name (String)
+                masterKeyAlias,           // Master Key Alias (String)
+                context,                  // Context
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e("PreferencesManager", "Error initializing EncryptedSharedPreferences", e);
+            _encryptedSharedPrefs = null;
+        }
         init();
     }
 
@@ -319,4 +346,42 @@ public class PreferencesManager {
         return _sharedPrefs.getString(KEY_REPLY_CONTACTS_TYPE, "pref_blacklist").equals("pref_blacklist");
     }
 
+    public void saveOpenAIApiKey(String apiKey) {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot save API key.");
+            return;
+        }
+        SharedPreferences.Editor editor = _encryptedSharedPrefs.edit();
+        editor.putString(KEY_OPENAI_API_KEY, apiKey);
+        editor.apply();
+    }
+
+    public String getOpenAIApiKey() {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot get API key.");
+            return null;
+        }
+        return _encryptedSharedPrefs.getString(KEY_OPENAI_API_KEY, null);
+    }
+
+    public void deleteOpenAIApiKey() {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot delete API key.");
+            return;
+        }
+        SharedPreferences.Editor editor = _encryptedSharedPrefs.edit();
+        editor.remove(KEY_OPENAI_API_KEY);
+        editor.apply();
+    }
+
+    public void setEnableOpenAIReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_OPENAI_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isOpenAIRepliesEnabled() {
+        // Default to false if not set
+        return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
 }
