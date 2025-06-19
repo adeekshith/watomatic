@@ -129,4 +129,10 @@
     <string name="error_name_cannot_be_duplicate">Nama sudah ada</string>
     <string name="post_notification_permission_snackbar_text">Izin notifikasi diperlukan untuk aplikasi ini. Aktifkan di pengaturan.</string>
     <string name="post_notification_permission_snackbar_setting">Pengaturan</string>
+    <string name="pref_enable_openai_replies_title">Aktifkan Balasan Otomatis OpenAI</string>
+    <string name="pref_enable_openai_replies_summary">Gunakan OpenAI untuk menghasilkan balasan cerdas</string>
+    <string name="pref_openai_api_key_title">Kunci API OpenAI</string>
+    <string name="pref_openai_api_key_summary_not_set">Kunci API tidak diatur</string>
+    <string name="pref_openai_api_key_summary_set">Kunci API telah diatur</string>
+    <string name="pref_openai_api_key_dialog_title">Masukkan Kunci API OpenAI</string>
 </resources>
