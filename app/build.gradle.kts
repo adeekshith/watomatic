@@ -10,7 +10,7 @@ android {
     defaultConfig {
         namespace = "com.parishod.watomatic"
         applicationId = "com.parishod.watomatic"
-        minSdk = 23
+        minSdk = 21
         targetSdk = 34
         versionCode = 29
         versionName = "1.29"

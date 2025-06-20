@@ -31,6 +31,15 @@
             android:dialogTitle="@string/pref_openai_api_key_dialog_title"
             app:iconSpaceReserved="false"
             android:dependency="pref_enable_openai_replies"/>
+
+        <ListPreference
+            android:key="pref_openai_model"
+            android:title="@string/pref_openai_model_title"
+            android:summary="@string/pref_openai_model_summary_default"
+            android:dialogTitle="@string/pref_openai_model_dialog_title"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false"
+            android:dependency="pref_enable_openai_replies"/>
       
     </PreferenceCategory>
 

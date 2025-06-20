@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
+import android.text.TextUtils; // Added import
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -150,8 +151,15 @@ public class NotificationService extends NotificationListenerService {
             messages.add(new Message("system", "You are a helpful assistant. Keep your replies concise."));
             messages.add(new Message("user", incomingMessage));
 
-            OpenAIRequest request = new OpenAIRequest("gpt-3.5-turbo", messages);
+            String modelForRequest = preferencesManager.getSelectedOpenAIModel();
+            if (TextUtils.isEmpty(modelForRequest)) { // Safety fallback
+                modelForRequest = "gpt-3.5-turbo";
+                Log.w(TAG, "Selected OpenAI model was empty, defaulting to gpt-3.5-turbo.");
+            }
+
+            OpenAIRequest request = new OpenAIRequest(modelForRequest, messages);
             String bearerToken = "Bearer " + preferencesManager.getOpenAIApiKey();
+            final String originalModelId = modelForRequest; // Capture for logging in case of retry
 
             openAIService.getChatCompletion(bearerToken, request).enqueue(new Callback<OpenAIResponse>() {
                 @Override
@@ -162,16 +170,60 @@ public class NotificationService extends NotificationListenerService {
                         response.body().getChoices().get(0).getMessage().getContent() != null) {
 
                         String aiReply = response.body().getChoices().get(0).getMessage().getContent().trim();
-                        Log.i(TAG, "OpenAI successful response: " + aiReply);
+                        Log.i(TAG, "OpenAI successful response with model " + originalModelId + ": " + aiReply);
                         sendActualReply(sbn, notificationWear, aiReply);
                     } else {
-                        Log.e(TAG, "OpenAI response not successful or empty. Code: " + response.code() + " - Message: " + response.message());
+                        int errorCode = response.code();
+                        String errorLogCommon = "OpenAI original request failed with model " + originalModelId + ". Code: " + errorCode + " - Message: " + response.message();
+                        Log.e(TAG, errorLogCommon);
                         if (response.errorBody() != null) {
                             try {
                                 Log.e(TAG, "Error body: " + response.errorBody().string());
                             } catch (Exception e) { Log.e(TAG, "Error reading error body", e); }
                         }
-                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+
+                        if (errorCode == 400 || errorCode == 404) {
+                            Log.w(TAG, "Attempting fallback to default model gpt-3.5-turbo due to error with model: " + originalModelId);
+
+                            List<Message> retryMessages = new ArrayList<>(); // Ensure 'messages' is final or effectively final if accessed from inner class
+                            retryMessages.add(new Message("system", "You are a helpful assistant. Keep your replies concise."));
+                            retryMessages.add(new Message("user", incomingMessage)); // Ensure incomingMessage is accessible
+
+                            OpenAIRequest retryRequest = new OpenAIRequest("gpt-3.5-turbo", retryMessages);
+                            // Bearer token is the same
+                            openAIService.getChatCompletion(bearerToken, retryRequest).enqueue(new Callback<OpenAIResponse>() {
+                                @Override
+                                public void onResponse(@NonNull Call<OpenAIResponse> retryCall, @NonNull Response<OpenAIResponse> retryResponse) {
+                                    if (retryResponse.isSuccessful() && retryResponse.body() != null &&
+                                        retryResponse.body().getChoices() != null && !retryResponse.body().getChoices().isEmpty() &&
+                                        retryResponse.body().getChoices().get(0).getMessage() != null &&
+                                        retryResponse.body().getChoices().get(0).getMessage().getContent() != null) {
+
+                                        String retryAiReply = retryResponse.body().getChoices().get(0).getMessage().getContent().trim();
+                                        Log.i(TAG, "OpenAI successful response with fallback model gpt-3.5-turbo: " + retryAiReply);
+                                        sendActualReply(sbn, notificationWear, retryAiReply);
+                                    } else {
+                                        String retryErrorLog = "OpenAI fallback request also failed. Code: " + retryResponse.code() + " - Message: " + retryResponse.message();
+                                        Log.e(TAG, retryErrorLog);
+                                        if (retryResponse.errorBody() != null) {
+                                            try {
+                                                Log.e(TAG, "Fallback error body: " + retryResponse.errorBody().string());
+                                            } catch (Exception e) { Log.e(TAG, "Error reading fallback error body", e); }
+                                        }
+                                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<OpenAIResponse> retryCall, @NonNull Throwable t) {
+                                    Log.e(TAG, "OpenAI fallback API call failed", t);
+                                    sendActualReply(sbn, notificationWear, fallbackReplyText);
+                                }
+                            });
+                        } else {
+                            // For other errors (401, 429, 5xx, etc.), directly use fallback
+                            sendActualReply(sbn, notificationWear, fallbackReplyText);
+                        }
                     }
                 }
 
