@@ -24,6 +24,7 @@ import java.util.List;
 public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
     private ListPreference openAIModelPreference;
+    private Preference openAIErrorDisplayPreference; // Added field
     private PreferencesManager preferencesManager; // Made into a field
 
     @Override
@@ -61,6 +62,10 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
                      openAIModelPreference.setEnabled(false);
                 }
                 loadOpenAIModels(); // Reload models with new key
+
+                // Clear any previous persistent error when API key changes
+                preferencesManager.clearOpenAILastPersistentError();
+                updateOpenAIErrorDisplay();
                 return true; // True to update the state/summary of the preference
             });
         }
@@ -82,6 +87,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
         openAIModelPreference = findPreference("pref_openai_model");
         if (openAIModelPreference != null) {
+            openAIModelPreference.setSummaryProvider(null); // Disable provider before custom summary
             openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
             openAIModelPreference.setEnabled(false);
             openAIModelPreference.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -99,17 +105,63 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
                 // Let's add a placeholder for now to save it via PreferencesManager eventually.
                 // This should be:
                 preferencesManager.saveSelectedOpenAIModel(modelId); // Using dedicated method
+
+                // Clear any previous persistent error when model selection changes successfully
+                preferencesManager.clearOpenAILastPersistentError();
+                updateOpenAIErrorDisplay();
                 return true;
             });
             loadOpenAIModels();
+        }
+
+        openAIErrorDisplayPreference = findPreference("pref_openai_persistent_error_display");
+        if (openAIErrorDisplayPreference != null) {
+            openAIErrorDisplayPreference.setOnPreferenceClickListener(preference -> {
+                String lastError = preferencesManager.getOpenAILastPersistentErrorMessage();
+                if (lastError != null) { // Only show toast and clear if there was an error
+                    preferencesManager.clearOpenAILastPersistentError();
+                    updateOpenAIErrorDisplay(); // Refresh the display
+                    Toast.makeText(requireActivity(), getString(R.string.pref_openai_error_dismiss_confirmation), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            });
+        }
+        updateOpenAIErrorDisplay(); // Initial call to set up display
+    }
+
+    private void updateOpenAIErrorDisplay() {
+        if (openAIErrorDisplayPreference == null || preferencesManager == null) {
+            return;
+        }
+
+        String errorMessage = preferencesManager.getOpenAILastPersistentErrorMessage();
+        long errorTimestamp = preferencesManager.getOpenAILastPersistentErrorTimestamp();
+        // Define a threshold, e.g., show errors from last 7 days
+        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000L;
+
+        if (errorMessage != null && (System.currentTimeMillis() - errorTimestamp < sevenDaysInMillis)) {
+            openAIErrorDisplayPreference.setVisible(true);
+            openAIErrorDisplayPreference.setTitle(getString(R.string.pref_openai_status_alert_title) + " (Click to dismiss)");
+            openAIErrorDisplayPreference.setSummary(errorMessage);
+            // Optionally set an error icon: openAIErrorDisplayPreference.setIcon(R.drawable.ic_error_warning);
+        } else {
+            openAIErrorDisplayPreference.setTitle(getString(R.string.pref_openai_status_alert_title)); // Reset title
+            openAIErrorDisplayPreference.setSummary(getString(R.string.pref_openai_status_ok_summary));
+            // openAIErrorDisplayPreference.setIcon(null);
+            openAIErrorDisplayPreference.setVisible(true); // Or false if you prefer to hide it when no error
         }
     }
 
     private void loadOpenAIModels() {
         if (openAIModelPreference == null || preferencesManager == null) return;
 
+        openAIModelPreference.setSummaryProvider(null); // Disable provider
+        openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
+        openAIModelPreference.setEnabled(false);
+
         if (!preferencesManager.isOpenAIRepliesEnabled() ||
             TextUtils.isEmpty(preferencesManager.getOpenAIApiKey())) {
+            openAIModelPreference.setSummaryProvider(null); // Disable provider
             openAIModelPreference.setSummary(getString(R.string.pref_openai_model_summary_default));
             openAIModelPreference.setEnabled(false);
             openAIModelPreference.setEntries(new CharSequence[]{});
@@ -117,8 +169,8 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
             return;
         }
 
-        openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
-        openAIModelPreference.setEnabled(false);
+        // openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading)); // Already set
+        // openAIModelPreference.setEnabled(false); // Already set
 
         OpenAIHelper.fetchModels(requireActivity(), new OpenAIHelper.FetchModelsCallback() {
             @Override
@@ -167,21 +219,22 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
                         if (valueToSet != null) {
                             openAIModelPreference.setValue(valueToSet);
-                            // preferencesManager.saveSelectedOpenAIModel(valueToSet); // Explicit save if needed
                             preferencesManager.saveSelectedOpenAIModel(valueToSet); // Using dedicated method
-                            // Summary should be auto-updated by useSimpleSummaryProvider
-                            // If not, manually set: openAIModelPreference.setSummary(openAIModelPreference.getEntry());
+                            openAIModelPreference.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance()); // Re-enable default summary behavior
                         } else {
+                             openAIModelPreference.setSummaryProvider(null); // Disable provider
                              openAIModelPreference.setSummary(getString(R.string.pref_openai_model_not_set));
                         }
                          openAIModelPreference.setEnabled(true);
                     } else {
+                        openAIModelPreference.setSummaryProvider(null); // Disable provider
                         openAIModelPreference.setSummary(getString(R.string.pref_openai_model_no_compatible_found));
                         openAIModelPreference.setEntries(new CharSequence[0]);
                         openAIModelPreference.setEntryValues(new CharSequence[0]);
                         openAIModelPreference.setEnabled(false);
                     }
                 } else { // models list is null or empty from callback
+                    openAIModelPreference.setSummaryProvider(null); // Disable provider
                     openAIModelPreference.setSummary(getString(R.string.pref_openai_model_error));
                     openAIModelPreference.setEntries(new CharSequence[0]);
                     openAIModelPreference.setEntryValues(new CharSequence[0]);
@@ -192,6 +245,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
             @Override
             public void onError(String errorMessage) {
                 if (getActivity() == null) return;
+                openAIModelPreference.setSummaryProvider(null); // Disable provider
                 openAIModelPreference.setSummary(errorMessage);
                 openAIModelPreference.setEnabled(false);
                 openAIModelPreference.setEntries(new CharSequence[0]);
@@ -225,6 +279,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         if (openAIModelPreference != null) { // Check if initialized
             loadOpenAIModels();
         }
+        updateOpenAIErrorDisplay(); // Refresh error display on resume
     }
 
     private void restartApp() {

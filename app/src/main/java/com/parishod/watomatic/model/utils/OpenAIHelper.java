@@ -7,6 +7,7 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.network.OpenAIService;
 import com.parishod.watomatic.network.RetrofitInstance;
 import com.parishod.watomatic.network.model.openai.ModelData;
+import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse; // Added import
 import com.parishod.watomatic.network.model.openai.OpenAIModelsResponse;
 
 import java.util.List;
@@ -63,7 +64,18 @@ public class OpenAIHelper {
                         callback.onModelsFetched(cachedModels);
                     }
                 } else {
+                    // Try to parse specific OpenAI error
+                    OpenAIErrorResponse parsedError = RetrofitInstance.parseOpenAIError(response);
+                    String specificErrorMessage = null;
+                    if (parsedError != null && parsedError.getError() != null && parsedError.getError().getMessage() != null) {
+                        specificErrorMessage = parsedError.getError().getMessage();
+                    }
+
                     String errorMsg = "Failed to fetch models. Code: " + response.code() + ", Message: " + response.message();
+                    if (specificErrorMessage != null && !specificErrorMessage.isEmpty()) {
+                        errorMsg += " (OpenAI: " + specificErrorMessage + ")";
+                    }
+
                     Log.e(TAG, errorMsg);
                     if (callback != null) {
                         callback.onError(errorMsg);

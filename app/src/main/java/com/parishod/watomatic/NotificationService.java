@@ -14,11 +14,11 @@ import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.network.OpenAIService;
-import com.parishod.watomatic.network.RetrofitInstance;
+import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
 import com.parishod.watomatic.network.model.openai.Message;
+import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse; // Added import
 import com.parishod.watomatic.network.model.openai.OpenAIRequest;
 import com.parishod.watomatic.network.model.openai.OpenAIResponse;
-import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
@@ -173,19 +173,39 @@ public class NotificationService extends NotificationListenerService {
                         Log.i(TAG, "OpenAI successful response with model " + originalModelId + ": " + aiReply);
                         sendActualReply(sbn, notificationWear, aiReply);
                     } else {
-                        int errorCode = response.code();
-                        String errorLogCommon = "OpenAI original request failed with model " + originalModelId + ". Code: " + errorCode + " - Message: " + response.message();
-                        Log.e(TAG, errorLogCommon);
-                        if (response.errorBody() != null) {
-                            try {
-                                Log.e(TAG, "Error body: " + response.errorBody().string());
-                            } catch (Exception e) { Log.e(TAG, "Error reading error body", e); }
+                        // Enhanced error parsing for initial call
+                        OpenAIErrorResponse parsedError = RetrofitInstance.parseOpenAIError(response);
+                        String openAIErrorMessage = (parsedError != null && parsedError.getError() != null && parsedError.getError().getMessage() != null) ? parsedError.getError().getMessage() : "No specific OpenAI error message.";
+                        String detailedApiError = "Original API call failed with model " + originalModelId + ". Code: " + response.code() + ". Message: " + response.message() + ". OpenAI: " + openAIErrorMessage;
+                        Log.e(TAG, detailedApiError);
+                        // No longer need to log generic errorBody here as parseOpenAIError would have tried.
+
+                        boolean shouldRetry = false;
+                        String specificErrorCode = (parsedError != null && parsedError.getError() != null) ? parsedError.getError().getCode() : null;
+                        String specificErrorType = (parsedError != null && parsedError.getError() != null) ? parsedError.getError().getType() : null;
+
+                        if (specificErrorCode != null && specificErrorCode.equals("insufficient_quota")) {
+                            String userFacingErrorMessage = "OpenAI: Insufficient quota. Please check your plan and billing details.";
+                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
+                            Log.e(TAG, userFacingErrorMessage + " (Model: " + originalModelId + ")");
+                            shouldRetry = false;
+                        } else if (response.code() == 401) { // Unauthorized - likely API key issue
+                            String userFacingErrorMessage = "OpenAI: Invalid API Key. Please check your API Key in settings.";
+                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
+                            Log.e(TAG, userFacingErrorMessage);
+                            shouldRetry = false;
+                        } else if (response.code() == 400 || response.code() == 404 || (specificErrorCode != null && specificErrorCode.equals("model_not_found")) || (specificErrorType != null && specificErrorType.equals("invalid_request_error"))) {
+                            // For model_not_found or general invalid_request_error that might be model related, we attempt retry.
+                            // No persistent error saved here as retry might fix it for the user temporarily.
+                            // If retry also fails for similar reasons, then we might save a persistent error.
+                            Log.w(TAG, "Suspected invalid model (" + originalModelId + ") or bad request. Attempting retry with default model. Details: " + detailedApiError);
+                            shouldRetry = true;
                         }
+                        // Add more conditions for specificErrorCode if needed for other non-retryable errors
 
-                        if (errorCode == 400 || errorCode == 404) {
-                            Log.w(TAG, "Attempting fallback to default model gpt-3.5-turbo due to error with model: " + originalModelId);
-
-                            List<Message> retryMessages = new ArrayList<>(); // Ensure 'messages' is final or effectively final if accessed from inner class
+                        if (shouldRetry) {
+                            // Log.w(TAG, "Attempting fallback to default model gpt-3.5-turbo due to error with model: " + originalModelId + ". Details: " + detailedApiError); // Already logged above with more detail
+                            List<Message> retryMessages = new ArrayList<>();
                             retryMessages.add(new Message("system", "You are a helpful assistant. Keep your replies concise."));
                             retryMessages.add(new Message("user", incomingMessage)); // Ensure incomingMessage is accessible
 
@@ -203,25 +223,33 @@ public class NotificationService extends NotificationListenerService {
                                         Log.i(TAG, "OpenAI successful response with fallback model gpt-3.5-turbo: " + retryAiReply);
                                         sendActualReply(sbn, notificationWear, retryAiReply);
                                     } else {
-                                        String retryErrorLog = "OpenAI fallback request also failed. Code: " + retryResponse.code() + " - Message: " + retryResponse.message();
-                                        Log.e(TAG, retryErrorLog);
-                                        if (retryResponse.errorBody() != null) {
-                                            try {
-                                                Log.e(TAG, "Fallback error body: " + retryResponse.errorBody().string());
-                                            } catch (Exception e) { Log.e(TAG, "Error reading fallback error body", e); }
+                                        OpenAIErrorResponse parsedRetryError = RetrofitInstance.parseOpenAIError(retryResponse);
+                                        String retryOpenAIErrorMessage = (parsedRetryError != null && parsedRetryError.getError() != null && parsedRetryError.getError().getMessage() != null) ? parsedRetryError.getError().getMessage() : "No specific OpenAI error message on retry.";
+                                        String detailedRetryApiError = "OpenAI fallback request (default model) also failed. Code: " + retryResponse.code() + ". Message: " + retryResponse.message() + ". OpenAI: " + retryOpenAIErrorMessage;
+                                        Log.e(TAG, detailedRetryApiError);
+
+                                        String retrySpecificErrorCode = (parsedRetryError != null && parsedRetryError.getError() != null) ? parsedRetryError.getError().getCode() : null;
+                                        if (retrySpecificErrorCode != null && retrySpecificErrorCode.equals("insufficient_quota")) {
+                                            String userFacingErrorMessage = "OpenAI: Insufficient quota (even for default model). Please check your plan and billing details.";
+                                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
+                                            Log.e(TAG, userFacingErrorMessage);
                                         }
+                                        // Potentially save other persistent errors from retry if needed
+
                                         sendActualReply(sbn, notificationWear, fallbackReplyText);
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(@NonNull Call<OpenAIResponse> retryCall, @NonNull Throwable t) {
-                                    Log.e(TAG, "OpenAI fallback API call failed", t);
+                                    Log.e(TAG, "OpenAI fallback API call (network) failed for default model.", t);
+                                    // Could save a generic network error for OpenAI if it happens consistently.
+                                    // preferencesManager.saveOpenAILastPersistentError("OpenAI: Network error reaching API. Check connection.", System.currentTimeMillis());
                                     sendActualReply(sbn, notificationWear, fallbackReplyText);
                                 }
                             });
                         } else {
-                            // For other errors (401, 429, 5xx, etc.), directly use fallback
+                            // For errors not leading to a retry (e.g., quota, API key), ensure persistent error was saved if applicable.
                             sendActualReply(sbn, notificationWear, fallbackReplyText);
                         }
                     }
