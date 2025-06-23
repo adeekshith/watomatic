@@ -50,6 +50,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
         EditTextPreference openAIApiKeyPreference = findPreference("pref_openai_api_key");
         if (openAIApiKeyPreference != null) {
+            openAIApiKeyPreference.setSummaryProvider(null); // Disable provider before custom summary
             updateOpenAIApiKeySummary(openAIApiKeyPreference, preferencesManager.getOpenAIApiKey());
             openAIApiKeyPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 String newApiKey = (String) newValue;
@@ -72,6 +73,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
         SwitchPreferenceCompat enableOpenAIPreference = findPreference("pref_enable_openai_replies");
         if (enableOpenAIPreference != null) {
+            enableOpenAIPreference.setSummaryProvider(null); // Disable provider before custom summary
             enableOpenAIPreference.setChecked(preferencesManager.isOpenAIRepliesEnabled());
             enableOpenAIPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 preferencesManager.setEnableOpenAIReplies((Boolean) newValue);
