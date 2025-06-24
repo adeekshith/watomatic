@@ -48,6 +48,9 @@ public class PreferencesManager {
     private String KEY_SELECTED_APP_LANGUAGE;
     private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
     private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
+    private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
+    private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
+    private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -383,5 +386,49 @@ public class PreferencesManager {
     public boolean isOpenAIRepliesEnabled() {
         // Default to false if not set
         return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+
+    public void saveSelectedOpenAIModel(String modelId) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_SELECTED_MODEL, modelId);
+        editor.apply();
+    }
+
+    public String getSelectedOpenAIModel() {
+        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, "gpt-3.5-turbo"); // Default to "gpt-3.5-turbo"
+    }
+
+    // Generic getString and saveString for other preferences if needed by GeneralSettingsFragment temporarily
+    // It's better to have dedicated methods for each preference.
+    public String getString(String key, String defaultValue) {
+        return _sharedPrefs.getString(key, defaultValue);
+    }
+
+    public void saveString(String key, String value) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public void saveOpenAILastPersistentError(String message, long timestamp) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE, message);
+        editor.putLong(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP, timestamp);
+        editor.apply();
+    }
+
+    public String getOpenAILastPersistentErrorMessage() {
+        return _sharedPrefs.getString(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE, null);
+    }
+
+    public long getOpenAILastPersistentErrorTimestamp() {
+        return _sharedPrefs.getLong(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP, 0L);
+    }
+
+    public void clearOpenAILastPersistentError() {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE);
+        editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP);
+        editor.apply();
     }
 }

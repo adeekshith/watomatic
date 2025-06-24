@@ -217,4 +217,17 @@
     <string name="pref_openai_api_key_summary_not_set">API Key not set</string>
     <string name="pref_openai_api_key_summary_set">API Key is set</string>
     <string name="pref_openai_api_key_dialog_title">Enter OpenAI API Key</string>
+
+    <string name="pref_openai_model_title">OpenAI Model</string>
+    <string name="pref_openai_model_summary_default">Select preferred chat model</string>
+    <string name="pref_openai_model_dialog_title">Choose OpenAI Model</string>
+    <string name="pref_openai_model_loading">Loading models...</string>
+    <string name="pref_openai_model_error">Could not load models. Check API Key or network.</string>
+    <string name="pref_openai_model_not_set">No model selected</string>
+    <string name="pref_openai_model_no_compatible_found">No compatible models found. Please check your API key or try again later.</string>
+
+    <string name="pref_category_openai_status_title">OpenAI Service Status</string>
+    <string name="pref_openai_status_alert_title">OpenAI Alert</string>
+    <string name="pref_openai_status_ok_summary">No recent issues detected.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Error alert dismissed. It will reappear if the issue occurs again.</string>
 </resources>
