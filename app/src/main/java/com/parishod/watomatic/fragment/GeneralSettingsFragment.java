@@ -26,6 +26,8 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
     private ListPreference openAIModelPreference;
     private Preference openAIErrorDisplayPreference; // Added field
     private PreferencesManager preferencesManager; // Made into a field
+    private ListPreference openApiSourcePreference;
+    private EditTextPreference customApiUrlPreference;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -47,6 +49,31 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         }
 
         // PreferencesManager preferencesManager = PreferencesManager.getPreferencesInstance(requireActivity()); // Now a field
+
+        openApiSourcePreference = findPreference("pref_openai_api_source");
+        customApiUrlPreference = findPreference("pref_openai_custom_api_url");
+
+        if (openApiSourcePreference != null) {
+            openApiSourcePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String source = (String) newValue;
+                preferencesManager.saveOpenApiSource(source);
+                updateCustomApiUrlVisibility(source);
+                OpenAIHelper.invalidateCache();
+                loadOpenAIModels();
+                return true;
+            });
+        }
+
+        if (customApiUrlPreference != null) {
+            customApiUrlPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                preferencesManager.saveCustomOpenAIApiUrl((String) newValue);
+                OpenAIHelper.invalidateCache();
+                loadOpenAIModels();
+                return true;
+            });
+        }
+
+        updateCustomApiUrlVisibility(preferencesManager.getOpenApiSource());
 
         EditTextPreference openAIApiKeyPreference = findPreference("pref_openai_api_key");
         if (openAIApiKeyPreference != null) {
@@ -129,6 +156,12 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
             });
         }
         updateOpenAIErrorDisplay(); // Initial call to set up display
+    }
+
+    private void updateCustomApiUrlVisibility(String source) {
+        if (customApiUrlPreference != null) {
+            customApiUrlPreference.setVisible("custom".equals(source));
+        }
     }
 
     private void updateOpenAIErrorDisplay() {

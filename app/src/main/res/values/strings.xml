@@ -213,10 +213,14 @@
 
     <string name="pref_enable_openai_replies_title">Enable OpenAI Auto-Replies</string>
     <string name="pref_enable_openai_replies_summary">Use OpenAI to generate smart replies</string>
-    <string name="pref_openai_api_key_title">OpenAI API Key</string>
+    <string name="pref_openai_api_key_title">API Key</string>
     <string name="pref_openai_api_key_summary_not_set">API Key not set</string>
     <string name="pref_openai_api_key_summary_set">API Key is set</string>
-    <string name="pref_openai_api_key_dialog_title">Enter OpenAI API Key</string>
+    <string name="pref_openai_api_key_dialog_title">Enter your API Key</string>
+    <string name="pref_openai_api_source_title">API Provider</string>
+    <string name="pref_openai_custom_api_url_title">Custom API URL</string>
+    <string name="pref_openai_custom_api_url_summary">Enter your custom API URL</string>
+    <string name="pref_openai_custom_api_url_dialog_title">Custom API URL</string>
 
     <string name="pref_openai_model_title">OpenAI Model</string>
     <string name="pref_openai_model_summary_default">Select preferred chat model</string>

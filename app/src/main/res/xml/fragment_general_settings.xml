@@ -38,6 +38,24 @@
             android:defaultValue="false"
             app:iconSpaceReserved="false"/>
 
+        <ListPreference
+            android:key="pref_openai_api_source"
+            android:title="@string/pref_openai_api_source_title"
+            android:summary="%s"
+            android:entries="@array/openai_api_source_entries"
+            android:entryValues="@array/openai_api_source_values"
+            android:defaultValue="openai"
+            app:iconSpaceReserved="false"
+            android:dependency="pref_enable_openai_replies"/>
+
+        <EditTextPreference
+            android:key="pref_openai_custom_api_url"
+            android:title="@string/pref_openai_custom_api_url_title"
+            android:summary="@string/pref_openai_custom_api_url_summary"
+            android:dialogTitle="@string/pref_openai_custom_api_url_dialog_title"
+            app:iconSpaceReserved="false"
+            android:dependency="pref_enable_openai_replies"/>
+
         <EditTextPreference
             android:key="pref_openai_api_key"
             android:title="@string/pref_openai_api_key_title"
