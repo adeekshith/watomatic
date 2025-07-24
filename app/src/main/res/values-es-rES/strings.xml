@@ -39,7 +39,6 @@
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permitir a Atomatic difundir su mensaje</string>
-    <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
     <string name="share_app_text">Utilizo Atomatic para desintoxicarme de aplicaciones de mensajería. Pruébalo en: watomatic.app</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Atomatic: Respuesta automática en aplicaciones de mensajería</string>
