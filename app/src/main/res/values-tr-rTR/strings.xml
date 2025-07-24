@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">Kaydet</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
-    <string name="sent_using_Watomatic">Watomatic.app kullanılarak gönderildi</string>
     <string name="share">Paylaş</string>
     <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Neler Yeni?</string>
