@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">Сохранить</string>
     <string name="tip_view_messages_from_fellow_users"><u>Посмотреть шаблоны сообщений сообщества и поделиться своим ➚</u></string>
-    <string name="sent_using_Watomatic">Отправлено с помощью watomatic.app</string>
     <string name="share">Поделиться</string>
     <string name="watomatic_subreddit_label"><u>Обсуждаем\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Что нового?</string>
