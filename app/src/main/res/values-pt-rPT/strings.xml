@@ -27,7 +27,6 @@
     <string name="time_picker_edit_btn_tooltip">Clique para editar o intervalo de tempo entre respostas</string>
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
-    <string name="sent_using_Watomatic">Enviado através do watomatic.app</string>
     <string name="share">Partilhar</string>
     <string name="watomatic_whatsnew_label">O que há de novo?</string>
     <!-- Share debug logs -->
