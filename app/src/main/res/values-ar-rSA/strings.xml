@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">عن التطبيق</string>
     <string name="settings">الإعدادات</string>
     <string name="privacy_policy_label">سياسة الخصوصية</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">إيقاف الرد التلقائي</string>
     <string name="mainAutoReplySwitchOnLabel">الرد التلقائي مفعل</string>
     <string name="mainAutoReplyEditBtnTooltip">انقر لتحرير نص الرد التلقائي</string>
-    <string name="to_help_you_leave_whatsapp">الرد التلقائي لمساعدتك على مغادرة واتساب و فيسبوك مسنجر</string>
     <string name="decline">رفض</string>
     <string name="accept">قبول</string>
     <string name="sure">أنا متأكد</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">حفظ</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>➚ عرض القوالب من المجتمع ومشاركة قالبك أيضا </u></string>
-    <string name="append_watomatic_arribution_checkbox_label">ضع رابط تطبيق Watomatic لنشر التطبيق للغير</string>
-    <string name="sent_using_Watomatic">تم الإرسال باستخدام watomatic.app</string>
-    <string name="share_app_text">أنا أستخدم Watomatic للتخلص من WhatsApp. جربه: watomatic.app</string>
     <string name="share">مشاركة</string>
-    <string name="share_subject">Watomatic - رد تلقائي على واتس اب و فيسبوك</string>
     <string name="watomatic_community_label"><u>المجتمع</u></string>
     <string name="watomatic_subreddit_label"><u>دعونا نتناقش\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">ما الجديد؟</string>

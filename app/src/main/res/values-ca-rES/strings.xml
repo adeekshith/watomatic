@@ -4,14 +4,14 @@
     <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privadesa</string>
-    <string name="service_name">Atomatic: Accés a missatges</string>
+    <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
     <string name="mainAutoReplyEditBtnTooltip">Toqueu per editar el text de la resposta automàtica</string>
-    <string name="to_help_you_leave_whatsapp">Respostes automàtiques per ajudar-vos a deixar el WhatsApp i el Facebook Messenger</string>
+    <string name="to_help_you_leave_whatsapp">Configura la resposta automàtica per ajudar-vos a deixar les aplicacions de missatgeria</string>
     <string name="decline">Rebutja</string>
     <string name="accept">Accepta</string>
     <string name="sure">D\'acord</string>
@@ -37,11 +37,10 @@
     <!-- Custom message editor -->
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Permet l\'atribució del Watomatic per difondre el programa</string>
-    <string name="sent_using_Watomatic">Enviat amb atomatic.app</string>
-    <string name="share_app_text">Utilitzo el Atomatic per deixar d\'usar el WhatsApp. Proveu-ho: watomatic.app</string>
+    <string name="append_watomatic_arribution_checkbox_label">Permet a l\'Atomatic difondre el seu missatge</string>
+    <string name="share_app_text">Estic utilitzant l\'Atomatic per a desintoxicar-me d\'aplicacions de missatgeria. Prova-ho a: watomatic.app</string>
     <string name="share">Comparteix</string>
-    <string name="share_subject">Watomatic: Resposta automàtica per al WhatsApp</string>
+    <string name="share_subject">Atomatic: Resposta automàtica en aplicacions de missatgeria</string>
     <string name="watomatic_community_label"><u>Comunitat</u></string>
     <string name="watomatic_subreddit_label"><u>Discussió\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novetats</string>
@@ -129,4 +128,15 @@
     <string name="error_name_cannot_be_duplicate">Aquest nom ja existeix</string>
     <string name="post_notification_permission_snackbar_text">Aquesta aplicació requereix permisos de notificacions. Habiliteu-los a la configuració.</string>
     <string name="post_notification_permission_snackbar_setting">Configuració</string>
+    <string name="pref_openai_model_title">Model d\'OpenAI</string>
+    <string name="pref_openai_model_summary_default">Trieu el model preferit de xat</string>
+    <string name="pref_openai_model_dialog_title">Trieu el model d\'OpenAI</string>
+    <string name="pref_openai_model_loading">S\'estan carregant els models...</string>
+    <string name="pref_openai_model_error">No s\'han carregat els models. Verifiqueu la connexió de la xarxa o la clau API.</string>
+    <string name="pref_openai_model_not_set">Cap model seleccionat</string>
+    <string name="pref_openai_model_no_compatible_found">No s\'han trobat models compatibles. Verifiqueu la clau API o proveu més tard.</string>
+    <string name="pref_category_openai_status_title">Estat del servei d\'OpenAI</string>
+    <string name="pref_openai_status_alert_title">Alerta d\'OpenAI</string>
+    <string name="pref_openai_status_ok_summary">Cap incidència detectada.</string>
+    <string name="pref_openai_error_dismiss_confirmation">S\'ha descartat l\'alerta. Es tornarà a mostrar si l\'error persisteix.</string>
 </resources>

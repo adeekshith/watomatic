@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">Hakkında </string>
     <string name="settings">Ayarlar </string>
     <string name="privacy_policy_label">Gizlilik Politikası </string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Otomatik yanıt KAPALI </string>
     <string name="mainAutoReplySwitchOnLabel">Otomatik yanıt AÇIK </string>
     <string name="mainAutoReplyEditBtnTooltip">Otomatik yanıt metnini düzenlemek için tıklayın </string>
-    <string name="to_help_you_leave_whatsapp">WhatsApp ve Facebook messenger\'dan ayrılmanıza yardımcı olacak otomatik yanıt </string>
     <string name="decline">Reddet </string>
     <string name="accept">Onayla </string>
     <string name="sure">Eminim</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">Kaydet</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Haberin yayılmasına yardımcı olmak için Otomatik atıf ekleyin</string>
-    <string name="sent_using_Watomatic">Watomatic.app kullanılarak gönderildi</string>
-    <string name="share_app_text">WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin: watomatic.app</string>
     <string name="share">Paylaş</string>
-    <string name="share_subject">Watomatic: WhatsApp için otomatik yanıt</string>
     <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Neler Yeni?</string>
     <!-- Share debug logs -->
