@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">சேமி</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Community-லிருந்து வார்ப்புருக்களைக் காண்க, உங்களுடையதையும் பகிரவும் ➚</u></string>
-    <string name="sent_using_Watomatic">watomatic.app - பயன்படுத்தி அனுப்பப்பட்டது</string>
     <string name="share">பகிர்</string>
     <string name="watomatic_subreddit_label"><u>விவாதிக்கலாம்\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">புதியவை என்ன</string>
