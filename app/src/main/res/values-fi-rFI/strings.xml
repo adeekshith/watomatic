@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
-    <string name="sent_using_Watomatic">Lähetetty käyttäen watomatic.app</string>
     <string name="share">Jaa</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
     <string name="watomatic_whatsnew_label">Mitä uutta?</string>
