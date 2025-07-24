@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">שמירה</string>
     <string name="tip_view_messages_from_fellow_users">צפו בתבניות מוצעות על ידי הקהילה וחלוק גם את שלך</string>
-    <string name="sent_using_Watomatic">נשלח באמצעות Watomatic.app</string>
     <string name="share">שיתוף</string>
     <string name="watomatic_community_label"><u>קהילה</u></string>
     <string name="watomatic_subreddit_label"><u>בואו לדון\n r/watomatic</u></string>
