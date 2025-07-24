@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">Opslaan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de community en deel ook je eigen ➚</u></string>
-    <string name="sent_using_Watomatic">Verzonden met watomatic.app</string>
     <string name="share">Delen</string>
     <string name="watomatic_subreddit_label"><u>Laten we bespreken\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Wat is er nieuw?</string>
