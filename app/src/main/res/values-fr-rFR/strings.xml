@@ -34,7 +34,6 @@
     <!-- Custom message editor -->
     <string name="save">sauvegarder</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Voir les messages proposés par les autres utilisateurs ➚</u></string>
-    <string name="sent_using_Watomatic">Envoyé grâce à watomatic.app</string>
     <string name="share">Partager</string>
     <string name="watomatic_subreddit_label"><u>Parlons de\nr/watomatic</u></string>
     <!-- Share debug logs -->
