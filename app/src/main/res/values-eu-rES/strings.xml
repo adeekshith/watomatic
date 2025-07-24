@@ -35,7 +35,6 @@
     <!-- Custom message editor -->
     <string name="save">Gorde</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ikusi komunitatearen txantiloiak eta partekatu zeureak ere ➚</u></string>
-    <string name="sent_using_Watomatic">Watomatic.app bidez bidalia</string>
     <string name="share">Partekatu</string>
     <string name="watomatic_subreddit_label"><u>Eztabaida dezagun\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Zer berri?</string>
