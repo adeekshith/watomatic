@@ -38,7 +38,6 @@
     <string name="save">Simpan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Tambahkan atribusi Atomatic untuk membantu menyebarkan berita</string>
-    <string name="sent_using_Watomatic">Dikirim menggunakan watomatic.app</string>
     <string name="share_app_text">Saya menggunakan Atomatic untuk menghindar dari aplikasi perpesanan. Cobalah: watomatic.app</string>
     <string name="share">Bagikan</string>
     <string name="share_subject">Atomatis: Balasan Otomatis untuk aplikasi Perpersanan</string>
