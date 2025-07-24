@@ -38,7 +38,6 @@
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet a l\'Atomatic difondre el seu missatge</string>
-    <string name="sent_using_Watomatic">Enviat amb watomatic.app</string>
     <string name="share_app_text">Estic utilitzant l\'Atomatic per a desintoxicar-me d\'aplicacions de missatgeria. Prova-ho a: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Atomatic: Resposta automàtica en aplicacions de missatgeria</string>
