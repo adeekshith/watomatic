@@ -10,7 +10,7 @@ object Constants {
     const val PERMISSION_DIALOG_DENIED = "permission_dialog_denied"
     const val LOGS_DB_NAME = "logs_messages_db"
     const val NOTIFICATION_CHANNEL_ID = "watomatic"
-    const val NOTIFICATION_CHANNEL_NAME = "watomatic_channel"
+    const val NOTIFICATION_CHANNEL_NAME = "Default"
     const val BITCOIN_ADDRESS = "bc1qv6zmgw845pktq9jr5qztup80qufu0yg46ur2kw"
     const val btcUrl = "https://www.blockchain.com/btc/address/";
     const val libraPayUrl = "https://liberapay.com/dk"

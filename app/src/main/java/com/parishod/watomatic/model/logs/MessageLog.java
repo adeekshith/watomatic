@@ -43,7 +43,7 @@ public class MessageLog {
                       long notifReplyTime
     ) {
         this.index = index;
-        this.notifId = null;
+        this.notifId = java.util.UUID.randomUUID().toString();
         this.notifTitle = notifTitle;
         this.notifArrivedTime = notifArrivedTime;
         this.notifRepliedMsg = notifRepliedMsg;
