@@ -211,8 +211,8 @@
     <string name="post_notification_permission_snackbar_text">Notification permissions are required for this app. Enable it in settings.</string>
     <string name="post_notification_permission_snackbar_setting">Settings</string>
 
-    <string name="pref_enable_openai_replies_title">Enable OpenAI Auto-Replies</string>
-    <string name="pref_enable_openai_replies_summary">Use OpenAI to generate smart replies</string>
+    <string name="pref_enable_openai_replies_title">Enable AI Auto-Replies</string>
+    <string name="pref_enable_openai_replies_summary">Use AI to generate smart replies</string>
     <string name="pref_openai_api_key_title">API Key</string>
     <string name="pref_openai_api_key_summary_not_set">API Key not set</string>
     <string name="pref_openai_api_key_summary_set">API Key is set</string>
@@ -222,16 +222,16 @@
     <string name="pref_openai_custom_api_url_summary">Enter your custom API URL</string>
     <string name="pref_openai_custom_api_url_dialog_title">Custom API URL</string>
 
-    <string name="pref_openai_model_title">OpenAI Model</string>
+    <string name="pref_openai_model_title">AI Model</string>
     <string name="pref_openai_model_summary_default">Select preferred chat model</string>
-    <string name="pref_openai_model_dialog_title">Choose OpenAI Model</string>
+    <string name="pref_openai_model_dialog_title">Choose AI Model</string>
     <string name="pref_openai_model_loading">Loading models...</string>
     <string name="pref_openai_model_error">Could not load models. Check API Key or network.</string>
     <string name="pref_openai_model_not_set">No model selected</string>
     <string name="pref_openai_model_no_compatible_found">No compatible models found. Please check your API key or try again later.</string>
 
-    <string name="pref_category_openai_status_title">OpenAI Service Status</string>
-    <string name="pref_openai_status_alert_title">OpenAI Alert</string>
+    <string name="pref_category_openai_status_title">AI Service Status</string>
+    <string name="pref_openai_status_alert_title">AI Alert</string>
     <string name="pref_openai_status_ok_summary">No recent issues detected.</string>
     <string name="pref_openai_error_dismiss_confirmation">Error alert dismissed. It will reappear if the issue occurs again.</string>
 </resources>
