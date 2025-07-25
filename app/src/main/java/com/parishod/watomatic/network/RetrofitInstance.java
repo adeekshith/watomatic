@@ -64,7 +64,11 @@ public class RetrofitInstance {
         // }
         // For now, let's set a default or assume DEBUG is available.
         // If subtask fails due to BuildConfig, will adjust.
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY); // Default to BODY for now
+         if (BuildConfig.DEBUG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+         } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+         }
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
