@@ -47,6 +47,8 @@ public class PreferencesManager {
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
     private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
+    private final String KEY_OPENAI_API_SOURCE = "pref_openai_api_source";
+    private final String KEY_OPENAI_CUSTOM_API_URL = "pref_openai_custom_api_url";
     private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
     private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
@@ -365,6 +367,26 @@ public class PreferencesManager {
             return null;
         }
         return _encryptedSharedPrefs.getString(KEY_OPENAI_API_KEY, null);
+    }
+
+    public void saveOpenApiSource(String apiSource) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_API_SOURCE, apiSource);
+        editor.apply();
+    }
+
+    public String getOpenApiSource() {
+        return _sharedPrefs.getString(KEY_OPENAI_API_SOURCE, "openai");
+    }
+
+    public void saveCustomOpenAIApiUrl(String apiUrl) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_CUSTOM_API_URL, apiUrl);
+        editor.apply();
+    }
+
+    public String getCustomOpenAIApiUrl() {
+        return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_API_URL, null);
     }
 
     public void deleteOpenAIApiKey() {
