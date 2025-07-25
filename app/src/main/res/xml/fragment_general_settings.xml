@@ -4,20 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.GeneralSettingsFragment">
 
-    <PreferenceCategory
-        android:key="pref_category_openai_status"
-        android:title="@string/pref_category_openai_status_title"
-        app:iconSpaceReserved="false"
-        android:order="-100"> <!-- High order to appear at top -->
-
-        <Preference
-            android:key="pref_openai_persistent_error_display"
-            android:title="@string/pref_openai_status_alert_title"
-            android:summary="@string/pref_openai_status_ok_summary"
-            app:iconSpaceReserved="true"
-            android:selectable="true" /> <!-- Selectable to allow click to dismiss -->
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/preference_category_general_label">
 
         <ListPreference android:title="@string/app_language"
@@ -73,6 +59,19 @@
             app:iconSpaceReserved="false"
             android:dependency="pref_enable_openai_replies"/>
       
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_category_openai_status"
+        android:title="@string/pref_category_openai_status_title"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="pref_openai_persistent_error_display"
+            android:title="@string/pref_openai_status_alert_title"
+            android:summary="@string/pref_openai_status_ok_summary"
+            app:iconSpaceReserved="true"
+            android:selectable="true" /> <!-- Selectable to allow click to dismiss -->
     </PreferenceCategory>
 
 </PreferenceScreen>
