@@ -129,21 +129,13 @@
     <string name="error_name_cannot_be_duplicate">Nama sudah ada</string>
     <string name="post_notification_permission_snackbar_text">Izin notifikasi diperlukan untuk aplikasi ini. Aktifkan di pengaturan.</string>
     <string name="post_notification_permission_snackbar_setting">Pengaturan</string>
-    <string name="pref_enable_openai_replies_title">Aktifkan Balasan Otomatis OpenAI</string>
-    <string name="pref_enable_openai_replies_summary">Gunakan OpenAI untuk menghasilkan balasan cerdas</string>
-    <string name="pref_openai_api_key_title">Kunci API OpenAI</string>
     <string name="pref_openai_api_key_summary_not_set">Kunci API tidak diatur</string>
     <string name="pref_openai_api_key_summary_set">Kunci API telah diatur</string>
-    <string name="pref_openai_api_key_dialog_title">Masukkan Kunci API OpenAI</string>
-    <string name="pref_openai_model_title">Model OpenAI</string>
     <string name="pref_openai_model_summary_default">Memilih model obrolan yang disukai</string>
-    <string name="pref_openai_model_dialog_title">Pilih Model OpenAI</string>
     <string name="pref_openai_model_loading">Memuat model...</string>
     <string name="pref_openai_model_error">Tidak dapat memuat model. Periksa Kunci API atau jaringan.</string>
     <string name="pref_openai_model_not_set">Tidak ada model yang dipilih</string>
     <string name="pref_openai_model_no_compatible_found">Tidak ditemukan model yang kompatibel. Silakan periksa kunci API Anda atau coba lagi nanti.</string>
-    <string name="pref_category_openai_status_title">Status Layanan OpenAI</string>
-    <string name="pref_openai_status_alert_title">Peringatan OpenAI</string>
     <string name="pref_openai_status_ok_summary">Tidak ada masalah baru yang terdeteksi.</string>
     <string name="pref_openai_error_dismiss_confirmation">Peringatan kesalahan ditutup. Peringatan ini akan muncul kembali jika masalah terjadi lagi.</string>
 </resources>
