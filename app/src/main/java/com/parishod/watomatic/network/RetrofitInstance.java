@@ -19,7 +19,7 @@ public class RetrofitInstance {
     private static Retrofit retrofit;
     private static Retrofit openAIRetrofit;
     private static final String BASE_URL = "https://api.github.com";
-    private static final String OPENAI_BASE_URL = "https://api.openai.com/";
+    public static final String OPENAI_BASE_URL = "https://api.openai.com/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
@@ -43,30 +43,42 @@ public class RetrofitInstance {
         return retrofit;
     }
 
+    public static Retrofit getOpenAIRetrofitInstance(String baseUrl) {
+        return createOpenAIRetrofitInstance(baseUrl);
+    }
+
     public static Retrofit getOpenAIRetrofitInstance() {
         if (openAIRetrofit == null) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            // Check if BuildConfig is accessible, otherwise, remove this DEBUG check for simplicity in this subtask
-            // if (BuildConfig.DEBUG) {
-            //    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            // } else {
-            //    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-            // }
-            // For now, let's set a default or assume DEBUG is available.
-            // If subtask fails due to BuildConfig, will adjust.
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY); // Default to BODY for now
-
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
-                    .build();
-
-            openAIRetrofit = new Retrofit.Builder()
-                    .baseUrl(OPENAI_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create()) // Only Gson for OpenAI
-                    .client(okHttpClient)
-                    .build();
+            openAIRetrofit = createOpenAIRetrofitInstance(OPENAI_BASE_URL);
         }
         return openAIRetrofit;
+    }
+
+    private static Retrofit createOpenAIRetrofitInstance(String baseUrl) {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        // Check if BuildConfig is accessible, otherwise, remove this DEBUG check for simplicity in this subtask
+        // if (BuildConfig.DEBUG) {
+        //    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        // } else {
+        //    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        // }
+        // For now, let's set a default or assume DEBUG is available.
+        // If subtask fails due to BuildConfig, will adjust.
+         if (BuildConfig.DEBUG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+         } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+         }
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build();
+
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create()) // Only Gson for OpenAI
+                .client(okHttpClient)
+                .build();
     }
 
     public static OpenAIErrorResponse parseOpenAIError(retrofit2.Response<?> response) {

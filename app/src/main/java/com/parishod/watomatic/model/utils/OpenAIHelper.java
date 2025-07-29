@@ -15,6 +15,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class OpenAIHelper {
 
@@ -50,7 +51,17 @@ public class OpenAIHelper {
             return;
         }
 
-        OpenAIService service = RetrofitInstance.getOpenAIRetrofitInstance().create(OpenAIService.class);
+        String apiSource = prefs.getOpenApiSource();
+        String customApiUrl = prefs.getCustomOpenAIApiUrl();
+
+        Retrofit retrofit;
+        if ("custom".equals(apiSource) && customApiUrl != null && !customApiUrl.isEmpty()) {
+            retrofit = RetrofitInstance.getOpenAIRetrofitInstance(customApiUrl);
+        } else {
+            retrofit = RetrofitInstance.getOpenAIRetrofitInstance();
+        }
+
+        OpenAIService service = retrofit.create(OpenAIService.class);
         Call<OpenAIModelsResponse> call = service.getModels("Bearer " + apiKey);
 
         call.enqueue(new Callback<OpenAIModelsResponse>() {
