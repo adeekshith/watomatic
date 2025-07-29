@@ -128,15 +128,11 @@
     <string name="error_name_cannot_be_duplicate">Aquest nom ja existeix</string>
     <string name="post_notification_permission_snackbar_text">Aquesta aplicació requereix permisos de notificacions. Habiliteu-los a la configuració.</string>
     <string name="post_notification_permission_snackbar_setting">Configuració</string>
-    <string name="pref_openai_model_title">Model d\'OpenAI</string>
     <string name="pref_openai_model_summary_default">Trieu el model preferit de xat</string>
-    <string name="pref_openai_model_dialog_title">Trieu el model d\'OpenAI</string>
     <string name="pref_openai_model_loading">S\'estan carregant els models...</string>
     <string name="pref_openai_model_error">No s\'han carregat els models. Verifiqueu la connexió de la xarxa o la clau API.</string>
     <string name="pref_openai_model_not_set">Cap model seleccionat</string>
     <string name="pref_openai_model_no_compatible_found">No s\'han trobat models compatibles. Verifiqueu la clau API o proveu més tard.</string>
-    <string name="pref_category_openai_status_title">Estat del servei d\'OpenAI</string>
-    <string name="pref_openai_status_alert_title">Alerta d\'OpenAI</string>
     <string name="pref_openai_status_ok_summary">Cap incidència detectada.</string>
     <string name="pref_openai_error_dismiss_confirmation">S\'ha descartat l\'alerta. Es tornarà a mostrar si l\'error persisteix.</string>
 </resources>
