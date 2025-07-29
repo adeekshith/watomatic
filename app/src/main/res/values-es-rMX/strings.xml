@@ -129,15 +129,11 @@
     <string name="error_name_cannot_be_duplicate">Contacto ya existente</string>
     <string name="post_notification_permission_snackbar_text">Se requieren permisos de notificación para esta aplicación. Habilítelo en Configuración.</string>
     <string name="post_notification_permission_snackbar_setting">Configuración</string>
-    <string name="pref_openai_model_title">Modelo de OpenAI</string>
     <string name="pref_openai_model_summary_default">Seleccionar el modelo de chat preferido</string>
-    <string name="pref_openai_model_dialog_title">Elegir el modelo de OpenAI</string>
     <string name="pref_openai_model_loading">Cargando modelos...</string>
     <string name="pref_openai_model_error">No se pudo cargar los modelos. Comprueba la clave de API o la red.</string>
     <string name="pref_openai_model_not_set">Ningún modelo seleccionado</string>
     <string name="pref_openai_model_no_compatible_found">No se han encontrado modelos compatibles. Por favor, comprueba tu clave API o inténtalo de nuevo más tarde.</string>
-    <string name="pref_category_openai_status_title">Estado del servicio OpenAI</string>
-    <string name="pref_openai_status_alert_title">Alerta de OpenAI</string>
     <string name="pref_openai_status_ok_summary">No se detectaron problemas recientes.</string>
     <string name="pref_openai_error_dismiss_confirmation">Alerta de error descartada. Reaparecerá si el problema vuelve a ocurrir.</string>
 </resources>
