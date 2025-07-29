@@ -222,12 +222,10 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
                 if (models != null && !models.isEmpty()) {
                     for (ModelData model : models) {
-                        if (model.getId().contains("gpt")) {
-                            entries.add(model.getId());
-                            entryValues.add(model.getId());
-                            if (model.getId().equals(selectedModelId)) {
-                                foundSelected = true;
-                            }
+                        entries.add(model.getId());
+                        entryValues.add(model.getId());
+                        if (model.getId().equals(selectedModelId)) {
+                            foundSelected = true;
                         }
                     }
 
