@@ -120,4 +120,5 @@
     <string name="current_donation_progress">Tämänhetkinen lahjoitusten edistyminen</string>
     <string name="error_name_cannot_be_blank">Nimi ei voi olla tyhjä</string>
     <string name="error_name_cannot_be_duplicate">Nimi on jo olemassa</string>
+    <!-- Generative AI -->
 </resources>
