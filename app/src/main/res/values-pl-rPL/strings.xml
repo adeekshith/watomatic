@@ -121,4 +121,5 @@
     <string name="current_donation_progress">Bieżący postęp darowizny</string>
     <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
     <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
+    <!-- Generative AI -->
 </resources>
