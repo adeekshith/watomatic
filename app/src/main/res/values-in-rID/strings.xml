@@ -138,4 +138,5 @@
     <string name="pref_openai_model_no_compatible_found">Tidak ditemukan model yang kompatibel. Silakan periksa kunci API Anda atau coba lagi nanti.</string>
     <string name="pref_openai_status_ok_summary">Tidak ada masalah baru yang terdeteksi.</string>
     <string name="pref_openai_error_dismiss_confirmation">Peringatan kesalahan ditutup. Peringatan ini akan muncul kembali jika masalah terjadi lagi.</string>
+    <!-- Generative AI -->
 </resources>
