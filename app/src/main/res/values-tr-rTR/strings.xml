@@ -114,4 +114,5 @@
     <string name="contact_permission_dialog_not_now">Şimdi değil</string>
     <string name="contact_permission_dialog_title">Kişi okuma erişimi</string>
     <string name="error_name_cannot_be_duplicate">Bu isim daha önce alınmış</string>
+    <!-- Generative AI -->
 </resources>
