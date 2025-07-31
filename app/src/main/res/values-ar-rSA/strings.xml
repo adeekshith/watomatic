@@ -76,4 +76,5 @@
     <string name="setting_not_available_for_device">هذا الإعداد غير متوفر أو قد لا يكون مطلوبا لجهازك.</string>
     <string name="enable_auto_start_setting">المتابعة</string>
     <string name="decline_auto_start_setting">إلغاء</string>
+    <!-- Generative AI -->
 </resources>
