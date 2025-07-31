@@ -120,4 +120,5 @@
     <string name="current_donation_progress">מצב תרומות נוכחי</string>
     <string name="error_name_cannot_be_blank">השם אינו יכול להישאר ריק</string>
     <string name="error_name_cannot_be_duplicate">שם כבר קיים</string>
+    <!-- Generative AI -->
 </resources>
