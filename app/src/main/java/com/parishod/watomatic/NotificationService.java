@@ -1,5 +1,8 @@
 package com.parishod.watomatic;
 
+import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_MODEL;
+import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_PROMPT;
+
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +11,8 @@ import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
 import android.text.TextUtils; // Added import
 import android.util.Log;
+// import Constants.kt
+
 
 import androidx.annotation.NonNull;
 import androidx.core.app.RemoteInput;
@@ -148,12 +153,17 @@ public class NotificationService extends NotificationListenerService {
             OpenAIService openAIService = RetrofitInstance.getOpenAIRetrofitInstance().create(OpenAIService.class);
 
             List<Message> messages = new ArrayList<>();
-            messages.add(new Message("system", "You are a helpful assistant. Keep your replies concise."));
+            String customPrompt = preferencesManager.getOpenAICustomPrompt();
+            if (customPrompt == null || customPrompt.trim().isEmpty()) {
+                customPrompt = DEFAULT_LLM_PROMPT;
+            }
+
+            messages.add(new Message("system", customPrompt));
             messages.add(new Message("user", incomingMessage));
 
             String modelForRequest = preferencesManager.getSelectedOpenAIModel();
             if (TextUtils.isEmpty(modelForRequest)) { // Safety fallback
-                modelForRequest = "gpt-3.5-turbo";
+                modelForRequest = DEFAULT_LLM_MODEL;
                 Log.w(TAG, "Selected OpenAI model was empty, defaulting to gpt-3.5-turbo.");
             }
 
@@ -206,7 +216,7 @@ public class NotificationService extends NotificationListenerService {
                         if (shouldRetry) {
                             // Log.w(TAG, "Attempting fallback to default model gpt-3.5-turbo due to error with model: " + originalModelId + ". Details: " + detailedApiError); // Already logged above with more detail
                             List<Message> retryMessages = new ArrayList<>();
-                            retryMessages.add(new Message("system", "You are a helpful assistant. Keep your replies concise."));
+                            retryMessages.add(new Message("system",  DEFAULT_LLM_PROMPT));
                             retryMessages.add(new Message("user", incomingMessage)); // Ensure incomingMessage is accessible
 
                             OpenAIRequest retryRequest = new OpenAIRequest("gpt-3.5-turbo", retryMessages);

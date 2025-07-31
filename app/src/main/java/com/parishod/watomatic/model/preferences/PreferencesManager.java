@@ -53,6 +53,7 @@ public class PreferencesManager {
     private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
+    private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -452,5 +453,9 @@ public class PreferencesManager {
         editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE);
         editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP);
         editor.apply();
+    }
+
+    public String getOpenAICustomPrompt() {
+        return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_PROMPT, null);
     }
 }

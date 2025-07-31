@@ -52,7 +52,9 @@ public class OpenAIHelper {
         }
 
         String apiSource = prefs.getOpenApiSource();
+        Log.d(TAG, "API Source: " + apiSource);
         String customApiUrl = prefs.getCustomOpenAIApiUrl();
+        Log.d(TAG, "customApiUrl: " + customApiUrl);
 
         Retrofit retrofit;
         if ("custom".equals(apiSource) && customApiUrl != null && !customApiUrl.isEmpty()) {
