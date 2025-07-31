@@ -118,4 +118,5 @@
     <string name="current_donation_progress">Huidige donatievoortgang</string>
     <string name="error_name_cannot_be_blank">Naam kan niet leeg zijn</string>
     <string name="error_name_cannot_be_duplicate">Naam al aanwezig</string>
+    <!-- Generative AI -->
 </resources>
