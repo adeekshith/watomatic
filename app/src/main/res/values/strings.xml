@@ -234,4 +234,11 @@
     <string name="pref_openai_status_alert_title">AI Alert</string>
     <string name="pref_openai_status_ok_summary">No recent issues detected.</string>
     <string name="pref_openai_error_dismiss_confirmation">Error alert dismissed. It will reappear if the issue occurs again.</string>
+
+    <!-- Generative AI -->
+    <string name="generative_ai">Generative AI</string>
+    <string name="enable_generative_ai">Enable Generative AI</string>
+    <string name="custom_prompt">Custom Prompt</string>
+    <string name="pref_openai_enabled" translatable="false">pref_openai_enabled</string>
+    <string name="pref_openai_prompt" translatable="false">pref_openai_prompt</string>
 </resources>

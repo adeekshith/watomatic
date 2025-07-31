@@ -58,7 +58,13 @@
             app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"
             android:dependency="pref_enable_openai_replies"/>
-      
+
+        <EditTextPreference
+            android:key="@string/pref_openai_prompt"
+            android:title="@string/custom_prompt"
+            app:iconSpaceReserved="false"
+            android:dependency="pref_enable_openai_replies"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
