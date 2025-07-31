@@ -36,4 +36,5 @@
     <string name="app_rating_feedback_dialog_title">Kontaktu nin</string>
     <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <!-- Generative AI -->
 </resources>
