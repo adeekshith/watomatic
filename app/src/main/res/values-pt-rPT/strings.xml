@@ -77,4 +77,5 @@
     <string name="current_donation_progress">Progresso atual da doação</string>
     <string name="error_name_cannot_be_blank">O nome não pode ficar em branco</string>
     <string name="error_name_cannot_be_duplicate">Nome já utilizado</string>
+    <!-- Generative AI -->
 </resources>
