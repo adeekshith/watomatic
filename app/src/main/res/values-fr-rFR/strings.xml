@@ -71,4 +71,5 @@
     <string name="current_donation_progress">Montant actuel des dons</string>
     <string name="error_name_cannot_be_blank">Le nom ne peut pas être vide</string>
     <string name="error_name_cannot_be_duplicate">Le nom est déjà présent</string>
+    <!-- Generative AI -->
 </resources>
