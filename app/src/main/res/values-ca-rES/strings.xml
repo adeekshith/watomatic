@@ -135,4 +135,5 @@
     <string name="pref_openai_model_no_compatible_found">No s\'han trobat models compatibles. Verifiqueu la clau API o proveu més tard.</string>
     <string name="pref_openai_status_ok_summary">Cap incidència detectada.</string>
     <string name="pref_openai_error_dismiss_confirmation">S\'ha descartat l\'alerta. Es tornarà a mostrar si l\'error persisteix.</string>
+    <!-- Generative AI -->
 </resources>
