@@ -136,4 +136,5 @@
     <string name="pref_openai_model_no_compatible_found">No se han encontrado modelos compatibles. Por favor, comprueba tu clave API o inténtalo de nuevo más tarde.</string>
     <string name="pref_openai_status_ok_summary">No se detectaron problemas recientes.</string>
     <string name="pref_openai_error_dismiss_confirmation">Alerta de error descartada. Reaparecerá si el problema vuelve a ocurrir.</string>
+    <!-- Generative AI -->
 </resources>
