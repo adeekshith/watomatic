@@ -121,4 +121,5 @@
     <string name="current_donation_progress">Aktueller Spendenfortschritt</string>
     <string name="error_name_cannot_be_blank">Name darf nicht leer sein</string>
     <string name="error_name_cannot_be_duplicate">Name bereits vorhanden</string>
+    <!-- Generative AI -->
 </resources>
