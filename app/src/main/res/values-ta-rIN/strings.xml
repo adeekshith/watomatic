@@ -90,4 +90,5 @@
     <string name="delete">நீக்கு</string>
     <string name="error_name_cannot_be_blank">பெயர் புலம் ஏதுமின்றி இருக்க இயலாது</string>
     <string name="error_name_cannot_be_duplicate">பெயர் ஏற்கனவே உள்ளது</string>
+    <!-- Generative AI -->
 </resources>
