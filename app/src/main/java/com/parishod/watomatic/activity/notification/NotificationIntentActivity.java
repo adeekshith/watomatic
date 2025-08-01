@@ -9,11 +9,16 @@ import com.parishod.watomatic.activity.BaseActivity;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 public class NotificationIntentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.notification_intent_activity); //dummy layout
 
         if (savedInstanceState == null) {
@@ -26,6 +31,12 @@ public class NotificationIntentActivity extends BaseActivity {
                 launchHomeScreen();
             }
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.notification_intent_root_layout), (v, insets) -> {
+            androidx.core.graphics.Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 
     private void launchApp(String packageName) {

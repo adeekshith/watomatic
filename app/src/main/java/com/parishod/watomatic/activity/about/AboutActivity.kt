@@ -10,9 +10,14 @@ import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.databinding.ActivityAboutBinding
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+
 class AboutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -31,6 +36,12 @@ class AboutActivity : BaseActivity() {
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(url)
             startActivity(i)
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.aboutScrollView) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }
