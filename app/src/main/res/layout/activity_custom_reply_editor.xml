@@ -9,6 +9,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
     tools:context=".activity.customreplyeditor.CustomReplyEditorActivity">
 
     <!-- Auto reply text area -->
