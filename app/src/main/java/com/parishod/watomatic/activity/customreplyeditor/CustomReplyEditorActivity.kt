@@ -14,6 +14,10 @@ import com.parishod.watomatic.model.CustomRepliesData
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+
 class CustomReplyEditorActivity : BaseActivity() {
     private var autoReplyText: TextInputEditText? = null
    private var saveAutoReplyTextBtn: Button? = null
@@ -23,6 +27,7 @@ class CustomReplyEditorActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_custom_reply_editor)
 
         setTitle(R.string.mainAutoReplyLabel)
@@ -72,6 +77,12 @@ class CustomReplyEditorActivity : BaseActivity() {
             startActivity(
                 Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
             )
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }
