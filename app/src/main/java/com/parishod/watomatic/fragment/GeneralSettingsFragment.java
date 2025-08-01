@@ -86,8 +86,9 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 
                 OpenAIHelper.invalidateCache(); // Invalidate model cache if API key changes
                 if (openAIModelPreference != null) { // Ensure preference is found
-                     updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_loading));
-                     openAIModelPreference.setEnabled(false);
+                    openAIModelPreference.setSummaryProvider(null);
+                    openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
+                    openAIModelPreference.setEnabled(false);
                 }
                 loadOpenAIModels(); // Reload models with new key
 
@@ -106,8 +107,9 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
                 preferencesManager.setEnableOpenAIReplies((Boolean) newValue);
                 // Reload models when the main toggle changes
                 if (openAIModelPreference != null) {
-                     updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_loading));
-                     openAIModelPreference.setEnabled(false);
+                    openAIModelPreference.setSummaryProvider(null);
+                    openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
+                    openAIModelPreference.setEnabled(false);
                 }
                 loadOpenAIModels();
                 return true; // True to update the state of the preference
@@ -117,7 +119,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         openAIModelPreference = findPreference("pref_openai_model");
         if (openAIModelPreference != null) {
             openAIModelPreference.setSummaryProvider(null); // Disable provider before custom summary
-            updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_loading));
+            openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
             openAIModelPreference.setEnabled(false);
             openAIModelPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 String modelId = (String) newValue;
@@ -187,22 +189,17 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    private void updateOpenAIModelPreferenceSummary(String summary) {
-        if (openAIModelPreference != null) {
-            openAIModelPreference.setSummaryProvider(null); // Always remove provider before setting summary
-            openAIModelPreference.setSummary(summary);
-        }
-    }
-
     private void loadOpenAIModels() {
         if (openAIModelPreference == null || preferencesManager == null) return;
 
-        updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_loading));
+        openAIModelPreference.setSummaryProvider(null);
+        openAIModelPreference.setSummary(getString(R.string.pref_openai_model_loading));
         openAIModelPreference.setEnabled(false);
 
         if (!preferencesManager.isOpenAIRepliesEnabled() ||
             TextUtils.isEmpty(preferencesManager.getOpenAIApiKey())) {
-            updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_summary_default));
+            openAIModelPreference.setSummaryProvider(null);
+            openAIModelPreference.setSummary(getString(R.string.pref_openai_model_summary_default));
             openAIModelPreference.setEnabled(false);
             openAIModelPreference.setEntries(new CharSequence[]{});
             openAIModelPreference.setEntryValues(new CharSequence[]{});
@@ -260,17 +257,20 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
                             preferencesManager.saveSelectedOpenAIModel(valueToSet); // Using dedicated method
                             openAIModelPreference.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance()); // Re-enable default summary behavior
                         } else {
-                             updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_not_set));
+                            openAIModelPreference.setSummaryProvider(null);
+                            openAIModelPreference.setSummary(getString(R.string.pref_openai_model_not_set));
                         }
                          openAIModelPreference.setEnabled(true);
                     } else {
-                        updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_no_compatible_found));
+                        openAIModelPreference.setSummaryProvider(null);
+                        openAIModelPreference.setSummary(getString(R.string.pref_openai_model_no_compatible_found));
                         openAIModelPreference.setEntries(new CharSequence[0]);
                         openAIModelPreference.setEntryValues(new CharSequence[0]);
                         openAIModelPreference.setEnabled(false);
                     }
                 } else { // models list is null or empty from callback
-                    updateOpenAIModelPreferenceSummary(getString(R.string.pref_openai_model_error));
+                    openAIModelPreference.setSummaryProvider(null);
+                    openAIModelPreference.setSummary(getString(R.string.pref_openai_model_error));
                     openAIModelPreference.setEntries(new CharSequence[0]);
                     openAIModelPreference.setEntryValues(new CharSequence[0]);
                     openAIModelPreference.setEnabled(false);
@@ -280,7 +280,8 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
             @Override
             public void onError(String errorMessage) {
                 if (getActivity() == null) return;
-                updateOpenAIModelPreferenceSummary(errorMessage);
+                openAIModelPreference.setSummaryProvider(null);
+                openAIModelPreference.setSummary(errorMessage);
                 openAIModelPreference.setEnabled(false);
                 openAIModelPreference.setEntries(new CharSequence[0]);
                 openAIModelPreference.setEntryValues(new CharSequence[0]);

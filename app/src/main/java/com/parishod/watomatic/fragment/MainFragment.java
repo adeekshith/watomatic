@@ -275,7 +275,7 @@ public class MainFragment extends Fragment {
             timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
         } else {
             timeSelectedTextPreview.setText(String.valueOf(days));
-            timePickerSubTitleTextPreview.setText(String.format(getResources().getString(R.string.time_picker_sub_title), days));
+            timePickerSubTitleTextPreview.setText(getResources().getQuantityString(R.plurals.time_picker_sub_title, days, days));
         }
     }
 
