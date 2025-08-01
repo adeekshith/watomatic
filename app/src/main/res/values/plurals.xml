@@ -1,0 +1,6 @@
+<resources>
+    <plurals name="time_picker_sub_title" translatable="false">
+        <item quantity="one">Respond only once every %d day for each person or group</item>
+        <item quantity="other">Respond only once every %d days for each person or group</item>
+    </plurals>
+</resources>

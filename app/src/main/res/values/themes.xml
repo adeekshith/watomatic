@@ -1,14 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.WaReply" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.WaReply" parent="Theme.Material3.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_500</item>
         <item name="colorSecondaryVariant">@color/blue_900</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
