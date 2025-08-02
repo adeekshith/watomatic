@@ -37,6 +37,7 @@
     <string name="save">Desa</string>
     <string name="tip_view_messages_from_fellow_users">🦩<u>Mostra i comparteix plantilles amb la comunitat➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permet a l\'Atomatic difondre el seu missatge</string>
+    <string name="sent_using_Watomatic">Enviat amb atomatic.app</string>
     <string name="share_app_text">Estic utilitzant l\'Atomatic per a desintoxicar-me d\'aplicacions de missatgeria. Prova-ho a: watomatic.app</string>
     <string name="share">Comparteix</string>
     <string name="share_subject">Atomatic: Resposta automàtica en aplicacions de missatgeria</string>
@@ -133,11 +134,17 @@
     <string name="pref_openai_api_key_dialog_title">Inseriu la vostra clau API</string>
     <string name="pref_openai_api_source_title">Proveïdor API</string>
     <string name="pref_openai_custom_api_url_title">URL personalitzat API</string>
+    <string name="pref_openai_custom_api_url_summary">Inseriu el vostre URL personalitzat de la clau API</string>
+    <string name="pref_openai_custom_api_url_dialog_title">URL personalitzat API</string>
+    <string name="pref_openai_model_title">Model d\'IA</string>
     <string name="pref_openai_model_summary_default">Trieu el model preferit de xat</string>
+    <string name="pref_openai_model_dialog_title">Trieu el model d\'IA</string>
     <string name="pref_openai_model_loading">S\'estan carregant els models...</string>
     <string name="pref_openai_model_error">No s\'han carregat els models. Verifiqueu la connexió de la xarxa o la clau API.</string>
     <string name="pref_openai_model_not_set">Cap model seleccionat</string>
     <string name="pref_openai_model_no_compatible_found">No s\'han trobat models compatibles. Verifiqueu la clau API o proveu més tard.</string>
+    <string name="pref_category_openai_status_title">Estat del servei d\'IA</string>
+    <string name="pref_openai_status_alert_title">Alerta IA</string>
     <string name="pref_openai_status_ok_summary">Cap incidència detectada.</string>
     <string name="pref_openai_error_dismiss_confirmation">S\'ha descartat l\'alerta. Es tornarà a mostrar si l\'error persisteix.</string>
     <!-- Generative AI -->
