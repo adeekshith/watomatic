@@ -131,6 +131,8 @@
     <string name="pref_enable_openai_replies_title">Activar respuestas automáticas IA</string>
     <string name="pref_enable_openai_replies_summary">Usar IA para generar respuestas inteligentes</string>
     <string name="pref_openai_api_key_title">Clave API</string>
+    <string name="pref_openai_api_key_summary_not_set">Clave API no configurada</string>
+    <string name="pref_openai_api_key_summary_set">Clave API establecida</string>
     <string name="pref_openai_api_key_dialog_title">Introduce tu clave API</string>
     <string name="pref_openai_api_source_title">Proveedor de API</string>
     <string name="pref_openai_custom_api_url_title">URL personalizada de API</string>
