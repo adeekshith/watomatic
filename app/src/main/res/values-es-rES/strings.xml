@@ -37,6 +37,7 @@
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
     <string name="append_watomatic_arribution_checkbox_label">Permitir a Atomatic difundir su mensaje</string>
+    <string name="sent_using_Watomatic">Enviado usando atomatic.app</string>
     <string name="share_app_text">Utilizo Atomatic para desintoxicarme de aplicaciones de mensajería. Pruébalo en: watomatic.app</string>
     <string name="share">Compartir</string>
     <string name="share_subject">Atomatic: Respuesta automática en aplicaciones de mensajería</string>
@@ -127,11 +128,23 @@
     <string name="error_name_cannot_be_duplicate">Contacto ya existente</string>
     <string name="post_notification_permission_snackbar_text">Se requieren permisos de notificación para esta aplicación. Habilítelo en Configuración.</string>
     <string name="post_notification_permission_snackbar_setting">Configuración</string>
+    <string name="pref_enable_openai_replies_title">Activar respuestas automáticas IA</string>
+    <string name="pref_enable_openai_replies_summary">Usar IA para generar respuestas inteligentes</string>
+    <string name="pref_openai_api_key_title">Clave API</string>
+    <string name="pref_openai_api_key_dialog_title">Introduce tu clave API</string>
+    <string name="pref_openai_api_source_title">Proveedor de API</string>
+    <string name="pref_openai_custom_api_url_title">URL personalizada de API</string>
+    <string name="pref_openai_custom_api_url_summary">Introduce tu URL personalizada de API</string>
+    <string name="pref_openai_custom_api_url_dialog_title">URL personalizada de API</string>
+    <string name="pref_openai_model_title">Modelo de IA</string>
     <string name="pref_openai_model_summary_default">Seleccionar el modelo de chat preferido</string>
+    <string name="pref_openai_model_dialog_title">Elegir modelo de IA</string>
     <string name="pref_openai_model_loading">Cargando modelos...</string>
     <string name="pref_openai_model_error">No se pudo cargar los modelos. Comprueba la clave de API o la red.</string>
     <string name="pref_openai_model_not_set">Ningún modelo seleccionado</string>
     <string name="pref_openai_model_no_compatible_found">No se han encontrado modelos compatibles. Por favor, comprueba tu clave API o inténtalo de nuevo más tarde.</string>
+    <string name="pref_category_openai_status_title">Estado del servicio de IA</string>
+    <string name="pref_openai_status_alert_title">Alerta de IA</string>
     <string name="pref_openai_status_ok_summary">No se detectaron problemas recientes.</string>
     <string name="pref_openai_error_dismiss_confirmation">Alerta de error descartada. Reaparecerá si el problema vuelve a ocurrir.</string>
     <!-- Generative AI -->
