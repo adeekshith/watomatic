@@ -131,6 +131,8 @@
     <string name="pref_enable_openai_replies_title">Activa la resposta automàtica de la IA</string>
     <string name="pref_enable_openai_replies_summary">Utilitzeu la IA per a respondre de forma intel·ligent</string>
     <string name="pref_openai_api_key_title">Clau API</string>
+    <string name="pref_openai_api_key_summary_not_set">Clau API no establerta</string>
+    <string name="pref_openai_api_key_summary_set">Clau API configurada</string>
     <string name="pref_openai_api_key_dialog_title">Inseriu la vostra clau API</string>
     <string name="pref_openai_api_source_title">Proveïdor API</string>
     <string name="pref_openai_custom_api_url_title">URL personalitzat API</string>
