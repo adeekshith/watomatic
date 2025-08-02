@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">Quant a</string>
     <string name="settings">Configuració</string>
     <string name="privacy_policy_label">Política de privadesa</string>
@@ -128,6 +127,12 @@
     <string name="error_name_cannot_be_duplicate">Aquest nom ja existeix</string>
     <string name="post_notification_permission_snackbar_text">Aquesta aplicació requereix permisos de notificacions. Habiliteu-los a la configuració.</string>
     <string name="post_notification_permission_snackbar_setting">Configuració</string>
+    <string name="pref_enable_openai_replies_title">Activa la resposta automàtica de la IA</string>
+    <string name="pref_enable_openai_replies_summary">Utilitzeu la IA per a respondre de forma intel·ligent</string>
+    <string name="pref_openai_api_key_title">Clau API</string>
+    <string name="pref_openai_api_key_dialog_title">Inseriu la vostra clau API</string>
+    <string name="pref_openai_api_source_title">Proveïdor API</string>
+    <string name="pref_openai_custom_api_url_title">URL personalitzat API</string>
     <string name="pref_openai_model_summary_default">Trieu el model preferit de xat</string>
     <string name="pref_openai_model_loading">S\'estan carregant els models...</string>
     <string name="pref_openai_model_error">No s\'han carregat els models. Verifiqueu la connexió de la xarxa o la clau API.</string>
@@ -136,4 +141,7 @@
     <string name="pref_openai_status_ok_summary">Cap incidència detectada.</string>
     <string name="pref_openai_error_dismiss_confirmation">S\'ha descartat l\'alerta. Es tornarà a mostrar si l\'error persisteix.</string>
     <!-- Generative AI -->
+    <string name="generative_ai">IA generativa</string>
+    <string name="enable_generative_ai">Activa la IA generativa</string>
+    <string name="custom_prompt">Ordre personalitzada</string>
 </resources>
