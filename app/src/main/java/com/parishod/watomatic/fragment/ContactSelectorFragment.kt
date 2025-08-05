@@ -3,11 +3,14 @@ package com.parishod.watomatic.fragment
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +20,9 @@ import com.parishod.watomatic.model.adapters.ContactListAdapter
 import com.parishod.watomatic.model.data.ContactHolder
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.ContactsHelper
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ContactSelectorFragment : Fragment() {
@@ -28,6 +34,7 @@ class ContactSelectorFragment : Fragment() {
     private lateinit var prefs: PreferencesManager
 
     private lateinit var contactList: ArrayList<ContactHolder>
+    private var searchJob: Job? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -44,6 +51,20 @@ class ContactSelectorFragment : Fragment() {
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
 
         loadContactList()
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(300) // 300ms debounce
+                    (binding.contactList.adapter as? ContactListAdapter)?.filter?.filter(s.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         return binding.root
     }
@@ -73,9 +94,9 @@ class ContactSelectorFragment : Fragment() {
         contactList.forEachIndexed { position, contact ->
             if (contact.isChecked != checked) {
                 contact.isChecked = checked
-                adapter.notifyItemChanged(position)
             }
         }
+        adapter.notifyDataSetChanged()
         adapter.saveSelectedContactList()
 
         val snackbar = Snackbar.make(

@@ -49,20 +49,29 @@ public class ContactsHelper {
             Set<String> previousSelectedContacts = prefs.getReplyToNames();
 
             ContentResolver contentResolver = mContext.getContentResolver();
-            String[] queryColumnAttribute = {ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
-            Cursor cursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, queryColumnAttribute, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY + " ASC");
+            String[] queryColumnAttribute = {
+                    ContactsContract.Data.DISPLAY_NAME_PRIMARY,
+                    ContactsContract.CommonDataKinds.Phone.NUMBER
+            };
+            String selection = ContactsContract.Data.MIMETYPE + " = ?";
+            String[] selectionArgs = {ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE};
+            Cursor cursor = contentResolver.query(ContactsContract.Data.CONTENT_URI, queryColumnAttribute, selection, selectionArgs, ContactsContract.Data.SORT_KEY_PRIMARY + " ASC");
+
 
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
-                        int columnIndex = cursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
-                        String contactName = cursor.getString(columnIndex);
+                        int nameColumnIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME_PRIMARY);
+                        int numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        String contactName = cursor.getString(nameColumnIndex);
+                        String phoneNumber = cursor.getString(numberColumnIndex);
                         if (contactName != null && !contactName.isEmpty()) {
                             boolean contactChecked = previousSelectedContacts.contains(contactName);
+                            ContactHolder contactHolder = new ContactHolder(contactName, phoneNumber, contactChecked);
                             if (contactChecked) {
-                                selectedContactList.add(new ContactHolder(contactName, true));
+                                selectedContactList.add(contactHolder);
                             } else {
-                                unselectedContactList.add(new ContactHolder(contactName, false));
+                                unselectedContactList.add(contactHolder);
                             }
                         }
                     } while (cursor.moveToNext());
