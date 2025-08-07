@@ -20,8 +20,7 @@ public class AppUtils {
 
     public boolean isPackageInstalled(String packageName) {
         try {
-            //Just check if app's icon is present
-            appContext.getPackageManager().getApplicationIcon(packageName);
+            appContext.getPackageManager().getPackageInfo(packageName, 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
