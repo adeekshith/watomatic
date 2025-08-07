@@ -242,4 +242,14 @@
     <string name="custom_prompt">Custom Prompt</string>
     <string name="pref_openai_enabled" translatable="false">pref_openai_enabled</string>
     <string name="pref_openai_prompt" translatable="false">pref_openai_prompt</string>
+
+    <!-- Filter Items -->
+    <string name="contacts">Contacts</string>
+    <string name="all_contacts">All Contacts</string>
+    <string name="message_type">Message Type</string>
+    <string name="personal_messages">Personal Messages</string>
+    <string name="apps">Apps</string>
+    <string name="apps_enabled_count">2/3 apps enabled</string>
+    <string name="reply_cooldown">Reply Cooldown</string>
+    <string name="ten_minutes">10 minutes</string>
 </resources>

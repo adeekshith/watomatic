@@ -8,4 +8,7 @@
     <color name="secondary_text">#60758a</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="text_primary">#111418</color>
+    <color name="text_secondary">#60758A</color>
 </resources>

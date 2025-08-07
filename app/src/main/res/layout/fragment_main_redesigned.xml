@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="132dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@color/primary"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -139,12 +139,6 @@
             app:layout_constraintTop_toBottomOf="@id/filters_title">
 
             <include layout="@layout/item_filter" android:id="@+id/filter_section_1" />
-
-            <include layout="@layout/item_filter" android:id="@+id/filter_section_2" />
-
-            <include layout="@layout/item_filter" android:id="@+id/filter_section_3" />
-
-            <include layout="@layout/item_filter" android:id="@+id/filter_section_4" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
