@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,20 +19,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.BuildConfig;
@@ -43,8 +42,6 @@ import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
-import com.parishod.watomatic.adapter.SupportedAppsAdapter;
-import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
@@ -64,32 +61,23 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT;
 import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER;
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-import static com.parishod.watomatic.model.utils.Constants.MAX_DAYS;
-import static com.parishod.watomatic.model.utils.Constants.MIN_DAYS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_APP_RATING;
 
 public class MainFragment extends Fragment {
 
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private static final int NOTIFICATION_REQUEST_CODE = 101;
-    CardView autoReplyTextPreviewCard, timePickerCard;
-    TextView autoReplyTextPreview, timeSelectedTextPreview, timePickerSubTitleTextPreview;
-    CustomRepliesData customRepliesData;
-    String autoReplyTextPlaceholder;
-    SwitchMaterial mainAutoReplySwitch, groupReplySwitch;
-    CardView supportedAppsCard;
     private PreferencesManager preferencesManager;
-    private int days = 0;
-    private final List<MaterialCheckBox> supportedAppsCheckboxes = new ArrayList<>();
-    private final List<View> supportedAppsDummyViews = new ArrayList<>();
     private Activity mActivity;
-    private SupportedAppsAdapter supportedAppsAdapter;
-    private List<App> enabledApps = new ArrayList<>();
+    private CustomRepliesData customRepliesData;
+    private SwitchMaterial autoRepliesSwitch;
+    private TextView aiReplyText;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main_redesigned, container, false);
 
         setHasOptionsMenu(true);
 
@@ -99,40 +87,24 @@ public class MainFragment extends Fragment {
         preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
 
         // Assign Views
-        mainAutoReplySwitch = view.findViewById(R.id.mainAutoReplySwitch);
-        groupReplySwitch = view.findViewById(R.id.groupReplySwitch);
-        autoReplyTextPreviewCard = view.findViewById(R.id.mainAutoReplyTextCardView);
-        autoReplyTextPreview = view.findViewById(R.id.textView4);
-        supportedAppsCard = view.findViewById(R.id.supportedAppsSelectorCardView);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ImageButton settingsButton = view.findViewById(R.id.settings_button);
+        aiReplyText = view.findViewById(R.id.ai_reply_text);
+        autoRepliesSwitch = view.findViewById(R.id.auto_replies_switch);
+        Button editButton = view.findViewById(R.id.edit_button);
+        BottomNavigationView bottomNav = view.findViewById(R.id.bottom_nav);
 
-        supportedAppsCard.setOnClickListener(v -> launchEnabledAppsActivity());
+        // Setup Toolbar
+        toolbar.setTitle("Atomatic");
+        settingsButton.setOnClickListener(v -> loadSettingsActivity());
 
-        RecyclerView enabledAppsList = view.findViewById(R.id.enabled_apps_list);
-        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, getSpanCount(mActivity));
-        enabledAppsList.setLayoutManager(layoutManager);
-        supportedAppsAdapter = new SupportedAppsAdapter(Constants.EnabledAppsDisplayType.HORIZONTAL, getEnabledApps(), v ->
-                launchEnabledAppsActivity()
-        );
-        enabledAppsList.setAdapter(supportedAppsAdapter);
+        // Setup AI Reply
+        aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
-        autoReplyTextPlaceholder = getResources().getString(R.string.mainAutoReplyTextPlaceholder);
-
-        timePickerCard = view.findViewById(R.id.replyFrequencyTimePickerCardView);
-        timePickerSubTitleTextPreview = view.findViewById(R.id.timePickerSubTitle);
-
-        timeSelectedTextPreview = view.findViewById(R.id.timeSelectedText);
-
-        ImageView imgMinus = view.findViewById(R.id.imgMinus);
-        ImageView imgPlus = view.findViewById(R.id.imgPlus);
-
-        autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse());
-        // Enable group chat switch only if main switch id ON
-        groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
-
-        mainAutoReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        // Setup Auto-replies switch
+        autoRepliesSwitch.setChecked(preferencesManager.isServiceEnabled());
+        autoRepliesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked && !isListenerEnabled(mActivity, NotificationService.class)) {
-//                launchNotificationAccessSettings();
                 showPermissionsDialog();
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -147,68 +119,85 @@ public class MainFragment extends Fragment {
                 } else {
                     stopNotificationService();
                 }
-                mainAutoReplySwitch.setText(
-                        isChecked
-                                ? R.string.mainAutoReplySwitchOnLabel
-                                : R.string.mainAutoReplySwitchOffLabel
-                );
-
                 setSwitchState();
-
-                // Enable group chat switch only if main switch id ON
-                groupReplySwitch.setEnabled(isChecked);
             }
         });
 
-        groupReplySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Ignore if this is not triggered by user action but just UI update in onResume() #62
-            if (preferencesManager.isGroupReplyEnabled() == isChecked) {
-                return;
-            }
+        // Setup Edit button
+        editButton.setOnClickListener(v -> openCustomReplyEditorActivity(v));
 
-            if (isChecked) {
-                Toast.makeText(mActivity, R.string.group_reply_on_info_message, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(mActivity, R.string.group_reply_off_info_message, Toast.LENGTH_SHORT).show();
+        // Setup Filters
+        setupFilters();
+
+        // Setup Bottom Navigation
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.navigation_atomatic) {
+                // Already on this screen
+                return true;
+            } else if (itemId == R.id.navigation_community) {
+                // Handle community navigation
+                Toast.makeText(mActivity, "Community Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.navigation_settings) {
+                // Handle settings navigation
+                loadSettingsActivity();
+                return true;
             }
-            preferencesManager.setGroupReplyPref(isChecked);
+            return false;
         });
 
-        imgMinus.setOnClickListener(v -> {
-            if (days > MIN_DAYS) {
-                days--;
-                saveNumDays();
-            }
-        });
-
-        imgPlus.setOnClickListener(v -> {
-            if (days < MAX_DAYS) {
-                days++;
-                saveNumDays();
-            }
-        });
-
-        setNumDays();
         if (!isPostNotificationPermissionGranted()) {
             checkNotificationPermission();
         }
+
         return view;
     }
 
-    private void checkNotificationPermission(){
+    private void setupFilters() {
+        // This is a placeholder for setting up the filters.
+        // You can dynamically add the filters here or inflate them as needed.
+        // For now, the layout includes four static filters.
+        // We'll set the icons and text for them here.
+
+        View filter1 = view.findViewById(R.id.filter_section_1);
+        setFilterItem(filter1, R.drawable.ic_users, "Contacts", "All Contacts");
+
+        View filter2 = view.findViewById(R.id.filter_section_2);
+        setFilterItem(filter2, R.drawable.ic_chat_circle_dots, "Message Type", "Personal Messages");
+
+        View filter3 = view.findViewById(R.id.filter_section_3);
+        setFilterItem(filter3, R.drawable.ic_app_window, "Apps", "2/3 apps enabled");
+
+        View filter4 = view.findViewById(R.id.filter_section_4);
+        setFilterItem(filter4, R.drawable.ic_clock, "Reply Cooldown", "10 minutes");
+    }
+
+    private void setFilterItem(View filterView, int iconRes, String title, String subtitle) {
+        ImageView icon = filterView.findViewById(R.id.filter_icon);
+        TextView titleView = filterView.findViewById(R.id.filter_title);
+        TextView subtitleView = filterView.findViewById(R.id.filter_subtitle);
+
+        icon.setImageResource(iconRes);
+        titleView.setText(title);
+        subtitleView.setText(subtitle);
+    }
+
+
+    private void checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.requestPermissions(mActivity, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST_CODE);
         }
     }
 
-    private boolean isPostNotificationPermissionGranted(){
+    private boolean isPostNotificationPermissionGranted() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
         }
         return true;
     }
 
-    private void showPostNotificationPermissionDeniedSnackbar(View view){
+    private void showPostNotificationPermissionDeniedSnackbar(View view) {
         Snackbar.make(view, mActivity.getResources().getString(R.string.post_notification_permission_snackbar_text), Snackbar.LENGTH_INDEFINITE)
                 .setAction(mActivity.getResources().getString(R.string.post_notification_permission_snackbar_setting), view1 -> {
                     // Open app settings
@@ -221,61 +210,14 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == NOTIFICATION_REQUEST_CODE){
+        if (requestCode == NOTIFICATION_REQUEST_CODE) {
             // If permission is granted
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Displaying a toast
             } else {
                 // Displaying another toast if permission is not granted
-                showPostNotificationPermissionDeniedSnackbar(mainAutoReplySwitch);
+                showPostNotificationPermissionDeniedSnackbar(autoRepliesSwitch);
             }
-        }
-    }
-
-    private List<App> getEnabledApps() {
-        if (enabledApps != null) {
-            enabledApps.clear();
-        }
-        enabledApps = new ArrayList<>();
-        for (App app : Constants.SUPPORTED_APPS) {
-            if (preferencesManager.isAppEnabled(app)) {
-                enabledApps.add(app);
-            }
-        }
-        return enabledApps;
-    }
-
-    public static int getSpanCount(Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int scalingFactor = 35; // You can vary the value held by the scalingFactor
-        return (int) (dpWidth / scalingFactor);
-    }
-
-    private void enableOrDisableEnabledAppsCheckboxes(boolean enabled) {
-        for (MaterialCheckBox checkbox : supportedAppsCheckboxes) {
-            checkbox.setEnabled(enabled);
-        }
-        for (View dummyView : supportedAppsDummyViews) {
-            dummyView.setVisibility(enabled ? View.GONE : View.VISIBLE);
-        }
-    }
-
-
-    private void saveNumDays() {
-        preferencesManager.setAutoReplyDelay((long) days * 24 * 60 * 60 * 1000);//Save in Milliseconds
-        setNumDays();
-    }
-
-    private void setNumDays() {
-        long timeDelay = (preferencesManager.getAutoReplyDelay() / (60 * 1000));//convert back to minutes
-        days = (int) timeDelay / (60 * 24);//convert back to days
-        if (days == 0) {
-            timeSelectedTextPreview.setText("•");
-            timePickerSubTitleTextPreview.setText(R.string.time_picker_sub_title_default);
-        } else {
-            timeSelectedTextPreview.setText(String.valueOf(days));
-            timePickerSubTitleTextPreview.setText(getResources().getQuantityString(R.plurals.time_picker_sub_title, days, days));
         }
     }
 
@@ -290,19 +232,10 @@ public class MainFragment extends Fragment {
 
         setSwitchState();
 
-        // set group chat switch state
-        groupReplySwitch.setChecked(preferencesManager.isGroupReplyEnabled());
-
         // Set user auto reply text
-        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse());
-
-        // Update enabled apps list
-        if (supportedAppsAdapter != null) {
-            supportedAppsAdapter.updateList(getEnabledApps());
-        }
+        aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
         showAppRatingPopup();
-
     }
 
     private void showAppRatingPopup() {
@@ -397,7 +330,7 @@ public class MainFragment extends Fragment {
     }
 
     private void launchAppLegacy() {
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
             List<ResolveInfo> list = getActivity().getPackageManager()
                     .queryIntentActivities(intent, 0);
@@ -441,9 +374,7 @@ public class MainFragment extends Fragment {
     }
 
     private void setSwitchState() {
-        mainAutoReplySwitch.setChecked(preferencesManager.isServiceEnabled());
-        groupReplySwitch.setEnabled(preferencesManager.isServiceEnabled());
-        enableOrDisableEnabledAppsCheckboxes(mainAutoReplySwitch.isChecked());
+        autoRepliesSwitch.setChecked(preferencesManager.isServiceEnabled());
     }
 
     //https://stackoverflow.com/questions/20141727/check-if-user-has-granted-notificationlistener-access-to-my-app/28160115
@@ -539,30 +470,19 @@ public class MainFragment extends Fragment {
     }
 
     private void startNotificationService() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled()) {
             ServieUtils.getInstance(mActivity).startNotificationService();
         }
     }
+
 
     private void stopNotificationService() {
         ServieUtils.getInstance(mActivity).stopNotificationService();
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) mActivity.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("isMyServiceRunning?", true + "");
-                return true;
-            }
-        }
-        Log.i("isMyServiceRunning?", false + "");
-        return false;
-    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        mActivity.getMenuInflater().inflate(R.menu.main_menu, menu);
+        // We are using a Toolbar in the layout, so we don't need to inflate a menu here.
     }
 
     @Override
@@ -580,15 +500,9 @@ public class MainFragment extends Fragment {
         mActivity.startActivity(intent);
     }
 
-    private void launchEnabledAppsActivity() {
-        Intent intent = new Intent(mActivity, EnabledAppsActivity.class);
-        mActivity.startActivity(intent);
-    }
-
     @Override
     public void onDestroy() {
         stopNotificationService();
         super.onDestroy();
     }
-
 }
