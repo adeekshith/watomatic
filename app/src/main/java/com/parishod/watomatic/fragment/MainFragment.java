@@ -74,6 +74,12 @@ public class MainFragment extends Fragment {
     private TextView aiReplyText;
     private View view;
 
+    private int gitHubReleaseNotesId = -1;
+    private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
+            "https://fosstodon.org/@watomatic",
+            "https://twitter.com/watomatic",
+            "https://www.reddit.com/r/watomatic");
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,16 +93,10 @@ public class MainFragment extends Fragment {
         preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
 
         // Assign Views
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ImageButton settingsButton = view.findViewById(R.id.settings_button);
         aiReplyText = view.findViewById(R.id.ai_reply_text);
-        autoRepliesSwitch = view.findViewById(R.id.auto_replies_switch);
-        Button editButton = view.findViewById(R.id.edit_button);
+        autoRepliesSwitch = view.findViewById(R.id.switch_auto_replies);
+        Button editButton = view.findViewById(R.id.btn_edit);
         BottomNavigationView bottomNav = view.findViewById(R.id.bottom_nav);
-
-        // Setup Toolbar
-        toolbar.setTitle("Atomatic");
-        settingsButton.setOnClickListener(v -> loadSettingsActivity());
 
         // Setup AI Reply
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
@@ -126,9 +126,6 @@ public class MainFragment extends Fragment {
         // Setup Edit button
         editButton.setOnClickListener(v -> openCustomReplyEditorActivity(v));
 
-        // Setup Filters
-        setupFilters();
-
         // Setup Bottom Navigation
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -137,7 +134,7 @@ public class MainFragment extends Fragment {
                 return true;
             } else if (itemId == R.id.navigation_community) {
                 // Handle community navigation
-                Toast.makeText(mActivity, "Community Clicked", Toast.LENGTH_SHORT).show();
+                launchApp(communityUrls, getString(R.string.watomatic_subreddit_url));
                 return true;
             } else if (itemId == R.id.navigation_settings) {
                 // Handle settings navigation
@@ -154,33 +151,75 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    private void setupFilters() {
-        // This is a placeholder for setting up the filters.
-        // You can dynamically add the filters here or inflate them as needed.
-        // For now, the layout includes four static filters.
-        // We'll set the icons and text for them here.
-
-        View filter1 = view.findViewById(R.id.filter_section_1);
-        setFilterItem(filter1, R.drawable.ic_users, "Contacts", "All Contacts");
-
-        View filter2 = view.findViewById(R.id.filter_section_2);
-        setFilterItem(filter2, R.drawable.ic_chat_circle_dots, "Message Type", "Personal Messages");
-
-        View filter3 = view.findViewById(R.id.filter_section_3);
-        setFilterItem(filter3, R.drawable.ic_app_window, "Apps", "2/3 apps enabled");
-
-        View filter4 = view.findViewById(R.id.filter_section_4);
-        setFilterItem(filter4, R.drawable.ic_clock, "Reply Cooldown", "10 minutes");
+    private void launchApp(List<String> urls, String fallbackUrl) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            launchAppLegacy(urls, fallbackUrl);
+            return;
+        }
+        boolean isLaunched = false;
+        for (String eachReleaseUrl : urls) {
+            if (isLaunched) {
+                break;
+            }
+            try {
+                // In order for this intent to be invoked, the system must directly launch a non-browser app.
+                // Ref: https://developer.android.com/training/package-visibility/use-cases#avoid-a-disambiguation-dialog
+                Intent intent = new Intent(ACTION_VIEW, Uri.parse(eachReleaseUrl))
+                        .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
+                                FLAG_ACTIVITY_REQUIRE_DEFAULT);
+                startActivity(intent);
+                isLaunched = true;
+            } catch (ActivityNotFoundException e) {
+                // This code executes in one of the following cases:
+                // 1. Only browser apps can handle the intent.
+                // 2. The user has set a browser app as the default app.
+                // 3. The user hasn't set any app as the default for handling this URL.
+                isLaunched = false;
+            }
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            startActivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
+        }
     }
 
-    private void setFilterItem(View filterView, int iconRes, String title, String subtitle) {
-        ImageView icon = filterView.findViewById(R.id.filter_icon);
-        TextView titleView = filterView.findViewById(R.id.filter_title);
-        TextView subtitleView = filterView.findViewById(R.id.filter_subtitle);
+    private void launchAppLegacy(List<String> urls, String fallbackUrl) {
+        boolean isLaunched = false;
+        for (String url : urls) {
+            Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
+            List<ResolveInfo> list = getActivity() != null ?
+                    getActivity().getPackageManager().queryIntentActivities(intent, 0) :
+                    null;
+            List<ResolveInfo> possibleBrowserIntents = getActivity() != null ?
+                    getActivity().getPackageManager()
+                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0) :
+                    null;
 
-        icon.setImageResource(iconRes);
-        titleView.setText(title);
-        subtitleView.setText(subtitle);
+            Set<String> excludeIntents = new HashSet<>();
+            if (possibleBrowserIntents != null) {
+                for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
+                    excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
+                }
+            }
+
+            //Check for non browser application
+            if (list != null) {
+                for (ResolveInfo resolveInfo : list) {
+                    if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
+                        intent.setPackage(resolveInfo.activityInfo.packageName);
+                        startActivity(intent);
+                        isLaunched = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isLaunched) {
+                break;
+            }
+        }
+        if (!isLaunched) { // Open Github latest release url in browser if everything else fails
+            startActivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
+        }
     }
 
 

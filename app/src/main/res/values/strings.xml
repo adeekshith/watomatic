@@ -243,6 +243,18 @@
     <string name="pref_openai_enabled" translatable="false">pref_openai_enabled</string>
     <string name="pref_openai_prompt" translatable="false">pref_openai_prompt</string>
 
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Auto Reply Text</string>
+    <string name="filters">Filters</string>
+
+    <!-- AI Reply Text -->
+    <string name="ai_reply_text">AI Reply: "Hey there! I\'m currently unavailable and will get back to you as soon as possible." (OpenAI)</string>
+
+    <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Auto Replies Enabled</string>
+    <string name="edit">Edit</string>
+
     <!-- Filter Items -->
     <string name="contacts">Contacts</string>
     <string name="all_contacts">All Contacts</string>

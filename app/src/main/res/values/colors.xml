@@ -9,6 +9,25 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <!-- Primary Colors -->
     <color name="text_primary">#111418</color>
     <color name="text_secondary">#60758A</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="button_background">#F0F2F5</color>
+    <color name="border_light">#F0F2F5</color>
+
+    <!-- Switch Colors -->
+    <color name="switch_track_enabled">#0D80F2</color>
+    <color name="switch_track_disabled">#F0F2F5</color>
+
+    <!-- Navigation Colors -->
+    <color name="nav_active">#111418</color>
+    <color name="nav_inactive">#60758A</color>
+
+    <!-- Icon Background -->
+    <color name="icon_background">#F0F2F5</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#F5F5F5</color>
+    <color name="gradient_end">#E0E0E0</color>
 </resources>
