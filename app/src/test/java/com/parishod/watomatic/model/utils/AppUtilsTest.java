@@ -20,15 +20,6 @@ import org.robolectric.shadows.ShadowPackageManager;
 
 @RunWith(RobolectricTestRunner.class)
 public class AppUtilsTest {
-
-    
-
-    
-
-    
-
-    
-
     private AppUtils appUtils;
 
     @Before
@@ -43,8 +34,6 @@ public class AppUtilsTest {
         String packageName = "com.example.app";
         ShadowPackageManager shadowPackageManager = shadowOf(ApplicationProvider.getApplicationContext().getPackageManager());
         shadowPackageManager.addPackage(packageName);
-        
-        
 
         // When
         boolean isInstalled = appUtils.isPackageInstalled(packageName);
