@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +40,18 @@ import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
+import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
+import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.model.data.AppItem;
+import com.parishod.watomatic.model.data.CooldownItem;
+import com.parishod.watomatic.model.data.DialogConfig;
+import com.parishod.watomatic.model.data.MessageTypeItem;
+import com.parishod.watomatic.model.enums.DialogType;
+import com.parishod.watomatic.model.interfaces.DialogActionListener;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
@@ -63,7 +72,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER;
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_APP_RATING;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements DialogActionListener {
 
     private static final int REQ_NOTIFICATION_LISTENER = 100;
     private static final int NOTIFICATION_REQUEST_CODE = 101;
@@ -76,6 +85,7 @@ public class MainFragment extends Fragment {
     BottomNavigationView bottomNav;
     Button editButton;
     private int gitHubReleaseNotesId = -1;
+    private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
             "https://twitter.com/watomatic",
@@ -101,6 +111,27 @@ public class MainFragment extends Fragment {
 
         // Setup AI Reply
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
+
+        //Filters Layout views
+        contactsFilterLL = view.findViewById(R.id.filter_contacts);
+        contactsFilterLL.setOnClickListener(view -> {
+            startActivity(new Intent(mActivity, ContactSelectorActivity.class));
+        });
+
+        messagesTypeLL = view.findViewById(R.id.filter_message_type);
+        messagesTypeLL.setOnClickListener(view -> {
+            showMessageTypeDialog();
+        });
+
+        supportedAppsLL = view.findViewById(R.id.filter_apps);
+        supportedAppsLL.setOnClickListener(view -> {
+            showAppsDialog();
+        });
+
+        replyCooldownLL = view.findViewById(R.id.filter_reply_cooldown);
+        replyCooldownLL.setOnClickListener(view -> {
+            showCooldownDialog();
+        });
 
         // Setup Auto-replies switch
         autoRepliesSwitch.setChecked(preferencesManager.isServiceEnabled());
@@ -548,4 +579,109 @@ public class MainFragment extends Fragment {
         stopNotificationService();
         super.onDestroy();
     }
+
+    // Dialog 1: Apps with toggles and search
+    private void showAppsDialog() {
+        List<AppItem> appItems = Arrays.asList(
+                new AppItem(R.drawable.ic_logo_full, "WhatsApp", "Auto-reply enabled", false),
+                new AppItem(R.drawable.ic_logo_full, "Telegram", "Auto-reply disabled", false),
+                new AppItem(R.drawable.ic_logo_full, "Signal", "Auto-reply enabled", false)
+        );
+
+        DialogConfig config = new DialogConfig(
+                DialogType.APPS,
+                "Apps",
+                "", // description not needed for this dialog
+                true, // showSearch
+                "Search",
+                "Search apps",
+                appItems
+        );
+
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        dialog.setActionListener(this);
+        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "apps_dialog");
+    }
+
+    // Dialog 2: Message Type with radio buttons
+    private void showMessageTypeDialog() {
+        List<MessageTypeItem> messageTypes = Arrays.asList(
+                new MessageTypeItem("Personal Messages", true),  // Pre-selected
+                new MessageTypeItem("Group Messages", false),
+                new MessageTypeItem("Messages from Unknown Senders", false)
+        );
+
+        DialogConfig config = new DialogConfig(
+                DialogType.MESSAGE_TYPE,
+                "Message Type",
+                "Select message types",
+                false, // showSearch not needed
+                "Search",
+                "Save",  // searchHint not needed
+                messageTypes
+        );
+
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        dialog.setActionListener(this);
+        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "message_type_dialog");
+    }
+
+    // Dialog 3: Cooldown with selection boxes
+    private void showCooldownDialog() {
+        List<CooldownItem> cooldownOptions = Arrays.asList(
+                new CooldownItem("1 minute", false),
+                new CooldownItem("5 minutes", true),  // Pre-selected
+                new CooldownItem("10 minutes", false)
+        );
+
+        DialogConfig config = new DialogConfig(
+                DialogType.COOLDOWN,
+                "Reply Cooldown",
+                "Set a minimum time interval between automatic replies to the same contact. " +
+                        "This prevents sending multiple replies in quick succession.",
+                false, // showSearch not needed
+                "Search",
+                "Save",  // searchHint not needed
+                cooldownOptions
+        );
+
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        dialog.setActionListener(this);
+        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "cooldown_dialog");
+    }
+
+    @Override
+    public void onSaveClicked(DialogType dialogType) {
+        switch (dialogType) {
+            case APPS:
+                Toast.makeText(mActivity, "Apps settings saved", Toast.LENGTH_SHORT).show();
+                break;
+            case MESSAGE_TYPE:
+                Toast.makeText(mActivity, "Message type settings saved", Toast.LENGTH_SHORT).show();
+                break;
+            case COOLDOWN:
+                Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onItemToggled(int position, boolean isChecked) {
+        // Handle toggle switches (for Apps and Contacts)
+        Log.d("Dialog", "Item at position " + position + " toggled: " + isChecked);
+    }
+
+    @Override
+    public void onItemSelected(int position, boolean isSelected) {
+        // Handle radio button selections (for Message Type and Cooldown)
+        Log.d("Dialog", "Item at position " + position + " selected: " + isSelected);
+    }
+
+    @Override
+    public void onSearchQuery(String query) {
+        // Handle search queries
+        Log.d("Dialog", "Search query: " + query);
+        // You can filter your data here and update the adapter
+    }
+
 }

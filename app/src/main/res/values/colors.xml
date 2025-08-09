@@ -30,4 +30,33 @@
     <!-- Gradient Colors -->
     <color name="gradient_start">#F5F5F5</color>
     <color name="gradient_end">#E0E0E0</color>
+
+
+    <!-- Primary Colors -->
+    <color name="primary_color">#1976D2</color>
+    <color name="primary_variant">#1565C0</color>
+    <color name="button_primary">#2196F3</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#FFFFFF</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="search_background">#F5F5F5</color>
+
+    <!-- Component Colors -->
+    <color name="search_icon_color">#9E9E9E</color>
+    <color name="search_stroke_color">#E0E0E0</color>
+    <color name="divider_color">#E0E0E0</color>
+
+    <!-- Option Selection Colors -->
+    <color name="selected_option_background">#E3F2FD</color>
+    <color name="selected_option_stroke">#2196F3</color>
+    <color name="unselected_option_background">#F5F5F5</color>
+    <color name="unselected_option_stroke">#E0E0E0</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="background_color_dark">#121212</color>
+    <color name="surface_color_dark">#1E1E1E</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+    <color name="search_background_dark">#2C2C2C</color>
 </resources>
