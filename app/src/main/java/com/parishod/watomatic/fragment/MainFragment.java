@@ -73,7 +73,8 @@ public class MainFragment extends Fragment {
     private SwitchMaterial autoRepliesSwitch;
     private TextView aiReplyText;
     private View view;
-
+    BottomNavigationView bottomNav;
+    Button editButton;
     private int gitHubReleaseNotesId = -1;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
@@ -95,8 +96,8 @@ public class MainFragment extends Fragment {
         // Assign Views
         aiReplyText = view.findViewById(R.id.ai_reply_text);
         autoRepliesSwitch = view.findViewById(R.id.switch_auto_replies);
-        Button editButton = view.findViewById(R.id.btn_edit);
-        BottomNavigationView bottomNav = view.findViewById(R.id.bottom_nav);
+        editButton = view.findViewById(R.id.btn_edit);
+        bottomNav = view.findViewById(R.id.bottom_nav);
 
         // Setup AI Reply
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
@@ -263,6 +264,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if(bottomNav != null){
+            bottomNav.setSelectedItemId(R.id.navigation_atomatic);
+        }
         //If user directly goes to Settings and removes notifications permission
         //when app is launched check for permission and set appropriate app state
         if (!isListenerEnabled(mActivity, NotificationService.class)) {
