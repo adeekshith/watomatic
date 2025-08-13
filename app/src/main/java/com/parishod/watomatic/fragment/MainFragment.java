@@ -45,6 +45,7 @@ import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivi
 import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
+import com.parishod.watomatic.model.App;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.model.data.AppItem;
 import com.parishod.watomatic.model.data.CooldownItem;
@@ -582,11 +583,20 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     // Dialog 1: Apps with toggles and search
     private void showAppsDialog() {
-        List<AppItem> appItems = Arrays.asList(
-                new AppItem(R.drawable.ic_logo_full, "WhatsApp", "Auto-reply enabled", false),
-                new AppItem(R.drawable.ic_logo_full, "Telegram", "Auto-reply disabled", false),
-                new AppItem(R.drawable.ic_logo_full, "Signal", "Auto-reply enabled", false)
-        );
+
+        Set<App> supportedApps = Constants.SUPPORTED_APPS;
+        List<AppItem> appItems = new ArrayList<>();
+
+        for (App app : supportedApps) {
+            AppItem item = new AppItem(
+                    R.drawable.ic_android_default_round,
+                    app.getName(),
+                    app.getPackageName(),
+                    "Auto-reply disabled", // or make this dynamic
+                    app.getPackageName().equals("com.whatsapp") ? true : false
+            );
+            appItems.add(item);
+        }
 
         DialogConfig config = new DialogConfig(
                 DialogType.APPS,

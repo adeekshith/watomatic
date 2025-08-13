@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class AppItem(
     val iconRes: Int,
     val name: String,
+    val packageName: String,
     val status: String,
     val isEnabled: Boolean = false
 ) : DialogItem

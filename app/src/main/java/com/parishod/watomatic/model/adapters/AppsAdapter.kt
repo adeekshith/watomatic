@@ -1,5 +1,7 @@
 package com.parishod.watomatic.model.adapters
 
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +33,16 @@ class AppsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        holder.icon.setImageResource(item.iconRes)
+        var icon: Drawable? = null
+        try {
+            icon = holder.icon.context.packageManager.getApplicationIcon(item.packageName)
+        } catch (ignore: PackageManager.NameNotFoundException) {
+        }
+        if(icon != null){
+            holder.icon.setImageDrawable(icon)
+        }else {
+            holder.icon.setImageResource(item.iconRes)
+        }
         holder.name.text = item.name
         holder.status.text = item.status
         holder.toggle.isChecked = item.isEnabled
