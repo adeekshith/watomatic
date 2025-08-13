@@ -694,4 +694,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // You can filter your data here and update the adapter
     }
 
+    @Override
+    public void onCooldownChanged(int totalMinutes) {
+        //DialogActionListener.super.onCooldownChanged(totalMinutes);
+        Log.d("Dialog", "Total cooldown time: " + totalMinutes);
+    }
 }

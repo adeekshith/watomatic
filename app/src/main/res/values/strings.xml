@@ -136,7 +136,7 @@
     <string name="app_rating_dialog_rate_later_title">May be later</string>
     <string name="app_rating_goto_store_dialog_title">We\'re happy!</string>
     <string name="celebrate_emoji" translatable="false">😃🙌</string>
-    <string name="app_rating_goto_store_dialog_msg">Please share this rating of our app on the Google Play Store by tapping \"Continue\"\!</string>
+    <string name="app_rating_goto_store_dialog_msg">Please share this rating of our app on the Google Play Store by tapping \"Continue\"!</string>
     <string name="app_rating_pitch">This app is free, no ads, no tracking, open source and is made by contributors like you and me.
         Your feedback is our only encouragement.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Not Interested</string>
@@ -249,7 +249,7 @@
     <string name="filters">Filters</string>
 
     <!-- AI Reply Text -->
-    <string name="ai_reply_text">AI Reply: "Hey there! I\'m currently unavailable and will get back to you as soon as possible." (OpenAI)</string>
+    <string name="ai_reply_text">AI Reply: "Hey there! I'm currently unavailable and will get back to you as soon as possible." (OpenAI)</string>
 
     <!-- Toggle and Buttons -->
     <string name="auto_replies_enabled">Auto Replies Enabled</string>
@@ -264,4 +264,8 @@
     <string name="apps_enabled_count">2/3 apps enabled</string>
     <string name="reply_cooldown">Reply Cooldown</string>
     <string name="ten_minutes">10 minutes</string>
+
+    <!-- Cooldown units -->
+    <string name="minutes">mins</string>
+    <string name="hours">hrs</string>
 </resources>

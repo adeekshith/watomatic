@@ -7,18 +7,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.NumberPicker
 import com.parishod.watomatic.R
 
 class CooldownAdapter(
     private val items: List<CooldownItem>,
-    private val onSelect: (Int, Boolean) -> Unit
+    private val onTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {
-
-    private var selectedPosition = items.indexOfFirst { it.isSelected }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.item_title)
         val container: LinearLayout = view.findViewById(R.id.item_container)
+        val valuePicker: NumberPicker = view.findViewById(R.id.picker_value)
+        val unitPicker: NumberPicker = view.findViewById(R.id.picker_unit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,25 +29,41 @@ class CooldownAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        holder.title.text = items.getOrNull(position)?.title
+            ?: holder.itemView.context.getString(R.string.reply_cooldown)
 
-        holder.title.text = item.title
+        // Value picker: 1..120
+        holder.valuePicker.minValue = 1
+        holder.valuePicker.maxValue = 120
+        holder.valuePicker.wrapSelectorWheel = true
 
-        // Update background based on selection
-        if (position == selectedPosition) {
-            holder.container.setBackgroundResource(R.drawable.selected_option_background)
-        } else {
-            holder.container.setBackgroundResource(R.drawable.unselected_option_background)
+        // Unit picker: mins/hrs
+        val unitValues = arrayOf(
+            holder.itemView.context.getString(R.string.minutes),
+            holder.itemView.context.getString(R.string.hours)
+        )
+        holder.unitPicker.minValue = 0
+        holder.unitPicker.maxValue = unitValues.size - 1
+        holder.unitPicker.displayedValues = unitValues
+        holder.unitPicker.wrapSelectorWheel = true
+
+        // Defaults: 10 minutes
+        if (holder.valuePicker.value == 0) holder.valuePicker.value = 10
+        if (holder.unitPicker.value !in 0..1) holder.unitPicker.value = 0
+
+        val notifyChange = {
+            val value = holder.valuePicker.value
+            val isHours = holder.unitPicker.value == 1
+            val totalMinutes = if (isHours) value * 60 else value
+            onTimeChanged(totalMinutes)
         }
 
-        holder.itemView.setOnClickListener {
-            val previousSelected = selectedPosition
-            selectedPosition = position
-            notifyItemChanged(previousSelected)
-            notifyItemChanged(selectedPosition)
-            onSelect(position, true)
-        }
+        holder.valuePicker.setOnValueChangedListener { _, _, _ -> notifyChange() }
+        holder.unitPicker.setOnValueChangedListener { _, _, _ -> notifyChange() }
+
+        // Trigger initial callback
+        notifyChange()
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = if (items.isEmpty()) 1 else items.size
 }

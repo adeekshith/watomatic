@@ -140,8 +140,8 @@ class UniversalDialogFragment : DialogFragment() {
             DialogType.MESSAGE_TYPE -> MessageTypeAdapter(config.items as List<MessageTypeItem>) { position, isSelected ->
                 actionListener?.onItemSelected(position, isSelected)
             }
-            DialogType.COOLDOWN -> CooldownAdapter(config.items as List<CooldownItem>) { position, isSelected ->
-                actionListener?.onItemSelected(position, isSelected)
+            DialogType.COOLDOWN -> CooldownAdapter(config.items as List<CooldownItem>) { totalMinutes ->
+                actionListener?.onCooldownChanged(totalMinutes)
             }
         }
     }

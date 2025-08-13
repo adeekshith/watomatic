@@ -4,19 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:padding="16dp"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
     android:background="@drawable/unselected_option_background"
-    android:minHeight="48dp">
+    android:minHeight="64dp">
 
     <TextView
         android:id="@+id/item_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textSize="16sp"
         android:textColor="@color/text_primary"
-        android:gravity="center" />
+        android:gravity="start" />
+
+    <NumberPicker
+        android:id="@+id/picker_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp" />
+
+    <NumberPicker
+        android:id="@+id/picker_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
