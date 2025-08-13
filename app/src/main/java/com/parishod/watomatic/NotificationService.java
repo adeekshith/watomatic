@@ -70,7 +70,7 @@ public class NotificationService extends NotificationListenerService {
             String senderName = sbn.getNotification().extras.getString("android.title");
             //Check if should reply to contact
             boolean isNameSelected =
-                    (ContactsHelper.getInstance(this).hasContactPermission()
+                    (ContactsHelper.Companion.getInstance(this).hasContactPermission()
                             && prefs.getReplyToNames().contains(senderName)) ||
                             prefs.getCustomReplyNames().contains(senderName);
             if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
