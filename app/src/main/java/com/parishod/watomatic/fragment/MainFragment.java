@@ -640,7 +640,8 @@ public class MainFragment extends Fragment implements DialogActionListener {
     // Dialog 3: Cooldown with selection boxes
     private void showCooldownDialog() {
         List<CooldownItem> cooldownOptions = new ArrayList<>();
-        cooldownOptions.add(new CooldownItem(preferencesManager.getReplyCooldownTime()));
+        long cooldownInMinutes = preferencesManager.getAutoReplyDelay() / (60 * 1000);
+        cooldownOptions.add(new CooldownItem((int) cooldownInMinutes));
 
         DialogConfig config = new DialogConfig(
                 DialogType.COOLDOWN,
@@ -661,7 +662,8 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onSaveClicked(DialogType dialogType) {
         if (dialogType == DialogType.COOLDOWN) {
-            preferencesManager.setReplyCooldownTime(selectedCooldownTime);
+            long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+            preferencesManager.setAutoReplyDelay(cooldownInMillis);
             Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
         }
     }
