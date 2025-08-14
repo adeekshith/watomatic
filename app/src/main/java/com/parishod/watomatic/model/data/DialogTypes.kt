@@ -20,6 +20,5 @@ data class MessageTypeItem(
 
 @Parcelize
 data class CooldownItem(
-    val title: String,
-    val isSelected: Boolean = false
+    val cooldownInMinutes: Int
 ) : DialogItem
