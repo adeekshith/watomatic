@@ -58,11 +58,15 @@
             android:id="@+id/description_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:paddingBottom="3dp"
+            android:paddingTop="1dp"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
             android:lineSpacingExtra="4dp"
             android:layout_marginBottom="24dp"
-            android:visibility="gone" />
+            android.visibility="gone" />
 
         <!-- Scrollable Content -->
         <androidx.recyclerview.widget.RecyclerView

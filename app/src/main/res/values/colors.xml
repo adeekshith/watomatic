@@ -59,4 +59,8 @@
     <color name="text_primary_dark">#FFFFFF</color>
     <color name="text_secondary_dark">#B0B0B0</color>
     <color name="search_background_dark">#2C2C2C</color>
+
+    <!-- Cooldown Screen -->
+    <color name="selected_item_background">#f0f2f5</color>
+    <color name="unselected_item_text">#bac4cf</color>
 </resources>

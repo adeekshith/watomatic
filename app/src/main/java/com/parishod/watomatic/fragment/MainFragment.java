@@ -86,6 +86,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     BottomNavigationView bottomNav;
     Button editButton;
     private int gitHubReleaseNotesId = -1;
+    private int selectedCooldownTime;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
@@ -638,11 +639,8 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     // Dialog 3: Cooldown with selection boxes
     private void showCooldownDialog() {
-        List<CooldownItem> cooldownOptions = Arrays.asList(
-                new CooldownItem("1 minute", false),
-                new CooldownItem("5 minutes", true),  // Pre-selected
-                new CooldownItem("10 minutes", false)
-        );
+        List<CooldownItem> cooldownOptions = new ArrayList<>();
+        cooldownOptions.add(new CooldownItem(preferencesManager.getReplyCooldownTime()));
 
         DialogConfig config = new DialogConfig(
                 DialogType.COOLDOWN,
@@ -650,8 +648,8 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 "Set a minimum time interval between automatic replies to the same contact. " +
                         "This prevents sending multiple replies in quick succession.",
                 false, // showSearch not needed
-                "Search",
-                "Save",  // searchHint not needed
+                "",    // searchHint not needed
+                "Start",
                 cooldownOptions
         );
 
@@ -662,16 +660,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     @Override
     public void onSaveClicked(DialogType dialogType) {
-        switch (dialogType) {
-            case APPS:
-                Toast.makeText(mActivity, "Apps settings saved", Toast.LENGTH_SHORT).show();
-                break;
-            case MESSAGE_TYPE:
-                Toast.makeText(mActivity, "Message type settings saved", Toast.LENGTH_SHORT).show();
-                break;
-            case COOLDOWN:
-                Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
-                break;
+        if (dialogType == DialogType.COOLDOWN) {
+            preferencesManager.setReplyCooldownTime(selectedCooldownTime);
+            Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -696,7 +687,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     @Override
     public void onCooldownChanged(int totalMinutes) {
-        //DialogActionListener.super.onCooldownChanged(totalMinutes);
+        selectedCooldownTime = totalMinutes;
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }
