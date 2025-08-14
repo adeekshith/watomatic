@@ -87,6 +87,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     Button editButton;
     private int gitHubReleaseNotesId = -1;
     private int selectedCooldownTime;
+    private TextView replyCooldownDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
@@ -115,6 +116,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
         //Filters Layout views
+        replyCooldownDescription = view.findViewById(R.id.reply_cooldown_description);
         contactsFilterLL = view.findViewById(R.id.filter_contacts);
         contactsFilterLL.setOnClickListener(view -> {
             startActivity(new Intent(mActivity, ContactSelectorActivity.class));
@@ -311,7 +313,28 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // Set user auto reply text
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
+        updateCooldownFilterDisplay();
         showAppRatingPopup();
+    }
+
+    private void updateCooldownFilterDisplay() {
+        long cooldownInMillis = preferencesManager.getAutoReplyDelay();
+        long minutes = cooldownInMillis / (60 * 1000);
+        if (minutes == 0) {
+            replyCooldownDescription.setText(R.string.no_cooldown);
+            return;
+        }
+        long hours = minutes / 60;
+        minutes = minutes % 60;
+
+        StringBuilder cooldownText = new StringBuilder();
+        if (hours > 0) {
+            cooldownText.append(hours).append(" ").append(getResources().getString(hours > 1 ? R.string.hours : R.string.hour)).append(" ");
+        }
+        if (minutes > 0) {
+            cooldownText.append(minutes).append(" ").append(getResources().getString(minutes > 1 ? R.string.minutes : R.string.minute));
+        }
+        replyCooldownDescription.setText(cooldownText.toString().trim());
     }
 
     private void showAppRatingPopup() {

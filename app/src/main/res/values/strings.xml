@@ -266,6 +266,9 @@
     <string name="ten_minutes">10 minutes</string>
 
     <!-- Cooldown units -->
-    <string name="minutes">mins</string>
-    <string name="hours">hrs</string>
+    <string name="minutes">minutes</string>
+    <string name="hours">hours</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="no_cooldown">No cooldown</string>
 </resources>
