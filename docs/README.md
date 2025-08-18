@@ -1,8 +1,10 @@
 <script href="language.js"></script>
 
-# Atomatic - Auto reply for messaging apps
+# Atomatic – Auto Reply for Messaging Apps
 
-Atomatic sends an automated reply to everyone contacting you on supported messaging apps. This is especially useful if you are planning to migrate away from them but can also be used as a vacation responder.
+Tired of being interrupted when you’re busy, driving, or just offline? Atomatic has you covered. Whether you’re working, on vacation, or just taking a break, Atomatic automatically replies to incoming messages across supported messaging apps—so your contacts are always in the loop.
+
+Atomatic is the smarter way to stay responsive without lifting a finger.
 
 <a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='assets/en_badge_web_generic.png' height="60" /></a>
 <a href='https://f-droid.org/en/packages/com.parishod.watomatic/'><img alt='Get it on F-Droid' src='https://f-droid.org/badge/get-it-on.svg' height="60" /></a>
@@ -15,12 +17,38 @@ Atomatic sends an automated reply to everyone contacting you on supported messag
 
 [**❯ More screenshots**](/screenshots.md)
 
-### Features:
-- Auto reply to every message
-- Set your own auto reply message
-- Auto reply to group chats
-- Respects your privacy
-- Open source
+### Key Features
+
+*   **Automatic Replies**: Send customizable replies to everyone who messages you while you’re unavailable.
+*   **Multi-App Support**: Works with WhatsApp, WhatsApp Business, Facebook Messenger, Instagram (via notifications), and more (depending on device support).
+*   **Custom Messages**: Set your own response—whether it’s “I’m driving, will reply soon” or “Out of office until Monday.”
+*   **Auto-Reply for Groups**: Choose whether to reply to individual chats, group chats, or both.
+*   **Reply Frequency Control**: Avoid spamming the same person—limit how often replies are sent per contact.
+*   **Privacy Friendly**: No internet access is required. Your data stays on your device—always.
+*   **Dark Mode Support**: Save your eyes (and battery) with a sleek dark theme.
+*   **Open Source**: Built by a community, for the community.
+
+### ❤️ Your Privacy Matters
+
+Atomatic doesn’t connect to the internet and doesn’t send your data anywhere. All processing is done locally on your device. We believe privacy isn’t a feature—it’s a right.
+
+### 🎯 Perfect For:
+
+*   Driving or commuting
+*   Working without distractions
+*   Studying or attending meetings
+*   Taking personal time or going on vacation
+
+### ✨ Loved by Many
+
+Atomatic is trusted by many users around the world (was previously launched with a different name) to help them stay present in real life while remaining courteous in digital conversations. Simple to set up, easy to forget—it just works.
+
+### 🚀 Get Started in Seconds
+
+1.  Install Atomatic
+2.  Enable notification access
+3.  Set your auto-reply message
+4.  Relax and let Automatic handle the rest.
 
 This app is not associated with any company including WhatsApp, Facebook, Signal.
 

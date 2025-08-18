@@ -1,27 +1,52 @@
-# Atomatic - Antwortet automatisch, damit du WhatsApp nicht mehr benutzen musst
+# Atomatic – Automatische Antworten für Messaging-Apps
 
-Atomatic antwortet automatisch auf deine WhatsApp und FB-Messenger Nachrichten, damit deine Freunde wissen, dass du WhatsApp nicht mehr benutzt. 
+Genervt davon, unterbrochen zu werden, wenn Sie beschäftigt sind, Auto fahren oder einfach nur offline sind? Atomatic ist für Sie da. Egal, ob Sie arbeiten, im Urlaub sind oder einfach nur eine Pause machen, Atomatic antwortet automatisch auf eingehende Nachrichten in unterstützten Messaging-Apps – damit Ihre Kontakte immer auf dem Laufenden sind.
 
-<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='../assets/en_badge_web_generic.png' height="60" /></a>
-[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
-<a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
+Atomatic ist die intelligentere Art, reaktionsschnell zu bleiben, ohne einen Finger zu rühren.
+
+<a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Jetzt bei Google Play' src='../assets/en_badge_web_generic.png' height="60" /></a>
+[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg" alt="Jetzt bei F-Droid" height="60">](https://f-droid.org/en/packages/com.parishod.watomatic/)
+<a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Jetzt bei F-Droid über IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
 ### [Screenshots](/screenshots.md)
 
-| [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/1.png" alt="Scr 1">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/2.png" alt="scr 2">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/3.png" alt="Scr 3">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/4.png" alt="Scr 4">][scr-page-link]  |
-| ------------------------------------------- | ------------------------------------------ | ------- | ------ |
+| [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/1.png" alt="Scr 1">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/2.png" alt="scr 2">][scr-page-link]  |  [<img src="https://raw.githubusercontent.com/adeekshith/watomatic/main/media/screenshots/3.png" alt="Scr 3">][scr-page-link]  |
+| ------------------------------------------- | ------------------------------------------ | ------- |
 
 [**❯ Mehr Screenshots**](/screenshots.md)
 
-### Features:
-- Antwortet automatisch auf jede WhatsApp Nachricht
-- Setzte deine eigene Nachricht
-- Antwortet auch in Gruppenchats
-- Privatsphärenfreundlich
-  - Keine Analytics oder Tracker
-- Kostenlos und Open Source
+### Hauptmerkmale:
 
-WhatsApp hat vor kurzem die Datenschutzerklärung geändert und hat damit viele Leute dazu gebracht, zu besseren Messengern zu wechseln. Das Problem ist aber dass viele Leute es schwierig finden, WhatsApp zu verlassen, da fast jeder WhatsApp benutzt. Atomatic hilft dir dabei, indem es deinen Freunden eine personalisierte Nachricht schickt, damit sie erfahren, dass du kein WhatsApp mehr benutzt, sondern nur noch Signal etc. benutzt.
+*   **Automatische Antworten**: Senden Sie anpassbare Antworten an alle, die Ihnen eine Nachricht senden, während Sie nicht verfügbar sind.
+*   **Unterstützung für mehrere Apps**: Funktioniert mit WhatsApp, WhatsApp Business, Facebook Messenger, Instagram (über Benachrichtigungen) und mehr (je nach Geräteunterstützung).
+*   **Benutzerdefinierte Nachrichten**: Legen Sie Ihre eigene Antwort fest – sei es „Ich fahre gerade, antworte bald“ oder „Bis Montag außer Haus“.
+*   **Automatische Antwort für Gruppen**: Wählen Sie, ob Sie auf Einzelchats, Gruppenchats oder beides antworten möchten.
+*   **Kontrolle der Antworthäufigkeit**: Vermeiden Sie es, dieselbe Person mit Spam zuzumüllen – begrenzen Sie, wie oft Antworten pro Kontakt gesendet werden.
+*   **Datenschutzfreundlich**: Kein Internetzugang erforderlich. Ihre Daten bleiben immer auf Ihrem Gerät.
+*   **Dunkelmodus-Unterstützung**: Schonen Sie Ihre Augen (und den Akku) mit einem eleganten dunklen Design.
+*   **Open Source**: Von einer Community für die Community entwickelt.
+
+### ❤️ Ihre Privatsphäre ist uns wichtig
+
+Atomatic stellt keine Verbindung zum Internet her und sendet Ihre Daten nirgendwo hin. Die gesamte Verarbeitung erfolgt lokal auf Ihrem Gerät. Wir glauben, dass Datenschutz kein Feature ist, sondern ein Recht.
+
+### 🎯 Perfekt für:
+
+*   Autofahren oder Pendeln
+*   Arbeiten ohne Ablenkungen
+*   Lernen oder an Besprechungen teilnehmen
+*   Sich eine Auszeit nehmen oder in den Urlaub fahren
+
+### ✨ Von vielen geliebt
+
+Viele Benutzer auf der ganzen Welt vertrauen auf Atomatic (wurde früher unter einem anderen Namen veröffentlicht), um ihnen zu helfen, im wirklichen Leben präsent zu bleiben und gleichzeitig in digitalen Gesprächen höflich zu bleiben. Einfach einzurichten, leicht zu vergessen – es funktioniert einfach.
+
+### 🚀 In Sekunden startklar:
+
+1.  Installieren Sie Atomatic
+2.  Aktivieren Sie den Benachrichtigungszugriff
+3.  Legen Sie Ihre automatische Antwortnachricht fest
+4.  Entspannen Sie sich und lassen Sie Atomatic den Rest erledigen.
 
 Diese App arbeitet nich mit WhatsApp, Facebook oder Signal zusammen.
 
@@ -58,10 +83,3 @@ Fehlende Features? Sag uns in einem [Issue](https://github.com/adeekshith/watoma
 Connect with Deekshith on: [Twitter](https://twitter.com/adeekshith), [Linkedin](https://www.linkedin.com/in/adeekshith/), [Mastodon](https://mastodon.technology/@dsoft), [Github](https://github.com/adeekshith) 
 
 [scr-page-link]: https://github.com/adeekshith/watomatic/tree/main/media/screenshots
-
-
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
