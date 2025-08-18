@@ -261,7 +261,7 @@
     <string name="message_type">Message Type</string>
     <string name="personal_messages">Personal Messages</string>
     <string name="apps">Apps</string>
-    <string name="apps_enabled_count">2/3 apps enabled</string>
+    <string name="apps_enabled_count">%1$d/%2$d apps enabled</string>
     <string name="reply_cooldown">Reply Cooldown</string>
     <string name="ten_minutes">10 minutes</string>
 

@@ -160,6 +160,7 @@ android:orientation="vertical">
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/enabled_apps_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

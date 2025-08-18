@@ -3,6 +3,7 @@ package com.parishod.watomatic.fragment
 import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -124,10 +125,14 @@ class UniversalDialogFragment : DialogFragment() {
             recyclerView.adapter = createAdapter(config)
 
             // Setup save button
-            saveButton.text = config.saveButtonText
-            saveButton.setOnClickListener {
-                actionListener?.onSaveClicked(config.dialogType)
-                dismiss()
+            if(!TextUtils.isEmpty(config.saveButtonText)) {
+                saveButton.text = config.saveButtonText
+                saveButton.setOnClickListener {
+                    actionListener?.onSaveClicked(config.dialogType)
+                    dismiss()
+                }
+            }else{
+                saveButton.visibility = View.GONE
             }
         }
     }

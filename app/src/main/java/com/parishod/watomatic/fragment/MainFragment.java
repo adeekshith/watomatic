@@ -89,6 +89,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private int selectedCooldownTime;
     private TextView replyCooldownDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
+    private TextView enabledAppsCount;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
             "https://fosstodon.org/@watomatic",
             "https://twitter.com/watomatic",
@@ -131,6 +132,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
         supportedAppsLL.setOnClickListener(view -> {
             showAppsDialog();
         });
+
+        enabledAppsCount = view.findViewById(R.id.enabled_apps_count);
+        enabledAppsCount.setText(String.format(getResources().getString(R.string.apps_enabled_count), preferencesManager.getEnabledApps().size(), Constants.SUPPORTED_APPS.size()));
 
         replyCooldownLL = view.findViewById(R.id.filter_reply_cooldown);
         replyCooldownLL.setOnClickListener(view -> {
@@ -626,9 +630,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 DialogType.APPS,
                 "Apps",
                 "", // description not needed for this dialog
-                true, // showSearch
+                false, // showSearch
                 "Search",
-                "Search apps",
+                "",
                 appItems
         );
 
@@ -695,6 +699,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     public void onItemToggled(int position, boolean isChecked) {
         // Handle toggle switches (for Apps and Contacts)
         Log.d("Dialog", "Item at position " + position + " toggled: " + isChecked);
+        enabledAppsCount.setText(String.format(getResources().getString(R.string.apps_enabled_count), preferencesManager.getEnabledApps().size(), Constants.SUPPORTED_APPS.size()));
     }
 
     @Override
