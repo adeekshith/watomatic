@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
@@ -16,7 +17,8 @@ class CooldownAdapter(
     private val onTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {
 
-    private var selectedTimeValue: Int = 10 // Default to 10 minutes
+    private var selectedHour: Int = 0
+    private var selectedMinute: Int = 10 // Default to 10 minutes
     private var isHoursSelected: Boolean = false
 
     inner class TimeAdapter(
@@ -24,7 +26,12 @@ class CooldownAdapter(
         private val onTimeSelected: (Int) -> Unit
     ) : RecyclerView.Adapter<TimeAdapter.TimeViewHolder>() {
 
-        private var selectedPosition = timeValues.indexOf(selectedTimeValue)
+        private var selectedPosition = -1
+
+        init {
+            val initialSelectedValue = if (isHoursSelected) selectedHour else selectedMinute
+            selectedPosition = timeValues.indexOf(initialSelectedValue)
+        }
 
         inner class TimeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val timeValue: TextView = view.findViewById(R.id.time_value)
@@ -51,8 +58,10 @@ class CooldownAdapter(
             holder.itemView.setOnClickListener {
                 val previousPosition = selectedPosition
                 selectedPosition = holder.adapterPosition
-                notifyItemChanged(previousPosition)
-                notifyItemChanged(selectedPosition)
+                if (previousPosition != selectedPosition) {
+                    notifyItemChanged(previousPosition)
+                    notifyItemChanged(selectedPosition)
+                }
                 onTimeSelected(time)
             }
         }
@@ -72,15 +81,14 @@ class CooldownAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Restore state from CooldownItem if available
         items.getOrNull(position)?.let {
             val totalMinutes = it.cooldownInMinutes
             if (totalMinutes >= 60 && totalMinutes % 60 == 0) {
                 isHoursSelected = true
-                selectedTimeValue = totalMinutes / 60
+                selectedHour = totalMinutes / 60
             } else {
                 isHoursSelected = false
-                selectedTimeValue = totalMinutes
+                selectedMinute = totalMinutes
             }
         }
 
@@ -98,27 +106,44 @@ class CooldownAdapter(
     }
 
     private fun setupTimeRecyclerView(holder: ViewHolder) {
-        val timeValues = if (isHoursSelected) (1..24).toList() else (1..60).toList()
-        if (!timeValues.contains(selectedTimeValue)) {
-            selectedTimeValue = timeValues[0]
-        }
+        val timeValues = if (isHoursSelected) (0..24).toList() else (0..60).toList()
         val timeAdapter = TimeAdapter(timeValues) { time ->
-            selectedTimeValue = time
+            if (isHoursSelected) {
+                selectedHour = time
+            } else {
+                selectedMinute = time
+            }
             notifyTimeChange()
         }
         holder.timeRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = timeAdapter
-            // Scroll to selected position
-            val selectedIndex = timeValues.indexOf(selectedTimeValue)
+
+            val snapHelper = LinearSnapHelper()
+            onFlingListener = null
+            snapHelper.attachToRecyclerView(this)
+
+            val selectedValue = if (isHoursSelected) selectedHour else selectedMinute
+            val selectedIndex = timeValues.indexOf(selectedValue)
             if (selectedIndex != -1) {
-                (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(selectedIndex, 0)
+                post {
+                    val layoutManager = layoutManager as LinearLayoutManager
+                    val view = layoutManager.findViewByPosition(selectedIndex)
+                    if (view != null) {
+                        val snapDistance = snapHelper.calculateDistanceToFinalSnap(layoutManager, view)
+                        if (snapDistance != null) {
+                            scrollBy(snapDistance[0], snapDistance[1])
+                        }
+                    } else {
+                        layoutManager.scrollToPositionWithOffset(selectedIndex, height / 2 - 40)
+                    }
+                }
             }
         }
     }
 
     private fun notifyTimeChange() {
-        val totalMinutes = if (isHoursSelected) selectedTimeValue * 60 else selectedTimeValue
+        val totalMinutes = if (isHoursSelected) selectedHour * 60 else selectedMinute
         onTimeChanged(totalMinutes)
     }
 

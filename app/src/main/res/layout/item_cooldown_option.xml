@@ -36,12 +36,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_time"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="120dp"
+        android:orientation="vertical"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/toggle_button_group"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
