@@ -1,11 +1,11 @@
 <script href="language.js"></script>
 
-# Atomatic - Auto reply for messaging apps so you can stop using it
+# Atomatic - Auto reply for messaging apps
 
 Atomatic sends an automated reply to everyone contacting you on supported messaging apps. This is especially useful if you are planning to migrate away from them but can also be used as a vacation responder.
 
 <a href='https://play.google.com/store/apps/details?id=com.parishod.watomatic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='assets/en_badge_web_generic.png' height="60" /></a>
-<a href='https://f-droid.org/en/packages/com.parishod.watomatic/'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.svg' height="60" /></a>
+<a href='https://f-droid.org/en/packages/com.parishod.watomatic/'><img alt='Get it on F-Droid' src='https://f-droid.org/badge/get-it-on.svg' height="60" /></a>
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.parishod.watomatic'><img alt='Get it on F-Droid via IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height="60" /></a>
 
 ### [Screenshots](/screenshots.md)
@@ -20,11 +20,7 @@ Atomatic sends an automated reply to everyone contacting you on supported messag
 - Set your own auto reply message
 - Auto reply to group chats
 - Respects your privacy
-  - No analytics or tracking
-- Free an open source
-
-Example:
-WhatsApp's recent privacy policy changes have triggered a huge migration to more privacy-friendly apps like Signal and others. But most of us find it difficult to delete WhatsApp because everyone else uses it. Atomatic tries to make your migration easier by letting your friends automatically know that you are moved to another app. Just set an auto reply message something like “I am not using WhatsApp anymore. Please use Signal…” and let it do the work for you.
+- Open source
 
 This app is not associated with any company including WhatsApp, Facebook, Signal.
 
