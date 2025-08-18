@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
@@ -118,27 +117,6 @@ class CooldownAdapter(
         holder.timeRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = timeAdapter
-
-            val snapHelper = LinearSnapHelper()
-            onFlingListener = null
-            snapHelper.attachToRecyclerView(this)
-
-            val selectedValue = if (isHoursSelected) selectedHour else selectedMinute
-            val selectedIndex = timeValues.indexOf(selectedValue)
-            if (selectedIndex != -1) {
-                post {
-                    val layoutManager = layoutManager as LinearLayoutManager
-                    val view = layoutManager.findViewByPosition(selectedIndex)
-                    if (view != null) {
-                        val snapDistance = snapHelper.calculateDistanceToFinalSnap(layoutManager, view)
-                        if (snapDistance != null) {
-                            scrollBy(snapDistance[0], snapDistance[1])
-                        }
-                    } else {
-                        layoutManager.scrollToPositionWithOffset(selectedIndex, height / 2 - 40)
-                    }
-                }
-            }
         }
     }
 
