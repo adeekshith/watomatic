@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.AppItem
+import com.parishod.watomatic.model.preferences.PreferencesManager
 
 class AppsAdapter(
     private val items: List<AppItem>,
@@ -45,9 +46,10 @@ class AppsAdapter(
         }
         holder.name.text = item.name
         holder.status.text = item.status
-        holder.toggle.isChecked = item.isEnabled
+        holder.toggle.isChecked = PreferencesManager.getPreferencesInstance(holder.icon.context).isAppEnabled(item.packageName)
 
         holder.toggle.setOnCheckedChangeListener { _, isChecked ->
+            PreferencesManager.getPreferencesInstance(holder.icon.context).saveEnabledApps(item.packageName, isChecked)
             onToggle(position, isChecked)
         }
     }
