@@ -13,7 +13,7 @@ import com.parishod.watomatic.model.data.CooldownItem
 
 class CooldownAdapter(
     private val items: List<CooldownItem>,
-    private val onTimeChanged: (Int) -> Unit
+    private val onCooldownTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {
 
     private var selectedHour: Int = 0
@@ -47,11 +47,11 @@ class CooldownAdapter(
             holder.timeValue.text = time.toString()
 
             if (position == selectedPosition) {
-                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.selected_item_background))
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.primary))
                 holder.timeValue.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.text_primary))
             } else {
-                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, android.R.color.transparent))
-                holder.timeValue.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.unselected_item_text))
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.unselected_item_text))
+                holder.timeValue.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.text_primary))
             }
 
             holder.itemView.setOnClickListener {
@@ -105,7 +105,7 @@ class CooldownAdapter(
     }
 
     private fun setupTimeRecyclerView(holder: ViewHolder) {
-        val timeValues = if (isHoursSelected) (0..24).toList() else (0..60).toList()
+        val timeValues = if (isHoursSelected) (1..24).toList() else (1..59).toList()
         val timeAdapter = TimeAdapter(timeValues) { time ->
             if (isHoursSelected) {
                 selectedHour = time
@@ -122,7 +122,7 @@ class CooldownAdapter(
 
     private fun notifyTimeChange() {
         val totalMinutes = if (isHoursSelected) selectedHour * 60 else selectedMinute
-        onTimeChanged(totalMinutes)
+        onCooldownTimeChanged(totalMinutes)
     }
 
     override fun getItemCount(): Int = if (items.isEmpty()) 1 else items.size

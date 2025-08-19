@@ -7,4 +7,5 @@
     android:textSize="16sp"
     android:textColor="@color/text_primary"
     android:background="?attr/selectableItemBackground"
-    android:gravity="center" />
+    android:gravity="center"
+    android:layout_margin="5dp"/>
