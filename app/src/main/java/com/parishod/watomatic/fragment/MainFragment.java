@@ -117,7 +117,6 @@ public class MainFragment extends Fragment implements DialogActionListener {
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
         //Filters Layout views
-        replyCooldownDescription = view.findViewById(R.id.reply_cooldown_description);
         contactsFilterLL = view.findViewById(R.id.filter_contacts);
         contactsFilterLL.setOnClickListener(view -> {
             startActivity(new Intent(mActivity, ContactSelectorActivity.class));
@@ -136,6 +135,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         enabledAppsCount = view.findViewById(R.id.enabled_apps_count);
         enabledAppsCount.setText(String.format(getResources().getString(R.string.apps_enabled_count), preferencesManager.getEnabledApps().size(), Constants.SUPPORTED_APPS.size()));
 
+        replyCooldownDescription = view.findViewById(R.id.reply_cooldown_description);
         replyCooldownLL = view.findViewById(R.id.filter_reply_cooldown);
         replyCooldownLL.setOnClickListener(view -> {
             showCooldownDialog();
@@ -636,7 +636,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 appItems
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity, config);
         dialog.setActionListener(this);
         dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "apps_dialog");
     }
@@ -659,7 +659,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 messageTypes
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity,config);
         dialog.setActionListener(this);
         dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "message_type_dialog");
     }
@@ -677,11 +677,11 @@ public class MainFragment extends Fragment implements DialogActionListener {
                         "This prevents sending multiple replies in quick succession.",
                 false, // showSearch not needed
                 "",    // searchHint not needed
-                "Start",
+                "",
                 cooldownOptions
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity, config);
         dialog.setActionListener(this);
         dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "cooldown_dialog");
     }
@@ -718,6 +718,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onCooldownChanged(int totalMinutes) {
         selectedCooldownTime = totalMinutes;
+        long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+        preferencesManager.setAutoReplyDelay(cooldownInMillis);
+        updateCooldownFilterDisplay();
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }

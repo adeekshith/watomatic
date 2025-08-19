@@ -12,12 +12,13 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
 
 class CooldownAdapter(
+    private val initialTimeInMillis: Long,
     private val items: List<CooldownItem>,
     private val onCooldownTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {
 
     private var selectedHour: Int = 0
-    private var selectedMinute: Int = 10 // Default to 10 minutes
+    private var selectedMinute: Int = 1 // Default to 10 minutes
     private var isHoursSelected: Boolean = false
 
     inner class TimeAdapter(
@@ -28,6 +29,18 @@ class CooldownAdapter(
         private var selectedPosition = -1
 
         init {
+            var minutes = initialTimeInMillis / (60 * 1000)
+            val hours = minutes / 60
+            minutes = minutes % 60
+            if(hours > 0) {
+                selectedHour = hours.toInt()
+                isHoursSelected = true
+            }
+
+            if(minutes > 0) {
+                selectedMinute = minutes.toInt()
+                isHoursSelected = false
+            }
             val initialSelectedValue = if (isHoursSelected) selectedHour else selectedMinute
             selectedPosition = timeValues.indexOf(initialSelectedValue)
         }

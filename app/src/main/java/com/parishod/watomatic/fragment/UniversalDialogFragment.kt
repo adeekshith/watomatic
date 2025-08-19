@@ -1,6 +1,7 @@
 package com.parishod.watomatic.fragment
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -28,8 +29,9 @@ import com.parishod.watomatic.model.data.DialogConfig
 import com.parishod.watomatic.model.data.MessageTypeItem
 import com.parishod.watomatic.model.enums.DialogType
 import com.parishod.watomatic.model.interfaces.DialogActionListener
+import com.parishod.watomatic.model.preferences.PreferencesManager
 
-class UniversalDialogFragment : DialogFragment() {
+class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
     private lateinit var toolbar: MaterialToolbar
     private lateinit var searchLayout: TextInputLayout
@@ -40,10 +42,9 @@ class UniversalDialogFragment : DialogFragment() {
 
     private var dialogConfig: DialogConfig? = null
     private var actionListener: DialogActionListener? = null
-
     companion object {
-        fun newInstance(config: DialogConfig): UniversalDialogFragment {
-            val dialog = UniversalDialogFragment()
+        fun newInstance(context: Context, config: DialogConfig): UniversalDialogFragment {
+            val dialog = UniversalDialogFragment(context)
             val args = Bundle().apply {
                 putParcelable("config", config)
             }
@@ -145,7 +146,8 @@ class UniversalDialogFragment : DialogFragment() {
             DialogType.MESSAGE_TYPE -> MessageTypeAdapter(config.items as List<MessageTypeItem>) { position, isSelected ->
                 actionListener?.onItemSelected(position, isSelected)
             }
-            DialogType.COOLDOWN -> CooldownAdapter(config.items as List<CooldownItem>) { totalMinutes ->
+            DialogType.COOLDOWN -> CooldownAdapter(PreferencesManager.getPreferencesInstance(mContext).autoReplyDelay,
+                config.items as List<CooldownItem>) { totalMinutes ->
                 actionListener?.onCooldownChanged(totalMinutes)
             }
         }
