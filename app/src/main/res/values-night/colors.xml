@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home Screen Auto Reply Text -->
+    <color name="gradient_start">@android:color/transparent</color>
+    <color name="gradient_end">#CC000000</color> <!-- dark, black overlay with alpha -->
+</resources>

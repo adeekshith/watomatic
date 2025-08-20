@@ -41,9 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/contacts"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
                 android:includeFontPadding="false" />
 
             <!-- Subtitle (kept remote ID + our font choice) -->
@@ -53,9 +53,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/all_contacts"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
                 android:includeFontPadding="false" />
         </LinearLayout>
 
@@ -102,9 +102,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/message_type"
-                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
                 android:includeFontPadding="false" />
 
             <!-- Subtitle -->
@@ -113,9 +113,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/personal_messages"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
                 android:includeFontPadding="false" />
         </LinearLayout>
 
@@ -162,9 +162,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/apps"
-                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
                 android:includeFontPadding="false" />
 
             <!-- Subtitle -->
@@ -174,9 +174,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/apps_enabled_count"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
                 android:includeFontPadding="false" />
         </LinearLayout>
 
@@ -223,9 +223,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/reply_cooldown"
-                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
                 android:includeFontPadding="false" />
 
             <!-- Subtitle -->
@@ -235,9 +235,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/ten_minutes"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
                 android:includeFontPadding="false" />
         </LinearLayout>
 
