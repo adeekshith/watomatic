@@ -12,7 +12,7 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
 
 class CooldownAdapter(
-    private val initialTimeInMillis: Long,
+    private var initialTimeInMillis: Long,
     private val items: List<CooldownItem>,
     private val onCooldownTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {
@@ -110,8 +110,11 @@ class CooldownAdapter(
         holder.toggleButtonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 isHoursSelected = checkedId == R.id.button_hours
+                //when toggle between hrs to minutes or vice versa resetting recycler view hence set the initialtime also
+                val totalMinutes = if (isHoursSelected) selectedHour * 60 else selectedMinute
+                initialTimeInMillis = totalMinutes * 60 * 1000.toLong()
                 setupTimeRecyclerView(holder)
-                notifyTimeChange()
+                //notifyTimeChange()
             }
         }
         notifyTimeChange()
