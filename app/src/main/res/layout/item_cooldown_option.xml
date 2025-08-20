@@ -5,11 +5,20 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_reset_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/reset_timer" />
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_button_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_reset_timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:singleSelection="true"
