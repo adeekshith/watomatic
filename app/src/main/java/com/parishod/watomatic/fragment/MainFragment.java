@@ -87,7 +87,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     Button editButton;
     private int gitHubReleaseNotesId = -1;
     private int selectedCooldownTime;
-    private TextView replyCooldownDescription;
+    private TextView replyCooldownDescription, messageTypeDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
@@ -122,6 +122,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
             startActivity(new Intent(mActivity, ContactSelectorActivity.class));
         });
 
+        messageTypeDescription = view.findViewById(R.id.message_type_desc);
         messagesTypeLL = view.findViewById(R.id.filter_message_type);
         messagesTypeLL.setOnClickListener(view -> {
             showMessageTypeDialog();
@@ -317,8 +318,17 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // Set user auto reply text
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
+        updateMessageType();
         updateCooldownFilterDisplay();
         showAppRatingPopup();
+    }
+
+    private void updateMessageType(){
+        if(preferencesManager.isGroupReplyEnabled()){
+            messageTypeDescription.setText(R.string.all_messages);
+        }else{
+            messageTypeDescription.setText(R.string.direct_messages);
+        }
     }
 
     private void updateCooldownFilterDisplay() {
@@ -644,9 +654,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
     // Dialog 2: Message Type with radio buttons
     private void showMessageTypeDialog() {
         List<MessageTypeItem> messageTypes = Arrays.asList(
-                new MessageTypeItem("Personal Messages", true),  // Pre-selected
-                new MessageTypeItem("Group Messages", false),
-                new MessageTypeItem("Messages from Unknown Senders", false)
+                new MessageTypeItem(getResources().getString(R.string.direct_messages), !preferencesManager.isGroupReplyEnabled()),  // Pre-selected
+                new MessageTypeItem(getResources().getString(R.string.all_messages), preferencesManager.isGroupReplyEnabled())
+                //new MessageTypeItem("Messages from Unknown Senders", false)
         );
 
         DialogConfig config = new DialogConfig(
@@ -655,7 +665,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 "Select message types",
                 false, // showSearch not needed
                 "Search",
-                "Save",  // searchHint not needed
+                "",  // searchHint not needed
                 messageTypes
         );
 
@@ -704,8 +714,10 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     @Override
     public void onItemSelected(int position, boolean isSelected) {
-        // Handle radio button selections (for Message Type and Cooldown)
+        // Handle radio button selections (for Message Type)
         Log.d("Dialog", "Item at position " + position + " selected: " + isSelected);
+        PreferencesManager.getPreferencesInstance(mActivity).setGroupReplyPref(position == 1);
+        updateMessageType();
     }
 
     @Override

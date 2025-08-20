@@ -259,7 +259,8 @@
     <string name="contacts">Contacts</string>
     <string name="all_contacts">All Contacts</string>
     <string name="message_type">Message Type</string>
-    <string name="personal_messages">Personal Messages</string>
+    <string name="direct_messages">Direct Messages Only</string>
+    <string name="all_messages">All Messages</string>
     <string name="apps">Apps</string>
     <string name="apps_enabled_count">%1$d/%2$d apps enabled</string>
     <string name="reply_cooldown">Reply Cooldown</string>

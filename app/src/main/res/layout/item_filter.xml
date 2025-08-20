@@ -103,10 +103,11 @@ android:orientation="vertical">
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/message_type_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/personal_messages"
+            android:text="@string/direct_messages"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
