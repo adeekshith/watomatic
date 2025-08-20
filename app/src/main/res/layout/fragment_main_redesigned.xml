@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <!-- Scrollable Content -->
@@ -23,7 +22,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:gravity="center_vertical"
                 android:minHeight="56dp"
                 android:paddingHorizontal="16dp">
@@ -35,8 +33,10 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_weight="1"
                     android:text="@string/auto_reply_text"
-                    android:textColor="@color/text_primary"
-                    android:textSize="22sp" />
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:letterSpacing="-0.01"
+                    android:includeFontPadding="false" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_auto_replies"
@@ -72,10 +72,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_margin="16dp"
-                        android:lineSpacingExtra="2dp"
                         android:text="@string/ai_reply_text"
-                        android:textColor="@color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp"
+                        android:fontFamily="@font/inter"
+                        android:lineSpacingMultiplier="1.25"
+                        android:breakStrategy="balanced"
+                        android:hyphenationFrequency="full"
+                        android:includeFontPadding="false" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -95,9 +98,10 @@
                     android:layout_height="40dp"
                     android:paddingHorizontal="16dp"
                     android:text="@string/edit"
-                    android:textColor="@color/text_primary"
                     android:textSize="14sp"
-                    app:backgroundTint="@color/button_background"
+                    android:fontFamily="@font/inter_medium"
+                    android:letterSpacing="0.015"
+                    android:textAllCaps="false"
                     app:cornerRadius="8dp"
                     app:elevation="0dp"
                     app:strokeWidth="0dp" />
@@ -112,8 +116,10 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="12dp"
                 android:text="@string/filters"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/inter_bold"
+                android:letterSpacing="-0.01"
+                android:includeFontPadding="false" />
 
             <!-- Filter Items -->
             <include
@@ -131,9 +137,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/white"
-        app:itemIconTint="@color/bottom_nav_color"
-        app:itemTextColor="@color/bottom_nav_color"
+        app:itemTextAppearanceActive="@style/TextAppearance.BottomNav.Active"
+        app:itemTextAppearanceInactive="@style/TextAppearance.BottomNav.Inactive"
         app:menu="@menu/bottom_nav_menu"
         android:layout_alignParentBottom="true"/>
 

@@ -37,4 +37,18 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">2dp</item>
     </style>
+
+    <!-- Bottom Navigation Active Label -->
+    <style name="TextAppearance.BottomNav.Active" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/bottom_nav_color</item>
+    </style>
+
+    <!-- Bottom Navigation Inactive Label -->
+    <style name="TextAppearance.BottomNav.Inactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/bottom_nav_color</item>
+    </style>
 </resources>

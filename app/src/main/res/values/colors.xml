@@ -27,11 +27,6 @@
     <!-- Icon Background -->
     <color name="icon_background">#F0F2F5</color>
 
-    <!-- Gradient Colors -->
-    <color name="gradient_start">#F5F5F5</color>
-    <color name="gradient_end">#E0E0E0</color>
-
-
     <!-- Primary Colors -->
     <color name="primary_color">#1976D2</color>
     <color name="primary_variant">#1565C0</color>
@@ -63,4 +58,8 @@
     <!-- Cooldown Screen -->
     <color name="selected_item_background">#f0f2f5</color>
     <color name="unselected_item_text">#bac4cf</color>
+
+    <!-- Home Screen Auto Reply Text -->
+    <color name="gradient_start">@android:color/transparent</color>
+    <color name="gradient_end">#E6FFFFFF</color> <!-- light, white overlay with alpha -->
 </resources>
