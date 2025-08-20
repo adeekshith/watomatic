@@ -36,7 +36,9 @@
                     android:layout_weight="1"
                     android:text="@string/auto_reply_text"
                     android:textColor="@color/text_primary"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_auto_replies"
@@ -75,7 +77,9 @@
                         android:lineSpacingExtra="2dp"
                         android:text="@string/ai_reply_text"
                         android:textColor="@color/black"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -97,6 +101,8 @@
                     android:text="@string/edit"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
+                    android:fontFamily="@font/inter_medium"
+                    android:textAllCaps="false"
                     app:backgroundTint="@color/button_background"
                     app:cornerRadius="8dp"
                     app:elevation="0dp"
@@ -113,7 +119,9 @@
                 android:layout_marginBottom="12dp"
                 android:text="@string/filters"
                 android:textColor="@color/text_primary"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:fontFamily="@font/inter_bold"
+                android:includeFontPadding="false" />
 
             <!-- Filter Items -->
             <include

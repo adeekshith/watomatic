@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/inter</item>
+        <item>@font/inter_bold</item>
+        <item>@font/inter_medium</item>
+        <item>@font/inter_thin</item>
+        <item>@font/noto_sans</item>
+    </array>
+</resources>
