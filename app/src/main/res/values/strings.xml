@@ -273,5 +273,5 @@
     <string name="hour">hour</string>
     <string name="no_cooldown">No cooldown</string>
 
-    <string name="reset_timer">Reset timer</string>
+    <string name="reset_timer">Reset</string>
 </resources>

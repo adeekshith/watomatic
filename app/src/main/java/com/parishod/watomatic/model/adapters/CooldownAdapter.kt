@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
 
@@ -94,7 +94,7 @@ class CooldownAdapter(
         val toggleButtonGroup: MaterialButtonToggleGroup =
             view.findViewById(R.id.toggle_button_group)
         val timeRecyclerView: RecyclerView = view.findViewById(R.id.recycler_view_time)
-        val switchResetTimer: SwitchMaterial = view.findViewById(R.id.switch_reset_timer)
+        val buttonResetTimer: MaterialButton = view.findViewById(R.id.button_reset_timer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -130,18 +130,15 @@ class CooldownAdapter(
                 setupTimeRecyclerView(holder)
             }
         }
-        holder.switchResetTimer.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedHour = 0
-                lastSelectedHourPos = -1
+        holder.buttonResetTimer.setOnClickListener {
+            selectedHour = 0
+            lastSelectedHourPos = -1
 
-                selectedMinute = 0
-                lastSelectedMinutePos = -1
+            selectedMinute = 0
+            lastSelectedMinutePos = -1
 
-                setupTimeRecyclerView(holder)
-                notifyTimeChange()
-                //holder.switchResetTimer.isChecked = false // reset UI state for switch
-            }
+            setupTimeRecyclerView(holder)
+            notifyTimeChange()
         }
         notifyTimeChange()
     }
