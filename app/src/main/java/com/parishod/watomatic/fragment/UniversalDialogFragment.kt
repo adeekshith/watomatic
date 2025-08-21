@@ -9,7 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.WindowInsets
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -65,10 +65,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window?.let { window ->
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+            // Remove FLAG_FULLSCREEN to avoid overlap
             window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_color)
         }
         return dialog
@@ -84,6 +81,14 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Apply status bar insets to avoid overlap (API 21+, uses root LinearLayout)
+        view.setOnApplyWindowInsetsListener { v, insets ->
+            val statusBar = insets.systemWindowInsetTop
+            v.setPadding(0, statusBar, 0, 0)
+            insets
+        }
+        view.requestApplyInsets()
 
         setupViews(view)
         configureDialog()
