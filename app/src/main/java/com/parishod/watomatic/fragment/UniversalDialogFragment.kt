@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.*
-import androidx.core.content.ContextCompat
+import com.parishod.watomatic.utils.ThemeUtils
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +66,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window?.let { window ->
             // Remove FLAG_FULLSCREEN to avoid overlap
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_variant)
+            window.statusBarColor = ThemeUtils.getThemeColor(requireContext(), com.google.android.material.R.attr.colorPrimaryVariant)
         }
         return dialog
     }
