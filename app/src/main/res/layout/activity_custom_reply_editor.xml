@@ -6,76 +6,198 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.customreplyeditor.CustomReplyEditorActivity">
 
-    <!-- Auto reply text area -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/autoReplyTextInputLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="500"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/autoReplyTextInputEditText"
+        <!-- Card 1: Auto reply text, Enable AI toggle -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/mainAutoReplyLabel"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:cardElevation="2dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="16dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mainAutoReplyLabel"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="?android:textColorPrimary"
+                    android:layout_marginBottom="8dp" />
 
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/saveCustomReplyBtn"
-        android:layout_width="302dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/save"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/autoReplyTextInputLayout"
-        />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/autoReplyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="500"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <!-- Wato message r/watomatic link -->
-    <Button
-        android:id="@+id/tip_wato_message"
-        android:layout_width="301dp"
-        android:layout_height="94dp"
-        android:background="?android:selectableItemBackground"
-        android:text="@string/tip_view_messages_from_fellow_users"
-        android:textAllCaps="false"
-        android:textColor="?attr/colorControlNormal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveCustomReplyBtn"
-        />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/autoReplyTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="80dp"
+                        android:hint="@string/mainAutoReplyTextPlaceholder" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <CheckBox
+                    android:id="@+id/enable_ai_replies_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pref_enable_openai_replies_title"
+                    android:layout_marginTop="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ai_explainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Use an LLM like OpenAI to generate smart responses."
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="?android:textColorSecondary"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 2: AI PROVIDER (LLM) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ai_provider_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI Provider (LLM)"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="?android:textColorPrimary" />
+
+                <TextView
+                    android:id="@+id/ai_provider_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:background="@android:color/transparent"
+                    android:text="OpenAI"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:drawablePadding="8dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 3: API Key (hidden unless required) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ai_api_key_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ai_api_key_input_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pref_openai_api_key_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ai_api_key_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword|textNoSuggestions"
+                        android:autofillHints="password" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 4: Model (hidden unless models available) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ai_model_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pref_openai_model_title"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+                <TextView
+                    android:id="@+id/ai_model_selected_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pref_openai_model_not_set"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:drawablePadding="8dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:paddingVertical="12dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveCustomReplyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Optionally: Wato Message Link -->
+        <Button
+            android:id="@+id/tip_wato_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:text="@string/tip_view_messages_from_fellow_users"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorControlNormal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
 </ScrollView>
