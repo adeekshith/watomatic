@@ -1,5 +1,7 @@
 package com.parishod.watomatic.model.adapters
 
+import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +33,12 @@ class CooldownAdapter(
         private val onTimeSelected: (Int) -> Unit
     ) : RecyclerView.Adapter<TimeAdapter.TimeViewHolder>() {
 
+        private fun getThemeColor(context: Context, attr: Int): Int {
+            val typedValue = TypedValue()
+            context.theme.resolveAttribute(attr, typedValue, true)
+            return typedValue.data
+        }
+
         private var selectedPosition = -1
 
         inner class TimeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -49,17 +57,17 @@ class CooldownAdapter(
 
             if (position == selectedPosition) {
                 holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(holder.itemView.context, R.color.primary)
+                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorPrimary)
                 )
                 holder.timeValue.setTextColor(
-                    ContextCompat.getColor(holder.itemView.context, R.color.text_primary)
+                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
                 )
             } else {
                 holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(holder.itemView.context, R.color.unselected_item_text)
+                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant)
                 )
                 holder.timeValue.setTextColor(
-                    ContextCompat.getColor(holder.itemView.context, R.color.text_primary)
+                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
                 )
             }
 

@@ -63,7 +63,7 @@
             android:paddingBottom="3dp"
             android:paddingTop="1dp"
             android:textSize="16sp"
-            android:textColor="@color/text_primary"
+            android:textColor="?android:attr/textColorPrimary"
             android:lineSpacingExtra="4dp"
             android:layout_marginBottom="8dp"
             android.visibility="gone" />
@@ -87,10 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Save"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:backgroundTint="@color/button_primary"
+        app:backgroundTint="?attr/colorPrimary"
         app:cornerRadius="12dp"
         android:minHeight="48dp" />
 

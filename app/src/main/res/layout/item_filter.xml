@@ -63,7 +63,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_caret_right"
-            app:tint="@color/text_primary" />
+            app:tint="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <!-- Message Type Filter -->
@@ -88,7 +88,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_chat_circle_dots"
-                app:tint="@color/text_primary" />
+                app:tint="?android:attr/textColorPrimary" />
         </FrameLayout>
 
         <LinearLayout
@@ -124,7 +124,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_caret_right"
-            app:tint="@color/text_primary" />
+            app:tint="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <!-- Apps Filter -->
@@ -149,7 +149,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_app_window"
-                app:tint="@color/text_primary" />
+                app:tint="?android:attr/textColorPrimary" />
         </FrameLayout>
 
         <LinearLayout
@@ -185,7 +185,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_caret_right"
-            app:tint="@color/text_primary" />
+            app:tint="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <!-- Reply Cooldown Filter -->
@@ -210,7 +210,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_clock"
-                app:tint="@color/text_primary" />
+                app:tint="?android:attr/textColorPrimary" />
         </FrameLayout>
 
         <LinearLayout
@@ -246,7 +246,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_caret_right"
-            app:tint="@color/text_primary" />
+            app:tint="?android:attr/textColorPrimary" />
     </LinearLayout>
 
 </LinearLayout>
