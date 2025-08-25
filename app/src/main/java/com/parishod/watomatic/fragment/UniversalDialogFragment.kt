@@ -66,7 +66,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window?.let { window ->
             // Remove FLAG_FULLSCREEN to avoid overlap
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_color)
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_variant)
         }
         return dialog
     }

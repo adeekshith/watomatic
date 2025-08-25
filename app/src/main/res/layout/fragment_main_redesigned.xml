@@ -64,7 +64,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_overlay" />
+                        android:background="?attr/colorPrimaryContainer" />
 
                     <TextView
                         android:id="@+id/ai_reply_text"
@@ -74,7 +74,7 @@
                         android:layout_margin="16dp"
                         android:text="@string/ai_reply_text"
                         android:textSize="20sp"
-                        android:fontFamily="@font/inter"
+                        android:fontFamily="@font/inter_bold"
                         android:lineSpacingMultiplier="1.25"
                         android:breakStrategy="balanced"
                         android:hyphenationFrequency="full"
