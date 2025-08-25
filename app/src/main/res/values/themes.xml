@@ -4,9 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accent</item>
-        <item name="colorSecondaryVariant">@color/accent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -22,18 +20,18 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.5</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:statusBarColor">@color/primary_variant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
     <!-- Custom Search Input Style -->
     <style name="SearchInputStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/search_background</item>
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
         <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="boxStrokeColor">@color/search_stroke_color</item>
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">2dp</item>
     </style>
@@ -42,13 +40,13 @@
     <style name="TextAppearance.BottomNav.Active" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/inter_medium</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/bottom_nav_color</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <!-- Bottom Navigation Inactive Label -->
     <style name="TextAppearance.BottomNav.Inactive" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/inter_medium</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/bottom_nav_color</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 </resources>

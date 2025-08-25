@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="16sp"
-        android:textColor="@color/text_primary"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_marginEnd="16dp" />
 
     <com.google.android.material.radiobutton.MaterialRadioButton

@@ -59,7 +59,7 @@
             android:paddingEnd="0dp"
             android:background="@drawable/donation_btn_background"
             android:text="@string/liberapay"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_liberapay"
             android:drawablePadding="10dp"/>
@@ -76,7 +76,7 @@
             android:paddingEnd="0dp"
             android:background="@drawable/donation_btn_background"
             android:text="@string/paypal"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_paypal"
             android:drawablePadding="10dp"/>
@@ -94,7 +94,7 @@
             android:paddingEnd="0dp"
             android:background="@drawable/donation_btn_background"
             android:text="@string/bitcoin"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_bitcoin"
             android:drawablePadding="10dp"/>

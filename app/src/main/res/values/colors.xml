@@ -4,40 +4,26 @@
     <color name="primary">#0d80f2</color>
     <color name="primary_dark">#005cb2</color>
     <color name="primary_variant">#1976D2</color>
-    <color name="accent">#f0f2f5</color>
-    <color name="button_primary">#2196F3</color>
-
-    <!-- Text Colors -->
-    <color name="text_primary">#111418</color>
-    <color name="text_secondary">#60758a</color>
 
     <!-- Common Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <!-- Text Colors -->
+    <color name="text_primary">#111418</color>
+    <color name="text_secondary">#60758a</color>
+    <color name="unselected_item_text">#bac4cf</color>
+
     <!-- Background & Surface -->
     <color name="search_background">#F5F5F5</color>
     <color name="search_stroke_color">#E0E0E0</color>
-    <color name="divider_color">#E0E0E0</color>
 
     <!-- Icon Colors -->
     <color name="search_icon_color">#9E9E9E</color>
 
     <!-- Option Selection Colors -->
     <color name="selected_option_background">#E3F2FD</color>
-    <color name="selected_option_stroke">#2196F3</color>
     <color name="unselected_option_background">#F5F5F5</color>
-    <color name="unselected_option_stroke">#E0E0E0</color>
-
-    <!-- Dark Theme Colors -->
-    <color name="background_color_dark">#121212</color>
-    <color name="surface_color_dark">#1E1E1E</color>
-    <color name="text_primary_dark">#FFFFFF</color>
-    <color name="text_secondary_dark">#B0B0B0</color>
-    <color name="search_background_dark">#2C2C2C</color>
-
-    <!-- Cooldown Screen -->
-    <color name="unselected_item_text">#bac4cf</color>
 
     <!-- Home Screen Auto Reply Text (light) -->
     <color name="gradient_start">#33FFFFFF</color>
