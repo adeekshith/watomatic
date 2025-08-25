@@ -49,6 +49,8 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var modelLoadError: String? = null
     private var selectedModelId: String? = null
     private val handler = Handler(Looper.getMainLooper())
+    private var aiCustomPromptCard: View? = null
+    private var aiCustomPromptEditText: TextInputEditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +74,8 @@ class CustomReplyEditorActivity : BaseActivity() {
         aiApiKeyEditText = findViewById(R.id.ai_api_key_edittext)
         aiModelCard = findViewById(R.id.ai_model_card)
         aiModelSelectedValue = findViewById(R.id.ai_model_selected_value)
+        aiCustomPromptCard = findViewById(R.id.ai_custom_prompt_card)
+        aiCustomPromptEditText = findViewById(R.id.ai_custom_prompt_edittext)
 
         val intent = intent
         val data = intent.data
@@ -132,6 +136,7 @@ class CustomReplyEditorActivity : BaseActivity() {
             aiApiKeyCard?.visibility = if (isAIEnabled && providerIsAI) View.VISIBLE else View.GONE
             aiModelCard?.visibility =
                 if (isAIEnabled && providerIsAI && !aiApiKeyEditText?.text.isNullOrEmpty()) View.VISIBLE else View.GONE
+            aiCustomPromptCard?.visibility = if (isAIEnabled && providerIsAI) View.VISIBLE else View.GONE
         }
 
         fun updateModelCardUi() {
@@ -240,9 +245,40 @@ class CustomReplyEditorActivity : BaseActivity() {
             builder.show()
         }
 
+        // Make prompt read-only in main screen, set value from preferences
+        aiCustomPromptEditText?.apply {
+            isFocusable = false
+            isClickable = false
+            isLongClickable = false
+            isCursorVisible = false
+            keyListener = null
+        }
+        aiCustomPromptCard?.setOnClickListener {
+            val context = this
+            val promptInput = TextInputEditText(context)
+            promptInput.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
+            promptInput.hint = getString(R.string.custom_prompt)
+            val layout = com.google.android.material.textfield.TextInputLayout(context)
+            layout.addView(promptInput)
+            layout.hint = getString(R.string.custom_prompt)
+            val dialog = AlertDialog.Builder(context)
+                .setTitle(getString(R.string.custom_prompt))
+                .setView(layout)
+                .setPositiveButton("OK") { _, _ ->
+                    val value = promptInput.text?.toString() ?: ""
+                    preferencesManager?.saveString("pref_openai_prompt", value)
+                    aiCustomPromptEditText?.setText(value)
+                }
+                .setNegativeButton("Cancel", null)
+                .create()
+            dialog.show()
+        }
+        aiCustomPromptEditText?.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
+
         // Set initial state for UI
         val initKey = preferencesManager?.getOpenAIApiKey() ?: ""
         aiApiKeyEditText?.setText(initKey)
+
         updateAICardsVisibility()
         fetchModelsIfEligible()
 
