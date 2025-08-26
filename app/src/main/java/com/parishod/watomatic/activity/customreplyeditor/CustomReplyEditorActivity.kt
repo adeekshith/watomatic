@@ -51,6 +51,8 @@ class CustomReplyEditorActivity : BaseActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private var aiCustomPromptCard: View? = null
     private var aiCustomPromptEditText: TextInputEditText? = null
+    private var aiCustomApiUrlCard: View? = null
+    private var aiCustomApiUrlEditText: TextInputEditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,8 @@ class CustomReplyEditorActivity : BaseActivity() {
         aiModelSelectedValue = findViewById(R.id.ai_model_selected_value)
         aiCustomPromptCard = findViewById(R.id.ai_custom_prompt_card)
         aiCustomPromptEditText = findViewById(R.id.ai_custom_prompt_edittext)
+        aiCustomApiUrlCard = findViewById(R.id.ai_custom_api_url_card)
+        aiCustomApiUrlEditText = findViewById(R.id.ai_custom_api_url_edittext)
 
         val intent = intent
         val data = intent.data
@@ -119,7 +123,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         val providerValues = resources.getStringArray(R.array.openai_api_source_values)
 
         // Load initial state
-        val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled() ?: false
+        val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
         enableAIRepliesCheckbox?.isChecked = isAIEnabled
         aiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
 
@@ -137,6 +141,7 @@ class CustomReplyEditorActivity : BaseActivity() {
             aiModelCard?.visibility =
                 if (isAIEnabled && providerIsAI && !aiApiKeyEditText?.text.isNullOrEmpty()) View.VISIBLE else View.GONE
             aiCustomPromptCard?.visibility = if (isAIEnabled && providerIsAI) View.VISIBLE else View.GONE
+            aiCustomApiUrlCard?.visibility = if (isAIEnabled && providerIsAI && providerPref == "custom") View.VISIBLE else View.GONE
         }
 
         fun updateModelCardUi() {
@@ -189,6 +194,16 @@ class CustomReplyEditorActivity : BaseActivity() {
             }
         }
 
+        fun updateCustomApiUrlUi() {
+            val isAIEnabled = enableAIRepliesCheckbox?.isChecked ?: false
+            val isCustomProvider = providerPref == "custom"
+            aiCustomApiUrlCard?.visibility = if (isAIEnabled && isCustomProvider) View.VISIBLE else View.GONE
+            /*if (isCustomProvider) {
+                val url = preferencesManager?.getCustomOpenAIApiUrl()
+                aiCustomApiUrlEditText?.setText(if (!url.isNullOrBlank()) url else getString(R.string.set_custom_api_url))
+            }*/
+        }
+
         // Provider selector popup
         aiProviderValue?.setOnClickListener {
             val builder = android.app.AlertDialog.Builder(this)
@@ -196,17 +211,22 @@ class CustomReplyEditorActivity : BaseActivity() {
             builder.setSingleChoiceItems(providerOptions, providerIndex) { dialog, which ->
                 providerIndex = which
                 providerPref = providerValues[providerIndex]
-                aiProviderValue?.text = providerOptions?.get(providerIndex)
-                preferencesManager?.saveOpenApiSource(providerPref)
+                // Update UI when provider changes
+                fun onProviderChanged() {
+                    aiProviderValue?.text = providerOptions?.get(providerIndex)
+                    preferencesManager?.saveOpenApiSource(providerPref)
+                    updateAICardsVisibility()
+                    updateCustomApiUrlUi()
+                }
+                onProviderChanged()
                 dialog.dismiss()
-                updateAICardsVisibility()
-                fetchModelsIfEligible()
             }
             builder.show()
         }
 
         // Toggle AI enable/disable
-        enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, _ ->
+        enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, ischecked ->
+            preferencesManager?.setEnableOpenAIReplies(ischecked)
             updateAICardsVisibility()
             fetchModelsIfEligible()
         }
@@ -279,13 +299,32 @@ class CustomReplyEditorActivity : BaseActivity() {
         val initKey = preferencesManager?.getOpenAIApiKey() ?: ""
         aiApiKeyEditText?.setText(initKey)
 
+        // Initial UI state
         updateAICardsVisibility()
-        fetchModelsIfEligible()
+        updateCustomApiUrlUi()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Remove popup logic for custom API URL, make it directly editable and save on text change
+        aiCustomApiUrlEditText?.setText(preferencesManager?.getCustomOpenAIApiUrl() ?: "")
+        aiCustomApiUrlEditText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val url = s?.toString()?.trim() ?: ""
+                preferencesManager?.saveCustomOpenAIApiUrl(url)
+                // Optionally, validate and show error in the TextInputLayout if needed
+                val inputLayout = findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.ai_custom_api_url_input_layout)
+                if (url.isNotEmpty() && !(url.startsWith("http://") || url.startsWith("https://"))) {
+                    inputLayout.error = getString(R.string.error_invalid_url)
+                } else {
+                    inputLayout.error = null
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 }

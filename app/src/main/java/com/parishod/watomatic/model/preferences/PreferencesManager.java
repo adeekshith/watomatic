@@ -423,8 +423,12 @@ public class PreferencesManager {
     }
 
     public boolean isOpenAIRepliesEnabled() {
-        // Default to false if not set
         return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+    public void setOpenAIRepliesEnabled(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_OPENAI_REPLIES, enabled);
+        editor.apply();
     }
 
     public void saveSelectedOpenAIModel(String modelId) {
