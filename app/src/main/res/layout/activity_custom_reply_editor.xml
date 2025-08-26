@@ -102,8 +102,8 @@
                     android:paddingVertical="12dp"
                     android:background="@android:color/transparent"
                     android:text="@string/openai"
-                    app:drawableEnd="@android:drawable/arrow_down_float"
-                    app:drawableRight="@android:drawable/arrow_down_float"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawableRight="@android:drawable/arrow_down_float"
                     android:drawablePadding="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:clickable="true"
@@ -205,8 +205,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pref_openai_model_not_set"
-                    app:drawableEnd="@android:drawable/arrow_down_float"
-                    app:drawableRight="@android:drawable/arrow_down_float"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawableRight="@android:drawable/arrow_down_float"
                     android:drawablePadding="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:paddingVertical="12dp"
@@ -238,15 +238,18 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/custom_prompt"
                     android:clickable="false"
-                    android:focusable="false">
+                    android:focusable="false"
+                    android:focusableInTouchMode="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ai_custom_prompt_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:clickable="false"
-                        android:focusable="false" />
+                        android:editable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:cursorVisible="false" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

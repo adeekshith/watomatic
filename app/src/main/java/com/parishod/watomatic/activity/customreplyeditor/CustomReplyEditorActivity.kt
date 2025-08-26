@@ -273,25 +273,12 @@ class CustomReplyEditorActivity : BaseActivity() {
             isCursorVisible = false
             keyListener = null
         }
+
+        aiCustomPromptEditText?.setOnClickListener {
+            showCustomPromtDialog()
+        }
         aiCustomPromptCard?.setOnClickListener {
-            val context = this
-            val promptInput = TextInputEditText(context)
-            promptInput.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
-            promptInput.hint = getString(R.string.custom_prompt)
-            val layout = com.google.android.material.textfield.TextInputLayout(context)
-            layout.addView(promptInput)
-            layout.hint = getString(R.string.custom_prompt)
-            val dialog = AlertDialog.Builder(context)
-                .setTitle(getString(R.string.custom_prompt))
-                .setView(layout)
-                .setPositiveButton("OK") { _, _ ->
-                    val value = promptInput.text?.toString() ?: ""
-                    preferencesManager?.saveString("pref_openai_prompt", value)
-                    aiCustomPromptEditText?.setText(value)
-                }
-                .setNegativeButton("Cancel", null)
-                .create()
-            dialog.show()
+            showCustomPromtDialog()
         }
         aiCustomPromptEditText?.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
 
@@ -326,5 +313,26 @@ class CustomReplyEditorActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    private fun showCustomPromtDialog(){
+        val context = this
+        val promptInput = TextInputEditText(context)
+        promptInput.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
+        //promptInput.hint = getString(R.string.custom_prompt)
+        val layout = com.google.android.material.textfield.TextInputLayout(context)
+        layout.addView(promptInput)
+//        layout.hint = getString(R.string.custom_prompt)
+        val dialog = AlertDialog.Builder(context)
+            .setTitle(getString(R.string.custom_prompt))
+            .setView(layout)
+            .setPositiveButton("OK") { _, _ ->
+                val value = promptInput.text?.toString() ?: ""
+                preferencesManager?.saveString("pref_openai_prompt", value)
+                aiCustomPromptEditText?.setText(value)
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+        dialog.show()
     }
 }
