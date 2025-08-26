@@ -63,7 +63,6 @@
     <string name="app_rating_dialog_rate_button_title">דרגו אותנו!</string>
     <string name="app_rating_dialog_rate_later_title">אולי מאוחר יותר</string>
     <string name="app_rating_goto_store_dialog_title">אנחנו שמחים!</string>
-    <string name="app_rating_goto_store_dialog_msg">אנא שתפו את הדירוג של האפליקציה בחנות גוגל פליי בהקשה על \"/המשך\"!</string>
     <string name="app_rating_pitch">אפליקציה זו היא בחינם, ללא פרסומות, ללא מעקב, בקוד פתוח ונוצרה על ידי מתנדבים ותורמים כמוני וכמוך. התגובה והדירוג שלכם מעודדת אותנו להמשיך.</string>
     <string name="app_rating_goto_store_dialog_button1_title">לא מעוניין/ת</string>
     <string name="app_rating_goto_store_dialog_button2_title">המשך</string>
@@ -121,4 +120,10 @@
     <string name="error_name_cannot_be_blank">השם אינו יכול להישאר ריק</string>
     <string name="error_name_cannot_be_duplicate">שם כבר קיים</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
