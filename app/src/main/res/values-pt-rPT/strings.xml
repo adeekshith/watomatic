@@ -78,4 +78,10 @@
     <string name="error_name_cannot_be_blank">O nome não pode ficar em branco</string>
     <string name="error_name_cannot_be_duplicate">Nome já utilizado</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
