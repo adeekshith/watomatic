@@ -60,7 +60,6 @@
     <string name="app_rating_dialog_rate_button_title">قيّمنا!</string>
     <string name="app_rating_dialog_rate_later_title">ربما لاحقاً</string>
     <string name="app_rating_goto_store_dialog_title">نحن سعداء!</string>
-    <string name="app_rating_goto_store_dialog_msg">الرجاء مشاركة هذا التقييم للتطبيق الخاص بنا على متجر Google Play بالنقر على \"متابعة\"\!</string>
     <string name="app_rating_pitch">هذا التطبيق مجاني، لا إعلانات، لا تتبع، مفتوح المصدر، ويقوم به المساهمون مثلك و مثلي.
         ملاحظاتك هي تشجيعنا الوحيد.</string>
     <string name="app_rating_goto_store_dialog_button1_title">غير مهتم</string>
@@ -77,4 +76,10 @@
     <string name="enable_auto_start_setting">المتابعة</string>
     <string name="decline_auto_start_setting">إلغاء</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
