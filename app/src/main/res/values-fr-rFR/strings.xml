@@ -72,4 +72,10 @@
     <string name="error_name_cannot_be_blank">Le nom ne peut pas être vide</string>
     <string name="error_name_cannot_be_duplicate">Le nom est déjà présent</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
