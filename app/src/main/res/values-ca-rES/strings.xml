@@ -68,7 +68,6 @@
     <string name="app_rating_dialog_rate_button_title">Puntueu-nos!</string>
     <string name="app_rating_dialog_rate_later_title">Potser més tard</string>
     <string name="app_rating_goto_store_dialog_title">Moltes gràcies!</string>
-    <string name="app_rating_goto_store_dialog_msg">Compartiu aquesta puntuació al Google Play Store, tocant el botó «Continua»\!</string>
     <string name="app_rating_pitch">El Watomatic és gratuït, sense publicitat ni rastrejadors, de codi obert i mantingut per gent com ara vós o jo.
         La vostra opinió és l\'únic que ens mou a continuar.</string>
     <string name="app_rating_goto_store_dialog_button1_title">No m’interessa</string>
@@ -154,4 +153,10 @@
     <string name="generative_ai">IA generativa</string>
     <string name="enable_generative_ai">Activa la IA generativa</string>
     <string name="custom_prompt">Ordre personalitzada</string>
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
