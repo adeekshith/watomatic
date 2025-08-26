@@ -63,7 +63,6 @@
     <string name="app_rating_dialog_rate_button_title">Oceń to!</string>
     <string name="app_rating_dialog_rate_later_title">Może później</string>
     <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
-    <string name="app_rating_goto_store_dialog_msg">Podziel się tą oceną aplikacji w Sklepie Google Play, klikając \"Kontynuuj\"\!</string>
     <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia z otwartym źródłem i jest tworzona przez twórców takich jak Ty i ja.
         Twoja opinia jest naszą jedyną zachętą.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany/a</string>
@@ -122,4 +121,10 @@
     <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
     <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
