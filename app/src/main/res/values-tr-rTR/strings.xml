@@ -62,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Oylayın! </string>
     <string name="app_rating_dialog_rate_later_title">Belki sonra</string>
     <string name="app_rating_goto_store_dialog_title">Mutluyuz! </string>
-    <string name="app_rating_goto_store_dialog_msg">Lütfen \"Devam\" a tıklayarak Google Play Store\'de uygulamayı değerlendirin. </string>
     <string name="app_rating_pitch">Uygulama ücretsiz, reklamsız, takip edilemez, açık kaynak kodlu  ve  sizin ve benim gibi katkıda bulunanlarca oluşturulmuştur. Görüşleriniz bizim için değerlidir. </string>
     <string name="app_rating_goto_store_dialog_button1_title">İlgilenmiyorum </string>
     <string name="app_rating_goto_store_dialog_button2_title">Devam et </string>
@@ -115,4 +114,10 @@
     <string name="contact_permission_dialog_title">Kişi okuma erişimi</string>
     <string name="error_name_cannot_be_duplicate">Bu isim daha önce alınmış</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
