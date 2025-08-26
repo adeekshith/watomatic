@@ -68,7 +68,6 @@
     <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
     <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
     <string name="app_rating_goto_store_dialog_title">Kami senang!</string>
-    <string name="app_rating_goto_store_dialog_msg">Silakan bagikan peringkat aplikasi kami ini di Google Play Store dengan mengetuk \"Lanjutkan\"\!</string>
     <string name="app_rating_pitch">Aplikasi ini gratis, tanpa iklan, tanpa pelacakan, sumber terbuka dan dibuat oleh kontributor seperti Anda dan saya.
         Umpan balik Anda adalah satu-satunya dorongan kami.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
@@ -154,4 +153,10 @@
     <string name="generative_ai">AI Generatif</string>
     <string name="enable_generative_ai">Aktifkan Generatif AI</string>
     <string name="custom_prompt">Perintah Khusus</string>
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
