@@ -62,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Arvostele se!</string>
     <string name="app_rating_dialog_rate_later_title">Ehkä myöhemmin</string>
     <string name="app_rating_goto_store_dialog_title">Olemme iloisia!</string>
-    <string name="app_rating_goto_store_dialog_msg">Ole hyvä ja jaa tämä arvostelu sovelluksestamme Google Play Kaupassa napauttamalla \"Jatka\"!</string>
     <string name="app_rating_pitch">Tämä sovellus on ilmainen, ei mainoksia, ei seurantaa, avointa lähdekoodia ja sen tekevät osallistujat kuten sinä ja minä.
         Palautteesi on ainoa rohkaisumme.</string>
     <string name="app_rating_goto_store_dialog_button1_title">En ole kiinnostunut</string>
@@ -121,4 +120,10 @@
     <string name="error_name_cannot_be_blank">Nimi ei voi olla tyhjä</string>
     <string name="error_name_cannot_be_duplicate">Nimi on jo olemassa</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
