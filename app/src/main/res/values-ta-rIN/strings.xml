@@ -59,7 +59,6 @@
     <string name="app_rating_dialog_rate_button_title">மதிப்பிடுக</string>
     <string name="app_rating_dialog_rate_later_title">இப்பொழுது வேண்டாம்</string>
     <string name="app_rating_goto_store_dialog_title">நாங்கள் மகிழ்கிறோம்!</string>
-    <string name="app_rating_goto_store_dialog_msg">இந்த மதிப்பீட்டை \"தொடர்\" என்பதை தொடுவதன் மூலம் Google Play Store-ல் பகிரலாம்!</string>
     <string name="app_rating_goto_store_dialog_button1_title">விருப்பம் இல்லை</string>
     <string name="app_rating_goto_store_dialog_button2_title">தொடர்க</string>
     <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
@@ -91,4 +90,10 @@
     <string name="error_name_cannot_be_blank">பெயர் புலம் ஏதுமின்றி இருக்க இயலாது</string>
     <string name="error_name_cannot_be_duplicate">பெயர் ஏற்கனவே உள்ளது</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
