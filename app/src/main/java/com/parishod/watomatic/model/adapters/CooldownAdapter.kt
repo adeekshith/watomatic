@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
+import com.parishod.watomatic.utils.ThemeUtils
 
 class CooldownAdapter(
     private var initialTimeInMillis: Long,
@@ -60,14 +61,14 @@ class CooldownAdapter(
                     getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorPrimary)
                 )
                 holder.timeValue.setTextColor(
-                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
+                    ThemeUtils.getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
                 )
             } else {
                 holder.itemView.setBackgroundColor(
-                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant)
+                    ThemeUtils.getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant)
                 )
                 holder.timeValue.setTextColor(
-                    getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
+                    ThemeUtils.getThemeColor(holder.itemView.context, com.google.android.material.R.attr.colorOnPrimary)
                 )
             }
 
