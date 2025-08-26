@@ -68,7 +68,6 @@
     <string name="app_rating_dialog_rate_button_title">Puntúa!</string>
     <string name="app_rating_dialog_rate_later_title">Más tarde</string>
     <string name="app_rating_goto_store_dialog_title">Gracias!</string>
-    <string name="app_rating_goto_store_dialog_msg">Por favor, comparte esta puntuación en Google Play Store, tocando el botón \"Continua\"\.</string>
     <string name="app_rating_pitch">Esta aplicación es gratuita, sin anuncios ni rastreadores, de código libre y creada por personas como tú o yo.
         Tus comentarios son nuestro único ánimo.</string>
     <string name="app_rating_goto_store_dialog_button1_title">No me interesa</string>
@@ -154,4 +153,10 @@
     <string name="generative_ai">IA generativa</string>
     <string name="enable_generative_ai">Activa la IA generativa</string>
     <string name="custom_prompt">Orden personalizada</string>
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
