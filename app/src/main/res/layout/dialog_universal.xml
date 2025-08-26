@@ -11,10 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:navigationIconTint="@color/white"
-        app:titleTextColor="@color/white"
+        app:navigationIconTint="?attr/colorOnSurface"
+        app:titleTextColor="?attr/colorOnSurface"
         app:titleCentered="true" />
 
     <!-- Content Container -->
