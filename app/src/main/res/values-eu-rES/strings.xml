@@ -62,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Kalifikatu!</string>
     <string name="app_rating_dialog_rate_later_title">Geroago agian</string>
     <string name="app_rating_goto_store_dialog_title">Pozik gaude!</string>
-    <string name="app_rating_goto_store_dialog_msg">Mesedez, partekatu aplikazioaren kalifikazio hau Google Play Store-n, \"Jarraitu\"\ botoian ttap eginez.</string>
     <string name="app_rating_pitch">Aplikazioa doan da, iragarkirik ez, jarraipenik ez, kode irekikoa, eta zu eta ni bezalako boluntarioek egindakoa.        Zure iritzia da gure ordain bakarra.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Ez zait interesatzen</string>
     <string name="app_rating_goto_store_dialog_button2_title">Jarraitu</string>
@@ -111,4 +110,10 @@
     <string name="add_custom_contact">Gehitu kontaktu izen pertsonalizatua</string>
     <string name="error_name_cannot_be_blank">Izena ezin da hutsik egon</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
