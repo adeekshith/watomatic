@@ -60,7 +60,6 @@
     <string name="app_rating_dialog_rate_button_title">Оцени ја апликацијата!</string>
     <string name="app_rating_dialog_rate_later_title">Можеби подоцна</string>
     <string name="app_rating_goto_store_dialog_title">Ние сме среќни!</string>
-    <string name="app_rating_goto_store_dialog_msg">Споделете ја оваа оценка за нашата апликација на Google Play Store со кликнување на \"Продолжи\"\!</string>
     <string name="app_rating_pitch">Оваа апликација е бесплатна, нема реклами, нема следење, со отворен код и е направена од соработници како вас и јас.        Вашите повратни информации се единствена наша поддршка.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Не сум заинтересиран</string>
     <string name="app_rating_goto_store_dialog_button2_title">Продолжи</string>
@@ -106,4 +105,10 @@
     <string name="error_name_cannot_be_blank">Името не може да биде празно</string>
     <string name="error_name_cannot_be_duplicate">Името веќе постои</string>
     <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
