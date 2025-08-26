@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home Screen Auto Reply Text (dark) -->
+    <color name="gradient_start">#33000000</color> <!-- subtle dark fade -->
+    <color name="gradient_end">#99000000</color>   <!-- stronger dark overlay -->
+</resources>

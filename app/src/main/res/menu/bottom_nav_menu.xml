@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_atomatic"
+        android:icon="@drawable/ic_chat_circle_dots_filled"
+        android:title="Atomatic" />
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_users"
+        android:title="Community" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_gear"
+        android:title="Settings" />
+</menu>

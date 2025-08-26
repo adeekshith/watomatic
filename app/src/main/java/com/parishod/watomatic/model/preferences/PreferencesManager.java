@@ -169,6 +169,10 @@ public class PreferencesManager {
         return getEnabledApps().contains(thisApp.getPackageName());
     }
 
+    public boolean isAppEnabled(String packageName) {
+        return getEnabledApps().contains(packageName);
+    }
+
     private String serializeAndSetEnabledPackageList(Collection<String> packageList) {
         String jsonStr = new Gson().toJson(packageList);
         SharedPreferences.Editor editor = _sharedPrefs.edit();
@@ -197,6 +201,18 @@ public class PreferencesManager {
         } else {
             //add the given platform
             enabledPackages.add(app.getPackageName());
+        }
+        return serializeAndSetEnabledPackageList(enabledPackages);
+    }
+
+    public String saveEnabledApps(String packageName, boolean isSelected) {
+        Set<String> enabledPackages = getEnabledApps();
+        if (!isSelected) {
+            //remove the given platform
+            enabledPackages.remove(packageName);
+        } else {
+            //add the given platform
+            enabledPackages.add(packageName);
         }
         return serializeAndSetEnabledPackageList(enabledPackages);
     }
@@ -407,8 +423,12 @@ public class PreferencesManager {
     }
 
     public boolean isOpenAIRepliesEnabled() {
-        // Default to false if not set
         return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+    public void setOpenAIRepliesEnabled(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_OPENAI_REPLIES, enabled);
+        editor.apply();
     }
 
     public void saveSelectedOpenAIModel(String modelId) {

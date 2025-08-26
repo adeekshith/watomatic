@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="85dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Auto Replies Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="56dp"
+                android:paddingHorizontal="16dp">
+
+                <!-- Auto Reply Text Section -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/auto_reply_text"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:letterSpacing="-0.01"
+                    android:includeFontPadding="false" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_auto_replies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@android:color/white"
+                    app:trackTint="@drawable/switch_track_selector" />
+
+            </LinearLayout>
+
+            <!-- AI Reply Card -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/colorPrimaryContainer" />
+
+                    <TextView
+                        android:id="@+id/ai_reply_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_margin="16dp"
+                        android:text="@string/ai_reply_text"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:lineSpacingMultiplier="1.25"
+                        android:breakStrategy="balanced"
+                        android:hyphenationFrequency="full"
+                        android:includeFontPadding="false" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <!-- Edit Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/edit"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inter_medium"
+                    android:letterSpacing="0.015"
+                    android:textAllCaps="false"
+                    app:cornerRadius="8dp"
+                    app:elevation="0dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
+
+            <!-- Filters Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/filters"
+                android:textSize="20sp"
+                android:fontFamily="@font/inter_bold"
+                android:letterSpacing="-0.01"
+                android:includeFontPadding="false" />
+
+            <!-- Filter Items -->
+            <include
+                layout="@layout/item_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemTextAppearanceActive="@style/TextAppearance.BottomNav.Active"
+        app:itemTextAppearanceInactive="@style/TextAppearance.BottomNav.Inactive"
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
