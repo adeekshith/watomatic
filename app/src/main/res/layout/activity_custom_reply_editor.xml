@@ -64,7 +64,7 @@
                     android:id="@+id/ai_explainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Use an LLM like OpenAI to generate smart responses."
+                    android:text="@string/use_an_llm_like_openai_to_generate_smart_responses"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="?android:textColorSecondary"
                     android:layout_marginStart="36dp"
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AI Provider (LLM)"
+                    android:text="@string/ai_provider_llm"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:textColor="?android:textColorPrimary" />
 
@@ -101,9 +101,9 @@
                     android:layout_height="wrap_content"
                     android:paddingVertical="12dp"
                     android:background="@android:color/transparent"
-                    android:text="OpenAI"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:text="@string/openai"
+                    app:drawableEnd="@android:drawable/arrow_down_float"
+                    app:drawableRight="@android:drawable/arrow_down_float"
                     android:drawablePadding="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:clickable="true"
@@ -205,8 +205,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pref_openai_model_not_set"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawableRight="@android:drawable/arrow_down_float"
+                    app:drawableEnd="@android:drawable/arrow_down_float"
+                    app:drawableRight="@android:drawable/arrow_down_float"
                     android:drawablePadding="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:paddingVertical="12dp"
@@ -236,7 +236,7 @@
                     android:id="@+id/ai_custom_prompt_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Custom Prompt"
+                    android:hint="@string/custom_prompt"
                     android:clickable="false"
                     android:focusable="false">
 

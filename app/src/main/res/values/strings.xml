@@ -277,4 +277,7 @@
     <string name="reset_timer">Reset</string>
 
     <string name="error_invalid_url">Please enter a valid URL starting with http:// or https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Use an LLM like OpenAI to generate smart responses.</string>
+    <string name="ai_provider_llm">AI Provider (LLM)</string>
+    <string name="openai">OpenAI</string>
 </resources>
