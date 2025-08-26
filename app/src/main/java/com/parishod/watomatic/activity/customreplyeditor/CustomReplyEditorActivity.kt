@@ -29,6 +29,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
+// Ensure TextInputLayout is imported if not using fully qualified name,
+// or use fully qualified name as in the original snippet for layout.
+// For consistency with original dialog code, will use fully qualified name for TextInputLayout constructor.
 
 class CustomReplyEditorActivity : BaseActivity() {
     private var autoReplyText: TextInputEditText? = null
@@ -319,19 +322,33 @@ class CustomReplyEditorActivity : BaseActivity() {
         val context = this
         val promptInput = TextInputEditText(context)
         promptInput.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
-        //promptInput.hint = getString(R.string.custom_prompt)
-        val layout = com.google.android.material.textfield.TextInputLayout(context)
-        layout.addView(promptInput)
-//        layout.hint = getString(R.string.custom_prompt)
+
+        // Create TextInputLayout and configure it for outlined style
+        val textInputLayout = com.google.android.material.textfield.TextInputLayout(context)
+        textInputLayout.boxBackgroundMode = com.google.android.material.textfield.TextInputLayout.BOX_BACKGROUND_OUTLINE
+        textInputLayout.hint = getString(R.string.custom_prompt)
+        textInputLayout.addView(promptInput)
+
+        // Define padding for the dialog's custom view content
+        val scale = resources.displayMetrics.density
+        val horizontalPadding = (19 * scale + 0.5f).toInt()
+        val topPadding = (10 * scale + 0.5f).toInt()
+        val bottomPadding = (10 * scale + 0.5f).toInt()
+
+        // Set padding directly on the TextInputLayout
+        textInputLayout.setPadding(horizontalPadding, topPadding, horizontalPadding, bottomPadding)
+
         val dialog = AlertDialog.Builder(context)
             .setTitle(getString(R.string.custom_prompt))
-            .setView(layout)
-            .setPositiveButton("OK") { _, _ ->
+            // Set the view with padding (left, top, right, bottom)
+            .setView(textInputLayout) // Use the simpler setView(View)
+            .setPositiveButton(getString(android.R.string.ok)) { _, _ ->
                 val value = promptInput.text?.toString() ?: ""
-                preferencesManager?.saveString("pref_openai_prompt", value)
+                // Use the correct preferences key for saving the custom prompt
+                preferencesManager?.saveString("pref_openai_custom_prompt", value)
                 aiCustomPromptEditText?.setText(value)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(android.R.string.cancel), null)
             .create()
         dialog.show()
     }
