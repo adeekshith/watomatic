@@ -48,7 +48,7 @@
 
             </LinearLayout>
 
-            <!-- AI Reply Card -->
+            <!-- Auto Reply Card -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -82,31 +82,28 @@
 
                 </androidx.cardview.widget.CardView>
 
-            </FrameLayout>
-
-            <!-- Edit Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
-
+                <!-- Edit Button integrated into the card -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingHorizontal="16dp"
-                    android:text="@string/edit"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/inter_medium"
-                    android:letterSpacing="0.015"
-                    android:textAllCaps="false"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="16dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_edit"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="?attr/colorOnPrimaryContainer"
+                    app:backgroundTint="@android:color/transparent"
                     app:cornerRadius="8dp"
                     app:elevation="0dp"
                     app:strokeWidth="0dp" />
 
-            </LinearLayout>
+            </FrameLayout>
+
+            
 
             <!-- Filters Section -->
             <TextView
