@@ -58,13 +58,11 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="2dp">
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/colorPrimaryContainer" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/ai_reply_text"
