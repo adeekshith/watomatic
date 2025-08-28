@@ -78,26 +78,26 @@
                         android:hyphenationFrequency="full"
                         android:includeFontPadding="false" />
 
-                </androidx.cardview.widget.CardView>
+                    <!-- Edit Button integrated into the card -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_margin="16dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="0dp"
+                        app:icon="@drawable/ic_edit"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="?attr/colorOnPrimaryContainer"
+                        app:backgroundTint="@android:color/transparent"
+                        app:cornerRadius="8dp"
+                        app:elevation="0dp"
+                        app:strokeWidth="0dp" />
 
-                <!-- Edit Button integrated into the card -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="16dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="0dp"
-                    app:icon="@drawable/ic_edit"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconTint="?attr/colorOnPrimaryContainer"
-                    app:backgroundTint="@android:color/transparent"
-                    app:cornerRadius="8dp"
-                    app:elevation="0dp"
-                    app:strokeWidth="0dp" />
+                </androidx.cardview.widget.CardView>
 
             </FrameLayout>
 
