@@ -13,7 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
         app:navigationIconTint="?attr/colorOnSurface"
-        app:titleTextColor="?attr/colorOnSurface"
         app:titleCentered="true" />
 
     <!-- Content Container -->
