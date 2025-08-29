@@ -9,10 +9,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
-import com.parishod.watomatic.utils.ThemeUtils
 
 class CooldownAdapter(
-    private var initialTimeInMillis: Long,
     private val items: List<CooldownItem>,
     private val onCooldownTimeChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<CooldownAdapter.ViewHolder>() {

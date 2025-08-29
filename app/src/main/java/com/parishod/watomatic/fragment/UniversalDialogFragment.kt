@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import android.widget.*
 import com.parishod.watomatic.utils.ThemeUtils
 import androidx.fragment.app.DialogFragment
@@ -29,7 +28,6 @@ import com.parishod.watomatic.model.data.DialogConfig
 import com.parishod.watomatic.model.data.MessageTypeItem
 import com.parishod.watomatic.model.enums.DialogType
 import com.parishod.watomatic.model.interfaces.DialogActionListener
-import com.parishod.watomatic.model.preferences.PreferencesManager
 
 class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
@@ -151,8 +149,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
             DialogType.MESSAGE_TYPE -> MessageTypeAdapter(config.items as List<MessageTypeItem>) { position, isSelected ->
                 actionListener?.onItemSelected(position, isSelected)
             }
-            DialogType.COOLDOWN -> CooldownAdapter(PreferencesManager.getPreferencesInstance(mContext).autoReplyDelay,
-                config.items as List<CooldownItem>) { totalMinutes ->
+            DialogType.COOLDOWN -> CooldownAdapter(config.items as List<CooldownItem>) { totalMinutes ->
                 actionListener?.onCooldownChanged(totalMinutes)
             }
         }
