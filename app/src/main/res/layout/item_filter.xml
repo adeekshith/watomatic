@@ -20,14 +20,14 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_launcher_background">
+            android:background="@drawable/ic_launcher_background" >
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_users"
-                app:tint="@color/black" />
+                app:tint="?android:attr/textColorPrimary" />
         </FrameLayout>
 
         <LinearLayout
@@ -84,8 +84,8 @@
             android:background="@drawable/ic_launcher_background">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_chat_circle_dots"
                 app:tint="?android:attr/textColorPrimary" />
@@ -145,8 +145,8 @@
             android:background="@drawable/ic_launcher_background">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_app_window"
                 app:tint="?android:attr/textColorPrimary" />
@@ -207,7 +207,7 @@
 
             <ImageView
                 android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_clock"
                 app:tint="?android:attr/textColorPrimary" />
