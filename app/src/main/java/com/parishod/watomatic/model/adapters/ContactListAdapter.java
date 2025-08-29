@@ -102,7 +102,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 selectedContacts.add(contact.getContactName());
         }
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(mContext);
-        if (ContactsHelper.getInstance(mContext).hasContactPermission())
+        if (ContactsHelper.Companion.getInstance(mContext).hasContactPermission())
             prefs.setReplyToNames(selectedContacts);
         prefs.setCustomReplyNames(customContacts);
     }

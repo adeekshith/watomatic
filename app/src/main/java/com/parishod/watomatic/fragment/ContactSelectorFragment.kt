@@ -72,7 +72,7 @@ class ContactSelectorFragment : Fragment() {
     fun loadContactList() {
         binding.dialogButtons.visibility = if (contactsHelper.hasContactPermission()) View.VISIBLE else View.GONE
 
-        contactList = contactsHelper.contactList
+        contactList = contactsHelper.getContactList()
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
         binding.contactList.adapter = ContactListAdapter(activity, contactList)
@@ -173,7 +173,7 @@ class ContactSelectorFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.enable_contact_permission) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                contactsHelper.requestContactPermission(activity)
+                contactsHelper.requestContactPermission(requireActivity())
             }
         }
         return super.onOptionsItemSelected(item)

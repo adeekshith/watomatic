@@ -8,8 +8,8 @@ Atomatic sends an automated reply to everyone contacting you on Messaging apps. 
 
 ### [Screenshots](./media/screenshots/)
 
-| [<img src="/media/screenshots/1.png" alt="Scr 1">][scr-page-link] | [<img src="/media/screenshots/2.png" alt="scr 2">][scr-page-link] | [<img src="/media/screenshots/3.png" alt="Scr 3">][scr-page-link] | [<img src="/media/screenshots/4.png" alt="Scr 4">][scr-page-link] |
-|-------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------|
+| [<img src="/media/screenshots/1.png" alt="Scr 1">][scr-page-link] | [<img src="/media/screenshots/2.png" alt="scr 2">][scr-page-link] | [<img src="/media/screenshots/3.png" alt="Scr 3">][scr-page-link] |
+|-------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------|
 
 [**❯ More screenshots**](./media/screenshots/)
 

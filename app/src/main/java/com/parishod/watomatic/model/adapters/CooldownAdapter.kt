@@ -9,6 +9,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
+import com.parishod.watomatic.utils.ThemeUtils
 
 class CooldownAdapter(
     private var initialTimeInMillis: Long,
@@ -65,7 +66,7 @@ class CooldownAdapter(
 
     private fun setupNumberPicker(holder: ViewHolder) {
         holder.numberPicker.apply {
-            minValue = 0
+            minValue = 1
             maxValue = if (isHoursSelected) 24 else 59
             value = if (isHoursSelected) selectedHour else selectedMinute
             wrapSelectorWheel = true

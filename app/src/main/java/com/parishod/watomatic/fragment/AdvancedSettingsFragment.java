@@ -20,7 +20,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_advanced_settings, rootKey);
 
-        contactsHelper = ContactsHelper.getInstance(getContext());
+        contactsHelper = ContactsHelper.Companion.getInstance(getContext());
 
         SwitchPreference enable_contact_replies_preference = findPreference(getString(R.string.pref_reply_contacts));
         if (enable_contact_replies_preference != null) {
