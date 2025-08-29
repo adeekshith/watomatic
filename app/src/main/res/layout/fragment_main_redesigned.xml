@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_weight="1"
-                    android:text="@string/auto_reply_text"
+                    android:text="@string/app_name"
                     android:textSize="20sp"
                     android:fontFamily="@font/inter_bold"
                     android:letterSpacing="-0.01"
