@@ -91,7 +91,6 @@
     <string name="blacklist">Semua orang kecuali kontak yang dipilih</string>
     <string name="whitelist">Tidak seorang pun kecuali kontak yang dipilih</string>
     <string name="enable_contact_based_reply">Aktifkan balasan berbasis kontak</string>
-    <string name="select_contacts">Pilih kontak</string>
     <string name="contact_selector">Pemilih kontak</string>
     <string name="select_all">Pilih Semua</string>
     <string name="select_none">Kosongkan Pilihan</string>
