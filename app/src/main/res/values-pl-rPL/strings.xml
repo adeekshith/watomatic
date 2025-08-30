@@ -86,7 +86,6 @@
     <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
     <string name="whitelist">Nikt z wyjątkiem wybranych kontaktów</string>
     <string name="enable_contact_based_reply">Włącz odpowiedzi oparte na kontaktach</string>
-    <string name="select_contacts">Wybierz kontakty</string>
     <string name="contact_selector">Wybór kontaktów</string>
     <string name="select_all">Zaznacz wszystko</string>
     <string name="select_none">Odznacz wszystko</string>
