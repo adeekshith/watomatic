@@ -86,7 +86,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     BottomNavigationView bottomNav;
     Button editButton;
     private int gitHubReleaseNotesId = -1;
-    private int selectedCooldownTime;
+    private int selectedCooldownTime = -1;
     private TextView replyCooldownDescription, messageTypeDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
@@ -687,7 +687,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                         "This prevents sending multiple replies in quick succession.",
                 false, // showSearch not needed
                 "",    // searchHint not needed
-                "",
+                "Save",
                 cooldownOptions
         );
 
@@ -699,9 +699,13 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onSaveClicked(DialogType dialogType) {
         if (dialogType == DialogType.COOLDOWN) {
-            long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
-            preferencesManager.setAutoReplyDelay(cooldownInMillis);
-            Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+            if(selectedCooldownTime != -1) {
+                long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+                preferencesManager.setAutoReplyDelay(cooldownInMillis);
+                updateCooldownFilterDisplay();
+                Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+            }
+            selectedCooldownTime = -1;//reset so that no accidental cahnges on going back to cooldown page
         }
     }
 
@@ -730,9 +734,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onCooldownChanged(int totalMinutes) {
         selectedCooldownTime = totalMinutes;
-        long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+        /*long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
         preferencesManager.setAutoReplyDelay(cooldownInMillis);
-        updateCooldownFilterDisplay();
+        updateCooldownFilterDisplay();*/
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }
