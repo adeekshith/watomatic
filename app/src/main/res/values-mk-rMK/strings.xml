@@ -82,7 +82,6 @@
     <string name="blacklist">Сите други, освен избраните контакти</string>
     <string name="whitelist">Никој друг, освен избраните контакти</string>
     <string name="enable_contact_based_reply">Овозможи одговори базирани на контакти</string>
-    <string name="select_contacts">Избери контакти</string>
     <string name="contact_selector">Избор на контакти</string>
     <string name="select_all">Избери ги сите</string>
     <string name="select_none">Отстрани избор</string>
