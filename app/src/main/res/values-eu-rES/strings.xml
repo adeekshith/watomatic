@@ -84,7 +84,6 @@
     <string name="blacklist">Kontaktu guztiei, hautatuei izan ezik</string>
     <string name="whitelist">Hautatutako kontaktuei soilik</string>
     <string name="enable_contact_based_reply">Gaitu kontaktuaren araberako erantzunak</string>
-    <string name="select_contacts">Hautatu kontaktuak</string>
     <string name="contact_selector">Kontaktu hautatzailea</string>
     <string name="select_all">Hautatu guztiak</string>
     <string name="select_none">Ez hautatu bat ere</string>
