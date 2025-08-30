@@ -15,6 +15,7 @@
         app:navigationIconTint="?attr/colorOnSurface"
         app:titleTextColor="?attr/colorOnSurface"
         app:titleCentered="true"
+        app:title="@string/select_contacts"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
