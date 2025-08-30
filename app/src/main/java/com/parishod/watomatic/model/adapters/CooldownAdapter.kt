@@ -60,6 +60,7 @@ class CooldownAdapter(
             setupNumberPicker(holder)
             notifyTimeChange()
         }
+        notifyTimeChange()
     }
 
     private fun setupNumberPicker(holder: ViewHolder) {
