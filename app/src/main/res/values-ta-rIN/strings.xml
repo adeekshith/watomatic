@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">பற்றி</string>
     <string name="settings">அமைப்புகள்</string>
     <string name="privacy_policy_label">தனியுரிமைக் கொள்கை</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">தானியங்கு பதிலை நிறுத்து</string>
     <string name="mainAutoReplySwitchOnLabel">தானியங்கு பதிலை இயக்கு</string>
     <string name="mainAutoReplyEditBtnTooltip">தானியங்கு பதில் உரையைத் திருத்த கிளிக் செய்க</string>
-    <string name="to_help_you_leave_whatsapp">வாட்ஸ்அப் மற்றும் பேஸ்புக் மெசஞ்சரை விட்டு வெளியேற உங்களுக்கு தானாக பதில்</string>
     <string name="decline">நிராகரி</string>
     <string name="accept">அனுமதி</string>
     <string name="sure">நான் உறுதியாக இருக்கிறேன்</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">சேமி</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Community-லிருந்து வார்ப்புருக்களைக் காண்க, உங்களுடையதையும் பகிரவும் ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Watomatic செயலி பற்றிய தகவலை இணைத்து அனுப்பவும்.</string>
-    <string name="sent_using_Watomatic">watomatic.app - பயன்படுத்தி அனுப்பப்பட்டது</string>
-    <string name="share_app_text">வாட்ஸ்அப்பில் இருந்து விலகிச் செல்ல நான் Watomatic செயலியை பயன்படுத்துகிறேன். முயற்சி செய்து பாருங்கள்: watomatic.app</string>
     <string name="share">பகிர்</string>
-    <string name="share_subject">Watomatic: Whatsapp தானியங்கு பதில்</string>
     <string name="watomatic_subreddit_label"><u>விவாதிக்கலாம்\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">புதியவை என்ன</string>
     <!-- Share debug logs -->
@@ -65,7 +59,6 @@
     <string name="app_rating_dialog_rate_button_title">மதிப்பிடுக</string>
     <string name="app_rating_dialog_rate_later_title">இப்பொழுது வேண்டாம்</string>
     <string name="app_rating_goto_store_dialog_title">நாங்கள் மகிழ்கிறோம்!</string>
-    <string name="app_rating_goto_store_dialog_msg">இந்த மதிப்பீட்டை \"தொடர்\" என்பதை தொடுவதன் மூலம் Google Play Store-ல் பகிரலாம்!</string>
     <string name="app_rating_goto_store_dialog_button1_title">விருப்பம் இல்லை</string>
     <string name="app_rating_goto_store_dialog_button2_title">தொடர்க</string>
     <string name="app_rating_feedback_dialog_title">எங்களை தொடர்பு கொள்ள</string>
@@ -84,7 +77,6 @@
     <string name="contact_reply_type">இவருக்கு பதிலளி</string>
     <string name="blacklist">குறிக்கப்பட்ட தொடர்புகளை தவிர மற்ற அனைவருக்கும்</string>
     <string name="whitelist">குறிக்கப்பட்ட தொடர்புகளுக்கு மட்டும்</string>
-    <string name="select_contacts">தொடர்புகளை தேர்ந்தெடு</string>
     <string name="select_all">அனைத்தையும் குறி</string>
     <string name="select_none">எதையும் குறிக்காதே</string>
     <string name="contact_permission_dialog_msg">தொடர்புகளை வடிகட்டும் இந்த வசதியை பெற சாதனத்தின் தொடர்புகளை படிக்கும் அனுமதி வேண்டும். தொடர விரும்புகிறீர்களா?</string>
@@ -96,4 +88,11 @@
     <string name="delete">நீக்கு</string>
     <string name="error_name_cannot_be_blank">பெயர் புலம் ஏதுமின்றி இருக்க இயலாது</string>
     <string name="error_name_cannot_be_duplicate">பெயர் ஏற்கனவே உள்ளது</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>

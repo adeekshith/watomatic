@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">Hakkında </string>
     <string name="settings">Ayarlar </string>
     <string name="privacy_policy_label">Gizlilik Politikası </string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Otomatik yanıt KAPALI </string>
     <string name="mainAutoReplySwitchOnLabel">Otomatik yanıt AÇIK </string>
     <string name="mainAutoReplyEditBtnTooltip">Otomatik yanıt metnini düzenlemek için tıklayın </string>
-    <string name="to_help_you_leave_whatsapp">WhatsApp ve Facebook messenger\'dan ayrılmanıza yardımcı olacak otomatik yanıt </string>
     <string name="decline">Reddet </string>
     <string name="accept">Onayla </string>
     <string name="sure">Eminim</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">Kaydet</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u> Topluluktaki şablonları görüntüleyin ve sizinkini de paylaşın ➚ </u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Haberin yayılmasına yardımcı olmak için Otomatik atıf ekleyin</string>
-    <string name="sent_using_Watomatic">Watomatic.app kullanılarak gönderildi</string>
-    <string name="share_app_text">WhatsApp\'tan ayrılmak için Watomatic kullanıyorum. Deneyin: watomatic.app</string>
     <string name="share">Paylaş</string>
-    <string name="share_subject">Watomatic: WhatsApp için otomatik yanıt</string>
     <string name="watomatic_subreddit_label"><u>Haydi tartışalım\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Neler Yeni?</string>
     <!-- Share debug logs -->
@@ -68,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Oylayın! </string>
     <string name="app_rating_dialog_rate_later_title">Belki sonra</string>
     <string name="app_rating_goto_store_dialog_title">Mutluyuz! </string>
-    <string name="app_rating_goto_store_dialog_msg">Lütfen \"Devam\" a tıklayarak Google Play Store\'de uygulamayı değerlendirin. </string>
     <string name="app_rating_pitch">Uygulama ücretsiz, reklamsız, takip edilemez, açık kaynak kodlu  ve  sizin ve benim gibi katkıda bulunanlarca oluşturulmuştur. Görüşleriniz bizim için değerlidir. </string>
     <string name="app_rating_goto_store_dialog_button1_title">İlgilenmiyorum </string>
     <string name="app_rating_goto_store_dialog_button2_title">Devam et </string>
@@ -91,7 +84,6 @@
     <string name="blacklist">Seçilen kişiler dışındaki herkes</string>
     <string name="whitelist">Seçilen kişiler dışında hiç kimse</string>
     <string name="enable_contact_based_reply">Kişi bazlı yanıtları etkinleştir</string>
-    <string name="select_contacts">Seçili kişiler</string>
     <string name="contact_selector">Kişi seçicisi</string>
     <string name="select_all">Tümünü seç</string>
     <string name="select_none">Hiçbirini seçme</string>
@@ -120,4 +112,11 @@
     <string name="contact_permission_dialog_not_now">Şimdi değil</string>
     <string name="contact_permission_dialog_title">Kişi okuma erişimi</string>
     <string name="error_name_cannot_be_duplicate">Bu isim daha önce alınmış</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
 </resources>
