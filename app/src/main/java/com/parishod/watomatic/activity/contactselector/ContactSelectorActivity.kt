@@ -22,10 +22,13 @@ class ContactSelectorActivity : BaseActivity() {
         val binding = ActivityContactSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.contact_selector)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         contactSelectorFragment = supportFragmentManager.findFragmentById(R.id.contact_selector_layout)
                 as ContactSelectorFragment
-
-        title = getString(R.string.contact_selector)
 
         ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
 
@@ -34,6 +37,11 @@ class ContactSelectorActivity : BaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
     override fun onRequestPermissionsResult(

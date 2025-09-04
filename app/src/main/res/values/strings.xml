@@ -166,7 +166,7 @@
     <string name="pref_code_whitelist" translatable="false">pref_whitelist</string>
     <string name="pref_reply_contacts_type" translatable="false">pref_reply_contacts_type</string>
     <string name="enable_contact_based_reply">Enable contact based replies</string>
-    <string name="select_contacts">Select contacts</string>
+    <string name="select_contacts">Select Contacts</string>
     <string name="key_pref_select_contacts" translatable="false">pref_select_contacts</string>
     <string name="contact_selector">Contact selector</string>
     <string name="select_all">Select all</string>
