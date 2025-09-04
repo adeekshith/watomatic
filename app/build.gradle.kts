@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.google.services)
     id("kotlin-parcelize")
 }
 
@@ -98,8 +99,10 @@ dependencies {
     implementation(libs.sequence.layout)
     implementation(libs.browser)
     implementation(libs.security.crypto)
+
+    // Import the BoM (no version on individual dependencies)
+    implementation(platform(libs.firebase.bom))
+    // Firebase Auth (Login)
+    implementation(libs.firebase.auth)
 }
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
-}
+

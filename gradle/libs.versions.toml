@@ -22,7 +22,8 @@ sequenceLayout = "1.1.1"
 testCore = "1.7.0"
 workRuntime = "2.10.0"
 securityCrypto = "1.0.0"
-
+google-services = "4.4.3"
+firebase-bom = "34.2.0"
 
 [libraries]
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
@@ -49,7 +50,9 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompi
 sequence-layout = { module = "com.github.transferwise:sequence-layout", version.ref = "sequenceLayout" }
 test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
-
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
 
 [plugins]
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services"}
