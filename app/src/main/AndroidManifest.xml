@@ -26,6 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WaReply" >
         <activity
+            android:name=".activity.login.LoginActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".activity.main.MainActivity"
             android:exported="true" >
             <intent-filter>

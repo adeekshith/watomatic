@@ -54,6 +54,9 @@ public class PreferencesManager {
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
     private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
+    private final String KEY_IS_LOGGED_IN = "pref_is_logged_in";
+    private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
+    private final String KEY_USER_EMAIL = "pref_user_email";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -477,5 +480,39 @@ public class PreferencesManager {
 
     public String getOpenAICustomPrompt() {
         return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_PROMPT, null);
+    }
+
+    public boolean isLoggedIn() {
+        return _sharedPrefs.getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+
+    public void setLoggedIn(boolean isLoggedIn) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
+        editor.apply();
+    }
+
+    public boolean isGuestMode() {
+        return _sharedPrefs.getBoolean(KEY_IS_GUEST_MODE, false);
+    }
+
+    public void setGuestMode(boolean isGuestMode) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_GUEST_MODE, isGuestMode);
+        editor.apply();
+    }
+
+    public String getUserEmail() {
+        return _sharedPrefs.getString(KEY_USER_EMAIL, "");
+    }
+
+    public void setUserEmail(String email) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_USER_EMAIL, email);
+        editor.apply();
+    }
+
+    public boolean shouldShowLogin() {
+        return !isLoggedIn() && !isGuestMode();
     }
 }
