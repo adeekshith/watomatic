@@ -41,7 +41,8 @@
             android:textColor="?android:attr/textColorSecondary"
             android:layout_marginTop="2dp"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

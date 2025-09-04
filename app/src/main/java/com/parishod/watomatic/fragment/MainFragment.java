@@ -1,7 +1,6 @@
 package com.parishod.watomatic.fragment;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,15 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -42,7 +38,6 @@ import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
-import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
@@ -630,7 +625,6 @@ public class MainFragment extends Fragment implements DialogActionListener {
                     R.drawable.ic_android_default_round,
                     app.getName(),
                     app.getPackageName(),
-                    "Auto-reply disabled", // or make this dynamic
                     app.getPackageName().equals("com.whatsapp") ? true : false
             );
             appItems.add(item);
@@ -639,7 +633,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         DialogConfig config = new DialogConfig(
                 DialogType.APPS,
                 "Apps",
-                "", // description not needed for this dialog
+                "Select the apps you want to enable auto-reply for.", // description not needed for this dialog
                 false, // showSearch
                 "Search",
                 "",
