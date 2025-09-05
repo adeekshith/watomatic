@@ -18,6 +18,8 @@ import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.appbar.MaterialToolbar
+
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -62,7 +64,9 @@ class CustomReplyEditorActivity : BaseActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_custom_reply_editor)
 
-        setTitle(R.string.mainAutoReplyLabel)
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         ViewModelProvider(this)[SwipeToKillAppDetectViewModel::class.java]
 
@@ -351,5 +355,13 @@ class CustomReplyEditorActivity : BaseActivity() {
             .setNegativeButton(getString(android.R.string.cancel), null)
             .create()
         dialog.show()
+    }
+
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
