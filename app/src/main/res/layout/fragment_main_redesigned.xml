@@ -58,6 +58,8 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    android:layout_margin="2dp"
                     app:cardElevation="2dp">
 
                     <View
@@ -72,7 +74,7 @@
                         android:layout_margin="16dp"
                         android:text="@string/ai_reply_text"
                         android:textSize="20sp"
-                        android:fontFamily="@font/inter_bold"
+                        android:fontFamily="@font/inter"
                         android:lineSpacingMultiplier="1.25"
                         android:breakStrategy="balanced"
                         android:hyphenationFrequency="full"
