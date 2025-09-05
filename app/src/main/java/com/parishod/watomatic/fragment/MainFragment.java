@@ -1,7 +1,6 @@
 package com.parishod.watomatic.fragment;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,15 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -42,7 +38,6 @@ import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
 import com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity;
-import com.parishod.watomatic.activity.enabledapps.EnabledAppsActivity;
 import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.activity.settings.SettingsActivity;
 import com.parishod.watomatic.model.App;
@@ -86,7 +81,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     BottomNavigationView bottomNav;
     Button editButton;
     private int gitHubReleaseNotesId = -1;
-    private int selectedCooldownTime;
+    private int selectedCooldownTime = -1;
     private TextView replyCooldownDescription, messageTypeDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
@@ -630,7 +625,6 @@ public class MainFragment extends Fragment implements DialogActionListener {
                     R.drawable.ic_android_default_round,
                     app.getName(),
                     app.getPackageName(),
-                    "Auto-reply disabled", // or make this dynamic
                     app.getPackageName().equals("com.whatsapp") ? true : false
             );
             appItems.add(item);
@@ -639,7 +633,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         DialogConfig config = new DialogConfig(
                 DialogType.APPS,
                 "Apps",
-                "", // description not needed for this dialog
+                "Select the apps you want to enable auto-reply for.", // description not needed for this dialog
                 false, // showSearch
                 "Search",
                 "",
@@ -687,7 +681,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                         "This prevents sending multiple replies in quick succession.",
                 false, // showSearch not needed
                 "",    // searchHint not needed
-                "",
+                "Save",
                 cooldownOptions
         );
 
@@ -699,9 +693,13 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onSaveClicked(DialogType dialogType) {
         if (dialogType == DialogType.COOLDOWN) {
-            long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
-            preferencesManager.setAutoReplyDelay(cooldownInMillis);
-            Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+            if(selectedCooldownTime != -1) {
+                long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+                preferencesManager.setAutoReplyDelay(cooldownInMillis);
+                updateCooldownFilterDisplay();
+                Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+            }
+            selectedCooldownTime = -1;//reset so that no accidental cahnges on going back to cooldown page
         }
     }
 
@@ -730,9 +728,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onCooldownChanged(int totalMinutes) {
         selectedCooldownTime = totalMinutes;
-        long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
+        /*long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
         preferencesManager.setAutoReplyDelay(cooldownInMillis);
-        updateCooldownFilterDisplay();
+        updateCooldownFilterDisplay();*/
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }

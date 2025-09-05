@@ -45,7 +45,6 @@ class AppsAdapter(
             holder.icon.setImageResource(item.iconRes)
         }
         holder.name.text = item.name
-        holder.status.text = item.status
         holder.toggle.isChecked = PreferencesManager.getPreferencesInstance(holder.icon.context).isAppEnabled(item.packageName)
 
         holder.toggle.setOnCheckedChangeListener { _, isChecked ->
