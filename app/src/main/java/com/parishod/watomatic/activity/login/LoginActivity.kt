@@ -74,8 +74,8 @@ class LoginActivity : BaseActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     user?.email?.let { email ->
-                        preferencesManager.saveString("pref_is_logged_in", "true")
-                        preferencesManager.saveString("pref_is_guest_mode", "false")
+                        preferencesManager.isLoggedIn = true
+                        preferencesManager.isGuestMode = false
                         preferencesManager.saveString("pref_user_email", email)
                         handleSuccessfulLogin()
                     }
@@ -99,10 +99,20 @@ class LoginActivity : BaseActivity() {
             val password = binding.etPassword.text.toString()
 
             if (validateInputs(email, password)) {
-                preferencesManager.saveString("pref_is_logged_in", "true")
-                preferencesManager.saveString("pref_is_guest_mode", "false")
-                preferencesManager.saveString("pref_user_email", email)
-                handleSuccessfulLogin()
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success
+                            preferencesManager.isLoggedIn = true
+                            preferencesManager.isGuestMode = false
+                            preferencesManager.saveString("pref_user_email", email)
+                            handleSuccessfulLogin()
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
             }
         }
 
