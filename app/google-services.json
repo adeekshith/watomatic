@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "20441064175-ouf26j7visfg9ijotsb8evepuhrc2tsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parishod.atomatic",
+            "certificate_hash": "b9d0d62a82cca5ccd2bb333f5703063337433d1e"
+          }
+        },
+        {
           "client_id": "20441064175-sj9u39vffm8b54a5qvleugv5vhsi2c9m.apps.googleusercontent.com",
           "client_type": 3
         }
