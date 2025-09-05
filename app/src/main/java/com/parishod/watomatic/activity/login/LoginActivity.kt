@@ -5,8 +5,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.activity.main.MainActivity
@@ -16,6 +26,9 @@ import com.parishod.watomatic.model.preferences.PreferencesManager
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var preferencesManager: PreferencesManager
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +36,53 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
+        auth = FirebaseAuth.getInstance()
 
+        setupGoogleSignIn()
         setupViews()
         setupClickListeners()
         setupTextWatchers()
+    }
+
+    private fun setupGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) //default added with google-services.json
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        googleSignInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    account.idToken?.let { firebaseAuthWithGoogle(it) }
+                } catch (e: ApiException) {
+                    Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    user?.email?.let { email ->
+                        preferencesManager.saveString("pref_is_logged_in", "true")
+                        preferencesManager.saveString("pref_is_guest_mode", "false")
+                        preferencesManager.saveString("pref_user_email", email)
+                        handleSuccessfulLogin()
+                    }
+                } else {
+                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun setupViews() {
@@ -48,6 +104,12 @@ class LoginActivity : BaseActivity() {
                 preferencesManager.saveString("pref_user_email", email)
                 handleSuccessfulLogin()
             }
+        }
+
+        binding.btnGoogleSignIn.setSize(SignInButton.SIZE_WIDE)
+        binding.btnGoogleSignIn.setOnClickListener {
+            val signInIntent = googleSignInClient.signInIntent
+            googleSignInLauncher.launch(signInIntent)
         }
 
         binding.btnContinueAsGuest.setOnClickListener {

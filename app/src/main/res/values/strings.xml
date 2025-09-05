@@ -281,12 +281,11 @@
     <string name="ai_provider_llm">AI Provider (LLM)</string>
     <string name="openai">OpenAI</string>
 
-    <!-- Login Screen -->
+    <!-- Authentication -->
     <string name="error_email_required">Email is required</string>
-    <string name="error_invalid_email">Please enter a valid email</string>
+    <string name="error_invalid_email">Invalid email address</string>
     <string name="error_password_required">Password is required</string>
     <string name="error_password_too_short">Password must be at least 6 characters</string>
-    <string name="continue_as_guest">Continue as Guest</string>
     <string name="welcome_message">Welcome to Atomatic</string>
     <string name="login">Login</string>
 </resources>

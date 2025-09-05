@@ -100,9 +100,8 @@ dependencies {
     implementation(libs.browser)
     implementation(libs.security.crypto)
 
-    // Import the BoM (no version on individual dependencies)
+    // Firebase and Google Sign-In
     implementation(platform(libs.firebase.bom))
-    // Firebase Auth (Login)
     implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
 }
-
