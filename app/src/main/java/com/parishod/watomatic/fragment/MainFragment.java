@@ -31,7 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.NotificationService;
 import com.parishod.watomatic.R;
@@ -75,7 +75,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private PreferencesManager preferencesManager;
     private Activity mActivity;
     private CustomRepliesData customRepliesData;
-    private SwitchMaterial autoRepliesSwitch;
+    private MaterialSwitch autoRepliesSwitch;
     private TextView aiReplyText;
     private View view;
     BottomNavigationView bottomNav;
