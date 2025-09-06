@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.data.CooldownItem
@@ -22,7 +21,6 @@ class CooldownAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val toggleButtonGroup: MaterialButtonToggleGroup = view.findViewById(R.id.toggle_button_group)
         val numberPicker: NumberPicker = view.findViewById(R.id.numberPicker)
-        val buttonResetTimer: MaterialButton = view.findViewById(R.id.button_reset_timer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,13 +51,6 @@ class CooldownAdapter(
                 notifyTimeChange()
             }
         }
-
-        holder.buttonResetTimer.setOnClickListener {
-            selectedHour = 0
-            selectedMinute = 0
-            setupNumberPicker(holder)
-            notifyTimeChange()
-        }
         notifyTimeChange()
     }
 
@@ -86,4 +77,11 @@ class CooldownAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun reset() {
+        selectedHour = 0
+        selectedMinute = 0
+        notifyDataSetChanged()
+        notifyTimeChange()
+    }
 }
