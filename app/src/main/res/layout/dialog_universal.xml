@@ -83,15 +83,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_margin="16dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reset_button"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Reset"
             android:textColor="?attr/colorPrimary"
             android:textSize="16sp"
@@ -99,13 +98,12 @@
             app:cornerRadius="12dp"
             android:minHeight="48dp"
             android:visibility="gone"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Save"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp"
@@ -113,7 +111,7 @@
             app:backgroundTint="?attr/colorPrimary"
             app:cornerRadius="12dp"
             android:minHeight="48dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginBottom="8dp" />
     </LinearLayout>
 
 </LinearLayout>
