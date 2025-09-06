@@ -99,20 +99,13 @@ class LoginActivity : BaseActivity() {
             val password = binding.etPassword.text.toString()
 
             if (validateInputs(email, password)) {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success
-                            preferencesManager.isLoggedIn = true
-                            preferencesManager.isGuestMode = false
-                            preferencesManager.saveString("pref_user_email", email)
-                            handleSuccessfulLogin()
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
-                                Toast.LENGTH_SHORT).show()
-                        }
+                checkIfEmailExists(email) { exists ->
+                    if (exists) {
+                        doSignin(email, password)
+                    } else {
+                        showSignUpConfirmation(email, password)
                     }
+                }
             }
         }
 
@@ -126,6 +119,72 @@ class LoginActivity : BaseActivity() {
             preferencesManager.saveString("pref_is_guest_mode", "true")
             navigateToMain()
         }
+    }
+
+    fun doSignin(email: String, password: String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    handleSuccessfulAuth(email)
+                } else {
+                    val exception = task.exception
+                    Toast.makeText(this, "Authentication failed: ${exception?.message}",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
+    fun checkIfEmailExists(email: String, onResult: (Boolean) -> Unit) {
+        auth.fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val signInMethods = task.result?.signInMethods ?: emptyList()
+                    onResult(signInMethods.isNotEmpty()) // true if email exists
+                } else {
+                    onResult(false)
+                }
+            }
+    }
+
+    private fun showSignUpConfirmation(email: String, password: String) {
+        android.app.AlertDialog.Builder(this)
+            .setTitle("Create New Account")
+            .setMessage("Would you like to create a new account with this email?\n\n$email")
+            .setPositiveButton("Create Account") { _, _ ->
+                createNewAccount(email, password)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun createNewAccount(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                    handleSuccessfulAuth(email)
+                } else {
+                    when {
+                        task.exception?.message?.contains("email address is already", ignoreCase = true) == true -> {
+                            Toast.makeText(this, "This email is already registered. Please try signing in.", Toast.LENGTH_LONG).show()
+                        }
+                        task.exception?.message?.contains("credential is incorrect", ignoreCase = true) == true -> {
+                            Toast.makeText(this, "Please use a valid email and a password with at least 6 characters", Toast.LENGTH_LONG).show()
+                        }
+                        else -> {
+                            Toast.makeText(this, "Failed to create account: ${task.exception?.message}",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun handleSuccessfulAuth(email: String) {
+        preferencesManager.isLoggedIn = true
+        preferencesManager.isGuestMode = false
+        preferencesManager.saveString("pref_user_email", email)
+        handleSuccessfulLogin()
     }
 
     private fun setupTextWatchers() {
