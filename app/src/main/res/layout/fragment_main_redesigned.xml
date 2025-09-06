@@ -38,13 +38,11 @@
                     android:letterSpacing="-0.01"
                     android:includeFontPadding="false" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switch_auto_replies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:thumbTint="@android:color/white"
-                    app:trackTint="@drawable/switch_track_selector" />
+                    android:checked="true" />
 
             </LinearLayout>
 
