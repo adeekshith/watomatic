@@ -12,6 +12,7 @@ import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.parishod.watomatic.service.NlsHealthCheckWorker
 
 class MainActivity : BaseActivity() {
     private lateinit var viewModel: SwipeToKillAppDetectViewModel
@@ -39,5 +40,8 @@ class MainActivity : BaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Schedule health check
+        NlsHealthCheckWorker.schedule(this)
     }
 }

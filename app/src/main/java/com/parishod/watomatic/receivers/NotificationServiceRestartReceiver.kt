@@ -4,50 +4,26 @@ import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
+import android.provider.Settings
 import android.util.Log
-import com.parishod.watomatic.NotificationService
-import com.parishod.watomatic.model.preferences.PreferencesManager
-import com.parishod.watomatic.service.KeepAliveService
+import com.parishod.watomatic.service.NotificationService
 
 class NotificationServiceRestartReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val action = intent?.action
-        if (action?.equals(Intent.ACTION_BOOT_COMPLETED) == true
-                || action?.equals("Watomatic-RestartService-Broadcast") == true) {
-            context?.let { restartService(context = context) }
-        }
-    }
-
-    private fun restartService(context: Context) {
-        val preferencesManager = PreferencesManager.getPreferencesInstance(context)
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled) {
-            val serviceIntent = Intent(context, KeepAliveService::class.java)
-            // ToDo: Should probably start using foreground service to prevent IllegalState exception below
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(serviceIntent)
-                } else {
-                    context.startService(serviceIntent)
+        if (action?.equals(Intent.ACTION_BOOT_COMPLETED) == true) {
+            context?.let {
+                val enabledPackages = Settings.Secure.getString(
+                    context.contentResolver,
+                    "enabled_notification_listeners"
+                )
+                if (enabledPackages?.contains(context.packageName) == true) {
+                    // Trigger a rebind
+                    val cn = ComponentName(context, NotificationService::class.java)
+                    NotificationService.requestRebind(cn)
+                    Log.d("NLS", "Requesting rebind to Notification Listener")
                 }
-            } catch (e: IllegalStateException) {
-                Log.e("NotifServiceRestart", "Unable to restart notification service")
             }
-        }else{
-            enableService(context)
         }
-    }
-
-    private fun enableService(context: Context) {
-        val packageManager: PackageManager = context.packageManager
-        val componentName = ComponentName(context, NotificationService::class.java)
-        val settingCode = PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        // enable notificationservicelistener (as it is disabled in the manifest.xml)
-        packageManager.setComponentEnabledSetting(
-                componentName,
-                settingCode,
-                PackageManager.DONT_KILL_APP
-        )
     }
 }

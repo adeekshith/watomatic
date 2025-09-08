@@ -36,11 +36,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 foregroundServiceNotifPref.setVisible(false);
             }
             foregroundServiceNotifPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                if (newValue.equals(true)) {
+                /*if (newValue.equals(true)) {
                     ServieUtils.getInstance(getActivity()).startNotificationService();
                 } else {
                     ServieUtils.getInstance(getActivity()).stopNotificationService();
-                }
+                }*/
                 return true;
             });
         }

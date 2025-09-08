@@ -33,7 +33,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.parishod.watomatic.BuildConfig;
-import com.parishod.watomatic.NotificationService;
+import com.parishod.watomatic.service.NotificationService;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.activity.about.AboutActivity;
 import com.parishod.watomatic.activity.contactselector.ContactSelectorActivity;
@@ -52,7 +52,6 @@ import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.model.utils.Constants;
 import com.parishod.watomatic.model.utils.CustomDialog;
 import com.parishod.watomatic.model.utils.DbUtils;
-import com.parishod.watomatic.model.utils.ServieUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,11 +149,11 @@ public class MainFragment extends Fragment implements DialogActionListener {
                     }
                 }
                 preferencesManager.setServicePref(isChecked);
-                if (isChecked) {
+                /*if (isChecked) {
                     startNotificationService();
                 } else {
                     stopNotificationService();
-                }
+                }*/
                 setSwitchState();
             }
         });
@@ -556,7 +555,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         if (requestCode == REQ_NOTIFICATION_LISTENER) {
             if (isListenerEnabled(mActivity, NotificationService.class)) {
                 Toast.makeText(mActivity, "Permission Granted", Toast.LENGTH_LONG).show();
-                startNotificationService();
+//                startNotificationService();
                 preferencesManager.setServicePref(true);
             } else {
                 Toast.makeText(mActivity, "Permission Denied", Toast.LENGTH_LONG).show();
@@ -575,17 +574,6 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // enable dummyActivity (as it is disabled in the manifest.xml)
         packageManager.setComponentEnabledSetting(componentName, settingCode, PackageManager.DONT_KILL_APP);
 
-    }
-
-    private void startNotificationService() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || preferencesManager.isForegroundServiceNotificationEnabled()) {
-            ServieUtils.getInstance(mActivity).startNotificationService();
-        }
-    }
-
-
-    private void stopNotificationService() {
-        ServieUtils.getInstance(mActivity).stopNotificationService();
     }
 
     @Override
@@ -610,7 +598,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     @Override
     public void onDestroy() {
-        stopNotificationService();
+//        stopNotificationService();
         super.onDestroy();
     }
 
