@@ -82,6 +82,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     Button editButton;
     private int gitHubReleaseNotesId = -1;
     private int selectedCooldownTime = -1;
+    private int initialCooldownTime = -1;
     private TextView replyCooldownDescription, messageTypeDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
@@ -672,6 +673,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private void showCooldownDialog() {
         List<CooldownItem> cooldownOptions = new ArrayList<>();
         long cooldownInMinutes = preferencesManager.getAutoReplyDelay() / (60 * 1000);
+        initialCooldownTime = (int) cooldownInMinutes;
         cooldownOptions.add(new CooldownItem((int) cooldownInMinutes));
 
         DialogConfig config = new DialogConfig(
@@ -728,9 +730,12 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onCooldownChanged(int totalMinutes) {
         selectedCooldownTime = totalMinutes;
-        /*long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
-        preferencesManager.setAutoReplyDelay(cooldownInMillis);
-        updateCooldownFilterDisplay();*/
+        if (selectedCooldownTime != initialCooldownTime) {
+            Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("cooldown_dialog");
+            if (dialogFragment instanceof UniversalDialogFragment) {
+                ((UniversalDialogFragment) dialogFragment).setSaveButtonEnabled(true);
+            }
+        }
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }

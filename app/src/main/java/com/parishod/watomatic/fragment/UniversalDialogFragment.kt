@@ -133,6 +133,9 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
             // Setup save button
             if(!TextUtils.isEmpty(config.saveButtonText)) {
                 saveButton.text = config.saveButtonText
+                if (config.dialogType == DialogType.COOLDOWN) {
+                    saveButton.isEnabled = false
+                }
                 saveButton.setOnClickListener {
                     actionListener?.onSaveClicked(config.dialogType)
                     dismiss()
@@ -177,6 +180,10 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
     fun setActionListener(listener: DialogActionListener) {
         this.actionListener = listener
+    }
+
+    fun setSaveButtonEnabled(enabled: Boolean) {
+        saveButton.isEnabled = enabled
     }
 
     override fun onStart() {
