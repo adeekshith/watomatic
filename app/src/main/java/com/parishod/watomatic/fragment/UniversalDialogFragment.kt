@@ -37,6 +37,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
     private lateinit var descriptionText: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var saveButton: MaterialButton
+    private lateinit var resetButton: MaterialButton
 
     private var dialogConfig: DialogConfig? = null
     private var actionListener: DialogActionListener? = null
@@ -99,6 +100,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
         descriptionText = view.findViewById(R.id.description_text)
         recyclerView = view.findViewById(R.id.recycler_view)
         saveButton = view.findViewById(R.id.save_button)
+        resetButton = view.findViewById(R.id.reset_button)
     }
 
     private fun configureDialog() {
@@ -131,12 +133,23 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
             // Setup save button
             if(!TextUtils.isEmpty(config.saveButtonText)) {
                 saveButton.text = config.saveButtonText
+                if (config.dialogType == DialogType.COOLDOWN) {
+                    saveButton.isEnabled = false
+                }
                 saveButton.setOnClickListener {
                     actionListener?.onSaveClicked(config.dialogType)
                     dismiss()
                 }
             }else{
                 saveButton.visibility = View.GONE
+            }
+
+            // Setup reset button
+            if (config.dialogType == DialogType.COOLDOWN) {
+                resetButton.visibility = View.VISIBLE
+                resetButton.setOnClickListener {
+                    (recyclerView.adapter as? CooldownAdapter)?.reset()
+                }
             }
         }
     }
@@ -167,6 +180,10 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
     fun setActionListener(listener: DialogActionListener) {
         this.actionListener = listener
+    }
+
+    fun setSaveButtonEnabled(enabled: Boolean) {
+        saveButton.isEnabled = enabled
     }
 
     override fun onStart() {

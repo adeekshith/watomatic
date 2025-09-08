@@ -31,7 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.service.NotificationService;
 import com.parishod.watomatic.R;
@@ -74,13 +74,14 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private PreferencesManager preferencesManager;
     private Activity mActivity;
     private CustomRepliesData customRepliesData;
-    private SwitchMaterial autoRepliesSwitch;
+    private MaterialSwitch autoRepliesSwitch;
     private TextView aiReplyText;
     private View view;
     BottomNavigationView bottomNav;
     Button editButton;
     private int gitHubReleaseNotesId = -1;
     private int selectedCooldownTime = -1;
+    private int initialCooldownTime = -1;
     private TextView replyCooldownDescription, messageTypeDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
@@ -660,6 +661,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private void showCooldownDialog() {
         List<CooldownItem> cooldownOptions = new ArrayList<>();
         long cooldownInMinutes = preferencesManager.getAutoReplyDelay() / (60 * 1000);
+        initialCooldownTime = (int) cooldownInMinutes;
         cooldownOptions.add(new CooldownItem((int) cooldownInMinutes));
 
         DialogConfig config = new DialogConfig(
@@ -716,9 +718,12 @@ public class MainFragment extends Fragment implements DialogActionListener {
     @Override
     public void onCooldownChanged(int totalMinutes) {
         selectedCooldownTime = totalMinutes;
-        /*long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
-        preferencesManager.setAutoReplyDelay(cooldownInMillis);
-        updateCooldownFilterDisplay();*/
+        if (selectedCooldownTime != initialCooldownTime) {
+            Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("cooldown_dialog");
+            if (dialogFragment instanceof UniversalDialogFragment) {
+                ((UniversalDialogFragment) dialogFragment).setSaveButtonEnabled(true);
+            }
+        }
         Log.d("Dialog", "Total cooldown time: " + totalMinutes);
     }
 }
