@@ -116,7 +116,7 @@ class LoginActivity : BaseActivity() {
         }
 
         binding.btnContinueAsGuest.setOnClickListener {
-            preferencesManager.saveString("pref_is_guest_mode", "true")
+            preferencesManager.isGuestMode = true
             navigateToMain()
         }
     }
