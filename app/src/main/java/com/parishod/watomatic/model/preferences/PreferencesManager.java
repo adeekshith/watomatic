@@ -367,8 +367,20 @@ public class PreferencesManager {
         return _sharedPrefs.getBoolean(KEY_REPLY_CONTACTS, false);
     }
 
+    public void setContactReplyEnabled(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_REPLY_CONTACTS, enabled);
+        editor.apply();
+    }
+
     public Boolean isContactReplyBlacklistMode() {
         return _sharedPrefs.getString(KEY_REPLY_CONTACTS_TYPE, "pref_blacklist").equals("pref_blacklist");
+    }
+
+    public void setContactReplyBlacklistMode(boolean isBlacklist) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_REPLY_CONTACTS_TYPE, isBlacklist ? "pref_blacklist" : "pref_whitelist");
+        editor.apply();
     }
 
     public void saveOpenAIApiKey(String apiKey) {

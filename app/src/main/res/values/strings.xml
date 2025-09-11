@@ -259,6 +259,8 @@
     <!-- Filter Items -->
     <string name="contacts">Contacts</string>
     <string name="all_contacts">All Contacts</string>
+    <string name="no_contacts">None Selected</string>
+    <string name="some_contacts">Selected Contacts</string>
     <string name="message_type">Message Type</string>
     <string name="direct_messages">Direct Messages Only</string>
     <string name="all_messages">All Messages</string>
@@ -288,4 +290,13 @@
     <string name="error_password_too_short">Password must be at least 6 characters</string>
     <string name="welcome_message">Welcome to Atomatic</string>
     <string name="login">Login</string>
+    
+    <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Contact-based replies</string>
+    <string name="reply_to_mode">Reply to mode</string>
+    <string name="reply_only_selected">Only selected contacts</string>
+    <string name="reply_everyone_except_selected">Everyone except selected</string>
+    <string name="contact_filter_disabled">Disabled</string>
+    <string name="contact_filter_enabled_whitelist">Only selected (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
 </resources>
