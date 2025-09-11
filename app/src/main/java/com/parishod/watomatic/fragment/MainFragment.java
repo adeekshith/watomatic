@@ -82,7 +82,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private int gitHubReleaseNotesId = -1;
     private int selectedCooldownTime = -1;
     private int initialCooldownTime = -1;
-    private TextView replyCooldownDescription, messageTypeDescription;
+    private TextView replyCooldownDescription, messageTypeDescription, contactsSelectorDescription;
     private LinearLayout contactsFilterLL, messagesTypeLL, supportedAppsLL, replyCooldownLL;
     private TextView enabledAppsCount;
     private final List<String> communityUrls = Arrays.asList("https://t.me/WatomaticApp",
@@ -112,6 +112,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
         //Filters Layout views
+        contactsSelectorDescription = view.findViewById(R.id.contacts_filter_description);
         contactsFilterLL = view.findViewById(R.id.filter_contacts);
         contactsFilterLL.setOnClickListener(view -> {
             startActivity(new Intent(mActivity, ContactSelectorActivity.class));
@@ -313,9 +314,25 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // Set user auto reply text
         aiReplyText.setText(customRepliesData.getTextToSendOrElse());
 
+        updateContactsSelectorState();
         updateMessageType();
         updateCooldownFilterDisplay();
         showAppRatingPopup();
+    }
+
+    private void updateContactsSelectorState(){
+        boolean enabled = preferencesManager.isContactReplyEnabled();
+        if(!enabled){
+            contactsSelectorDescription.setText(R.string.contact_filter_disabled);
+            return;
+        }
+        int count = preferencesManager.getReplyToNames().size() + preferencesManager.getCustomReplyNames().size();
+        boolean isBlacklist = preferencesManager.isContactReplyBlacklistMode();
+        if(isBlacklist){
+            contactsSelectorDescription.setText(getString(R.string.contact_filter_enabled_blacklist, count));
+        }else{
+            contactsSelectorDescription.setText(getString(R.string.contact_filter_enabled_whitelist, count));
+        }
     }
 
     private void updateMessageType(){

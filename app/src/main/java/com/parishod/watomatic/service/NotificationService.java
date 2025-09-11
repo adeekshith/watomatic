@@ -12,6 +12,7 @@ import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
 import android.text.TextUtils; // Added import
 import android.util.Log;
+import android.widget.Toast;
 // import Constants.kt
 
 
@@ -338,6 +339,12 @@ public class NotificationService extends NotificationListenerService {
         Log.d(TAG, "Listener disconnected! Requesting rebind...");
         ComponentName componentName = new ComponentName(this, NotificationService.class);
         requestRebind(componentName);
+    }
+
+    @Override
+    public void onListenerConnected() {
+        super.onListenerConnected();
+        Toast.makeText(getApplicationContext(), "Listener connected!", Toast.LENGTH_SHORT).show();
     }
 
 }

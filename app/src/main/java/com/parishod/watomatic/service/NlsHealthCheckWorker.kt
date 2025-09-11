@@ -32,7 +32,7 @@ class NlsHealthCheckWorker(
 
     companion object {
         fun schedule(context: Context) {
-            val request = PeriodicWorkRequestBuilder<NlsHealthCheckWorker>(1, TimeUnit.DAYS).build()
+            val request = PeriodicWorkRequestBuilder<NlsHealthCheckWorker>(6, TimeUnit.HOURS).build()
             WorkManager.getInstance(context).enqueue(request)
         }
     }
