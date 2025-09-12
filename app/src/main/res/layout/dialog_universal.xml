@@ -65,7 +65,7 @@
             android:textColor="?android:attr/textColorPrimary"
             android:lineSpacingExtra="4dp"
             android:layout_marginBottom="8dp"
-            android.visibility="gone" />
+            android:visibility="gone" />
 
         <!-- Scrollable Content -->
         <androidx.recyclerview.widget.RecyclerView
