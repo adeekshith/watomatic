@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
-import com.parishod.watomatic.activity.login.LoginActivity
+import com.parishod.watomatic.flavor.FlavorNavigator
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
@@ -22,10 +22,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
 
-        // Check if we need to show login screen
-        if (preferencesManager.shouldShowLogin()) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+        // Flavor-aware login navigation: Only GooglePlay flavor has LoginActivity
+        if (FlavorNavigator.navigateToLoginIfNeeded(this, preferencesManager)) {
             return
         }
 

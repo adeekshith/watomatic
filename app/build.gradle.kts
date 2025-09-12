@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.services)
     id("kotlin-parcelize")
 }
 
@@ -101,7 +100,23 @@ dependencies {
     implementation(libs.security.crypto)
 
     // Firebase and Google Sign-In
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.play.services.auth)
+    // Add flavor-specific deps dynamically
+    android.applicationVariants.all {
+        val flavorName = this.flavorName
+        if (flavorName.contains("GooglePlay", ignoreCase = true)) {
+            add("implementation", platform(libs.firebase.bom))
+            add("implementation", libs.firebase.auth)
+            add("implementation", libs.play.services.auth)
+        }
+    }
+}
+
+// Apply Google Services plugin only if building GooglePlay variant
+gradle.startParameter.taskNames.any { task ->
+    if (task.contains("GooglePlay", ignoreCase = true)) {
+        apply(plugin = "com.google.gms.google-services")
+        true
+    } else {
+        false
+    }
 }
