@@ -45,10 +45,14 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setupGoogleSignIn() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // default added with google-services.json
+        val gsoBuilder = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .build()
+        // Try to request ID token if the resource exists (usually added via google-services.json)
+        val webClientIdRes = resources.getIdentifier("default_web_client_id", "string", packageName)
+        if (webClientIdRes != 0) {
+            gsoBuilder.requestIdToken(getString(webClientIdRes)) // default added with google-services.json
+        }
+        val gso = gsoBuilder.build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
