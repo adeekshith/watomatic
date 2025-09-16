@@ -11,7 +11,7 @@ android {
     defaultConfig {
         namespace = "com.parishod.watomatic"
         applicationId = "com.parishod.watomatic"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 35
         versionCode = 30
         versionName = "1.30"
@@ -98,8 +98,25 @@ dependencies {
     implementation(libs.sequence.layout)
     implementation(libs.browser)
     implementation(libs.security.crypto)
+
+    // Firebase and Google Sign-In
+    // Add flavor-specific deps dynamically
+    android.applicationVariants.all {
+        val flavorName = this.flavorName
+        if (flavorName.contains("GooglePlay", ignoreCase = true)) {
+            add("implementation", platform(libs.firebase.bom))
+            add("implementation", libs.firebase.auth)
+            add("implementation", libs.play.services.auth)
+        }
+    }
 }
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
+
+// Apply Google Services plugin only if building GooglePlay variant
+gradle.startParameter.taskNames.any { task ->
+    if (task.contains("GooglePlay", ignoreCase = true)) {
+        apply(plugin = "com.google.gms.google-services")
+        true
+    } else {
+        false
+    }
 }

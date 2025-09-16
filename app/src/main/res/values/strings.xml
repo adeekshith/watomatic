@@ -10,6 +10,7 @@
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
+    <string name="ai_auto_reply_default_message">AI Replies Enabled\nMessages are smartly handled by AI</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
@@ -259,6 +260,8 @@
     <!-- Filter Items -->
     <string name="contacts">Contacts</string>
     <string name="all_contacts">All Contacts</string>
+    <string name="no_contacts">None Selected</string>
+    <string name="some_contacts">Selected Contacts</string>
     <string name="message_type">Message Type</string>
     <string name="direct_messages">Direct Messages Only</string>
     <string name="all_messages">All Messages</string>
@@ -280,4 +283,21 @@
     <string name="use_an_llm_like_openai_to_generate_smart_responses">Use an LLM like OpenAI to generate smart responses.</string>
     <string name="ai_provider_llm">AI Provider (LLM)</string>
     <string name="openai">OpenAI</string>
+
+    <!-- Authentication -->
+    <string name="error_email_required">Email is required</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="welcome_message">Welcome to Atomatic</string>
+    <string name="login">Login</string>
+    
+    <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Contact-based replies</string>
+    <string name="reply_to_mode">Reply to mode</string>
+    <string name="reply_only_selected">Only selected contacts</string>
+    <string name="reply_everyone_except_selected">Everyone except selected</string>
+    <string name="contact_filter_disabled">Disabled</string>
+    <string name="contact_filter_enabled_whitelist">Only selected (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
 </resources>

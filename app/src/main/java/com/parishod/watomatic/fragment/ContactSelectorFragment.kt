@@ -27,6 +27,53 @@ import java.util.*
 
 class ContactSelectorFragment : Fragment() {
 
+    private fun initHeaderControls() {
+        val enabled = prefs.isContactReplyEnabled
+        // Switch state
+        binding.switchContactReplies.isChecked = enabled
+        // Mode state
+        val isBlacklist = prefs.isContactReplyBlacklistMode()
+        binding.replyModeGroup.check(if (isBlacklist) R.id.radio_blacklist else R.id.radio_whitelist)
+
+        // Listeners
+        binding.switchContactReplies.setOnCheckedChangeListener { _, isChecked ->
+            prefs.setContactReplyEnabled(isChecked)
+            enableContactUi(isChecked)
+        }
+        binding.replyModeGroup.setOnCheckedChangeListener { _, checkedId ->
+            prefs.setContactReplyBlacklistMode(checkedId == R.id.radio_blacklist)
+        }
+
+        enableContactUi(enabled)
+    }
+
+    private fun setChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                setChildrenEnabled(view.getChildAt(i), enabled)
+            }
+        }
+    }
+
+    private fun enableContactUi(enabled: Boolean) {
+        // Visually dim/enable
+        binding.modeContainer.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.modeContainer, enabled)
+
+        binding.searchLayout.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.searchLayout, enabled)
+
+        binding.dialogButtons.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.dialogButtons, enabled)
+
+        binding.contactList.alpha = if (enabled) 1f else 0.5f
+        binding.contactList.isEnabled = enabled
+
+        binding.addCustomButton.alpha = if (enabled) 1f else 0.5f
+        binding.addCustomButton.isEnabled = enabled
+    }
+
     private var _binding: FragmentContactSelectorBinding? = null
     private val binding get() = _binding!!
 
@@ -45,10 +92,13 @@ class ContactSelectorFragment : Fragment() {
 
         contactsHelper = ContactsHelper.getInstance(requireContext()).also {
             if (!it.hasContactPermission()) {
-                setHasOptionsMenu(true)
+                it.requestContactPermission(requireActivity())
             }
         }
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
+
+        // Initialize header controls (switch and mode)
+        initHeaderControls()
 
         loadContactList()
 

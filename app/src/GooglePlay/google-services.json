@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "20441064175",
+    "project_id": "atomatic-cd91f",
+    "storage_bucket": "atomatic-cd91f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20441064175:android:7402f1b8c1cbe893e4311a",
+        "android_client_info": {
+          "package_name": "com.parishod.atomatic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20441064175-ejm5n81rhfn2rspkb6pmg9v6k00e4ki5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parishod.atomatic",
+            "certificate_hash": "265b7278d552b4cf992ffea32f3bb4849534ef13"
+          }
+        },
+        {
+          "client_id": "20441064175-ouf26j7visfg9ijotsb8evepuhrc2tsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parishod.atomatic",
+            "certificate_hash": "b9d0d62a82cca5ccd2bb333f5703063337433d1e"
+          }
+        },
+        {
+          "client_id": "20441064175-sj9u39vffm8b54a5qvleugv5vhsi2c9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6rcThqjEp-_FLbl0LQ12aSld7t2xl0N0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20441064175-sj9u39vffm8b54a5qvleugv5vhsi2c9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

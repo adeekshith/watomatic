@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Core permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!-- Query other apps (needed for Android 11+) -->
     <queries>
-
-        <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
@@ -24,13 +23,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WaReply" >
+        android:theme="@style/Theme.WaReply">
+
+        <!-- Activities -->
         <activity
             android:name=".activity.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,16 +38,12 @@
             android:name=".activity.customreplyeditor.CustomReplyEditorActivity"
             android:exported="true"
             android:label="@string/mainAutoReplyLabel"
-            android:parentActivityName=".activity.main.MainActivity" >
-            <intent-filter android:label="global-auto-reply-message-intent" >
+            android:parentActivityName=".activity.main.MainActivity">
+            <intent-filter android:label="global-auto-reply-message-intent">
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "watomatic://auto-reply” -->
-                <data
-                    android:host="auto-reply"
-                    android:scheme="watomatic" />
+                <data android:scheme="watomatic" android:host="auto-reply" />
             </intent-filter>
         </activity>
         <activity
@@ -85,46 +81,40 @@
             android:label="@string/donations_activity_title"
             android:parentActivityName=".activity.main.MainActivity" />
 
+        <!-- Notification Listener Service -->
         <service
-            android:name=".NotificationService"
+            android:name=".service.NotificationService"
             android:exported="true"
-            android:foregroundServiceType="dataSync"
             android:label="@string/service_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
-
             <meta-data
-                android:name="android. service. notification. default_filter_types"
+                android:name="android.service.notification.default_filter_types"
                 android:value="conversations|alerting" />
             <meta-data
-                android:name="android. service. notification. disabled_filter_types"
+                android:name="android.service.notification.disabled_filter_types"
                 android:value="ongoing|silent" />
         </service>
-        <service
-            android:name=".service.KeepAliveService"
-            android:exported="true"
-            android:foregroundServiceType="dataSync"
-            android:stopWithTask="false" /> <!-- https://techstop.github.io/android-broadcastreceiver/ -->
+
+        <!-- Receiver to restart after boot -->
         <receiver
             android:name=".receivers.NotificationServiceRestartReceiver"
             android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <!-- For HTC devices -->
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-    </application>
 
+    </application>
 </manifest>
