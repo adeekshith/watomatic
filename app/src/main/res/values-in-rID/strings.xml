@@ -6,6 +6,7 @@
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
     <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
     <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
+    <string name="ai_auto_reply_default_message">Balasan AI Diaktifkan\nPesan ditangani dengan cerdas oleh AI</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
     <string name="mainAutoReplySwitchOnLabel">Balasan otomatis AKTIF</string>
@@ -68,6 +69,7 @@
     <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
     <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
     <string name="app_rating_goto_store_dialog_title">Kami senang!</string>
+    <string name="app_rating_goto_store_dialog_msg">Silahkan bagikan peringkat aplikasi kami ini di Google Play Store dengan mengetuk “Lanjutkan”!</string>
     <string name="app_rating_pitch">Aplikasi ini gratis, tanpa iklan, tanpa pelacakan, sumber terbuka dan dibuat oleh kontributor seperti Anda dan saya.
         Umpan balik Anda adalah satu-satunya dorongan kami.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
@@ -91,6 +93,7 @@
     <string name="blacklist">Semua orang kecuali kontak yang dipilih</string>
     <string name="whitelist">Tidak seorang pun kecuali kontak yang dipilih</string>
     <string name="enable_contact_based_reply">Aktifkan balasan berbasis kontak</string>
+    <string name="select_contacts">Pilih Kontak</string>
     <string name="contact_selector">Pemilih kontak</string>
     <string name="select_all">Pilih Semua</string>
     <string name="select_none">Kosongkan Pilihan</string>
@@ -137,6 +140,7 @@
     <string name="pref_openai_custom_api_url_title">URL API Khusus</string>
     <string name="pref_openai_custom_api_url_summary">Masukkan URL API khusus Anda</string>
     <string name="pref_openai_custom_api_url_dialog_title">URL API Khusus</string>
+    <string name="set_custom_api_url">Atur URL API khusus</string>
     <string name="pref_openai_model_title">Model AI</string>
     <string name="pref_openai_model_summary_default">Memilih model obrolan yang disukai</string>
     <string name="pref_openai_model_dialog_title">Pilih Model AI</string>
@@ -154,10 +158,49 @@
     <string name="custom_prompt">Perintah Khusus</string>
     <!--New UI Related-->
     <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Teks Balasan Otomatis</string>
+    <string name="filters">Saringan</string>
     <!-- AI Reply Text -->
+    <string name="ai_reply_text">Balasan AI: \"Halo! Saat ini saya sedang tidak bisa dihubungi dan akan menghubungi Anda kembali secepatnya.\" (OpenAI)</string>
     <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Balasan Otomatis Diaktifkan</string>
+    <string name="edit">Ubah</string>
     <!-- Filter Items -->
+    <string name="contacts">Kontak</string>
+    <string name="all_contacts">Semua Kontak</string>
+    <string name="no_contacts">Tidak ada yang dipilih</string>
+    <string name="some_contacts">Kontak yang Dipilih</string>
+    <string name="message_type">Jenis Pesan</string>
+    <string name="direct_messages">Hanya Pesan Langsung</string>
+    <string name="all_messages">Semua Pesan</string>
+    <string name="apps">Aplikasi</string>
+    <string name="apps_enabled_count">%1$d/%2$d aplikasi diaktifkan</string>
+    <string name="reply_cooldown">Waktu henti Balasan</string>
+    <string name="ten_minutes">10 menit</string>
     <!-- Cooldown units -->
+    <string name="minutes">menit</string>
+    <string name="hours">jam</string>
+    <string name="minute">menit</string>
+    <string name="hour">jam</string>
+    <string name="no_cooldown">Tidak ada waktu henti</string>
+    <string name="reset_timer">Atur ulang</string>
+    <string name="error_invalid_url">Masukkan URL yang valid yang dimulai dengan http:// atau https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Gunakan LLM seperti OpenAI untuk menghasilkan respons yang cerdas.</string>
+    <string name="ai_provider_llm">Penyedia AI (LLM)</string>
+    <string name="openai">OpenAI</string>
     <!-- Authentication -->
+    <string name="error_email_required">Email diperlukan</string>
+    <string name="error_invalid_email">Alamat email tidak valid</string>
+    <string name="error_password_required">Kata sandi diperlukan</string>
+    <string name="error_password_too_short">Kata sandi minimal harus terdiri dari 6 karakter</string>
+    <string name="welcome_message">Selamat datang di Atomatic</string>
+    <string name="login">Masuk</string>
     <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Balasan berbasis kontak</string>
+    <string name="reply_to_mode">Mode balas ke</string>
+    <string name="reply_only_selected">Hanya pilih kontak</string>
+    <string name="reply_everyone_except_selected">Semua orang kecuali yang dipilih</string>
+    <string name="contact_filter_disabled">Dinonaktifkan</string>
+    <string name="contact_filter_enabled_whitelist">Hanya yang dipilih (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Semua orang kecuali yang dipilih (%1$d)</string>
 </resources>
