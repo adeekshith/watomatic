@@ -56,7 +56,6 @@
             android:exported="false"
             android:label="@string/settings"
             android:parentActivityName=".activity.main.MainActivity" />
-        
         <activity
             android:name=".activity.contactselector.ContactSelectorActivity"
             android:exported="false"
