@@ -291,7 +291,12 @@
     <string name="error_password_too_short">Password must be at least 6 characters</string>
     <string name="welcome_message">Welcome to Atomatic</string>
     <string name="login">Login</string>
-    
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="guest">Guest</string>
+    <string name="logged_in_as">Logged in as %1$s</string>
+    <string name="logout_confirmation">Are you sure you want to logout?</string>
+
     <!-- Contact-based replies UI -->
     <string name="contact_based_replies">Contact-based replies</string>
     <string name="reply_to_mode">Reply to mode</string>
@@ -300,4 +305,6 @@
     <string name="contact_filter_disabled">Disabled</string>
     <string name="contact_filter_enabled_whitelist">Only selected (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
+    <string name="account">Account</string>
+    <string name="pref_account" translatable="false">pref_account</string>
 </resources>

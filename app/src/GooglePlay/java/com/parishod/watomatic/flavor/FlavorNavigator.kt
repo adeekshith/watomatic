@@ -18,4 +18,21 @@ object FlavorNavigator {
             false
         }
     }
+
+    fun startLogin(activity: Activity) {
+        activity.startActivity(Intent(activity, LoginActivity::class.java))
+        activity.finish()
+    }
+
+    fun logout(activity: Activity, preferencesManager: PreferencesManager) {
+        try {
+            // Sign out of Firebase if available in this flavor
+            com.google.firebase.auth.FirebaseAuth.getInstance().signOut()
+        } catch (e: Throwable) {
+            // ignore
+        }
+        preferencesManager.setLoggedIn(false)
+        preferencesManager.setGuestMode(false)
+        preferencesManager.setUserEmail("")
+    }
 }

@@ -11,4 +11,15 @@ object FlavorNavigator {
         // Ensure login is never triggered in Default flavor
         return false
     }
+
+    fun startLogin(activity: Activity) {
+        // No-op in Default flavor
+    }
+
+    fun logout(activity: Activity, preferencesManager: PreferencesManager) {
+        // Clear any login flags if set inadvertently
+        preferencesManager.setLoggedIn(false)
+        preferencesManager.setGuestMode(false)
+        preferencesManager.setUserEmail("")
+    }
 }
