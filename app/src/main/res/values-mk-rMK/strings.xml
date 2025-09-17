@@ -83,7 +83,6 @@
     <string name="enable_auto_start_setting">Продолжи</string>
     <string name="decline_auto_start_setting">Откажи</string>
     <string name="app_not_installed_text">Не е инсталирана</string>
-    <string name="advanced_settings">Напредни поставки</string>
     <string name="contact_based_reply">Одговори базирани на контакти</string>
     <string name="contact_reply_type">Одговори на</string>
     <string name="blacklist">Сите други, освен избраните контакти</string>

@@ -60,7 +60,6 @@
     <string name="running_in_the_background">Executar em segundo plano</string>
     <string name="decline_auto_start_setting">Cancelar</string>
     <string name="app_not_installed_text">Não instalado</string>
-    <string name="advanced_settings">Definições avançadas</string>
     <string name="contact_based_reply">Respostas baseadas nos contactos</string>
     <string name="contact_reply_type">Responder a</string>
     <string name="blacklist">Todos exceto os contatos selecionados</string>

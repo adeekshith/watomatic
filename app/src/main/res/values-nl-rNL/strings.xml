@@ -84,7 +84,6 @@
     <string name="enable_auto_start_setting">Doorgaan</string>
     <string name="decline_auto_start_setting">Annuleren</string>
     <string name="app_not_installed_text">Niet geinstalleerd</string>
-    <string name="advanced_settings">Geavanceerde instellingen</string>
     <string name="contact_based_reply">Contact-gebaseerde antwoorden</string>
     <string name="contact_reply_type">Antwoord op</string>
     <string name="blacklist">Iedereen behalve geselecteerde contacten</string>

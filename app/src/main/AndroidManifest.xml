@@ -56,11 +56,7 @@
             android:exported="false"
             android:label="@string/settings"
             android:parentActivityName=".activity.main.MainActivity" />
-        <activity
-            android:name=".activity.advancedsettings.AdvancedSettingsActivity"
-            android:exported="false"
-            android:label="@string/advanced_settings"
-            android:parentActivityName=".activity.settings.SettingsActivity" />
+        
         <activity
             android:name=".activity.contactselector.ContactSelectorActivity"
             android:exported="false"

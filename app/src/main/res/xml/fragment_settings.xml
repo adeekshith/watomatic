@@ -31,9 +31,6 @@
 
     </PreferenceCategory>
 
-    <Preference
-        app:title="@string/advanced_settings"
-        app:icon="@drawable/ic_baseline_miscellaneous_services_24"
-        android:fragment="com.parishod.watomatic.fragment.AdvancedSettingsFragment"/>
+    
 
 </PreferenceScreen>
