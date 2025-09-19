@@ -75,7 +75,6 @@
     <string name="setting_not_available_for_device">Этот параметр недоступен либо не требуется для вашего устройства.</string>
     <string name="enable_auto_start_setting">Продолжить</string>
     <string name="decline_auto_start_setting">Отменить</string>
-    <string name="advanced_settings">Расширенные настройки</string>
     <string name="contact_based_reply">Ответы в зависимости от контакта</string>
     <string name="contact_reply_type">Отвечать</string>
     <string name="blacklist">Всем, кроме выбранных контактов</string>
