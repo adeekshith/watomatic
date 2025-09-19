@@ -85,7 +85,6 @@
     <string name="enable_auto_start_setting">Devam Et</string>
     <string name="decline_auto_start_setting">İptal</string>
     <string name="app_not_installed_text">Yüklü değil</string>
-    <string name="advanced_settings">Gelişmiş Seçenekler</string>
     <string name="contact_based_reply">Kişi bazlı yanıtlar</string>
     <string name="contact_reply_type">... cevap ver</string>
     <string name="blacklist">Seçilen kişiler dışındaki herkes</string>
