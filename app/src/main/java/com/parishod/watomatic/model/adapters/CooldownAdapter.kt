@@ -55,6 +55,13 @@ class CooldownAdapter(
                 notifyTimeChange()
             }
         }
+
+        holder.buttonResetTimer.setOnClickListener {
+            selectedHour = 0
+            selectedMinute = 0
+            setupNumberPicker(holder)
+            notifyTimeChange()
+        }
         notifyTimeChange()
     }
 
