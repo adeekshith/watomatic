@@ -53,7 +53,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="16dp">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="16dp"
@@ -97,7 +97,7 @@
                         app:elevation="0dp"
                         app:strokeWidth="0dp" />
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </FrameLayout>
 
