@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">אודות</string>
     <string name="settings">אפשרויות</string>
     <string name="privacy_policy_label">מדיניות פרטיות</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">מענה אוטומטי כבוי</string>
     <string name="mainAutoReplySwitchOnLabel">מענה אוטומטי מופעל</string>
     <string name="mainAutoReplyEditBtnTooltip">הקליקו כדי לערוך הודעה מותאמת אישית</string>
-    <string name="to_help_you_leave_whatsapp">מענה אוטומטי שעוזר להתרחק מוואטסאפ ופייסבוק מסנג\'ר</string>
     <string name="decline">סירוב</string>
     <string name="accept">קבלה</string>
     <string name="sure">אני בטוח/ה</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">שמירה</string>
     <string name="tip_view_messages_from_fellow_users">צפו בתבניות מוצעות על ידי הקהילה וחלוק גם את שלך</string>
-    <string name="append_watomatic_arribution_checkbox_label">אישור סיומת מאת יוצרי Watomatic כדי לעזור להפיץ את הבשורה</string>
-    <string name="sent_using_Watomatic">נשלח באמצעות Watomatic.app</string>
-    <string name="share_app_text">אני עושה שימוש ב-Watomatic כדי להתאוורר ולהתרחק מוואטסאפ. נסו זאת בעצמכם watomatic.app</string>
     <string name="share">שיתוף</string>
-    <string name="share_subject">Watomatic: מענה אוטומטי לוואטסאפ</string>
     <string name="watomatic_community_label"><u>קהילה</u></string>
     <string name="watomatic_subreddit_label"><u>בואו לדון\n r/watomatic</u></string>
     <string name="watomatic_whatsnew_label">מה חדש?</string>
@@ -69,7 +63,6 @@
     <string name="app_rating_dialog_rate_button_title">דרגו אותנו!</string>
     <string name="app_rating_dialog_rate_later_title">אולי מאוחר יותר</string>
     <string name="app_rating_goto_store_dialog_title">אנחנו שמחים!</string>
-    <string name="app_rating_goto_store_dialog_msg">אנא שתפו את הדירוג של האפליקציה בחנות גוגל פליי בהקשה על \"/המשך\"!</string>
     <string name="app_rating_pitch">אפליקציה זו היא בחינם, ללא פרסומות, ללא מעקב, בקוד פתוח ונוצרה על ידי מתנדבים ותורמים כמוני וכמוך. התגובה והדירוג שלכם מעודדת אותנו להמשיך.</string>
     <string name="app_rating_goto_store_dialog_button1_title">לא מעוניין/ת</string>
     <string name="app_rating_goto_store_dialog_button2_title">המשך</string>
@@ -91,7 +84,6 @@
     <string name="blacklist">כולם מלבד אנשי קשר נבחרים</string>
     <string name="whitelist">אף אחד מלבד אנשי קשר נבחרים</string>
     <string name="enable_contact_based_reply">מענה לפי איש קשר</string>
-    <string name="select_contacts">בחר אנשי קשר</string>
     <string name="contact_selector">בחירת איש קשר</string>
     <string name="select_all">בחר הכל</string>
     <string name="select_none">בטל בחירה</string>
@@ -125,4 +117,13 @@
     <string name="current_donation_progress">מצב תרומות נוכחי</string>
     <string name="error_name_cannot_be_blank">השם אינו יכול להישאר ריק</string>
     <string name="error_name_cannot_be_duplicate">שם כבר קיים</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>

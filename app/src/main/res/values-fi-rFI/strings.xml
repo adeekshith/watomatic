@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">Tietoja</string>
     <string name="settings">Asetukset</string>
     <string name="privacy_policy_label">Tietosuojakäytännöt</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Automaattinen vastaus pois käytöstä</string>
     <string name="mainAutoReplySwitchOnLabel">Automaattinen vastaus käytössä</string>
     <string name="mainAutoReplyEditBtnTooltip">Napsauta muokataksesi automaattisen vastauksen tekstiä</string>
-    <string name="to_help_you_leave_whatsapp">Automaattinen vastaus auttaa sinua poistumaan WhatsAppista ja Facebook Messengeristä</string>
     <string name="decline">Kieltäydy</string>
     <string name="accept">Hyväksy</string>
     <string name="sure">Olen varma</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">Tallenna</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Näytä yhteisön mallipohjat ja jaa omasi muiden saataville ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Lisää Watomatic-linkki auttaaksesi levittämään sanaa</string>
-    <string name="sent_using_Watomatic">Lähetetty käyttäen watomatic.app</string>
-    <string name="share_app_text">Käytän Watomaticia päästäkseni eroon WhatsAppista. Kokeile sinäkin: watomatic.app</string>
     <string name="share">Jaa</string>
-    <string name="share_subject">Watomatic: Automaattinen vastaus WhatsAppille</string>
     <string name="watomatic_subreddit_label"><u>Keskustele\nr/watomaticista</u></string>
     <string name="watomatic_whatsnew_label">Mitä uutta?</string>
     <!-- Share debug logs -->
@@ -68,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Arvostele se!</string>
     <string name="app_rating_dialog_rate_later_title">Ehkä myöhemmin</string>
     <string name="app_rating_goto_store_dialog_title">Olemme iloisia!</string>
-    <string name="app_rating_goto_store_dialog_msg">Ole hyvä ja jaa tämä arvostelu sovelluksestamme Google Play Kaupassa napauttamalla \"Jatka\"!</string>
     <string name="app_rating_pitch">Tämä sovellus on ilmainen, ei mainoksia, ei seurantaa, avointa lähdekoodia ja sen tekevät osallistujat kuten sinä ja minä.
         Palautteesi on ainoa rohkaisumme.</string>
     <string name="app_rating_goto_store_dialog_button1_title">En ole kiinnostunut</string>
@@ -91,7 +84,6 @@
     <string name="blacklist">Kaikki paitsi valitut yhteystiedot</string>
     <string name="whitelist">Ei kukaan paitsi valitus yhteystiedot</string>
     <string name="enable_contact_based_reply">Salli yhteystietoihin perustuvat vastaukset</string>
-    <string name="select_contacts">Valitse yhteystiedot</string>
     <string name="contact_selector">Yhteystiedon valitsin</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="select_none">Älä valitse mitään</string>
@@ -125,4 +117,13 @@
     <string name="current_donation_progress">Tämänhetkinen lahjoitusten edistyminen</string>
     <string name="error_name_cannot_be_blank">Nimi ei voi olla tyhjä</string>
     <string name="error_name_cannot_be_duplicate">Nimi on jo olemassa</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>
