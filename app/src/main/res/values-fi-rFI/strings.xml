@@ -79,7 +79,6 @@
     <string name="enable_auto_start_setting">Jatka</string>
     <string name="decline_auto_start_setting">Peruuta</string>
     <string name="app_not_installed_text">Ei asennettu</string>
-    <string name="advanced_settings">Edistyneet asetukset</string>
     <string name="contact_based_reply">Yhteystietoihin perustuvat vastaukset</string>
     <string name="contact_reply_type">Vastaa</string>
     <string name="blacklist">Kaikki paitsi valitut yhteystiedot</string>
