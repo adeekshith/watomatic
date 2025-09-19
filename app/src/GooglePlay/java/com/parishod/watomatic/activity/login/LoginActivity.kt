@@ -1,5 +1,6 @@
 package com.parishod.watomatic.activity.login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,11 +12,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
@@ -29,6 +33,12 @@ class LoginActivity : BaseActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+
+    companion object {
+        private const val PREF_USER_EMAIL = "pref_user_email"
+        private const val EMAIL_ALREADY_EXISTS = "email address is already"
+        private const val INVALID_CREDENTIALS = "credential is incorrect"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,36 +66,33 @@ class LoginActivity : BaseActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        googleSignInLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
+        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                try {
-                    val account = task.getResult(ApiException::class.java)
-                    account.idToken?.let { firebaseAuthWithGoogle(it) }
-                } catch (e: ApiException) {
-                    Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+                handleGoogleSignInResult(task)
             }
+        }
+    }
+
+    private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            account?.idToken?.let { firebaseAuthWithGoogle(it) }
+        } catch (e: ApiException) {
+            Toast.makeText(this, getString(R.string.google_sign_in_failed, e.message), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    user?.email?.let { email ->
-                        preferencesManager.isLoggedIn = true
-                        preferencesManager.isGuestMode = false
-                        preferencesManager.saveString("pref_user_email", email)
-                        handleSuccessfulLogin()
-                    }
-                } else {
-                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+            .addOnSuccessListener { authResult ->
+                authResult.user?.email?.let { email ->
+                    handleSuccessfulAuth(email)
                 }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, getString(R.string.authentication_failed), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -99,42 +106,52 @@ class LoginActivity : BaseActivity() {
 
     private fun setupClickListeners() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-
-            if (validateInputs(email, password)) {
-                checkIfEmailExists(email) { exists ->
-                    if (exists) {
-                        doSignin(email, password)
-                    } else {
-                        showSignUpConfirmation(email, password)
-                    }
-                }
-            }
+            handleLoginButtonClick()
         }
 
         binding.btnGoogleSignIn.setSize(SignInButton.SIZE_WIDE)
         binding.btnGoogleSignIn.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            googleSignInLauncher.launch(signInIntent)
+            signInWithGoogle()
         }
 
         binding.btnContinueAsGuest.setOnClickListener {
-            preferencesManager.isGuestMode = true
-            navigateToMain()
+            continueAsGuest()
         }
     }
 
-    fun doSignin(email: String, password: String){
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    handleSuccessfulAuth(email)
+    private fun handleLoginButtonClick() {
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+
+        if (validateInputs(email, password)) {
+            checkIfEmailExists(email) { exists ->
+                if (exists) {
+                    doSignin(email, password)
                 } else {
-                    val exception = task.exception
-                    Toast.makeText(this, "Authentication failed: ${exception?.message}",
-                        Toast.LENGTH_LONG).show()
+                    createNewAccount(email, password)
                 }
+            }
+        }
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
+
+    private fun continueAsGuest() {
+        preferencesManager.isGuestMode = true
+        navigateToMain()
+    }
+
+    private fun doSignin(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                checkAndSendEmailVerification(it.user)
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, getString(R.string.authentication_failed_with_message, exception.message),
+                    Toast.LENGTH_LONG).show()
             }
     }
 
@@ -151,43 +168,96 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun showSignUpConfirmation(email: String, password: String) {
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Create New Account")
-            .setMessage("Would you like to create a new account with this email?\n\n$email")
-            .setPositiveButton("Create Account") { _, _ ->
+        AlertDialog.Builder(this)
+            .setTitle(R.string.create_new_account)
+            .setMessage(getString(R.string.create_new_account_prompt, email))
+            .setPositiveButton(R.string.create_account) { _, _ ->
                 createNewAccount(email, password)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
     private fun createNewAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                    handleSuccessfulAuth(email)
-                } else {
-                    when {
-                        task.exception?.message?.contains("email address is already", ignoreCase = true) == true -> {
-                            Toast.makeText(this, "This email is already registered. Please try signing in.", Toast.LENGTH_LONG).show()
-                        }
-                        task.exception?.message?.contains("credential is incorrect", ignoreCase = true) == true -> {
-                            Toast.makeText(this, "Please use a valid email and a password with at least 6 characters", Toast.LENGTH_LONG).show()
-                        }
-                        else -> {
-                            Toast.makeText(this, "Failed to create account: ${task.exception?.message}",
-                                Toast.LENGTH_LONG).show()
-                        }
+            .addOnSuccessListener {
+                checkAndSendEmailVerification(it.user)
+            }
+            .addOnFailureListener { exception ->
+                val message = when {
+                    exception.message?.contains(EMAIL_ALREADY_EXISTS, ignoreCase = true) == true -> {
+                        doSignin(email, password)
+//                        getString(R.string.email_already_registered)
+                        ""
+                    }
+                    exception.message?.contains(INVALID_CREDENTIALS, ignoreCase = true) == true -> {
+                        getString(R.string.invalid_email_or_password_length)
+                    }
+                    else -> {
+                        getString(R.string.create_account_failed, exception.message)
                     }
                 }
+                if(message.isNotEmpty())
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun checkAndSendEmailVerification(user: FirebaseUser?) {
+        if (user != null && !user.isEmailVerified) {
+            user.sendEmailVerification()
+                .addOnSuccessListener {
+                    Toast.makeText(this, getString(R.string.verification_email_sent, user.email), Toast.LENGTH_SHORT).show()
+                    showVerificationDialog(user)
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, getString(R.string.verification_email_failed, exception.message), Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            user?.email?.let { handleSuccessfulAuth(it) }
+        }
+    }
+
+    private fun showVerificationDialog(user: FirebaseUser) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.verify_your_email))
+        builder.setMessage(getString(R.string.verification_dialog_message, user.email))
+
+        builder.setPositiveButton(getString(R.string.i_ve_verified)) { _, _ ->
+            user.reload()
+                .addOnSuccessListener {
+                    if (user.isEmailVerified) {
+                        Toast.makeText(this, getString(R.string.email_verified), Toast.LENGTH_SHORT).show()
+                        user.email?.let { handleSuccessfulAuth(it) }
+                    } else {
+                        Toast.makeText(this, getString(R.string.email_not_verified_yet), Toast.LENGTH_SHORT).show()
+                        showVerificationDialog(user)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, getString(R.string.verification_check_failed, exception.message), Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        builder.setNeutralButton(getString(R.string.resend_email)) { _, _ ->
+            user.sendEmailVerification()
+                .addOnSuccessListener {
+                    Toast.makeText(this, getString(R.string.verification_email_resent, user.email), Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, getString(R.string.failed_to_resend_email, exception.message), Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        builder.setNegativeButton(getString(R.string.contact_permission_dialog_cancel)) { dialog, _ -> dialog.dismiss() }
+
+        builder.setCancelable(false)
+        builder.show()
     }
 
     private fun handleSuccessfulAuth(email: String) {
         preferencesManager.isLoggedIn = true
         preferencesManager.isGuestMode = false
-        preferencesManager.saveString("pref_user_email", email)
+        preferencesManager.saveString(PREF_USER_EMAIL, email)
         handleSuccessfulLogin()
     }
 

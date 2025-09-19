@@ -307,4 +307,26 @@
     <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
     <string name="account">Account</string>
     <string name="pref_account" translatable="false">pref_account</string>
+    <string name="resend_email">Resend Email</string>
+    <string name="email_verified">Email verified! 🎉</string>
+    <string name="i_ve_verified">I’ve Verified</string>
+    <string name="verify_your_email">Verify Your Email</string>
+
+    <!-- Login Activity -->
+    <string name="google_sign_in_failed">Google sign in failed: %s</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="create_new_account_prompt">Would you like to create a new account with this email?\n\n%s</string>
+    <string name="create_account">Create Account</string>
+    <string name="email_already_registered">This email is already registered. Please try signing in.</string>
+    <string name="invalid_email_or_password_length">Please use a valid email and a password with at least 6 characters</string>
+    <string name="create_account_failed">Failed to create account: %s</string>
+    <string name="verification_email_sent">Verification email sent to %s</string>
+    <string name="verification_email_failed">Failed to send verification: %s</string>
+    <string name="verification_dialog_message">We’ve sent a verification link to %s. Please check your inbox and click the link. Once done, click below.</string>
+    <string name="email_not_verified_yet">Email not verified yet, please try again.</string>
+    <string name="verification_check_failed">Failed to check verification: %s</string>
+    <string name="verification_email_resent">Verification email resent to %s</string>
+    <string name="failed_to_resend_email">Failed to resend email: %s</string>
+    <string name="authentication_failed_with_message">Authentication failed: %s</string>
 </resources>
