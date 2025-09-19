@@ -80,7 +80,6 @@
     <string name="enable_auto_start_setting">தொடரவும்</string>
     <string name="decline_auto_start_setting">ரத்து செய்</string>
     <string name="app_not_installed_text">நிறுவப்படவில்லை</string>
-    <string name="advanced_settings">மேம்பட்ட அமைப்புகள்</string>
     <string name="contact_reply_type">இவருக்கு பதிலளி</string>
     <string name="blacklist">குறிக்கப்பட்ட தொடர்புகளை தவிர மற்ற அனைவருக்கும்</string>
     <string name="whitelist">குறிக்கப்பட்ட தொடர்புகளுக்கு மட்டும்</string>
