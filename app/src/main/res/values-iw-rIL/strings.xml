@@ -79,7 +79,6 @@
     <string name="enable_auto_start_setting">המשך</string>
     <string name="decline_auto_start_setting">ביטול</string>
     <string name="app_not_installed_text">לא מותקן</string>
-    <string name="advanced_settings">הגדרות מתקדמות</string>
     <string name="contact_based_reply">מענה לפי איש קשר</string>
     <string name="contact_reply_type">מענה</string>
     <string name="blacklist">כולם מלבד אנשי קשר נבחרים</string>
