@@ -80,7 +80,6 @@
     <string name="enable_auto_start_setting">Kontynuuj</string>
     <string name="decline_auto_start_setting">Anuluj</string>
     <string name="app_not_installed_text">Nie zainstalowana</string>
-    <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="contact_based_reply">Odpowiedzi bazujące na kontaktach</string>
     <string name="contact_reply_type">Odpowiedz do</string>
     <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
