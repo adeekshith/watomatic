@@ -78,7 +78,6 @@
     <string name="enable_auto_start_setting">Jarraitu</string>
     <string name="decline_auto_start_setting">Utzi</string>
     <string name="app_not_installed_text">Instalatu gabe</string>
-    <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="contact_based_reply">Kontaktuaren araberako erantzunak</string>
     <string name="contact_reply_type">Erantzun honi:</string>
     <string name="blacklist">Kontaktu guztiei, hautatuei izan ezik</string>
