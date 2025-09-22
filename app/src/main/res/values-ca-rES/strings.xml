@@ -92,6 +92,7 @@
     <string name="blacklist">Tothom excepte els contactes seleccionats</string>
     <string name="whitelist">Cap contacte excepte els seleccionats</string>
     <string name="enable_contact_based_reply">Habilita les respostes basades en contactes</string>
+    <string name="select_contacts">Selecció de contactes</string>
     <string name="contact_selector">Selecció de contactes</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_none">No en seleccionis cap</string>
@@ -161,17 +162,42 @@
     <!-- AI Reply Text -->
     <string name="ai_reply_text">Resposta IA: «Hola! No estic disponible. Et contactaré tan aviat com sigui possible» (OpenAI)</string>
     <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Respostes automàtiques habilitades</string>
     <string name="edit">Edita</string>
     <!-- Filter Items -->
     <string name="contacts">Contactes</string>
     <string name="all_contacts">Tots els contactes</string>
     <string name="no_contacts">Cap seleccionat</string>
+    <string name="some_contacts">Contactes seleccionats</string>
     <string name="message_type">Tipus de missatge</string>
     <string name="direct_messages">Només missatges directes</string>
     <string name="all_messages">Tots Els Missatges</string>
     <string name="apps">Aplicacions</string>
     <string name="apps_enabled_count">%1$d/%2$d aplicacions habilitades</string>
+    <string name="ten_minutes">10 minuts</string>
     <!-- Cooldown units -->
+    <string name="minutes">minuts</string>
+    <string name="hours">hores</string>
+    <string name="minute">minut</string>
+    <string name="hour">hora</string>
+    <string name="reset_timer">Reinicia</string>
+    <string name="error_invalid_url">Inseriu un URL vàlid que comenci per http;// o https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Utilitzeu un LLM com ara OpenAI per a les respostes.</string>
+    <string name="ai_provider_llm">Proveïdora IA (LLM)</string>
+    <string name="openai">OpenAI</string>
     <!-- Authentication -->
+    <string name="error_email_required">Necessari correu-e</string>
+    <string name="error_invalid_email">Adreça de correu-e no vàlida</string>
+    <string name="error_password_required">Es requereix una contrasenya</string>
+    <string name="error_password_too_short">La contrasenya ha de tenir almenys 6 caràcters</string>
+    <string name="welcome_message">Us donem la benvinguda a l\'Atomatic</string>
+    <string name="login">Inicia la sessió</string>
     <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Respostes basades en contactes</string>
+    <string name="reply_to_mode">Mode de resposta</string>
+    <string name="reply_only_selected">Només els contactes seleccionats</string>
+    <string name="reply_everyone_except_selected">Tothom excepte els contactes seleccionats</string>
+    <string name="contact_filter_disabled">Inhabilitat</string>
+    <string name="contact_filter_enabled_whitelist">Només els seleccionats (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Tothom excepte els seleccionats (%1$d)</string>
 </resources>
