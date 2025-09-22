@@ -6,6 +6,7 @@
     <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
     <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
+    <string name="ai_auto_reply_default_message">Respostes IA habilitades\nEls missatges s\'administren intel·ligentment per la IA</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automàtica ACTIVADA</string>
@@ -68,6 +69,7 @@
     <string name="app_rating_dialog_rate_button_title">Puntueu-nos!</string>
     <string name="app_rating_dialog_rate_later_title">Potser més tard</string>
     <string name="app_rating_goto_store_dialog_title">Moltes gràcies!</string>
+    <string name="app_rating_goto_store_dialog_msg">Compartiu la puntuació de la nostra aplicació a Google Play Store tocant «Continua»!</string>
     <string name="app_rating_pitch">El Watomatic és gratuït, sense publicitat ni rastrejadors, de codi obert i mantingut per gent com ara vós o jo.
         La vostra opinió és l\'únic que ens mou a continuar.</string>
     <string name="app_rating_goto_store_dialog_button1_title">No m’interessa</string>
@@ -136,6 +138,7 @@
     <string name="pref_openai_custom_api_url_title">URL personalitzat API</string>
     <string name="pref_openai_custom_api_url_summary">Inseriu el vostre URL personalitzat de la clau API</string>
     <string name="pref_openai_custom_api_url_dialog_title">URL personalitzat API</string>
+    <string name="set_custom_api_url">Configuració d\'API URL personalitzat</string>
     <string name="pref_openai_model_title">Model d\'IA</string>
     <string name="pref_openai_model_summary_default">Trieu el model preferit de xat</string>
     <string name="pref_openai_model_dialog_title">Trieu el model d\'IA</string>
@@ -153,9 +156,21 @@
     <string name="custom_prompt">Ordre personalitzada</string>
     <!--New UI Related-->
     <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Text de resposta automàtica</string>
+    <string name="filters">Filtres</string>
     <!-- AI Reply Text -->
+    <string name="ai_reply_text">Resposta IA: «Hola! No estic disponible. Et contactaré tan aviat com sigui possible» (OpenAI)</string>
     <!-- Toggle and Buttons -->
+    <string name="edit">Edita</string>
     <!-- Filter Items -->
+    <string name="contacts">Contactes</string>
+    <string name="all_contacts">Tots els contactes</string>
+    <string name="no_contacts">Cap seleccionat</string>
+    <string name="message_type">Tipus de missatge</string>
+    <string name="direct_messages">Només missatges directes</string>
+    <string name="all_messages">Tots Els Missatges</string>
+    <string name="apps">Aplicacions</string>
+    <string name="apps_enabled_count">%1$d/%2$d aplicacions habilitades</string>
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
