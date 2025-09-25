@@ -2,12 +2,18 @@ package com.parishod.watomatic.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.model.preferences.PreferencesManager;
+import com.parishod.watomatic.flavor.FlavorNavigator;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
 import com.parishod.watomatic.model.utils.ServieUtils;
 
@@ -44,6 +50,61 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+
+        // Account/Login preference
+        Preference accountPref = findPreference(getString(R.string.pref_account));
+        if(BuildConfig.FLAVOR.equals("Default")){
+            accountPref.setVisible(false);
+        }
+        if (accountPref != null) {
+            updateAccountPreference(accountPref);
+            accountPref.setOnPreferenceClickListener(pref -> {
+                PreferencesManager pm = PreferencesManager.getPreferencesInstance(getContext());
+                if (pm.isLoggedIn()) {
+                    // Show logout confirmation dialog
+                    if (getActivity() != null) {
+                        showLogoutDialog(accountPref, pm);
+                    }
+                } else {
+                    // Login
+                    if (getActivity() != null) {
+                        FlavorNavigator.INSTANCE.startLogin(getActivity());
+                    }
+                }
+                return true;
+            });
+        }
+    }
+
+    private void showLogoutDialog(Preference accountPref, PreferencesManager pm){
+        BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_logout, null);
+        dialog.setContentView(view);
+
+        view.findViewById(R.id.btnLogout).setOnClickListener(v -> {
+            FlavorNavigator.INSTANCE.logout(getActivity(), pm);
+            updateAccountPreference(accountPref);
+            dialog.dismiss();
+        });
+
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+
+    }
+
+    private void updateAccountPreference(Preference accountPref) {
+        PreferencesManager pm = PreferencesManager.getPreferencesInstance(getContext());
+        if (pm.isLoggedIn()) {
+            String email = pm.getUserEmail();
+            if (email == null || email.isEmpty()) {
+                accountPref.setSummary("");
+            } else {
+                accountPref.setSummary(email);
+            }
+        } else {
+            accountPref.setSummary(getString(R.string.guest));
+        }
     }
 
     @Override
@@ -51,6 +112,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onResume();
         if (getActivity() != null)
             getActivity().setTitle(R.string.settings);
+        // Refresh account summary in case login state changed
+        Preference accountPref = findPreference(getString(R.string.pref_account));
+        if (accountPref != null) {
+            updateAccountPreference(accountPref);
+        }
     }
 
     private void checkAutoStartPermission() {
