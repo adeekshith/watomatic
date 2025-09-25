@@ -11,6 +11,7 @@
     <!-- Query other apps (needed for Android 11+) -->
     <queries>
         <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
         <package android:name="com.android.vending" />
