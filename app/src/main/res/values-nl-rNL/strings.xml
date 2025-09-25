@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">Over</string>
     <string name="settings">Instellingen</string>
     <string name="privacy_policy_label">Privacybeleid</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Automatisch antwoorden UIT</string>
     <string name="mainAutoReplySwitchOnLabel">Automatisch antwoorden AAN</string>
     <string name="mainAutoReplyEditBtnTooltip">Klik om de auto-reactietekst te bewerken</string>
-    <string name="to_help_you_leave_whatsapp">Auto-reactie om je te helpen WhatsApp en Facebook messenger te verlaten</string>
     <string name="decline">Weigeren</string>
     <string name="accept">Accepteren</string>
     <string name="sure">Ik weet het zeker</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">Opslaan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Bekijk sjablonen van de community en deel ook je eigen ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Voeg Watomatic-vermelding toe om te helpen het woord te verspreiden</string>
-    <string name="sent_using_Watomatic">Verzonden met watomatic.app</string>
-    <string name="share_app_text">Ik gebruik Watomatic om los te breken van WhatsApp. Probeer het uit: watomatic.app</string>
     <string name="share">Delen</string>
-    <string name="share_subject">Watomatic: Auto-reactie voor WhatsApp</string>
     <string name="watomatic_subreddit_label"><u>Laten we bespreken\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Wat is er nieuw?</string>
     <!-- Share debug logs -->
@@ -66,7 +60,6 @@
     <string name="app_rating_dialog_msg">We zijn geïnteresseerd in wat je vindt van de app. Tik op de bovenstaande sterren om het te beoordelen.</string>
     <string name="app_rating_dialog_rate_button_title">Beoordeel het!</string>
     <string name="app_rating_goto_store_dialog_title">We zijn blij!</string>
-    <string name="app_rating_goto_store_dialog_msg">Deel deze beoordeling van onze app op de Google Play Store door op \"Doorgaan\" te klikken!</string>
     <string name="app_rating_pitch">Deze app is gratis, geen advertenties, geen tracking, open source en wordt gemaakt door bijdragers zoals jij en ik.
         Je feedback is onze enige aanmoediging.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Niet geïnteresseerd</string>
@@ -89,7 +82,6 @@
     <string name="blacklist">Iedereen behalve geselecteerde contacten</string>
     <string name="whitelist">Niemand behalve geselecteerde contacten</string>
     <string name="enable_contact_based_reply">Contact-gebaseerde antwoorden inschakelen</string>
-    <string name="select_contacts">Contacten selecteren</string>
     <string name="contact_selector">Contacten-kiezer</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_none">Niets selecteren</string>
@@ -123,4 +115,13 @@
     <string name="current_donation_progress">Huidige donatievoortgang</string>
     <string name="error_name_cannot_be_blank">Naam kan niet leeg zijn</string>
     <string name="error_name_cannot_be_duplicate">Naam al aanwezig</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>

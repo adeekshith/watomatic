@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
-    <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
     <string name="privacy_policy_label">Política de privacidad</string>
-    <string name="service_name">Atomatic: Acceso a mensajes</string>
+    <string name="service_name">Watomatic: Acceso a mensajes</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta personalizada)</string>
     <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de respuesta automática</string>
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática INACTIVA</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática ACTIVA</string>
     <string name="mainAutoReplyEditBtnTooltip">Toque para editar el texto de la respuesta automática</string>
-    <string name="to_help_you_leave_whatsapp">Respuesta automática para ayudar a abandonar WhatsApp y Facebook Messenger</string>
+    <string name="to_help_you_leave_whatsapp">Configura la respuesta automática para ayudar a dejar las aplicaciones de mensajería</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
     <string name="sure">Estoy seguro</string>
@@ -38,11 +36,11 @@
     <!-- Custom message editor -->
     <string name="save">Guardar</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ver plantillas de la comunidad y compartir las tuyas también ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Añadir atribución a Watomatic para ayudar a correr la voz</string>
-    <string name="sent_using_Watomatic">Enviado a través de watomatic.app</string>
-    <string name="share_app_text">Estoy usando Watomatic para abandonar WhatsApp. Pruébalo: watomatic.app</string>
+    <string name="append_watomatic_arribution_checkbox_label">Permitir a Atomatic difundir su mensaje</string>
+    <string name="sent_using_Watomatic">Enviado usando atomatic.app</string>
+    <string name="share_app_text">Utilizo Atomatic para desintoxicarme de aplicaciones de mensajería. Pruébalo en: watomatic.app</string>
     <string name="share">Compartir</string>
-    <string name="share_subject">Watomatic: respuesta automática para WhatsApp</string>
+    <string name="share_subject">Atomatic: Respuesta automática en aplicaciones de mensajería</string>
     <string name="watomatic_community_label"><u>Comunidad</u></string>
     <string name="watomatic_subreddit_label"><u>Hablemos de\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Novedades</string>
@@ -70,7 +68,6 @@
     <string name="app_rating_dialog_rate_button_title">Puntúa!</string>
     <string name="app_rating_dialog_rate_later_title">Más tarde</string>
     <string name="app_rating_goto_store_dialog_title">Gracias!</string>
-    <string name="app_rating_goto_store_dialog_msg">Por favor, comparte esta puntuación en Google Play Store, tocando el botón \"Continua\"\.</string>
     <string name="app_rating_pitch">Esta aplicación es gratuita, sin anuncios ni rastreadores, de código libre y creada por personas como tú o yo.
         Tus comentarios son nuestro único ánimo.</string>
     <string name="app_rating_goto_store_dialog_button1_title">No me interesa</string>
@@ -93,10 +90,10 @@
     <string name="blacklist">Todos exceptuando los contactos seleccionados</string>
     <string name="whitelist">Nadie exceptuando los contactos seleccionados</string>
     <string name="enable_contact_based_reply">Habilitar respuestas basadas en contactos</string>
-    <string name="select_contacts">Seleccionar contactos</string>
     <string name="contact_selector">Selector de contactos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_none">De-seleccionar todo</string>
+    <string name="search">Buscar</string>
     <string name="contact_permission_dialog_msg">El acceso a contactos es requerido para filtrar nombres y habilitar esta función. ¿Quieres continuar?</string>
     <string name="contact_permission_dialog_proceed">Proceder</string>
     <string name="contact_permission_dialog_cancel">Cancelar</string>
@@ -129,4 +126,37 @@
     <string name="error_name_cannot_be_duplicate">Contacto ya existente</string>
     <string name="post_notification_permission_snackbar_text">Se requieren permisos de notificación para esta aplicación. Habilítelo en Configuración.</string>
     <string name="post_notification_permission_snackbar_setting">Configuración</string>
+    <string name="pref_enable_openai_replies_title">Activar respuestas automáticas IA</string>
+    <string name="pref_enable_openai_replies_summary">Usar IA para generar respuestas inteligentes</string>
+    <string name="pref_openai_api_key_title">Clave API</string>
+    <string name="pref_openai_api_key_summary_not_set">Clave API no configurada</string>
+    <string name="pref_openai_api_key_summary_set">Clave API establecida</string>
+    <string name="pref_openai_api_key_dialog_title">Introduce tu clave API</string>
+    <string name="pref_openai_api_source_title">Proveedor de API</string>
+    <string name="pref_openai_custom_api_url_title">URL personalizada de API</string>
+    <string name="pref_openai_custom_api_url_summary">Introduce tu URL personalizada de API</string>
+    <string name="pref_openai_custom_api_url_dialog_title">URL personalizada de API</string>
+    <string name="pref_openai_model_title">Modelo de IA</string>
+    <string name="pref_openai_model_summary_default">Seleccionar el modelo de chat preferido</string>
+    <string name="pref_openai_model_dialog_title">Elegir modelo de IA</string>
+    <string name="pref_openai_model_loading">Cargando modelos...</string>
+    <string name="pref_openai_model_error">No se pudo cargar los modelos. Comprueba la clave de API o la red.</string>
+    <string name="pref_openai_model_not_set">Ningún modelo seleccionado</string>
+    <string name="pref_openai_model_no_compatible_found">No se han encontrado modelos compatibles. Por favor, comprueba tu clave API o inténtalo de nuevo más tarde.</string>
+    <string name="pref_category_openai_status_title">Estado del servicio de IA</string>
+    <string name="pref_openai_status_alert_title">Alerta de IA</string>
+    <string name="pref_openai_status_ok_summary">No se detectaron problemas recientes.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Alerta de error descartada. Reaparecerá si el problema vuelve a ocurrir.</string>
+    <!-- Generative AI -->
+    <string name="generative_ai">IA generativa</string>
+    <string name="enable_generative_ai">Activa la IA generativa</string>
+    <string name="custom_prompt">Orden personalizada</string>
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>
