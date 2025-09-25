@@ -1,0 +1,60 @@
+[versions]
+activity = "1.10.1"
+appcompat = "1.7.0"
+browser = "1.8.0"
+constraintlayout = "2.2.0"
+converterGson = "2.3.0"
+coreKtx = "1.15.0"
+espressoCore = "3.6.1"
+googleKsp = "2.1.0-1.0.29"
+gson = "2.10.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+kotlinStdlibJdk7 = "2.1.0"
+loggingInterceptor = "4.7.2"
+preferenceKtx = "1.2.1"
+material = "1.12.0"
+mockito = "5.18.0"
+robolectric = "4.15.1"
+retrofit = "2.9.0"
+roomCompiler = "2.6.1"
+sequenceLayout = "1.1.1"
+testCore = "1.7.0"
+workRuntime = "2.10.0"
+securityCrypto = "1.0.0"
+google-services = "4.4.3"
+firebase-bom = "34.2.0"
+play-services-auth = "20.7.0"
+
+[libraries]
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
+activity = { module = "androidx.activity:activity", version.ref = "activity" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+browser = { module = "androidx.browser:browser", version.ref = "browser" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+ext-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlin-stdlib-jdk7 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlinStdlibJdk7" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+sequence-layout = { module = "com.github.transferwise:sequence-layout", version.ref = "sequenceLayout" }
+test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
+work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+
+[plugins]
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services"}

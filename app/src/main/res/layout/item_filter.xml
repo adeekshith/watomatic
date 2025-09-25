@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Contacts Filter -->
+    <LinearLayout
+        android:id="@+id/filter_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_launcher_background" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_users"
+                app:tint="?android:attr/textColorPrimary" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title (kept from our font update) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contacts"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
+                android:includeFontPadding="false" />
+
+            <!-- Subtitle (kept remote ID + our font choice) -->
+            <TextView
+                android:id="@+id/contacts_filter_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/all_contacts"
+                android:textSize="13sp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_caret_right"
+            app:tint="?android:attr/textColorPrimary" />
+    </LinearLayout>
+
+    <!-- Message Type Filter -->
+    <LinearLayout
+        android:id="@+id/filter_message_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_launcher_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_chat_circle_dots"
+                app:tint="?android:attr/textColorPrimary" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_type"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
+                android:includeFontPadding="false" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/message_type_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/direct_messages"
+                android:textSize="13sp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_caret_right"
+            app:tint="?android:attr/textColorPrimary" />
+    </LinearLayout>
+
+    <!-- Apps Filter -->
+    <LinearLayout
+        android:id="@+id/filter_apps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_launcher_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_app_window"
+                app:tint="?android:attr/textColorPrimary" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/apps"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
+                android:includeFontPadding="false" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/enabled_apps_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/apps_enabled_count"
+                android:textSize="13sp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_caret_right"
+            app:tint="?android:attr/textColorPrimary" />
+    </LinearLayout>
+
+    <!-- Reply Cooldown Filter -->
+    <LinearLayout
+        android:id="@+id/filter_reply_cooldown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_launcher_background">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_clock"
+                app:tint="?android:attr/textColorPrimary" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reply_cooldown"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_medium"
+                android:letterSpacing="-0.005"
+                android:includeFontPadding="false" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/reply_cooldown_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/ten_minutes"
+                android:textSize="13sp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.01"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_caret_right"
+            app:tint="?android:attr/textColorPrimary" />
+    </LinearLayout>
+
+</LinearLayout>

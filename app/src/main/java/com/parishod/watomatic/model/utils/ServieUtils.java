@@ -2,11 +2,7 @@ package com.parishod.watomatic.model.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
-
-import com.parishod.watomatic.service.KeepAliveService;
 
 public class ServieUtils {
     final private Context appContext;
@@ -21,22 +17,6 @@ public class ServieUtils {
             _INSTANCE = new ServieUtils(context);
         }
         return _INSTANCE;
-    }
-
-    public void startNotificationService() {
-        if (!isMyServiceRunning(KeepAliveService.class)) {
-            Intent mServiceIntent = new Intent(appContext, KeepAliveService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                appContext.startForegroundService(mServiceIntent);
-            } else {
-                appContext.startService(mServiceIntent);
-            }
-        }
-    }
-
-    public void stopNotificationService() {
-        Intent mServiceIntent = new Intent(appContext, KeepAliveService.class);
-        appContext.stopService(mServiceIntent);
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Watomatic</string>
-    <string name="url_privacy_policy">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
+    <string name="app_name" translatable="false">Atomatic</string>
+    <string name="url_privacy_policy" translatable="false">https://adeekshith.github.io/watomatic/#/privacy-policy.md</string>
     <string name="adeekshith_twitter_handle" translatable="false">\@adeekshith</string>
     <string name="url_adeekshith_twitter" translatable="false">https://twitter.com/adeekshith</string>
 
@@ -10,11 +10,12 @@
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
+    <string name="ai_auto_reply_default_message">AI Replies Enabled\nMessages are smartly handled by AI</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
-    <string name="to_help_you_leave_whatsapp">Auto reply to help you leave WhatsApp and Facebook messenger</string>
+    <string name="to_help_you_leave_whatsapp">Setup auto-reply to help you leave messaging apps</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>
     <string name="sure">I\'m Sure</string>
@@ -44,12 +45,12 @@
     <!-- Custom message editor -->
     <string name="save">Save</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>View templates from community and share yours too ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Append Watomatic arribution to help spread the word</string>
-    <string name="sent_using_Watomatic">Sent using watomatic.app</string>
+    <string name="append_watomatic_arribution_checkbox_label">Append Atomatic arribution to help spread the word</string>
+    <string name="sent_using_Watomatic">Sent using atomatic.app</string>
 
-    <string name="share_app_text">I am using Watomatic to break away from WhatsApp. Try it out: watomatic.app</string>
+    <string name="share_app_text">I am using Atomatic to break away from messaging apps. Try it out: watomatic.app</string>
     <string name="share">Share</string>
-    <string name="share_subject">Watomatic: Auto Reply for WhatsApp</string>
+    <string name="share_subject">Atomatic: Auto Reply for Messaging apps</string>
     <string name="watomatic_community_label"><u>Community</u></string>
     <string name="watomatic_subreddit_label"><u>Let\'s discuss\nr/watomatic</u></string>
     <string name="watomatic_subreddit_url" translatable="false">https://www.reddit.com/r/watomatic</string>
@@ -103,6 +104,7 @@
     <string name="lang_ru_rRU" translatable="false">Pусский (ru-RU)</string>
     <string name="lang_ta_rIN" translatable="false">தமிழ் (ta-IN)</string>
     <string name="lang_tr_rTR" translatable="false">Türkçe (tr-TR)</string>
+    <string name="lang_hi_rIN" translatable="false">हिंदी (hi-IN)</string>
 
     <!-- Language codes (non translatable) -->
     <string name="lang_code_en" translatable="false">en</string>
@@ -123,6 +125,7 @@
     <string name="lang_code_ru_rRU" translatable="false">ru-RU</string>
     <string name="lang_code_ta_rIN" translatable="false">ta-IN</string>
     <string name="lang_code_tr_rTR" translatable="false">tr-TR</string>
+    <string name="lang_code_hi_rIN" translatable="false">hi-IN</string>
 
     <!-- App Language selection -->
     <string name="app_language">App Language</string>
@@ -134,7 +137,7 @@
     <string name="app_rating_dialog_rate_later_title">May be later</string>
     <string name="app_rating_goto_store_dialog_title">We\'re happy!</string>
     <string name="celebrate_emoji" translatable="false">😃🙌</string>
-    <string name="app_rating_goto_store_dialog_msg">Please share this rating of our app on the Google Play Store by tapping \"Continue\"\!</string>
+    <string name="app_rating_goto_store_dialog_msg">Please share this rating of our app on the Google Play Store by tapping \"Continue\"!</string>
     <string name="app_rating_pitch">This app is free, no ads, no tracking, open source and is made by contributors like you and me.
         Your feedback is our only encouragement.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Not Interested</string>
@@ -153,8 +156,6 @@
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
     <string name="app_not_installed_text">Not installed</string>
-    <string name="advanced_settings">Advanced settings</string>
-    <string name="key_pref_advanced_settings" translatable="false">pref_advanced_settings</string>
     <string name="contact_based_reply">Contact based replies</string>
     <string name="pref_reply_contacts" translatable="false">pref_reply_contacts</string>
     <string name="contact_reply_type">Reply to</string>
@@ -164,11 +165,12 @@
     <string name="pref_code_whitelist" translatable="false">pref_whitelist</string>
     <string name="pref_reply_contacts_type" translatable="false">pref_reply_contacts_type</string>
     <string name="enable_contact_based_reply">Enable contact based replies</string>
-    <string name="select_contacts">Select contacts</string>
+    <string name="select_contacts">Select Contacts</string>
     <string name="key_pref_select_contacts" translatable="false">pref_select_contacts</string>
     <string name="contact_selector">Contact selector</string>
     <string name="select_all">Select all</string>
     <string name="select_none">Select none</string>
+    <string name="search">Search</string>
     <string name="contact_permission_dialog_msg">Contact read access is required in order to filter names and enable this feature. Do you want to continue?</string>
     <string name="contact_permission_dialog_proceed">Proceed</string>
     <string name="contact_permission_dialog_cancel">Cancel</string>
@@ -205,4 +207,95 @@
     <string name="current_donation_progress">Current donation progress</string>
     <string name="error_name_cannot_be_blank">Name cannot be blank</string>
     <string name="error_name_cannot_be_duplicate">Name already present</string>
+
+    <string name="post_notification_permission_snackbar_text">Notification permissions are required for this app. Enable it in settings.</string>
+    <string name="post_notification_permission_snackbar_setting">Settings</string>
+
+    <string name="pref_enable_openai_replies_title">Enable AI Auto-Replies</string>
+    <string name="pref_enable_openai_replies_summary">Use AI to generate smart replies</string>
+    <string name="pref_openai_api_key_title">API Key</string>
+    <string name="pref_openai_api_key_summary_not_set">API Key not set</string>
+    <string name="pref_openai_api_key_summary_set">API Key is set</string>
+    <string name="pref_openai_api_key_dialog_title">Enter your API Key</string>
+    <string name="pref_openai_api_source_title">API Provider</string>
+    <string name="pref_openai_custom_api_url_title">Custom API URL</string>
+    <string name="pref_openai_custom_api_url_summary">Enter your custom API URL</string>
+    <string name="pref_openai_custom_api_url_dialog_title">Custom API URL</string>
+    <string name="set_custom_api_url">Set custom API URL</string>
+
+    <string name="pref_openai_model_title">AI Model</string>
+    <string name="pref_openai_model_summary_default">Select preferred chat model</string>
+    <string name="pref_openai_model_dialog_title">Choose AI Model</string>
+    <string name="pref_openai_model_loading">Loading models...</string>
+    <string name="pref_openai_model_error">Could not load models. Check API Key or network.</string>
+    <string name="pref_openai_model_not_set">No model selected</string>
+    <string name="pref_openai_model_no_compatible_found">No compatible models found. Please check your API key or try again later.</string>
+
+    <string name="pref_category_openai_status_title">AI Service Status</string>
+    <string name="pref_openai_status_alert_title">AI Alert</string>
+    <string name="pref_openai_status_ok_summary">No recent issues detected.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Error alert dismissed. It will reappear if the issue occurs again.</string>
+
+    <!-- Generative AI -->
+    <string name="generative_ai">Generative AI</string>
+    <string name="enable_generative_ai">Enable Generative AI</string>
+    <string name="custom_prompt">Custom Prompt</string>
+    <string name="pref_openai_enabled" translatable="false">pref_openai_enabled</string>
+    <string name="pref_openai_prompt" translatable="false">pref_openai_prompt</string>
+
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Auto Reply Text</string>
+    <string name="filters">Filters</string>
+
+    <!-- AI Reply Text -->
+    <string name="ai_reply_text">AI Reply: "Hey there! I'm currently unavailable and will get back to you as soon as possible." (OpenAI)</string>
+
+    <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Auto Replies Enabled</string>
+    <string name="edit">Edit</string>
+
+    <!-- Filter Items -->
+    <string name="contacts">Contacts</string>
+    <string name="all_contacts">All Contacts</string>
+    <string name="no_contacts">None Selected</string>
+    <string name="some_contacts">Selected Contacts</string>
+    <string name="message_type">Message Type</string>
+    <string name="direct_messages">Direct Messages Only</string>
+    <string name="all_messages">All Messages</string>
+    <string name="apps">Apps</string>
+    <string name="apps_enabled_count">%1$d/%2$d apps enabled</string>
+    <string name="reply_cooldown">Reply Cooldown</string>
+    <string name="ten_minutes">10 minutes</string>
+
+    <!-- Cooldown units -->
+    <string name="minutes">minutes</string>
+    <string name="hours">hours</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="no_cooldown">No cooldown</string>
+
+    <string name="reset_timer">Reset</string>
+
+    <string name="error_invalid_url">Please enter a valid URL starting with http:// or https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Use an LLM like OpenAI to generate smart responses.</string>
+    <string name="ai_provider_llm">AI Provider (LLM)</string>
+    <string name="openai">OpenAI</string>
+
+    <!-- Authentication -->
+    <string name="error_email_required">Email is required</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="welcome_message">Welcome to Atomatic</string>
+    <string name="login">Login</string>
+    
+    <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Contact-based replies</string>
+    <string name="reply_to_mode">Reply to mode</string>
+    <string name="reply_only_selected">Only selected contacts</string>
+    <string name="reply_everyone_except_selected">Everyone except selected</string>
+    <string name="contact_filter_disabled">Disabled</string>
+    <string name="contact_filter_enabled_whitelist">Only selected (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
 </resources>

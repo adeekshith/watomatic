@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">O aplikacji</string>
     <string name="settings">Ustawienia</string>
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkonik niedostępny</string>
+    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkownik niedostępny</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
-    <string name="mainAutoReplyEditBtnTooltip">Stuknij aby edytować automatyczną odpowiedź</string>
-    <string name="to_help_you_leave_whatsapp">Automatyczna odpowiedź pomoże Ci opuścić WhatsApp i Facebook messenger</string>
+    <string name="mainAutoReplyEditBtnTooltip">Stuknij, aby edytować automatyczną odpowiedź</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
-    <string name="sure">Jestem pewny(a)</string>
+    <string name="sure">Jestem pewny</string>
     <string name="retry">Ponów</string>
     <string name="permission_dialog_title">Wymagane uprawnienia</string>
     <string name="permission_dialog_msg">Ta aplikacja wymaga uprawnień do powiadomień do działania.</string>
@@ -25,23 +23,19 @@
     <string name="enable_auto_reply_switch_msg">Najpierw włącz automatyczną odpowiedź.</string>
     <string name="error_atleast_single_app_must_be_selected">Błąd: Wybierz przynajmniej jedną aplikację</string>
     <!-- Group chats -->
-    <string name="groupReplySwitchLabel">Autom. odpowiedź dla czatów grupowych</string>
-    <string name="group_reply_on_info_message">Włącz autom. odpowiedź dla czatów grupowych</string>
-    <string name="group_reply_off_info_message">Wyłącz autom. odpowiedź dla czatów grupowyc</string>
+    <string name="groupReplySwitchLabel">Automatyczna odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_on_info_message">Włącz automatyczną odpowiedź dla czatów grupowych</string>
+    <string name="group_reply_off_info_message">Wyłącz automatyczną odpowiedź dla czatów grupowych</string>
     <string name="time_picker_title">Częstotliwość odpowiedzi (BETA)</string>
     <string name="time_picker_sub_title_default">Odpowiadaj na wszystkie wiadomości bez kontroli</string>
-    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień\/dni dla każdej osoby\/grupy</string>
+    <string name="time_picker_sub_title">Odpowiedz tylko jeden raz na %1$d dzień (dni) dla każdej osoby\/grupy</string>
     <string name="time_format_placeholder">00:00</string>
-    <string name="time_picker_edit_btn_tooltip">Stuknij aby edytować opóźnienie pomiędzy odpowiedziami</string>
+    <string name="time_picker_edit_btn_tooltip">Stuknij, aby edytować opóźnienie pomiędzy odpowiedziami</string>
     <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatic aby pomóc w rozpowszechnieniu tego słowa</string>
-    <string name="sent_using_Watomatic">Wysłano używając watomatic.app</string>
-    <string name="share_app_text">Używam Watomatic do przerw od WhatsApp. Spróbuj: watomatic.app</string>
     <string name="share">Udostępnij</string>
-    <string name="share_subject">Watomatic: Automatyczna odpowiedź dla WhatsApp</string>
     <string name="watomatic_community_label"><u>Społeczność</u></string>
     <string name="watomatic_subreddit_label"><u>Dyskutujmy\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Co nowego?</string>
@@ -52,7 +46,7 @@
     <string name="preference_category_general_label">Ogólne ustawienia</string>
     <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
-    <string name="enable_auto_start_label">Wł. Automatyczny Start</string>
+    <string name="enable_auto_start_label">Włącz automatyczny Start</string>
     <string name="add_attribution_label">Dodaj atrybut</string>
     <string name="enabled_apps_title">Włącz aplikacje</string>
     <string name="always_on_notification">Powiadomienie Always-On</string>
@@ -65,14 +59,13 @@
     <string name="app_language">Język aplikacji</string>
     <!-- App Rating Dialog -->
     <string name="app_rating_dialog_title">Co o tym myślisz?</string>
-    <string name="app_rating_dialog_msg">Interesujemy się tym, co myślisz o aplikacji. Dotknij gwiazdek powyżej aby ocenić.</string>
+    <string name="app_rating_dialog_msg">Interesujemy się tym, co myślisz o aplikacji. Dotknij gwiazdek powyżej, aby ocenić.</string>
     <string name="app_rating_dialog_rate_button_title">Oceń to!</string>
     <string name="app_rating_dialog_rate_later_title">Może później</string>
     <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
-    <string name="app_rating_goto_store_dialog_msg">Podziel się tą oceną aplikacji w Sklepie Google Play, klikając \"Kontynuuj\"\!</string>
-    <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia, otawrto-źródłowa i jest tworzona przez twórców takich jak Ty i ja.
+    <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia z otwartym źródłem i jest tworzona przez twórców takich jak Ty i ja.
         Twoja opinia jest naszą jedyną zachętą.</string>
-    <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany(a)</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany/a</string>
     <string name="app_rating_goto_store_dialog_button2_title">Kontynuuj</string>
     <string name="app_rating_feedback_dialog_title">Skontaktuj się z nami</string>
     <string name="app_rating_feedback_dialog_msg">Daj nam znać, jak możemy coś poprawić.</string>
@@ -82,18 +75,16 @@
     <string name="auto_start_permission_dialog_title">Uprawnienia AutoStart</string>
     <string name="running_in_the_background">Działa w tle</string>
     <string name="auto_start_permission_dialog_message">Włącz uprawnienia \"Auto Start\" w ustawieniach urządzenia, aby umożliwić Watomatic włączenie się przy uruchamianiu urządzenia.</string>
-    <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne w oparciu o twoje urządzenie</string>
+    <string name="device_based_settings_message">Uwaga: Ustawienia mogą się różnić lub mogą nie być dostępne na podstawie twoje urządzenie</string>
     <string name="setting_not_available_for_device">To ustawienie nie jest dostępne lub może nie być potrzebne dla Twojego urządzenia.</string>
     <string name="enable_auto_start_setting">Kontynuuj</string>
     <string name="decline_auto_start_setting">Anuluj</string>
     <string name="app_not_installed_text">Nie zainstalowana</string>
-    <string name="advanced_settings">Ustawienia zaawansowane</string>
-    <string name="contact_based_reply">Odpowiedzi bazujace na kontaktach</string>
+    <string name="contact_based_reply">Odpowiedzi bazujące na kontaktach</string>
     <string name="contact_reply_type">Odpowiedz do</string>
     <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
     <string name="whitelist">Nikt z wyjątkiem wybranych kontaktów</string>
     <string name="enable_contact_based_reply">Włącz odpowiedzi oparte na kontaktach</string>
-    <string name="select_contacts">Wybierz kontakty</string>
     <string name="contact_selector">Wybór kontaktów</string>
     <string name="select_all">Zaznacz wszystko</string>
     <string name="select_none">Odznacz wszystko</string>
@@ -127,4 +118,13 @@
     <string name="current_donation_progress">Bieżący postęp darowizny</string>
     <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
     <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>

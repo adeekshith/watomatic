@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Watomatic</string>
     <string name="about">عن التطبيق</string>
     <string name="settings">الإعدادات</string>
     <string name="privacy_policy_label">سياسة الخصوصية</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">إيقاف الرد التلقائي</string>
     <string name="mainAutoReplySwitchOnLabel">الرد التلقائي مفعل</string>
     <string name="mainAutoReplyEditBtnTooltip">انقر لتحرير نص الرد التلقائي</string>
-    <string name="to_help_you_leave_whatsapp">الرد التلقائي لمساعدتك على مغادرة واتساب و فيسبوك مسنجر</string>
     <string name="decline">رفض</string>
     <string name="accept">قبول</string>
     <string name="sure">أنا متأكد</string>
@@ -37,19 +35,19 @@
     <!-- Custom message editor -->
     <string name="save">حفظ</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>➚ عرض القوالب من المجتمع ومشاركة قالبك أيضا </u></string>
-    <string name="append_watomatic_arribution_checkbox_label">ضع رابط تطبيق Watomatic لنشر التطبيق للغير</string>
-    <string name="sent_using_Watomatic">تم الإرسال باستخدام watomatic.app</string>
-    <string name="share_app_text">أنا أستخدم Watomatic للتخلص من WhatsApp. جربه: watomatic.app</string>
     <string name="share">مشاركة</string>
-    <string name="share_subject">Watomatic - رد تلقائي على واتس اب و فيسبوك</string>
+    <string name="watomatic_community_label"><u>المجتمع</u></string>
     <string name="watomatic_subreddit_label"><u>دعونا نتناقش\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">ما الجديد؟</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">إظهار الإشعار للرسائل المُجاب عليها</string>
+    <string name="preference_category_general_label">الإعدادات العامة</string>
+    <string name="preference_category_notifications_label">الإشعارات</string>
     <string name="preference_category_troubleshooting_label">استكشاف الأخطاء</string>
     <string name="enable_auto_start_label">تمكين المزامنة التلقائية</string>
+    <string name="enabled_apps_title">التطبيقات المفعلة</string>
     <string name="enable_auto_start_summary">قد تحتاج بعض الأجهزة إلى تمكين التشغيل التلقائي للبرنامج يدوياً من إعدادات الجهاز</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
@@ -62,7 +60,6 @@
     <string name="app_rating_dialog_rate_button_title">قيّمنا!</string>
     <string name="app_rating_dialog_rate_later_title">ربما لاحقاً</string>
     <string name="app_rating_goto_store_dialog_title">نحن سعداء!</string>
-    <string name="app_rating_goto_store_dialog_msg">الرجاء مشاركة هذا التقييم للتطبيق الخاص بنا على متجر Google Play بالنقر على \"متابعة\"\!</string>
     <string name="app_rating_pitch">هذا التطبيق مجاني، لا إعلانات، لا تتبع، مفتوح المصدر، ويقوم به المساهمون مثلك و مثلي.
         ملاحظاتك هي تشجيعنا الوحيد.</string>
     <string name="app_rating_goto_store_dialog_button1_title">غير مهتم</string>
@@ -78,4 +75,13 @@
     <string name="setting_not_available_for_device">هذا الإعداد غير متوفر أو قد لا يكون مطلوبا لجهازك.</string>
     <string name="enable_auto_start_setting">المتابعة</string>
     <string name="decline_auto_start_setting">إلغاء</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>

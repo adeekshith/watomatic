@@ -1,0 +1,2 @@
+* Upgrade to make it work with Android SDK 34
+* Bug fixes and performance improvements

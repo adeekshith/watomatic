@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="openai_api_source_entries">
+        <item>OpenAI</item>
+        <item>Custom</item>
+    </string-array>
+    <string-array name="openai_api_source_values">
+        <item>openai</item>
+        <item>custom</item>
+    </string-array>
     <string-array name="app_language">
         <item>@string/lang_en</item>
         <item>@string/lang_ar_rSA</item>
@@ -19,6 +27,7 @@
         <item>@string/lang_ru_rRU</item>
         <item>@string/lang_ta_rIN</item>
         <item>@string/lang_tr_rTR</item>
+        <item>@string/lang_hi_rIN</item>
 
     </string-array>
 
@@ -41,6 +50,7 @@
         <item>@string/lang_code_ru_rRU</item>
         <item>@string/lang_code_ta_rIN</item>
         <item>@string/lang_code_tr_rTR</item>
+        <item>@string/lang_code_hi_rIN</item>
     </string-array>
 
     <string-array name="contact_reply_type">

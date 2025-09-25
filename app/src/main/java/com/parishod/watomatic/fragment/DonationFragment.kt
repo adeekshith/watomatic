@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,36 +16,38 @@ import com.parishod.watomatic.model.data.DonationProgressItem
 import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.network.GetDonationsProgressService
 import com.parishod.watomatic.network.RetrofitInstance
-import kotlinx.android.synthetic.main.fragment_donations.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.parishod.watomatic.databinding.FragmentDonationsBinding
 
 class DonationFragment : Fragment() {
     private val url = "https://health.watomatic.app/data/donations.txt"
-    private lateinit var fragmentView: View
+    private var _binding: FragmentDonationsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentView = inflater.inflate(R.layout.fragment_donations, container, false)
+        _binding = FragmentDonationsBinding.inflate(inflater, container, false)
 
         //Set value to default while fetching data
-        fragmentView.donation_pct.text = "0%"
+        binding.donationPct.text = "0%"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fragmentView.donation_pct.tooltipText = getString(R.string.current_donation_progress)
+            binding.donationPct.tooltipText = getString(R.string.current_donation_progress)
         }
 
         fetchDonationsProgressData()
 
-        fragmentView.librapay.setOnClickListener {
+        binding.librapay.setOnClickListener {
             launchUrl(Constants.libraPayUrl)
         }
-        fragmentView.paypal.setOnClickListener {
+        binding.paypal.setOnClickListener {
             launchUrl(Constants.paypalUrl)
         }
 
-        fragmentView.bitcoin.setOnClickListener {
+        binding.bitcoin.setOnClickListener {
             launchBitcoin()
         }
-        return fragmentView
+        return binding.root
     }
 
     private fun launchBitcoin(){
@@ -66,7 +67,7 @@ class DonationFragment : Fragment() {
     }
 
     private fun fetchDonationsProgressData() {
-        fragmentView.progress.visibility = View.VISIBLE
+        binding.progress.visibility = View.VISIBLE
         val donationsProgressService = RetrofitInstance.getRetrofitInstance()
                 .create(GetDonationsProgressService::class.java)
         val call = donationsProgressService.getDonationProgress(url)
@@ -97,13 +98,13 @@ class DonationFragment : Fragment() {
                 .find { kvp -> kvp.first() == "total-received-pct" }
                 ?.last()?.toFloat() ?: 0F
 
-        fragmentView.donation_pct.text = String.format("%.1f%%", percentReceived)
+        String.format("%.1f%%", percentReceived).also { binding.donationPct.text = it }
 
         showDonationProgressData(percentReceived)
     }
 
     private fun showDonationProgressData(percentReceived: Float) {
-        fragmentView.progress.visibility = View.GONE
+        binding.progress.visibility = View.GONE
         val items = getData()
         when {
             percentReceived < 15 -> {
@@ -122,8 +123,8 @@ class DonationFragment : Fragment() {
                 items.elementAt(4).isActive = true
             }
         }
-        fragmentView.donationsProgressLayout.setAdapter(DonationsAdapter(items))
-        fragmentView.donationsProgressLayout.visibility = View.VISIBLE
+        binding.donationsProgressLayout.setAdapter(DonationsAdapter(items))
+        binding.donationsProgressLayout.visibility = View.VISIBLE
     }
 
     private fun getData() = listOf(

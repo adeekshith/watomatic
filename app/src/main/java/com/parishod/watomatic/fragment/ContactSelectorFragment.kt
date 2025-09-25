@@ -3,11 +3,14 @@ package com.parishod.watomatic.fragment
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -17,9 +20,59 @@ import com.parishod.watomatic.model.adapters.ContactListAdapter
 import com.parishod.watomatic.model.data.ContactHolder
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.ContactsHelper
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ContactSelectorFragment : Fragment() {
+
+    private fun initHeaderControls() {
+        val enabled = prefs.isContactReplyEnabled
+        // Switch state
+        binding.switchContactReplies.isChecked = enabled
+        // Mode state
+        val isBlacklist = prefs.isContactReplyBlacklistMode()
+        binding.replyModeGroup.check(if (isBlacklist) R.id.radio_blacklist else R.id.radio_whitelist)
+
+        // Listeners
+        binding.switchContactReplies.setOnCheckedChangeListener { _, isChecked ->
+            prefs.setContactReplyEnabled(isChecked)
+            enableContactUi(isChecked)
+        }
+        binding.replyModeGroup.setOnCheckedChangeListener { _, checkedId ->
+            prefs.setContactReplyBlacklistMode(checkedId == R.id.radio_blacklist)
+        }
+
+        enableContactUi(enabled)
+    }
+
+    private fun setChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                setChildrenEnabled(view.getChildAt(i), enabled)
+            }
+        }
+    }
+
+    private fun enableContactUi(enabled: Boolean) {
+        // Visually dim/enable
+        binding.modeContainer.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.modeContainer, enabled)
+
+        binding.searchLayout.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.searchLayout, enabled)
+
+        binding.dialogButtons.alpha = if (enabled) 1f else 0.5f
+        setChildrenEnabled(binding.dialogButtons, enabled)
+
+        binding.contactList.alpha = if (enabled) 1f else 0.5f
+        binding.contactList.isEnabled = enabled
+
+        binding.addCustomButton.alpha = if (enabled) 1f else 0.5f
+        binding.addCustomButton.isEnabled = enabled
+    }
 
     private var _binding: FragmentContactSelectorBinding? = null
     private val binding get() = _binding!!
@@ -28,6 +81,7 @@ class ContactSelectorFragment : Fragment() {
     private lateinit var prefs: PreferencesManager
 
     private lateinit var contactList: ArrayList<ContactHolder>
+    private var searchJob: Job? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -38,12 +92,29 @@ class ContactSelectorFragment : Fragment() {
 
         contactsHelper = ContactsHelper.getInstance(requireContext()).also {
             if (!it.hasContactPermission()) {
-                setHasOptionsMenu(true)
+                it.requestContactPermission(requireActivity())
             }
         }
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
 
+        // Initialize header controls (switch and mode)
+        initHeaderControls()
+
         loadContactList()
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(300) // 300ms debounce
+                    (binding.contactList.adapter as? ContactListAdapter)?.filter?.filter(s.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         return binding.root
     }
@@ -51,7 +122,7 @@ class ContactSelectorFragment : Fragment() {
     fun loadContactList() {
         binding.dialogButtons.visibility = if (contactsHelper.hasContactPermission()) View.VISIBLE else View.GONE
 
-        contactList = contactsHelper.contactList
+        contactList = contactsHelper.getContactList()
 
         binding.contactList.layoutManager = LinearLayoutManager(requireContext())
         binding.contactList.adapter = ContactListAdapter(activity, contactList)
@@ -73,9 +144,9 @@ class ContactSelectorFragment : Fragment() {
         contactList.forEachIndexed { position, contact ->
             if (contact.isChecked != checked) {
                 contact.isChecked = checked
-                adapter.notifyItemChanged(position)
             }
         }
+        adapter.notifyDataSetChanged()
         adapter.saveSelectedContactList()
 
         val snackbar = Snackbar.make(
@@ -152,7 +223,7 @@ class ContactSelectorFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.enable_contact_permission) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                contactsHelper.requestContactPermission(activity)
+                contactsHelper.requestContactPermission(requireActivity())
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.parishod.watomatic">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Core permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-
+    <!-- Query other apps (needed for Android 11+) -->
     <queries>
-        <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
         <package android:name="com.whatsapp.w4b" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
+        <package android:name="com.android.vending" />
+        <package android:name="com.google.android.feedback" />
     </queries>
 
     <application
@@ -24,96 +26,91 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WaReply">
 
-        <activity android:name="com.parishod.watomatic.activity.main.MainActivity">
+        <!-- Activities -->
+        <activity
+            android:name=".activity.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.parishod.watomatic.activity.customreplyeditor.CustomReplyEditorActivity"
+            android:name=".activity.customreplyeditor.CustomReplyEditorActivity"
+            android:exported="true"
             android:label="@string/mainAutoReplyLabel"
-            android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity">
+            android:parentActivityName=".activity.main.MainActivity">
             <intent-filter android:label="global-auto-reply-message-intent">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "watomatic://auto-reply” -->
-                <data android:scheme="watomatic"
-                    android:host="auto-reply" />
+                <data android:scheme="watomatic" android:host="auto-reply" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.parishod.watomatic.activity.about.AboutActivity"
+            android:name=".activity.about.AboutActivity"
+            android:exported="false"
             android:label="@string/about"
-            android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity"
-            >
-        </activity>
-
+            android:parentActivityName=".activity.main.MainActivity" />
         <activity
-            android:name="com.parishod.watomatic.activity.settings.SettingsActivity"
+            android:name=".activity.settings.SettingsActivity"
+            android:exported="false"
             android:label="@string/settings"
-            android:parentActivityName="com.parishod.watomatic.activity.main.MainActivity"
-            >
-        </activity>
-
-        <activity
-            android:name="com.parishod.watomatic.activity.advancedsettings.AdvancedSettingsActivity"
-            android:label="@string/advanced_settings"
-            android:parentActivityName="com.parishod.watomatic.activity.settings.SettingsActivity"
-            >
-        </activity>
-
+            android:parentActivityName=".activity.main.MainActivity" />
         <activity
             android:name=".activity.contactselector.ContactSelectorActivity"
+            android:exported="false"
             android:label="@string/contact_selector"
-            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity"
-            >
-        </activity>
-
+            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity" />
         <activity
-            android:name="com.parishod.watomatic.activity.notification.NotificationIntentActivity"
-            android:launchMode="singleTop"
-            >
-        </activity>
-
-        <activity android:name=".activity.enabledapps.EnabledAppsActivity"
+            android:name=".activity.notification.NotificationIntentActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.enabledapps.EnabledAppsActivity"
+            android:exported="false"
             android:label="@string/enabled_apps_title"
-            android:parentActivityName=".activity.main.MainActivity"/>
-
-        <activity android:name=".activity.donation.DonationActivity"
+            android:parentActivityName=".activity.main.MainActivity" />
+        <activity
+            android:name=".activity.donation.DonationActivity"
+            android:exported="false"
             android:label="@string/donations_activity_title"
-            android:parentActivityName=".activity.main.MainActivity"/>
+            android:parentActivityName=".activity.main.MainActivity" />
 
+        <!-- Notification Listener Service -->
         <service
-            android:name="com.parishod.watomatic.NotificationService"
+            android:name=".service.NotificationService"
+            android:exported="true"
             android:label="@string/service_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+            <meta-data
+                android:name="android.service.notification.default_filter_types"
+                android:value="conversations|alerting" />
+            <meta-data
+                android:name="android.service.notification.disabled_filter_types"
+                android:value="ongoing|silent" />
         </service>
 
-        <service android:name=".service.KeepAliveService"
-            android:stopWithTask="false"/>
-
-        <!--https://techstop.github.io/android-broadcastreceiver/-->
-        <receiver android:name=".receivers.NotificationServiceRestartReceiver"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
+        <!-- Receiver to restart after boot -->
+        <receiver
+            android:name=".receivers.NotificationServiceRestartReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <!--For HTC devices-->
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-    </application>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
+    </application>
 </manifest>

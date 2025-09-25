@@ -3,8 +3,11 @@ package com.parishod.watomatic.model.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.util.Log; // Ensure Log is imported
 
 import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +17,12 @@ import com.parishod.watomatic.model.utils.AppUtils;
 import com.parishod.watomatic.model.utils.Constants;
 
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -37,13 +46,40 @@ public class PreferencesManager {
     private final String KEY_SELECTED_CONTACT_NAMES = "pref_selected_contacts_names";
     private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
     private String KEY_SELECTED_APP_LANGUAGE;
+    private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
+    private final String KEY_OPENAI_API_SOURCE = "pref_openai_api_source";
+    private final String KEY_OPENAI_CUSTOM_API_URL = "pref_openai_custom_api_url";
+    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
+    private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
+    private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
+    private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
+    private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
+    private final String KEY_IS_LOGGED_IN = "pref_is_logged_in";
+    private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
+    private final String KEY_USER_EMAIL = "pref_user_email";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
+    private SharedPreferences _encryptedSharedPrefs;
     private final Context thisAppContext;
 
     private PreferencesManager(Context context) {
         thisAppContext = context;
         _sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+            // Corrected order: fileName, masterKeyAlias, context, scheme, scheme
+            _encryptedSharedPrefs = EncryptedSharedPreferences.create(
+                "watomatic_secure_prefs", // File name (String)
+                masterKeyAlias,           // Master Key Alias (String)
+                context,                  // Context
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e("PreferencesManager", "Error initializing EncryptedSharedPreferences", e);
+            _encryptedSharedPrefs = null;
+        }
         init();
     }
 
@@ -136,6 +172,10 @@ public class PreferencesManager {
         return getEnabledApps().contains(thisApp.getPackageName());
     }
 
+    public boolean isAppEnabled(String packageName) {
+        return getEnabledApps().contains(packageName);
+    }
+
     private String serializeAndSetEnabledPackageList(Collection<String> packageList) {
         String jsonStr = new Gson().toJson(packageList);
         SharedPreferences.Editor editor = _sharedPrefs.edit();
@@ -164,6 +204,18 @@ public class PreferencesManager {
         } else {
             //add the given platform
             enabledPackages.add(app.getPackageName());
+        }
+        return serializeAndSetEnabledPackageList(enabledPackages);
+    }
+
+    public String saveEnabledApps(String packageName, boolean isSelected) {
+        Set<String> enabledPackages = getEnabledApps();
+        if (!isSelected) {
+            //remove the given platform
+            enabledPackages.remove(packageName);
+        } else {
+            //add the given platform
+            enabledPackages.add(packageName);
         }
         return serializeAndSetEnabledPackageList(enabledPackages);
     }
@@ -315,8 +367,164 @@ public class PreferencesManager {
         return _sharedPrefs.getBoolean(KEY_REPLY_CONTACTS, false);
     }
 
+    public void setContactReplyEnabled(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_REPLY_CONTACTS, enabled);
+        editor.apply();
+    }
+
     public Boolean isContactReplyBlacklistMode() {
         return _sharedPrefs.getString(KEY_REPLY_CONTACTS_TYPE, "pref_blacklist").equals("pref_blacklist");
     }
 
+    public void setContactReplyBlacklistMode(boolean isBlacklist) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_REPLY_CONTACTS_TYPE, isBlacklist ? "pref_blacklist" : "pref_whitelist");
+        editor.apply();
+    }
+
+    public void saveOpenAIApiKey(String apiKey) {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot save API key.");
+            return;
+        }
+        SharedPreferences.Editor editor = _encryptedSharedPrefs.edit();
+        editor.putString(KEY_OPENAI_API_KEY, apiKey);
+        editor.apply();
+    }
+
+    public String getOpenAIApiKey() {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot get API key.");
+            return null;
+        }
+        return _encryptedSharedPrefs.getString(KEY_OPENAI_API_KEY, null);
+    }
+
+    public void saveOpenApiSource(String apiSource) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_API_SOURCE, apiSource);
+        editor.apply();
+    }
+
+    public String getOpenApiSource() {
+        return _sharedPrefs.getString(KEY_OPENAI_API_SOURCE, "openai");
+    }
+
+    public void saveCustomOpenAIApiUrl(String apiUrl) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_CUSTOM_API_URL, apiUrl);
+        editor.apply();
+    }
+
+    public String getCustomOpenAIApiUrl() {
+        return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_API_URL, null);
+    }
+
+    public void deleteOpenAIApiKey() {
+        if (_encryptedSharedPrefs == null) {
+            Log.e("PreferencesManager", "EncryptedSharedPreferences not initialized. Cannot delete API key.");
+            return;
+        }
+        SharedPreferences.Editor editor = _encryptedSharedPrefs.edit();
+        editor.remove(KEY_OPENAI_API_KEY);
+        editor.apply();
+    }
+
+    public void setEnableOpenAIReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_OPENAI_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isOpenAIRepliesEnabled() {
+        return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+    public void setOpenAIRepliesEnabled(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_OPENAI_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public void saveSelectedOpenAIModel(String modelId) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_SELECTED_MODEL, modelId);
+        editor.apply();
+    }
+
+    public String getSelectedOpenAIModel() {
+        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, "gpt-3.5-turbo"); // Default to "gpt-3.5-turbo"
+    }
+
+    // Generic getString and saveString for other preferences if needed by GeneralSettingsFragment temporarily
+    // It's better to have dedicated methods for each preference.
+    public String getString(String key, String defaultValue) {
+        return _sharedPrefs.getString(key, defaultValue);
+    }
+
+    public void saveString(String key, String value) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public void saveOpenAILastPersistentError(String message, long timestamp) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE, message);
+        editor.putLong(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP, timestamp);
+        editor.apply();
+    }
+
+    public String getOpenAILastPersistentErrorMessage() {
+        return _sharedPrefs.getString(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE, null);
+    }
+
+    public long getOpenAILastPersistentErrorTimestamp() {
+        return _sharedPrefs.getLong(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP, 0L);
+    }
+
+    public void clearOpenAILastPersistentError() {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE);
+        editor.remove(KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP);
+        editor.apply();
+    }
+
+    public String getOpenAICustomPrompt() {
+        return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_PROMPT, null);
+    }
+
+    public boolean isLoggedIn() {
+        return _sharedPrefs.getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+
+    public void setLoggedIn(boolean isLoggedIn) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
+        editor.apply();
+    }
+
+    public boolean isGuestMode() {
+        return _sharedPrefs.getBoolean(KEY_IS_GUEST_MODE, false);
+    }
+
+    public void setGuestMode(boolean isGuestMode) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_IS_GUEST_MODE, isGuestMode);
+        editor.apply();
+    }
+
+    public String getUserEmail() {
+        return _sharedPrefs.getString(KEY_USER_EMAIL, "");
+    }
+
+    public void setUserEmail(String email) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_USER_EMAIL, email);
+        editor.apply();
+    }
+
+    public boolean shouldShowLogin() {
+        return !isLoggedIn() && !isGuestMode();
+    }
 }

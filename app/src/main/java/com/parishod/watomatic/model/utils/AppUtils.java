@@ -18,9 +18,16 @@ public class AppUtils {
         return _INSTANCE;
     }
 
+    // Method to reset the singleton instance for testing purposes
+    public static void resetInstance() {
+        _INSTANCE = null;
+    }
+
     public boolean isPackageInstalled(String packageName) {
         try {
-            //Just check if app's icon is present
+            // Just check if app's icon is present.
+            // We might have done this instead of using appContext.getPackageManager().getPackageInfo
+            // as a workaround to check if the app is installed even if we did not declare it in the manifest.
             appContext.getPackageManager().getApplicationIcon(packageName);
             return true;
         } catch (PackageManager.NameNotFoundException e) {

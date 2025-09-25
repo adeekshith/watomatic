@@ -19,7 +19,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
         ListPreference languagePref = findPreference(getString(R.string.key_pref_app_language));
         if (languagePref != null) {
             languagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                String thisLangStr = PreferencesManager.getPreferencesInstance(getActivity()).getSelectedLanguageStr(null);
+                String thisLangStr = PreferencesManager.getPreferencesInstance(requireActivity()).getSelectedLanguageStr(null);
                 if (thisLangStr == null || !thisLangStr.equals(newValue)) {
                     //switch app language here
                     //Should restart the app for language change to take into account
@@ -33,15 +33,14 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity() != null)
+        if (getActivity() != null) { // Use getActivity() for direct activity access if needed for title
             getActivity().setTitle(R.string.preference_category_general_label);
+        }
     }
 
     private void restartApp() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        if (getActivity() != null) {
-            getActivity().startActivity(intent);
-            getActivity().finishAffinity();
-        }
+        Intent intent = new Intent(requireActivity(), MainActivity.class);
+        requireActivity().startActivity(intent);
+        requireActivity().finishAffinity();
     }
 }
