@@ -202,4 +202,5 @@
     <string name="contact_filter_disabled">Dinonaktifkan</string>
     <string name="contact_filter_enabled_whitelist">Hanya yang dipilih (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Semua orang kecuali yang dipilih (%1$d)</string>
+    <!-- Login Activity -->
 </resources>
