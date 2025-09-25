@@ -200,4 +200,5 @@
     <string name="contact_filter_disabled">Inhabilitat</string>
     <string name="contact_filter_enabled_whitelist">Només els seleccionats (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Tothom excepte els seleccionats (%1$d)</string>
+    <!-- Login Activity -->
 </resources>
