@@ -7,6 +7,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.NotificationUtils
 import java.util.concurrent.TimeUnit
 
@@ -21,7 +22,7 @@ class NlsHealthCheckWorker(
         )
         val isEnabled = enabled?.contains(applicationContext.packageName) == true
 
-        if (!isEnabled) {
+        if (!isEnabled && PreferencesManager.getPreferencesInstance(applicationContext).isServiceEnabled) {
             Log.w("NLS", "Notification access disabled! Prompt user to re-enable.")
             NotificationUtils.showAccessRevokedNotification(applicationContext)
         } else {
