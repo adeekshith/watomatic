@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about">Sobre</string>
+    <string name="settings">Configurações</string>
     <string name="privacy_policy_label">Política de Privacidade</string>
     <string name="service_name">Monitor de notificações de mensagens recebidas</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalizada)</string>
+    <string name="auto_reply_default_message">Resposta Automática\n⚠️ Usuário indisponível</string>
     <string name="mainAutoReplyLabel">Texto de resposta automática</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
     <string name="mainAutoReplyEditBtnTooltip">Clique para editar o texto da resposta automática</string>
+    <string name="to_help_you_leave_whatsapp">Configurar resposta automática para ajudá-lo a sair de aplicativos de mensagens</string>
     <string name="decline">Recusar</string>
     <string name="accept">Aceitar</string>
     <string name="sure">Sim, negar</string>
@@ -17,6 +20,9 @@
     <string name="permission_dialog_denied_title">Permissão negada</string>
     <string name="permission_dialog_denied_msg">Sem esta autorização, o App não vai poder responder automaticamente às notificações. Você tem certeza de que quer negar a permissão?</string>
     <!-- Select apps to auto reply -->
+    <string name="enable_for_apps">Habilitado para aplicativos</string>
+    <string name="enable_auto_reply_switch_msg">Ativar o interruptor de Resposta Automática primeiro.</string>
+    <string name="error_atleast_single_app_must_be_selected">Erro: Selecione pelo menos um aplicativo</string>
     <!-- Group chats -->
     <string name="groupReplySwitchLabel">Resposta automática para chats de grupos</string>
     <string name="group_reply_on_info_message">Ativada a Resposta Automática para chats de grupos</string>
@@ -24,11 +30,12 @@
     <string name="time_picker_title">Frequência de resposta (BETA)</string>
     <string name="time_picker_sub_title_default">Responder a todas as mensagens sem controle</string>
     <string name="time_picker_sub_title">Responder apenas uma vez a cada %1$d dia(s) para cada pessoa\/grupo</string>
+    <string name="time_format_placeholder">00:00</string>
     <string name="time_picker_edit_btn_tooltip">Clique para editar o tempo de espera entre as respostas</string>
+    <string name="app_version">v%1$s</string>
     <!-- Custom message editor -->
-    <string name="share_app_text">Estou usando Watomatic para me livrar do WhatsApp. Experimente: watomatic.app</string>
+    <string name="save">Salvar</string>
     <string name="share">Compartilhar</string>
-    <string name="share_subject">Watomatic: Respostas Automáticas para WhatsApp</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
@@ -38,4 +45,13 @@
     <!-- App Language selection -->
     <!-- App Rating Dialog -->
     <!--Autostart Permission Dialog-->
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>
