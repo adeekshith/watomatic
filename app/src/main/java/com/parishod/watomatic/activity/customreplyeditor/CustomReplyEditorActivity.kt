@@ -131,6 +131,7 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         // Load initial state
         val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
+        autoReplyText?.isEnabled = !isAIEnabled
         enableAIRepliesCheckbox?.isChecked = isAIEnabled
         aiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
 
@@ -234,6 +235,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         // Toggle AI enable/disable
         enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, ischecked ->
             preferencesManager?.setEnableOpenAIReplies(ischecked)
+            autoReplyText?.isEnabled = !ischecked
             updateAICardsVisibility()
             fetchModelsIfEligible()
         }
