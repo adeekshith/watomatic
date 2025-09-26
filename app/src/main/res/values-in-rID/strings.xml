@@ -194,6 +194,11 @@
     <string name="error_password_too_short">Kata sandi minimal harus terdiri dari 6 karakter</string>
     <string name="welcome_message">Selamat datang di Atomatic</string>
     <string name="login">Masuk</string>
+    <string name="logout">Keluar</string>
+    <string name="profile">Profil</string>
+    <string name="guest">Pengunjung</string>
+    <string name="logged_in_as">Masuk sebagai %1$s</string>
+    <string name="logout_confirmation">Apakah Anda yakin ingin keluar?</string>
     <!-- Contact-based replies UI -->
     <string name="contact_based_replies">Balasan berbasis kontak</string>
     <string name="reply_to_mode">Mode balas ke</string>
@@ -202,5 +207,26 @@
     <string name="contact_filter_disabled">Dinonaktifkan</string>
     <string name="contact_filter_enabled_whitelist">Hanya yang dipilih (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Semua orang kecuali yang dipilih (%1$d)</string>
+    <string name="account">Akun</string>
+    <string name="resend_email">Kirim ulang Email</string>
+    <string name="email_verified">Email diverifikasi! 🎉</string>
+    <string name="i_ve_verified">Saya telah diverifikasi</string>
+    <string name="verify_your_email">Verifikasi Email Anda</string>
     <!-- Login Activity -->
+    <string name="google_sign_in_failed">Proses masuk Google gagal: %s</string>
+    <string name="authentication_failed">Otentikasi gagal</string>
+    <string name="create_new_account">Buat Akun Baru</string>
+    <string name="create_new_account_prompt">Apakah Anda ingin membuat akun baru dengan email ini?\n\n%s</string>
+    <string name="create_account">Buat akun</string>
+    <string name="email_already_registered">Email ini sudah terdaftar. Silakan coba masuk kembali.</string>
+    <string name="invalid_email_or_password_length">Mohon gunakan email yang valid dan kata sandi dengan minimal 6 karakter</string>
+    <string name="create_account_failed">Gagal membuat akun: %s</string>
+    <string name="verification_email_sent">Email verifikasi dikirim ke %s</string>
+    <string name="verification_email_failed">Gagal mengirim verifikasi: %s</string>
+    <string name="verification_dialog_message">Kami telah mengirimkan tautan verifikasi ke %s. Silakan periksa kotak masuk Anda dan klik tautannya. Setelah selesai, klik di bawah ini.</string>
+    <string name="email_not_verified_yet">Email belum diverifikasi, silakan coba lagi.</string>
+    <string name="verification_check_failed">Gagal memeriksa verifikasi: %s</string>
+    <string name="verification_email_resent">Email verifikasi dikirim ulang ke %s</string>
+    <string name="failed_to_resend_email">Gagal mengirim ulang email: %s</string>
+    <string name="authentication_failed_with_message">Otentikasi gagal: %s</string>
 </resources>
