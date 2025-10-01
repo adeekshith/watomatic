@@ -1,0 +1,2 @@
+* Complete UI revamp for better user experience
+* Upgrade to make it work with Android SDK 35
