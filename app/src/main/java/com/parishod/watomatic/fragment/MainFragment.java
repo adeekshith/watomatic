@@ -27,6 +27,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -179,6 +182,19 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 return true;
             }
             return false;
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNav, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
+                // Remove system bottom inset
+                return insets.replaceSystemWindowInsets(
+                        insets.getSystemWindowInsetLeft(),
+                        insets.getSystemWindowInsetTop(),
+                        insets.getSystemWindowInsetRight(),
+                        0 // remove bottom
+                );
+            }
         });
 
         if (!isPostNotificationPermissionGranted()) {
