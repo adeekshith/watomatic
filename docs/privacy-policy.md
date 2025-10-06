@@ -70,5 +70,5 @@ _Last updated: October 2025_
 ---
 
 ## Contact Information
-If you have any questions or requests regarding your data, please contact the developer at:  
-**Email:** <name_of_the_app>@deekshith.in
+If you have any questions or requests regarding your data including account deletion, please contact the developer at:
+**Email:** atomatic@deekshith.in
