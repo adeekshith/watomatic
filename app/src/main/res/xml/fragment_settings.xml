@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.SettingsFragment">
 
+    <!-- Account/Login section -->
+    <Preference
+        android:key="@string/pref_account"
+        android:title="@string/account"
+        android:icon="@drawable/ic_baseline_person_24" />
+
     <Preference android:title="@string/preference_category_general_label"
         android:icon="@drawable/ic_settings"
         android:fragment="com.parishod.watomatic.fragment.GeneralSettingsFragment"
@@ -30,10 +36,5 @@
             android:key="@string/pref_auto_start_permission" />
 
     </PreferenceCategory>
-
-    <Preference
-        app:title="@string/advanced_settings"
-        app:icon="@drawable/ic_baseline_miscellaneous_services_24"
-        android:fragment="com.parishod.watomatic.fragment.AdvancedSettingsFragment"/>
 
 </PreferenceScreen>

@@ -118,7 +118,12 @@ public class CustomRepliesData {
     }
 
     public String getTextToSendOrElse() {
-        String currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
+        String currentText;
+        if(preferencesManager.isOpenAIRepliesEnabled()){
+            currentText = thisAppContext.getString(R.string.ai_auto_reply_default_message);
+        }else {
+            currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
+        }
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
             currentText += "\n\n" + RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
         }

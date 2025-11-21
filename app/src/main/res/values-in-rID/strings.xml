@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">Tentang</string>
     <string name="settings">Pengaturan</string>
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
     <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
     <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
+    <string name="ai_auto_reply_default_message">Balasan AI Diaktifkan\nPesan ditangani dengan cerdas oleh AI</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
     <string name="mainAutoReplySwitchOnLabel">Balasan otomatis AKTIF</string>
     <string name="mainAutoReplyEditBtnTooltip">Klik untuk mengubah teks balasan otomatis</string>
-    <string name="to_help_you_leave_whatsapp">Balas otomatis untuk membantu Anda meninggalkan WhatsApp dan Facebook messenger</string>
+    <string name="to_help_you_leave_whatsapp">Mengatur balasan otomatis untuk membantumu keluar dari aplikasi perpesanan</string>
     <string name="decline">Tolak</string>
     <string name="accept">Terima</string>
     <string name="sure">Saya Yakin</string>
@@ -37,11 +37,11 @@
     <!-- Custom message editor -->
     <string name="save">Simpan</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Lihat template dari komunitas dan bagikan milik Anda juga ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Tambahkan atribusi Watomatic untuk membantu menyebarkan berita</string>
-    <string name="sent_using_Watomatic">Dikirim menggunakan watomatic.app</string>
-    <string name="share_app_text">Saya menggunakan Watomatic untuk melepaskan diri dari WhatsApp. Cobalah: watomatic.app</string>
+    <string name="append_watomatic_arribution_checkbox_label">Tambahkan atribusi Atomatic untuk membantu menyebarkan berita</string>
+    <string name="sent_using_Watomatic">Dikirim menggunakan atomatic.app</string>
+    <string name="share_app_text">Saya menggunakan Atomatic untuk menghindar dari aplikasi perpesanan. Cobalah: watomatic.app</string>
     <string name="share">Bagikan</string>
-    <string name="share_subject">Watomatic: Balasan Otomatis untuk WhatsApp</string>
+    <string name="share_subject">Atomatis: Balasan Otomatis untuk aplikasi Perpersanan</string>
     <string name="watomatic_community_label"><u>Komunitas</u></string>
     <string name="watomatic_subreddit_label"><u>Mari diskusi\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Apa yang Baru?</string>
@@ -69,7 +69,7 @@
     <string name="app_rating_dialog_rate_button_title">Berikan penilaian!</string>
     <string name="app_rating_dialog_rate_later_title">Mungkin nanti</string>
     <string name="app_rating_goto_store_dialog_title">Kami senang!</string>
-    <string name="app_rating_goto_store_dialog_msg">Silakan bagikan peringkat aplikasi kami ini di Google Play Store dengan mengetuk \"Lanjutkan\"\!</string>
+    <string name="app_rating_goto_store_dialog_msg">Silahkan bagikan peringkat aplikasi kami ini di Google Play Store dengan mengetuk “Lanjutkan”!</string>
     <string name="app_rating_pitch">Aplikasi ini gratis, tanpa iklan, tanpa pelacakan, sumber terbuka dan dibuat oleh kontributor seperti Anda dan saya.
         Umpan balik Anda adalah satu-satunya dorongan kami.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Tidak Tertarik</string>
@@ -87,16 +87,16 @@
     <string name="enable_auto_start_setting">Diproses</string>
     <string name="decline_auto_start_setting">Batal</string>
     <string name="app_not_installed_text">Tidak terpasang</string>
-    <string name="advanced_settings">Pengaturan lanjutan</string>
     <string name="contact_based_reply">Balasan berbasis kontak</string>
     <string name="contact_reply_type">Balasan untuk</string>
     <string name="blacklist">Semua orang kecuali kontak yang dipilih</string>
     <string name="whitelist">Tidak seorang pun kecuali kontak yang dipilih</string>
     <string name="enable_contact_based_reply">Aktifkan balasan berbasis kontak</string>
-    <string name="select_contacts">Pilih kontak</string>
+    <string name="select_contacts">Pilih Kontak</string>
     <string name="contact_selector">Pemilih kontak</string>
     <string name="select_all">Pilih Semua</string>
     <string name="select_none">Kosongkan Pilihan</string>
+    <string name="search">Cari</string>
     <string name="contact_permission_dialog_msg">Akses baca kontak diperlukan untuk memfilter nama dan mengaktifkan fitur ini. Apakah Anda ingin melanjutkan?</string>
     <string name="contact_permission_dialog_proceed">Memproses</string>
     <string name="contact_permission_dialog_cancel">Batal</string>
@@ -129,4 +129,77 @@
     <string name="error_name_cannot_be_duplicate">Nama sudah ada</string>
     <string name="post_notification_permission_snackbar_text">Izin notifikasi diperlukan untuk aplikasi ini. Aktifkan di pengaturan.</string>
     <string name="post_notification_permission_snackbar_setting">Pengaturan</string>
+    <string name="pref_enable_openai_replies_title">Aktifkan Balasan Otomatis AI</string>
+    <string name="pref_enable_openai_replies_summary">Gunakan AI untuk menghasilkan balasan cerdas</string>
+    <string name="pref_openai_api_key_title">Kunci API</string>
+    <string name="pref_openai_api_key_summary_not_set">Kunci API tidak diatur</string>
+    <string name="pref_openai_api_key_summary_set">Kunci API telah diatur</string>
+    <string name="pref_openai_api_key_dialog_title">Masukkan kunci API Anda</string>
+    <string name="pref_openai_api_source_title">Penyedia API</string>
+    <string name="pref_openai_custom_api_url_title">URL API Khusus</string>
+    <string name="pref_openai_custom_api_url_summary">Masukkan URL API khusus Anda</string>
+    <string name="pref_openai_custom_api_url_dialog_title">URL API Khusus</string>
+    <string name="set_custom_api_url">Atur URL API khusus</string>
+    <string name="pref_openai_model_title">Model AI</string>
+    <string name="pref_openai_model_summary_default">Memilih model obrolan yang disukai</string>
+    <string name="pref_openai_model_dialog_title">Pilih Model AI</string>
+    <string name="pref_openai_model_loading">Memuat model...</string>
+    <string name="pref_openai_model_error">Tidak dapat memuat model. Periksa Kunci API atau jaringan.</string>
+    <string name="pref_openai_model_not_set">Tidak ada model yang dipilih</string>
+    <string name="pref_openai_model_no_compatible_found">Tidak ditemukan model yang kompatibel. Silakan periksa kunci API Anda atau coba lagi nanti.</string>
+    <string name="pref_category_openai_status_title">Status Layanan AI</string>
+    <string name="pref_openai_status_alert_title">AI Peringatan</string>
+    <string name="pref_openai_status_ok_summary">Tidak ada masalah baru yang terdeteksi.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Peringatan kesalahan ditutup. Peringatan ini akan muncul kembali jika masalah terjadi lagi.</string>
+    <!-- Generative AI -->
+    <string name="generative_ai">AI Generatif</string>
+    <string name="enable_generative_ai">Aktifkan Generatif AI</string>
+    <string name="custom_prompt">Perintah Khusus</string>
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Teks Balasan Otomatis</string>
+    <string name="filters">Saringan</string>
+    <!-- AI Reply Text -->
+    <string name="ai_reply_text">Balasan AI: \"Halo! Saat ini saya sedang tidak bisa dihubungi dan akan menghubungi Anda kembali secepatnya.\" (OpenAI)</string>
+    <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Balasan Otomatis Diaktifkan</string>
+    <string name="edit">Ubah</string>
+    <!-- Filter Items -->
+    <string name="contacts">Kontak</string>
+    <string name="all_contacts">Semua Kontak</string>
+    <string name="no_contacts">Tidak ada yang dipilih</string>
+    <string name="some_contacts">Kontak yang Dipilih</string>
+    <string name="message_type">Jenis Pesan</string>
+    <string name="direct_messages">Hanya Pesan Langsung</string>
+    <string name="all_messages">Semua Pesan</string>
+    <string name="apps">Aplikasi</string>
+    <string name="apps_enabled_count">%1$d/%2$d aplikasi diaktifkan</string>
+    <string name="reply_cooldown">Waktu henti Balasan</string>
+    <string name="ten_minutes">10 menit</string>
+    <!-- Cooldown units -->
+    <string name="minutes">menit</string>
+    <string name="hours">jam</string>
+    <string name="minute">menit</string>
+    <string name="hour">jam</string>
+    <string name="no_cooldown">Tidak ada waktu henti</string>
+    <string name="reset_timer">Atur ulang</string>
+    <string name="error_invalid_url">Masukkan URL yang valid yang dimulai dengan http:// atau https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Gunakan LLM seperti OpenAI untuk menghasilkan respons yang cerdas.</string>
+    <string name="ai_provider_llm">Penyedia AI (LLM)</string>
+    <string name="openai">OpenAI</string>
+    <!-- Authentication -->
+    <string name="error_email_required">Email diperlukan</string>
+    <string name="error_invalid_email">Alamat email tidak valid</string>
+    <string name="error_password_required">Kata sandi diperlukan</string>
+    <string name="error_password_too_short">Kata sandi minimal harus terdiri dari 6 karakter</string>
+    <string name="welcome_message">Selamat datang di Atomatic</string>
+    <string name="login">Masuk</string>
+    <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Balasan berbasis kontak</string>
+    <string name="reply_to_mode">Mode balas ke</string>
+    <string name="reply_only_selected">Hanya pilih kontak</string>
+    <string name="reply_everyone_except_selected">Semua orang kecuali yang dipilih</string>
+    <string name="contact_filter_disabled">Dinonaktifkan</string>
+    <string name="contact_filter_enabled_whitelist">Hanya yang dipilih (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Semua orang kecuali yang dipilih (%1$d)</string>
 </resources>

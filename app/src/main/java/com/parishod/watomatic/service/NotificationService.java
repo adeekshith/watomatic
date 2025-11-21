@@ -1,9 +1,10 @@
-package com.parishod.watomatic;
+package com.parishod.watomatic.service;
 
 import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_MODEL;
 import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_PROMPT;
 
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
@@ -11,12 +12,14 @@ import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
 import android.text.TextUtils; // Added import
 import android.util.Log;
+import android.widget.Toast;
 // import Constants.kt
 
 
 import androidx.annotation.NonNull;
 import androidx.core.app.RemoteInput;
 
+import com.parishod.watomatic.NotificationWear;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.network.OpenAIService;
 import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
@@ -348,4 +351,19 @@ public class NotificationService extends NotificationListenerService {
     private boolean isServiceEnabled() {
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
     }
+
+    @Override
+    public void onListenerDisconnected() {
+        super.onListenerDisconnected();
+        Log.d(TAG, "Listener disconnected! Requesting rebind...");
+        ComponentName componentName = new ComponentName(this, NotificationService.class);
+        requestRebind(componentName);
+    }
+
+    @Override
+    public void onListenerConnected() {
+        super.onListenerConnected();
+        Toast.makeText(getApplicationContext(), "Listener connected!", Toast.LENGTH_SHORT).show();
+    }
+
 }

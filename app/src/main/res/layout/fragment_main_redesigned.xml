@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_marginTop="45dp"
-        android:layout_marginBottom="85dp">
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/bottom_nav">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,13 +39,11 @@
                     android:letterSpacing="-0.01"
                     android:includeFontPadding="false" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switch_auto_replies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:thumbTint="@android:color/white"
-                    app:trackTint="@drawable/switch_track_selector" />
+                    android:checked="true" />
 
             </LinearLayout>
 
@@ -55,9 +54,11 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="16dp">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    android:layout_margin="2dp"
                     app:cardElevation="2dp">
 
                     <View
@@ -72,7 +73,7 @@
                         android:layout_margin="16dp"
                         android:text="@string/ai_reply_text"
                         android:textSize="20sp"
-                        android:fontFamily="@font/inter_bold"
+                        android:fontFamily="@font/inter"
                         android:lineSpacingMultiplier="1.25"
                         android:breakStrategy="balanced"
                         android:hyphenationFrequency="full"
@@ -97,7 +98,7 @@
                         app:elevation="0dp"
                         app:strokeWidth="0dp" />
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </FrameLayout>
 

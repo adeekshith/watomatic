@@ -1,7 +1,13 @@
 package com.parishod.watomatic.model.utils;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
@@ -125,5 +131,52 @@ public class NotificationUtils {
 
     public static String getTitleRaw(StatusBarNotification sbn) {
         return sbn.getNotification().extras.getString("android.title");
+    }
+
+    private static final String CHANNEL_ID = "nls_health_channel";
+    private static final String CHANNEL_NAME = "Notification Access Alerts";
+    private static final int NOTIFICATION_ID = 1001;
+
+    public static void showAccessRevokedNotification(Context context) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create Notification Channel for Android O+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+                NotificationChannel channel = new NotificationChannel(
+                        CHANNEL_ID,
+                        CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel.setDescription("Alerts when Notification Access is disabled");
+                channel.enableVibration(true);
+                channel.enableLights(true);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        // Intent to open Notification Access Settings
+        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        // Build Notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.stat_notify_error)
+                .setContentTitle("Notification Access Disabled")
+                .setContentText("Tap to re-enable notification access for auto-reply.")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ERROR)
+                .setAutoCancel(true)
+                .addAction(android.R.drawable.ic_menu_preferences, "Enable Now", pendingIntent)
+                .setContentIntent(pendingIntent);
+
+        // Show Notification
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 }

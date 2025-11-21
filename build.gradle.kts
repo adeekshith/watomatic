@@ -22,13 +22,7 @@ buildscript {
 
 plugins {
     alias(libs.plugins.google.ksp) apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+    alias(libs.plugins.google.services) apply false
 }
 
 tasks.register<Delete>("clean") {

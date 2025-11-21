@@ -10,6 +10,7 @@
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
+    <string name="ai_auto_reply_default_message">AI Replies Enabled\nMessages are smartly handled by AI</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
@@ -155,8 +156,6 @@
     <string name="enable_auto_start_setting">Proceed</string>
     <string name="decline_auto_start_setting">Cancel</string>
     <string name="app_not_installed_text">Not installed</string>
-    <string name="advanced_settings">Advanced settings</string>
-    <string name="key_pref_advanced_settings" translatable="false">pref_advanced_settings</string>
     <string name="contact_based_reply">Contact based replies</string>
     <string name="pref_reply_contacts" translatable="false">pref_reply_contacts</string>
     <string name="contact_reply_type">Reply to</string>
@@ -259,6 +258,8 @@
     <!-- Filter Items -->
     <string name="contacts">Contacts</string>
     <string name="all_contacts">All Contacts</string>
+    <string name="no_contacts">None Selected</string>
+    <string name="some_contacts">Selected Contacts</string>
     <string name="message_type">Message Type</string>
     <string name="direct_messages">Direct Messages Only</string>
     <string name="all_messages">All Messages</string>
@@ -280,4 +281,50 @@
     <string name="use_an_llm_like_openai_to_generate_smart_responses">Use an LLM like OpenAI to generate smart responses.</string>
     <string name="ai_provider_llm">AI Provider (LLM)</string>
     <string name="openai">OpenAI</string>
+
+    <!-- Authentication -->
+    <string name="error_email_required">Email is required</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="welcome_message">Welcome to Atomatic</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="guest">Guest</string>
+    <string name="logged_in_as">Logged in as %1$s</string>
+    <string name="logout_confirmation">Are you sure you want to logout?</string>
+
+    <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Contact-based replies</string>
+    <string name="reply_to_mode">Reply to mode</string>
+    <string name="reply_only_selected">Only selected contacts</string>
+    <string name="reply_everyone_except_selected">Everyone except selected</string>
+    <string name="contact_filter_disabled">Disabled</string>
+    <string name="contact_filter_enabled_whitelist">Only selected (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Everyone except selected (%1$d)</string>
+    <string name="account">Account</string>
+    <string name="pref_account" translatable="false">pref_account</string>
+    <string name="resend_email">Resend Email</string>
+    <string name="email_verified">Email verified! 🎉</string>
+    <string name="i_ve_verified">I’ve Verified</string>
+    <string name="verify_your_email">Verify Your Email</string>
+
+    <!-- Login Activity -->
+    <string name="google_sign_in_failed">Google sign in failed: %s</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="create_new_account_prompt">Would you like to create a new account with this email?\n\n%s</string>
+    <string name="create_account">Create Account</string>
+    <string name="email_already_registered">This email is already registered. Please try signing in.</string>
+    <string name="invalid_email_or_password_length">Please use a valid email and a password with at least 6 characters</string>
+    <string name="create_account_failed">Failed to create account: %s</string>
+    <string name="verification_email_sent">Verification email sent to %s</string>
+    <string name="verification_email_failed">Failed to send verification: %s</string>
+    <string name="verification_dialog_message">We’ve sent a verification link to %s. Please check your inbox and click the link. Once done, click below.</string>
+    <string name="email_not_verified_yet">Email not verified yet, please try again.</string>
+    <string name="verification_check_failed">Failed to check verification: %s</string>
+    <string name="verification_email_resent">Verification email resent to %s</string>
+    <string name="failed_to_resend_email">Failed to resend email: %s</string>
+    <string name="authentication_failed_with_message">Authentication failed: %s</string>
 </resources>

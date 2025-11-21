@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Atomatic</string>
     <string name="about">Honi buruz</string>
     <string name="settings">Ezarpenak</string>
     <string name="privacy_policy_label">Pribatutasun politika</string>
@@ -11,7 +10,6 @@
     <string name="mainAutoReplySwitchOffLabel">Erantzun automatikoa OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Erantzun automatikoa ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Egin ttap erantzun automatikoaren testua editatzeko</string>
-    <string name="to_help_you_leave_whatsapp">Erantzun automatikoa Whatsapp eta Facebook Messenger atzean uzten laguntzeko</string>
     <string name="decline">Errefusatu</string>
     <string name="accept">Onartu</string>
     <string name="sure">Ziur nago</string>
@@ -37,11 +35,7 @@
     <!-- Custom message editor -->
     <string name="save">Gorde</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Ikusi komunitatearen txantiloiak eta partekatu zeureak ere ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Gehitu Watomatic aitortza hitza zabaltzen laguntzeko</string>
-    <string name="sent_using_Watomatic">Watomatic.app bidez bidalia</string>
-    <string name="share_app_text">Watomatic erabiltzen ari naiz Whatsappetik askatzeko. Probatu zeuk ere: watomatic.app</string>
     <string name="share">Partekatu</string>
-    <string name="share_subject">Watomatic: Erantzun automatikoa WhatsApperako</string>
     <string name="watomatic_subreddit_label"><u>Eztabaida dezagun\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Zer berri?</string>
     <!-- Share debug logs -->
@@ -68,7 +62,6 @@
     <string name="app_rating_dialog_rate_button_title">Kalifikatu!</string>
     <string name="app_rating_dialog_rate_later_title">Geroago agian</string>
     <string name="app_rating_goto_store_dialog_title">Pozik gaude!</string>
-    <string name="app_rating_goto_store_dialog_msg">Mesedez, partekatu aplikazioaren kalifikazio hau Google Play Store-n, \"Jarraitu\"\ botoian ttap eginez.</string>
     <string name="app_rating_pitch">Aplikazioa doan da, iragarkirik ez, jarraipenik ez, kode irekikoa, eta zu eta ni bezalako boluntarioek egindakoa.        Zure iritzia da gure ordain bakarra.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Ez zait interesatzen</string>
     <string name="app_rating_goto_store_dialog_button2_title">Jarraitu</string>
@@ -85,13 +78,11 @@
     <string name="enable_auto_start_setting">Jarraitu</string>
     <string name="decline_auto_start_setting">Utzi</string>
     <string name="app_not_installed_text">Instalatu gabe</string>
-    <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="contact_based_reply">Kontaktuaren araberako erantzunak</string>
     <string name="contact_reply_type">Erantzun honi:</string>
     <string name="blacklist">Kontaktu guztiei, hautatuei izan ezik</string>
     <string name="whitelist">Hautatutako kontaktuei soilik</string>
     <string name="enable_contact_based_reply">Gaitu kontaktuaren araberako erantzunak</string>
-    <string name="select_contacts">Hautatu kontaktuak</string>
     <string name="contact_selector">Kontaktu hautatzailea</string>
     <string name="select_all">Hautatu guztiak</string>
     <string name="select_none">Ez hautatu bat ere</string>
@@ -116,4 +107,13 @@
     <string name="donation_progress_label">hileko helburutik</string>
     <string name="add_custom_contact">Gehitu kontaktu izen pertsonalizatua</string>
     <string name="error_name_cannot_be_blank">Izena ezin da hutsik egon</string>
+    <!-- Generative AI -->
+    <!--New UI Related-->
+    <!-- Main Screen Titles -->
+    <!-- AI Reply Text -->
+    <!-- Toggle and Buttons -->
+    <!-- Filter Items -->
+    <!-- Cooldown units -->
+    <!-- Authentication -->
+    <!-- Contact-based replies UI -->
 </resources>

@@ -10,8 +10,6 @@
 
     <!-- Query other apps (needed for Android 11+) -->
     <queries>
-
-        <!-- Specific apps Watomatic interacts with. Required for Android 11+ -->
         <package android:name="com.whatsapp" />
         <package android:name="com.facebook.orca" />
         <package android:name="com.facebook.mlite" />
@@ -95,6 +93,8 @@
                 android:name="android.service.notification.disabled_filter_types"
                 android:value="ongoing|silent" />
         </service>
+
+        <!-- Receiver to restart after boot -->
 
         <service
             android:name=".service.ReplyService"
