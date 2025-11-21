@@ -60,7 +60,7 @@
             android:name=".activity.contactselector.ContactSelectorActivity"
             android:exported="false"
             android:label="@string/contact_selector"
-            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity" />
+             />
         <activity
             android:name=".activity.notification.NotificationIntentActivity"
             android:exported="false"
@@ -78,7 +78,7 @@
 
         <!-- Notification Listener Service -->
         <service
-            android:name=".NotificationService"
+            android:name=".service.NotificationService"
             android:exported="true"
             android:label="@string/service_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
