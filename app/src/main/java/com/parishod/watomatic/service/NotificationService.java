@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.NotificationWear;
+import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.network.OpenAIService;
 import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
@@ -124,7 +125,7 @@ public class NotificationService extends NotificationListenerService {
                 dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn));
                 
                 // Use ReplyService to send the reply in foreground
-                Intent replyServiceIntent = new Intent(this, ReplyService.class);
+                /*Intent replyServiceIntent = new Intent(this, ReplyService.class);
                 replyServiceIntent.putExtra("pendingIntent", notificationWear.getPendingIntent());
                 replyServiceIntent.putExtra("fillInIntent", localIntent);
                 
@@ -138,8 +139,9 @@ public class NotificationService extends NotificationListenerService {
                     Log.e(TAG, "Failed to start ReplyService: " + e.getMessage());
                     // Fallback to direct send if service start fails (though likely to fail for FB)
                     notificationWear.getPendingIntent().send(this, 0, localIntent);
-                }
-                
+                }*/
+
+                notificationWear.getPendingIntent().send(this, 0, localIntent);
                 if (PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
                 }
