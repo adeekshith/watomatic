@@ -164,7 +164,11 @@ public class NotificationService extends NotificationListenerService {
 
         PreferencesManager preferencesManager = PreferencesManager.getPreferencesInstance(this);
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(this); // For fallback
-        String fallbackReplyText = customRepliesData.getTextToSendOrElse();
+        String replyText = customRepliesData.getTextToSendOrElse();
+        if(preferencesManager.isOpenAIRepliesEnabled()){
+            replyText = getString(R.string.auto_reply_default_message);
+        }
+        String fallbackReplyText = replyText; // needs to be final to access in innere class hence one more variable
 
         CharSequence incomingMessageChars = sbn.getNotification().extras.getCharSequence(android.app.Notification.EXTRA_TEXT);
         String incomingMessage = (incomingMessageChars != null) ? incomingMessageChars.toString() : null;
