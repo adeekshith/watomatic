@@ -15,6 +15,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+/*
+* Currently not used, but in future if any app does not support replying from background service we can leverage this
+* */
 public class ReplyService extends Service {
     private static final String TAG = "ReplyService";
     private static final String CHANNEL_ID = "watomatic_reply_channel";
