@@ -15,6 +15,7 @@
         <package android:name="com.facebook.mlite" />
         <package android:name="com.android.vending" />
         <package android:name="com.google.android.feedback" />
+        <package android:name="org.telegram.messenger" />
     </queries>
 
     <application
@@ -60,7 +61,7 @@
             android:name=".activity.contactselector.ContactSelectorActivity"
             android:exported="false"
             android:label="@string/contact_selector"
-            android:parentActivityName=".activity.advancedsettings.AdvancedSettingsActivity" />
+             />
         <activity
             android:name=".activity.notification.NotificationIntentActivity"
             android:exported="false"
@@ -81,7 +82,8 @@
             android:name=".service.NotificationService"
             android:exported="true"
             android:label="@string/service_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            >
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
@@ -92,6 +94,13 @@
                 android:name="android.service.notification.disabled_filter_types"
                 android:value="ongoing|silent" />
         </service>
+
+        <!-- Receiver to restart after boot -->
+
+        <!--<service
+            android:name=".service.ReplyService"
+            android:exported="false"
+            android:foregroundServiceType="shortService" />-->
 
         <!-- Receiver to restart after boot -->
         <receiver

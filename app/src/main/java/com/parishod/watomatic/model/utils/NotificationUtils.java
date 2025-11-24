@@ -68,18 +68,55 @@ public class NotificationUtils {
     public static NotificationWear extractWearNotification(StatusBarNotification statusBarNotification) {
         //Should work for communicators such:"com.whatsapp", "com.facebook.orca", "com.google.android.talk", "jp.naver.line.android", "org.telegram.messenger"
 
+        List<NotificationCompat.Action> actions = new ArrayList<>();
+        
+        // 1. Check standard actions FIRST (more reliable for phone apps like Messenger)
+        int actionCount = NotificationCompat.getActionCount(statusBarNotification.getNotification());
+        for (int i = 0; i < actionCount; i++) {
+            actions.add(NotificationCompat.getAction(statusBarNotification.getNotification(), i));
+        }
+        
+        // 2. Check WearableExtender actions SECOND
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender(statusBarNotification.getNotification());
-        List<NotificationCompat.Action> actions = wearableExtender.getActions();
-        List<RemoteInput> remoteInputs = new ArrayList<>(actions.size());
+        actions.addAll(wearableExtender.getActions());
+
+        List<RemoteInput> remoteInputs = new ArrayList<>();
         PendingIntent pendingIntent = null;
+        
+        // Strategy: Look for the best action.
+        // Priority 1: Action with RemoteInput AND title containing "Reply"
+        // Priority 2: Action with RemoteInput (first one found if no "Reply" title match)
+        
+        NotificationCompat.Action bestAction = null;
+        RemoteInput bestRemoteInput = null;
+
         for (NotificationCompat.Action act : actions) {
             if (act != null && act.getRemoteInputs() != null) {
                 for (int x = 0; x < act.getRemoteInputs().length; x++) {
                     RemoteInput remoteInput = act.getRemoteInputs()[x];
-                    remoteInputs.add(remoteInput);
-                    pendingIntent = act.actionIntent;
+                    if(remoteInput.getAllowFreeFormInput()) {
+                        // Found a candidate
+                        if (bestAction == null) {
+                            bestAction = act;
+                            bestRemoteInput = remoteInput;
+                        } else {
+                            // If we already have a candidate, check if this one is better (has "Reply" in title)
+                            boolean currentHasReply = act.getTitle() != null && act.getTitle().toString().toLowerCase().contains("reply");
+                            boolean bestHasReply = bestAction.getTitle() != null && bestAction.getTitle().toString().toLowerCase().contains("reply");
+                            
+                            if (currentHasReply && !bestHasReply) {
+                                bestAction = act;
+                                bestRemoteInput = remoteInput;
+                            }
+                        }
+                    }
                 }
             }
+        }
+
+        if (bestAction != null && bestRemoteInput != null) {
+            remoteInputs.add(bestRemoteInput);
+            pendingIntent = bestAction.actionIntent;
         }
 
         return new NotificationWear(
