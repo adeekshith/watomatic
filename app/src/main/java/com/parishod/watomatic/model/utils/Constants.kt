@@ -43,7 +43,6 @@ object Constants {
         App("WhatsApp", "com.whatsapp"),
         App("Facebook Messenger", "com.facebook.orca"),
         App("Facebook Messenger Lite", "com.facebook.mlite"),
-        //App("Google Meet/Duo", "com.google.android.talk"),
         App("Telegram", "org.telegram.messenger"),
     )
 

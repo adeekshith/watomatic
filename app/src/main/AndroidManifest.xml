@@ -15,7 +15,6 @@
         <package android:name="com.facebook.mlite" />
         <package android:name="com.android.vending" />
         <package android:name="com.google.android.feedback" />
-        <package android:name="com.google.android.talk" />
         <package android:name="org.telegram.messenger" />
     </queries>
 
