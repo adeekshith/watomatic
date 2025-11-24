@@ -40,9 +40,11 @@ object Constants {
      */
     @JvmField
     val SUPPORTED_APPS: Set<App> = setOf(
-            App("WhatsApp", "com.whatsapp"),
-            App("Facebook Messenger", "com.facebook.orca"),
-            // App("Facebook Messenger Lite", "com.facebook.mlite"),
+        App("WhatsApp", "com.whatsapp"),
+        App("Facebook Messenger", "com.facebook.orca"),
+        App("Facebook Messenger Lite", "com.facebook.mlite"),
+        //App("Google Meet/Duo", "com.google.android.talk"),
+        App("Telegram", "org.telegram.messenger"),
     )
 
     const val MIN_DAYS = 0
