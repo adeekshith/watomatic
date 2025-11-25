@@ -31,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
+import com.parishod.watomatic.activity.subscription.SubscriptionInfoActivity
+import com.parishod.watomatic.flavor.FlavorNavigator
 // Ensure TextInputLayout is imported if not using fully qualified name,
 // or use fully qualified name as in the original snippet for layout.
 // For consistency with original dialog code, will use fully qualified name for TextInputLayout constructor.
@@ -127,10 +129,28 @@ class CustomReplyEditorActivity : BaseActivity() {
         // Initial UI state
         updateAICardsVisibility()
 
+        // Set up click listener for Automatic AI Provider card
+        automaticAiProviderCard?.setOnClickListener {
+            handleAutomaticAiProviderClick()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun handleAutomaticAiProviderClick() {
+        val isLoggedIn = preferencesManager?.isLoggedIn ?: false
+
+        if (!isLoggedIn) {
+            // User is not logged in, navigate to Login screen
+            FlavorNavigator.startLogin(this)
+        } else {
+            // User is logged in, navigate to Subscription Info screen
+            val intent = Intent(this, SubscriptionInfoActivity::class.java)
+            startActivity(intent)
         }
     }
 

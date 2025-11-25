@@ -76,6 +76,11 @@
             android:exported="false"
             android:label="@string/donations_activity_title"
             android:parentActivityName=".activity.main.MainActivity" />
+        <activity
+            android:name=".activity.subscription.SubscriptionInfoActivity"
+            android:exported="false"
+            android:label="@string/subscription_info_title"
+            android:parentActivityName=".activity.customreplyeditor.CustomReplyEditorActivity" />
 
         <!-- Notification Listener Service -->
         <service
