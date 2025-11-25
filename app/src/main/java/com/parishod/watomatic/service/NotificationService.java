@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.NotificationWear;
+import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.network.OpenAIService;
 import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
@@ -32,6 +33,7 @@ import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
+import com.parishod.watomatic.service.ReplyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,25 +103,44 @@ public class NotificationService extends NotificationListenerService {
     private void sendActualReply(StatusBarNotification sbn, NotificationWear notificationWear, String replyText) {
         // customRepliesData = CustomRepliesData.getInstance(this); // Initialize if other methods from it are needed beyond replyText
 
-        RemoteInput[] remoteInputs = new RemoteInput[notificationWear.getRemoteInputs().size()];
-
+        RemoteInput finalRemoteIn = null;
         Intent localIntent = new Intent();
-        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         Bundle localBundle = new Bundle(); // notificationWear.bundle;
-        int i = 0;
         for (RemoteInput remoteIn : notificationWear.getRemoteInputs()) {
-            remoteInputs[i] = remoteIn;
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), replyText);
-            i++;
+            if(remoteIn.getAllowFreeFormInput()) {
+                finalRemoteIn = remoteIn;
+                localBundle.putCharSequence(finalRemoteIn.getResultKey(), replyText);
+                break;
+            }
         }
 
-        RemoteInput.addResultsToIntent(remoteInputs, localIntent, localBundle);
+        if(finalRemoteIn == null ) return;
+            RemoteInput.addResultsToIntent(new RemoteInput[]{ finalRemoteIn }, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
                 if (dbUtils == null) {
                     dbUtils = new DbUtils(getApplicationContext());
                 }
                 dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn));
+                
+                // Use ReplyService to send the reply in foreground
+                /*Intent replyServiceIntent = new Intent(this, ReplyService.class);
+                replyServiceIntent.putExtra("pendingIntent", notificationWear.getPendingIntent());
+                replyServiceIntent.putExtra("fillInIntent", localIntent);
+                
+                try {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        startForegroundService(replyServiceIntent);
+                    } else {
+                        startService(replyServiceIntent);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to start ReplyService: " + e.getMessage());
+                    // Fallback to direct send if service start fails (though likely to fail for FB)
+                    notificationWear.getPendingIntent().send(this, 0, localIntent);
+                }*/
+
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 if (PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
@@ -143,7 +164,11 @@ public class NotificationService extends NotificationListenerService {
 
         PreferencesManager preferencesManager = PreferencesManager.getPreferencesInstance(this);
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(this); // For fallback
-        String fallbackReplyText = customRepliesData.getTextToSendOrElse();
+        String replyText = customRepliesData.getTextToSendOrElse();
+        if(preferencesManager.isOpenAIRepliesEnabled()){
+            replyText = getString(R.string.auto_reply_default_message);
+        }
+        String fallbackReplyText = replyText; // needs to be final to access in innere class hence one more variable
 
         CharSequence incomingMessageChars = sbn.getNotification().extras.getCharSequence(android.app.Notification.EXTRA_TEXT);
         String incomingMessage = (incomingMessageChars != null) ? incomingMessageChars.toString() : null;

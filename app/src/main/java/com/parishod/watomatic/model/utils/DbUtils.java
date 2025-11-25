@@ -39,6 +39,9 @@ public class DbUtils {
     }
 
     public long getLastRepliedTime(String packageName, String title) {
+        if (title == null) {
+            return 0;
+        }
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getLastReplyTimeStamp(title, packageName);
     }
