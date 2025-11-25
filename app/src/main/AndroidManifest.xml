@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_NOTIFICATION_CONVERSATIONS" />
+
 
     <!-- Query other apps (needed for Android 11+) -->
     <queries>
@@ -16,6 +18,7 @@
         <package android:name="com.android.vending" />
         <package android:name="com.google.android.feedback" />
         <package android:name="org.telegram.messenger" />
+        <package android:name="com.linkedin.android" />
     </queries>
 
     <application

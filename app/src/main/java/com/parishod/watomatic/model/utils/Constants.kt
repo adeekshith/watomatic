@@ -44,6 +44,7 @@ object Constants {
         App("Facebook Messenger", "com.facebook.orca"),
         App("Facebook Messenger Lite", "com.facebook.mlite"),
         App("Telegram", "org.telegram.messenger"),
+        App("LinkedIn", "com.linkedin.android"),
     )
 
     const val MIN_DAYS = 0
