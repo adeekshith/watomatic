@@ -70,11 +70,6 @@
             android:exported="false"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.enabledapps.EnabledAppsActivity"
-            android:exported="false"
-            android:label="@string/enabled_apps_title"
-            android:parentActivityName=".activity.main.MainActivity" />
-        <activity
             android:name=".activity.donation.DonationActivity"
             android:exported="false"
             android:label="@string/donations_activity_title"
