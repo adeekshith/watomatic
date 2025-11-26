@@ -8,7 +8,8 @@ data class AppItem(
     val iconRes: Int,
     val name: String,
     val packageName: String,
-    val isEnabled: Boolean = false
+    val isEnabled: Boolean = false,
+    val isExperimental: Boolean = false
 ) : DialogItem
 
 @Parcelize
