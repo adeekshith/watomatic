@@ -669,7 +669,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
         // Add experimental apps section
         if (!experimentalApps.isEmpty()) {
-            dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.SectionHeader("Experimental"));
+            dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.SectionHeader(getString(R.string.experimental)));
             for (AppItem app : experimentalApps) {
                 dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.AppItemWrapper(app));
             }
