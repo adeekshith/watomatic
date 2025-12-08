@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.parishod.watomatic.R
@@ -74,16 +75,22 @@ class AppsAdapter(
                 }
                 if(icon != null){
                     appHolder.icon.setImageDrawable(icon)
+                    appHolder.toggle.isChecked = PreferencesManager.getPreferencesInstance(appHolder.icon.context).isAppEnabled(appItem.packageName)
+
+                    appHolder.toggle.setOnCheckedChangeListener { _, isChecked ->
+                        PreferencesManager.getPreferencesInstance(appHolder.icon.context).saveEnabledApps(appItem.packageName, isChecked)
+                        onToggle(position, isChecked)
+                    }
                 }else {
                     appHolder.icon.setImageResource(appItem.iconRes)
+                    appHolder.toggle.isChecked = false
+                    appHolder.itemView.setOnClickListener {
+                        Toast.makeText(appHolder.itemView.context, "App not installed", Toast.LENGTH_SHORT).show()
+                    }
+                    appHolder.toggle.isEnabled = false
                 }
                 appHolder.name.text = appItem.name
-                appHolder.toggle.isChecked = PreferencesManager.getPreferencesInstance(appHolder.icon.context).isAppEnabled(appItem.packageName)
 
-                appHolder.toggle.setOnCheckedChangeListener { _, isChecked ->
-                    PreferencesManager.getPreferencesInstance(appHolder.icon.context).saveEnabledApps(appItem.packageName, isChecked)
-                    onToggle(position, isChecked)
-                }
             }
         }
     }
