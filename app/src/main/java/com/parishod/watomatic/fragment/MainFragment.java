@@ -640,16 +640,39 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private void showAppsDialog() {
 
         Set<App> supportedApps = Constants.SUPPORTED_APPS;
-        List<AppItem> appItems = new ArrayList<>();
+        List<com.parishod.watomatic.model.data.DialogListItem> dialogItems = new ArrayList<>();
+        List<AppItem> regularApps = new ArrayList<>();
+        List<AppItem> experimentalApps = new ArrayList<>();
 
+        // Separate apps into regular and experimental
         for (App app : supportedApps) {
             AppItem item = new AppItem(
                     R.drawable.ic_android_default_round,
                     app.getName(),
                     app.getPackageName(),
-                    app.getPackageName().equals("com.whatsapp") ? true : false
+                    app.getPackageName().equals("com.whatsapp") ? true : false,
+                    app.isExperimental()
             );
-            appItems.add(item);
+            if (app.isExperimental()) {
+                experimentalApps.add(item);
+            } else {
+                regularApps.add(item);
+            }
+        }
+
+        // Add regular apps section
+        if (!regularApps.isEmpty()) {
+            for (AppItem app : regularApps) {
+                dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.AppItemWrapper(app));
+            }
+        }
+
+        // Add experimental apps section
+        if (!experimentalApps.isEmpty()) {
+            dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.SectionHeader(getString(R.string.experimental)));
+            for (AppItem app : experimentalApps) {
+                dialogItems.add(new com.parishod.watomatic.model.data.DialogListItem.AppItemWrapper(app));
+            }
         }
 
         DialogConfig config = new DialogConfig(
@@ -659,7 +682,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 false, // showSearch
                 "Search",
                 "",
-                appItems
+                dialogItems
         );
 
         UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity, config);

@@ -156,7 +156,7 @@ class UniversalDialogFragment(val mContext: Context) : DialogFragment() {
 
     private fun createAdapter(config: DialogConfig): RecyclerView.Adapter<*> {
         return when (config.dialogType) {
-            DialogType.APPS -> AppsAdapter(config.items as List<AppItem>) { position, isChecked ->
+            DialogType.APPS -> AppsAdapter(config.items as List<com.parishod.watomatic.model.data.DialogListItem>) { position, isChecked ->
                 actionListener?.onItemToggled(position, isChecked)
             }
             DialogType.MESSAGE_TYPE -> MessageTypeAdapter(config.items as List<MessageTypeItem>) { position, isSelected ->
