@@ -5,49 +5,36 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.widget.Button
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.parishod.watomatic.R
-import com.parishod.watomatic.activity.BaseActivity
-import com.parishod.watomatic.model.CustomRepliesData
-import com.parishod.watomatic.model.preferences.PreferencesManager
-import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 import android.widget.CheckBox
-import android.widget.Spinner
-import android.widget.ArrayAdapter
-import android.view.View
 import android.widget.TextView
-import com.google.android.material.appbar.MaterialToolbar
-
-
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import com.parishod.watomatic.model.utils.OpenAIHelper
-import com.parishod.watomatic.network.model.openai.ModelData
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import android.app.AlertDialog
-import android.os.Handler
-import android.os.Looper
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textfield.TextInputEditText
+import com.parishod.watomatic.R
+import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.activity.subscription.SubscriptionInfoActivity
 import com.parishod.watomatic.flavor.FlavorNavigator
-import androidx.activity.result.contract.ActivityResultContracts
-import android.widget.Toast
-// Ensure TextInputLayout is imported if not using fully qualified name,
-// or use fully qualified name as in the original snippet for layout.
-// For consistency with original dialog code, will use fully qualified name for TextInputLayout constructor.
+import com.parishod.watomatic.model.CustomRepliesData
+import com.parishod.watomatic.model.preferences.PreferencesManager
+import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
 class CustomReplyEditorActivity : BaseActivity() {
     private var autoReplyText: TextInputEditText? = null
     private var saveAutoReplyTextBtn: Button? = null
     private var customRepliesData: CustomRepliesData? = null
     private var preferencesManager: PreferencesManager? = null
-    private var watoMessageLinkBtn: Button? = null
+    private var watoMessageLinkBtn: TextView? = null
     private var enableAIRepliesCheckbox: CheckBox? = null
-    private var automaticAiProviderCard: View? = null
-    private var otherAiProviderCard: View? = null
+    private var automaticAiProviderCard: MaterialCardView? = null
+    private var otherAiProviderCard: MaterialCardView? = null
 
     private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -66,6 +53,7 @@ class CustomReplyEditorActivity : BaseActivity() {
                 if (baseUrl != null) preferencesManager?.saveCustomOpenAIApiUrl(baseUrl)
 
                 Toast.makeText(this, "AI Configuration Saved", Toast.LENGTH_SHORT).show()
+                updateAIState()
             }
         }
     }
@@ -129,28 +117,14 @@ class CustomReplyEditorActivity : BaseActivity() {
             )
         }
 
-        // Load initial state
-        val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
-        autoReplyText?.isEnabled = !isAIEnabled
-        enableAIRepliesCheckbox?.isChecked = isAIEnabled
-        automaticAiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
-        otherAiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
-
-        fun updateAICardsVisibility() {
-            val isAIEnabled = enableAIRepliesCheckbox?.isChecked ?: false
-            automaticAiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
-            otherAiProviderCard?.visibility = if (isAIEnabled) View.VISIBLE else View.GONE
-        }
-
         // Toggle AI enable/disable
         enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, ischecked ->
             preferencesManager?.setEnableOpenAIReplies(ischecked)
-            autoReplyText?.isEnabled = !ischecked
-            updateAICardsVisibility()
+            updateAIState()
         }
 
         // Initial UI state
-        updateAICardsVisibility()
+        updateAIState()
 
         // Set up click listener for Automatic AI Provider card
         automaticAiProviderCard?.setOnClickListener {
@@ -167,6 +141,57 @@ class CustomReplyEditorActivity : BaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateAIState()
+    }
+
+    private fun updateAIState() {
+        val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
+        
+        // Update Checkbox state if needed (e.g. onResume)
+        if (enableAIRepliesCheckbox?.isChecked != isAIEnabled) {
+            enableAIRepliesCheckbox?.isChecked = isAIEnabled
+        }
+        
+        autoReplyText?.isEnabled = !isAIEnabled
+
+        // Handle Cards Visual State
+        val alpha = if (isAIEnabled) 1.0f else 0.5f
+        automaticAiProviderCard?.alpha = alpha
+        otherAiProviderCard?.alpha = alpha
+        
+        automaticAiProviderCard?.isEnabled = isAIEnabled
+        otherAiProviderCard?.isEnabled = isAIEnabled
+
+        // Handle Selection State
+        // Heuristic: If API Key is present, Other AI is selected. Otherwise Automatic AI.
+        val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty()
+        val isOtherSelected = hasApiKey
+        val isAutomaticSelected = !hasApiKey
+
+        val selectedStrokeWidth = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 
+            2f, 
+            resources.displayMetrics
+        ).toInt()
+        
+        val unselectedStrokeWidth = 0
+        val selectedStrokeColor = getThemeColor(androidx.appcompat.R.attr.colorPrimary)
+
+        automaticAiProviderCard?.strokeWidth = if (isAutomaticSelected && isAIEnabled) selectedStrokeWidth else unselectedStrokeWidth
+        automaticAiProviderCard?.strokeColor = selectedStrokeColor
+
+        otherAiProviderCard?.strokeWidth = if (isOtherSelected && isAIEnabled) selectedStrokeWidth else unselectedStrokeWidth
+        otherAiProviderCard?.strokeColor = selectedStrokeColor
+    }
+
+    private fun getThemeColor(attr: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 
     private fun handleAutomaticAiProviderClick() {

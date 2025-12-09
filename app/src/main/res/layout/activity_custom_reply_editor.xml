@@ -8,7 +8,9 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -35,12 +37,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Card 1: Auto reply text, Enable AI toggle -->
+            <!-- Auto Reply Text Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/unselected_option_background"
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
@@ -53,9 +57,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mainAutoReplyLabel"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:textColor="?android:textColorPrimary"
-                        android:layout_marginBottom="8dp" />
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="?android:textColorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/autoReplyTextInputLayout"
@@ -64,85 +68,115 @@
                         app:counterEnabled="true"
                         app:counterMaxLength="500"
                         app:endIconMode="clear_text"
+                        app:boxBackgroundMode="outline"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/autoReplyTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="80dp"
+                            android:minHeight="100dp"
+                            android:gravity="top|start"
                             android:hint="@string/mainAutoReplyTextPlaceholder" />
                     </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                    <CheckBox
-                        android:id="@+id/enable_ai_replies_checkbox"
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <!-- Enable AI Toggle Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <CheckBox
+                    android:id="@+id/enable_ai_replies_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="-4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pref_enable_openai_replies_title"
-                        android:layout_marginTop="12dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/ai_explainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/use_an_llm_like_openai_to_generate_smart_responses"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:textColorSecondary"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginBottom="0dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-            <!-- Card 2: Atomatic AI PROVIDER (LLM) -->
+            <!-- Automatic AI Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/automatic_ai_provider_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="16dp"
-                android:layout_marginBottom="16dp">
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/unselected_option_background"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3"
-                    android:padding="16dp">
-
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Automatic AI"
+                        android:textSize="16sp"
+                        android:textColor="?android:textColorPrimary" />
+
+                    <TextView
+                        android:id="@+id/automatic_ai_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Automatic AI"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:textColor="?android:textColorPrimary"
-                        android:layout_weight="2.5"/>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/automatic_ai_tag"
-                        android:layout_width="5dp"
-                        android:layout_height="25dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="@drawable/bg_badge_paid"
                         android:text="Paid"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:layout_weight="0.5"
-                        />
-
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 3: Other AI PROVIDER (LLM) -->
+            <!-- Other AI Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/other_ai_provider_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="16dp"
-                android:layout_marginBottom="16dp">
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/unselected_option_background"
+                android:layout_marginBottom="32dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,42 +188,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:gravity="center_vertical">
+
                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Other AI LLM's"
+                            android:textSize="16sp"
+                            android:textColor="?android:textColorPrimary" />
+
+                        <TextView
+                            android:id="@+id/other_ai_tag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Other AI LLM's"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                            android:textColor="?android:textColorPrimary"
-                            android:layout_weight="2.5"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/other_ai_tag"
-                            android:layout_width="5dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/holo_green_dark"
+                            android:background="@drawable/bg_badge_free"
                             android:text="Free"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:layout_weight="0.5"
-                            />
-
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/other_ai_provider_desc"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="12dp"
-                        android:background="@android:color/transparent"
                         android:text="(Use your own key)"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="14sp"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <!-- Save Button -->
             <Button
@@ -197,20 +232,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp" />
+                android:paddingVertical="12dp"
+                app:cornerRadius="24dp"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Optionally: Wato Message Link -->
-            <Button
+            <!-- Templates Link -->
+            <TextView
                 android:id="@+id/tip_wato_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackground"
                 android:text="@string/tip_view_messages_from_fellow_users"
-                android:textAllCaps="false"
-                android:textColor="?attr/colorControlNormal"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp" />
+                android:gravity="center"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:selectableItemBackground"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
