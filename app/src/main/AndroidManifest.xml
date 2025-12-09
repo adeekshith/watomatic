@@ -80,6 +80,12 @@
             android:label="@string/subscription_info_title"
             android:parentActivityName=".activity.customreplyeditor.CustomReplyEditorActivity" />
 
+        <activity
+            android:name=".activity.customreplyeditor.OtherAiConfigurationActivity"
+            android:exported="false"
+            android:label="AI Configuration"
+            android:parentActivityName=".activity.customreplyeditor.CustomReplyEditorActivity" />
+
         <!-- Notification Listener Service -->
         <service
             android:name=".service.NotificationService"

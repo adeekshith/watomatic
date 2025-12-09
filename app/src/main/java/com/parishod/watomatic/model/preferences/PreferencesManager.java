@@ -454,7 +454,7 @@ public class PreferencesManager {
     }
 
     public String getSelectedOpenAIModel() {
-        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, "gpt-3.5-turbo"); // Default to "gpt-3.5-turbo"
+        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, null); // Default to null so UI can show "Select Model"
     }
 
     // Generic getString and saveString for other preferences if needed by GeneralSettingsFragment temporarily
@@ -493,6 +493,12 @@ public class PreferencesManager {
 
     public String getOpenAICustomPrompt() {
         return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_PROMPT, null);
+    }
+
+    public void saveOpenAICustomPrompt(String prompt) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_CUSTOM_PROMPT, prompt);
+        editor.apply();
     }
 
     public boolean isLoggedIn() {

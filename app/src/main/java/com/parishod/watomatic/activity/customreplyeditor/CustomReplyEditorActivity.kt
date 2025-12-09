@@ -33,6 +33,8 @@ import android.os.Handler
 import android.os.Looper
 import com.parishod.watomatic.activity.subscription.SubscriptionInfoActivity
 import com.parishod.watomatic.flavor.FlavorNavigator
+import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 // Ensure TextInputLayout is imported if not using fully qualified name,
 // or use fully qualified name as in the original snippet for layout.
 // For consistency with original dialog code, will use fully qualified name for TextInputLayout constructor.
@@ -46,6 +48,27 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var enableAIRepliesCheckbox: CheckBox? = null
     private var automaticAiProviderCard: View? = null
     private var otherAiProviderCard: View? = null
+
+    private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data
+            if (data != null) {
+                val provider = data.getStringExtra("provider")
+                val apiKey = data.getStringExtra("apiKey")
+                val model = data.getStringExtra("model")
+                val systemPrompt = data.getStringExtra("systemPrompt")
+                val baseUrl = data.getStringExtra("baseUrl")
+
+                if (apiKey != null) preferencesManager?.saveOpenAIApiKey(apiKey)
+                if (provider != null) preferencesManager?.saveOpenApiSource(provider)
+                if (model != null) preferencesManager?.saveSelectedOpenAIModel(model)
+                if (systemPrompt != null) preferencesManager?.saveOpenAICustomPrompt(systemPrompt)
+                if (baseUrl != null) preferencesManager?.saveCustomOpenAIApiUrl(baseUrl)
+
+                Toast.makeText(this, "AI Configuration Saved", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,6 +155,11 @@ class CustomReplyEditorActivity : BaseActivity() {
         // Set up click listener for Automatic AI Provider card
         automaticAiProviderCard?.setOnClickListener {
             handleAutomaticAiProviderClick()
+        }
+
+        otherAiProviderCard?.setOnClickListener {
+            val intent = Intent(this, OtherAiConfigurationActivity::class.java)
+            otherAiConfigLauncher.launch(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
