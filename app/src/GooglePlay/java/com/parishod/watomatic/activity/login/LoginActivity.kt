@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -148,6 +149,17 @@ class LoginActivity : BaseActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 checkAndSendEmailVerification(it.user)
+                it.user?.getIdToken(true)?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val idToken = task.result?.token
+                            // Use the token here
+                            Log.d("firebase","Firebase ID Token: $idToken")
+                            preferencesManager.firebaseToken = idToken
+                        } else {
+                            // Handle error
+                            task.exception?.printStackTrace()
+                        }
+                    }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, getString(R.string.authentication_failed_with_message, exception.message),
@@ -228,6 +240,17 @@ class LoginActivity : BaseActivity() {
                     if (user.isEmailVerified) {
                         Toast.makeText(this, getString(R.string.email_verified), Toast.LENGTH_SHORT).show()
                         user.email?.let { handleSuccessfulAuth(it) }
+                        user?.getIdToken(true)?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val idToken = task.result?.token
+                                // Use the token here
+                                Log.d("firebase","Firebase ID Token: $idToken")
+                                preferencesManager.firebaseToken = idToken
+                            } else {
+                                // Handle error
+                                task.exception?.printStackTrace()
+                            }
+                        }
                     } else {
                         Toast.makeText(this, getString(R.string.email_not_verified_yet), Toast.LENGTH_SHORT).show()
                         showVerificationDialog(user)

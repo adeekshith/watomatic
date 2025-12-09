@@ -34,5 +34,6 @@ object FlavorNavigator {
         preferencesManager.setLoggedIn(false)
         preferencesManager.setGuestMode(false)
         preferencesManager.setUserEmail("")
+        preferencesManager.firebaseToken = ""
     }
 }

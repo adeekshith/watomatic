@@ -328,4 +328,26 @@
     <string name="failed_to_resend_email">Failed to resend email: %s</string>
     <string name="authentication_failed_with_message">Authentication failed: %s</string>
     <string name="experimental">Experimental</string>
+
+    <!-- Subscription Info -->
+    <string name="subscription_info_title">Custom AI Setup</string>
+    <string name="subscription_premium_feature_title">Premium Feature Locked</string>
+    <string name="subscription_premium_feature_description">Subscribe to unlock personalized AI replies that sound just like you.</string>
+    <string name="subscription_features_title">Replies That Sound Just Like You</string>
+    <string name="subscription_feature_personalized_tone">Personalized tone training</string>
+    <string name="subscription_feature_context_aware">Context-aware replies</string>
+    <string name="subscription_feature_priority_support">Priority support</string>
+    <string name="subscription_choose_plan">Choose Your Plan</string>
+    <string name="subscription_monthly_plan">Monthly</string>
+    <string name="subscription_monthly_price">$9.99/month</string>
+    <string name="subscription_annual_plan">Annual</string>
+    <string name="subscription_annual_price">$99.99/year</string>
+    <string name="subscription_annual_savings">Save $20 annually</string>
+    <string name="subscription_most_popular">Most Popular</string>
+    <string name="subscription_all_features_included">All features included</string>
+    <string name="subscription_subscribe_button">Choose Plan &amp; Continue</string>
+    <string name="subscription_restore_purchases">Restore Purchases</string>
+    <string name="subscription_terms_conditions">Terms &amp; Conditions</string>
+    <string name="subscription_status_no_subscription">No active subscription</string>
+    <string name="subscription_status_logged_in">Logged in as: %s</string>
 </resources>
