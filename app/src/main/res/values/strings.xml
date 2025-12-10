@@ -350,4 +350,5 @@
     <string name="subscription_terms_conditions">Terms &amp; Conditions</string>
     <string name="subscription_status_no_subscription">No active subscription</string>
     <string name="subscription_status_logged_in">Logged in as: %s</string>
+    <string name="configure_other_ai_llm_s_info">Configure Other AI LLM\'s to use AI Auto-Replies</string>
 </resources>

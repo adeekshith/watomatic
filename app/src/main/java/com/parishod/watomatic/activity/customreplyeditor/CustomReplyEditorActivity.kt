@@ -186,6 +186,11 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         otherAiProviderCard?.strokeWidth = if (isOtherSelected && isAIEnabled) selectedStrokeWidth else unselectedStrokeWidth
         otherAiProviderCard?.strokeColor = selectedStrokeColor
+
+        if(!hasApiKey){
+            Toast.makeText(this,
+                getString(R.string.configure_other_ai_llm_s_info), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun getThemeColor(attr: Int): Int {
