@@ -53,4 +53,13 @@ object Constants {
     const val EMAIL_ADDRESS = "watomatic@deekshith.in"
     const val EMAIL_SUBJECT = "Watomatic-Feedback"
     const val TELEGRAM_URL = "tg://resolve?domain=watomatic"
+
+    val PROVIDER_URLS = mapOf(
+        "OpenAI" to "https://api.openai.com/",
+        "Claude" to "https://api.anthropic.com/",
+        "Grok" to "https://api.x.ai/",
+        "Gemini" to "https://generativelanguage.googleapis.com/",
+        "DeepSeek" to "https://api.deepseek.com/",
+        "Mistral" to "https://api.mistral.ai/"
+    )
 }
