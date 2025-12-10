@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.preferences.PreferencesManager
+import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.network.OpenAIService
 import com.parishod.watomatic.network.RetrofitInstance
 import com.parishod.watomatic.network.model.openai.OpenAIModelsResponse
@@ -33,14 +34,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
     private lateinit var systemPromptInput: TextInputEditText
 
     private val providers = listOf("OpenAI", "Claude", "Grok", "Gemini", "DeepSeek", "Mistral", "Custom")
-    private val providerUrls = mapOf(
-        "OpenAI" to "https://api.openai.com/",
-        "Claude" to "https://api.anthropic.com/",
-        "Grok" to "https://api.x.ai/",
-        "Gemini" to "https://generativelanguage.googleapis.com/",
-        "DeepSeek" to "https://api.deepseek.com/",
-        "Mistral" to "https://api.mistral.ai/"
-    )
+    private val providerUrls = Constants.PROVIDER_URLS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
