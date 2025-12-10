@@ -37,34 +37,219 @@
     <!-- Custom message editor -->
     <string name="save">Salva</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Visualizza i modelli della community e condividi anche il tuo ➚</u></string>
-    <string name="append_watomatic_arribution_checkbox_label">Aggiungi il riferimento a Watomatic per far sapere agli altri questa app</string>
+    <string name="append_watomatic_arribution_checkbox_label">Aggiungi l\'attribuzione a Watomatic per far sapere agli altri questa app</string>
     <string name="sent_using_Watomatic">Inviato con watomatic.app</string>
     <string name="share_app_text">Sto usando Watomatic per staccarmi da WhatsApp. Provalo pure tu: watomatic.app</string>
     <string name="share">Condividi</string>
     <string name="share_subject">Atomatic: Risposte automatiche per le app di messaggistica</string>
     <string name="watomatic_community_label"><u>Community</u></string>
-    <string name="watomatic_subreddit_label"><u>Discutiamo\nr/watomatic</u></string>
+    <string name="watomatic_subreddit_label"><u>Discutiamone\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Cosa c\'è di nuovo?</string>
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="show_notification_label">Mostra la notifica per i messaggi risposti in automatico</string>
+    <string name="show_notification_label">Mostra notifiche per i messaggi risposti in automatico</string>
+    <string name="preference_category_general_label">Impostazioni generali</string>
+    <string name="preference_category_notifications_label">Notifiche</string>
+    <string name="preference_category_troubleshooting_label">Risoluzione problemi</string>
+    <string name="enable_auto_start_label">Abilita avvio automatico</string>
+    <string name="add_attribution_label">Aggiungi attribuzione</string>
+    <string name="enabled_apps_title">App abilitate</string>
+    <string name="always_on_notification">Notifica sempre attiva</string>
+    <string name="display_persistent_notification_summary">Mostra una notifica persistente per garantire che Watomatic non venga interrotto dal sistema</string>
+    <string name="enable_auto_start_summary">Alcuni dispositivi potrebbero aver bisogno di abilitare manualmente l\'avvio automatico per Watomatic dalle impostazioni del dispositivo</string>
     <!-- Local language names (non translatable) -->
     <!-- Basque -->
     <!-- Language codes (non translatable) -->
     <!-- App Language selection -->
-    <string name="app_language">Lingua Applicazione</string>
+    <string name="app_language">Lingua</string>
     <!-- App Rating Dialog -->
+    <string name="app_rating_dialog_title">Cosa ne pensi?</string>
+    <string name="app_rating_dialog_msg">Siamo interessati a quello che pensi dell\'app. Tocca sulle stelle in alto per valutarlo.</string>
+    <string name="app_rating_dialog_rate_button_title">Valuta!</string>
+    <string name="app_rating_dialog_rate_later_title">Forse dopo</string>
+    <string name="app_rating_goto_store_dialog_title">Ne siamo felici!</string>
+    <string name="app_rating_goto_store_dialog_msg">Condividi questa valutazione della nostra app su Google Play Store toccando \"Continua\"!</string>
+    <string name="app_rating_pitch">Questa app è gratuita, nessuna pubblicità, nessun monitoraggio, open source ed è fatta da contributori come te e me.
+        Il tuo feedback è il nostro unico incoraggiamento.</string>
+    <string name="app_rating_goto_store_dialog_button1_title">Non sono interessato</string>
+    <string name="app_rating_goto_store_dialog_button2_title">Continua</string>
+    <string name="app_rating_feedback_dialog_title">Contattaci</string>
+    <string name="app_rating_feedback_dialog_msg">Facci sapere come possiamo migliorare.</string>
+    <string name="app_rating_feedback_dialog_mail_button_title">Inviaci una email</string>
+    <string name="app_rating_feedback_dialog_telegram_button_title">Telegram</string>
     <!--Autostart Permission Dialog-->
+    <string name="auto_start_permission_dialog_title">Permesso di avvio automatico</string>
+    <string name="running_in_the_background">Esecuzione in background</string>
+    <string name="auto_start_permission_dialog_message">Abilita l\'autorizzazione di \"Avvio automatico\" nelle impostazioni del dispositivo per consentire a Watomatic di avviarsi dopo il suo riavvio.</string>
+    <string name="device_based_settings_message">Nota: le impostazioni possono variare o non essere disponibili in base al tuo dispositivo</string>
+    <string name="setting_not_available_for_device">Questa impostazione non è disponibile o potrebbe non essere necessaria per il tuo dispositivo.</string>
+    <string name="enable_auto_start_setting">Procedi</string>
+    <string name="decline_auto_start_setting">Annulla</string>
+    <string name="app_not_installed_text">Non installato</string>
+    <string name="contact_based_reply">Risposte basate sui contatti</string>
+    <string name="contact_reply_type">Rispondi a</string>
+    <string name="blacklist">Chiunque eccetto i contatti selezionati</string>
+    <string name="whitelist">Nessuno eccetto i contatti selezionati</string>
+    <string name="enable_contact_based_reply">Abilita le risposte basate sui contatti</string>
+    <string name="select_contacts">Seleziona i contatti</string>
+    <string name="contact_selector">Selettore contatti</string>
+    <string name="select_all">Seleziona tutti</string>
+    <string name="select_none">Deseleziona tutto</string>
+    <string name="search">Cerca</string>
+    <string name="contact_permission_dialog_msg">È necessario fornire l\'autorizzazione di accesso ai contatti per accedere a questa funzione. Vuoi proseguire?</string>
+    <string name="contact_permission_dialog_proceed">Prosegui</string>
+    <string name="contact_permission_dialog_cancel">Annulla</string>
+    <string name="undo">Annulla</string>
+    <string name="all_contacts_selected">Tutti i contatti selezionati</string>
+    <string name="all_contacts_unselected">Tutti i contatti deselezionati</string>
+    <string name="donations_activity_title">Donazioni</string>
+    <string name="donations_data_fetch_error">Impossibile recuperare i dati più recenti</string>
+    <string name="donations_goal_title_0">Siamo in difficoltà</string>
+    <string name="donations_goal_0">Ogni centesimo conta per aiutarci a sopravvivere</string>
+    <string name="donations_goal_title_20">Ce la stiamo cavando</string>
+    <string name="donations_goal_20">Manuteniamo giornalmente per aggiornamenti critici</string>
+    <string name="donations_goal_title_30">Siamo stabili</string>
+    <string name="donations_goal_30">Agiamo rapidamente per la risoluzione dei problemi</string>
+    <string name="donations_goal_title_70">Proseguiamo lentamente ma con costanza</string>
+    <string name="donations_goal_70">Aggiungiamo funzioni minori e miglioramenti all\'interfaccia</string>
+    <string name="donations_goal_title_100">Siamo pronti alla partenza</string>
+    <string name="donations_goal_100">Aiutaci a farci diventare una potente app di risposte automatiche con un sacco di funzionalità avanzate</string>
+    <string name="donation_progress_label">dell\'obiettivo mensile</string>
+    <string name="add_custom_contact">Aggiungi un contatto personalizzato</string>
+    <string name="contact_permission_suggestion_dialog_msg">È necessario fornire l\'autorizzazione di accesso ai contatti per accedere a questa funzione. Se non fornito, solo i contatti inseriti manualmente saranno utilizzabili. Vuoi fornirci il consenso?</string>
+    <string name="contact_permission_dialog_enable_permission">Fornisci consenso</string>
+    <string name="contact_permission_dialog_not_now">Non ora</string>
+    <string name="contact_permission_dialog_title">Autorizzazione di accesso ai contatti</string>
+    <string name="delete">Elimina</string>
+    <string name="decrease_frequency">Diminuisci la frequenza</string>
+    <string name="increase_frequency">Aumenta la frequenza</string>
+    <string name="current_donation_progress">Progresso delle donazioni</string>
+    <string name="error_name_cannot_be_blank">Il nome non può essere vuoto</string>
+    <string name="error_name_cannot_be_duplicate">Nome già presente</string>
+    <string name="post_notification_permission_snackbar_text">L\'accesso alle notifiche è richiesto per quest\'app. Abilitala nelle impostazioni.</string>
+    <string name="post_notification_permission_snackbar_setting">Impostazioni</string>
+    <string name="pref_enable_openai_replies_title">Abilita risposte IA</string>
+    <string name="pref_enable_openai_replies_summary">Usa l\'IA per generare risposte intelligentemente</string>
+    <string name="pref_openai_api_key_title">Chiave API</string>
+    <string name="pref_openai_api_key_summary_not_set">Chiave API non impostata</string>
+    <string name="pref_openai_api_key_summary_set">Chiave API impostata</string>
+    <string name="pref_openai_api_key_dialog_title">Inserisci la tua chiave API</string>
+    <string name="pref_openai_api_source_title">Provider API</string>
+    <string name="pref_openai_custom_api_url_title">URL API personalizzata</string>
+    <string name="pref_openai_custom_api_url_summary">Inserisci la tua URL API personalizzata</string>
+    <string name="pref_openai_custom_api_url_dialog_title">URL API personalizzata</string>
+    <string name="set_custom_api_url">Imposta una URL API personalizzata</string>
+    <string name="pref_openai_model_title">Modello</string>
+    <string name="pref_openai_model_summary_default">Seleziona il modello preferito</string>
+    <string name="pref_openai_model_dialog_title">Scegli il modello</string>
+    <string name="pref_openai_model_loading">Caricamento dei modelli...</string>
+    <string name="pref_openai_model_error">Non è stato possibile caricare i modelli. Controlla la chiave API o la tua connessione a Internet.</string>
+    <string name="pref_openai_model_not_set">Nessun modello selezionato</string>
+    <string name="pref_openai_model_no_compatible_found">Nessun modello compatibile trovato. Controlla la tua chiave API o riprova più tardi.</string>
+    <string name="pref_category_openai_status_title">Stato del servizio</string>
+    <string name="pref_openai_status_alert_title">Segnalazioni</string>
+    <string name="pref_openai_status_ok_summary">Nessun problema recente rilevato.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Segnalazione respinta. Riapparirà se il problema si verifica di nuovo.</string>
     <!-- Generative AI -->
+    <string name="generative_ai">IA generativa</string>
+    <string name="enable_generative_ai">Abilita IA generativa</string>
+    <string name="custom_prompt">Richiesta personalizzata</string>
     <!--New UI Related-->
     <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Testo di risposta automatica</string>
+    <string name="filters">Filtri</string>
     <!-- AI Reply Text -->
+    <string name="ai_reply_text">Risposta dall\'IA: \"Ciao! Al momento non sono disponibile, ma ritornerò al più presto possibile.\" (OpenAI)</string>
     <!-- Toggle and Buttons -->
+    <string name="auto_replies_enabled">Risposte automatiche abilitate</string>
+    <string name="edit">Modifica</string>
     <!-- Filter Items -->
+    <string name="contacts">Contatti</string>
+    <string name="all_contacts">Tutti i contatti</string>
+    <string name="no_contacts">Nessuno selezionato</string>
+    <string name="some_contacts">Contatti selezionati</string>
+    <string name="message_type">Tipo di messaggio</string>
+    <string name="direct_messages">Solo messaggi diretti</string>
+    <string name="all_messages">Tutti i messaggi</string>
+    <string name="apps">App</string>
+    <string name="apps_enabled_count">%1$d su %2$d app abilitate</string>
+    <string name="reply_cooldown">Tempo tra risposte</string>
+    <string name="ten_minutes">10 minuti</string>
     <!-- Cooldown units -->
+    <string name="minutes">minuti</string>
+    <string name="hours">ore</string>
+    <string name="minute">minuto</string>
+    <string name="hour">ora</string>
+    <string name="no_cooldown">Sempre</string>
+    <string name="reset_timer">Ripristina</string>
+    <string name="error_invalid_url">Inserisci un\'URL valido iniziante con http:// o https://</string>
+    <string name="use_an_llm_like_openai_to_generate_smart_responses">Usa una LLM come OpenAI per generare risposte intelligenti.</string>
+    <string name="ai_provider_llm">Fornitore IA (LLM)</string>
+    <string name="openai">OpenAI</string>
     <!-- Authentication -->
+    <string name="error_email_required">È richiesta un\'email</string>
+    <string name="error_invalid_email">Indirizzo email non valido</string>
+    <string name="error_password_required">È richiesta una password</string>
+    <string name="error_password_too_short">La password deve essere di almeno 6 caratteri</string>
+    <string name="welcome_message">Benvenuto in Atomatic</string>
+    <string name="login">Accedi</string>
+    <string name="logout">Disconnettiti</string>
+    <string name="profile">Profilo</string>
+    <string name="guest">Ospite</string>
+    <string name="logged_in_as">Connesso come: %1$s</string>
+    <string name="logout_confirmation">Vuoi davvero effettuare la disconnessione?</string>
     <!-- Contact-based replies UI -->
+    <string name="contact_based_replies">Risposte basate sui contatti</string>
+    <string name="reply_to_mode">Modalità risposta</string>
+    <string name="reply_only_selected">Solo contatti selezionati</string>
+    <string name="reply_everyone_except_selected">Chiunque eccetto i selezionati</string>
+    <string name="contact_filter_disabled">Disabilitata</string>
+    <string name="contact_filter_enabled_whitelist">Solo selezionati (%1$d)</string>
+    <string name="contact_filter_enabled_blacklist">Chiunque eccetto i selezionati (%1$d)</string>
+    <string name="account">Profilo</string>
+    <string name="resend_email">Reinvia email</string>
+    <string name="email_verified">Email verificata! 🎉</string>
+    <string name="i_ve_verified">Ho verificato</string>
+    <string name="verify_your_email">Verifica la tua email</string>
     <!-- Login Activity -->
+    <string name="google_sign_in_failed">Accesso a Google non riuscito: %s</string>
+    <string name="authentication_failed">Autenticazione non riuscita</string>
+    <string name="create_new_account">Crea un nuovo account</string>
+    <string name="create_new_account_prompt">Vuoi creare un nuovo account con questa email?\n\n%s</string>
+    <string name="create_account">Crea Account</string>
+    <string name="email_already_registered">Quest\'email è già registrata. Prova ad accedere.</string>
+    <string name="invalid_email_or_password_length">Usa un\'email valida e una password di almeno 6 caratteri</string>
+    <string name="create_account_failed">Creazione dell\'account non riuscita: %s</string>
+    <string name="verification_email_sent">Email di verifica inviata a %s</string>
+    <string name="verification_email_failed">Invio della dell\'email verifica non riuscito: %s</string>
+    <string name="verification_dialog_message">Abbiamo inviato un link di verifica a %s. Controlla la tua casella postale e clicca sul link. Una volta fatto, premi qui sotto.</string>
+    <string name="email_not_verified_yet">Email non ancora verificata, riprova.</string>
+    <string name="verification_check_failed">Controllo della verifica non riuscito: %s</string>
+    <string name="verification_email_resent">Email di verifica inviata nuovamente a %s</string>
+    <string name="failed_to_resend_email">Rinvio dell\'email non riuscito: %s</string>
+    <string name="authentication_failed_with_message">Autenticazione non riuscita: %s</string>
+    <string name="experimental">Sperimentale</string>
     <!-- Subscription Info -->
+    <string name="subscription_info_title">Configurazione IA personalizzata</string>
+    <string name="subscription_premium_feature_title">Funzionalità premium bloccata</string>
+    <string name="subscription_premium_feature_description">Abbonati per sbloccare le risposte personalizzate dalla IA, che risponderà ai tuoi amici proprio come gli risponderesti tu.</string>
+    <string name="subscription_features_title">Risposte personalizzate dalla IA</string>
+    <string name="subscription_feature_personalized_tone">Addestramento tono personalizzato</string>
+    <string name="subscription_feature_context_aware">Risposte basate sul contesto</string>
+    <string name="subscription_feature_priority_support">Priorità sull\'assistenza</string>
+    <string name="subscription_choose_plan">Scegli il tuo piano</string>
+    <string name="subscription_monthly_plan">Mensile</string>
+    <string name="subscription_monthly_price">~9,99€/mese</string>
+    <string name="subscription_annual_plan">Annuale</string>
+    <string name="subscription_annual_price">~99,99€/anno</string>
+    <string name="subscription_annual_savings">Risparmi 20€ annualmente</string>
+    <string name="subscription_most_popular">Più popolare</string>
+    <string name="subscription_all_features_included">Tutte le funzioni incluse</string>
+    <string name="subscription_subscribe_button">Scegli il piano e continua</string>
+    <string name="subscription_restore_purchases">Ripristina acquisti</string>
+    <string name="subscription_terms_conditions">Termini e condizioni</string>
+    <string name="subscription_status_no_subscription">Nessun abbonamento attivo</string>
+    <string name="subscription_status_logged_in">Connesso come: %s</string>
+    <string name="configure_other_ai_llm_s_info">Configura altre LLM per usare le risposte automatiche dalla IA</string>
 </resources>
