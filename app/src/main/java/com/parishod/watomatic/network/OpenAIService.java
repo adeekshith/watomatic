@@ -23,4 +23,18 @@ public interface OpenAIService {
 
     @GET("v1/models")
     Call<OpenAIModelsResponse> getModels(@HeaderMap java.util.Map<String, String> headers);
+
+    @POST
+    Call<com.google.gson.JsonObject> getClaudeCompletion(
+        @retrofit2.http.Url String url,
+        @retrofit2.http.HeaderMap java.util.Map<String, String> headers,
+        @Body com.google.gson.JsonObject requestBody
+    );
+
+    @POST
+    Call<com.google.gson.JsonObject> getGeminiCompletion(
+        @retrofit2.http.Url String url,
+        @retrofit2.http.Query("key") String apiKey,
+        @Body com.google.gson.JsonObject requestBody
+    );
 }
