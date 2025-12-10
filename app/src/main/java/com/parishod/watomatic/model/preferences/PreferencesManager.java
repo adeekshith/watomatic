@@ -56,6 +56,7 @@ public class PreferencesManager {
     private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
     private final String KEY_IS_LOGGED_IN = "pref_is_logged_in";
     private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
+    private final String KEY_FIREBASE_TOKEN = "pref_firebase_token";
     private final String KEY_USER_EMAIL = "pref_user_email";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
@@ -448,7 +449,7 @@ public class PreferencesManager {
     }
 
     public String getSelectedOpenAIModel() {
-        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, "gpt-3.5-turbo"); // Default to "gpt-3.5-turbo"
+        return _sharedPrefs.getString(KEY_OPENAI_SELECTED_MODEL, null); // Default to null so UI can show "Select Model"
     }
 
     // Generic getString and saveString for other preferences if needed by GeneralSettingsFragment temporarily
@@ -489,6 +490,12 @@ public class PreferencesManager {
         return _sharedPrefs.getString(KEY_OPENAI_CUSTOM_PROMPT, null);
     }
 
+    public void saveOpenAICustomPrompt(String prompt) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_OPENAI_CUSTOM_PROMPT, prompt);
+        editor.apply();
+    }
+
     public boolean isLoggedIn() {
         return _sharedPrefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
@@ -507,6 +514,16 @@ public class PreferencesManager {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putBoolean(KEY_IS_GUEST_MODE, isGuestMode);
         editor.apply();
+    }
+
+    public void setFirebaseToken(String token) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_FIREBASE_TOKEN, token);
+        editor.apply();
+    }
+
+    public String getFirebaseToken() {
+        return _sharedPrefs.getString(KEY_FIREBASE_TOKEN, "");
     }
 
     public String getUserEmail() {

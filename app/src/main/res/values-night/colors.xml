@@ -3,4 +3,8 @@
     <!-- Home Screen Auto Reply Text (dark) -->
     <color name="gradient_start">#33000000</color> <!-- subtle dark fade -->
     <color name="gradient_end">#99000000</color>   <!-- stronger dark overlay -->
+
+    <!-- Option Selection Colors -->
+    <color name="selected_option_background">#2C2C2C</color>
+    <color name="unselected_option_background">#1E1E1E</color>
 </resources>

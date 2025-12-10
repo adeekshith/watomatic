@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
+import android.text.TextUtils;
 
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -119,7 +120,7 @@ public class CustomRepliesData {
 
     public String getTextToSendOrElse() {
         String currentText;
-        if(preferencesManager.isOpenAIRepliesEnabled()){
+        if(preferencesManager.isOpenAIRepliesEnabled() && !TextUtils.isEmpty(preferencesManager.getOpenAIApiKey())){
             currentText = thisAppContext.getString(R.string.ai_auto_reply_default_message);
         }else {
             currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));

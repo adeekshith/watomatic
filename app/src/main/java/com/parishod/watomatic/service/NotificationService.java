@@ -14,6 +14,11 @@ import android.text.TextUtils; // Added import
 import android.util.Log;
 import android.widget.Toast;
 // import Constants.kt
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import java.util.HashMap;
+import java.util.Map;
+import com.parishod.watomatic.model.utils.Constants;
 
 
 import androidx.annotation.NonNull;
@@ -177,137 +182,171 @@ public class NotificationService extends NotificationListenerService {
             incomingMessage != null && !incomingMessage.trim().isEmpty() &&
             preferencesManager.getOpenAIApiKey() != null && !preferencesManager.getOpenAIApiKey().trim().isEmpty()) {
 
-            Log.d(TAG, "OpenAI conditions met. Attempting to get AI reply.");
-            OpenAIService openAIService = RetrofitInstance.getOpenAIRetrofitInstance().create(OpenAIService.class);
-
-            List<Message> messages = new ArrayList<>();
-            String customPrompt = preferencesManager.getOpenAICustomPrompt();
-            if (customPrompt == null || customPrompt.trim().isEmpty()) {
-                customPrompt = DEFAULT_LLM_PROMPT;
-            }
-
-            messages.add(new Message("system", customPrompt));
-            messages.add(new Message("user", incomingMessage));
-
-            String modelForRequest = preferencesManager.getSelectedOpenAIModel();
-            if (TextUtils.isEmpty(modelForRequest)) { // Safety fallback
-                modelForRequest = DEFAULT_LLM_MODEL;
-                Log.w(TAG, "Selected OpenAI model was empty, defaulting to gpt-3.5-turbo.");
-            }
-
-            OpenAIRequest request = new OpenAIRequest(modelForRequest, messages);
-            String bearerToken = "Bearer " + preferencesManager.getOpenAIApiKey();
-            final String originalModelId = modelForRequest; // Capture for logging in case of retry
-
-            openAIService.getChatCompletion(bearerToken, request).enqueue(new Callback<OpenAIResponse>() {
-                @Override
-                public void onResponse(@NonNull Call<OpenAIResponse> call, @NonNull Response<OpenAIResponse> response) {
-                    if (response.isSuccessful() && response.body() != null &&
-                        response.body().getChoices() != null && !response.body().getChoices().isEmpty() &&
-                        response.body().getChoices().get(0).getMessage() != null &&
-                        response.body().getChoices().get(0).getMessage().getContent() != null) {
-
-                        String aiReply = response.body().getChoices().get(0).getMessage().getContent().trim();
-                        Log.i(TAG, "OpenAI successful response with model " + originalModelId + ": " + aiReply);
-                        sendActualReply(sbn, notificationWear, aiReply);
-                    } else {
-                        // Enhanced error parsing for initial call
-                        OpenAIErrorResponse parsedError = RetrofitInstance.parseOpenAIError(response);
-                        String openAIErrorMessage = (parsedError != null && parsedError.getError() != null && parsedError.getError().getMessage() != null) ? parsedError.getError().getMessage() : "No specific OpenAI error message.";
-                        String detailedApiError = "Original API call failed with model " + originalModelId + ". Code: " + response.code() + ". Message: " + response.message() + ". OpenAI: " + openAIErrorMessage;
-                        Log.e(TAG, detailedApiError);
-                        // No longer need to log generic errorBody here as parseOpenAIError would have tried.
-
-                        boolean shouldRetry = false;
-                        String specificErrorCode = (parsedError != null && parsedError.getError() != null) ? parsedError.getError().getCode() : null;
-                        String specificErrorType = (parsedError != null && parsedError.getError() != null) ? parsedError.getError().getType() : null;
-
-                        if (specificErrorCode != null && specificErrorCode.equals("insufficient_quota")) {
-                            String userFacingErrorMessage = "OpenAI: Insufficient quota. Please check your plan and billing details.";
-                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
-                            Log.e(TAG, userFacingErrorMessage + " (Model: " + originalModelId + ")");
-                            shouldRetry = false;
-                        } else if (response.code() == 401) { // Unauthorized - likely API key issue
-                            String userFacingErrorMessage = "OpenAI: Invalid API Key. Please check your API Key in settings.";
-                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
-                            Log.e(TAG, userFacingErrorMessage);
-                            shouldRetry = false;
-                        } else if (response.code() == 400 || response.code() == 404 || (specificErrorCode != null && specificErrorCode.equals("model_not_found")) || (specificErrorType != null && specificErrorType.equals("invalid_request_error"))) {
-                            // For model_not_found or general invalid_request_error that might be model related, we attempt retry.
-                            // No persistent error saved here as retry might fix it for the user temporarily.
-                            // If retry also fails for similar reasons, then we might save a persistent error.
-                            Log.w(TAG, "Suspected invalid model (" + originalModelId + ") or bad request. Attempting retry with default model. Details: " + detailedApiError);
-                            shouldRetry = true;
-                        }
-                        // Add more conditions for specificErrorCode if needed for other non-retryable errors
-
-                        if (shouldRetry) {
-                            // Log.w(TAG, "Attempting fallback to default model gpt-3.5-turbo due to error with model: " + originalModelId + ". Details: " + detailedApiError); // Already logged above with more detail
-                            List<Message> retryMessages = new ArrayList<>();
-                            retryMessages.add(new Message("system",  DEFAULT_LLM_PROMPT));
-                            retryMessages.add(new Message("user", incomingMessage)); // Ensure incomingMessage is accessible
-
-                            OpenAIRequest retryRequest = new OpenAIRequest("gpt-3.5-turbo", retryMessages);
-                            // Bearer token is the same
-                            openAIService.getChatCompletion(bearerToken, retryRequest).enqueue(new Callback<OpenAIResponse>() {
-                                @Override
-                                public void onResponse(@NonNull Call<OpenAIResponse> retryCall, @NonNull Response<OpenAIResponse> retryResponse) {
-                                    if (retryResponse.isSuccessful() && retryResponse.body() != null &&
-                                        retryResponse.body().getChoices() != null && !retryResponse.body().getChoices().isEmpty() &&
-                                        retryResponse.body().getChoices().get(0).getMessage() != null &&
-                                        retryResponse.body().getChoices().get(0).getMessage().getContent() != null) {
-
-                                        String retryAiReply = retryResponse.body().getChoices().get(0).getMessage().getContent().trim();
-                                        Log.i(TAG, "OpenAI successful response with fallback model gpt-3.5-turbo: " + retryAiReply);
-                                        sendActualReply(sbn, notificationWear, retryAiReply);
-                                    } else {
-                                        OpenAIErrorResponse parsedRetryError = RetrofitInstance.parseOpenAIError(retryResponse);
-                                        String retryOpenAIErrorMessage = (parsedRetryError != null && parsedRetryError.getError() != null && parsedRetryError.getError().getMessage() != null) ? parsedRetryError.getError().getMessage() : "No specific OpenAI error message on retry.";
-                                        String detailedRetryApiError = "OpenAI fallback request (default model) also failed. Code: " + retryResponse.code() + ". Message: " + retryResponse.message() + ". OpenAI: " + retryOpenAIErrorMessage;
-                                        Log.e(TAG, detailedRetryApiError);
-
-                                        String retrySpecificErrorCode = (parsedRetryError != null && parsedRetryError.getError() != null) ? parsedRetryError.getError().getCode() : null;
-                                        if (retrySpecificErrorCode != null && retrySpecificErrorCode.equals("insufficient_quota")) {
-                                            String userFacingErrorMessage = "OpenAI: Insufficient quota (even for default model). Please check your plan and billing details.";
-                                            preferencesManager.saveOpenAILastPersistentError(userFacingErrorMessage, System.currentTimeMillis());
-                                            Log.e(TAG, userFacingErrorMessage);
-                                        }
-                                        // Potentially save other persistent errors from retry if needed
-
-                                        sendActualReply(sbn, notificationWear, fallbackReplyText);
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<OpenAIResponse> retryCall, @NonNull Throwable t) {
-                                    Log.e(TAG, "OpenAI fallback API call (network) failed for default model.", t);
-                                    // Could save a generic network error for OpenAI if it happens consistently.
-                                    // preferencesManager.saveOpenAILastPersistentError("OpenAI: Network error reaching API. Check connection.", System.currentTimeMillis());
-                                    sendActualReply(sbn, notificationWear, fallbackReplyText);
-                                }
-                            });
-                        } else {
-                            // For errors not leading to a retry (e.g., quota, API key), ensure persistent error was saved if applicable.
-                            sendActualReply(sbn, notificationWear, fallbackReplyText);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<OpenAIResponse> call, @NonNull Throwable t) {
-                    Log.e(TAG, "OpenAI API call failed", t);
-                    sendActualReply(sbn, notificationWear, fallbackReplyText);
-                }
-            });
-            return; // Return after initiating async call
+            Log.d(TAG, "AI conditions met. Attempting to get AI reply.");
+            fetchAiReply(sbn, notificationWear, incomingMessage, fallbackReplyText);
         } else {
-            Log.d(TAG, "OpenAI conditions not met. Using default reply.");
-            // Log reasons if needed:
-            // if (!preferencesManager.isOpenAIRepliesEnabled()) Log.d(TAG, "OpenAI disabled.");
-            // if (incomingMessage == null || incomingMessage.trim().isEmpty()) Log.d(TAG, "Incoming message is null or empty.");
-            // if (preferencesManager.getOpenAIApiKey() == null || preferencesManager.getOpenAIApiKey().trim().isEmpty()) Log.d(TAG, "OpenAI API key is missing.");
+            Log.d(TAG, "AI conditions not met. Using default reply.");
             sendActualReply(sbn, notificationWear, fallbackReplyText);
         }
+    }
+
+    private void fetchAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+        String provider = prefs.getOpenApiSource();
+        if (provider == null) provider = "OpenAI";
+
+        String apiKey = prefs.getOpenAIApiKey();
+        String model = prefs.getSelectedOpenAIModel();
+        String systemPrompt = prefs.getOpenAICustomPrompt();
+        if (systemPrompt == null || systemPrompt.trim().isEmpty()) systemPrompt = DEFAULT_LLM_PROMPT;
+        if (model == null || model.isEmpty()) model = DEFAULT_LLM_MODEL;
+
+        String baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
+        if ("Custom".equals(provider)) {
+            baseUrl = prefs.getCustomOpenAIApiUrl();
+        }
+        if (baseUrl == null) baseUrl = "https://api.openai.com/";
+
+        if (!baseUrl.endsWith("/")) baseUrl += "/";
+
+        OpenAIService service = RetrofitInstance.getOpenAIRetrofitInstance(baseUrl).create(OpenAIService.class);
+
+        if ("Claude".equals(provider)) {
+            fetchClaudeReply(service, baseUrl, apiKey, model, systemPrompt, incomingMessage, sbn, notificationWear, fallbackReplyText);
+        } else if ("Gemini".equals(provider)) {
+            fetchGeminiReply(service, baseUrl, apiKey, model, systemPrompt, incomingMessage, sbn, notificationWear, fallbackReplyText);
+        } else {
+            // OpenAI, Grok, DeepSeek, Mistral, Custom
+            fetchOpenAiCompatibleReply(service, apiKey, model, systemPrompt, incomingMessage, sbn, notificationWear, fallbackReplyText);
+        }
+    }
+
+    private void fetchClaudeReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
+        JsonObject requestBody = new JsonObject();
+        requestBody.addProperty("model", model);
+        requestBody.addProperty("max_tokens", 1024);
+        requestBody.addProperty("system", systemPrompt);
+
+        JsonArray messages = new JsonArray();
+        JsonObject userMessage = new JsonObject();
+        userMessage.addProperty("role", "user");
+        userMessage.addProperty("content", incomingMessage);
+        messages.add(userMessage);
+        requestBody.add("messages", messages);
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("x-api-key", apiKey);
+        headers.put("anthropic-version", "2023-06-01");
+        headers.put("content-type", "application/json");
+
+        String url = baseUrl + "v1/messages";
+
+        service.getClaudeCompletion(url, headers, requestBody).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        JsonArray content = response.body().getAsJsonArray("content");
+                        if (content != null && content.size() > 0) {
+                            String reply = content.get(0).getAsJsonObject().get("text").getAsString();
+                            sendActualReply(sbn, notificationWear, reply);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error parsing Claude response", e);
+                    }
+                }
+                Log.e(TAG, "Claude API failed: " + response.code() + " " + response.message());
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                Log.e(TAG, "Claude API network error", t);
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
+    }
+
+    private void fetchGeminiReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
+        JsonObject requestBody = new JsonObject();
+        JsonArray contents = new JsonArray();
+        JsonObject contentObj = new JsonObject();
+        JsonArray parts = new JsonArray();
+        JsonObject part = new JsonObject();
+        // Combine system prompt and user message for simplicity
+        part.addProperty("text", systemPrompt + "\n\nUser: " + incomingMessage);
+        parts.add(part);
+        contentObj.add("parts", parts);
+        contents.add(contentObj);
+        requestBody.add("contents", contents);
+
+        String url = baseUrl + "v1beta/models/" + model + ":generateContent";
+
+        service.getGeminiCompletion(url, apiKey, requestBody).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        JsonArray candidates = response.body().getAsJsonArray("candidates");
+                        if (candidates != null && candidates.size() > 0) {
+                            JsonObject candidate = candidates.get(0).getAsJsonObject();
+                            JsonObject content = candidate.getAsJsonObject("content");
+                            JsonArray parts = content.getAsJsonArray("parts");
+                            if (parts != null && parts.size() > 0) {
+                                String reply = parts.get(0).getAsJsonObject().get("text").getAsString();
+                                sendActualReply(sbn, notificationWear, reply);
+                                return;
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error parsing Gemini response", e);
+                    }
+                }
+                Log.e(TAG, "Gemini API failed: " + response.code() + " " + response.message());
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                Log.e(TAG, "Gemini API network error", t);
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
+    }
+
+    private void fetchOpenAiCompatibleReply(OpenAIService service, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message("system", systemPrompt));
+        messages.add(new Message("user", incomingMessage));
+
+        OpenAIRequest request = new OpenAIRequest(model, messages);
+        String bearerToken = "Bearer " + apiKey;
+
+        service.getChatCompletion(bearerToken, request).enqueue(new Callback<OpenAIResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<OpenAIResponse> call, @NonNull Response<OpenAIResponse> response) {
+                if (response.isSuccessful() && response.body() != null &&
+                    response.body().getChoices() != null && !response.body().getChoices().isEmpty() &&
+                    response.body().getChoices().get(0).getMessage() != null &&
+                    response.body().getChoices().get(0).getMessage().getContent() != null) {
+
+                    String aiReply = response.body().getChoices().get(0).getMessage().getContent().trim();
+                    Log.i(TAG, "OpenAI/Compatible successful response: " + aiReply);
+                    sendActualReply(sbn, notificationWear, aiReply);
+                } else {
+                    Log.e(TAG, "OpenAI/Compatible API failed: " + response.code() + " " + response.message());
+                    // Fallback to default reply
+                    sendActualReply(sbn, notificationWear, fallbackReplyText);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<OpenAIResponse> call, @NonNull Throwable t) {
+                Log.e(TAG, "OpenAI/Compatible API network error", t);
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
     }
 
     private boolean canPurgeMessages() {
