@@ -111,12 +111,7 @@ public class PreferencesManager {
             setShowNotificationPref(true);
         }
 
-        if (isFirstInstall(thisAppContext)) {
-            // Set Append Watomatic attribution checked for new installs
-            if (!_sharedPrefs.contains(KEY_IS_APPEND_WATOMATIC_ATTRIBUTION)) {
-                setAppendWatomaticAttribution(true);
-            }
-        } else {
+        if (!isFirstInstall(thisAppContext)) {
             //If it's first install, language preference is not set, so we don't have to worry
             //Otherwise, check if language settings contains r, migrate to new language settings key
             updateLegacyLanguageKey();
