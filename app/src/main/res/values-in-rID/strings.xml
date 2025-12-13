@@ -229,5 +229,6 @@
     <string name="verification_email_resent">Email verifikasi dikirim ulang ke %s</string>
     <string name="failed_to_resend_email">Gagal mengirim ulang email: %s</string>
     <string name="authentication_failed_with_message">Otentikasi gagal: %s</string>
+    <string name="experimental">Uji Coba</string>
     <!-- Subscription Info -->
 </resources>
