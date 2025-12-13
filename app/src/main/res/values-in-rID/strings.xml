@@ -231,4 +231,25 @@
     <string name="authentication_failed_with_message">Otentikasi gagal: %s</string>
     <string name="experimental">Uji Coba</string>
     <!-- Subscription Info -->
+    <string name="subscription_info_title">Pengaturan AI Khusus</string>
+    <string name="subscription_premium_feature_title">Fitur Premium Terkunci</string>
+    <string name="subscription_premium_feature_description">Berlangganan untuk mengakses balasan AI yang dipersonalisasi dan terdengar persis seperti Anda.</string>
+    <string name="subscription_features_title">Balasan yang terdengar persis seperti Anda</string>
+    <string name="subscription_feature_personalized_tone">Latihan nada yang disesuaikan secara pribadi</string>
+    <string name="subscription_feature_context_aware">Balasan yang disesuaikan dengan konteks</string>
+    <string name="subscription_feature_priority_support">Dukungan prioritas</string>
+    <string name="subscription_choose_plan">Pilih Paket Anda</string>
+    <string name="subscription_monthly_plan">Bulanan</string>
+    <string name="subscription_monthly_price">$9,99/bulan</string>
+    <string name="subscription_annual_plan">Tahunan</string>
+    <string name="subscription_annual_price">$99,99/tahun</string>
+    <string name="subscription_annual_savings">Hemat $20 setiap tahun</string>
+    <string name="subscription_most_popular">Terpopuler</string>
+    <string name="subscription_all_features_included">Termasuk semua fitur</string>
+    <string name="subscription_subscribe_button">Pilih Paket &amp; Lanjutkan</string>
+    <string name="subscription_restore_purchases">Pulihkan Pembelian</string>
+    <string name="subscription_terms_conditions">Syarat &amp; Ketentuan</string>
+    <string name="subscription_status_no_subscription">Tidak ada langganan aktif</string>
+    <string name="subscription_status_logged_in">Masuk sebagai: %s</string>
+    <string name="configure_other_ai_llm_s_info">Konfigurasikan model bahasa besar AI LLM lainnya untuk menggunakan balasan otomatis AI</string>
 </resources>
