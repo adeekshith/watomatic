@@ -201,5 +201,15 @@
     <string name="contact_filter_enabled_whitelist">Només els seleccionats (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Tothom excepte els seleccionats (%1$d)</string>
     <!-- Login Activity -->
+    <string name="experimental">Experimental</string>
     <!-- Subscription Info -->
+    <string name="subscription_feature_context_aware">Respostes basades en el contingut</string>
+    <string name="subscription_feature_priority_support">Suport prioritari</string>
+    <string name="subscription_choose_plan">Trieu el vostre pla</string>
+    <string name="subscription_monthly_plan">Mensual</string>
+    <string name="subscription_annual_plan">Anual</string>
+    <string name="subscription_most_popular">El més popular</string>
+    <string name="subscription_restore_purchases">Restaura les compres</string>
+    <string name="subscription_terms_conditions">Termes i condicions</string>
+    <string name="subscription_status_no_subscription">Cap subscripció activa</string>
 </resources>
