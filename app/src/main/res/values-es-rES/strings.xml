@@ -160,5 +160,6 @@
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
     <!-- Login Activity -->
+    <string name="experimental">Experimental</string>
     <!-- Subscription Info -->
 </resources>
