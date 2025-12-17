@@ -25,6 +25,7 @@ securityCrypto = "1.0.0"
 google-services = "4.4.3"
 firebase-bom = "34.2.0"
 play-services-auth = "20.7.0"
+billing = "7.1.1"
 
 [libraries]
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
@@ -54,6 +55,7 @@ work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRunti
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
 
 [plugins]
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
