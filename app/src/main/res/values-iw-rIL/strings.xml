@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">מדיניות פרטיות</string>
     <string name="service_name">התראות אודות הודעות נכנסות</string>
     <string name="mainAutoReplyTextPlaceholder">(מענה מותאם אישית)</string>
-    <string name="auto_reply_default_message">מענה אוטומטי\n המשתמש אינו זמין</string>
     <string name="mainAutoReplyLabel">תוכן מענה אוטומטי</string>
     <string name="mainAutoReplySwitchOffLabel">מענה אוטומטי כבוי</string>
     <string name="mainAutoReplySwitchOnLabel">מענה אוטומטי מופעל</string>
