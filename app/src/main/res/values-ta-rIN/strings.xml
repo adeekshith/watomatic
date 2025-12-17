@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">தனியுரிமைக் கொள்கை</string>
     <string name="service_name">உள்வரும் செய்தி அறிவிப்பு கேட்பவர்</string>
     <string name="mainAutoReplyTextPlaceholder">(விருப்ப பதில்)</string>
-    <string name="auto_reply_default_message">தானியங்கு பதில்\n⚠️ பயனர் கிடைக்கவில்லை</string>
     <string name="mainAutoReplyLabel">தானியங்கு பதில் உரை</string>
     <string name="mainAutoReplySwitchOffLabel">தானியங்கு பதிலை நிறுத்து</string>
     <string name="mainAutoReplySwitchOnLabel">தானியங்கு பதிலை இயக்கு</string>
