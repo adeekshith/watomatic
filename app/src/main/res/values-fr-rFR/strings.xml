@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="service_name">Nom du service</string>
     <string name="mainAutoReplyTextPlaceholder">(Réponse personnalisée)</string>
-    <string name="auto_reply_default_message">Réponse automatique\n⚠️ Utilisateur non joignable</string>
     <string name="mainAutoReplyLabel">Texte de réponse automatique</string>
     <string name="mainAutoReplySwitchOffLabel">Désactiver la réponse automatique</string>
     <string name="mainAutoReplySwitchOnLabel">Activer la réponse automatique</string>
