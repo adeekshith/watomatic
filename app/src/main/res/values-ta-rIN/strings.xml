@@ -42,7 +42,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">பதிலதித்த செய்திகளுக்கு அறிவிப்புகளை காட்டு</string>
-    <string name="preference_category_general_label">பொதுவான அமைப்புகள்</string>
     <string name="preference_category_notifications_label">அறிவிப்புகள்</string>
     <string name="preference_category_troubleshooting_label">பழுது கண்டறிதல்</string>
     <string name="enable_auto_start_label">தானாகத் தொடங்குவதை இயக்கு</string>
