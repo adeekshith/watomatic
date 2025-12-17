@@ -43,7 +43,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">הראה התראות על מענה אוטומטי להודעות</string>
-    <string name="preference_category_general_label">אפשרויות כלליות</string>
     <string name="preference_category_notifications_label">התראות</string>
     <string name="preference_category_troubleshooting_label">פתרון בעיות</string>
     <string name="enable_auto_start_label">אפשר התחלה אוטומטית</string>
