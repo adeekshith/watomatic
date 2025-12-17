@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Privacybeleid</string>
     <string name="service_name">Luisteraar van inkomende berichten</string>
     <string name="mainAutoReplyTextPlaceholder">(Aangepaste Reactie)</string>
-    <string name="auto_reply_default_message">Automatisch antwoord\n⚠️ Gebruiker niet beschikbaar</string>
     <string name="mainAutoReplyLabel">Auto-reactietekst</string>
     <string name="mainAutoReplySwitchOffLabel">Automatisch antwoorden UIT</string>
     <string name="mainAutoReplySwitchOnLabel">Automatisch antwoorden AAN</string>
