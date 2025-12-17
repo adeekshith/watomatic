@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Política de privadesa</string>
     <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
-    <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="ai_auto_reply_default_message">Respostes IA habilitades\nEls missatges s\'administren intel·ligentment per la IA</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
