@@ -49,7 +49,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Tampilkan pemberitahuan untuk pesan yang dibalas</string>
-    <string name="preference_category_general_label">Pengaturan umum</string>
     <string name="preference_category_notifications_label">Pemberitahuan</string>
     <string name="preference_category_troubleshooting_label">Penyelesaian masalah</string>
     <string name="enable_auto_start_label">Aktifkan Mulai Otomatis</string>
