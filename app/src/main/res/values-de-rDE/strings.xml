@@ -43,7 +43,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
-    <string name="preference_category_general_label">Allgemeine Einstellungen</string>
     <string name="preference_category_notifications_label">Benachrichtigungen</string>
     <string name="preference_category_troubleshooting_label">Fehlersuche und -behebung</string>
     <string name="enable_auto_start_label">Auto-Start aktivieren</string>
