@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Norme sulla privacy</string>
     <string name="service_name">Ascoltatore delle notifiche</string>
     <string name="mainAutoReplyTextPlaceholder">(Risposta personalizzata)</string>
-    <string name="auto_reply_default_message">Risposta automatica\n⚠️ Utente non disponibile</string>
     <string name="ai_auto_reply_default_message">Risposte automatiche abilitate\nI messaggi sono intelligentemente gestiti dalla IA</string>
     <string name="mainAutoReplyLabel">Testo di risposta automatica</string>
     <string name="mainAutoReplySwitchOffLabel">Risposte automatiche spente</string>
