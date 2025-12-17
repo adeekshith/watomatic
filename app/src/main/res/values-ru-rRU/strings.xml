@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Политика конфиденциальности</string>
     <string name="service_name">Отслеживание уведомлений о входящих сообщениях</string>
     <string name="mainAutoReplyTextPlaceholder">(Свой ответ)</string>
-    <string name="auto_reply_default_message">Автоматический ответ\n⚠️ Пользователь недоступен</string>
     <string name="mainAutoReplyLabel">Текст автоматического ответа</string>
     <string name="mainAutoReplySwitchOffLabel">Автоответ ВЫКЛ</string>
     <string name="mainAutoReplySwitchOnLabel">Автоответ ВКЛ</string>
