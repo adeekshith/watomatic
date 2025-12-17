@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Política de Privacidade</string>
     <string name="service_name">Monitor de notificações de mensagens recebidas</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalizada)</string>
-    <string name="auto_reply_default_message">Resposta Automática\n⚠️ Usuário indisponível</string>
     <string name="mainAutoReplyLabel">Texto de resposta automática</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automática desligada</string>
     <string name="mainAutoReplySwitchOnLabel">Resposta automática ligada</string>
