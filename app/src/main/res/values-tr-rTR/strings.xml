@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Gizlilik Politikası </string>
     <string name="service_name">Gelen Mesaj Bildirim Dinleyicisi </string>
     <string name="mainAutoReplyTextPlaceholder">(Özel Yanıt) </string>
-    <string name="auto_reply_default_message">Otomatik Yanıt \ n⚠️ Kullanıcı mevcut değil </string>
     <string name="mainAutoReplyLabel">Otomatik yanıt metni </string>
     <string name="mainAutoReplySwitchOffLabel">Otomatik yanıt KAPALI </string>
     <string name="mainAutoReplySwitchOnLabel">Otomatik yanıt AÇIK </string>
