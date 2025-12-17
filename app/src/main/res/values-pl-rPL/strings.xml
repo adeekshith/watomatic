@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkownik niedostępny</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
