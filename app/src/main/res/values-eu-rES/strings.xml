@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Pribatutasun politika</string>
     <string name="service_name">Sarrerako mezuei entzuteko morroia</string>
     <string name="mainAutoReplyTextPlaceholder">(Erantzun pertsonalizatua)</string>
-    <string name="auto_reply_default_message">Erantzun automatikoa\n⚠️ Erabiltzailea ez dago eskuragarri</string>
     <string name="mainAutoReplyLabel">Erantzun automatikoaren testua</string>
     <string name="mainAutoReplySwitchOffLabel">Erantzun automatikoa OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Erantzun automatikoa ON</string>
