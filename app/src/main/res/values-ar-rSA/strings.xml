@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">سياسة الخصوصية</string>
     <string name="service_name">رسالة واردة</string>
     <string name="mainAutoReplyTextPlaceholder">(رد مخصص)</string>
-    <string name="auto_reply_default_message">رد تلقائي\n⚠️ المستخدم غير متوفر</string>
     <string name="mainAutoReplyLabel">نص الرد التلقائي</string>
     <string name="mainAutoReplySwitchOffLabel">إيقاف الرد التلقائي</string>
     <string name="mainAutoReplySwitchOnLabel">الرد التلقائي مفعل</string>
