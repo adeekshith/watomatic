@@ -42,7 +42,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Melding weergeven voor beantwoorde berichten</string>
-    <string name="preference_category_general_label">Algemene instellingen</string>
     <string name="preference_category_notifications_label">Meldingen</string>
     <string name="preference_category_troubleshooting_label">Probleemoplossing</string>
     <string name="enable_auto_start_label">Automatisch starten inschakelen</string>
