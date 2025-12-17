@@ -43,7 +43,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">إظهار الإشعار للرسائل المُجاب عليها</string>
-    <string name="preference_category_general_label">الإعدادات العامة</string>
     <string name="preference_category_notifications_label">الإشعارات</string>
     <string name="preference_category_troubleshooting_label">استكشاف الأخطاء</string>
     <string name="enable_auto_start_label">تمكين المزامنة التلقائية</string>
