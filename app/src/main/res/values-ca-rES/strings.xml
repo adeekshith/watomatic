@@ -49,7 +49,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
-    <string name="preference_category_general_label">Configuració general</string>
     <string name="preference_category_notifications_label">Notificacions</string>
     <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
     <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
