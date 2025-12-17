@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
     <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
-    <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
     <string name="ai_auto_reply_default_message">Balasan AI Diaktifkan\nPesan ditangani dengan cerdas oleh AI</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
