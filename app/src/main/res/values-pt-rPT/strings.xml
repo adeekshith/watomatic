@@ -32,7 +32,6 @@
     <!-- Share debug logs -->
     <!-- keys and app internal strings -->
     <!-- app settings -->
-    <string name="preference_category_general_label">Definições gerais</string>
     <string name="preference_category_notifications_label">Notificações</string>
     <string name="enable_auto_start_label">Ativar início automático</string>
     <string name="enabled_apps_title">Aplicações ativadas</string>
