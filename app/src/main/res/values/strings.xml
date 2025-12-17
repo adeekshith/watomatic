@@ -9,7 +9,7 @@
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="service_name">Incoming Message Notification Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
-    <string name="auto_reply_default_message">Auto Reply\n⚠️ User not available</string>
+    <string name="auto_reply_default_message">Auto Reply\n⚠️ Thanks for your message! I’m currently unavailable and will get back to you as soon as I can.</string>
     <string name="ai_auto_reply_default_message">AI Replies Enabled\nMessages are smartly handled by AI</string>
     <string name="mainAutoReplyLabel">Auto reply text</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
