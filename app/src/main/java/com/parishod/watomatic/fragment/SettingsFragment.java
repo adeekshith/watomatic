@@ -1,10 +1,12 @@
 package com.parishod.watomatic.fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
@@ -12,6 +14,7 @@ import androidx.preference.SwitchPreference;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.parishod.watomatic.BuildConfig;
 import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.flavor.FlavorNavigator;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
@@ -26,6 +29,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         SwitchPreference showNotificationPref = findPreference(getString(R.string.pref_show_notification_replied_msg));
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M && showNotificationPref != null) {
             showNotificationPref.setTitle(getString(R.string.show_notification_label) + "(Beta)");
+        }
+
+        ListPreference languagePref = findPreference(getString(R.string.key_pref_app_language));
+        if (languagePref != null) {
+            languagePref.setOnPreferenceChangeListener((preference, newValue) -> {
+                String thisLangStr = PreferencesManager.getPreferencesInstance(requireActivity()).getSelectedLanguageStr(null);
+                if (thisLangStr == null || !thisLangStr.equals(newValue)) {
+                    //switch app language here
+                    //Should restart the app for language change to take into account
+                    restartApp();
+                }
+                return true;
+            });
         }
 
         Preference autoStartPref = findPreference(getString(R.string.pref_auto_start_permission));
@@ -74,6 +90,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(requireActivity(), MainActivity.class);
+        requireActivity().startActivity(intent);
+        requireActivity().finishAffinity();
     }
 
     private void showLogoutDialog(Preference accountPref, PreferencesManager pm){

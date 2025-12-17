@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <path
+      android:pathData="m39.61,33.44a2.73,2.73 0,0 0,-1.45 0.4,2.73 2.73,0 0,0 -0.92,3.74 2.73,2.73 0,0 0,3.07 1.22l4.71,8.16 1.18,-0.68 -4.71,-8.16a2.73,2.73 0,0 0,0.45 -3.31l-0.05,-0.08A2.73,2.73 0,0 0,39.61 33.44Z"
+      android:strokeWidth="1.36588"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="m68.18,32.76a2.73,2.73 0,0 0,-2.4 1.41,2.73 2.73,0 0,0 0.47,3.27l-4.71,8.16 1.18,0.68 4.71,-8.16a2.73,2.73 0,0 0,3.1 -1.27l0.04,-0.08a2.73,2.73 0,0 0,-1.11 -3.68,2.73 2.73,0 0,0 -1.29,-0.33z"
+      android:strokeWidth="1.36588"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="M74.49,56.19A20.49,17.5 0,0 1,54.17 73.69,20.49 17.5,0 0,1 33.51,56.49 20.49,17.5 0,0 1,53.48 38.7,20.49 17.5,0 0,1 74.48,55.6"
+      android:strokeWidth="1.26235"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="M40.13,64.81C37.67,67.41 41.85,70.53 33.99,75.24 37.67,74.84 37.75,76.27 48.42,69.96Z"
+      android:strokeWidth="1.36589"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="m42.37,46c-3.02,0 -5.44,2.43 -5.44,5.44l0,0.04c0,3.02 2.43,5.44 5.44,5.44l23.26,0c3.02,0 5.44,-2.43 5.44,-5.44l0,-0.04c0,-3.02 -2.43,-5.44 -5.44,-5.44zM42.37,46.68l23.25,0c2.64,0 4.76,2.13 4.76,4.76l0,0.03c0,2.64 -2.13,4.76 -4.76,4.76L42.37,56.24c-2.64,0 -4.76,-2.13 -4.76,-4.76l0,-0.03c0,-2.64 2.13,-4.76 4.76,-4.76z"
+      android:strokeWidth="1.22"
+      android:fillColor="#0091ea"/>
+  <path
+      android:pathData="m47.72,51.46a3.41,3.41 89.37,0 1,-3.39 3.41,3.41 3.41,89.37 0,1 -3.44,-3.36 3.41,3.41 89.37,0 1,3.33 -3.47,3.41 3.41,89.37 0,1 3.5,3.3"
+      android:strokeWidth="1.37"
+      android:fillColor="#0091ea"/>
+  <path
+      android:pathData="m67.11,51.46a3.41,3.41 89.37,0 1,-3.39 3.41,3.41 3.41,89.37 0,1 -3.44,-3.36 3.41,3.41 89.37,0 1,3.33 -3.47,3.41 3.41,89.37 0,1 3.5,3.3"
+      android:strokeWidth="1.37"
+      android:fillColor="#0091ea"/>
+</vector>
