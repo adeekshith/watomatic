@@ -49,7 +49,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notifiche per i messaggi risposti in automatico</string>
-    <string name="preference_category_general_label">Impostazioni generali</string>
     <string name="preference_category_notifications_label">Notifiche</string>
     <string name="preference_category_troubleshooting_label">Risoluzione problemi</string>
     <string name="enable_auto_start_label">Abilita avvio automatico</string>
