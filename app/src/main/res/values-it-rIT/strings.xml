@@ -5,6 +5,7 @@
     <string name="privacy_policy_label">Norme sulla privacy</string>
     <string name="service_name">Ascoltatore delle notifiche</string>
     <string name="mainAutoReplyTextPlaceholder">(Risposta personalizzata)</string>
+    <string name="auto_reply_default_message">Risposta automatica\n⚠️ Grazie per il tuo messaggio! Al momento non sono disponibile, ma ritornerò appena possibile.</string>
     <string name="ai_auto_reply_default_message">Risposte automatiche abilitate\nI messaggi sono intelligentemente gestiti dalla IA</string>
     <string name="mainAutoReplyLabel">Testo di risposta automatica</string>
     <string name="mainAutoReplySwitchOffLabel">Risposte automatiche spente</string>
@@ -48,6 +49,7 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notifiche per i messaggi risposti in automatico</string>
+    <string name="preference_category_general_label">Generali</string>
     <string name="preference_category_notifications_label">Notifiche</string>
     <string name="preference_category_troubleshooting_label">Risoluzione problemi</string>
     <string name="enable_auto_start_label">Abilita avvio automatico</string>
