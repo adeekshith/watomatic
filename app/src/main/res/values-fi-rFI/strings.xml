@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Tietosuojakäytännöt</string>
     <string name="service_name">Saapuvien viestien ilmoitusten tarkkailija</string>
     <string name="mainAutoReplyTextPlaceholder">(Mukautettu vastaus)</string>
-    <string name="auto_reply_default_message">Automaattinen vastaus\n⚠️ Käyttäjä ei ole tavoitettavissa</string>
     <string name="mainAutoReplyLabel">Automaattisen vastauksen teksti</string>
     <string name="mainAutoReplySwitchOffLabel">Automaattinen vastaus pois käytöstä</string>
     <string name="mainAutoReplySwitchOnLabel">Automaattinen vastaus käytössä</string>
@@ -42,7 +41,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Näytä ilmoitus vastatuille viesteille</string>
-    <string name="preference_category_general_label">Yleiset asetukset</string>
     <string name="preference_category_notifications_label">Ilmoitukset</string>
     <string name="preference_category_troubleshooting_label">Vianmääritys</string>
     <string name="enable_auto_start_label">Salli automaattinen käynnistys</string>
@@ -126,4 +124,6 @@
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <!-- Subscription Info -->
 </resources>

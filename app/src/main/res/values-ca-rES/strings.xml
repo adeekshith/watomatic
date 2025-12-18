@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Política de privadesa</string>
     <string name="service_name">Watomatic: Accés a missatges</string>
     <string name="mainAutoReplyTextPlaceholder">(Resposta personalitzada)</string>
-    <string name="auto_reply_default_message">Resposta automàtica\n⚠️ Usuari no disponible</string>
     <string name="ai_auto_reply_default_message">Respostes IA habilitades\nEls missatges s\'administren intel·ligentment per la IA</string>
     <string name="mainAutoReplyLabel">Text de resposta automàtica</string>
     <string name="mainAutoReplySwitchOffLabel">Resposta automàtica DESACTIVADA</string>
@@ -49,7 +48,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostra notificacions dels missatges que s\'han respost</string>
-    <string name="preference_category_general_label">Configuració general</string>
     <string name="preference_category_notifications_label">Notificacions</string>
     <string name="preference_category_troubleshooting_label">Resolució de problemes</string>
     <string name="enable_auto_start_label">Habilita l\'inici automàtic</string>
@@ -200,4 +198,16 @@
     <string name="contact_filter_disabled">Inhabilitat</string>
     <string name="contact_filter_enabled_whitelist">Només els seleccionats (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Tothom excepte els seleccionats (%1$d)</string>
+    <!-- Login Activity -->
+    <string name="experimental">Experimental</string>
+    <!-- Subscription Info -->
+    <string name="subscription_feature_context_aware">Respostes basades en el contingut</string>
+    <string name="subscription_feature_priority_support">Suport prioritari</string>
+    <string name="subscription_choose_plan">Trieu el vostre pla</string>
+    <string name="subscription_monthly_plan">Mensual</string>
+    <string name="subscription_annual_plan">Anual</string>
+    <string name="subscription_most_popular">El més popular</string>
+    <string name="subscription_restore_purchases">Restaura les compres</string>
+    <string name="subscription_terms_conditions">Termes i condicions</string>
+    <string name="subscription_status_no_subscription">Cap subscripció activa</string>
 </resources>

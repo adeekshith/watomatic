@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Política de privacidad</string>
     <string name="service_name">Watomatic: Acceso a mensajes</string>
     <string name="mainAutoReplyTextPlaceholder">(Respuesta personalizada)</string>
-    <string name="auto_reply_default_message">Respuesta automática\n⚠️ Usuario no disponible</string>
     <string name="mainAutoReplyLabel">Texto de respuesta automática</string>
     <string name="mainAutoReplySwitchOffLabel">Respuesta automática INACTIVA</string>
     <string name="mainAutoReplySwitchOnLabel">Respuesta automática ACTIVA</string>
@@ -48,7 +47,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Mostrar una notificación para los mensajes respondidos</string>
-    <string name="preference_category_general_label">Configuraciones Generales</string>
     <string name="preference_category_notifications_label">Notificaciones</string>
     <string name="preference_category_troubleshooting_label">Resolución de problemas</string>
     <string name="enable_auto_start_label">Habilitar el inicio automático</string>
@@ -159,4 +157,7 @@
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <string name="experimental">Experimental</string>
+    <!-- Subscription Info -->
 </resources>

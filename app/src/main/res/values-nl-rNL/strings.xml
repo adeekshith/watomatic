@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Privacybeleid</string>
     <string name="service_name">Luisteraar van inkomende berichten</string>
     <string name="mainAutoReplyTextPlaceholder">(Aangepaste Reactie)</string>
-    <string name="auto_reply_default_message">Automatisch antwoord\n⚠️ Gebruiker niet beschikbaar</string>
     <string name="mainAutoReplyLabel">Auto-reactietekst</string>
     <string name="mainAutoReplySwitchOffLabel">Automatisch antwoorden UIT</string>
     <string name="mainAutoReplySwitchOnLabel">Automatisch antwoorden AAN</string>
@@ -42,7 +41,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Melding weergeven voor beantwoorde berichten</string>
-    <string name="preference_category_general_label">Algemene instellingen</string>
     <string name="preference_category_notifications_label">Meldingen</string>
     <string name="preference_category_troubleshooting_label">Probleemoplossing</string>
     <string name="enable_auto_start_label">Automatisch starten inschakelen</string>
@@ -124,4 +122,6 @@
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <!-- Subscription Info -->
 </resources>

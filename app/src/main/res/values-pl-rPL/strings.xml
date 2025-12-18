@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkownik niedostępny</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
@@ -43,7 +42,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Pokaż powiadomienie o odpowiedzi na wiadomości</string>
-    <string name="preference_category_general_label">Ogólne ustawienia</string>
     <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
     <string name="enable_auto_start_label">Włącz automatyczny Start</string>
@@ -127,4 +125,6 @@
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <!-- Subscription Info -->
 </resources>
