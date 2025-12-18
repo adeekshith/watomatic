@@ -5,6 +5,7 @@
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
     <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
+    <string name="auto_reply_default_message">Balasan Otomatis\n⚠️ Terima kasih atas pesannya! Saat ini saya sedang tidak bisa dihubungi dan akan segera menghubungi Anda kembali.</string>
     <string name="ai_auto_reply_default_message">Balasan AI Diaktifkan\nPesan ditangani dengan cerdas oleh AI</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
@@ -48,6 +49,7 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Tampilkan pemberitahuan untuk pesan yang dibalas</string>
+    <string name="preference_category_general_label">Umum</string>
     <string name="preference_category_notifications_label">Pemberitahuan</string>
     <string name="preference_category_troubleshooting_label">Penyelesaian masalah</string>
     <string name="enable_auto_start_label">Aktifkan Mulai Otomatis</string>
