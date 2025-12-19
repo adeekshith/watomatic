@@ -12,8 +12,8 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
         private const val TAG = "BillingManager"
         
         // Subscription SKUs
-        const val SKU_MONTHLY = "automatic-ai-pro-monthly"
-        const val SKU_ANNUAL = "automatic-ai-pro-annual"
+        const val SKU_MONTHLY = "automatic_ai_pro_monthly"
+        const val SKU_ANNUAL = "automatic_ai_pro_annual"
         
         // Base64-encoded public key from Google Play Console
         // TODO: Replace with actual key from Google Play Console
