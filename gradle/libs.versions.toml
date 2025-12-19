@@ -54,6 +54,8 @@ test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore"}
+firebase-functions = { group = "com.google.firebase", name = "firebase-functions"}
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
 

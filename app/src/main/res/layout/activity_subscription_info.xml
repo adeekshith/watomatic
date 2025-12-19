@@ -211,6 +211,7 @@
                         android:layout_marginBottom="8dp" />
 
                     <TextView
+                        android:id="@+id/monthly_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subscription_monthly_price"
@@ -275,6 +276,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/annual_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subscription_annual_price"
@@ -302,6 +304,15 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Loading Indicator -->
+            <ProgressBar
+                android:id="@+id/loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp" />
+
             <!-- Subscribe Button -->
             <Button
                 android:id="@+id/subscribe_button"
@@ -310,26 +321,25 @@
                 android:text="@string/subscription_subscribe_button"
                 android:textSize="16sp"
                 android:paddingVertical="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Restore Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/restore_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/subscription_restore_purchases"
+                android:textSize="14sp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Terms and Restore -->
+            <!-- Terms -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:id="@+id/restore_purchases"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/subscription_restore_purchases"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:padding="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
