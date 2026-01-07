@@ -5,7 +5,6 @@
     <string name="privacy_policy_label">Datenschutzerklärung</string>
     <string name="service_name">Benachrichtigungs-Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Eigene Antwort)</string>
-    <string name="auto_reply_default_message">Automatische Antwort\n⚠️ Benutzer nicht verfügbar</string>
     <string name="mainAutoReplyLabel">Text für automatische Antwort</string>
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
     <string name="mainAutoReplySwitchOnLabel">Automatische Antwort EIN</string>
@@ -43,7 +42,6 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Benachrichtigung für beantwortete Nachrichten anzeigen</string>
-    <string name="preference_category_general_label">Allgemeine Einstellungen</string>
     <string name="preference_category_notifications_label">Benachrichtigungen</string>
     <string name="preference_category_troubleshooting_label">Fehlersuche und -behebung</string>
     <string name="enable_auto_start_label">Auto-Start aktivieren</string>
@@ -127,4 +125,6 @@
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <!-- Subscription Info -->
 </resources>

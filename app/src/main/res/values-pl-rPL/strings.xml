@@ -5,11 +5,13 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
-    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Użytkownik niedostępny</string>
+    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Dziękuję za Twoją wiadomość! Aktualnie jestem nieosiągalny(a), skontaktuję się z Tobą najszybciej jak będzie to możliwe.</string>
+    <string name="ai_auto_reply_default_message">Odpowiedzi AI włączone\nWiadomości będą inteligentnie obsługiwane przez AI</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
     <string name="mainAutoReplyEditBtnTooltip">Stuknij, aby edytować automatyczną odpowiedź</string>
+    <string name="to_help_you_leave_whatsapp">Ustaw automatyczną odpowiedź aby pomóc Ci opóscić aplikację do wiadomości</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
     <string name="sure">Jestem pewny</string>
@@ -35,7 +37,11 @@
     <!-- Custom message editor -->
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatix, aby pomóc w rozgłaszaniu</string>
+    <string name="sent_using_Watomatic">Wyślij używając watomatic.app</string>
+    <string name="share_app_text">Używam Watomatic aby zrobić przerwę od aplikacji do wiadomości. Spróbuj watomatic.app</string>
     <string name="share">Udostępnij</string>
+    <string name="share_subject">Atomatic: Automatyczna odpowiedź dla wiadomości</string>
     <string name="watomatic_community_label"><u>Społeczność</u></string>
     <string name="watomatic_subreddit_label"><u>Dyskutujmy\nr/watomatic</u></string>
     <string name="watomatic_whatsnew_label">Co nowego?</string>
@@ -43,7 +49,7 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Pokaż powiadomienie o odpowiedzi na wiadomości</string>
-    <string name="preference_category_general_label">Ogólne ustawienia</string>
+    <string name="preference_category_general_label">Ogólne</string>
     <string name="preference_category_notifications_label">Powiadomienia</string>
     <string name="preference_category_troubleshooting_label">Rozwiązywanie problemów</string>
     <string name="enable_auto_start_label">Włącz automatyczny Start</string>
@@ -63,6 +69,7 @@
     <string name="app_rating_dialog_rate_button_title">Oceń to!</string>
     <string name="app_rating_dialog_rate_later_title">Może później</string>
     <string name="app_rating_goto_store_dialog_title">Jesteśmy szczęśliwi!</string>
+    <string name="app_rating_goto_store_dialog_msg">Proszę udostępnij tę ocenę aplikacji w sklepie Google Play stukając \"Continue\"!</string>
     <string name="app_rating_pitch">Ta aplikacja jest darmowa, bez reklam, bez śledzenia z otwartym źródłem i jest tworzona przez twórców takich jak Ty i ja.
         Twoja opinia jest naszą jedyną zachętą.</string>
     <string name="app_rating_goto_store_dialog_button1_title">Nie zainteresowany/a</string>
@@ -85,9 +92,11 @@
     <string name="blacklist">Wszyscy oprócz wybranych kontaktów</string>
     <string name="whitelist">Nikt z wyjątkiem wybranych kontaktów</string>
     <string name="enable_contact_based_reply">Włącz odpowiedzi oparte na kontaktach</string>
+    <string name="select_contacts">Wybierz kontakty</string>
     <string name="contact_selector">Wybór kontaktów</string>
     <string name="select_all">Zaznacz wszystko</string>
     <string name="select_none">Odznacz wszystko</string>
+    <string name="search">Szukaj</string>
     <string name="contact_permission_dialog_msg">Dostęp do odczytu kontaktu jest wymagany aby filtrować nazwy i włączyć tę funkcję. Czy chcesz kontynuować?</string>
     <string name="contact_permission_dialog_proceed">Kontynuuj</string>
     <string name="contact_permission_dialog_cancel">Anuluj</string>
@@ -118,13 +127,44 @@
     <string name="current_donation_progress">Bieżący postęp darowizny</string>
     <string name="error_name_cannot_be_blank">Nazwa nie może być pusta</string>
     <string name="error_name_cannot_be_duplicate">Nazwa już jest zajęta</string>
+    <string name="post_notification_permission_snackbar_text">Uprawnienia do powiadomień są wymagane przez aplikację. Przyznaj je w ustawieniach.</string>
+    <string name="post_notification_permission_snackbar_setting">Ustawienia</string>
+    <string name="pref_enable_openai_replies_title">Włącz automatyczne odpowiedzi AI</string>
+    <string name="pref_enable_openai_replies_summary">Używaj AI do generowania inteligentnych odpowiedzi</string>
+    <string name="pref_openai_api_key_title">Klucz API</string>
+    <string name="pref_openai_api_key_summary_not_set">Klucz API nie jest ustawiony</string>
+    <string name="pref_openai_api_key_summary_set">Klucz API jest ustawiony</string>
+    <string name="pref_openai_api_key_dialog_title">Wprowadź Twój klucz API</string>
+    <string name="pref_openai_api_source_title">Dostawca API</string>
+    <string name="pref_openai_custom_api_url_title">Niestandardowy API URL</string>
+    <string name="pref_openai_custom_api_url_summary">Wprowadź Twój niestandardowy API URL</string>
+    <string name="pref_openai_custom_api_url_dialog_title">Niestandardowy API URL</string>
+    <string name="set_custom_api_url">Ustaw niestandardowy API URL</string>
+    <string name="pref_openai_model_title">Model AI</string>
+    <string name="pref_openai_model_summary_default">Wybierz preferowany model czatu</string>
+    <string name="pref_openai_model_dialog_title">Wybierz model AI</string>
+    <string name="pref_openai_model_loading">Ładowanie modeli...</string>
+    <string name="pref_openai_model_error">Nie udało się załadować modeli. Sprawdź klucz API lub połączenie z internetem.</string>
+    <string name="pref_openai_model_not_set">Nie wybrano modelu</string>
+    <string name="pref_openai_model_no_compatible_found">Nie znaleziono kompatybilnych modeli. Proszę sprawdź Twój klucz API lub spróbuj ponownie później.</string>
+    <string name="pref_category_openai_status_title">Status usług AI</string>
+    <string name="pref_openai_status_alert_title">Alert AI</string>
+    <string name="pref_openai_status_ok_summary">Nie wykryto żadnych ostatnich problemów.</string>
+    <string name="pref_openai_error_dismiss_confirmation">Powiadomienie o błędzie zostało odrzucone. Zostanie ono ponownie wyświetlone, jeśli problem wystąpi ponownie.</string>
     <!-- Generative AI -->
+    <string name="generative_ai">Ogólne AI</string>
+    <string name="enable_generative_ai">Włącz ogólne AI</string>
+    <string name="custom_prompt">Niestandardowe polecenie</string>
     <!--New UI Related-->
     <!-- Main Screen Titles -->
+    <string name="auto_reply_text">Treść automatycznej odpowiedzi</string>
+    <string name="filters">Filtry</string>
     <!-- AI Reply Text -->
     <!-- Toggle and Buttons -->
     <!-- Filter Items -->
     <!-- Cooldown units -->
     <!-- Authentication -->
     <!-- Contact-based replies UI -->
+    <!-- Login Activity -->
+    <!-- Subscription Info -->
 </resources>

@@ -5,7 +5,7 @@
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="service_name">Pendengar Pemberitahuan Pesan Masuk</string>
     <string name="mainAutoReplyTextPlaceholder">(Balasan Khusus)</string>
-    <string name="auto_reply_default_message">Balas Otomatis\n⚠️ Pengguna tidak tersedia</string>
+    <string name="auto_reply_default_message">Balasan Otomatis\n⚠️ Terima kasih atas pesannya! Saat ini saya sedang tidak bisa dihubungi dan akan segera menghubungi Anda kembali.</string>
     <string name="ai_auto_reply_default_message">Balasan AI Diaktifkan\nPesan ditangani dengan cerdas oleh AI</string>
     <string name="mainAutoReplyLabel">Teks balasan otomatis</string>
     <string name="mainAutoReplySwitchOffLabel">Balasan otomatis NONAKTIF</string>
@@ -49,7 +49,7 @@
     <!-- keys and app internal strings -->
     <!-- app settings -->
     <string name="show_notification_label">Tampilkan pemberitahuan untuk pesan yang dibalas</string>
-    <string name="preference_category_general_label">Pengaturan umum</string>
+    <string name="preference_category_general_label">Umum</string>
     <string name="preference_category_notifications_label">Pemberitahuan</string>
     <string name="preference_category_troubleshooting_label">Penyelesaian masalah</string>
     <string name="enable_auto_start_label">Aktifkan Mulai Otomatis</string>
@@ -194,6 +194,11 @@
     <string name="error_password_too_short">Kata sandi minimal harus terdiri dari 6 karakter</string>
     <string name="welcome_message">Selamat datang di Atomatic</string>
     <string name="login">Masuk</string>
+    <string name="logout">Keluar</string>
+    <string name="profile">Profil</string>
+    <string name="guest">Pengunjung</string>
+    <string name="logged_in_as">Masuk sebagai %1$s</string>
+    <string name="logout_confirmation">Apakah Anda yakin ingin keluar?</string>
     <!-- Contact-based replies UI -->
     <string name="contact_based_replies">Balasan berbasis kontak</string>
     <string name="reply_to_mode">Mode balas ke</string>
@@ -202,4 +207,49 @@
     <string name="contact_filter_disabled">Dinonaktifkan</string>
     <string name="contact_filter_enabled_whitelist">Hanya yang dipilih (%1$d)</string>
     <string name="contact_filter_enabled_blacklist">Semua orang kecuali yang dipilih (%1$d)</string>
+    <string name="account">Akun</string>
+    <string name="resend_email">Kirim ulang Email</string>
+    <string name="email_verified">Email diverifikasi! 🎉</string>
+    <string name="i_ve_verified">Saya telah diverifikasi</string>
+    <string name="verify_your_email">Verifikasi Email Anda</string>
+    <!-- Login Activity -->
+    <string name="google_sign_in_failed">Proses masuk Google gagal: %s</string>
+    <string name="authentication_failed">Otentikasi gagal</string>
+    <string name="create_new_account">Buat Akun Baru</string>
+    <string name="create_new_account_prompt">Apakah Anda ingin membuat akun baru dengan email ini?\n\n%s</string>
+    <string name="create_account">Buat akun</string>
+    <string name="email_already_registered">Email ini sudah terdaftar. Silakan coba masuk kembali.</string>
+    <string name="invalid_email_or_password_length">Mohon gunakan email yang valid dan kata sandi dengan minimal 6 karakter</string>
+    <string name="create_account_failed">Gagal membuat akun: %s</string>
+    <string name="verification_email_sent">Email verifikasi dikirim ke %s</string>
+    <string name="verification_email_failed">Gagal mengirim verifikasi: %s</string>
+    <string name="verification_dialog_message">Kami telah mengirimkan tautan verifikasi ke %s. Silakan periksa kotak masuk Anda dan klik tautannya. Setelah selesai, klik di bawah ini.</string>
+    <string name="email_not_verified_yet">Email belum diverifikasi, silakan coba lagi.</string>
+    <string name="verification_check_failed">Gagal memeriksa verifikasi: %s</string>
+    <string name="verification_email_resent">Email verifikasi dikirim ulang ke %s</string>
+    <string name="failed_to_resend_email">Gagal mengirim ulang email: %s</string>
+    <string name="authentication_failed_with_message">Otentikasi gagal: %s</string>
+    <string name="experimental">Uji Coba</string>
+    <!-- Subscription Info -->
+    <string name="subscription_info_title">Pengaturan AI Khusus</string>
+    <string name="subscription_premium_feature_title">Fitur Premium Terkunci</string>
+    <string name="subscription_premium_feature_description">Berlangganan untuk mengakses balasan AI yang dipersonalisasi dan terdengar persis seperti Anda.</string>
+    <string name="subscription_features_title">Balasan yang terdengar persis seperti Anda</string>
+    <string name="subscription_feature_personalized_tone">Latihan nada yang disesuaikan secara pribadi</string>
+    <string name="subscription_feature_context_aware">Balasan yang disesuaikan dengan konteks</string>
+    <string name="subscription_feature_priority_support">Dukungan prioritas</string>
+    <string name="subscription_choose_plan">Pilih Paket Anda</string>
+    <string name="subscription_monthly_plan">Bulanan</string>
+    <string name="subscription_monthly_price">$9,99/bulan</string>
+    <string name="subscription_annual_plan">Tahunan</string>
+    <string name="subscription_annual_price">$99,99/tahun</string>
+    <string name="subscription_annual_savings">Hemat $20 setiap tahun</string>
+    <string name="subscription_most_popular">Terpopuler</string>
+    <string name="subscription_all_features_included">Termasuk semua fitur</string>
+    <string name="subscription_subscribe_button">Pilih Paket &amp; Lanjutkan</string>
+    <string name="subscription_restore_purchases">Pulihkan Pembelian</string>
+    <string name="subscription_terms_conditions">Syarat &amp; Ketentuan</string>
+    <string name="subscription_status_no_subscription">Tidak ada langganan aktif</string>
+    <string name="subscription_status_logged_in">Masuk sebagai: %s</string>
+    <string name="configure_other_ai_llm_s_info">Konfigurasikan model bahasa besar AI LLM lainnya untuk menggunakan balasan otomatis AI</string>
 </resources>
