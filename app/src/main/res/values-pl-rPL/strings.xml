@@ -5,10 +5,13 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="service_name">Odbiornik powiadomień wiadomości przychodzących</string>
     <string name="mainAutoReplyTextPlaceholder">(Niestandardowa odpowiedź)</string>
+    <string name="auto_reply_default_message">Automatyczna odpowiedź\n⚠️ Dziękuję za Twoją wiadomość! Aktualnie jestem nieosiągalny(a), skontaktuję się z Tobą najszybciej jak będzie to możliwe.</string>
+    <string name="ai_auto_reply_default_message">Odpowiedzi AI włączone\nWiadomości będą inteligentnie obsługiwane przez AI</string>
     <string name="mainAutoReplyLabel">Treść automatycznej odpowiedzi</string>
     <string name="mainAutoReplySwitchOffLabel">Automatyczna odpowiedź WYŁ.</string>
     <string name="mainAutoReplySwitchOnLabel">Automatyczna odpowiedź WŁ.</string>
     <string name="mainAutoReplyEditBtnTooltip">Stuknij, aby edytować automatyczną odpowiedź</string>
+    <string name="to_help_you_leave_whatsapp">Ustaw automatyczną odpowiedź aby pomóc Ci opóscić aplikację do wiadomości</string>
     <string name="decline">Odrzuć</string>
     <string name="accept">Akceptuj</string>
     <string name="sure">Jestem pewny</string>
@@ -34,6 +37,9 @@
     <!-- Custom message editor -->
     <string name="save">Zapisz</string>
     <string name="tip_view_messages_from_fellow_users">🦩 <u>Zobacz szablony społeczności i udostępnij swoje ➚</u></string>
+    <string name="append_watomatic_arribution_checkbox_label">Dołącz Watomatix, aby pomóc w rozgłaszaniu</string>
+    <string name="sent_using_Watomatic">Wyślij używając watomatic.app</string>
+    <string name="share_app_text">Używam Watomatic aby zrobić przerwę od aplikacji do wiadomości. Spróbuj watomatic.app</string>
     <string name="share">Udostępnij</string>
     <string name="watomatic_community_label"><u>Społeczność</u></string>
     <string name="watomatic_subreddit_label"><u>Dyskutujmy\nr/watomatic</u></string>
