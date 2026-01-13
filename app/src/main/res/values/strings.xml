@@ -339,10 +339,10 @@
     <string name="subscription_feature_priority_support">Priority support</string>
     <string name="subscription_choose_plan">Choose Your Plan</string>
     <string name="subscription_monthly_plan">Monthly</string>
-    <string name="subscription_monthly_price">$9.99/month</string>
+    <string name="subscription_monthly_price">$1.99/month</string>
     <string name="subscription_annual_plan">Annual</string>
-    <string name="subscription_annual_price">$99.99/year</string>
-    <string name="subscription_annual_savings">Save $20 annually</string>
+    <string name="subscription_annual_price">$10.99/year</string>
+    <string name="subscription_annual_savings">Save over 50%</string>
     <string name="subscription_most_popular">Most Popular</string>
     <string name="subscription_all_features_included">All features included</string>
     <string name="subscription_subscribe_button">Choose Plan &amp; Continue</string>

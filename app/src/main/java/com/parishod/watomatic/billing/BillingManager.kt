@@ -65,6 +65,11 @@ interface BillingManager {
      * Check if billing client is ready
      */
     fun isReady(): Boolean
+
+    companion object {
+        const val SKU_MONTHLY = "automatic_ai_pro_monthly"
+        const val SKU_ANNUAL = "automatic_ai_pro_annual"
+    }
 }
 
 /**

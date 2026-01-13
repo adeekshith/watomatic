@@ -31,6 +31,7 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var saveAutoReplyTextBtn: Button? = null
     private var customRepliesData: CustomRepliesData? = null
     private var preferencesManager: PreferencesManager? = null
+    private var subscriptionManager: com.parishod.watomatic.model.subscription.SubscriptionManager? = null
     private var watoMessageLinkBtn: TextView? = null
     private var enableAIRepliesCheckbox: CheckBox? = null
     private var automaticAiProviderCard: MaterialCardView? = null
@@ -71,6 +72,10 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         customRepliesData = CustomRepliesData.getInstance(this)
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
+        
+        preferencesManager?.let {
+            subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
+        }
 
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText)
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn)
@@ -119,7 +124,20 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         // Toggle AI enable/disable
         enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, ischecked ->
-            preferencesManager?.setEnableOpenAIReplies(ischecked)
+            if (ischecked) {
+                // Check for Pro subscription
+                if (subscriptionManager?.isProUser() == true) {
+                    preferencesManager?.setEnableOpenAIReplies(true)
+                } else {
+                    enableAIRepliesCheckbox?.isChecked = false
+                    Toast.makeText(this, "Automatic AI requires a Pro subscription.", Toast.LENGTH_LONG).show()
+                    // Optionally open subscription page
+                     startActivity(Intent(this, SubscriptionInfoActivity::class.java))
+                }
+            } else {
+                preferencesManager?.setEnableOpenAIReplies(false)
+            }
+            //preferencesManager?.setEnableOpenAIReplies(ischecked)
             updateAIState()
         }
 
