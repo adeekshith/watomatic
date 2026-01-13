@@ -17,12 +17,16 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.billing.BillingManager
 import com.parishod.watomatic.billing.BillingManagerImpl
+
+// import com.parishod.watomatic.billing.BillingManagerImpl // Removed to avoid compile error
 import com.parishod.watomatic.billing.PurchaseUpdateListener
 import com.parishod.watomatic.model.preferences.PreferencesManager
+import kotlinx.coroutines.launch
 
 class SubscriptionInfoActivity : BaseActivity() {
     private var preferencesManager: PreferencesManager? = null
     private var billingManager: BillingManager? = null
+    private var subscriptionManager: com.parishod.watomatic.model.subscription.SubscriptionManager? = null
     
     // UI Components
     private var monthlyPlanCard: MaterialCardView? = null
@@ -51,7 +55,16 @@ class SubscriptionInfoActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.subscription_info_title)
 
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
-        billingManager = BillingManagerImpl(this)
+        try {0
+            billingManager = BillingManagerImpl(this) as BillingManager
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Fallback or handle error?
+            Toast.makeText(this, "Billing service not available", Toast.LENGTH_SHORT).show()
+        }
+        preferencesManager?.let {
+            subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
+        }
 
         initializeViews()
         setupClickListeners()
@@ -150,11 +163,11 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun initializeBilling() {
-        showLoading()
+        //showLoading()
         billingManager?.startConnection(
             onConnected = {
                 queryProductDetails()
-                loadSubscriptionStatus()
+                //loadSubscriptionStatus()
             },
             onDisconnected = {
                 hideLoading()
@@ -188,14 +201,14 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     private fun updatePricing() {
         // Update monthly price
-        productDetailsMap[BillingManagerImpl.SKU_MONTHLY]?.let { details ->
+        productDetailsMap[BillingManager.SKU_MONTHLY]?.let { details ->
             val priceInfo = details.subscriptionOfferDetails?.firstOrNull()
                 ?.pricingPhases?.pricingPhaseList?.firstOrNull()
             monthlyPriceText?.text = priceInfo?.formattedPrice ?: "$1.99/month"
         }
 
         // Update annual price
-        productDetailsMap[BillingManagerImpl.SKU_ANNUAL]?.let { details ->
+        productDetailsMap[BillingManager.SKU_ANNUAL]?.let { details ->
             val priceInfo = details.subscriptionOfferDetails?.firstOrNull()
                 ?.pricingPhases?.pricingPhaseList?.firstOrNull()
             annualPriceText?.text = priceInfo?.formattedPrice ?: "$10.99/year"
@@ -203,32 +216,29 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun loadSubscriptionStatus() {
-        billingManager?.queryPurchases(
-            onSuccess = { purchases ->
-                if (purchases.isNotEmpty()) {
-                    val purchase = purchases.first()
-                    val productId = purchase.products.firstOrNull() ?: ""
-                    val planType = when {
-                        productId.contains("monthly") -> "Monthly"
-                        productId.contains("annual") -> "Annual"
-                        else -> "Unknown"
-                    }
-                    
-                    updateStatusText("Active: $planType Plan")
-                    subscribeButton?.text = "Manage Subscription"
+        // Observe LiveData from SubscriptionManager
+        subscriptionManager?.subscriptionStatus?.observe(this) { state ->
+            if (state.isActive) {
+                val planType = state.planType?.capitalize() ?: "Active"
+                updateStatusText("Active: $planType Plan")
+                subscribeButton?.text = "Manage Subscription"
+                // Possibly hide subscribe button or change to "Manage" depending on requirements
+            } else if (state.error != null) {
+                updateStatusText("Status: ${state.error}")
+            } else {
+                val userEmail = preferencesManager?.userEmail ?: ""
+                if (userEmail.isNotEmpty()) {
+                    updateStatusText("Logged in as $userEmail")
                 } else {
-                    val userEmail = preferencesManager?.userEmail ?: ""
-                    if (userEmail.isNotEmpty()) {
-                        updateStatusText("Logged in as $userEmail")
-                    } else {
-                        updateStatusText("No active subscription")
-                    }
+                    updateStatusText("No active subscription")
                 }
-            },
-            onFailure = { error ->
-                updateStatusText("Failed to load subscription status")
             }
-        )
+        }
+        
+        // Trigger a refresh
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            subscriptionManager?.refreshSubscriptionStatus()
+        }
     }
 
     private fun selectPlan(planType: String) {
@@ -254,8 +264,8 @@ class SubscriptionInfoActivity : BaseActivity() {
         }
 
         val productId = when (selectedPlanType) {
-            "monthly" -> BillingManagerImpl.SKU_MONTHLY
-            "annual" -> BillingManagerImpl.SKU_ANNUAL
+            "monthly" -> BillingManager.SKU_MONTHLY
+            "annual" -> BillingManager.SKU_ANNUAL
             else -> {
                 Toast.makeText(this, "Invalid plan selected", Toast.LENGTH_SHORT).show()
                 return
@@ -280,27 +290,55 @@ class SubscriptionInfoActivity : BaseActivity() {
         showLoading()
         billingManager?.queryPurchases(
             onSuccess = { purchases ->
-                hideLoading()
                 if (purchases.isEmpty()) {
+                    hideLoading()
                     Toast.makeText(
                         this,
                         "No purchases to restore",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Restored ${purchases.size} purchase(s)",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    loadSubscriptionStatus()
+                    // Process each restored purchase with backend
+                    var successCount = 0
+                    var failCount = 0
+                    val totalToRestore = purchases.size
+                    
+                    kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                        purchases.forEach { purchase ->
+                            val productId = purchase.products.firstOrNull() ?: ""
+                            val result = subscriptionManager?.restorePurchase(
+                                purchase.purchaseToken,
+                                productId,
+                                purchase.orderId ?: ""
+                            )
+                            
+                            if (result == true) successCount++ else failCount++
+                        }
+                        
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            hideLoading()
+                            if (successCount > 0) {
+                                Toast.makeText(
+                                    this@SubscriptionInfoActivity,
+                                    "Successfully restored subscription!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    this@SubscriptionInfoActivity,
+                                    "Found purchases but failed to verify with backend.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
                 }
             },
             onFailure = { error ->
                 hideLoading()
                 Toast.makeText(
                     this,
-                    "Failed to restore purchases: $error",
+                    "Failed to restore: $error",
                     Toast.LENGTH_LONG
                 ).show()
             }

@@ -5,16 +5,18 @@ import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.*
 import com.parishod.watomatic.BuildConfig
+import com.parishod.watomatic.backend.FirebaseBackendService
+import com.parishod.watomatic.backend.BackendService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BillingManagerImpl(private val context: Context) : BillingManager, PurchasesUpdatedListener {
 
     companion object {
         private const val TAG = "BillingManager"
         
-        // Subscription SKUs
-        const val SKU_MONTHLY = "automatic_ai_pro_monthly"
-        const val SKU_ANNUAL = "automatic_ai_pro_annual"
-        
+
         // Base64-encoded public key from Google Play Console
         // TODO: Replace with actual key from Google Play Console
         private const val BASE64_PUBLIC_KEY = "REPLACE_WITH_YOUR_PUBLIC_KEY"
@@ -28,6 +30,7 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
     private var purchaseListener: PurchaseUpdateListener? = null
     private var isConnected = false
     private val productDetailsCache = mutableMapOf<String, ProductDetails>()
+    private val backendService: BackendService = FirebaseBackendService(context)
 
     override fun startConnection(onConnected: (() -> Unit)?, onDisconnected: (() -> Unit)?) {
         if (isConnected) {
@@ -67,11 +70,11 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
 
         val productList = listOf(
             QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(SKU_MONTHLY)
+                .setProductId(BillingManager.SKU_MONTHLY)
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build(),
             QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(SKU_ANNUAL)
+                .setProductId(BillingManager.SKU_ANNUAL)
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build()
         )
@@ -218,7 +221,7 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
     }
 
     private fun handlePurchase(purchase: Purchase) {
-        // Verify signature
+        // Step 1: Verify signature locally (first line of defense)
         if (!verifyPurchaseSignature(purchase)) {
             Log.e(TAG, "Invalid purchase signature")
             purchaseListener?.onPurchaseFailure("Invalid purchase signature")
@@ -228,7 +231,35 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
         when (purchase.purchaseState) {
             Purchase.PurchaseState.PURCHASED -> {
                 Log.d(TAG, "Purchase successful: ${purchase.products}")
-                purchaseListener?.onPurchaseSuccess(purchase)
+                
+                // Step 2: Verify with backend
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val verificationResult = backendService.verifyPurchase(
+                            purchaseToken = purchase.purchaseToken,
+                            productId = purchase.products.firstOrNull() ?: "",
+                            orderId = purchase.orderId ?: ""
+                        )
+                        
+                        CoroutineScope(Dispatchers.Main).launch {
+                            if (verificationResult.isValid) {
+                                Log.d(TAG, "Backend verification successful")
+                                purchaseListener?.onPurchaseSuccess(purchase)
+                            } else {
+                                Log.e(TAG, "Backend verification failed: ${verificationResult.error}")
+                                purchaseListener?.onPurchaseFailure(
+                                    "Verification failed: ${verificationResult.error}"
+                                )
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Backend verification unavailable, using local verification", e)
+                        // Fallback to local verification if backend is down
+                        CoroutineScope(Dispatchers.Main).launch {
+                            purchaseListener?.onPurchaseSuccess(purchase)
+                        }
+                    }
+                }
             }
             Purchase.PurchaseState.PENDING -> {
                 Log.d(TAG, "Purchase pending: ${purchase.products}")
