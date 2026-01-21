@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.FirebaseFunctions
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -15,7 +16,7 @@ class FirebaseBackendService(private val context: Context) : BackendService {
         private const val TAG = "FirebaseBackend"
     }
     
-    private val functions: FirebaseFunctions = FirebaseFunctions.getInstance()
+    private val functions: FirebaseFunctions = FirebaseFunctions.getInstance("us-central1")
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     
     override suspend fun verifyPurchase(
@@ -24,6 +25,40 @@ class FirebaseBackendService(private val context: Context) : BackendService {
         orderId: String
     ): VerificationResult {
         return try {
+            val user = auth.currentUser
+            if (user == null) {
+                Log.e(TAG, "verifyPurchase failed: User not logged in (currentUser is null)")
+                return VerificationResult(
+                    isValid = false,
+                    expiryTime = 0,
+                    autoRenewing = false,
+                    planType = "",
+                    error = "User not logged in"
+                )
+            }
+            
+            // CRITICAL: Force refresh the ID token before calling Cloud Function
+            // This ensures the token is fresh and not expired (tokens expire after 1 hour)
+            // The Firebase SDK automatically attaches this token to callable requests
+            try {
+                val tokenResult = user.getIdToken(true).await()
+                Log.d(TAG, "Token refreshed successfully, expiry: ${tokenResult.expirationTimestamp}")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to refresh token before verification", e)
+                return VerificationResult(
+                    isValid = false,
+                    expiryTime = 0,
+                    autoRenewing = false,
+                    planType = "",
+                    error = "Authentication failed: Unable to refresh token - ${e.message}"
+                )
+            }
+
+            Log.d(TAG, "Verifying purchase for user: ${user.uid}")
+
+            // Note: awaitAuthReady() is no longer needed here since we already verified user exists
+            // and refreshed the token above
+
             val data = hashMapOf(
                 "purchaseToken" to purchaseToken,
                 "productId" to productId,
@@ -65,9 +100,71 @@ class FirebaseBackendService(private val context: Context) : BackendService {
             )
         }
     }
+
+    /**
+     * Ensures the user is authenticated with a fresh ID token.
+     * This is CRITICAL for Firebase HTTPS Callable functions to work properly.
+     * 
+     * @param forceRefresh If true, forces a network request to refresh the token even if cached.
+     * @return true if authentication is ready with a fresh token, false otherwise.
+     */
+    private suspend fun ensureAuthenticatedWithFreshToken(forceRefresh: Boolean = true): Boolean {
+        // Wait for auth state if not ready
+        if (auth.currentUser == null) {
+            try {
+                suspendCancellableCoroutine<Unit> { cont ->
+                    val listener = object : FirebaseAuth.AuthStateListener {
+                        override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+                            if (firebaseAuth.currentUser != null && cont.isActive) {
+                                auth.removeAuthStateListener(this)
+                                cont.resume(Unit) {}
+                            }
+                        }
+                    }
+                    auth.addAuthStateListener(listener)
+                    cont.invokeOnCancellation { auth.removeAuthStateListener(listener) }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed waiting for auth state", e)
+                return false
+            }
+        }
+        
+        // Force refresh the token to ensure it's valid
+        val user = auth.currentUser ?: return false
+        return try {
+            val tokenResult = user.getIdToken(forceRefresh).await()
+            Log.d(TAG, "Token ready, expiry: ${tokenResult.expirationTimestamp}, issuedAt: ${tokenResult.authTimestamp}")
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to refresh token", e)
+            false
+        }
+    }
     
+    @Deprecated("Use ensureAuthenticatedWithFreshToken instead")
+    suspend fun awaitAuthReady() {
+        if (auth.currentUser != null) return
+
+        suspendCancellableCoroutine<Unit> { cont ->
+            val listener = FirebaseAuth.AuthStateListener {
+                if (auth.currentUser != null && cont.isActive) {
+                    cont.resume(Unit) {}
+                }
+            }
+            auth.addAuthStateListener(listener)
+            cont.invokeOnCancellation { auth.removeAuthStateListener(listener) }
+        }
+    }
+
     override suspend fun getSubscriptionStatus(userId: String): SubscriptionStatus {
         return try {
+            // Ensure fresh token before callable request
+            if (!ensureAuthenticatedWithFreshToken()) {
+                Log.e(TAG, "getSubscriptionStatus: Authentication not ready")
+                return SubscriptionStatus(false, 0, null, null, false)
+            }
+            
             val data = hashMapOf("userId" to userId)
             val result = functions
                 .getHttpsCallable("getSubscriptionStatus")
@@ -98,6 +195,12 @@ class FirebaseBackendService(private val context: Context) : BackendService {
         deviceName: String
     ): DeviceRegistrationResult {
         return try {
+            // Ensure fresh token before callable request
+            if (!ensureAuthenticatedWithFreshToken()) {
+                Log.e(TAG, "registerDevice: Authentication not ready")
+                return DeviceRegistrationResult(false, 0, 0, "Authentication not ready")
+            }
+            
             val data = hashMapOf(
                 "userId" to userId,
                 "deviceId" to deviceId,
@@ -127,6 +230,12 @@ class FirebaseBackendService(private val context: Context) : BackendService {
     
     override suspend fun removeDevice(userId: String, deviceId: String): Boolean {
         return try {
+            // Ensure fresh token before callable request
+            if (!ensureAuthenticatedWithFreshToken()) {
+                Log.e(TAG, "removeDevice: Authentication not ready")
+                return false
+            }
+            
             val data = hashMapOf("userId" to userId, "deviceId" to deviceId)
             val result = functions
                 .getHttpsCallable("removeDevice")
@@ -143,6 +252,12 @@ class FirebaseBackendService(private val context: Context) : BackendService {
     
     override suspend fun getDevices(userId: String): List<DeviceInfo> {
         return try {
+            // Ensure fresh token before callable request
+            if (!ensureAuthenticatedWithFreshToken()) {
+                Log.e(TAG, "getDevices: Authentication not ready")
+                return emptyList()
+            }
+            
             val data = hashMapOf("userId" to userId)
             val result = functions
                 .getHttpsCallable("getDevices")

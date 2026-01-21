@@ -258,3 +258,10 @@ If you encounter issues:
 2. Verify Google Play API credentials
 3. Test with Firebase emulator first
 4. Check Firestore security rules
+
+
+## Full cleanup and Upload commands
+npm install firebase-functions@latest firebase-admin@latest --save
+rm -rf node_modules package-lock.json
+npm install
+firebase deploy --only functions

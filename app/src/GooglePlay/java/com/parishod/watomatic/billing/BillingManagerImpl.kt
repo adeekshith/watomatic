@@ -240,16 +240,32 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
                             productId = purchase.products.firstOrNull() ?: "",
                             orderId = purchase.orderId ?: ""
                         )
-                        
+
+                        Log.e(TAG, "Backend verification : ${verificationResult.toString()}")
                         CoroutineScope(Dispatchers.Main).launch {
                             if (verificationResult.isValid) {
                                 Log.d(TAG, "Backend verification successful")
                                 purchaseListener?.onPurchaseSuccess(purchase)
                             } else {
-                                Log.e(TAG, "Backend verification failed: ${verificationResult.error}")
-                                purchaseListener?.onPurchaseFailure(
-                                    "Verification failed: ${verificationResult.error}"
-                                )
+                                val error = verificationResult.error ?: "Unknown error"
+                                Log.e(TAG, "Backend verification failed: $error")
+                                
+                                // Fallback to local verification for transient/auth errors
+                                // UNAUTHENTICATED: Cloud Functions auth failed (session expired, etc)
+                                // UNAVAILABLE: Backend offline
+                                // TIMEOUT: Network timeout
+                                val isTransientError = error.contains("UNAUTHENTICATED", ignoreCase = true) ||
+                                        error.contains("UNAVAILABLE", ignoreCase = true) ||
+                                        error.contains("TIMEOUT", ignoreCase = true) ||
+                                        error.contains("Authentication failed", ignoreCase = true)
+
+                                /*if (isTransientError) {
+                                    Log.w(TAG, "Falling back to local verification due to transient error: $error")
+                                    purchaseListener?.onPurchaseSuccess(purchase)
+                                } else {*/
+                                Log.e(TAG, "Falling back to local verification due to transient error: $error")
+                                    purchaseListener?.onPurchaseFailure("Verification failed: $error")
+//                                }
                             }
                         }
                     } catch (e: Exception) {
