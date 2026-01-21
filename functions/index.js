@@ -1,16 +1,23 @@
-const functions = require('firebase-functions');
+const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
 const { google } = require('googleapis');
 
 admin.initializeApp();
 
 // Initialize Google Play Developer API
+const fs = require('fs');
+const keyFilePath = './service-account-key.json';
+const authConfig = {
+    scopes: ['https://www.googleapis.com/auth/androidpublisher'],
+};
+
+if (fs.existsSync(keyFilePath)) {
+    authConfig.keyFile = keyFilePath;
+}
+
 const androidPublisher = google.androidpublisher({
     version: 'v3',
-    auth: new google.auth.GoogleAuth({
-        keyFile: './service-account-key.json',
-        scopes: ['https://www.googleapis.com/auth/androidpublisher'],
-    }),
+    auth: new google.auth.GoogleAuth(authConfig),
 });
 
 const PACKAGE_NAME = 'com.parishod.atomatic';
@@ -18,81 +25,177 @@ const DEVICE_LIMIT = 3;
 
 /**
  * Verify a purchase with Google Play Developer API
+ * 
+ * IMPORTANT: firebase-functions V2 API - the signature is different from V1!
+ * V2: onCall((request) => { ... }) where request.auth contains auth info
+ * V1: onCall((data, context) => { ... }) - THIS IS DEPRECATED
  */
-exports.verifyPurchase = functions.https.onCall(async (data, context) => {
+exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
+    // V2 API: auth is on request.auth, data is on request.data
+    const auth = request.auth;
+    const data = request.data;
+
+    // Enhanced auth logging for debugging
+    console.log('verifyPurchase called (V2 API)');
+    console.log('Auth present:', !!auth);
+    console.log('Auth UID:', auth?.uid || 'null');
+
+    if (auth) {
+        console.log('Auth token claims:', JSON.stringify(auth.token || {}, null, 2));
+    } else {
+        console.error('NO AUTH - Client did not send a valid ID token');
+        console.error('Possible causes:');
+        console.error('1. Client-side FirebaseAuth.currentUser is null');
+        console.error('2. ID token expired and was not refreshed');
+        console.error('3. Client region mismatch with function region (us-central1)');
+        console.error('4. google-services.json / SHA-1 mismatch');
+    }
+
     // Ensure user is authenticated
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated. Please ensure you are signed in and your session has not expired.');
     }
 
     const { purchaseToken, productId, orderId, packageName } = data;
-    const userId = context.auth.uid;
+    const userId = auth.uid;
 
-    console.log(`Verifying purchase for user ${userId}, product ${productId}`);
+    // Detailed logging to debug NOT_FOUND errors
+    const resolvedPackageName = packageName || PACKAGE_NAME;
+    console.log('=== Purchase Verification Request ===');
+    console.log(`User ID: ${userId}`);
+    console.log(`Package Name: ${resolvedPackageName}`);
+    console.log(`Product ID (subscriptionId): ${productId}`);
+    console.log(`Order ID: ${orderId}`);
+    console.log(`Purchase Token (first 50 chars): ${purchaseToken?.substring(0, 50)}...`);
+    console.log(`Purchase Token length: ${purchaseToken?.length || 0}`);
 
     try {
-        // Call Google Play Developer API to verify subscription
-        const response = await androidPublisher.purchases.subscriptions.get({
-            packageName: packageName || PACKAGE_NAME,
-            subscriptionId: productId,
+        // IMPORTANT: Use subscriptionsv2 API instead of deprecated subscriptions API
+        // The old purchases.subscriptions.get API doesn't work for subscriptions 
+        // created after May 2022 that use base plans
+        console.log('Calling Google Play Developer API (subscriptionsv2)...');
+        const response = await androidPublisher.purchases.subscriptionsv2.get({
+            packageName: resolvedPackageName,
             token: purchaseToken,
         });
 
         const subscription = response.data;
-        console.log('Google Play API response:', JSON.stringify(subscription, null, 2));
+        console.log('Google Play API V2 response:', JSON.stringify(subscription, null, 2));
 
-        // Check if subscription is valid
-        const expiryTimeMillis = parseInt(subscription.expiryTimeMillis);
-        const isActive = expiryTimeMillis > Date.now() &&
-            subscription.paymentState === 1; // 1 = Payment received
+        // V2 API response structure is different from V1
+        // Check subscription state: https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#SubscriptionState
+        // SUBSCRIPTION_STATE_ACTIVE = subscription is active
+        // SUBSCRIPTION_STATE_CANCELED = canceled but still valid until expiry
+        // SUBSCRIPTION_STATE_IN_GRACE_PERIOD = payment failed, in grace period
+        // SUBSCRIPTION_STATE_ON_HOLD = payment failed, on hold
+        // SUBSCRIPTION_STATE_PAUSED = paused by user
+        // SUBSCRIPTION_STATE_EXPIRED = expired
+        const subscriptionState = subscription.subscriptionState;
+        console.log(`Subscription state: ${subscriptionState}`);
 
-        if (!isActive) {
-            console.log('Subscription not active or payment pending');
+        // Get the line items (there should be one for simple subscriptions)
+        const lineItems = subscription.lineItems || [];
+        const lineItem = lineItems[0];
+
+        if (!lineItem) {
+            console.log('No line items found in subscription');
             return {
                 isValid: false,
                 expiryTime: 0,
                 autoRenewing: false,
                 planType: '',
-                error: 'Subscription not active or payment pending'
+                error: 'No subscription line items found'
             };
         }
 
-        // Determine plan type
-        const planType = productId.includes('monthly') ? 'monthly' : 'annual';
-        const autoRenewing = subscription.autoRenewing || false;
+        // Extract data from V2 response
+        const expiryTime = lineItem.expiryTime; // ISO 8601 format
+        const expiryTimeMillis = expiryTime ? new Date(expiryTime).getTime() : 0;
+        const retrievedProductId = lineItem.productId;
+        const basePlanId = lineItem.offerDetails?.basePlanId;
+        const autoRenewing = subscription.subscriptionState === 'SUBSCRIPTION_STATE_ACTIVE' &&
+            lineItem.autoRenewingPlan?.autoRenewEnabled === true;
 
-        // Store verified subscription in Firestore
-        await admin.firestore().collection('users').doc(userId).set({
-            subscription: {
-                isActive: true,
-                productId: productId,
-                planType: planType,
-                purchaseToken: purchaseToken,
-                orderId: orderId,
-                expiryTime: expiryTimeMillis,
-                autoRenewing: autoRenewing,
-                lastVerified: admin.firestore.FieldValue.serverTimestamp(),
-                verified: true,
-                verifiedBy: 'backend'
-            }
-        }, { merge: true });
+        console.log(`Product ID: ${retrievedProductId}, Base Plan: ${basePlanId}`);
+        console.log(`Expiry: ${expiryTime} (${expiryTimeMillis}ms)`);
+        console.log(`Auto-renewing: ${autoRenewing}`);
 
-        // Also store in subscription history
-        await admin.firestore()
-            .collection('users')
-            .doc(userId)
-            .collection('subscriptions')
-            .doc(purchaseToken)
-            .set({
-                productId: productId,
-                planType: planType,
-                purchaseToken: purchaseToken,
-                orderId: orderId,
+        // Check if subscription is valid (active, canceled but not expired, or in grace period)
+        const validStates = [
+            'SUBSCRIPTION_STATE_ACTIVE',
+            'SUBSCRIPTION_STATE_CANCELED', // still valid until expiry
+            'SUBSCRIPTION_STATE_IN_GRACE_PERIOD'
+        ];
+
+        const isActive = validStates.includes(subscriptionState) && expiryTimeMillis > Date.now();
+
+        if (!isActive) {
+            console.log(`Subscription not active. State: ${subscriptionState}, Expiry: ${expiryTimeMillis}, Now: ${Date.now()}`);
+            return {
+                isValid: false,
                 expiryTime: expiryTimeMillis,
-                autoRenewing: autoRenewing,
-                purchaseTime: parseInt(subscription.startTimeMillis),
-                verifiedAt: admin.firestore.FieldValue.serverTimestamp()
-            });
+                autoRenewing: false,
+                planType: '',
+                error: `Subscription state: ${subscriptionState}`
+            };
+        }
+
+        // Determine plan type from product ID or base plan
+        const planType = (retrievedProductId || productId || '').includes('monthly') ? 'monthly' : 'annual';
+
+        console.log('Google Play API verification successful! Now storing in Firestore...');
+
+        // Store verified subscription in Firestore (with separate error handling)
+        try {
+            await admin.firestore().collection('users').doc(userId).set({
+                subscription: {
+                    isActive: true,
+                    productId: retrievedProductId || productId,
+                    basePlanId: basePlanId,
+                    planType: planType,
+                    purchaseToken: purchaseToken,
+                    orderId: orderId,
+                    expiryTime: expiryTimeMillis,
+                    autoRenewing: autoRenewing,
+                    subscriptionState: subscriptionState,
+                    lastVerified: admin.firestore.FieldValue.serverTimestamp(),
+                    verified: true,
+                    verifiedBy: 'backend'
+                }
+            }, { merge: true });
+            console.log('Successfully wrote to users collection');
+        } catch (firestoreError) {
+            console.error('Firestore write to users failed:', firestoreError.message);
+            console.error('Firestore error code:', firestoreError.code);
+            // Continue anyway - the purchase is valid, just Firestore storage failed
+        }
+
+        // Also store in subscription history (with separate error handling)
+        try {
+            const startTime = subscription.startTime ? new Date(subscription.startTime).getTime() : Date.now();
+            await admin.firestore()
+                .collection('users')
+                .doc(userId)
+                .collection('subscriptions')
+                .doc(purchaseToken)
+                .set({
+                    productId: retrievedProductId || productId,
+                    basePlanId: basePlanId,
+                    planType: planType,
+                    purchaseToken: purchaseToken,
+                    orderId: orderId,
+                    expiryTime: expiryTimeMillis,
+                    autoRenewing: autoRenewing,
+                    subscriptionState: subscriptionState,
+                    purchaseTime: startTime,
+                    verifiedAt: admin.firestore.FieldValue.serverTimestamp()
+                });
+            console.log('Successfully wrote to subscriptions subcollection');
+        } catch (firestoreError) {
+            console.error('Firestore write to subscriptions failed:', firestoreError.message);
+            console.error('Firestore error code:', firestoreError.code);
+            // Continue anyway - the purchase is valid, just Firestore storage failed
+        }
 
         console.log(`Purchase verified successfully for user ${userId}`);
 
@@ -105,23 +208,27 @@ exports.verifyPurchase = functions.https.onCall(async (data, context) => {
 
     } catch (error) {
         console.error('Verification error:', error);
-        throw new functions.https.HttpsError('internal', 'Verification failed: ' + error.message);
+        console.error('Error details:', JSON.stringify(error.response?.data || error.message, null, 2));
+        throw new HttpsError('internal', 'Verification failed: ' + error.message);
     }
 });
 
 /**
- * Get subscription status for a user
+ * Get subscription status for a user (V2 API)
  */
-exports.getSubscriptionStatus = functions.https.onCall(async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const userId = data.userId || context.auth.uid;
+    const userId = data.userId || auth.uid;
 
     // Only allow users to query their own status
-    if (userId !== context.auth.uid) {
-        throw new functions.https.HttpsError('permission-denied', 'Cannot query other users');
+    if (userId !== auth.uid) {
+        throw new HttpsError('permission-denied', 'Cannot query other users');
     }
 
     try {
@@ -150,22 +257,25 @@ exports.getSubscriptionStatus = functions.https.onCall(async (data, context) => 
 
     } catch (error) {
         console.error('Get status error:', error);
-        throw new functions.https.HttpsError('internal', 'Failed to get status');
+        throw new HttpsError('internal', 'Failed to get status');
     }
 });
 
 /**
- * Register a device for a user
+ * Register a device for a user (V2 API)
  */
-exports.registerDevice = functions.https.onCall(async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+exports.registerDevice = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
     }
 
     const { userId, deviceId, deviceName } = data;
 
-    if (userId !== context.auth.uid) {
-        throw new functions.https.HttpsError('permission-denied', 'Cannot register for other users');
+    if (userId !== auth.uid) {
+        throw new HttpsError('permission-denied', 'Cannot register for other users');
     }
 
     try {
@@ -223,22 +333,25 @@ exports.registerDevice = functions.https.onCall(async (data, context) => {
 
     } catch (error) {
         console.error('Register device error:', error);
-        throw new functions.https.HttpsError('internal', 'Failed to register device');
+        throw new HttpsError('internal', 'Failed to register device');
     }
 });
 
 /**
- * Remove a device
+ * Remove a device (V2 API)
  */
-exports.removeDevice = functions.https.onCall(async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+exports.removeDevice = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
     }
 
     const { userId, deviceId } = data;
 
-    if (userId !== context.auth.uid) {
-        throw new functions.https.HttpsError('permission-denied', 'Cannot modify other users');
+    if (userId !== auth.uid) {
+        throw new HttpsError('permission-denied', 'Cannot modify other users');
     }
 
     try {
@@ -256,17 +369,20 @@ exports.removeDevice = functions.https.onCall(async (data, context) => {
 });
 
 /**
- * Get list of devices
+ * Get list of devices (V2 API)
  */
-exports.getDevices = functions.https.onCall(async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+exports.getDevices = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const userId = data.userId || context.auth.uid;
+    const userId = data.userId || auth.uid;
 
-    if (userId !== context.auth.uid) {
-        throw new functions.https.HttpsError('permission-denied', 'Cannot query other users');
+    if (userId !== auth.uid) {
+        throw new HttpsError('permission-denied', 'Cannot query other users');
     }
 
     try {
@@ -283,6 +399,6 @@ exports.getDevices = functions.https.onCall(async (data, context) => {
         return { devices: deviceList };
     } catch (error) {
         console.error('Get devices error:', error);
-        throw new functions.https.HttpsError('internal', 'Failed to get devices');
+        throw new HttpsError('internal', 'Failed to get devices');
     }
 });
