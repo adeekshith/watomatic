@@ -1,6 +1,7 @@
 package com.parishod.watomatic.activity.subscription
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -21,6 +22,7 @@ import com.parishod.watomatic.billing.BillingManagerImpl
 // import com.parishod.watomatic.billing.BillingManagerImpl // Removed to avoid compile error
 import com.parishod.watomatic.billing.PurchaseUpdateListener
 import com.parishod.watomatic.model.preferences.PreferencesManager
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class SubscriptionInfoActivity : BaseActivity() {
@@ -55,7 +57,7 @@ class SubscriptionInfoActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.subscription_info_title)
 
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
-        try {0
+        try {
             billingManager = BillingManagerImpl(this) as BillingManager
         } catch (e: Exception) {
             e.printStackTrace()
@@ -63,6 +65,7 @@ class SubscriptionInfoActivity : BaseActivity() {
             Toast.makeText(this, "Billing service not available", Toast.LENGTH_SHORT).show()
         }
         preferencesManager?.let {
+            Log.d("TAG", "Init Subscription manager")
             subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
         }
 
@@ -167,7 +170,11 @@ class SubscriptionInfoActivity : BaseActivity() {
         billingManager?.startConnection(
             onConnected = {
                 queryProductDetails()
-                //loadSubscriptionStatus()
+                // Ensure we're on the main thread when calling loadSubscriptionStatus
+                // because LiveData observers must be registered on the main thread
+                runOnUiThread {
+                    loadSubscriptionStatus()
+                }
             },
             onDisconnected = {
                 hideLoading()
@@ -183,18 +190,22 @@ class SubscriptionInfoActivity : BaseActivity() {
     private fun queryProductDetails() {
         billingManager?.queryProductDetails(
             onSuccess = { products ->
-                productDetailsMap.clear()
-                productDetailsMap.putAll(products)
-                updatePricing()
-                hideLoading()
+                runOnUiThread {
+                    productDetailsMap.clear()
+                    productDetailsMap.putAll(products)
+                    updatePricing()
+                    hideLoading()
+                }
             },
             onFailure = { error ->
-                hideLoading()
-                Toast.makeText(
-                    this,
-                    "Failed to load subscription plans: $error",
-                    Toast.LENGTH_LONG
-                ).show()
+                runOnUiThread {
+                    hideLoading()
+                    Toast.makeText(
+                        this,
+                        "Failed to load subscription plans: $error",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         )
     }
@@ -216,8 +227,17 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun loadSubscriptionStatus() {
+        Log.d("TAG", "loadSubscriptionStatus - subscriptionManager is ${if (subscriptionManager == null) "NULL" else "NOT NULL"}")
+        
+        if (subscriptionManager == null) {
+            Log.e("TAG", "subscriptionManager is NULL! Cannot load subscription status")
+            updateStatusText("Error: Subscription manager not initialized")
+            return
+        }
+        
         // Observe LiveData from SubscriptionManager
         subscriptionManager?.subscriptionStatus?.observe(this) { state ->
+            Log.d("TAG", "Observer triggered with state: ${state.toString()}")
             if (state.isActive) {
                 val planType = state.planType?.capitalize() ?: "Active"
                 updateStatusText("Active: $planType Plan")
@@ -235,10 +255,18 @@ class SubscriptionInfoActivity : BaseActivity() {
             }
         }
         
-        // Trigger a refresh
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
-            subscriptionManager?.refreshSubscriptionStatus()
+        // Trigger a refresh using lifecycleScope
+        Log.d("TAG", "About to launch coroutine for refreshSubscriptionStatus")
+        lifecycleScope.launch {
+            Log.d("TAG", "Inside coroutine - about to call refreshSubscriptionStatus")
+            try {
+                subscriptionManager?.refreshSubscriptionStatus()
+                Log.d("TAG", "refreshSubscriptionStatus completed")
+            } catch (e: Exception) {
+                Log.e("TAG", "Error calling refreshSubscriptionStatus", e)
+            }
         }
+        Log.d("TAG", "Coroutine launched")
     }
 
     private fun selectPlan(planType: String) {
