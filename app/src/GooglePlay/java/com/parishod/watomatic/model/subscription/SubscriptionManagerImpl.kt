@@ -1,6 +1,7 @@
 package com.parishod.watomatic.model.subscription
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.parishod.watomatic.backend.BackendService
@@ -40,10 +41,14 @@ class SubscriptionManagerImpl(
     }
 
     override suspend fun refreshSubscriptionStatus() {
-        _subscriptionStatus.postValue(_subscriptionStatus.value?.copy(isLoading = true))
+        // Set loading state on main thread
+        withContext(Dispatchers.Main) {
+            _subscriptionStatus.value = _subscriptionStatus.value?.copy(isLoading = true)
+        }
 
         try {
             val userId = preferencesManager.userEmail // Using email as ID for now, should use Firebase UID ideally
+            //Log.d("TAG", "subscription email ${userId.toString()}")
             // However, BackendService expects a userId. 
             // If user refers to Firebase Auth UID, we should get it from FirebaseAuth.
             // But here let's assume we pass the email or whatever ID strategy we use.
@@ -54,20 +59,22 @@ class SubscriptionManagerImpl(
             // So we need the real UID.
             
             val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
-            
+            //Log.d("TAG", "subscription uid ${uid.toString()}")
             if (uid == null) {
                 // Not logged in
-                 _subscriptionStatus.postValue(SubscriptionState(
-                    isActive = false,
-                    isLoading = false,
-                    error = "User not logged in"
-                ))
+                withContext(Dispatchers.Main) {
+                    _subscriptionStatus.value = SubscriptionState(
+                        isActive = false,
+                        isLoading = false,
+                        error = "User not logged in"
+                    )
+                }
                 return
             }
 
             // Call backend
             val status = backendService.getSubscriptionStatus(uid)
-
+            //Log.d("TAG", "subscription status ${status.toString()}")
             // Update local cache
             withContext(Dispatchers.Main) {
                 preferencesManager.setSubscriptionActive(status.isActive)
@@ -80,16 +87,21 @@ class SubscriptionManagerImpl(
                 updateStateFromPrefs()
             }
         } catch (e: Exception) {
-            _subscriptionStatus.postValue(_subscriptionStatus.value?.copy(
-                isLoading = false,
-                error = e.message
-            ))
+            Log.e("TAG", "refreshSubscriptionStatus error", e)
+            withContext(Dispatchers.Main) {
+                _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                    isLoading = false,
+                    error = e.message
+                )
+            }
         }
     }
 
     override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String): Boolean {
         return try {
-            _subscriptionStatus.postValue(_subscriptionStatus.value?.copy(isLoading = true))
+            withContext(Dispatchers.Main) {
+                _subscriptionStatus.value = _subscriptionStatus.value?.copy(isLoading = true)
+            }
             
             // Use BackendService to verify and register this purchase
             val result = backendService.verifyPurchase(purchaseToken, productId, orderId)
@@ -107,17 +119,21 @@ class SubscriptionManagerImpl(
                 }
                 true
             } else {
-                _subscriptionStatus.postValue(_subscriptionStatus.value?.copy(
-                    isLoading = false,
-                    error = result.error ?: "Restoration failed"
-                ))
+                withContext(Dispatchers.Main) {
+                    _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                        isLoading = false,
+                        error = result.error ?: "Restoration failed"
+                    )
+                }
                 false
             }
         } catch (e: Exception) {
-            _subscriptionStatus.postValue(_subscriptionStatus.value?.copy(
-                isLoading = false,
-                error = e.message
-            ))
+            withContext(Dispatchers.Main) {
+                _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                    isLoading = false,
+                    error = e.message
+                )
+            }
             false
         }
     }
@@ -131,6 +147,6 @@ class SubscriptionManagerImpl(
             isLoading = false,
             error = null
         )
-        _subscriptionStatus.postValue(state)
+        _subscriptionStatus.value = state
     }
 }
