@@ -232,9 +232,11 @@ exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request
     }
 
     try {
+        console.log(`Getting subscription status for user: ${userId}`);
         const userDoc = await admin.firestore().collection('users').doc(userId).get();
 
         if (!userDoc.exists) {
+            console.log(`User document does not exist for ${userId}`);
             return {
                 isActive: false,
                 expiryTime: 0,
@@ -245,7 +247,20 @@ exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request
         }
 
         const subscription = userDoc.data().subscription || {};
-        const isActive = subscription.isActive && subscription.expiryTime > Date.now();
+        console.log(`Subscription data from Firestore:`, JSON.stringify(subscription, null, 2));
+        console.log(`subscription.isActive: ${subscription.isActive} (type: ${typeof subscription.isActive})`);
+        console.log(`subscription.expiryTime: ${subscription.expiryTime}`);
+        console.log(`Date.now(): ${Date.now()}`);
+        console.log(`Expiry > Now: ${subscription.expiryTime > Date.now()}`);
+
+        // Explicitly convert to boolean to handle both boolean and string "true"/"false"
+        const isActiveInFirestore = subscription.isActive === true || subscription.isActive === 'true';
+        const isNotExpired = subscription.expiryTime && subscription.expiryTime > Date.now();
+        const isActive = isActiveInFirestore && isNotExpired;
+
+        console.log(`isActiveInFirestore: ${isActiveInFirestore}`);
+        console.log(`isNotExpired: ${isNotExpired}`);
+        console.log(`Final isActive result: ${isActive}`);
 
         return {
             isActive: isActive,
