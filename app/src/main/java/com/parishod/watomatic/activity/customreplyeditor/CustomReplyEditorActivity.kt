@@ -16,6 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.parishod.watomatic.R
@@ -35,7 +36,9 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var watoMessageLinkBtn: TextView? = null
     private var enableAIRepliesCheckbox: CheckBox? = null
     private var automaticAiProviderCard: MaterialCardView? = null
+    private var btnAtomaticAiEdit: MaterialButton? = null
     private var otherAiProviderCard: MaterialCardView? = null
+    private var btnOtherAiEdit: MaterialButton? = null
 
     private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -82,7 +85,9 @@ class CustomReplyEditorActivity : BaseActivity() {
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message)
         enableAIRepliesCheckbox = findViewById(R.id.enable_ai_replies_checkbox)
         automaticAiProviderCard = findViewById(R.id.automatic_ai_provider_card)
+        btnAtomaticAiEdit = findViewById(R.id.btn_automatic_ai_edit)
         otherAiProviderCard = findViewById(R.id.other_ai_provider_card)
+        btnOtherAiEdit = findViewById(R.id.btn_other_ai_edit)
 
         val intent = intent
         val data = intent.data
@@ -109,6 +114,19 @@ class CustomReplyEditorActivity : BaseActivity() {
         })
 
         saveAutoReplyTextBtn?.setOnClickListener {
+            if (enableAIRepliesCheckbox?.isChecked == true && (subscriptionManager?.isProUser() == true || !preferencesManager?.openAIApiKey.isNullOrEmpty())) {
+                preferencesManager?.setEnableOpenAIReplies(true)
+            }else if (enableAIRepliesCheckbox?.isChecked == true) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.configure_ai_llm_s_info),
+                    Toast.LENGTH_LONG
+                ).show()
+                preferencesManager?.setEnableOpenAIReplies(false)
+                return@setOnClickListener
+            }else{
+                preferencesManager?.setEnableOpenAIReplies(false)
+            }
             val setString = customRepliesData?.set(autoReplyText?.getText())
             if (setString != null) {
                 this.onNavigateUp()
@@ -124,7 +142,7 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         // Toggle AI enable/disable
         enableAIRepliesCheckbox?.setOnCheckedChangeListener { _, ischecked ->
-            if (ischecked) {
+            /*if (ischecked) {
                 // Check for Pro subscription
                 if (subscriptionManager?.isProUser() == true) {
                     preferencesManager?.setEnableOpenAIReplies(true)
@@ -136,8 +154,15 @@ class CustomReplyEditorActivity : BaseActivity() {
                 }
             } else {
                 preferencesManager?.setEnableOpenAIReplies(false)
-            }
+            }*/
             //preferencesManager?.setEnableOpenAIReplies(ischecked)
+            if(ischecked && subscriptionManager?.isProUser() == false && preferencesManager?.openAIApiKey.isNullOrEmpty()){
+                Toast.makeText(
+                    this,
+                    getString(R.string.configure_ai_llm_s_info),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             updateAIState()
         }
 
@@ -149,7 +174,16 @@ class CustomReplyEditorActivity : BaseActivity() {
             handleAutomaticAiProviderClick()
         }
 
+        btnAtomaticAiEdit?.setOnClickListener {
+            handleAutomaticAiProviderClick()
+        }
+
         otherAiProviderCard?.setOnClickListener {
+            val intent = Intent(this, OtherAiConfigurationActivity::class.java)
+            otherAiConfigLauncher.launch(intent)
+        }
+
+        btnOtherAiEdit?.setOnClickListener {
             val intent = Intent(this, OtherAiConfigurationActivity::class.java)
             otherAiConfigLauncher.launch(intent)
         }
@@ -163,26 +197,37 @@ class CustomReplyEditorActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateAIState()
-    }
-
-    private fun updateAIState() {
         val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
-        
+
         // Update Checkbox state if needed (e.g. onResume)
         if (enableAIRepliesCheckbox?.isChecked != isAIEnabled) {
             enableAIRepliesCheckbox?.isChecked = isAIEnabled
         }
+
+        updateAIState()
+    }
+
+    private fun updateAIState() {
+        val isAIEnabled = enableAIRepliesCheckbox?.isChecked ?: false
+        
+        /*// Update Checkbox state if needed (e.g. onResume)
+        if (enableAIRepliesCheckbox?.isChecked != isAIEnabled) {
+            enableAIRepliesCheckbox?.isChecked = isAIEnabled
+        }*/
         
         autoReplyText?.isEnabled = !isAIEnabled
 
         // Handle Cards Visual State
         val alpha = if (isAIEnabled) 1.0f else 0.5f
         automaticAiProviderCard?.alpha = alpha
+        btnAtomaticAiEdit?.alpha = alpha
         otherAiProviderCard?.alpha = alpha
-        
+        btnOtherAiEdit?.alpha = alpha
+
         automaticAiProviderCard?.isEnabled = isAIEnabled
+        btnAtomaticAiEdit?.isEnabled = isAIEnabled
         otherAiProviderCard?.isEnabled = isAIEnabled
+        btnOtherAiEdit?.isEnabled = isAIEnabled
 
         // Handle Selection State
         // Heuristic: If API Key is present, Other AI is selected. Otherwise Automatic AI.
@@ -205,10 +250,10 @@ class CustomReplyEditorActivity : BaseActivity() {
         otherAiProviderCard?.strokeWidth = if (isOtherSelected && isAIEnabled) selectedStrokeWidth else unselectedStrokeWidth
         otherAiProviderCard?.strokeColor = selectedStrokeColor
 
-        if(!hasApiKey){
+        /*if(!hasApiKey){
             Toast.makeText(this,
                 getString(R.string.configure_other_ai_llm_s_info), Toast.LENGTH_LONG).show()
-        }
+        }*/
     }
 
     private fun getThemeColor(attr: Int): Int {
