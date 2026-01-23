@@ -49,26 +49,88 @@ class SubscriptionInfoActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        setContentView(R.layout.activity_subscription_info)
+        
+        preferencesManager = PreferencesManager.getPreferencesInstance(this)
+        try {
+            billingManager = BillingManagerImpl(this) as BillingManager
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Billing service not available", Toast.LENGTH_SHORT).show()
+        }
+        
+        // Initialize subscription manager first
+        preferencesManager?.let {
+            Log.d("TAG", "Init Subscription manager")
+            subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
+        }
+        
+        // Check if subscription is active and load appropriate layout
+        val isActive = preferencesManager?.isSubscriptionActive() ?: false
+        if (isActive) {
+            setContentView(R.layout.activity_subscription_active)
+            setupActiveSubscriptionUI()
+        } else {
+            setContentView(R.layout.activity_subscription_info)
+            setupInactiveSubscriptionUI()
+        }
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.subscription_info_title)
 
-        preferencesManager = PreferencesManager.getPreferencesInstance(this)
-        try {
-            billingManager = BillingManagerImpl(this) as BillingManager
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // Fallback or handle error?
-            Toast.makeText(this, "Billing service not available", Toast.LENGTH_SHORT).show()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.subscription_scroll_view)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
-        preferencesManager?.let {
-            Log.d("TAG", "Init Subscription manager")
-            subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
-        }
+    }
 
+    
+    private fun setupActiveSubscriptionUI() {
+        val manageButton = findViewById<Button>(R.id.manage_subscription_button)
+        val planTypeText = findViewById<TextView>(R.id.subscription_plan_type)
+        val renewalDateText = findViewById<TextView>(R.id.subscription_renewal_date)
+        val helpLink = findViewById<TextView>(R.id.help_learn_more)
+        
+        // Load subscription details
+        val planType = preferencesManager?.getSubscriptionPlanType()?.let { type ->
+            when {
+                type.contains("monthly", ignoreCase = true) -> "Premium Monthly"
+                type.contains("annual", ignoreCase = true) -> "Premium Annual"
+                else -> "Premium Plan"
+            }
+        } ?: "Premium Plan"
+        
+        val expiryTime = preferencesManager?.getSubscriptionExpiryTime() ?: 0L
+        val renewalDate = if (expiryTime > 0) {
+            val dateFormat = java.text.SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault())
+            dateFormat.format(java.util.Date(expiryTime))
+        } else {
+            "N/A"
+        }
+        
+        planTypeText.text = planType
+        renewalDateText.text = renewalDate
+        
+        manageButton.setOnClickListener {
+            // Open Google Play subscription management
+            try {
+                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+                intent.data = android.net.Uri.parse("https://play.google.com/store/account/subscriptions")
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Unable to open subscription management", Toast.LENGTH_SHORT).show()
+            }
+        }
+        
+        helpLink.setOnClickListener {
+            // Open help/support page
+            Toast.makeText(this, "Opening help center...", Toast.LENGTH_SHORT).show()
+        }
+    }
+    
+    private fun setupInactiveSubscriptionUI() {
         initializeViews()
         setupClickListeners()
         setupBillingListener()
@@ -84,12 +146,6 @@ class SubscriptionInfoActivity : BaseActivity() {
         
         // Initialize billing connection
         initializeBilling()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.subscription_scroll_view)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     private fun initializeViews() {
