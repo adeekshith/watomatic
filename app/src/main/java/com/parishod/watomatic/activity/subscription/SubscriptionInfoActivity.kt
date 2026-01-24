@@ -23,7 +23,9 @@ import com.parishod.watomatic.billing.BillingManagerImpl
 import com.parishod.watomatic.billing.PurchaseUpdateListener
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import androidx.lifecycle.lifecycleScope
+import com.parishod.watomatic.model.subscription.SubscriptionState
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SubscriptionInfoActivity : BaseActivity() {
     private var preferencesManager: PreferencesManager? = null
@@ -374,82 +376,157 @@ class SubscriptionInfoActivity : BaseActivity() {
         showLoading()
         billingManager?.queryPurchases(
             onSuccess = { purchases ->
-                if (purchases.isEmpty()) {
+                runOnUiThread {
+                    if (purchases.isEmpty()) {
+                        hideLoading()
+                        Toast.makeText(
+                            this,
+                            "No purchases to restore",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // Process each restored purchase with backend
+                        var successCount = 0
+                        var failCount = 0
+
+                        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO)
+                            .launch {
+                                purchases.forEach { purchase ->
+                                    val productId = purchase.products.firstOrNull() ?: ""
+                                    val result = subscriptionManager?.restorePurchase(
+                                        purchase.purchaseToken,
+                                        productId,
+                                        purchase.orderId ?: ""
+                                    )
+
+                                    if (result == true) successCount++ else failCount++
+                                }
+
+                                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                    hideLoading()
+                                    if (successCount > 0) {
+                                        Toast.makeText(
+                                            this@SubscriptionInfoActivity,
+                                            "Successfully restored subscription!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+
+                                        // Refresh subscription status and recreate activity
+                                        lifecycleScope.launch {
+                                            try {
+                                                Log.d(
+                                                    "SubscriptionInfo",
+                                                    "Starting status refresh loop (restore)..."
+                                                )
+
+                                                // Trigger refresh
+                                                subscriptionManager?.refreshSubscriptionStatus()
+
+                                                // Check status directly
+                                                val currentState =
+                                                    subscriptionManager?.subscriptionStatus?.value
+                                                if (currentState?.isActive == true) {
+                                                    Log.d(
+                                                        "SubscriptionInfo",
+                                                        "Status is active! Ready to update UI."
+                                                    )
+                                                    // Recreate the activity
+                                                    withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                        Log.d(
+                                                            "SubscriptionInfo",
+                                                            "Reloading activity."
+                                                        )
+                                                        recreate()
+                                                    }
+                                                }
+                                            } catch (e: Exception) {
+                                                Log.e(
+                                                    "SubscriptionInfo",
+                                                    "Error refreshing subscription status",
+                                                    e
+                                                )
+                                                // Still try to recreate to show updated UI
+                                                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                    recreate()
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(
+                                            this@SubscriptionInfoActivity,
+                                            "Found purchases but failed to verify with backend.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            }
+                    }
+                }
+            },
+            onFailure = { error ->
+                runOnUiThread {
                     hideLoading()
                     Toast.makeText(
                         this,
-                        "No purchases to restore",
+                        "Failed to restore: $error",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        )
+    }
+
+    private fun acknowledgePurchase(purchase: Purchase) {
+        Log.d("SubscriptionInfo", "Purchase acknowledgement started for ${purchase.orderId}")
+        showLoading()
+        billingManager?.acknowledgePurchase(
+            purchase = purchase,
+            onSuccess = {
+                runOnUiThread {
+                    hideLoading()
+                    Toast.makeText(
+                        this,
+                        "Subscription activated!",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else {
-                    // Process each restored purchase with backend
-                    var successCount = 0
-                    var failCount = 0
-                    val totalToRestore = purchases.size
-                    
-                    kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
-                        purchases.forEach { purchase ->
-                            val productId = purchase.products.firstOrNull() ?: ""
-                            val result = subscriptionManager?.restorePurchase(
-                                purchase.purchaseToken,
-                                productId,
-                                purchase.orderId ?: ""
-                            )
-                            
-                            if (result == true) successCount++ else failCount++
-                        }
-                        
-                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                            hideLoading()
-                            if (successCount > 0) {
-                                Toast.makeText(
-                                    this@SubscriptionInfoActivity,
-                                    "Successfully restored subscription!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            } else {
-                                Toast.makeText(
-                                    this@SubscriptionInfoActivity,
-                                    "Found purchases but failed to verify with backend.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+
+                    Log.d("SubscriptionInfo", "Subscription activated! Check and refresh subscription status...")
+                    // Refresh subscription status from backend with retries
+                    lifecycleScope.launch {
+                        try {
+                            Log.d("SubscriptionInfo", "Starting status refresh loop...")
+                            // Trigger refresh - this is a suspend function that waits for backend response
+                            subscriptionManager?.refreshSubscriptionStatus()
+
+                            // Check current status directly
+                            val currentState = subscriptionManager?.subscriptionStatus?.value
+                            if (currentState?.isActive == true) {
+                                Log.d("SubscriptionInfo", "Status is active! Ready to update UI.")
+                                // Recreate the activity
+                                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                    Log.d("SubscriptionInfo", "Reloading activity. Active status confirmed.")
+                                    recreate()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Log.e("SubscriptionInfo", "Error refreshing subscription status", e)
+                            // Still try to recreate to show updated UI
+                            withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                recreate()
                             }
                         }
                     }
                 }
             },
             onFailure = { error ->
-                hideLoading()
-                Toast.makeText(
-                    this,
-                    "Failed to restore: $error",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        )
-    }
-
-    private fun acknowledgePurchase(purchase: Purchase) {
-        showLoading()
-        billingManager?.acknowledgePurchase(
-            purchase = purchase,
-            onSuccess = {
-                hideLoading()
-                Toast.makeText(
-                    this,
-                    "Subscription activated!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                loadSubscriptionStatus()
-                // TODO: Sync to backend in Phase 2
-            },
-            onFailure = { error ->
-                hideLoading()
-                Toast.makeText(
-                    this,
-                    "Failed to activate subscription: $error",
-                    Toast.LENGTH_LONG
-                ).show()
+                runOnUiThread {
+                    hideLoading()
+                    Toast.makeText(
+                        this,
+                        "Failed to activate subscription: $error",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         )
     }

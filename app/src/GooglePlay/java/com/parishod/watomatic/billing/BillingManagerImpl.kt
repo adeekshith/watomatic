@@ -263,7 +263,7 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
                                     Log.w(TAG, "Falling back to local verification due to transient error: $error")
                                     purchaseListener?.onPurchaseSuccess(purchase)
                                 } else {*/
-                                Log.e(TAG, "Falling back to local verification due to transient error: $error")
+                                Log.e(TAG, "Backend verification failed due to transient error: $error")
                                     purchaseListener?.onPurchaseFailure("Verification failed: $error")
 //                                }
                             }
