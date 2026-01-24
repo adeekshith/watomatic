@@ -48,7 +48,7 @@ class SubscriptionManagerImpl(
 
         try {
             val userId = preferencesManager.userEmail // Using email as ID for now, should use Firebase UID ideally
-            //Log.d("TAG", "subscription email ${userId.toString()}")
+            Log.d("TAG", "subscription email ${userId.toString()}")
             // However, BackendService expects a userId. 
             // If user refers to Firebase Auth UID, we should get it from FirebaseAuth.
             // But here let's assume we pass the email or whatever ID strategy we use.
@@ -59,7 +59,7 @@ class SubscriptionManagerImpl(
             // So we need the real UID.
             
             val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
-            //Log.d("TAG", "subscription uid ${uid.toString()}")
+            Log.d("TAG", "subscription uid ${uid.toString()}")
             if (uid == null) {
                 // Not logged in
                 withContext(Dispatchers.Main) {
@@ -74,7 +74,7 @@ class SubscriptionManagerImpl(
 
             // Call backend
             val status = backendService.getSubscriptionStatus(uid)
-            //Log.d("TAG", "subscription status ${status.toString()}")
+            Log.d("TAG", "subscription status ${status.toString()}")
             // Update local cache
             withContext(Dispatchers.Main) {
                 preferencesManager.setSubscriptionActive(status.isActive)
