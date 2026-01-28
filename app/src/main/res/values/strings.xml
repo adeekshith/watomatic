@@ -339,10 +339,10 @@
     <string name="subscription_feature_priority_support">Priority support</string>
     <string name="subscription_choose_plan">Choose Your Plan</string>
     <string name="subscription_monthly_plan">Monthly</string>
-    <string name="subscription_monthly_price">$9.99/month</string>
+    <string name="subscription_monthly_price">$1.99/month</string>
     <string name="subscription_annual_plan">Annual</string>
-    <string name="subscription_annual_price">$99.99/year</string>
-    <string name="subscription_annual_savings">Save $20 annually</string>
+    <string name="subscription_annual_price">$10.99/year</string>
+    <string name="subscription_annual_savings">Save over 50%</string>
     <string name="subscription_most_popular">Most Popular</string>
     <string name="subscription_all_features_included">All features included</string>
     <string name="subscription_subscribe_button">Choose Plan &amp; Continue</string>
@@ -351,4 +351,13 @@
     <string name="subscription_status_no_subscription">No active subscription</string>
     <string name="subscription_status_logged_in">Logged in as: %s</string>
     <string name="configure_other_ai_llm_s_info">Configure Other AI LLM\'s to use AI Auto-Replies</string>
+    <string name="configure_ai_llm_s_info">Configure AI LLM\'s to use AI Auto-Replies</string>
+    <string name="your_premium_features_are_unlocked">Your premium features are unlocked.</string>
+    <string name="custom_ai_active">Custom AI Active</string>
+    <string name="subscription_plan">Subscription Plan:</string>
+    <string name="renews_on">Renews on:</string>
+    <string name="premium_monthly">Premium Monthly</string>
+    <string name="your_custom_ai_features">Your Custom AI Features</string>
+    <string name="manage_subscription">Manage Subscription</string>
+    <string name="need_help_learn_more">Need help? Learn More</string>
 </resources>

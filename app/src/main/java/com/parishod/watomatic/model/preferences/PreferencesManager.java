@@ -58,6 +58,12 @@ public class PreferencesManager {
     private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
     private final String KEY_FIREBASE_TOKEN = "pref_firebase_token";
     private final String KEY_USER_EMAIL = "pref_user_email";
+    private final String KEY_SUBSCRIPTION_ACTIVE = "pref_subscription_active";
+    private final String KEY_SUBSCRIPTION_PLAN_TYPE = "pref_subscription_plan_type";
+    private final String KEY_SUBSCRIPTION_EXPIRY_TIME = "pref_subscription_expiry_time";
+    private final String KEY_SUBSCRIPTION_AUTO_RENEWING = "pref_subscription_auto_renewing";
+    private final String KEY_SUBSCRIPTION_PRODUCT_ID = "pref_subscription_product_id";
+    private final String KEY_LAST_VERIFIED_TIME = "pref_last_verified_time";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -538,5 +544,75 @@ public class PreferencesManager {
 
     public boolean shouldShowLogin() {
         return !isLoggedIn() && !isGuestMode();
+    }
+
+    // Subscription Management
+    public boolean isSubscriptionActive() {
+        // Check if subscription is marked active AND not expired
+        boolean isActive = _sharedPrefs.getBoolean(KEY_SUBSCRIPTION_ACTIVE, false);
+        long expiryTime = getSubscriptionExpiryTime();
+        // If expiry time is 0 (lifetime/unknown) or in future, consider active
+        // Note: For subscriptions, backend should set expiry time.
+        // If expiryTime > 0, check if it's still valid
+        if (isActive && expiryTime > 0 && System.currentTimeMillis() > expiryTime) {
+            return false; // Expired but not yet updated by backend
+        }
+        return isActive;
+    }
+
+    public void setSubscriptionActive(boolean active) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_SUBSCRIPTION_ACTIVE, active);
+        editor.apply();
+    }
+
+    public String getSubscriptionPlanType() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PLAN_TYPE, "");
+    }
+
+    public void setSubscriptionPlanType(String planType) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PLAN_TYPE, planType);
+        editor.apply();
+    }
+
+    public long getSubscriptionExpiryTime() {
+        return _sharedPrefs.getLong(KEY_SUBSCRIPTION_EXPIRY_TIME, 0);
+    }
+
+    public void setSubscriptionExpiryTime(long expiryTime) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_SUBSCRIPTION_EXPIRY_TIME, expiryTime);
+        editor.apply();
+    }
+
+    public boolean isSubscriptionAutoRenewing() {
+        return _sharedPrefs.getBoolean(KEY_SUBSCRIPTION_AUTO_RENEWING, false);
+    }
+
+    public void setSubscriptionAutoRenewing(boolean autoRenewing) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_SUBSCRIPTION_AUTO_RENEWING, autoRenewing);
+        editor.apply();
+    }
+
+    public String getSubscriptionProductId() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PRODUCT_ID, "");
+    }
+
+    public void setSubscriptionProductId(String productId) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PRODUCT_ID, productId);
+        editor.apply();
+    }
+    
+    public long getLastVerifiedTime() {
+        return _sharedPrefs.getLong(KEY_LAST_VERIFIED_TIME, 0);
+    }
+
+    public void setLastVerifiedTime(long time) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_LAST_VERIFIED_TIME, time);
+        editor.apply();
     }
 }

@@ -13,8 +13,8 @@ android {
         applicationId = "com.parishod.watomatic"
         minSdk = 24
         targetSdk = 35
-        versionCode = 34
-        versionName = "1.34"
+        versionCode = 35
+        versionName = "1.35"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -106,7 +106,10 @@ dependencies {
         if (flavorName.contains("GooglePlay", ignoreCase = true)) {
             add("implementation", platform(libs.firebase.bom))
             add("implementation", libs.firebase.auth)
+            add("implementation", libs.firebase.firestore)
+            add("implementation", libs.firebase.functions)
             add("implementation", libs.play.services.auth)
+            add("implementation", libs.billing)
         }
     }
 }

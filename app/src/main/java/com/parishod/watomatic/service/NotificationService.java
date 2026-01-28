@@ -179,6 +179,7 @@ public class NotificationService extends NotificationListenerService {
         String incomingMessage = (incomingMessageChars != null) ? incomingMessageChars.toString() : null;
 
         if (preferencesManager.isOpenAIRepliesEnabled() &&
+            preferencesManager.isSubscriptionActive() &&
             incomingMessage != null && !incomingMessage.trim().isEmpty() &&
             preferencesManager.getOpenAIApiKey() != null && !preferencesManager.getOpenAIApiKey().trim().isEmpty()) {
 
