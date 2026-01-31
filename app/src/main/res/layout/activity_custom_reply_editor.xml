@@ -41,20 +41,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="24dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
             android:paddingBottom="24dp">
 
-            <!-- Manual Replies Card (Active/Selected by default) -->
+
+            <!-- Manual Replies Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/manual_replies_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="?attr/colorPrimary"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#38383A"
+                app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
@@ -66,17 +67,17 @@
 
                     <!-- Icon Circle -->
                     <FrameLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:background="@drawable/bg_icon_circle_primary">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_edit"
-                            android:tint="?attr/colorPrimary"
-                            app:tint="?attr/colorPrimary" />
+                            android:src="@drawable/ic_chat"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="@string/manual_replies" />
                     </FrameLayout>
 
                     <!-- Title and Description -->
@@ -85,51 +86,410 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+                        android:layout_marginStart="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Manual Replies"
+                            android:text="@string/manual_replies"
                             android:textStyle="bold"
-                            android:textSize="15sp"
+                            android:textSize="17sp"
                             android:textColor="?android:textColorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Custom predefined messages"
-                            android:textSize="12sp"
-                            android:textColor="?android:textColorSecondary" />
+                            android:text="Static predefined responses for all messages."
+                            android:textSize="14sp"
+                            android:textColor="?android:textColorSecondary"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:id="@+id/manual_status_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="?android:textColorSecondary"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
-                    <!-- Active Badge -->
-                    <TextView
-                        android:id="@+id/manual_active_badge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_badge_active"
-                        android:text="ACTIVE"
-                        android:textColor="@android:color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:layout_marginEnd="12dp" />
-
-                    <!-- Settings Icon Button -->
+                    <!-- Settings Icon -->
                     <ImageView
                         android:id="@+id/manual_settings_icon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/ic_settings"
-                        android:tint="?android:textColorSecondary"
                         app:tint="?android:textColorSecondary"
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:selectableItemBackgroundBorderless"
                         android:padding="4dp"
-                        android:contentDescription="Settings" />
+                        android:contentDescription="@string/settings" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Automatic AI Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/automatic_ai_provider_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="?attr/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Card Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Icon Circle -->
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_icon_circle_blue">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_bolt"
+                                app:tint="@color/ai_blue"
+                                android:contentDescription="@string/automatic_ai" />
+                        </FrameLayout>
+
+                        <!-- Title and Description -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/automatic_ai"
+                                    android:textStyle="bold"
+                                    android:textSize="17sp"
+                                    android:textColor="?android:textColorPrimary" />
+
+                                <TextView
+                                    android:id="@+id/automatic_ai_tag"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="FREE"
+                                    android:textColor="#8E8E93"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/bg_badge_gray"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="2dp"
+                                    android:layout_marginStart="8dp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Instant, context-aware replies powered by our servers."
+                                android:textSize="14sp"
+                                android:textColor="?android:textColorSecondary"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <!-- Settings Icon (always visible in collapsed/expanded) -->
+                        <ImageView
+                            android:id="@+id/automatic_ai_settings_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_settings"
+                            app:tint="?android:textColorSecondary"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:selectableItemBackgroundBorderless"
+                            android:padding="4dp"
+                            android:contentDescription="@string/settings" />
+
+                        <!-- Check Icon (shows only when expanded) -->
+                        <ImageView
+                            android:id="@+id/automatic_ai_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="?attr/colorPrimary"
+                            android:visibility="gone"
+                            android:contentDescription="@string/selected" />
+                    </LinearLayout>
+
+                    <!-- Expanded Content -->
+                    <LinearLayout
+                        android:id="@+id/automatic_ai_expanded_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#38383A"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginHorizontal="16dp" />
+
+                        <!-- Status Section -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingBottom="16dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:id="@+id/automatic_ai_status_icon"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_error_outline"
+                                app:tint="#FF453A"
+                                android:contentDescription="@string/status" />
+
+                            <TextView
+                                android:id="@+id/automatic_ai_status_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Status: Not Subscribed"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="?android:textColorPrimary"
+                                android:layout_marginStart="8dp" />
+
+                            <TextView
+                                android:id="@+id/btn_automatic_ai_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Manage"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorPrimary"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?android:selectableItemBackground"
+                                android:padding="4dp" />
+                        </LinearLayout>
+
+                        <!-- Action Section - Not Subscribed State -->
+                        <LinearLayout
+                            android:id="@+id/automatic_ai_not_subscribed_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingBottom="16dp"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:background="@drawable/bg_subscription_card"
+                                android:padding="16dp">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_unlock_subscription"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Unlock with Subscription"
+                                    android:textColor="@android:color/black"
+                                    android:textStyle="bold"
+                                    android:textSize="15sp"
+                                    app:backgroundTint="@android:color/white"
+                                    app:cornerRadius="8dp"
+                                    android:paddingVertical="10dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Action Section - Subscribed State -->
+                        <LinearLayout
+                            android:id="@+id/automatic_ai_subscribed_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingBottom="16dp"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@drawable/bg_subscription_card"
+                                android:padding="12dp"
+                                android:gravity="center_vertical">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_workspace_premium"
+                                    app:tint="?android:textColorSecondary"
+                                    android:contentDescription="@string/premium" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_marginStart="12dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pro Plan - Active"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:textColor="?android:textColorPrimary" />
+
+                                    <TextView
+                                        android:id="@+id/subscription_renewal_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Renews on Oct 12, 2024"
+                                        android:textSize="12sp"
+                                        android:textColor="?android:textColorSecondary" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bring Your Own Key Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/other_ai_provider_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#38383A"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="?attr/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Card Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Icon Circle -->
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_icon_circle_green">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_key"
+                                app:tint="@color/ai_green"
+                                android:contentDescription="@string/bring_your_own_key" />
+                        </FrameLayout>
+
+                        <!-- Title and Description -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bring_your_own_key"
+                                android:textStyle="bold"
+                                android:textSize="17sp"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <TextView
+                                android:id="@+id/other_ai_provider_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Use your own AI API provider credentials."
+                                android:textSize="14sp"
+                                android:textColor="?android:textColorSecondary"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <!-- Settings Icon -->
+                        <ImageView
+                            android:id="@+id/btn_other_ai_edit"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_settings"
+                            app:tint="?android:textColorSecondary"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:selectableItemBackgroundBorderless"
+                            android:padding="4dp"
+                            android:contentDescription="@string/settings" />
+                    </LinearLayout>
+
+                    <!-- Expanded Status Section -->
+                    <LinearLayout
+                        android:id="@+id/other_ai_expanded_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#38383A"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginHorizontal="16dp" />
+
+                        <!-- Status Text -->
+                        <TextView
+                            android:id="@+id/other_ai_status_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status: Not Configured"
+                            android:textSize="13sp"
+                            android:textColor="?android:textColorSecondary"
+                            android:paddingHorizontal="16dp"
+                            android:paddingBottom="16dp" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -168,182 +528,17 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/automatic_ai_tag"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-
-            <TextView
                 android:id="@+id/other_ai_tag"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="gone" />
 
-
-            <!-- Automatic AI Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/automatic_ai_provider_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp"
-                app:strokeColor="?attr/colorPrimary"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="?attr/colorSurface">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <!-- Icon Circle -->
-                    <FrameLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_icon_circle_blue">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_ai"
-                            android:tint="@color/ai_blue"
-                            app:tint="@color/ai_blue" />
-                    </FrameLayout>
-
-                    <!-- Title and Description -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/atomatic_ai"
-                            android:textStyle="bold"
-                            android:textSize="15sp"
-                            android:textColor="?android:textColorPrimary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/managed_smart_responses"
-                            android:textSize="12sp"
-                            android:textColor="?android:textColorSecondary" />
-                    </LinearLayout>
-
-                    <!-- Settings Icon (mapped to btn_automatic_ai_edit) -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_automatic_ai_edit"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:minWidth="20dp"
-                        android:minHeight="20dp"
-                        android:padding="0dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/ic_settings"
-                        app:iconSize="20dp"
-                        app:iconGravity="textStart"
-                        app:iconPadding="0dp"
-                        app:iconTint="?android:textColorSecondary"
-                        app:backgroundTint="@android:color/transparent"
-                        app:elevation="0dp"
-                        app:strokeWidth="0dp"
-                        android:contentDescription="Settings" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Bring Your Own Key (Other AI) Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/other_ai_provider_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp"
-                app:strokeColor="?attr/colorPrimary"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="?attr/colorSurface">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <!-- Icon Circle -->
-                    <FrameLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_icon_circle_green">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_key"
-                            android:tint="@color/ai_green"
-                            app:tint="@color/ai_green" />
-                    </FrameLayout>
-
-                    <!-- Title and Description -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/bring_your_own_key"
-                            android:textStyle="bold"
-                            android:textSize="15sp"
-                            android:textColor="?android:textColorPrimary" />
-
-                        <TextView
-                            android:id="@+id/other_ai_provider_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/use_external_llm_apis"
-                            android:textSize="12sp"
-                            android:textColor="?android:textColorSecondary" />
-                    </LinearLayout>
-
-                    <!-- Settings Icon (mapped to btn_other_ai_edit) -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_other_ai_edit"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:minWidth="20dp"
-                        android:minHeight="20dp"
-                        android:padding="0dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/ic_settings"
-                        app:iconSize="20dp"
-                        app:iconGravity="textStart"
-                        app:iconPadding="0dp"
-                        app:iconTint="?android:textColorSecondary"
-                        app:backgroundTint="@android:color/transparent"
-                        app:elevation="0dp"
-                        app:strokeWidth="0dp"
-                        android:contentDescription="Settings" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <!-- Hidden badge for manual card -->
+            <TextView
+                android:id="@+id/manual_active_badge"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

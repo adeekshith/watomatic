@@ -34,9 +34,24 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var manualRepliesCard: MaterialCardView? = null
     private var manualSettingsIcon: android.widget.ImageView? = null
     private var automaticAiProviderCard: MaterialCardView? = null
-    private var btnAtomaticAiEdit: MaterialButton? = null
+    private var btnAtomaticAiEdit: TextView? = null
     private var otherAiProviderCard: MaterialCardView? = null
-    private var btnOtherAiEdit: MaterialButton? = null
+    private var btnOtherAiEdit: android.widget.ImageView? = null
+
+    // New UI elements for expanded Automatic AI card
+    private var automaticAiExpandedContent: android.view.View? = null
+    private var automaticAiCheckIcon: android.widget.ImageView? = null
+    private var automaticAiSettingsIcon: android.widget.ImageView? = null
+    private var automaticAiStatusIcon: android.widget.ImageView? = null
+    private var automaticAiStatusText: TextView? = null
+    private var automaticAiNotSubscribedSection: android.view.View? = null
+    private var automaticAiSubscribedSection: android.view.View? = null
+    private var btnUnlockSubscription: MaterialButton? = null
+    private var subscriptionRenewalDate: TextView? = null
+    private var automaticAiTag: TextView? = null
+
+    // BYOK card expanded content
+    private var otherAiExpandedContent: android.view.View? = null
 
     private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -55,7 +70,7 @@ class CustomReplyEditorActivity : BaseActivity() {
                 if (baseUrl != null) preferencesManager?.saveCustomOpenAIApiUrl(baseUrl)
 
                 Toast.makeText(this, "AI Configuration Saved", Toast.LENGTH_SHORT).show()
-                updateAIState()
+                updateCardExpansionState()
             }
         }
     }
@@ -87,6 +102,19 @@ class CustomReplyEditorActivity : BaseActivity() {
         btnAtomaticAiEdit = findViewById(R.id.btn_automatic_ai_edit)
         otherAiProviderCard = findViewById(R.id.other_ai_provider_card)
         btnOtherAiEdit = findViewById(R.id.btn_other_ai_edit)
+
+        // New UI elements
+        automaticAiExpandedContent = findViewById(R.id.automatic_ai_expanded_content)
+        automaticAiCheckIcon = findViewById(R.id.automatic_ai_check_icon)
+        automaticAiSettingsIcon = findViewById(R.id.automatic_ai_settings_icon)
+        automaticAiStatusIcon = findViewById(R.id.automatic_ai_status_icon)
+        automaticAiStatusText = findViewById(R.id.automatic_ai_status_text)
+        automaticAiNotSubscribedSection = findViewById(R.id.automatic_ai_not_subscribed_section)
+        automaticAiSubscribedSection = findViewById(R.id.automatic_ai_subscribed_section)
+        btnUnlockSubscription = findViewById(R.id.btn_unlock_subscription)
+        subscriptionRenewalDate = findViewById(R.id.subscription_renewal_date)
+        automaticAiTag = findViewById(R.id.automatic_ai_tag)
+        otherAiExpandedContent = findViewById(R.id.other_ai_expanded_content)
 
         val intent = intent
         val data = intent.data
@@ -127,35 +155,68 @@ class CustomReplyEditorActivity : BaseActivity() {
             )
         }
 
-        // Manual Replies Card - Toggle to disable AI
+        // Manual Replies Card - Toggle to disable AI (expand/collapse only)
         manualRepliesCard?.setOnClickListener {
             preferencesManager?.setEnableOpenAIReplies(false)
-            updateAIState()
+            updateCardExpansionState()
         }
 
-        // Manual Settings Icon - Open edit dialog
+        // Manual Settings Icon - Navigate to edit dialog
         manualSettingsIcon?.setOnClickListener {
             showEditAutoReplyDialog()
         }
 
-        // Initial UI state
-        updateAIState()
+        // Initial UI state - expand the active card on launch based on saved preferences
+        updateCardExpansionState()
 
-        // Set up click listener for Automatic AI Provider card
+        // Automatic AI Card - Toggle expansion and enable AI mode
         automaticAiProviderCard?.setOnClickListener {
-            handleAutomaticAiProviderClick()
+            // Enable AI mode for Automatic AI (server-based)
+            preferencesManager?.setEnableOpenAIReplies(true)
+            // Clear API key to switch to Automatic AI (not BYOK)
+            if (!preferencesManager?.openAIApiKey.isNullOrEmpty()) {
+                preferencesManager?.saveOpenAIApiKey("")
+            }
+            updateCardExpansionState()
         }
 
+        // Automatic AI Settings Icon - Navigate to subscription/login (always visible)
+        automaticAiSettingsIcon?.setOnClickListener {
+            handleAutomaticAiManageClick()
+        }
+
+        // Automatic AI Manage button - Navigate to subscription/login
         btnAtomaticAiEdit?.setOnClickListener {
-            handleAutomaticAiProviderClick()
+            handleAutomaticAiManageClick()
         }
 
+        // Unlock Subscription button - Navigate to subscription/login
+        btnUnlockSubscription?.setOnClickListener {
+            handleAutomaticAiManageClick()
+        }
+
+        // Other AI Card - Toggle to enable AI with BYOK mode
         otherAiProviderCard?.setOnClickListener {
-            handleOtherAiProviderClick()
+            // Enable AI mode and mark as using BYOK
+            preferencesManager?.setEnableOpenAIReplies(true)
+
+            // If no API key is configured, set a placeholder to ensure BYOK card is selected
+            // The user will configure the actual API key via settings icon
+            if (preferencesManager?.openAIApiKey.isNullOrEmpty()) {
+                preferencesManager?.saveOpenAIApiKey("PENDING_CONFIGURATION")
+            }
+
+            updateCardExpansionState()
         }
 
+        // Other AI Settings Icon - Navigate to configuration
         btnOtherAiEdit?.setOnClickListener {
-            handleOtherAiProviderClick()
+            // First enable AI mode
+            preferencesManager?.setEnableOpenAIReplies(true)
+
+            // Open configuration
+            val intent = Intent(this, OtherAiConfigurationActivity::class.java)
+            otherAiConfigLauncher.launch(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
@@ -167,49 +228,110 @@ class CustomReplyEditorActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        updateAIState()
+        updateCardExpansionState()
     }
 
-    private fun updateAIState() {
+    private fun updateCardExpansionState() {
         val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
+        val isProUser = subscriptionManager?.isProUser() ?: false
+        val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty() &&
+                        preferencesManager?.openAIApiKey != "PENDING_CONFIGURATION"
+        val hasManualReply = !customRepliesData?.get().isNullOrEmpty()
 
-        // Handle Cards Visual State
+        // Stroke widths for selection state
         val selectedStrokeWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             2f,
             resources.displayMetrics
         ).toInt()
+        val unselectedStrokeWidth = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            1f,
+            resources.displayMetrics
+        ).toInt()
 
-        val unselectedStrokeWidth = 0
-        val selectedStrokeColor = getThemeColor(androidx.appcompat.R.attr.colorPrimary)
+        // Determine which card should be selected/expanded
+        val isManualSelected = !isAIEnabled
+        val isAutomaticAiSelected = isAIEnabled && !hasApiKey
+        val isByokSelected = isAIEnabled && hasApiKey
 
-        // Manual Replies Card - Selected when AI is disabled
-        manualRepliesCard?.strokeWidth = if (!isAIEnabled) selectedStrokeWidth else unselectedStrokeWidth
-        manualRepliesCard?.strokeColor = selectedStrokeColor
+        // Update Manual Replies Card
+        manualRepliesCard?.strokeWidth = if (isManualSelected) selectedStrokeWidth else unselectedStrokeWidth
+        // Manual card can be configured via edit dialog
 
-        // Show/hide Active badge on manual card
-        val manualActiveBadge = findViewById<TextView>(R.id.manual_active_badge)
-        manualActiveBadge?.visibility = if (!isAIEnabled) android.view.View.VISIBLE else android.view.View.GONE
+        // Update Automatic AI Card
+        automaticAiProviderCard?.strokeWidth = if (isAutomaticAiSelected) selectedStrokeWidth else unselectedStrokeWidth
 
-        // All cards remain enabled and fully interactive
-        // No alpha or disabled states applied
+        // Settings icon is always visible
+        automaticAiSettingsIcon?.visibility = android.view.View.VISIBLE
 
-        // Handle AI provider selection state (only when AI is enabled)
-        if (isAIEnabled) {
-            val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty()
-            val isOtherSelected = hasApiKey
-            val isAutomaticSelected = !hasApiKey
+        if (isAutomaticAiSelected) {
+            // Show expanded content for Automatic AI
+            automaticAiExpandedContent?.visibility = android.view.View.VISIBLE
+            automaticAiCheckIcon?.visibility = android.view.View.VISIBLE
 
-            automaticAiProviderCard?.strokeWidth = if (isAutomaticSelected) selectedStrokeWidth else unselectedStrokeWidth
-            automaticAiProviderCard?.strokeColor = selectedStrokeColor
+            // Update badge and status based on subscription
+            if (isProUser) {
+                // Configured state (4.html) - user has subscription
+                automaticAiTag?.text = "PRO"
+                automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_pro)
 
-            otherAiProviderCard?.strokeWidth = if (isOtherSelected) selectedStrokeWidth else unselectedStrokeWidth
-            otherAiProviderCard?.strokeColor = selectedStrokeColor
+                automaticAiStatusIcon?.setImageResource(R.drawable.ic_task_alt)
+                automaticAiStatusIcon?.setColorFilter(0xFF34C759.toInt())
+
+                automaticAiStatusText?.text = "Status: Configured"
+                automaticAiStatusText?.setTextColor(0xFF34C759.toInt())
+                automaticAiStatusText?.visibility = android.view.View.VISIBLE
+
+                automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
+                automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
+
+                subscriptionRenewalDate?.text = "Renews on Oct 12, 2024"
+            } else {
+                // Not configured state (2.html) - user needs subscription
+                automaticAiTag?.text = "FREE"
+                automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_gray)
+
+                automaticAiStatusIcon?.setImageResource(R.drawable.ic_error_outline)
+                automaticAiStatusIcon?.setColorFilter(0xFFFF453A.toInt())
+
+                automaticAiStatusText?.text = "Status: Not Configured"
+                automaticAiStatusText?.setTextColor(0xFFFF453A.toInt()) // Red text for not configured
+                automaticAiStatusText?.visibility = android.view.View.VISIBLE
+
+                automaticAiNotSubscribedSection?.visibility = android.view.View.VISIBLE
+                automaticAiSubscribedSection?.visibility = android.view.View.GONE
+            }
         } else {
-            // No selection when AI is disabled
-            automaticAiProviderCard?.strokeWidth = unselectedStrokeWidth
-            otherAiProviderCard?.strokeWidth = unselectedStrokeWidth
+            // Collapse Automatic AI card when not selected
+            automaticAiExpandedContent?.visibility = android.view.View.GONE
+            automaticAiCheckIcon?.visibility = android.view.View.GONE
+        }
+
+        // Update Bring Your Own Key Card
+        otherAiProviderCard?.strokeWidth = if (isByokSelected) selectedStrokeWidth else unselectedStrokeWidth
+
+        if (isByokSelected) {
+            // Show expanded content for BYOK
+            otherAiExpandedContent?.visibility = android.view.View.VISIBLE
+
+            // Update status text based on configuration
+            if (hasApiKey) {
+                // Configured - API key is set
+                findViewById<TextView>(R.id.other_ai_status_text)?.apply {
+                    text = "Status: Configured"
+                    setTextColor(0xFF34C759.toInt()) // Green for configured
+                }
+            } else {
+                // Not configured - API key not set or pending
+                findViewById<TextView>(R.id.other_ai_status_text)?.apply {
+                    text = "Status: Not Configured"
+                    setTextColor(0xFFFF453A.toInt()) // Red for not configured
+                }
+            }
+        } else {
+            // Collapse BYOK card when not selected
+            otherAiExpandedContent?.visibility = android.view.View.GONE
         }
     }
 
@@ -219,7 +341,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         return typedValue.data
     }
 
-    private fun handleAutomaticAiProviderClick() {
+    private fun handleAutomaticAiManageClick() {
         val isLoggedIn = preferencesManager?.isLoggedIn ?: false
 
         if (!isLoggedIn) {
@@ -232,17 +354,6 @@ class CustomReplyEditorActivity : BaseActivity() {
         }
     }
 
-    private fun handleOtherAiProviderClick() {
-        // Enable AI mode and select "Other AI" provider
-        preferencesManager?.setEnableOpenAIReplies(true)
-
-        // Open Other AI configuration screen
-        val intent = Intent(this, OtherAiConfigurationActivity::class.java)
-        otherAiConfigLauncher.launch(intent)
-
-        // Update UI to reflect AI mode enabled
-        updateAIState()
-    }
 
     private fun showEditAutoReplyDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_edit_auto_reply, null)

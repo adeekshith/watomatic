@@ -370,4 +370,12 @@
     <string name="managed_smart_responses">Managed smart responses</string>
     <string name="bring_your_own_key">Bring Your Own Key</string>
     <string name="use_external_llm_apis">Use external LLM APIs</string>
+
+    <!-- New UI strings for reply mode selection -->
+    <string name="manual_replies">Manual Replies</string>
+    <string name="automatic_ai">Automatic AI</string>
+    <string name="expand">Expand</string>
+    <string name="selected">Selected</string>
+    <string name="status">Status</string>
+    <string name="premium">Premium</string>
 </resources>
