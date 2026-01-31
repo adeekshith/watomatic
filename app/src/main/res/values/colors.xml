@@ -28,4 +28,8 @@
     <!-- Home Screen Auto Reply Text (light) -->
     <color name="gradient_start">#33FFFFFF</color>
     <color name="gradient_end">#E6FFFFFF</color>
+
+    <!-- AI Icon Colors -->
+    <color name="ai_blue">#2196F3</color>
+    <color name="ai_green">#4CAF50</color>
 </resources>

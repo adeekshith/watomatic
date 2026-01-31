@@ -366,4 +366,8 @@
     <string name="your_custom_ai_features">Your Custom AI Features</string>
     <string name="manage_subscription">Manage Subscription</string>
     <string name="need_help_learn_more">Need help? Learn More</string>
+    <string name="atomatic_ai">Atomatic AI</string>
+    <string name="managed_smart_responses">Managed smart responses</string>
+    <string name="bring_your_own_key">Bring Your Own Key</string>
+    <string name="use_external_llm_apis">Use external LLM APIs</string>
 </resources>
