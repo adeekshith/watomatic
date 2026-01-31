@@ -1,5 +1,7 @@
 package com.parishod.watomatic.activity.login
 
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -34,6 +36,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    private var subscriptionManager: com.parishod.watomatic.model.subscription.SubscriptionManager? = null
 
     companion object {
         private const val PREF_USER_EMAIL = "pref_user_email"
@@ -47,6 +50,7 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
+        subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, preferencesManager)
         auth = FirebaseAuth.getInstance()
 
         setupGoogleSignIn()
@@ -143,6 +147,22 @@ class LoginActivity : BaseActivity() {
     private fun continueAsGuest() {
         preferencesManager.isGuestMode = true
         navigateToMain()
+
+        //testing create anonymous user for non logged case to get firebase tiken
+        /*if (auth.currentUser != null) {
+            preferencesManager.isGuestMode = true
+            navigateToMain()
+            return
+        }
+
+        auth.signInAnonymously()
+            .addOnSuccessListener {
+                preferencesManager.isGuestMode = true
+                navigateToMain()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, getString(R.string.authentication_failed_with_message, e.message), Toast.LENGTH_SHORT).show()
+            }*/
     }
 
     private fun doSignin(email: String, password: String) {
@@ -321,7 +341,17 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun handleSuccessfulLogin() {
-        navigateToMain()
+        // Refresh subscription status before navigating
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            try {
+                subscriptionManager?.refreshSubscriptionStatus()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                navigateToMain()
+            }
+        }
     }
 
     private fun navigateToMain() {
