@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Card stroke widths -->
+    <dimen name="card_stroke_width_normal">1dp</dimen>
+    <dimen name="card_stroke_width_selected">2dp</dimen>
+</resources>
+

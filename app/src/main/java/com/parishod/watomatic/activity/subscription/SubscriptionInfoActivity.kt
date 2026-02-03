@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.card.MaterialCardView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.billing.BillingManager
@@ -35,24 +37,27 @@ class SubscriptionInfoActivity : BaseActivity() {
     private var activeStateView: View? = null
     private var inactiveStateView: View? = null
 
-    // UI Components (Inactive State)
-    private var monthlyPlanCard: MaterialCardView? = null
-    private var annualPlanCard: MaterialCardView? = null
+    // UI Components (Inactive State - ViewPager2)
+    private var viewPager: ViewPager2? = null
+    private var tabLayout: TabLayout? = null
+    private var pagerAdapter: SubscriptionPagerAdapter? = null
     private var subscribeButton: Button? = null
     private var restoreButton: Button? = null
     private var statusTextView: TextView? = null
     private var loadingIndicator: ProgressBar? = null
-    private var monthlyPriceText: TextView? = null
-    private var annualPriceText: TextView? = null
-    
+
     // UI Components (Active State)
     private var planTypeText: TextView? = null
     private var renewalDateText: TextView? = null
     private var manageButton: Button? = null
     private var helpLink: TextView? = null
+    private var aiPromptInput: android.widget.EditText? = null
+    private var fallbackMessageInput: android.widget.EditText? = null
 
     // State
-    private var selectedPlanType: String? = null
+    private var selectedProductDetails: ProductDetails? = null
+    private var selectedPlanName: String? = null
+    private var selectedPlanType: String? = null  // "monthly" or "annual"
     private val productDetailsMap = mutableMapOf<String, ProductDetails>()
 
     private enum class UIState {
@@ -111,20 +116,20 @@ class SubscriptionInfoActivity : BaseActivity() {
         inactiveStateView = findViewById(R.id.inactive_state)
 
         // Initialize inactive state views
-        monthlyPlanCard = findViewById(R.id.monthly_plan_card)
-        annualPlanCard = findViewById(R.id.annual_plan_card)
+        viewPager = findViewById(R.id.subscription_view_pager)
+        tabLayout = findViewById(R.id.subscription_tabs)
         subscribeButton = findViewById(R.id.subscribe_button)
         restoreButton = findViewById(R.id.restore_button)
         statusTextView = findViewById(R.id.subscription_status)
         loadingIndicator = findViewById(R.id.loading_indicator)
-        monthlyPriceText = findViewById(R.id.monthly_price)
-        annualPriceText = findViewById(R.id.annual_price)
 
         // Initialize active state views
         planTypeText = findViewById(R.id.subscription_plan_type)
         renewalDateText = findViewById(R.id.subscription_renewal_date)
         manageButton = findViewById(R.id.manage_subscription_button)
         helpLink = findViewById(R.id.help_learn_more)
+        aiPromptInput = findViewById(R.id.ai_prompt_input)
+        fallbackMessageInput = findViewById(R.id.fallback_message_input)
     }
 
     private fun showUIState(state: UIState) {
@@ -217,20 +222,27 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun setupActiveStateUI() {
+        // Load saved AI configuration from preferences
+        aiPromptInput?.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
+        fallbackMessageInput?.setText(preferencesManager?.getFallbackMessage() ?: "")
+
+        // Save Configuration button (reusing manage_subscription_button ID)
         manageButton?.setOnClickListener {
-            // Open Google Play subscription management
-            try {
-                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
-                intent.data = android.net.Uri.parse("https://play.google.com/store/account/subscriptions")
-                startActivity(intent)
-            } catch (e: Exception) {
-                Toast.makeText(this, "Unable to open subscription management", Toast.LENGTH_SHORT).show()
-            }
+            // Save AI configuration
+            val aiPrompt = aiPromptInput?.text?.toString() ?: ""
+            val fallbackMessage = fallbackMessageInput?.text?.toString() ?: ""
+
+            preferencesManager?.saveOpenAICustomPrompt(aiPrompt)
+            preferencesManager?.saveFallbackMessage(fallbackMessage)
+
+            Toast.makeText(this, R.string.ai_config_saved, Toast.LENGTH_SHORT).show()
         }
         
+        // Reset to Defaults link
         helpLink?.setOnClickListener {
-            // Open help/support page
-            Toast.makeText(this, "Opening help center...", Toast.LENGTH_SHORT).show()
+            aiPromptInput?.setText("")
+            fallbackMessageInput?.setText("")
+            Toast.makeText(this, R.string.ai_config_reset, Toast.LENGTH_SHORT).show()
         }
     }
     
@@ -258,27 +270,128 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun setupInactiveStateUI() {
+        // Setup ViewPager2 with adapter
+        pagerAdapter = SubscriptionPagerAdapter(this)
+        viewPager?.adapter = pagerAdapter
+
+        // Apply custom tab background selector to match 3.html design
+        tabLayout?.let { tabs ->
+            // Set tab background selector
+            for (i in 0 until tabs.tabCount) {
+                tabs.getTabAt(i)?.view?.setBackgroundResource(R.drawable.tab_selector)
+            }
+
+            // Setup with ViewPager2
+            viewPager?.let { pager ->
+                TabLayoutMediator(tabs, pager) { tab, position ->
+                    val tabView = layoutInflater.inflate(R.layout.tab_annual_with_badge, null)
+                    when (position) {
+                        0 -> {tab.text = "Monthly"
+                            /*tabView.findViewById<TextView>(R.id.tab_text).text = "Monthly"
+                            tabView.findViewById<TextView>(R.id.save_badge).visibility = View.GONE
+                            tab.customView = tabView*/
+                        } 1 -> {
+                            // Create custom view for Annual tab with SAVE badge
+                            tab.customView = tabView
+                        }
+                        else -> tab.text = ""
+                    }
+                }.attach()
+            }
+
+            // Re-apply background after attach
+            tabs.post {
+                for (i in 0 until tabs.tabCount) {
+                    tabs.getTabAt(i)?.view?.setBackgroundResource(R.drawable.tab_selector)
+                }
+            }
+        }
+
+        // Setup plan selection listener for both fragments
+        setupFragmentCallbacks()
+
+        // Setup button listeners
         setupClickListeners()
 
         // Check for pre-selected plan from login flow
         val preselectedPlan = intent.getStringExtra("PRESELECTED_PLAN")
         preselectedPlan?.let { sku ->
             when {
-                sku.contains("monthly") -> selectPlan("monthly")
-                sku.contains("annual") -> selectPlan("annual")
+                sku.contains("annual") -> viewPager?.currentItem = 1
+                else -> viewPager?.currentItem = 0
             }
         }
     }
 
+    private fun setupFragmentCallbacks() {
+        // Wait for fragments to be created and setup callbacks
+        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                // Update tab text colors for custom Annual tab
+                updateTabTextColors(position)
+
+                // Update selected plan type when tab changes
+                selectedPlanType = if (position == 0) "monthly" else "annual"
+                // Reset selection when switching tabs
+                selectedProductDetails = null
+                selectedPlanName = null
+                updateSubscribeButtonText()
+
+                // Update prices for the newly visible fragment
+                viewPager?.postDelayed({
+                    val fragment = supportFragmentManager.findFragmentByTag("f$position")
+                    if (fragment is SubscriptionPlansFragment) {
+                        fragment.updatePrices(productDetailsMap)
+                        fragment.setOnPlanSelectedListener(object : SubscriptionPlansFragment.OnPlanSelectedListener {
+                            override fun onPlanSelected(productDetails: ProductDetails?, planName: String, planType: String) {
+                                this@SubscriptionInfoActivity.onPlanSelected(productDetails, planName, planType)
+                            }
+                        })
+                    }
+                }, 100)
+            }
+        })
+    }
+
+    private fun updateTabTextColors(selectedPosition: Int) {
+        tabLayout?.let { tabs ->
+            // Update Annual tab custom view text color
+            tabs.getTabAt(1)?.customView?.let { customView ->
+                val tabText = customView.findViewById<TextView>(R.id.tab_text)
+                if (selectedPosition == 1) {
+                    // Selected state - use colorOnSurface
+                    val typedValue = android.util.TypedValue()
+                    theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValue, true)
+                    tabText?.setTextColor(typedValue.data)
+                } else {
+                    // Unselected state - use colorOnSurfaceVariant
+                    val typedValue = android.util.TypedValue()
+                    theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true)
+                    tabText?.setTextColor(typedValue.data)
+                }
+            }
+        }
+    }
+
+    fun onPlanSelected(productDetails: ProductDetails?, planName: String, planType: String) {
+        selectedProductDetails = productDetails
+        selectedPlanName = planName
+        selectedPlanType = planType
+        updateSubscribeButtonText()
+    }
+
+    private fun updateSubscribeButtonText() {
+        val planName = selectedPlanName
+        subscribeButton?.text = if (planName != null) {
+            "Subscribe to ${planName.capitalize()} Plan"
+        } else {
+            getString(R.string.subscription_subscribe_continue)
+        }
+    }
+
     private fun setupClickListeners() {
-        monthlyPlanCard?.setOnClickListener {
-            selectPlan("monthly")
-        }
-
-        annualPlanCard?.setOnClickListener {
-            selectPlan("annual")
-        }
-
         subscribeButton?.setOnClickListener {
             handleSubscription()
         }
@@ -286,6 +399,27 @@ class SubscriptionInfoActivity : BaseActivity() {
         restoreButton?.setOnClickListener {
             restorePurchases()
         }
+    }
+
+    private fun updateFragmentPrices() {
+        // Use postDelayed to ensure fragments are fully created and attached
+        viewPager?.postDelayed({
+            // Update both fragments (monthly and annual)
+            for (i in 0..1) {
+                val fragment = supportFragmentManager.findFragmentByTag("f$i")
+                if (fragment is SubscriptionPlansFragment) {
+                    android.util.Log.d("SubscriptionInfo", "Updating prices for fragment $i")
+                    fragment.updatePrices(productDetailsMap)
+                    fragment.setOnPlanSelectedListener(object : SubscriptionPlansFragment.OnPlanSelectedListener {
+                        override fun onPlanSelected(productDetails: ProductDetails?, planName: String, planType: String) {
+                            this@SubscriptionInfoActivity.onPlanSelected(productDetails, planName, planType)
+                        }
+                    })
+                } else {
+                    android.util.Log.w("SubscriptionInfo", "Fragment $i not found or not SubscriptionPlansFragment")
+                }
+            }
+        }, 300) // 300ms delay to ensure fragments are ready
     }
 
     private fun setupBillingListener() {
@@ -371,66 +505,27 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun updatePricing() {
-        // Update monthly price
-        productDetailsMap[BillingManager.SKU_MONTHLY]?.let { details ->
-            val priceInfo = details.subscriptionOfferDetails?.firstOrNull()
-                ?.pricingPhases?.pricingPhaseList?.firstOrNull()
-            monthlyPriceText?.text = priceInfo?.formattedPrice ?: "$1.99/month"
+        // Update prices in both fragments
+        // Use post to ensure fragments are created
+        viewPager?.post {
+            updateFragmentPrices()
         }
-
-        // Update annual price
-        productDetailsMap[BillingManager.SKU_ANNUAL]?.let { details ->
-            val priceInfo = details.subscriptionOfferDetails?.firstOrNull()
-                ?.pricingPhases?.pricingPhaseList?.firstOrNull()
-            annualPriceText?.text = priceInfo?.formattedPrice ?: "$10.99/year"
-        }
-    }
-
-
-    private fun selectPlan(planType: String) {
-        selectedPlanType = planType
-        
-        // Reset both cards
-        monthlyPlanCard?.strokeWidth = 0
-        annualPlanCard?.strokeWidth = 0
-
-        // Highlight selected plan
-        val selectedCard = if (planType == "monthly") monthlyPlanCard else annualPlanCard
-        selectedCard?.strokeWidth = 4
-        selectedCard?.strokeColor = getColor(R.color.primary)
-        
-        // Update button text based on selected plan
-        val planName = if (planType == "monthly") "Monthly" else "Annual"
-        subscribeButton?.text = "Subscribe to $planName Plan"
     }
 
     private fun handleSubscription() {
-        if (selectedPlanType == null) {
+        // For free plan, just show a message
+        if (selectedPlanName == "free") {
+            Toast.makeText(this, "Free plan is already active", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (selectedProductDetails == null) {
             Toast.makeText(this, "Please select a plan", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val productId = when (selectedPlanType) {
-            "monthly" -> BillingManager.SKU_MONTHLY
-            "annual" -> BillingManager.SKU_ANNUAL
-            else -> {
-                Toast.makeText(this, "Invalid plan selected", Toast.LENGTH_SHORT).show()
-                return
-            }
-        }
-
-        val productDetails = productDetailsMap[productId]
-        if (productDetails == null) {
-            Toast.makeText(
-                this,
-                "Product details not available. Please try again.",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
-
         showLoading()
-        billingManager?.launchPurchaseFlow(this, productDetails)
+        billingManager?.launchPurchaseFlow(this, selectedProductDetails!!)
     }
 
     private fun restorePurchases() {

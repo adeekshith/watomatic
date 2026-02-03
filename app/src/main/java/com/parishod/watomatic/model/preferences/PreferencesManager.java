@@ -54,6 +54,7 @@ public class PreferencesManager {
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
     private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
+    private final String KEY_FALLBACK_MESSAGE = "pref_fallback_message";
     private final String KEY_IS_LOGGED_IN = "pref_is_logged_in";
     private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
     private final String KEY_FIREBASE_TOKEN = "pref_firebase_token";
@@ -499,6 +500,16 @@ public class PreferencesManager {
     public void saveOpenAICustomPrompt(String prompt) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putString(KEY_OPENAI_CUSTOM_PROMPT, prompt);
+        editor.apply();
+    }
+
+    public String getFallbackMessage() {
+        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, null);
+    }
+
+    public void saveFallbackMessage(String message) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_FALLBACK_MESSAGE, message);
         editor.apply();
     }
 

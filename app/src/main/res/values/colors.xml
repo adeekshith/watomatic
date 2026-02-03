@@ -32,4 +32,7 @@
     <!-- AI Icon Colors -->
     <color name="ai_blue">#2196F3</color>
     <color name="ai_green">#4CAF50</color>
+
+    <!-- Card Colors -->
+    <color name="card_stroke_default">#E0E0E0</color>
 </resources>

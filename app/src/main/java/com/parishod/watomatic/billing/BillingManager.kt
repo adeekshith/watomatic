@@ -67,8 +67,13 @@ interface BillingManager {
     fun isReady(): Boolean
 
     companion object {
-        const val SKU_MONTHLY = "automatic_ai_pro_monthly"
-        const val SKU_ANNUAL = "automatic_ai_pro_annual"
+        const val SKU_MONTHLY_MINI = "atomatic_ai_mini_monthly"
+        const val SKU_MONTHLY_STANDARD = "atomatic_ai_standard_monthly"
+        const val SKU_MONTHLY_PRO = "atomatic_ai_pro_monthly"
+
+        const val SKU_ANNUAL_MINI = "atomatic_ai_mini_anually"
+        const val SKU_ANNUAL_STANDARD = "atomatic_ai_standard_anually"
+        const val SKU_ANNUAL_PRO = "atomatic_ai_pro_anually"
     }
 }
 

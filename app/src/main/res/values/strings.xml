@@ -378,4 +378,59 @@
     <string name="selected">Selected</string>
     <string name="status">Status</string>
     <string name="premium">Premium</string>
+
+    <!-- Subscription UI Refactor Strings -->
+    <string name="subscription_plan_description">Choose a plan that fits your auto-reply needs. All plans include high-speed AI processing.</string>
+    <string name="subscription_monthly_replies">500 AI replies/month</string>
+    <string name="subscription_annual_replies">2,000 AI replies/month</string>
+    <string name="subscription_best_value">BEST VALUE</string>
+    <string name="subscription_standard_plan">Standard</string>
+    <string name="subscription_per_month">/ mo</string>
+    <string name="subscription_subscribe_continue">Subscribe &amp; Continue</string>
+    <string name="subscription_feature_context_replies">Context-aware smart replies</string>
+    <string name="subscription_feature_tone_matching">Custom tone matching</string>
+    <string name="subscription_feature_messenger_support">Support for all major messengers</string>
+
+    <!-- Active Subscription Config Strings -->
+    <string name="ai_config_basic_capabilities">Basic AI capabilities</string>
+    <string name="ai_config_upgrade">Upgrade</string>
+    <string name="ai_config_custom_prompt_header">CUSTOM AI PROMPT</string>
+    <string name="ai_config_fallback_header">FALLBACK REPLY MESSAGE</string>
+    <string name="ai_config_prompt_hint">Example: Act as a helpful customer support agent for my bakery. Be polite, keep responses short, and mention we are closed on Sundays.</string>
+    <string name="ai_config_fallback_hint">Example: Sorry, I couldn\'t understand that. Please leave your contact details and I\'ll get back to you soon.</string>
+    <string name="ai_config_char_limit">Character limit: 500</string>
+    <string name="ai_config_prompt_help">Define the personality and rules the AI should follow when replying to messages.</string>
+    <string name="ai_config_fallback_help">This message is sent automatically if the AI is unable to generate a valid response.</string>
+    <string name="ai_config_info_message">AI responses are optimized for speed and context awareness using our core platform LLM.</string>
+    <string name="ai_config_reset_defaults">Reset to Defaults</string>
+    <string name="ai_config_save">Save Configuration</string>
+    <string name="ai_config_saved">Configuration saved successfully!</string>
+    <string name="ai_config_reset">Configuration reset to defaults</string>
+
+    <!-- Emoji placeholders (for better accessibility) -->
+    <string name="icon_crown">👑</string>
+    <string name="icon_brain">🧠</string>
+    <string name="icon_warning">⚠️</string>
+    <string name="icon_info">ℹ️</string>
+    <string name="icon_email">📨</string>
+    <string name="icon_lightning">⚡</string>
+    <string name="icon_checkmark">✓</string>
+
+    <!-- Plan Tiers -->
+    <string name="plan_free">Free</string>
+    <string name="plan_mini">Mini</string>
+    <string name="plan_standard">Standard</string>
+    <string name="plan_pro">Pro</string>
+    <string name="plan_free_replies">50 AI replies/month</string>
+    <string name="plan_mini_replies">500 AI replies/month</string>
+    <string name="plan_standard_replies">2,000 AI replies/month</string>
+    <string name="plan_pro_replies">10,000 AI replies/month</string>
+    <string name="plan_free_price">$0</string>
+    <string name="icon_person">👤</string>
+    <string name="icon_sparkles">✨</string>
+
+    <!-- Tab Labels -->
+    <string name="tab_monthly">Monthly</string>
+    <string name="tab_annual">Annual</string>
+    <string name="tab_save_badge">SAVE</string>
 </resources>

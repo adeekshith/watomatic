@@ -70,11 +70,27 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
 
         val productList = listOf(
             QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(BillingManager.SKU_MONTHLY)
+                .setProductId(BillingManager.SKU_MONTHLY_MINI)
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build(),
             QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(BillingManager.SKU_ANNUAL)
+                .setProductId(BillingManager.SKU_MONTHLY_STANDARD)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build(),
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(BillingManager.SKU_MONTHLY_PRO)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build(),
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(BillingManager.SKU_ANNUAL_MINI)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build(),
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(BillingManager.SKU_ANNUAL_STANDARD)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build(),
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(BillingManager.SKU_ANNUAL_PRO)
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build()
         )
