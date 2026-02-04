@@ -98,15 +98,15 @@ class SubscriptionManagerImpl(
         }
     }
 
-    override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String): Boolean {
+    override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String, productName: String?): Boolean {
         return try {
             withContext(Dispatchers.Main) {
                 _subscriptionStatus.value = _subscriptionStatus.value?.copy(isLoading = true)
             }
             
-            // Use BackendService to verify and register this purchase
-            val result = backendService.verifyPurchase(purchaseToken, productId, orderId)
-            
+            // Use BackendService to verify and register this purchase, including productName
+            val result = backendService.verifyPurchase(purchaseToken, productId, orderId, productName)
+
             if (result.isValid) {
                 withContext(Dispatchers.Main) {
                     preferencesManager.setSubscriptionActive(true)
@@ -143,6 +143,7 @@ class SubscriptionManagerImpl(
         val state = SubscriptionState(
             isActive = preferencesManager.isSubscriptionActive,
             planType = preferencesManager.subscriptionPlanType,
+            productName = preferencesManager.subscriptionProductName,
             expiryDate = preferencesManager.subscriptionExpiryTime,
             isAutoRenewing = preferencesManager.isSubscriptionAutoRenewing,
             isLoading = false,

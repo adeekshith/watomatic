@@ -22,7 +22,8 @@ class FirebaseBackendService(private val context: Context) : BackendService {
     override suspend fun verifyPurchase(
         purchaseToken: String,
         productId: String,
-        orderId: String
+        orderId: String,
+        productName: String?
     ): VerificationResult {
         return try {
             val user = auth.currentUser
@@ -63,9 +64,12 @@ class FirebaseBackendService(private val context: Context) : BackendService {
                 "purchaseToken" to purchaseToken,
                 "productId" to productId,
                 "orderId" to orderId,
-                "packageName" to context.packageName
+                "packageName" to context.packageName,
+                "productName" to (productName ?: "")
             )
-            
+
+            Log.d(TAG, "Sending productName to backend: $productName")
+
             val result = functions
                 .getHttpsCallable("verifyPurchase")
                 .call(data)

@@ -247,14 +247,20 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
     
     private fun updateActiveSubscriptionDetails(state: SubscriptionState) {
-        // Update plan type
-        val planType = state.planType?.let { type ->
-            when {
-                type.contains("monthly", ignoreCase = true) -> "Premium Monthly"
-                type.contains("annual", ignoreCase = true) -> "Premium Annual"
-                else -> "Premium Plan"
-            }
-        } ?: "Premium Plan"
+        // Update plan type - use actual product name if available
+        val planType = if (!state.productName.isNullOrEmpty()) {
+            // Use actual product name from Google Play Billing
+            state.productName
+        } else {
+            // Fallback to inferred plan name
+            state.planType?.let { type ->
+                when {
+                    type.contains("monthly", ignoreCase = true) -> "Premium Monthly"
+                    type.contains("annual", ignoreCase = true) -> "Premium Annual"
+                    else -> "Premium Plan"
+                }
+            } ?: "Premium Plan"
+        }
 
         planTypeText?.text = planType
 
@@ -556,10 +562,18 @@ class SubscriptionInfoActivity : BaseActivity() {
                         .launch {
                             purchases.forEach { purchase ->
                                 val productId = purchase.products.firstOrNull() ?: ""
+
+                                // Get product name from cached ProductDetails
+                                val productDetails = productDetailsMap[productId]
+                                val productName = productDetails?.name ?: productDetails?.title ?: productId
+
+                                Log.d("SubscriptionInfo", "Restoring purchase for $productId with name: $productName")
+
                                 val result = subscriptionManager?.restorePurchase(
                                     purchase.purchaseToken,
                                     productId,
-                                    purchase.orderId ?: ""
+                                    purchase.orderId ?: "",
+                                    productName
                                 )
 
                                 if (result == true) successCount++ else failCount++

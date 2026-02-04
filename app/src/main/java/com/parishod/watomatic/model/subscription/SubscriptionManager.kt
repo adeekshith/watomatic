@@ -31,8 +31,9 @@ interface SubscriptionManager {
     /**
      * Verify and restore a specific purchase found from Google Play.
      * This links the purchase to the current user account on the backend.
+     * @param productName Product name/title from Google Play Billing Library (optional)
      */
-    suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String): Boolean
+    suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String, productName: String? = null): Boolean
 
     /**
      * Enum defining Pro features
@@ -51,6 +52,7 @@ interface SubscriptionManager {
 data class SubscriptionState(
     val isActive: Boolean,
     val planType: String? = null, // "monthly" or "annual"
+    val productName: String? = null, // Actual product name from Google Play
     val expiryDate: Long = 0,
     val isAutoRenewing: Boolean = false,
     val isLoading: Boolean = false,

@@ -26,7 +26,7 @@ class SubscriptionManagerImpl(
         _subscriptionStatus.postValue(SubscriptionState(isActive = false))
     }
     
-    override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String): Boolean {
+    override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String, productName: String?): Boolean {
         return false
     }
 }

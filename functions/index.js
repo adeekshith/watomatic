@@ -59,7 +59,7 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
         throw new HttpsError('unauthenticated', 'User must be authenticated. Please ensure you are signed in and your session has not expired.');
     }
 
-    const { purchaseToken, productId, orderId, packageName } = data;
+    const { purchaseToken, productId, orderId, packageName, productName } = data;
     const userId = auth.uid;
 
     // Detailed logging to debug NOT_FOUND errors
@@ -69,6 +69,7 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
     console.log(`Package Name: ${resolvedPackageName}`);
     console.log(`Product ID (subscriptionId): ${productId}`);
     console.log(`Order ID: ${orderId}`);
+    console.log(`Product Name from client: ${productName || 'not provided'}`);
     console.log(`Purchase Token (first 50 chars): ${purchaseToken?.substring(0, 50)}...`);
     console.log(`Purchase Token length: ${purchaseToken?.length || 0}`);
 
@@ -146,6 +147,11 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
         // Determine plan type from product ID or base plan
         const planType = (retrievedProductId || productId || '').includes('monthly') ? 'monthly' : 'annual';
 
+        // Use product name from client (already fetched from Google Play Billing Library)
+        // If not provided, use fallback values
+        const finalProductName = productName || basePlanId || (retrievedProductId || productId);
+        console.log(`Using product name: ${finalProductName} (source: ${productName ? 'client billing library' : 'fallback'})`);
+
         console.log('Google Play API verification successful! Now storing in Firestore...');
 
         // Store verified subscription in Firestore (with separate error handling)
@@ -156,6 +162,7 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
                     productId: retrievedProductId || productId,
                     basePlanId: basePlanId,
                     planType: planType,
+                    productName: finalProductName,
                     purchaseToken: purchaseToken,
                     orderId: orderId,
                     expiryTime: expiryTimeMillis,
@@ -185,6 +192,7 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
                     productId: retrievedProductId || productId,
                     basePlanId: basePlanId,
                     planType: planType,
+                    productName: finalProductName,
                     purchaseToken: purchaseToken,
                     orderId: orderId,
                     expiryTime: expiryTimeMillis,
@@ -245,6 +253,7 @@ exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request
                 expiryTime: 0,
                 productId: null,
                 planType: null,
+                productName: null,
                 autoRenewing: false
             };
         }
@@ -270,6 +279,7 @@ exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request
             expiryTime: subscription.expiryTime || 0,
             productId: subscription.productId || null,
             planType: subscription.planType || null,
+            productName: subscription.productName || null,
             autoRenewing: subscription.autoRenewing || false
         };
 

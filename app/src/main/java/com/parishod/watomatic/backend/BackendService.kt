@@ -7,12 +7,14 @@ package com.parishod.watomatic.backend
 interface BackendService {
     /**
      * Verify a purchase with Google Play Developer API
+     * @param productName Product name/title from Google Play Billing Library (optional)
      * @return VerificationResult with validity, expiry time, and subscription details
      */
     suspend fun verifyPurchase(
         purchaseToken: String,
         productId: String,
-        orderId: String
+        orderId: String,
+        productName: String? = null
     ): VerificationResult
     
     /**

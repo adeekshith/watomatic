@@ -248,13 +248,21 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
             Purchase.PurchaseState.PURCHASED -> {
                 Log.d(TAG, "Purchase successful: ${purchase.products}")
                 
+                // Get product details from cache to pass product name to backend
+                val productId = purchase.products.firstOrNull() ?: ""
+                val productDetails = productDetailsCache[productId]
+                val productName = productDetails?.name ?: productDetails?.title ?: productId
+
+                Log.d(TAG, "Product name from billing library: $productName")
+
                 // Step 2: Verify with backend
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val verificationResult = backendService.verifyPurchase(
                             purchaseToken = purchase.purchaseToken,
-                            productId = purchase.products.firstOrNull() ?: "",
-                            orderId = purchase.orderId ?: ""
+                            productId = productId,
+                            orderId = purchase.orderId ?: "",
+                            productName = productName
                         )
 
                         Log.e(TAG, "Backend verification : ${verificationResult.toString()}")
