@@ -371,9 +371,10 @@
                                     android:layout_marginStart="12dp">
 
                                     <TextView
+                                        android:id="@+id/subscription_plan_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Pro Plan - Active"
+                                        android:text=""
                                         android:textSize="14sp"
                                         android:textStyle="bold"
                                         android:textColor="?android:textColorPrimary" />
@@ -382,7 +383,7 @@
                                         android:id="@+id/subscription_renewal_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Renews on Oct 12, 2024"
+                                        android:text=""
                                         android:textSize="12sp"
                                         android:textColor="?android:textColorSecondary" />
                                 </LinearLayout>

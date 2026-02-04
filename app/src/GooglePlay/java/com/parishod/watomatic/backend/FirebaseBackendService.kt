@@ -162,7 +162,7 @@ class FirebaseBackendService(private val context: Context) : BackendService {
             // Ensure fresh token before callable request
             if (!ensureAuthenticatedWithFreshToken()) {
                 Log.e(TAG, "getSubscriptionStatus: Authentication not ready")
-                return SubscriptionStatus(false, 0, null, null, false)
+                return SubscriptionStatus(false, 0, null, null, null, false)
             }
             
             val data = hashMapOf("userId" to userId)
@@ -173,7 +173,7 @@ class FirebaseBackendService(private val context: Context) : BackendService {
             
             val resultData = result.data as? Map<*, *> ?: run {
                 Log.e(TAG, "Invalid response format from getSubscriptionStatus")
-                return SubscriptionStatus(false, 0, null, null, false)
+                return SubscriptionStatus(false, 0, null, null, null, false)
             }
             
             SubscriptionStatus(
@@ -181,11 +181,12 @@ class FirebaseBackendService(private val context: Context) : BackendService {
                 expiryTime = (resultData["expiryTime"] as? Number)?.toLong() ?: 0,
                 productId = resultData["productId"] as? String,
                 planType = resultData["planType"] as? String,
+                productName = resultData["productName"] as? String,
                 autoRenewing = resultData["autoRenewing"] as? Boolean ?: false
             )
         } catch (e: Exception) {
             Log.e(TAG, "Get status failed", e)
-            SubscriptionStatus(false, 0, null, null, false)
+            SubscriptionStatus(false, 0, null, null, null, false)
         }
     }
     

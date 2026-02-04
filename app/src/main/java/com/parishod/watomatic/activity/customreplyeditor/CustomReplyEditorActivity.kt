@@ -60,6 +60,7 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var automaticAiSubscribedSection: android.view.View? = null
     private var btnUnlockSubscription: MaterialButton? = null
     private var subscriptionRenewalDate: TextView? = null
+    private var subscriptionPlanName: TextView? = null
     private var automaticAiTag: TextView? = null
 
     // BYOK card expanded content
@@ -168,6 +169,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         automaticAiSubscribedSection = findViewById(R.id.automatic_ai_subscribed_section)
         btnUnlockSubscription = findViewById(R.id.btn_unlock_subscription)
         subscriptionRenewalDate = findViewById(R.id.subscription_renewal_date)
+        subscriptionPlanName = findViewById(R.id.subscription_plan_name)
         automaticAiTag = findViewById(R.id.automatic_ai_tag)
         otherAiExpandedContent = findViewById(R.id.other_ai_expanded_content)
     }
@@ -435,6 +437,36 @@ class CustomReplyEditorActivity : BaseActivity() {
 
                 automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
                 automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
+
+                // Display actual product name from Google Play Billing
+                val productName = preferencesManager?.subscriptionProductName
+                val planType = preferencesManager?.subscriptionPlanType
+
+                // Debug logging
+                android.util.Log.d("CustomReplyEditor", "Product Name from prefs: '$productName'")
+                android.util.Log.d("CustomReplyEditor", "Plan Type from prefs: '$planType'")
+
+                val displayName = if (!productName.isNullOrEmpty()) {
+                    // Use actual product name from Google Play
+                    android.util.Log.d("CustomReplyEditor", "Using product name: $productName")
+                    "$productName - Active"
+                } else {
+                    // Fallback: try to use plan type if available
+                    val fallbackName = when {
+                        !planType.isNullOrEmpty() -> {
+                            android.util.Log.d("CustomReplyEditor", "Using plan type fallback: $planType")
+                            "$planType - Active"
+                        }
+                        else -> {
+                            android.util.Log.d("CustomReplyEditor", "Using default fallback: Pro Plan")
+                            "Pro Plan - Active"
+                        }
+                    }
+                    fallbackName
+                }
+
+                android.util.Log.d("CustomReplyEditor", "Setting plan name to: '$displayName'")
+                subscriptionPlanName?.text = displayName
 
                 // Format renewal date
                 val expiryTime = preferencesManager?.subscriptionExpiryTime ?: 0

@@ -80,6 +80,7 @@ class SubscriptionManagerImpl(
                 preferencesManager.setSubscriptionActive(status.isActive)
                 preferencesManager.setSubscriptionExpiryTime(status.expiryTime)
                 preferencesManager.setSubscriptionPlanType(status.planType ?: "")
+                preferencesManager.setSubscriptionProductName(status.productName ?: "")
                 preferencesManager.setSubscriptionAutoRenewing(status.autoRenewing)
                 preferencesManager.setSubscriptionProductId(status.productId ?: "")
                 preferencesManager.setLastVerifiedTime(System.currentTimeMillis())

@@ -61,6 +61,7 @@ data class SubscriptionStatus(
     val expiryTime: Long,
     val productId: String?,
     val planType: String?,
+    val productName: String?, // Actual product name from Google Play Billing
     val autoRenewing: Boolean
 )
 

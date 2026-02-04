@@ -64,6 +64,7 @@ public class PreferencesManager {
     private final String KEY_SUBSCRIPTION_EXPIRY_TIME = "pref_subscription_expiry_time";
     private final String KEY_SUBSCRIPTION_AUTO_RENEWING = "pref_subscription_auto_renewing";
     private final String KEY_SUBSCRIPTION_PRODUCT_ID = "pref_subscription_product_id";
+    private final String KEY_SUBSCRIPTION_PRODUCT_NAME = "pref_subscription_product_name";
     private final String KEY_LAST_VERIFIED_TIME = "pref_last_verified_time";
     private final String KEY_SELECTED_REPLY_METHOD = "pref_selected_reply_method";
     private final String KEY_SUBSCRIPTION_STATUS_LAST_CHECKED = "pref_subscription_status_last_checked";
@@ -618,7 +619,17 @@ public class PreferencesManager {
         editor.putString(KEY_SUBSCRIPTION_PRODUCT_ID, productId);
         editor.apply();
     }
-    
+
+    public String getSubscriptionProductName() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PRODUCT_NAME, "");
+    }
+
+    public void setSubscriptionProductName(String productName) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PRODUCT_NAME, productName);
+        editor.apply();
+    }
+
     public long getLastVerifiedTime() {
         return _sharedPrefs.getLong(KEY_LAST_VERIFIED_TIME, 0);
     }
