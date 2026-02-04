@@ -126,6 +126,16 @@
                         android:background="?android:selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:contentDescription="@string/settings" />
+
+                    <!-- Check Icon (shows only when selected) -->
+                    <ImageView
+                        android:id="@+id/manual_check_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_check_circle"
+                        app:tint="?attr/colorPrimary"
+                        android:visibility="gone"
+                        android:contentDescription="@string/selected" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -460,6 +470,16 @@
                             android:background="?android:selectableItemBackgroundBorderless"
                             android:padding="4dp"
                             android:contentDescription="@string/settings" />
+
+                        <!-- Check Icon (shows only when selected) -->
+                        <ImageView
+                            android:id="@+id/other_ai_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="?attr/colorPrimary"
+                            android:visibility="gone"
+                            android:contentDescription="@string/selected" />
                     </LinearLayout>
 
                     <!-- Expanded Status Section -->

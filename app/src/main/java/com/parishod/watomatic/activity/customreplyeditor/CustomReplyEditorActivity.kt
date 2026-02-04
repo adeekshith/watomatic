@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -23,8 +24,17 @@ import com.parishod.watomatic.flavor.FlavorNavigator
 import com.parishod.watomatic.model.CustomRepliesData
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CustomReplyEditorActivity : BaseActivity() {
+    companion object {
+        private const val REPLY_METHOD_MANUAL = "manual"
+        private const val REPLY_METHOD_AUTOMATIC_AI = "automatic_ai"
+        private const val REPLY_METHOD_BYOK = "byok"
+        private const val SUBSCRIPTION_STATUS_REFRESH_INTERVAL = 30 * 60 * 1000L // 30 minutes
+    }
     private var autoReplyText: TextInputEditText? = null
     private var saveAutoReplyTextBtn: Button? = null
     private var customRepliesData: CustomRepliesData? = null
@@ -33,10 +43,12 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var watoMessageLinkBtn: TextView? = null
     private var manualRepliesCard: MaterialCardView? = null
     private var manualSettingsIcon: android.widget.ImageView? = null
+    private var manualCheckIcon: android.widget.ImageView? = null
     private var automaticAiProviderCard: MaterialCardView? = null
     private var btnAtomaticAiEdit: TextView? = null
     private var otherAiProviderCard: MaterialCardView? = null
     private var btnOtherAiEdit: android.widget.ImageView? = null
+    private var otherAiCheckIcon: android.widget.ImageView? = null
 
     // New UI elements for expanded Automatic AI card
     private var automaticAiExpandedContent: android.view.View? = null
@@ -93,17 +105,60 @@ class CustomReplyEditorActivity : BaseActivity() {
             subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
         }
 
+        // Refresh subscription status if needed before initializing UI
+        refreshSubscriptionStatusIfNeeded()
+
+        initializeViews()
+        setupClickListeners()
+        handleDeepLink()
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Restore the saved reply method and update UI
+        restoreSelectedReplyMethod()
+    }
+
+    /**
+     * Refresh subscription status from backend if the last check was more than 30 minutes ago
+     */
+    private fun refreshSubscriptionStatusIfNeeded() {
+        val lastChecked = preferencesManager?.getSubscriptionStatusLastChecked() ?: 0
+        val now = System.currentTimeMillis()
+
+        if (now - lastChecked > SUBSCRIPTION_STATUS_REFRESH_INTERVAL) {
+            lifecycleScope.launch {
+                try {
+                    subscriptionManager?.refreshSubscriptionStatus()
+                    preferencesManager?.setSubscriptionStatusLastChecked(now)
+                } catch (e: Exception) {
+                    // If refresh fails, continue with cached status
+                    android.util.Log.e("CustomReplyEditor", "Failed to refresh subscription status", e)
+                }
+            }
+        }
+    }
+
+    private fun initializeViews() {
         autoReplyText = findViewById(R.id.autoReplyTextInputEditText)
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn)
         watoMessageLinkBtn = findViewById(R.id.tip_wato_message)
         manualRepliesCard = findViewById(R.id.manual_replies_card)
         manualSettingsIcon = findViewById(R.id.manual_settings_icon)
+        manualCheckIcon = findViewById(R.id.manual_check_icon)
         automaticAiProviderCard = findViewById(R.id.automatic_ai_provider_card)
         btnAtomaticAiEdit = findViewById(R.id.btn_automatic_ai_edit)
         otherAiProviderCard = findViewById(R.id.other_ai_provider_card)
         btnOtherAiEdit = findViewById(R.id.btn_other_ai_edit)
+        otherAiCheckIcon = findViewById(R.id.other_ai_check_icon)
 
-        // New UI elements
+        // Expanded content views
         automaticAiExpandedContent = findViewById(R.id.automatic_ai_expanded_content)
         automaticAiCheckIcon = findViewById(R.id.automatic_ai_check_icon)
         automaticAiSettingsIcon = findViewById(R.id.automatic_ai_settings_icon)
@@ -115,7 +170,9 @@ class CustomReplyEditorActivity : BaseActivity() {
         subscriptionRenewalDate = findViewById(R.id.subscription_renewal_date)
         automaticAiTag = findViewById(R.id.automatic_ai_tag)
         otherAiExpandedContent = findViewById(R.id.other_ai_expanded_content)
+    }
 
+    private fun handleDeepLink() {
         val intent = intent
         val data = intent.data
 
@@ -125,27 +182,11 @@ class CustomReplyEditorActivity : BaseActivity() {
             else
                 customRepliesData?.get()
         )
+    }
 
+    private fun setupClickListeners() {
         saveAutoReplyTextBtn?.setOnClickListener {
-            val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
-
-            if (isAIEnabled && (subscriptionManager?.isProUser() == true || !preferencesManager?.openAIApiKey.isNullOrEmpty())) {
-                preferencesManager?.setEnableOpenAIReplies(true)
-            } else if (isAIEnabled) {
-                Toast.makeText(
-                    this,
-                    getString(R.string.configure_ai_llm_s_info),
-                    Toast.LENGTH_LONG
-                ).show()
-                preferencesManager?.setEnableOpenAIReplies(false)
-                return@setOnClickListener
-            } else {
-                preferencesManager?.setEnableOpenAIReplies(false)
-            }
-            val setString = customRepliesData?.set(autoReplyText?.getText())
-            if (setString != null) {
-                this.onNavigateUp()
-            }
+            handleSaveClick()
         }
 
         watoMessageLinkBtn?.setOnClickListener {
@@ -155,32 +196,22 @@ class CustomReplyEditorActivity : BaseActivity() {
             )
         }
 
-        // Manual Replies Card - Toggle to disable AI (expand/collapse only)
+        // Manual Replies Card - Select this reply method
         manualRepliesCard?.setOnClickListener {
-            preferencesManager?.setEnableOpenAIReplies(false)
-            updateCardExpansionState()
+            selectReplyMethod(REPLY_METHOD_MANUAL)
         }
 
-        // Manual Settings Icon - Navigate to edit dialog
+        // Manual Settings Icon - Edit manual reply
         manualSettingsIcon?.setOnClickListener {
             showEditAutoReplyDialog()
         }
 
-        // Initial UI state - expand the active card on launch based on saved preferences
-        updateCardExpansionState()
-
-        // Automatic AI Card - Toggle expansion and enable AI mode
+        // Automatic AI Card - Select this reply method
         automaticAiProviderCard?.setOnClickListener {
-            // Enable AI mode for Automatic AI (server-based)
-            preferencesManager?.setEnableOpenAIReplies(true)
-            // Clear API key to switch to Automatic AI (not BYOK)
-            if (!preferencesManager?.openAIApiKey.isNullOrEmpty()) {
-                preferencesManager?.saveOpenAIApiKey("")
-            }
-            updateCardExpansionState()
+            selectReplyMethod(REPLY_METHOD_AUTOMATIC_AI)
         }
 
-        // Automatic AI Settings Icon - Navigate to subscription/login (always visible)
+        // Automatic AI Settings Icon - Navigate to subscription/login
         automaticAiSettingsIcon?.setOnClickListener {
             handleAutomaticAiManageClick()
         }
@@ -195,48 +226,148 @@ class CustomReplyEditorActivity : BaseActivity() {
             handleAutomaticAiManageClick()
         }
 
-        // Other AI Card - Toggle to enable AI with BYOK mode
+        // Other AI Card - Select BYOK method
         otherAiProviderCard?.setOnClickListener {
-            // Enable AI mode and mark as using BYOK
-            preferencesManager?.setEnableOpenAIReplies(true)
-
-            // If no API key is configured, set a placeholder to ensure BYOK card is selected
-            // The user will configure the actual API key via settings icon
-            if (preferencesManager?.openAIApiKey.isNullOrEmpty()) {
-                preferencesManager?.saveOpenAIApiKey("PENDING_CONFIGURATION")
-            }
-
-            updateCardExpansionState()
+            selectReplyMethod(REPLY_METHOD_BYOK)
         }
 
         // Other AI Settings Icon - Navigate to configuration
         btnOtherAiEdit?.setOnClickListener {
-            // First enable AI mode
-            preferencesManager?.setEnableOpenAIReplies(true)
-
-            // Open configuration
             val intent = Intent(this, OtherAiConfigurationActivity::class.java)
             otherAiConfigLauncher.launch(intent)
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.custom_reply_editor_scroll_view)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    /**
+     * Centralized method to select a reply method and update UI
+     */
+    private fun selectReplyMethod(method: String) {
+        // Save the selected method to preferences
+        preferencesManager?.setSelectedReplyMethod(method)
+
+        // Update preferences based on selected method
+        when (method) {
+            REPLY_METHOD_MANUAL -> {
+                preferencesManager?.setEnableOpenAIReplies(false)
+            }
+            REPLY_METHOD_AUTOMATIC_AI -> {
+                preferencesManager?.setEnableOpenAIReplies(true)
+                // Clear API key to ensure server-based AI is used
+                preferencesManager?.saveOpenAIApiKey("")
+            }
+            REPLY_METHOD_BYOK -> {
+                preferencesManager?.setEnableOpenAIReplies(true)
+                // Set a placeholder if no API key exists to mark BYOK mode
+                if (preferencesManager?.openAIApiKey.isNullOrEmpty()) {
+                    preferencesManager?.saveOpenAIApiKey("PENDING_CONFIGURATION")
+                }
+            }
+        }
+
+        // Update UI to reflect the selection
         updateCardExpansionState()
     }
 
+    /**
+     * Restore the previously selected reply method from preferences
+     * For existing users upgrading, infer the method from current settings
+     */
+    private fun restoreSelectedReplyMethod() {
+        var savedMethod = preferencesManager?.getSelectedReplyMethod()
+
+        // Migration for existing users: If no saved method, infer from current state
+        if (savedMethod == "manual" && preferencesManager?.isOpenAIRepliesEnabled == true) {
+            // User has AI enabled but no explicit selection saved - infer from API key presence
+            val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty() &&
+                           preferencesManager?.openAIApiKey != "PENDING_CONFIGURATION"
+
+            savedMethod = if (hasApiKey) {
+                REPLY_METHOD_BYOK
+            } else {
+                REPLY_METHOD_AUTOMATIC_AI
+            }
+
+            // Save the inferred method for future
+            preferencesManager?.setSelectedReplyMethod(savedMethod)
+        }
+
+        // Sync preferences with saved method
+        when (savedMethod) {
+            REPLY_METHOD_MANUAL -> {
+                preferencesManager?.setEnableOpenAIReplies(false)
+            }
+            REPLY_METHOD_AUTOMATIC_AI -> {
+                preferencesManager?.setEnableOpenAIReplies(true)
+            }
+            REPLY_METHOD_BYOK -> {
+                preferencesManager?.setEnableOpenAIReplies(true)
+            }
+        }
+
+        // Update UI
+        updateCardExpansionState()
+    }
+
+    /**
+     * Validate and save the selected reply method configuration
+     */
+    private fun handleSaveClick() {
+        val selectedMethod = preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
+
+        // Validate the selected method is properly configured
+        when (selectedMethod) {
+            REPLY_METHOD_MANUAL -> {
+                // Validate manual reply text
+                val replyText = autoReplyText?.text
+                if (!CustomRepliesData.isValidCustomReply(replyText)) {
+                    Toast.makeText(
+                        this,
+                        "Please enter a valid auto reply message",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+                // Save manual reply
+                customRepliesData?.set(replyText)
+                preferencesManager?.setEnableOpenAIReplies(false)
+            }
+            REPLY_METHOD_AUTOMATIC_AI -> {
+                // Validate subscription for automatic AI
+                val isProUser = subscriptionManager?.isProUser() ?: false
+                if (!isProUser) {
+                    Toast.makeText(
+                        this,
+                        "Please subscribe to use Automatic AI replies",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return
+                }
+                preferencesManager?.setEnableOpenAIReplies(true)
+            }
+            REPLY_METHOD_BYOK -> {
+                // Validate BYOK configuration
+                val apiKey = preferencesManager?.openAIApiKey
+                if (apiKey.isNullOrEmpty() || apiKey == "PENDING_CONFIGURATION") {
+                    Toast.makeText(
+                        this,
+                        "Please configure your AI provider settings",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return
+                }
+                preferencesManager?.setEnableOpenAIReplies(true)
+            }
+        }
+
+        // Save successful, navigate back
+        onNavigateUp()
+    }
+
     private fun updateCardExpansionState() {
-        val isAIEnabled = preferencesManager?.isOpenAIRepliesEnabled ?: false
+        val selectedMethod = preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
         val isProUser = subscriptionManager?.isProUser() ?: false
         val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty() &&
                         preferencesManager?.openAIApiKey != "PENDING_CONFIGURATION"
-        val hasManualReply = !customRepliesData?.get().isNullOrEmpty()
 
         // Stroke widths for selection state
         val selectedStrokeWidth = TypedValue.applyDimension(
@@ -250,17 +381,36 @@ class CustomReplyEditorActivity : BaseActivity() {
             resources.displayMetrics
         ).toInt()
 
-        // Determine which card should be selected/expanded
-        val isManualSelected = !isAIEnabled
-        val isAutomaticAiSelected = isAIEnabled && !hasApiKey
-        val isByokSelected = isAIEnabled && hasApiKey
+        // Get colors for stroke
+        val primaryColor = getThemeColor(com.google.android.material.R.attr.colorPrimary)
+        val defaultStrokeColor = 0xFF38383A.toInt() // Gray color for unselected
+
+        // Determine which card is selected based on saved preference
+        val isManualSelected = selectedMethod == REPLY_METHOD_MANUAL
+        val isAutomaticAiSelected = selectedMethod == REPLY_METHOD_AUTOMATIC_AI
+        val isByokSelected = selectedMethod == REPLY_METHOD_BYOK
 
         // Update Manual Replies Card
-        manualRepliesCard?.strokeWidth = if (isManualSelected) selectedStrokeWidth else unselectedStrokeWidth
-        // Manual card can be configured via edit dialog
+        manualRepliesCard?.apply {
+            strokeWidth = if (isManualSelected) selectedStrokeWidth else unselectedStrokeWidth
+            strokeColor = if (isManualSelected) primaryColor else defaultStrokeColor
+        }
+        // Show/hide manual check icon
+        manualCheckIcon?.visibility = if (isManualSelected) android.view.View.VISIBLE else android.view.View.GONE
+
+        // Show/hide manual expanded content (text input)
+        if (isManualSelected) {
+            autoReplyText?.visibility = android.view.View.VISIBLE
+            autoReplyText?.setText(customRepliesData?.get())
+        } else {
+            autoReplyText?.visibility = android.view.View.GONE
+        }
 
         // Update Automatic AI Card
-        automaticAiProviderCard?.strokeWidth = if (isAutomaticAiSelected) selectedStrokeWidth else unselectedStrokeWidth
+        automaticAiProviderCard?.apply {
+            strokeWidth = if (isAutomaticAiSelected) selectedStrokeWidth else unselectedStrokeWidth
+            strokeColor = if (isAutomaticAiSelected) primaryColor else defaultStrokeColor
+        }
 
         // Settings icon is always visible
         automaticAiSettingsIcon?.visibility = android.view.View.VISIBLE
@@ -272,7 +422,7 @@ class CustomReplyEditorActivity : BaseActivity() {
 
             // Update badge and status based on subscription
             if (isProUser) {
-                // Configured state (4.html) - user has subscription
+                // Configured state - user has subscription
                 automaticAiTag?.text = "PRO"
                 automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_pro)
 
@@ -286,9 +436,17 @@ class CustomReplyEditorActivity : BaseActivity() {
                 automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
                 automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
 
-                subscriptionRenewalDate?.text = "Renews on Oct 12, 2024"
+                // Format renewal date
+                val expiryTime = preferencesManager?.subscriptionExpiryTime ?: 0
+                if (expiryTime > 0) {
+                    val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+                    val dateStr = dateFormat.format(Date(expiryTime))
+                    subscriptionRenewalDate?.text = "Renews on $dateStr"
+                } else {
+                    subscriptionRenewalDate?.text = "Active subscription"
+                }
             } else {
-                // Not configured state (2.html) - user needs subscription
+                // Not configured state - user needs subscription
                 automaticAiTag?.text = "FREE"
                 automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_gray)
 
@@ -309,7 +467,12 @@ class CustomReplyEditorActivity : BaseActivity() {
         }
 
         // Update Bring Your Own Key Card
-        otherAiProviderCard?.strokeWidth = if (isByokSelected) selectedStrokeWidth else unselectedStrokeWidth
+        otherAiProviderCard?.apply {
+            strokeWidth = if (isByokSelected) selectedStrokeWidth else unselectedStrokeWidth
+            strokeColor = if (isByokSelected) primaryColor else defaultStrokeColor
+        }
+        // Show/hide BYOK check icon
+        otherAiCheckIcon?.visibility = if (isByokSelected) android.view.View.VISIBLE else android.view.View.GONE
 
         if (isByokSelected) {
             // Show expanded content for BYOK

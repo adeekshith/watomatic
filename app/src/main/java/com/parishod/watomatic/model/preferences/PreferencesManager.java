@@ -65,6 +65,8 @@ public class PreferencesManager {
     private final String KEY_SUBSCRIPTION_AUTO_RENEWING = "pref_subscription_auto_renewing";
     private final String KEY_SUBSCRIPTION_PRODUCT_ID = "pref_subscription_product_id";
     private final String KEY_LAST_VERIFIED_TIME = "pref_last_verified_time";
+    private final String KEY_SELECTED_REPLY_METHOD = "pref_selected_reply_method";
+    private final String KEY_SUBSCRIPTION_STATUS_LAST_CHECKED = "pref_subscription_status_last_checked";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -624,6 +626,27 @@ public class PreferencesManager {
     public void setLastVerifiedTime(long time) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_LAST_VERIFIED_TIME, time);
+        editor.apply();
+    }
+
+    // Reply Method Selection - "manual", "automatic_ai", or "byok"
+    public String getSelectedReplyMethod() {
+        return _sharedPrefs.getString(KEY_SELECTED_REPLY_METHOD, "manual");
+    }
+
+    public void setSelectedReplyMethod(String method) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SELECTED_REPLY_METHOD, method);
+        editor.apply();
+    }
+
+    public long getSubscriptionStatusLastChecked() {
+        return _sharedPrefs.getLong(KEY_SUBSCRIPTION_STATUS_LAST_CHECKED, 0);
+    }
+
+    public void setSubscriptionStatusLastChecked(long timestamp) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_SUBSCRIPTION_STATUS_LAST_CHECKED, timestamp);
         editor.apply();
     }
 }
