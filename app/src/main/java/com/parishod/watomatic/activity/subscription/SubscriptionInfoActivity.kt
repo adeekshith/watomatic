@@ -591,33 +591,42 @@ class SubscriptionInfoActivity : BaseActivity() {
                                         ).show()
                                     }
 
-                                    // Refresh subscription status and recreate activity
+                                    // Refresh subscription status
                                     lifecycleScope.launch {
                                         try {
                                             Log.d(
                                                 "SubscriptionInfo",
-                                                "Starting status refresh loop (restore)..."
+                                                "Starting status refresh (restore)..."
                                             )
 
                                             // Trigger refresh
                                             subscriptionManager?.refreshSubscriptionStatus()
 
-                                            // Check status directly
-                                            val currentState =
-                                                subscriptionManager?.subscriptionStatus?.value
-                                            if (currentState?.isActive == true) {
-                                                Log.d(
-                                                    "SubscriptionInfo",
-                                                    "Status is active! Ready to update UI."
-                                                )
-                                                // Recreate the activity
-                                                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                            // Only recreate activity if this is an interactive restore
+                                            // For automatic sync (isInteractive=false), let LiveData observer handle UI update
+                                            if (isInteractive) {
+                                                // Check status directly
+                                                val currentState =
+                                                    subscriptionManager?.subscriptionStatus?.value
+                                                if (currentState?.isActive == true) {
                                                     Log.d(
                                                         "SubscriptionInfo",
-                                                        "Reloading activity."
+                                                        "Status is active! Ready to update UI."
                                                     )
-                                                    recreate()
+                                                    // Recreate the activity
+                                                    withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                        Log.d(
+                                                            "SubscriptionInfo",
+                                                            "Reloading activity (interactive restore)."
+                                                        )
+                                                        recreate()
+                                                    }
                                                 }
+                                            } else {
+                                                Log.d(
+                                                    "SubscriptionInfo",
+                                                    "Automatic sync - UI will update via LiveData observer"
+                                                )
                                             }
                                         } catch (e: Exception) {
                                             Log.e(
@@ -625,9 +634,11 @@ class SubscriptionInfoActivity : BaseActivity() {
                                                 "Error refreshing subscription status",
                                                 e
                                             )
-                                            // Still try to recreate to show updated UI
-                                            withContext(kotlinx.coroutines.Dispatchers.Main) {
-                                                recreate()
+                                            // Only recreate on interactive restore, even on error
+                                            if (isInteractive) {
+                                                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                    recreate()
+                                                }
                                             }
                                         }
                                     }
