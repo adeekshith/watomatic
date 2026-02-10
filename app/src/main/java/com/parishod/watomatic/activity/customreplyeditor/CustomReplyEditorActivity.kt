@@ -35,6 +35,40 @@ class CustomReplyEditorActivity : BaseActivity() {
         private const val REPLY_METHOD_BYOK = "byok"
         private const val SUBSCRIPTION_STATUS_REFRESH_INTERVAL = 30 * 60 * 1000L // 30 minutes
     }
+
+    /**
+     * Data class to hold plan-specific UI configuration
+     */
+    private data class PlanUIConfig(
+        val badgeText: String,
+        val badgeBackgroundRes: Int,
+        val dateLabel: String // e.g., "Renews on" or "Expires on"
+    )
+
+    /**
+     * Get UI configuration based on subscription auto-renewal status
+     * Single source of truth for plan-based UI logic
+     *
+     * @param isAutoRenewing Whether the subscription auto-renews
+     * @return PlanUIConfig with appropriate badge and date label
+     */
+    private fun getPlanUIConfig(isAutoRenewing: Boolean): PlanUIConfig {
+        return if (isAutoRenewing) {
+            // Auto-renewing subscription (paid plans)
+            PlanUIConfig(
+                badgeText = getString(R.string.badge_pro),
+                badgeBackgroundRes = R.drawable.bg_badge_pro,
+                dateLabel = getString(R.string.subscription_renews_on).substringBefore(" %s") // "Renews on"
+            )
+        } else {
+            // Non-renewing subscription (FREE plan or cancelled subscription)
+            PlanUIConfig(
+                badgeText = getString(R.string.badge_free),
+                badgeBackgroundRes = R.drawable.bg_badge_pro,
+                dateLabel = getString(R.string.subscription_expires_on).substringBefore(" %s") // "Expires on"
+            )
+        }
+    }
     private var autoReplyText: TextInputEditText? = null
     private var saveAutoReplyTextBtn: Button? = null
     private var customRepliesData: CustomRepliesData? = null
@@ -425,8 +459,18 @@ class CustomReplyEditorActivity : BaseActivity() {
             // Update badge and status based on subscription
             if (isProUser) {
                 // Configured state - user has subscription
-                automaticAiTag?.text = "PRO"
-                automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_pro)
+
+                // Get subscription details
+                val productName = preferencesManager?.subscriptionProductName
+                val planType = preferencesManager?.subscriptionPlanType
+                val isAutoRenewing = preferencesManager?.isSubscriptionAutoRenewing ?: false
+
+                // Get plan-specific UI configuration based on auto-renewal status
+                val planConfig = getPlanUIConfig(isAutoRenewing)
+
+                // Apply badge configuration
+                automaticAiTag?.text = planConfig.badgeText
+                automaticAiTag?.setBackgroundResource(planConfig.badgeBackgroundRes)
 
                 automaticAiStatusIcon?.setImageResource(R.drawable.ic_task_alt)
                 automaticAiStatusIcon?.setColorFilter(0xFF34C759.toInt())
@@ -438,13 +482,11 @@ class CustomReplyEditorActivity : BaseActivity() {
                 automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
                 automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
 
-                // Display actual product name from Google Play Billing
-                val productName = preferencesManager?.subscriptionProductName
-                val planType = preferencesManager?.subscriptionPlanType
-
                 // Debug logging
-                android.util.Log.d("CustomReplyEditor", "Product Name from prefs: '$productName'")
-                android.util.Log.d("CustomReplyEditor", "Plan Type from prefs: '$planType'")
+                android.util.Log.d("CustomReplyEditor", "Product Name: '$productName'")
+                android.util.Log.d("CustomReplyEditor", "Plan Type: '$planType'")
+                android.util.Log.d("CustomReplyEditor", "Auto-Renewing: $isAutoRenewing")
+                android.util.Log.d("CustomReplyEditor", "Badge: '${planConfig.badgeText}', Date Label: '${planConfig.dateLabel}'")
 
                 val displayName = if (!productName.isNullOrEmpty()) {
                     // Use actual product name from Google Play
@@ -468,18 +510,18 @@ class CustomReplyEditorActivity : BaseActivity() {
                 android.util.Log.d("CustomReplyEditor", "Setting plan name to: '$displayName'")
                 subscriptionPlanName?.text = displayName
 
-                // Format renewal date
+                // Format renewal/expiry date with plan-specific label
                 val expiryTime = preferencesManager?.subscriptionExpiryTime ?: 0
                 if (expiryTime > 0) {
                     val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
                     val dateStr = dateFormat.format(Date(expiryTime))
-                    subscriptionRenewalDate?.text = "Renews on $dateStr"
+                    subscriptionRenewalDate?.text = "${planConfig.dateLabel} $dateStr"
                 } else {
                     subscriptionRenewalDate?.text = "Active subscription"
                 }
             } else {
                 // Not configured state - user needs subscription
-                automaticAiTag?.text = "FREE"
+                automaticAiTag?.text = getString(R.string.badge_free)
                 automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_gray)
 
                 automaticAiStatusIcon?.setImageResource(R.drawable.ic_error_outline)

@@ -433,4 +433,12 @@
     <string name="tab_monthly">Monthly</string>
     <string name="tab_annual">Annual</string>
     <string name="tab_save_badge">SAVE</string>
+
+    <!-- Subscription Badge Labels -->
+    <string name="badge_pro">PRO</string>
+    <string name="badge_free">FREE</string>
+
+    <!-- Subscription Date Labels -->
+    <string name="subscription_renews_on">Renews on %s</string>
+    <string name="subscription_expires_on">Expires on %s</string>
 </resources>
