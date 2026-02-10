@@ -10,7 +10,20 @@ class FirebaseBackendService(private val context: Context) : BackendService {
     override suspend fun verifyPurchase(
         purchaseToken: String,
         productId: String,
-        orderId: String
+        orderId: String,
+        productName: String?
+    ): VerificationResult {
+        return VerificationResult(
+            isValid = false,
+            expiryTime = 0,
+            autoRenewing = false,
+            planType = "",
+            error = "Backend not supported in this build"
+        )
+    }
+
+    override suspend fun verifySimulatedPurchase(
+        simulatedPurchaseData: Map<String, Any>
     ): VerificationResult {
         return VerificationResult(
             isValid = false,
@@ -27,6 +40,7 @@ class FirebaseBackendService(private val context: Context) : BackendService {
             expiryTime = 0,
             productId = null,
             planType = null,
+            productName = null,
             autoRenewing = false
         )
     }

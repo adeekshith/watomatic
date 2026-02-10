@@ -29,4 +29,8 @@ class SubscriptionManagerImpl(
     override suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String, productName: String?): Boolean {
         return false
     }
+
+    override suspend fun activateFreePlan(): Boolean {
+        return false
+    }
 }

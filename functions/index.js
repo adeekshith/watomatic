@@ -290,6 +290,212 @@ exports.getSubscriptionStatus = onCall({ region: 'us-central1' }, async (request
 });
 
 /**
+ * Verify a simulated purchase for FREE plan (V2 API)
+ * This bypasses Google Play API validation and applies internal validation instead.
+ *
+ * SECURITY RULES:
+ * 1. Must detect simulated purchases via orderId prefix or purchaseSource
+ * 2. Must validate required fields and integrity
+ * 3. Must ensure FREE plan constraints (30 days, non-renewing)
+ * 4. Must be explicitly flagged as simulated in Firestore
+ */
+exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    console.log('verifySimulatedPurchase called');
+    console.log('Auth present:', !!auth);
+    console.log('Auth UID:', auth?.uid || 'null');
+
+    // Ensure user is authenticated
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
+    }
+
+    const {
+        purchaseToken,
+        productId,
+        orderId,
+        packageName,
+        productName,
+        purchaseTime,
+        expiryTime,
+        purchaseState,
+        acknowledged,
+        autoRenewing,
+        purchaseSource
+    } = data;
+
+    const userId = auth.uid;
+
+    console.log('=== Simulated Purchase Verification Request ===');
+    console.log(`User ID: ${userId}`);
+    console.log(`Order ID: ${orderId}`);
+    console.log(`Product ID: ${productId}`);
+    console.log(`Purchase Source: ${purchaseSource}`);
+    console.log(`Purchase Time: ${purchaseTime}`);
+    console.log(`Expiry Time: ${expiryTime}`);
+
+    try {
+        // STEP 1: Detect simulated purchases
+        const isSimulated = purchaseSource === 'SIMULATED_GOOGLE_IAP' ||
+                           (orderId && orderId.startsWith('GPA.FREE.'));
+
+        if (!isSimulated) {
+            console.error('Not a simulated purchase - use verifyPurchase instead');
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'Not a simulated purchase'
+            };
+        }
+
+        // STEP 2: Validate required fields
+        if (!purchaseToken || !productId || !orderId || !purchaseTime || !expiryTime) {
+            console.error('Missing required fields');
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'Missing required fields'
+            };
+        }
+
+        // STEP 3: Validate FREE plan constraints
+        const expectedDuration = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+        const actualDuration = expiryTime - purchaseTime;
+
+        if (Math.abs(actualDuration - expectedDuration) > 1000) { // Allow 1 second tolerance
+            console.error(`Invalid duration: expected ${expectedDuration}, got ${actualDuration}`);
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'Invalid subscription duration'
+            };
+        }
+
+        // STEP 4: Ensure it's a FREE plan product
+        if (!productId.toLowerCase().includes('free')) {
+            console.error('Product ID does not indicate FREE plan');
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'Invalid product for simulated purchase'
+            };
+        }
+
+        // STEP 5: Validate purchase state
+        if (purchaseState !== 1) { // 1 = PURCHASED
+            console.error(`Invalid purchase state: ${purchaseState}`);
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'Invalid purchase state'
+            };
+        }
+
+        // STEP 6: Ensure non-renewing
+        if (autoRenewing !== false) {
+            console.error('Simulated purchases cannot be auto-renewing');
+            return {
+                isValid: false,
+                expiryTime: 0,
+                autoRenewing: false,
+                planType: '',
+                error: 'FREE plan cannot auto-renew'
+            };
+        }
+
+        // STEP 7: Check if purchase is still valid (not expired)
+        const isActive = expiryTime > Date.now();
+
+        if (!isActive) {
+            console.log('Simulated purchase has expired');
+            return {
+                isValid: false,
+                expiryTime: expiryTime,
+                autoRenewing: false,
+                planType: 'free',
+                error: 'Subscription expired'
+            };
+        }
+
+        console.log('Simulated purchase validation successful! Storing in Firestore...');
+
+        // STEP 8: Store verified simulated subscription in Firestore
+        try {
+            await admin.firestore().collection('users').doc(userId).set({
+                subscription: {
+                    isActive: true,
+                    productId: productId,
+                    planType: 'free',
+                    productName: productName || 'Free Plan',
+                    purchaseToken: purchaseToken,
+                    orderId: orderId,
+                    expiryTime: expiryTime,
+                    autoRenewing: false,
+                    purchaseSource: 'SIMULATED_GOOGLE_IAP', // Explicitly flag as simulated
+                    lastVerified: admin.firestore.FieldValue.serverTimestamp(),
+                    verified: true,
+                    verifiedBy: 'backend_simulated'
+                }
+            }, { merge: true });
+            console.log('Successfully wrote simulated subscription to users collection');
+        } catch (firestoreError) {
+            console.error('Firestore write to users failed:', firestoreError.message);
+            // Continue anyway - the purchase is valid
+        }
+
+        // STEP 9: Store in subscription history
+        try {
+            await admin.firestore()
+                .collection('users')
+                .doc(userId)
+                .collection('subscriptions')
+                .doc(purchaseToken)
+                .set({
+                    productId: productId,
+                    planType: 'free',
+                    productName: productName || 'Free Plan',
+                    purchaseToken: purchaseToken,
+                    orderId: orderId,
+                    expiryTime: expiryTime,
+                    autoRenewing: false,
+                    purchaseSource: 'SIMULATED_GOOGLE_IAP',
+                    purchaseTime: purchaseTime,
+                    verifiedAt: admin.firestore.FieldValue.serverTimestamp()
+                });
+            console.log('Successfully wrote to subscriptions subcollection');
+        } catch (firestoreError) {
+            console.error('Firestore write to subscriptions failed:', firestoreError.message);
+            // Continue anyway
+        }
+
+        console.log(`Simulated purchase verified successfully for user ${userId}`);
+
+        return {
+            isValid: true,
+            expiryTime: expiryTime,
+            autoRenewing: false,
+            planType: 'free'
+        };
+
+    } catch (error) {
+        console.error('Simulated verification error:', error);
+        throw new HttpsError('internal', 'Verification failed: ' + error.message);
+    }
+});
+
+/**
  * Register a device for a user (V2 API)
  */
 exports.registerDevice = onCall({ region: 'us-central1' }, async (request) => {

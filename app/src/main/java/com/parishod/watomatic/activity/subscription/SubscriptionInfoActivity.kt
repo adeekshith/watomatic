@@ -519,12 +519,14 @@ class SubscriptionInfoActivity : BaseActivity() {
     }
 
     private fun handleSubscription() {
-        // For free plan, just show a message
-        if (selectedPlanName == "free") {
-            Toast.makeText(this, "Free plan is already active", Toast.LENGTH_SHORT).show()
+        // Handle FREE plan separately - no Google Play Billing needed
+        if (selectedPlanName?.equals("free", ignoreCase = true) == true) {
+            Log.d("SubscriptionInfo", "FREE plan selected - activating without Google Play Billing")
+            activateFreePlan()
             return
         }
 
+        // For paid plans, proceed with normal Google Play Billing flow
         if (selectedProductDetails == null) {
             Toast.makeText(this, "Please select a plan", Toast.LENGTH_SHORT).show()
             return
@@ -532,6 +534,68 @@ class SubscriptionInfoActivity : BaseActivity() {
 
         showLoading()
         billingManager?.launchPurchaseFlow(this, selectedProductDetails!!)
+    }
+
+    /**
+     * Activate FREE plan without Google Play Billing.
+     * Generates a simulated purchase and sends it to backend.
+     */
+    private fun activateFreePlan() {
+        showLoading()
+
+        lifecycleScope.launch {
+            try {
+                Log.d("SubscriptionInfo", "Activating FREE plan...")
+
+                val success = subscriptionManager?.activateFreePlan() ?: false
+
+                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    hideLoading()
+
+                    if (success) {
+                        Toast.makeText(
+                            this@SubscriptionInfoActivity,
+                            "FREE plan activated successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        Log.d("SubscriptionInfo", "FREE plan activated, refreshing UI...")
+
+                        // Refresh subscription status
+                        try {
+                            subscriptionManager?.refreshSubscriptionStatus()
+
+                            // Check if active and recreate
+                            val currentState = subscriptionManager?.subscriptionStatus?.value
+                            if (currentState?.isActive == true) {
+                                Log.d("SubscriptionInfo", "FREE plan is active, recreating activity")
+                                recreate()
+                            }
+                        } catch (e: Exception) {
+                            Log.e("SubscriptionInfo", "Error refreshing after FREE plan activation", e)
+                            // Still try to recreate
+                            recreate()
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@SubscriptionInfoActivity,
+                            "Failed to activate FREE plan. Please try again.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("SubscriptionInfo", "Error activating FREE plan", e)
+                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    hideLoading()
+                    Toast.makeText(
+                        this@SubscriptionInfoActivity,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun restorePurchases() {

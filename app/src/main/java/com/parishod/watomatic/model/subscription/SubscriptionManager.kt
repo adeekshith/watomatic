@@ -36,6 +36,14 @@ interface SubscriptionManager {
     suspend fun restorePurchase(purchaseToken: String, productId: String, orderId: String, productName: String? = null): Boolean
 
     /**
+     * Activate the FREE plan without calling Google Play Billing.
+     * This generates a simulated purchase and sends it to the backend.
+     *
+     * @return Boolean indicating success or failure
+     */
+    suspend fun activateFreePlan(): Boolean
+
+    /**
      * Enum defining Pro features
      */
     enum class ProFeature {

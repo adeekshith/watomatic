@@ -161,6 +161,76 @@ class FirebaseBackendService(private val context: Context) : BackendService {
         }
     }
 
+    override suspend fun verifySimulatedPurchase(
+        simulatedPurchaseData: Map<String, Any>
+    ): VerificationResult {
+        return try {
+            val user = auth.currentUser
+            if (user == null) {
+                Log.e(TAG, "verifySimulatedPurchase failed: User not logged in")
+                return VerificationResult(
+                    isValid = false,
+                    expiryTime = 0,
+                    autoRenewing = false,
+                    planType = "",
+                    error = "User not logged in"
+                )
+            }
+
+            // Force refresh the ID token
+            try {
+                val tokenResult = user.getIdToken(true).await()
+                Log.d(TAG, "Token refreshed for simulated purchase verification")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to refresh token before simulated verification", e)
+                return VerificationResult(
+                    isValid = false,
+                    expiryTime = 0,
+                    autoRenewing = false,
+                    planType = "",
+                    error = "Authentication failed: ${e.message}"
+                )
+            }
+
+            Log.d(TAG, "Verifying simulated purchase for user: ${user.uid}")
+            Log.d(TAG, "Simulated purchase data: $simulatedPurchaseData")
+
+            // Call backend with simulated purchase data
+            val result = functions
+                .getHttpsCallable("verifySimulatedPurchase")
+                .call(simulatedPurchaseData)
+                .await()
+
+            val resultData = result.data as? Map<*, *> ?: run {
+                Log.e(TAG, "Invalid response format from verifySimulatedPurchase")
+                return VerificationResult(
+                    isValid = false,
+                    expiryTime = 0,
+                    autoRenewing = false,
+                    planType = "",
+                    error = "Invalid response format"
+                )
+            }
+
+            VerificationResult(
+                isValid = resultData["isValid"] as? Boolean ?: false,
+                expiryTime = (resultData["expiryTime"] as? Number)?.toLong() ?: 0,
+                autoRenewing = resultData["autoRenewing"] as? Boolean ?: false,
+                planType = resultData["planType"] as? String ?: "",
+                error = resultData["error"] as? String
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Simulated verification failed", e)
+            VerificationResult(
+                isValid = false,
+                expiryTime = 0,
+                autoRenewing = false,
+                planType = "",
+                error = e.message ?: "Unknown error"
+            )
+        }
+    }
+
     override suspend fun getSubscriptionStatus(userId: String): SubscriptionStatus {
         return try {
             // Ensure fresh token before callable request

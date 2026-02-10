@@ -18,6 +18,17 @@ interface BackendService {
     ): VerificationResult
     
     /**
+     * Verify a simulated purchase for FREE plan (bypasses Google Play API).
+     * This is used exclusively for FREE plan subscriptions.
+     *
+     * @param simulatedPurchaseData Map containing simulated purchase details
+     * @return VerificationResult with validity, expiry time, and subscription details
+     */
+    suspend fun verifySimulatedPurchase(
+        simulatedPurchaseData: Map<String, Any>
+    ): VerificationResult
+
+    /**
      * Get current subscription status for user
      * @return SubscriptionStatus with active state and details
      */

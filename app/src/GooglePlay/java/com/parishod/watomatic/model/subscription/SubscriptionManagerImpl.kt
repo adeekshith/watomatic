@@ -139,6 +139,74 @@ class SubscriptionManagerImpl(
         }
     }
 
+    override suspend fun activateFreePlan(): Boolean {
+        return try {
+            withContext(Dispatchers.Main) {
+                _subscriptionStatus.value = _subscriptionStatus.value?.copy(isLoading = true)
+            }
+
+            Log.d("SubscriptionManager", "Activating FREE plan...")
+
+            // Generate simulated purchase
+            val simulatedPurchase = SimulatedPurchase.generate()
+            Log.d("SubscriptionManager", "Generated simulated purchase: orderId=${simulatedPurchase.orderId}")
+
+            // Validate simulated purchase integrity
+            if (!simulatedPurchase.isValid()) {
+                Log.e("SubscriptionManager", "Simulated purchase validation failed")
+                withContext(Dispatchers.Main) {
+                    _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                        isLoading = false,
+                        error = "Failed to generate valid FREE plan purchase"
+                    )
+                }
+                return false
+            }
+
+            // Send to backend for verification
+            val payload = simulatedPurchase.toBackendPayload(
+                packageName = context.packageName,
+                productName = "Free Plan"
+            )
+
+            val result = backendService.verifySimulatedPurchase(payload)
+
+            if (result.isValid) {
+                Log.d("SubscriptionManager", "FREE plan activated successfully")
+                withContext(Dispatchers.Main) {
+                    preferencesManager.setSubscriptionActive(true)
+                    preferencesManager.setSubscriptionExpiryTime(result.expiryTime)
+                    preferencesManager.setSubscriptionPlanType("free")
+                    preferencesManager.setSubscriptionProductName("Free Plan")
+                    preferencesManager.setSubscriptionAutoRenewing(false)
+                    preferencesManager.setSubscriptionProductId(simulatedPurchase.productId)
+                    preferencesManager.setLastVerifiedTime(System.currentTimeMillis())
+
+                    updateStateFromPrefs()
+                }
+                true
+            } else {
+                Log.e("SubscriptionManager", "FREE plan activation failed: ${result.error}")
+                withContext(Dispatchers.Main) {
+                    _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                        isLoading = false,
+                        error = result.error ?: "FREE plan activation failed"
+                    )
+                }
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("SubscriptionManager", "FREE plan activation error", e)
+            withContext(Dispatchers.Main) {
+                _subscriptionStatus.value = _subscriptionStatus.value?.copy(
+                    isLoading = false,
+                    error = e.message
+                )
+            }
+            false
+        }
+    }
+
     private fun updateStateFromPrefs() {
         val state = SubscriptionState(
             isActive = preferencesManager.isSubscriptionActive,
