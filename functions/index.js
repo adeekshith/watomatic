@@ -432,26 +432,67 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
         console.log('Simulated purchase validation successful! Storing in Firestore...');
 
         // STEP 8: Store verified simulated subscription in Firestore
+        // CRITICAL: For FREE plans, we REPLACE (not merge) to prevent old paid-plan fields from leaking
+        // Old fields like basePlanId, renewalCount, subscriptionState=EXPIRED, canceledAt, etc.
+        // must be completely removed when switching to FREE plan
         try {
-            await admin.firestore().collection('users').doc(userId).set({
-                subscription: {
-                    isActive: true,
-                    productId: productId,
-                    planType: 'free',
-                    productName: productName || 'Free Plan',
-                    purchaseToken: purchaseToken,
-                    orderId: orderId,
-                    expiryTime: expiryTime,
-                    autoRenewing: false,
-                    purchaseSource: 'SIMULATED_GOOGLE_IAP', // Explicitly flag as simulated
-                    lastVerified: admin.firestore.FieldValue.serverTimestamp(),
-                    verified: true,
-                    verifiedBy: 'backend_simulated'
-                }
-            }, { merge: true });
-            console.log('Successfully wrote simulated subscription to users collection');
+            // Build canonical FREE plan subscription object with hard reset of all paid-plan fields
+            const freeSubscriptionData = {
+                // Core subscription fields
+                isActive: true,
+                productId: productId,
+                planType: 'free',
+                productName: productName || 'Free Plan',
+                purchaseToken: purchaseToken,
+                orderId: orderId,
+                expiryTime: expiryTime,
+                autoRenewing: false,
+                purchaseSource: 'SIMULATED_GOOGLE_IAP', // Explicitly flag as simulated
+                lastVerified: admin.firestore.FieldValue.serverTimestamp(),
+                verified: true,
+                verifiedBy: 'backend_simulated',
+
+                // FREE plan lifecycle state
+                subscriptionState: 'SUBSCRIPTION_STATE_ACTIVE',
+                willExpireAt: expiryTime,
+
+                // Hard reset paid-plan lifecycle fields (set to null to explicitly clear)
+                basePlanId: null,
+                renewalCount: 0,
+                canceledAt: null,
+                expiredAt: null,
+                lastRenewedAt: null,
+                lastRenewalExpiryTime: null,
+                lastNotificationType: null,
+                pausedAt: null,
+                onHoldSince: null,
+                gracePeriodEndTime: null,
+
+                // Metadata
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                updatedAt: admin.firestore.FieldValue.serverTimestamp()
+            };
+
+            // Get the user document to preserve non-subscription fields
+            const userRef = admin.firestore().collection('users').doc(userId);
+            const userDoc = await userRef.get();
+
+            if (userDoc.exists) {
+                // User exists - update only the subscription field (replace it completely)
+                await userRef.update({
+                    subscription: freeSubscriptionData
+                });
+                console.log('Successfully replaced subscription with FREE plan (existing user)');
+            } else {
+                // New user - create document with subscription
+                await userRef.set({
+                    subscription: freeSubscriptionData
+                });
+                console.log('Successfully created new user with FREE plan subscription');
+            }
         } catch (firestoreError) {
             console.error('Firestore write to users failed:', firestoreError.message);
+            console.error('Firestore error code:', firestoreError.code);
             // Continue anyway - the purchase is valid
         }
 
@@ -463,6 +504,7 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
                 .collection('subscriptions')
                 .doc(purchaseToken)
                 .set({
+                    // Core fields
                     productId: productId,
                     planType: 'free',
                     productName: productName || 'Free Plan',
@@ -472,11 +514,25 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
                     autoRenewing: false,
                     purchaseSource: 'SIMULATED_GOOGLE_IAP',
                     purchaseTime: purchaseTime,
-                    verifiedAt: admin.firestore.FieldValue.serverTimestamp()
+                    verifiedAt: admin.firestore.FieldValue.serverTimestamp(),
+
+                    // FREE plan lifecycle state
+                    subscriptionState: 'SUBSCRIPTION_STATE_ACTIVE',
+                    willExpireAt: expiryTime,
+
+                    // Hard reset paid-plan fields
+                    basePlanId: null,
+                    renewalCount: 0,
+                    canceledAt: null,
+                    expiredAt: null,
+                    lastRenewedAt: null,
+                    lastRenewalExpiryTime: null,
+                    lastNotificationType: null
                 });
-            console.log('Successfully wrote to subscriptions subcollection');
+            console.log('Successfully wrote FREE plan to subscriptions subcollection');
         } catch (firestoreError) {
             console.error('Firestore write to subscriptions failed:', firestoreError.message);
+            console.error('Firestore error code:', firestoreError.code);
             // Continue anyway
         }
 
