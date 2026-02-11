@@ -28,8 +28,14 @@ class SubscriptionPlansFragment : Fragment() {
     private var standardPriceText: TextView? = null
     private var proPriceText: TextView? = null
 
+    // Period text views
+    private var miniPeriodText: TextView? = null
+    private var standardPeriodText: TextView? = null
+    private var proPeriodText: TextView? = null
+
     // "Current Plan" badge on free plan
     private var freePlanPriceText: TextView? = null
+    private var freePlanPriceString: String = "$0" // Default, will be updated from billing
 
     private var selectedCard: MaterialCardView? = null
 
@@ -57,6 +63,16 @@ class SubscriptionPlansFragment : Fragment() {
         standardPriceText = view.findViewById(R.id.standard_price)
         proPriceText = view.findViewById(R.id.pro_price)
         freePlanPriceText = view.findViewById(R.id.free_price)
+
+        miniPeriodText = view.findViewById(R.id.mini_period)
+        standardPeriodText = view.findViewById(R.id.standard_period)
+        proPeriodText = view.findViewById(R.id.pro_period)
+
+        // Set period text (mo/yr)
+        val periodResId = if (planType == PLAN_TYPE_ANNUAL) R.string.subscription_per_year else R.string.subscription_per_month
+        miniPeriodText?.setText(periodResId)
+        standardPeriodText?.setText(periodResId)
+        proPeriodText?.setText(periodResId)
 
         // Setup click listeners
         setupClickListeners()
@@ -140,10 +156,26 @@ class SubscriptionPlansFragment : Fragment() {
             BillingManager.SKU_ANNUAL_MINI
         }
         productDetails[miniSku]?.let { details ->
-            val price = details.subscriptionOfferDetails?.firstOrNull()
-                ?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+            val pricingPhase = details.subscriptionOfferDetails?.firstOrNull()
+                ?.pricingPhases?.pricingPhaseList?.firstOrNull()
+            val price = pricingPhase?.formattedPrice
             android.util.Log.d("SubscriptionPlans", "Mini price for $miniSku: $price")
             miniPriceText?.text = price ?: ""
+
+            // Extract currency symbol for Free plan
+            val currencyCode = pricingPhase?.priceCurrencyCode
+            if (currencyCode != null) {
+                try {
+                    val symbol = java.util.Currency.getInstance(currencyCode).getSymbol(java.util.Locale.getDefault())
+                    freePlanPriceString = "${symbol}0"
+                    // Refresh free plan text if not current info
+                    if (currentPlanTier != "free") {
+                        freePlanPriceText?.text = freePlanPriceString
+                    }
+                } catch (e: Exception) {
+                    android.util.Log.e("SubscriptionPlans", "Failed to get currency symbol", e)
+                }
+            }
         } ?: android.util.Log.w("SubscriptionPlans", "No product details for $miniSku")
 
         // Update Standard plan price
@@ -245,6 +277,11 @@ class SubscriptionPlansFragment : Fragment() {
         }
 
         applyState(freePlanCard, 0, freePlanPriceText)
+        // Ensure free price is set correctly when not current (since applyState might just reset alpha)
+        if (currentPlanTier != "free") {
+            freePlanPriceText?.text = freePlanPriceString
+        }
+
         applyState(miniPlanCard, 1, miniPriceText)
         applyState(standardPlanCard, 2, standardPriceText)
         applyState(proPlanCard, 3, proPriceText)

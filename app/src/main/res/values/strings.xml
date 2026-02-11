@@ -386,6 +386,7 @@
     <string name="subscription_best_value">BEST VALUE</string>
     <string name="subscription_standard_plan">Standard</string>
     <string name="subscription_per_month">/ mo</string>
+    <string name="subscription_per_year">/ yr</string>
     <string name="subscription_subscribe_continue">Subscribe &amp; Continue</string>
     <string name="subscription_feature_context_replies">Context-aware smart replies</string>
     <string name="subscription_feature_tone_matching">Custom tone matching</string>

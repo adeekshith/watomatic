@@ -171,6 +171,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/mini_period"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/subscription_per_month"
@@ -264,6 +265,7 @@
                         tools:text="$3.99" />
 
                     <TextView
+                        android:id="@+id/standard_period"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subscription_per_month"
@@ -370,6 +372,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/pro_period"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/subscription_per_month"
