@@ -426,6 +426,7 @@
     <string name="plan_standard_replies">2,000 AI replies/month</string>
     <string name="plan_pro_replies">10,000 AI replies/month</string>
     <string name="plan_free_price">$0</string>
+    <string name="plan_current">Current Plan</string>
     <string name="icon_person">👤</string>
     <string name="icon_sparkles">✨</string>
 

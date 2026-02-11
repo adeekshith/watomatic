@@ -388,6 +388,21 @@
                                         android:textColor="?android:textColorSecondary" />
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <!-- Upgrade Plan button - only visible for FREE plan users -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_upgrade_plan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Upgrade Plan"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold"
+                                android:textSize="14sp"
+                                app:backgroundTint="@android:color/white"
+                                app:cornerRadius="8dp"
+                                android:paddingVertical="8dp"
+                                android:layout_marginTop="12dp"
+                                android:visibility="gone" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

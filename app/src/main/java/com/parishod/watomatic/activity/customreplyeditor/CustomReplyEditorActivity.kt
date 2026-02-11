@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.activity.subscription.SubscriptionInfoActivity
+import com.parishod.watomatic.activity.subscription.SubscriptionMode
 import com.parishod.watomatic.flavor.FlavorNavigator
 import com.parishod.watomatic.model.CustomRepliesData
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -93,6 +94,7 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var automaticAiNotSubscribedSection: android.view.View? = null
     private var automaticAiSubscribedSection: android.view.View? = null
     private var btnUnlockSubscription: MaterialButton? = null
+    private var btnUpgradePlan: MaterialButton? = null
     private var subscriptionRenewalDate: TextView? = null
     private var subscriptionPlanName: TextView? = null
     private var automaticAiTag: TextView? = null
@@ -202,6 +204,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         automaticAiNotSubscribedSection = findViewById(R.id.automatic_ai_not_subscribed_section)
         automaticAiSubscribedSection = findViewById(R.id.automatic_ai_subscribed_section)
         btnUnlockSubscription = findViewById(R.id.btn_unlock_subscription)
+        btnUpgradePlan = findViewById(R.id.btn_upgrade_plan)
         subscriptionRenewalDate = findViewById(R.id.subscription_renewal_date)
         subscriptionPlanName = findViewById(R.id.subscription_plan_name)
         automaticAiTag = findViewById(R.id.automatic_ai_tag)
@@ -249,17 +252,24 @@ class CustomReplyEditorActivity : BaseActivity() {
 
         // Automatic AI Settings Icon - Navigate to subscription/login
         automaticAiSettingsIcon?.setOnClickListener {
-            handleAutomaticAiManageClick()
+            val isProUser = subscriptionManager?.isProUser() ?: false
+            handleAutomaticAiManageClick(mode = if (isProUser) SubscriptionMode.MANAGE else null)
         }
 
-        // Automatic AI Manage button - Navigate to subscription/login
+        // Automatic AI Manage button - Navigate to subscription in MANAGE mode for subscribed users
         btnAtomaticAiEdit?.setOnClickListener {
-            handleAutomaticAiManageClick()
+            val isProUser = subscriptionManager?.isProUser() ?: false
+            handleAutomaticAiManageClick(mode = if (isProUser) SubscriptionMode.MANAGE else null)
         }
 
-        // Unlock Subscription button - Navigate to subscription/login
+        // Unlock Subscription button - Non-subscribed user → show plans UI (no explicit mode)
         btnUnlockSubscription?.setOnClickListener {
-            handleAutomaticAiManageClick()
+            handleAutomaticAiManageClick(mode = null)
+        }
+
+        // Upgrade Plan button - FREE plan user → show plans UI in UPGRADE mode
+        btnUpgradePlan?.setOnClickListener {
+            handleAutomaticAiManageClick(mode = SubscriptionMode.UPGRADE)
         }
 
         // Other AI Card - Select BYOK method
@@ -482,6 +492,10 @@ class CustomReplyEditorActivity : BaseActivity() {
                 automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
                 automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
 
+                // Show "Upgrade Plan" button only for FREE plan users
+                val isFreePlan = planType?.equals("free", ignoreCase = true) == true || !isAutoRenewing
+                btnUpgradePlan?.visibility = if (isFreePlan) android.view.View.VISIBLE else android.view.View.GONE
+
                 // Debug logging
                 android.util.Log.d("CustomReplyEditor", "Product Name: '$productName'")
                 android.util.Log.d("CustomReplyEditor", "Plan Type: '$planType'")
@@ -578,15 +592,25 @@ class CustomReplyEditorActivity : BaseActivity() {
         return typedValue.data
     }
 
-    private fun handleAutomaticAiManageClick() {
+    /**
+     * Navigate to SubscriptionInfoActivity with the given mode.
+     *
+     * @param mode null  → default behaviour (non-subscribed → plans list)
+     *             MANAGE → show active subscription details
+     *             UPGRADE → show plans list with FREE marked as current
+     */
+    private fun handleAutomaticAiManageClick(mode: SubscriptionMode? = null) {
         val isLoggedIn = preferencesManager?.isLoggedIn ?: false
 
         if (!isLoggedIn) {
             // User is not logged in, navigate to Login screen
             FlavorNavigator.startLogin(this)
         } else {
-            // User is logged in, navigate to Subscription Info screen
+            // User is logged in, navigate to Subscription Info screen with mode
             val intent = Intent(this, SubscriptionInfoActivity::class.java)
+            mode?.let {
+                intent.putExtra(SubscriptionMode.EXTRA_KEY, it.name)
+            }
             startActivity(intent)
         }
     }

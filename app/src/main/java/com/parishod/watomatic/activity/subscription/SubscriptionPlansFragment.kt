@@ -28,7 +28,13 @@ class SubscriptionPlansFragment : Fragment() {
     private var standardPriceText: TextView? = null
     private var proPriceText: TextView? = null
 
+    // "Current Plan" badge on free plan
+    private var freePlanPriceText: TextView? = null
+
     private var selectedCard: MaterialCardView? = null
+
+    // Whether the FREE plan should be marked as current and disabled
+    private var isFreePlanCurrent: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,16 +59,24 @@ class SubscriptionPlansFragment : Fragment() {
         miniPriceText = view.findViewById(R.id.mini_price)
         standardPriceText = view.findViewById(R.id.standard_price)
         proPriceText = view.findViewById(R.id.pro_price)
+        freePlanPriceText = view.findViewById(R.id.free_price)
 
         // Setup click listeners
         setupClickListeners()
 
         // Update prices if available
         productDetailsMap?.let { updatePrices(it) }
+
+        // Apply FREE plan current state if set before view was created
+        if (isFreePlanCurrent) {
+            applyFreePlanCurrentState()
+        }
     }
 
     private fun setupClickListeners() {
         freePlanCard?.setOnClickListener {
+            // If FREE plan is marked as current (UPGRADE mode), ignore clicks
+            if (isFreePlanCurrent) return@setOnClickListener
             selectPlan(it as MaterialCardView, null, "free")
         }
 
@@ -166,6 +180,42 @@ class SubscriptionPlansFragment : Fragment() {
         this.onPlanSelectedListener = listener
     }
 
+    /**
+     * Mark the FREE plan as "Current Plan" and disable its selection.
+     * Called by SubscriptionInfoActivity when in UPGRADE mode.
+     */
+    fun setFreePlanAsCurrent(isCurrent: Boolean) {
+        isFreePlanCurrent = isCurrent
+        // Only apply if view is already created
+        if (view != null) {
+            applyFreePlanCurrentState()
+        }
+    }
+
+    /**
+     * Apply visual state: grey out the FREE plan card, show "Current Plan" label,
+     * and disable click interaction.
+     */
+    private fun applyFreePlanCurrentState() {
+        if (isFreePlanCurrent) {
+            freePlanCard?.apply {
+                // Grey out: reduce alpha to indicate disabled state
+                alpha = 0.5f
+                isClickable = false
+                isFocusable = false
+            }
+            // Replace price text with "Current Plan" label
+            freePlanPriceText?.text = getString(R.string.plan_current)
+        } else {
+            freePlanCard?.apply {
+                alpha = 1.0f
+                isClickable = true
+                isFocusable = true
+            }
+            freePlanPriceText?.text = getString(R.string.plan_free_price)
+        }
+    }
+
     interface OnPlanSelectedListener {
         fun onPlanSelected(productDetails: ProductDetails?, planName: String, planType: String)
     }
@@ -184,4 +234,3 @@ class SubscriptionPlansFragment : Fragment() {
         }
     }
 }
-

@@ -31,6 +31,9 @@ class SubscriptionInfoActivity : BaseActivity() {
     private var preferencesManager: PreferencesManager? = null
     private var billingManager: BillingManager? = null
     private var subscriptionManager: com.parishod.watomatic.model.subscription.SubscriptionManager? = null
+
+    // Mode passed via intent
+    private var mode: SubscriptionMode? = null
     
     // State Views
     private var loadingStateView: View? = null
@@ -70,6 +73,10 @@ class SubscriptionInfoActivity : BaseActivity() {
         
         // Always use the unified layout
         setContentView(R.layout.activity_subscription_unified)
+
+        // Read mode from intent
+        mode = SubscriptionMode.fromIntent(intent)
+        Log.d("SubscriptionInfo", "Opened with mode: $mode")
 
         // Setup toolbar
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
@@ -156,6 +163,29 @@ class SubscriptionInfoActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Resolve which UIState to show based on mode + subscription state.
+     *
+     * Rules:
+     * - Non-subscribed user: always show plans list (INACTIVE)
+     * - MANAGE mode: show active subscription UI (ACTIVE)
+     * - UPGRADE mode: show plans list with FREE marked as current (INACTIVE)
+     * - No mode (legacy / fallback): use existing behaviour based on isActive
+     */
+    private fun resolveUIState(state: SubscriptionState): UIState {
+        if (state.isLoading) return UIState.LOADING
+
+        // Non-subscribed user → always show plans list regardless of mode
+        if (!state.isActive) return UIState.INACTIVE
+
+        // Subscribed user → mode-driven
+        return when (mode) {
+            SubscriptionMode.MANAGE -> UIState.ACTIVE
+            SubscriptionMode.UPGRADE -> UIState.INACTIVE  // plans list with FREE disabled
+            null -> UIState.ACTIVE  // legacy fallback: subscribed → show active
+        }
+    }
+
     private fun setupBillingAndSubscription() {
         // Setup billing listener
         setupBillingListener()
@@ -178,19 +208,27 @@ class SubscriptionInfoActivity : BaseActivity() {
         subscriptionManager?.subscriptionStatus?.observe(this) { state ->
             Log.d("SubscriptionInfo", "Subscription state changed: isActive=${state.isActive}, isLoading=${state.isLoading}, error=${state.error}")
 
-            when {
-                state.isLoading -> {
-                    // Keep showing loading state
+            val uiState = resolveUIState(state)
+
+            when (uiState) {
+                UIState.LOADING -> {
                     Log.d("SubscriptionInfo", "Still loading subscription status...")
                 }
-                state.isActive -> {
-                    Log.d("SubscriptionInfo", "Subscription is ACTIVE - showing active state")
+                UIState.ACTIVE -> {
+                    Log.d("SubscriptionInfo", "Showing ACTIVE state (mode=$mode)")
                     showUIState(UIState.ACTIVE)
                     updateActiveSubscriptionDetails(state)
                 }
-                else -> {
-                    Log.d("SubscriptionInfo", "Subscription is INACTIVE - showing inactive state")
+                UIState.INACTIVE -> {
+                    Log.d("SubscriptionInfo", "Showing INACTIVE state (mode=$mode)")
                     showUIState(UIState.INACTIVE)
+
+                    // If in UPGRADE mode with active subscription, notify fragments
+                    // to mark FREE as current plan
+                    if (mode == SubscriptionMode.UPGRADE && state.isActive) {
+                        markFreePlanAsCurrent()
+                    }
+
                     if (state.error != null) {
                         updateStatusText("Status: ${state.error}")
                     } else {
@@ -327,6 +365,28 @@ class SubscriptionInfoActivity : BaseActivity() {
                 else -> viewPager?.currentItem = 0
             }
         }
+
+        // If in UPGRADE mode, mark FREE plan as current after fragments load
+        if (mode == SubscriptionMode.UPGRADE) {
+            viewPager?.post {
+                markFreePlanAsCurrent()
+            }
+        }
+    }
+
+    /**
+     * In UPGRADE mode, notify all plan fragments to mark the FREE plan
+     * as "Current Plan" and disable selection on it.
+     */
+    private fun markFreePlanAsCurrent() {
+        viewPager?.postDelayed({
+            for (i in 0..1) {
+                val fragment = supportFragmentManager.findFragmentByTag("f$i")
+                if (fragment is SubscriptionPlansFragment) {
+                    fragment.setFreePlanAsCurrent(true)
+                }
+            }
+        }, 300)
     }
 
     private fun setupFragmentCallbacks() {
@@ -355,6 +415,10 @@ class SubscriptionInfoActivity : BaseActivity() {
                                 this@SubscriptionInfoActivity.onPlanSelected(productDetails, planName, planType)
                             }
                         })
+                        // Re-apply UPGRADE mode state on fragment after page change
+                        if (mode == SubscriptionMode.UPGRADE) {
+                            fragment.setFreePlanAsCurrent(true)
+                        }
                     }
                 }, 100)
             }
