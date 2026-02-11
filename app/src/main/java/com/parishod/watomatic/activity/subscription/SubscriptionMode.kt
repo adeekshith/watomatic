@@ -14,8 +14,8 @@ enum class SubscriptionMode {
 
     /**
      * Show plans list UI for upgrading.
-     * Marks FREE plan as "Current Plan" and disables it.
-     * Allows selection only for higher plans (Mini, Standard, Pro).
+     * Marks the user's current plan as "Current Plan" and disables it
+     * (along with all lower tiers). Only higher plans remain selectable.
      * Used when user taps "Upgrade Plan".
      */
     UPGRADE;

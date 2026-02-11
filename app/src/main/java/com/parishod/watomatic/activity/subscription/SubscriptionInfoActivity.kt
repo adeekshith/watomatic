@@ -224,9 +224,9 @@ class SubscriptionInfoActivity : BaseActivity() {
                     showUIState(UIState.INACTIVE)
 
                     // If in UPGRADE mode with active subscription, notify fragments
-                    // to mark FREE as current plan
+                    // to mark the user's current plan tier as current
                     if (mode == SubscriptionMode.UPGRADE && state.isActive) {
-                        markFreePlanAsCurrent()
+                        markCurrentPlanInFragments()
                     }
 
                     if (state.error != null) {
@@ -366,24 +366,44 @@ class SubscriptionInfoActivity : BaseActivity() {
             }
         }
 
-        // If in UPGRADE mode, mark FREE plan as current after fragments load
+        // If in UPGRADE mode, mark current plan tier after fragments load
         if (mode == SubscriptionMode.UPGRADE) {
             viewPager?.post {
-                markFreePlanAsCurrent()
+                markCurrentPlanInFragments()
             }
         }
     }
 
     /**
-     * In UPGRADE mode, notify all plan fragments to mark the FREE plan
-     * as "Current Plan" and disable selection on it.
+     * Resolve the user's current plan tier name from the stored product ID.
+     * Product IDs follow the pattern: atomatic_ai_{tier}_{period}
+     * e.g. "atomatic_ai_mini_monthly" → "mini"
+     * For the free plan, planType is stored as "free".
      */
-    private fun markFreePlanAsCurrent() {
+    private fun resolveCurrentPlanTier(): String {
+        val productId = preferencesManager?.subscriptionProductId ?: ""
+        val planType = preferencesManager?.subscriptionPlanType ?: ""
+
+        return when {
+            productId.contains("pro", ignoreCase = true) -> "pro"
+            productId.contains("standard", ignoreCase = true) -> "standard"
+            productId.contains("mini", ignoreCase = true) -> "mini"
+            planType.equals("free", ignoreCase = true) -> "free"
+            else -> "free" // safe default
+        }
+    }
+
+    /**
+     * In UPGRADE mode, notify all plan fragments to mark the user's current
+     * plan as "Current Plan" and disable selection on it and below.
+     */
+    private fun markCurrentPlanInFragments() {
+        val tier = resolveCurrentPlanTier()
         viewPager?.postDelayed({
             for (i in 0..1) {
                 val fragment = supportFragmentManager.findFragmentByTag("f$i")
                 if (fragment is SubscriptionPlansFragment) {
-                    fragment.setFreePlanAsCurrent(true)
+                    fragment.setCurrentPlan(tier)
                 }
             }
         }, 300)
@@ -417,7 +437,7 @@ class SubscriptionInfoActivity : BaseActivity() {
                         })
                         // Re-apply UPGRADE mode state on fragment after page change
                         if (mode == SubscriptionMode.UPGRADE) {
-                            fragment.setFreePlanAsCurrent(true)
+                            fragment.setCurrentPlan(resolveCurrentPlanTier())
                         }
                     }
                 }, 100)

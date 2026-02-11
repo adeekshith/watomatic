@@ -492,9 +492,10 @@ class CustomReplyEditorActivity : BaseActivity() {
                 automaticAiNotSubscribedSection?.visibility = android.view.View.GONE
                 automaticAiSubscribedSection?.visibility = android.view.View.VISIBLE
 
-                // Show "Upgrade Plan" button only for FREE plan users
-                val isFreePlan = planType?.equals("free", ignoreCase = true) == true || !isAutoRenewing
-                btnUpgradePlan?.visibility = if (isFreePlan) android.view.View.VISIBLE else android.view.View.GONE
+                // Show "Upgrade Plan" button for any plan that is NOT the highest tier (Pro)
+                val productId = preferencesManager?.subscriptionProductId ?: ""
+                val isProPlan = productId.contains("pro", ignoreCase = true)
+                btnUpgradePlan?.visibility = if (!isProPlan) android.view.View.VISIBLE else android.view.View.GONE
 
                 // Debug logging
                 android.util.Log.d("CustomReplyEditor", "Product Name: '$productName'")

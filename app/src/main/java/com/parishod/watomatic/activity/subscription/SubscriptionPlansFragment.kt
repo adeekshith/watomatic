@@ -33,9 +33,6 @@ class SubscriptionPlansFragment : Fragment() {
 
     private var selectedCard: MaterialCardView? = null
 
-    // Whether the FREE plan should be marked as current and disabled
-    private var isFreePlanCurrent: Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,16 +64,16 @@ class SubscriptionPlansFragment : Fragment() {
         // Update prices if available
         productDetailsMap?.let { updatePrices(it) }
 
-        // Apply FREE plan current state if set before view was created
-        if (isFreePlanCurrent) {
-            applyFreePlanCurrentState()
+        // Apply current plan state if set before view was created
+        if (currentPlanTier != null) {
+            applyCurrentPlanState()
         }
     }
 
     private fun setupClickListeners() {
         freePlanCard?.setOnClickListener {
-            // If FREE plan is marked as current (UPGRADE mode), ignore clicks
-            if (isFreePlanCurrent) return@setOnClickListener
+            // If this plan is at or below current tier, ignore clicks
+            if (currentPlanTier != null) return@setOnClickListener
             selectPlan(it as MaterialCardView, null, "free")
         }
 
@@ -176,44 +173,81 @@ class SubscriptionPlansFragment : Fragment() {
         } ?: android.util.Log.w("SubscriptionPlans", "No product details for $proSku")
     }
 
+    // The tier name of the user's current plan (null = none marked)
+    private var currentPlanTier: String? = null
+
     fun setOnPlanSelectedListener(listener: OnPlanSelectedListener) {
         this.onPlanSelectedListener = listener
     }
 
     /**
-     * Mark the FREE plan as "Current Plan" and disable its selection.
+     * Mark a plan tier as "Current Plan" and disable it (and all lower tiers).
      * Called by SubscriptionInfoActivity when in UPGRADE mode.
+     *
+     * @param tierName one of "free", "mini", "standard", "pro" (case-insensitive), or null to clear
      */
-    fun setFreePlanAsCurrent(isCurrent: Boolean) {
-        isFreePlanCurrent = isCurrent
-        // Only apply if view is already created
+    fun setCurrentPlan(tierName: String?) {
+        currentPlanTier = tierName?.lowercase()
         if (view != null) {
-            applyFreePlanCurrentState()
+            applyCurrentPlanState()
         }
     }
 
     /**
-     * Apply visual state: grey out the FREE plan card, show "Current Plan" label,
-     * and disable click interaction.
+     * For backward compatibility - delegates to setCurrentPlan("free").
      */
-    private fun applyFreePlanCurrentState() {
-        if (isFreePlanCurrent) {
-            freePlanCard?.apply {
-                // Grey out: reduce alpha to indicate disabled state
-                alpha = 0.5f
-                isClickable = false
-                isFocusable = false
-            }
-            // Replace price text with "Current Plan" label
-            freePlanPriceText?.text = getString(R.string.plan_current)
-        } else {
-            freePlanCard?.apply {
-                alpha = 1.0f
-                isClickable = true
-                isFocusable = true
-            }
-            freePlanPriceText?.text = getString(R.string.plan_free_price)
+    fun setFreePlanAsCurrent(isCurrent: Boolean) {
+        setCurrentPlan(if (isCurrent) "free" else null)
+    }
+
+    /**
+     * Apply visual state: grey out the current plan card (and those below it),
+     * show "Current Plan" label, and disable click interaction.
+     * Only plans *above* the current tier remain selectable.
+     */
+    private fun applyCurrentPlanState() {
+        val tier = currentPlanTier
+        // Tier hierarchy: free(0) < mini(1) < standard(2) < pro(3)
+        val tierRank = when (tier) {
+            "free" -> 0
+            "mini" -> 1
+            "standard" -> 2
+            "pro" -> 3
+            else -> -1  // no plan marked
         }
+
+        // Helper to apply current/disabled state to a card
+        fun applyState(card: MaterialCardView?, rank: Int, priceView: TextView?) {
+            if (tierRank < 0) {
+                // No current plan - reset everything
+                card?.alpha = 1.0f
+                card?.isClickable = true
+                card?.isFocusable = true
+                return
+            }
+            if (rank < tierRank) {
+                // Lower tier than current - grey out & disable
+                card?.alpha = 0.35f
+                card?.isClickable = false
+                card?.isFocusable = false
+            } else if (rank == tierRank) {
+                // Current plan - grey out, disable, show "Current Plan" label
+                card?.alpha = 0.5f
+                card?.isClickable = false
+                card?.isFocusable = false
+                priceView?.text = getString(R.string.plan_current)
+            } else {
+                // Higher tier - keep fully interactive
+                card?.alpha = 1.0f
+                card?.isClickable = true
+                card?.isFocusable = true
+            }
+        }
+
+        applyState(freePlanCard, 0, freePlanPriceText)
+        applyState(miniPlanCard, 1, miniPriceText)
+        applyState(standardPlanCard, 2, standardPriceText)
+        applyState(proPlanCard, 3, proPriceText)
     }
 
     interface OnPlanSelectedListener {
