@@ -26,6 +26,55 @@ const androidPublisher = google.androidpublisher({
 const PACKAGE_NAME = 'com.parishod.atomatic';
 const DEVICE_LIMIT = 3;
 
+// =============================================================================
+// Atom-Based Entitlement Configuration
+// =============================================================================
+
+/**
+ * Atom limits per subscription plan.
+ * Atoms represent the number of auto-replies a user is entitled to within
+ * a subscription period. They reset on each new subscription activation
+ * and never carry over.
+ */
+const PLAN_ATOM_LIMITS = {
+    free: 50,
+    mini: 500,
+    standard: 2000,
+    pro: 10000,
+};
+
+/**
+ * Resolve the atom limit for a given productId and/or planType.
+ *
+ * Resolution order:
+ * 1. Match productId against known plan keywords (pro, standard, mini, free)
+ * 2. Fall back to planType if productId doesn't match
+ * 3. Default to FREE tier if nothing matches
+ *
+ * @param {string|null} productId - The Google Play product ID
+ * @param {string|null} planType  - The resolved plan type string
+ * @returns {{ planKey: string, totalAtoms: number }}
+ */
+function resolveAtomLimit(productId, planType) {
+    const id = (productId || '').toLowerCase();
+    const pt = (planType || '').toLowerCase();
+
+    // Check productId first (most specific)
+    if (id.includes('pro')) return { planKey: 'pro', totalAtoms: PLAN_ATOM_LIMITS.pro };
+    if (id.includes('standard')) return { planKey: 'standard', totalAtoms: PLAN_ATOM_LIMITS.standard };
+    if (id.includes('mini')) return { planKey: 'mini', totalAtoms: PLAN_ATOM_LIMITS.mini };
+    if (id.includes('free')) return { planKey: 'free', totalAtoms: PLAN_ATOM_LIMITS.free };
+
+    // Fall back to planType
+    if (pt.includes('pro')) return { planKey: 'pro', totalAtoms: PLAN_ATOM_LIMITS.pro };
+    if (pt.includes('standard')) return { planKey: 'standard', totalAtoms: PLAN_ATOM_LIMITS.standard };
+    if (pt.includes('mini')) return { planKey: 'mini', totalAtoms: PLAN_ATOM_LIMITS.mini };
+
+    // Default to free
+    return { planKey: 'free', totalAtoms: PLAN_ATOM_LIMITS.free };
+}
+
+
 /**
  * Verify a purchase with Google Play Developer API
  * 
@@ -208,13 +257,34 @@ exports.verifyPurchase = onCall({ region: 'us-central1' }, async (request) => {
             // Continue anyway - the purchase is valid, just Firestore storage failed
         }
 
+        // Provision atom entitlement for this subscription
+        let atomResult = null;
+        try {
+            const { planKey, totalAtoms } = resolveAtomLimit(retrievedProductId || productId, planType);
+            const atomEntitlement = {
+                totalAtoms,
+                consumedAtoms: 0,
+                expiryTime: expiryTimeMillis,
+                planKey,
+                productId: retrievedProductId || productId,
+                lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            };
+            await admin.firestore().collection('users').doc(userId).update({ atomEntitlement });
+            atomResult = { planKey, totalAtoms, remainingAtoms: totalAtoms };
+            console.log(`Atom entitlement provisioned: plan=${planKey}, atoms=${totalAtoms}`);
+        } catch (atomError) {
+            console.error('Atom entitlement provisioning failed (non-blocking):', atomError.message);
+        }
+
         console.log(`Purchase verified successfully for user ${userId}`);
 
         return {
             isValid: true,
             expiryTime: expiryTimeMillis,
             autoRenewing: autoRenewing,
-            planType: planType
+            planType: planType,
+            atomEntitlement: atomResult,
         };
 
     } catch (error) {
@@ -339,7 +409,7 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
     try {
         // STEP 1: Detect simulated purchases
         const isSimulated = purchaseSource === 'SIMULATED_GOOGLE_IAP' ||
-                           (orderId && orderId.startsWith('GPA.FREE.'));
+            (orderId && orderId.startsWith('GPA.FREE.'));
 
         if (!isSimulated) {
             console.error('Not a simulated purchase - use verifyPurchase instead');
@@ -536,13 +606,34 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
             // Continue anyway
         }
 
+        // Provision atom entitlement for FREE plan
+        let atomResult = null;
+        try {
+            const { planKey, totalAtoms } = resolveAtomLimit(productId, 'free');
+            const atomEntitlement = {
+                totalAtoms,
+                consumedAtoms: 0,
+                expiryTime: expiryTime,
+                planKey,
+                productId: productId,
+                lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            };
+            await admin.firestore().collection('users').doc(userId).update({ atomEntitlement });
+            atomResult = { planKey, totalAtoms, remainingAtoms: totalAtoms };
+            console.log(`Atom entitlement provisioned for FREE plan: atoms=${totalAtoms}`);
+        } catch (atomError) {
+            console.error('Atom entitlement provisioning failed (non-blocking):', atomError.message);
+        }
+
         console.log(`Simulated purchase verified successfully for user ${userId}`);
 
         return {
             isValid: true,
             expiryTime: expiryTime,
             autoRenewing: false,
-            planType: 'free'
+            planType: 'free',
+            atomEntitlement: atomResult,
         };
 
     } catch (error) {
@@ -1393,4 +1484,220 @@ exports.refreshExpiringSubscriptions = onSchedule(
         }
     }
 );
+
+// =============================================================================
+// Atom-Based Entitlement System
+// =============================================================================
+
+/**
+ * Entitle atoms on subscription activation.
+ *
+ * This function is called when a subscription is activated (paid or FREE).
+ * It resolves the atom limit based on productId / planType, then OVERWRITES
+ * the previous atom state in Firestore. Atoms never carry over from a
+ * previous subscription period.
+ *
+ * Firestore path: users/{userId}.atomEntitlement
+ *
+ * Expected request.data:
+ *   - productId: string  (e.g. "atomatic_pro_monthly")
+ *   - planType:  string  (e.g. "free", "mini", "standard", "pro")
+ *   - expiryTime: number (epoch millis – when the subscription expires)
+ */
+exports.entitleAtomsOnSubscription = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+    const data = request.data;
+
+    console.log('entitleAtomsOnSubscription called');
+    console.log('Auth present:', !!auth);
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
+    }
+
+    const userId = auth.uid;
+    const { productId, planType, expiryTime } = data;
+
+    if (!expiryTime || expiryTime <= Date.now()) {
+        throw new HttpsError(
+            'invalid-argument',
+            'expiryTime must be a future epoch-millis timestamp'
+        );
+    }
+
+    // Resolve how many atoms this plan gets
+    const { planKey, totalAtoms } = resolveAtomLimit(productId, planType);
+
+    console.log(`Entitling atoms for user ${userId}: plan=${planKey}, totalAtoms=${totalAtoms}, expiryTime=${expiryTime}`);
+
+    const atomEntitlement = {
+        totalAtoms,
+        consumedAtoms: 0,
+        expiryTime,               // subscription expiry – atoms expire with it
+        planKey,
+        productId: productId || null,
+        lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+
+    try {
+        const userRef = admin.firestore().collection('users').doc(userId);
+        const userDoc = await userRef.get();
+
+        if (userDoc.exists) {
+            // OVERWRITE atom entitlement – atoms never carry over
+            await userRef.update({ atomEntitlement });
+            console.log('Atom entitlement overwritten for existing user');
+        } else {
+            await userRef.set({ atomEntitlement });
+            console.log('Atom entitlement created for new user');
+        }
+
+        return {
+            success: true,
+            planKey,
+            totalAtoms,
+            consumedAtoms: 0,
+            remainingAtoms: totalAtoms,
+            expiryTime,
+        };
+    } catch (error) {
+        console.error('entitleAtomsOnSubscription error:', error);
+        throw new HttpsError('internal', 'Failed to entitle atoms: ' + error.message);
+    }
+});
+
+/**
+ * Consume a single atom (auto-reply credit).
+ *
+ * Uses a Firestore TRANSACTION to atomically:
+ *   1. Read current atom state
+ *   2. Validate remaining > 0 and not expired
+ *   3. Increment consumedAtoms by 1
+ *
+ * Returns the updated remaining atom count on success.
+ *
+ * Error codes:
+ *   - not-found:          No atom entitlement exists for this user
+ *   - deadline-exceeded:  Atom entitlement has expired
+ *   - resource-exhausted: No remaining atoms (consumedAtoms >= totalAtoms)
+ */
+exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
+    }
+
+    const userId = auth.uid;
+    const userRef = admin.firestore().collection('users').doc(userId);
+
+    try {
+        const result = await admin.firestore().runTransaction(async (transaction) => {
+            const userDoc = await transaction.get(userRef);
+
+            if (!userDoc.exists) {
+                throw new HttpsError('not-found', 'No atom entitlement found for this user');
+            }
+
+            const entitlement = userDoc.data().atomEntitlement;
+
+            if (!entitlement) {
+                throw new HttpsError('not-found', 'No atom entitlement found for this user');
+            }
+
+            // Check expiry
+            if (entitlement.expiryTime <= Date.now()) {
+                throw new HttpsError(
+                    'deadline-exceeded',
+                    'Atom entitlement has expired. Please renew your subscription.'
+                );
+            }
+
+            // Check remaining atoms
+            const remaining = entitlement.totalAtoms - entitlement.consumedAtoms;
+            if (remaining <= 0) {
+                throw new HttpsError(
+                    'resource-exhausted',
+                    'No remaining atoms. Please upgrade your plan.'
+                );
+            }
+
+            // Atomically deduct 1 atom
+            const newConsumed = entitlement.consumedAtoms + 1;
+            transaction.update(userRef, {
+                'atomEntitlement.consumedAtoms': newConsumed,
+                'atomEntitlement.lastUpdated': admin.firestore.FieldValue.serverTimestamp(),
+            });
+
+            return {
+                success: true,
+                totalAtoms: entitlement.totalAtoms,
+                consumedAtoms: newConsumed,
+                remainingAtoms: entitlement.totalAtoms - newConsumed,
+                expiryTime: entitlement.expiryTime,
+            };
+        });
+
+        return result;
+    } catch (error) {
+        // Re-throw HttpsError as-is; wrap unexpected errors
+        if (error instanceof HttpsError) {
+            throw error;
+        }
+        console.error('consumeAtom error:', error);
+        throw new HttpsError('internal', 'Failed to consume atom: ' + error.message);
+    }
+});
+
+/**
+ * Get the current atom entitlement status for the authenticated user.
+ *
+ * Returns:
+ *   - totalAtoms, consumedAtoms, remainingAtoms, expiryTime, planKey
+ *   - isExpired: whether the entitlement is past its expiry
+ *   - hasEntitlement: false if no atom state exists
+ */
+exports.getAtomStatus = onCall({ region: 'us-central1' }, async (request) => {
+    const auth = request.auth;
+
+    if (!auth) {
+        throw new HttpsError('unauthenticated', 'User must be authenticated');
+    }
+
+    const userId = auth.uid;
+
+    try {
+        const userDoc = await admin.firestore().collection('users').doc(userId).get();
+
+        if (!userDoc.exists || !userDoc.data().atomEntitlement) {
+            return {
+                hasEntitlement: false,
+                totalAtoms: 0,
+                consumedAtoms: 0,
+                remainingAtoms: 0,
+                expiryTime: 0,
+                planKey: null,
+                isExpired: true,
+            };
+        }
+
+        const entitlement = userDoc.data().atomEntitlement;
+        const isExpired = entitlement.expiryTime <= Date.now();
+        const remaining = Math.max(0, entitlement.totalAtoms - entitlement.consumedAtoms);
+
+        return {
+            hasEntitlement: true,
+            totalAtoms: entitlement.totalAtoms,
+            consumedAtoms: entitlement.consumedAtoms,
+            remainingAtoms: isExpired ? 0 : remaining,
+            expiryTime: entitlement.expiryTime,
+            planKey: entitlement.planKey || null,
+            isExpired,
+        };
+    } catch (error) {
+        console.error('getAtomStatus error:', error);
+        throw new HttpsError('internal', 'Failed to get atom status: ' + error.message);
+    }
+});
 
