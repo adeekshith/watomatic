@@ -265,3 +265,8 @@ npm install firebase-functions@latest firebase-admin@latest --save
 rm -rf node_modules package-lock.json
 npm install
 firebase deploy --only functions
+
+
+# Replace 'YOUR_GENERATED_SECRET' with the actual secret string
+firebase functions:config:set atom.secret="YOUR_GENERATED_SECRET"
+# Or if using Gen 2 .env files, add CONSUME_ATOM_SECRET=YOUR_GENERATED_SECRET to functions/.env

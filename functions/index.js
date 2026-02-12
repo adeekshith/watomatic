@@ -1583,17 +1583,56 @@ exports.entitleAtomsOnSubscription = onCall({ region: 'us-central1' }, async (re
  *   - resource-exhausted: No remaining atoms (consumedAtoms >= totalAtoms)
  */
 exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
-    const auth = request.auth;
+    // 1. Auth Logic: Support both ID Token (Client) and Shared Secret (Server-to-Server)
+    let userId = request.auth?.uid;
+    const SECRET = process.env.CONSUME_ATOM_SECRET; // Set this env var in Firebase Functions
 
-    if (!auth) {
+    // If not authenticated via ID token, check for shared secret
+    if (!userId && SECRET) {
+        const authHeader = request.rawRequest.headers.authorization; // Access raw headers
+        if (authHeader === `Bearer ${SECRET}`) {
+            userId = request.data.userId;
+            if (!userId) {
+                throw new HttpsError('invalid-argument', 'userId is required when using shared secret');
+            }
+            console.log(`Authenticated via shared secret for user: ${userId}`);
+        }
+    }
+
+    if (!userId) {
         throw new HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const userId = auth.uid;
+    const deductionId = request.data.deductionId;
+    if (!deductionId) {
+        // Optional: enforce deductionId for robustness, but allow without for backward compat if needed?
+        // Requirement says "Idempotency protection", so let's use it if provided.
+        // For Lambda integration, we provide it.
+        console.warn('No deductionId provided for consumeAtom');
+    }
+
     const userRef = admin.firestore().collection('users').doc(userId);
 
     try {
         const result = await admin.firestore().runTransaction(async (transaction) => {
+            // 2. Idempotency Check
+            if (deductionId) {
+                const deductionRef = userRef.collection('atom_deductions').doc(deductionId);
+                const deductionDoc = await transaction.get(deductionRef);
+
+                if (deductionDoc.exists) {
+                    // Already processed
+                    const existingData = deductionDoc.data();
+                    console.log(`Idempotency check: Deduction ${deductionId} already exists`);
+                    return {
+                        success: true,
+                        remainingAtoms: existingData.remainingAtoms, // Return stored state
+                        message: 'Already deducted (idempotent)',
+                        idempotent: true
+                    };
+                }
+            }
+
             const userDoc = await transaction.get(userRef);
 
             if (!userDoc.exists) {
@@ -1608,33 +1647,49 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
 
             // Check expiry
             if (entitlement.expiryTime <= Date.now()) {
-                throw new HttpsError(
-                    'deadline-exceeded',
-                    'Atom entitlement has expired. Please renew your subscription.'
-                );
+                // Determine if we should fail or just return success:false
+                // Returning success:false allows client to handle gracefully (e.g. show upgrade prompt)
+                return {
+                    success: false,
+                    message: 'Atom entitlement has expired',
+                    remainingAtoms: 0
+                };
             }
 
             // Check remaining atoms
             const remaining = entitlement.totalAtoms - entitlement.consumedAtoms;
             if (remaining <= 0) {
-                throw new HttpsError(
-                    'resource-exhausted',
-                    'No remaining atoms. Please upgrade your plan.'
-                );
+                return {
+                    success: false,
+                    message: 'No remaining atoms',
+                    remainingAtoms: 0
+                };
             }
 
             // Atomically deduct 1 atom
             const newConsumed = entitlement.consumedAtoms + 1;
+            const newRemaining = entitlement.totalAtoms - newConsumed;
+
             transaction.update(userRef, {
                 'atomEntitlement.consumedAtoms': newConsumed,
                 'atomEntitlement.lastUpdated': admin.firestore.FieldValue.serverTimestamp(),
             });
 
+            // Record deduction for idempotency
+            if (deductionId) {
+                const deductionRef = userRef.collection('atom_deductions').doc(deductionId);
+                transaction.set(deductionRef, {
+                    deductedAt: admin.firestore.FieldValue.serverTimestamp(),
+                    remainingAtoms: newRemaining,
+                    success: true
+                });
+            }
+
             return {
                 success: true,
                 totalAtoms: entitlement.totalAtoms,
                 consumedAtoms: newConsumed,
-                remainingAtoms: entitlement.totalAtoms - newConsumed,
+                remainingAtoms: newRemaining,
                 expiryTime: entitlement.expiryTime,
             };
         });
@@ -1648,6 +1703,7 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
         console.error('consumeAtom error:', error);
         throw new HttpsError('internal', 'Failed to consume atom: ' + error.message);
     }
+
 });
 
 /**
