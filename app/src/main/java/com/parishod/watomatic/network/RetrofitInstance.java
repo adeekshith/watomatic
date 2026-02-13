@@ -18,8 +18,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitInstance {
     private static Retrofit retrofit;
     private static Retrofit openAIRetrofit;
+    private static Retrofit atomaticAIRetrofit;
     private static final String BASE_URL = "https://api.github.com";
     public static final String OPENAI_BASE_URL = "https://api.openai.com/";
+    public static final String ATOMATIC_AI_BASE_URL = "https://tsmnguqqaeot7avq35i7nbxch40wuowe.lambda-url.us-east-1.on.aws/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
@@ -106,5 +108,27 @@ public class RetrofitInstance {
             android.util.Log.e("RetrofitInstance", "IOException parsing OpenAI error response", e);
             return null;
         }
+    }
+
+    public static Retrofit getAtomaticAIRetrofitInstance() {
+        if (atomaticAIRetrofit == null) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            if (BuildConfig.DEBUG) {
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            } else {
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+            }
+
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .build();
+
+            atomaticAIRetrofit = new Retrofit.Builder()
+                    .baseUrl(ATOMATIC_AI_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
+        return atomaticAIRetrofit;
     }
 }

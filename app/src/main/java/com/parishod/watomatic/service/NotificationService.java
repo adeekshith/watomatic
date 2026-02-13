@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
-import android.text.TextUtils; // Added import
 import android.util.Log;
 import android.widget.Toast;
 // import Constants.kt
@@ -27,8 +26,11 @@ import androidx.core.app.RemoteInput;
 import com.parishod.watomatic.NotificationWear;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.network.AtomaticAIService;
 import com.parishod.watomatic.network.OpenAIService;
 import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIRequest;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIResponse;
 import com.parishod.watomatic.network.model.openai.Message;
 import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse; // Added import
 import com.parishod.watomatic.network.model.openai.OpenAIRequest;
@@ -120,8 +122,9 @@ public class NotificationService extends NotificationListenerService {
             }
         }
 
-        if(finalRemoteIn == null ) return;
-            RemoteInput.addResultsToIntent(new RemoteInput[]{ finalRemoteIn }, localIntent, localBundle);
+        if(finalRemoteIn == null) return;
+
+        RemoteInput.addResultsToIntent(new RemoteInput[]{ finalRemoteIn }, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
                 if (dbUtils == null) {
@@ -214,11 +217,8 @@ public class NotificationService extends NotificationListenerService {
 
         if (prefs.isAutomaticAiRepliesEnabled()) {
             // Automatic AI: Use server-side API (Atomatic backend)
-            // This will be handled by the server, so we use a special configuration
             Log.d(TAG, "Using Automatic AI (server-based) backend");
-            // TODO: Implement server-based AI call to Atomatic backend
-            // For now, fall back to default reply
-            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            fetchAtomaticAiReply(sbn, notificationWear, incomingMessage, fallbackReplyText);
             return;
         } else if (prefs.isByokRepliesEnabled()) {
             // BYOK: Use user's own API key with configured provider
@@ -256,6 +256,56 @@ public class NotificationService extends NotificationListenerService {
             // OpenAI, Grok, DeepSeek, Mistral, Custom
             fetchOpenAiCompatibleReply(service, apiKey, model, systemPrompt, incomingMessage, sbn, notificationWear, fallbackReplyText);
         }
+    }
+
+    private void fetchAtomaticAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+
+        // Get Firebase ID token
+        String firebaseToken = prefs.getFirebaseToken();
+
+        if (firebaseToken == null || firebaseToken.trim().isEmpty()) {
+            Log.e(TAG, "Firebase token not available, falling back to default reply");
+            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            return;
+        }
+
+        // Create the request
+        AtomaticAIRequest request = new AtomaticAIRequest(incomingMessage);
+
+        // Create the service
+        AtomaticAIService service = RetrofitInstance.getAtomaticAIRetrofitInstance()
+                .create(AtomaticAIService.class);
+
+        // Make the API call
+        String authHeader = "Bearer " + firebaseToken;
+        service.getAIReply(authHeader, "application/json", request).enqueue(new Callback<AtomaticAIResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<AtomaticAIResponse> call, @NonNull Response<AtomaticAIResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    AtomaticAIResponse aiResponse = response.body();
+                    String reply = aiResponse.getReply();
+                    int remainingAtoms = aiResponse.getRemainingAtoms();
+
+                    if (reply != null && !reply.trim().isEmpty()) {
+                        Log.i(TAG, "Atomatic AI successful response. Remaining atoms: " + remainingAtoms);
+                        sendActualReply(sbn, notificationWear, reply);
+                    } else {
+                        Log.e(TAG, "Atomatic AI returned empty reply, using fallback");
+                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+                    }
+                } else {
+                    Log.e(TAG, "Atomatic AI API failed: " + response.code() + " " + response.message());
+                    sendActualReply(sbn, notificationWear, fallbackReplyText);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<AtomaticAIResponse> call, @NonNull Throwable t) {
+                Log.e(TAG, "Atomatic AI API network error", t);
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
     }
 
     private void fetchClaudeReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
