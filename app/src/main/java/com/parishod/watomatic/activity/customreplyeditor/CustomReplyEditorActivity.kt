@@ -3,6 +3,7 @@ package com.parishod.watomatic.activity.customreplyeditor
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.TextView
@@ -102,6 +103,8 @@ class CustomReplyEditorActivity : BaseActivity() {
     // BYOK card expanded content
     private var otherAiExpandedContent: android.view.View? = null
 
+    private var selectedReplyMethod = REPLY_METHOD_MANUAL
+
     private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val data = result.data
@@ -119,7 +122,7 @@ class CustomReplyEditorActivity : BaseActivity() {
                 if (baseUrl != null) preferencesManager?.saveCustomOpenAIApiUrl(baseUrl)
 
                 Toast.makeText(this, "AI Configuration Saved", Toast.LENGTH_SHORT).show()
-                updateCardExpansionState()
+                updateCardExpansionState(REPLY_METHOD_BYOK)
             }
         }
     }
@@ -288,77 +291,40 @@ class CustomReplyEditorActivity : BaseActivity() {
      * Centralized method to select a reply method and update UI
      */
     private fun selectReplyMethod(method: String) {
-        // Save the selected method to preferences
-        preferencesManager?.setSelectedReplyMethod(method)
-
-        // Update preferences based on selected method
-        when (method) {
-            REPLY_METHOD_MANUAL -> {
-                preferencesManager?.setEnableOpenAIReplies(false)
-            }
-            REPLY_METHOD_AUTOMATIC_AI -> {
-                preferencesManager?.setEnableOpenAIReplies(true)
-                // Clear API key to ensure server-based AI is used
-                preferencesManager?.saveOpenAIApiKey("")
-            }
-            REPLY_METHOD_BYOK -> {
-                preferencesManager?.setEnableOpenAIReplies(true)
-                // Set a placeholder if no API key exists to mark BYOK mode
-                if (preferencesManager?.openAIApiKey.isNullOrEmpty()) {
-                    preferencesManager?.saveOpenAIApiKey("PENDING_CONFIGURATION")
-                }
-            }
-        }
+        Log.d("CustomReplyEditor", "selectReplyMethod reply method: $method")
+        selectedReplyMethod = method
 
         // Update UI to reflect the selection
-        updateCardExpansionState()
+        updateCardExpansionState(method)
+    }
+
+    private fun getSelectedReplyMethod(): String{
+        if(preferencesManager?.isByokRepliesEnabled == true){
+            return REPLY_METHOD_BYOK
+        }else if(preferencesManager?.isAutomaticAiRepliesEnabled == true){
+            return REPLY_METHOD_AUTOMATIC_AI
+        }
+        return REPLY_METHOD_MANUAL
     }
 
     /**
      * Restore the previously selected reply method from preferences
      * For existing users upgrading, infer the method from current settings
      */
+    @Suppress("DEPRECATION", "deprecation")
     private fun restoreSelectedReplyMethod() {
-        var savedMethod = preferencesManager?.getSelectedReplyMethod()
-
-        // Migration for existing users: If no saved method, infer from current state
-        if (savedMethod == "manual" && preferencesManager?.isOpenAIRepliesEnabled == true) {
-            // User has AI enabled but no explicit selection saved - infer from API key presence
-            val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty() &&
-                           preferencesManager?.openAIApiKey != "PENDING_CONFIGURATION"
-
-            savedMethod = if (hasApiKey) {
-                REPLY_METHOD_BYOK
-            } else {
-                REPLY_METHOD_AUTOMATIC_AI
-            }
-
-            // Save the inferred method for future
-            preferencesManager?.setSelectedReplyMethod(savedMethod)
-        }
-
-        // Sync preferences with saved method
-        when (savedMethod) {
-            REPLY_METHOD_MANUAL -> {
-                preferencesManager?.setEnableOpenAIReplies(false)
-            }
-            REPLY_METHOD_AUTOMATIC_AI -> {
-                preferencesManager?.setEnableOpenAIReplies(true)
-            }
-            REPLY_METHOD_BYOK -> {
-                preferencesManager?.setEnableOpenAIReplies(true)
-            }
-        }
+        var savedMethod = getSelectedReplyMethod()
+        Log.d("CustomReplyEditor", "Restoring selected reply method: $savedMethod")
 
         // Update UI
-        updateCardExpansionState()
+        updateCardExpansionState(savedMethod)
     }
 
     /**
      * Validate and save the selected reply method configuration
      */
     private fun handleSaveClick() {
-        val selectedMethod = preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
+        val selectedMethod = selectedReplyMethod//preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
 
         // Validate the selected method is properly configured
         when (selectedMethod) {
@@ -375,7 +341,8 @@ class CustomReplyEditorActivity : BaseActivity() {
                 }
                 // Save manual reply
                 customRepliesData?.set(replyText)
-                preferencesManager?.setEnableOpenAIReplies(false)
+                preferencesManager?.setEnableAutomaticAiReplies(false)
+                preferencesManager?.setEnableByokReplies(false)
             }
             REPLY_METHOD_AUTOMATIC_AI -> {
                 // Validate subscription for automatic AI
@@ -388,7 +355,8 @@ class CustomReplyEditorActivity : BaseActivity() {
                     ).show()
                     return
                 }
-                preferencesManager?.setEnableOpenAIReplies(true)
+                preferencesManager?.setEnableAutomaticAiReplies(true)
+                preferencesManager?.setEnableByokReplies(false)
             }
             REPLY_METHOD_BYOK -> {
                 // Validate BYOK configuration
@@ -401,7 +369,8 @@ class CustomReplyEditorActivity : BaseActivity() {
                     ).show()
                     return
                 }
-                preferencesManager?.setEnableOpenAIReplies(true)
+                preferencesManager?.setEnableAutomaticAiReplies(false)
+                preferencesManager?.setEnableByokReplies(true)
             }
         }
 
@@ -409,8 +378,9 @@ class CustomReplyEditorActivity : BaseActivity() {
         onNavigateUp()
     }
 
-    private fun updateCardExpansionState() {
-        val selectedMethod = preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
+    private fun updateCardExpansionState(selectedMethod: String) {
+        Log.d("CustomReplyEditor", "updateCardExpansionState reply method: $selectedMethod")
+//        val selectedMethod = preferencesManager?.getSelectedReplyMethod() ?: REPLY_METHOD_MANUAL
         val isProUser = subscriptionManager?.isProUser() ?: false
         val hasApiKey = !preferencesManager?.openAIApiKey.isNullOrEmpty() &&
                         preferencesManager?.openAIApiKey != "PENDING_CONFIGURATION"
@@ -428,7 +398,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         ).toInt()
 
         // Get colors for stroke
-        val primaryColor = getThemeColor(com.google.android.material.R.attr.colorPrimary)
+        val primaryColor = getThemeColor(androidx.appcompat.R.attr.colorPrimary)
         val defaultStrokeColor = 0xFF38383A.toInt() // Gray color for unselected
 
         // Determine which card is selected based on saved preference

@@ -120,7 +120,7 @@ public class CustomRepliesData {
     public String getTextToSendOrElse() {
         String currentText;
         // Check if AI is enabled (covers both Automatic AI and BYOK)
-        if(preferencesManager.isOpenAIRepliesEnabled()){
+        if(preferencesManager.isAnyAiRepliesEnabled()){
             currentText = thisAppContext.getString(R.string.ai_auto_reply_default_message);
         }else {
             currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));

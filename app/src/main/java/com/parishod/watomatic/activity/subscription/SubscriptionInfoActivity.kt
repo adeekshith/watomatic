@@ -491,7 +491,16 @@ class SubscriptionInfoActivity : BaseActivity() {
         }
     }
 
+    private var lastUpdateTimestamp: Long = 0
+
     private fun updateFragmentPrices() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastUpdateTimestamp < 500) {
+            android.util.Log.d("SubscriptionInfo", "Skipping redundant price update")
+            return
+        }
+        lastUpdateTimestamp = currentTime
+
         // Use postDelayed to ensure fragments are fully created and attached
         viewPager?.postDelayed({
             // Update both fragments (monthly and annual)

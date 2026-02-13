@@ -170,19 +170,32 @@ public class NotificationService extends NotificationListenerService {
         PreferencesManager preferencesManager = PreferencesManager.getPreferencesInstance(this);
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(this); // For fallback
         String replyText = customRepliesData.getTextToSendOrElse();
-        if(preferencesManager.isOpenAIRepliesEnabled()){
+        if(preferencesManager.isAnyAiRepliesEnabled()){
             replyText = getString(R.string.auto_reply_default_message);
         }
-        String fallbackReplyText = replyText; // needs to be final to access in innere class hence one more variable
+        String fallbackReplyText = replyText; // needs to be final to access in inner class hence one more variable
 
         CharSequence incomingMessageChars = sbn.getNotification().extras.getCharSequence(android.app.Notification.EXTRA_TEXT);
         String incomingMessage = (incomingMessageChars != null) ? incomingMessageChars.toString() : null;
 
-        if (preferencesManager.isOpenAIRepliesEnabled() &&
-            preferencesManager.isSubscriptionActive() &&
-            incomingMessage != null && !incomingMessage.trim().isEmpty() &&
-            preferencesManager.getOpenAIApiKey() != null && !preferencesManager.getOpenAIApiKey().trim().isEmpty()) {
+        // Determine if AI should be used based on the selected reply method
+        boolean shouldUseAI = false;
 
+        if (preferencesManager.isAutomaticAiRepliesEnabled()) {
+            // Automatic AI: requires subscription but no API key
+            shouldUseAI = preferencesManager.isSubscriptionActive() &&
+                         incomingMessage != null && !incomingMessage.trim().isEmpty();
+            Log.d(TAG, "Automatic AI mode - Subscription active: " + preferencesManager.isSubscriptionActive());
+        } else if (preferencesManager.isByokRepliesEnabled()) {
+            // BYOK: requires API key but no subscription
+            String apiKey = preferencesManager.getOpenAIApiKey();
+            shouldUseAI = apiKey != null && !apiKey.trim().isEmpty() &&
+                         !apiKey.equals("PENDING_CONFIGURATION") &&
+                         incomingMessage != null && !incomingMessage.trim().isEmpty();
+            Log.d(TAG, "BYOK mode - API key configured: " + (apiKey != null && !apiKey.trim().isEmpty()));
+        }
+
+        if (shouldUseAI) {
             Log.d(TAG, "AI conditions met. Attempting to get AI reply.");
             fetchAiReply(sbn, notificationWear, incomingMessage, fallbackReplyText);
         } else {
@@ -193,16 +206,39 @@ public class NotificationService extends NotificationListenerService {
 
     private void fetchAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
-        String provider = prefs.getOpenApiSource();
-        if (provider == null) provider = "OpenAI";
 
-        String apiKey = prefs.getOpenAIApiKey();
+        // Determine which backend API to use based on the selected reply method
+        String apiKey;
+        String provider;
+        String baseUrl;
+
+        if (prefs.isAutomaticAiRepliesEnabled()) {
+            // Automatic AI: Use server-side API (Atomatic backend)
+            // This will be handled by the server, so we use a special configuration
+            Log.d(TAG, "Using Automatic AI (server-based) backend");
+            // TODO: Implement server-based AI call to Atomatic backend
+            // For now, fall back to default reply
+            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            return;
+        } else if (prefs.isByokRepliesEnabled()) {
+            // BYOK: Use user's own API key with configured provider
+            Log.d(TAG, "Using BYOK (client-based) backend");
+            apiKey = prefs.getOpenAIApiKey();
+            provider = prefs.getOpenApiSource();
+            if (provider == null) provider = "OpenAI";
+        } else {
+            // No AI mode enabled, use fallback
+            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            return;
+        }
+
+        // BYOK flow continues here
         String model = prefs.getSelectedOpenAIModel();
         String systemPrompt = prefs.getOpenAICustomPrompt();
         if (systemPrompt == null || systemPrompt.trim().isEmpty()) systemPrompt = DEFAULT_LLM_PROMPT;
         if (model == null || model.isEmpty()) model = DEFAULT_LLM_MODEL;
 
-        String baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
+        baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
         if ("Custom".equals(provider)) {
             baseUrl = prefs.getCustomOpenAIApiUrl();
         }

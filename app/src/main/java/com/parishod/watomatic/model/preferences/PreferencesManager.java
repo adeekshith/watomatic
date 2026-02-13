@@ -49,7 +49,9 @@ public class PreferencesManager {
     private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
     private final String KEY_OPENAI_API_SOURCE = "pref_openai_api_source";
     private final String KEY_OPENAI_CUSTOM_API_URL = "pref_openai_custom_api_url";
-    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
+    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies"; // Deprecated - kept for migration
+    private final String KEY_ENABLE_AUTOMATIC_AI_REPLIES = "pref_enable_automatic_ai_replies";
+    private final String KEY_ENABLE_BYOK_REPLIES = "pref_enable_byok_replies";
     private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
@@ -443,8 +445,40 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    /**
+     * @deprecated Use {@link #isAutomaticAiRepliesEnabled()} or {@link #isByokRepliesEnabled()} instead
+     */
+    @Deprecated
     public boolean isOpenAIRepliesEnabled() {
         return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+
+    // New separate preference methods for Automatic AI and BYOK
+    public void setEnableAutomaticAiReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_AUTOMATIC_AI_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isAutomaticAiRepliesEnabled() {
+        return _sharedPrefs.getBoolean(KEY_ENABLE_AUTOMATIC_AI_REPLIES, false);
+    }
+
+    public void setEnableByokReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_BYOK_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isByokRepliesEnabled() {
+        return _sharedPrefs.getBoolean(KEY_ENABLE_BYOK_REPLIES, false);
+    }
+
+    /**
+     * Returns true if any AI reply mode is enabled (Automatic AI or BYOK)
+     */
+    public boolean isAnyAiRepliesEnabled() {
+        return isAutomaticAiRepliesEnabled() || isByokRepliesEnabled();
     }
     public void setOpenAIRepliesEnabled(boolean enabled) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
@@ -637,17 +671,6 @@ public class PreferencesManager {
     public void setLastVerifiedTime(long time) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_LAST_VERIFIED_TIME, time);
-        editor.apply();
-    }
-
-    // Reply Method Selection - "manual", "automatic_ai", or "byok"
-    public String getSelectedReplyMethod() {
-        return _sharedPrefs.getString(KEY_SELECTED_REPLY_METHOD, "manual");
-    }
-
-    public void setSelectedReplyMethod(String method) {
-        SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putString(KEY_SELECTED_REPLY_METHOD, method);
         editor.apply();
     }
 
