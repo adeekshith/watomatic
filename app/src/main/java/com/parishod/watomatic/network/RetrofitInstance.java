@@ -1,6 +1,7 @@
 package com.parishod.watomatic.network;
 
 import com.parishod.watomatic.BuildConfig;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIErrorResponse;
 import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse;
 
 import java.io.IOException;
@@ -130,5 +131,27 @@ public class RetrofitInstance {
                     .build();
         }
         return atomaticAIRetrofit;
+    }
+
+    public static AtomaticAIErrorResponse parseAtomaticAIError(retrofit2.Response<?> response) {
+        if (response.errorBody() == null) {
+            return null;
+        }
+
+        Retrofit currentAtomaticAIRetrofit = getAtomaticAIRetrofitInstance();
+        if (currentAtomaticAIRetrofit == null) {
+            android.util.Log.e("RetrofitInstance", "Atomatic AI Retrofit instance is null, cannot parse error.");
+            return null;
+        }
+
+        Converter<ResponseBody, AtomaticAIErrorResponse> converter =
+                currentAtomaticAIRetrofit.responseBodyConverter(AtomaticAIErrorResponse.class, new Annotation[0]);
+
+        try {
+            return converter.convert(response.errorBody());
+        } catch (IOException e) {
+            android.util.Log.e("RetrofitInstance", "IOException parsing Atomatic AI error response", e);
+            return null;
+        }
     }
 }

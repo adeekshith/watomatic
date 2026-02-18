@@ -28,11 +28,11 @@ import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
 import com.parishod.watomatic.network.AtomaticAIService;
 import com.parishod.watomatic.network.OpenAIService;
-import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
+import com.parishod.watomatic.network.RetrofitInstance;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIErrorResponse;
 import com.parishod.watomatic.network.model.atomatic.AtomaticAIRequest;
 import com.parishod.watomatic.network.model.atomatic.AtomaticAIResponse;
 import com.parishod.watomatic.network.model.openai.Message;
-import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse; // Added import
 import com.parishod.watomatic.network.model.openai.OpenAIRequest;
 import com.parishod.watomatic.network.model.openai.OpenAIResponse;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -40,7 +40,7 @@ import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
-import com.parishod.watomatic.service.ReplyService;
+import com.parishod.watomatic.utils.FirebaseTokenRefresher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -259,6 +259,11 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private void fetchAtomaticAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        // Call the method without retry flag (first attempt)
+        fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, false);
+    }
+
+    private void fetchAtomaticAiReplyInternal(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText, boolean isRetryAfterTokenRefresh) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
 
         // Get Firebase ID token
@@ -279,6 +284,8 @@ public class NotificationService extends NotificationListenerService {
 
         // Make the API call
         String authHeader = "Bearer " + firebaseToken;
+        Log.d(TAG, "Atomatic AI API call - isRetry: " + isRetryAfterTokenRefresh);
+
         service.getAIReply(authHeader, "application/json", request).enqueue(new Callback<AtomaticAIResponse>() {
             @Override
             public void onResponse(@NonNull Call<AtomaticAIResponse> call, @NonNull Response<AtomaticAIResponse> response) {
@@ -295,8 +302,31 @@ public class NotificationService extends NotificationListenerService {
                         sendActualReply(sbn, notificationWear, fallbackReplyText);
                     }
                 } else {
-                    Log.e(TAG, "Atomatic AI API failed: " + response.code() + " " + response.message());
-                    sendActualReply(sbn, notificationWear, fallbackReplyText);
+                    // Check if this is an authentication error (401 or 403)
+                    boolean isAuthError = response.code() == 401 || response.code() == 403;
+
+                    // Try to parse error response
+                    if (!isAuthError && response.errorBody() != null) {
+                        AtomaticAIErrorResponse errorResponse = RetrofitInstance.parseAtomaticAIError(response);
+                        if (errorResponse != null) {
+                            isAuthError = errorResponse.isAuthError();
+                            Log.e(TAG, "Atomatic AI error: " + errorResponse.getMessage());
+                        }
+                    }
+
+                    // If it's an auth error and we haven't retried yet, refresh token and retry
+                    if (isAuthError && !isRetryAfterTokenRefresh) {
+                        Log.w(TAG, "Atomatic AI authentication failed (code: " + response.code() + "). Attempting token refresh...");
+                        handleTokenExpirationAndRetry(sbn, notificationWear, incomingMessage, fallbackReplyText);
+                    } else {
+                        // Either not an auth error, or already retried - use fallback
+                        if (isRetryAfterTokenRefresh) {
+                            Log.e(TAG, "Atomatic AI still failed after token refresh, using fallback");
+                        } else {
+                            Log.e(TAG, "Atomatic AI API failed: " + response.code() + " " + response.message());
+                        }
+                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+                    }
                 }
             }
 
@@ -306,6 +336,22 @@ public class NotificationService extends NotificationListenerService {
                 sendActualReply(sbn, notificationWear, fallbackReplyText);
             }
         });
+    }
+
+    private void handleTokenExpirationAndRetry(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        Log.i(TAG, "Handling token expiration - refreshing Firebase token...");
+
+        // Refresh token synchronously (we're already in a background thread via Retrofit callback)
+        String newToken = FirebaseTokenRefresher.refreshTokenSync(this);
+
+        if (newToken != null && !newToken.isEmpty()) {
+            Log.i(TAG, "Token refresh successful. Retrying Atomatic AI request...");
+            // Retry the request with the new token (pass true to indicate this is a retry)
+            fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, true);
+        } else {
+            Log.e(TAG, "Token refresh failed. Using fallback reply.");
+            sendActualReply(sbn, notificationWear, fallbackReplyText);
+        }
     }
 
     private void fetchClaudeReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
