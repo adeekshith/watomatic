@@ -341,17 +341,21 @@ public class NotificationService extends NotificationListenerService {
     private void handleTokenExpirationAndRetry(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
         Log.i(TAG, "Handling token expiration - refreshing Firebase token...");
 
-        // Refresh token synchronously (we're already in a background thread via Retrofit callback)
-        String newToken = FirebaseTokenRefresher.refreshTokenSync(this);
+        // Refresh token asynchronously to avoid blocking the main thread
+        FirebaseTokenRefresher.refreshTokenAsync(this, new FirebaseTokenRefresher.TokenRefreshCallback() {
+            @Override
+            public void onSuccess(String newToken) {
+                Log.i(TAG, "Token refresh successful. Retrying Atomatic AI request...");
+                // Retry the request with the new token (pass true to indicate this is a retry)
+                fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, true);
+            }
 
-        if (newToken != null && !newToken.isEmpty()) {
-            Log.i(TAG, "Token refresh successful. Retrying Atomatic AI request...");
-            // Retry the request with the new token (pass true to indicate this is a retry)
-            fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, true);
-        } else {
-            Log.e(TAG, "Token refresh failed. Using fallback reply.");
-            sendActualReply(sbn, notificationWear, fallbackReplyText);
-        }
+            @Override
+            public void onFailure(String error) {
+                Log.e(TAG, "Token refresh failed: " + error + ". Using fallback reply.");
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
     }
 
     private void fetchClaudeReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
