@@ -14,7 +14,7 @@
     "node": "20"
   },
   "dependencies": {
-    "firebase-admin": "^13.6.0",
+    "firebase-admin": "^13.6.1",
     "firebase-functions": "^7.0.5",
     "googleapis": "^134.0.0"
   },

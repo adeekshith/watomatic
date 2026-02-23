@@ -1,9 +1,12 @@
-const { onCall, HttpsError } = require('firebase-functions/v2/https');
+const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https');
 const { onMessagePublished } = require('firebase-functions/v2/pubsub');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { logger } = require('firebase-functions/v2');
 const admin = require('firebase-admin');
 const { google } = require('googleapis');
+const { defineString } = require("firebase-functions/params");
+const CONSUME_SECRET = defineString("CONSUME_ATOM_SECRET");
+
 
 admin.initializeApp();
 
@@ -606,24 +609,61 @@ exports.verifySimulatedPurchase = onCall({ region: 'us-central1' }, async (reque
             // Continue anyway
         }
 
-        // Provision atom entitlement for FREE plan
         let atomResult = null;
+
         try {
+
             const { planKey, totalAtoms } = resolveAtomLimit(productId, 'free');
-            const atomEntitlement = {
-                totalAtoms,
-                consumedAtoms: 0,
-                expiryTime: expiryTime,
-                planKey,
-                productId: productId,
-                lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
-                createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            };
-            await admin.firestore().collection('users').doc(userId).update({ atomEntitlement });
-            atomResult = { planKey, totalAtoms, remainingAtoms: totalAtoms };
-            console.log(`Atom entitlement provisioned for FREE plan: atoms=${totalAtoms}`);
-        } catch (atomError) {
-            console.error('Atom entitlement provisioning failed (non-blocking):', atomError.message);
+
+            const userRef = admin.firestore().collection('users').doc(userId);
+
+            const doc = await userRef.get();
+
+            const existing = doc.data()?.atomEntitlement;
+
+            // ⭐ DO NOT DOWNGRADE USER
+            if (existing && existing.totalAtoms > totalAtoms) {
+
+                console.log("Skipping FREE entitlement because higher plan exists");
+
+                atomResult = {
+                    planKey: existing.planKey,
+                    totalAtoms: existing.totalAtoms,
+                    remainingAtoms: existing.totalAtoms - existing.consumedAtoms
+                };
+
+            } else {
+
+                const atomEntitlement = {
+                    totalAtoms,
+                    consumedAtoms: 0,
+                    expiryTime: expiryTime,
+                    planKey,
+                    productId: productId,
+                    lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+                    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                };
+
+                // ⭐ SAFE WRITE (creates if missing)
+                await userRef.set({ atomEntitlement }, { merge:true });
+
+                atomResult = {
+                    planKey,
+                    totalAtoms,
+                    remainingAtoms: totalAtoms
+                };
+
+                console.log(`Atom entitlement provisioned for FREE plan: atoms=${totalAtoms}`);
+            }
+
+        }
+        catch (atomError) {
+
+            console.error(
+                'Atom entitlement provisioning failed (non-blocking):',
+                atomError.message
+            );
+
         }
 
         console.log(`Simulated purchase verified successfully for user ${userId}`);
@@ -1504,66 +1544,88 @@ exports.refreshExpiringSubscriptions = onSchedule(
  *   - planType:  string  (e.g. "free", "mini", "standard", "pro")
  *   - expiryTime: number (epoch millis – when the subscription expires)
  */
-exports.entitleAtomsOnSubscription = onCall({ region: 'us-central1' }, async (request) => {
-    const auth = request.auth;
-    const data = request.data;
-
-    console.log('entitleAtomsOnSubscription called');
-    console.log('Auth present:', !!auth);
-
-    if (!auth) {
-        throw new HttpsError('unauthenticated', 'User must be authenticated');
-    }
-
-    const userId = auth.uid;
-    const { productId, planType, expiryTime } = data;
-
-    if (!expiryTime || expiryTime <= Date.now()) {
-        throw new HttpsError(
-            'invalid-argument',
-            'expiryTime must be a future epoch-millis timestamp'
-        );
-    }
-
-    // Resolve how many atoms this plan gets
-    const { planKey, totalAtoms } = resolveAtomLimit(productId, planType);
-
-    console.log(`Entitling atoms for user ${userId}: plan=${planKey}, totalAtoms=${totalAtoms}, expiryTime=${expiryTime}`);
-
-    const atomEntitlement = {
-        totalAtoms,
-        consumedAtoms: 0,
-        expiryTime,               // subscription expiry – atoms expire with it
-        planKey,
-        productId: productId || null,
-        lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    };
+exports.entitleAtomsOnSubscription = onRequest({ region: 'us-central1' }, async (req, res) => {
 
     try {
-        const userRef = admin.firestore().collection('users').doc(userId);
-        const userDoc = await userRef.get();
 
-        if (userDoc.exists) {
-            // OVERWRITE atom entitlement – atoms never carry over
-            await userRef.update({ atomEntitlement });
-            console.log('Atom entitlement overwritten for existing user');
-        } else {
-            await userRef.set({ atomEntitlement });
-            console.log('Atom entitlement created for new user');
+        const SECRET = CONSUME_SECRET.value();
+        const authHeader = req.headers.authorization || "";
+
+        let userId = null;
+
+        // -------------------------
+        // 1️⃣ BACKEND AUTH (recommended)
+        // -------------------------
+        //console.log("SECRET Loaded:", secret);
+        if (SECRET && authHeader === `Bearer ${SECRET}`) {
+
+            userId = req.body.userId;
+
+            if (!userId)
+                return res.status(400).json({error:"userId required"});
         }
 
-        return {
-            success: true,
-            planKey,
+        // -------------------------
+        // 2️⃣ CLIENT AUTH (optional)
+        // -------------------------
+        else if (authHeader.startsWith("Bearer ")) {
+
+            try {
+                const decoded = await admin.auth().verifyIdToken(
+                    authHeader.split("Bearer ")[1]
+                );
+                userId = decoded.uid;
+            }
+            catch {
+                return res.status(401).json({error:"Invalid token"});
+            }
+        }
+
+        if (!userId)
+            return res.status(401).json({error:"Unauthorized"});
+
+        const { productId, planType, expiryTime } = req.body;
+
+        if (!expiryTime || expiryTime <= Date.now())
+            return res.status(400).json({error:"expiryTime must be future"});
+
+        const { planKey, totalAtoms } = resolveAtomLimit(productId, planType);
+
+        const atomEntitlement = {
             totalAtoms,
             consumedAtoms: 0,
-            remainingAtoms: totalAtoms,
             expiryTime,
+            planKey,
+            productId: productId || null,
+            lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
         };
-    } catch (error) {
-        console.error('entitleAtomsOnSubscription error:', error);
-        throw new HttpsError('internal', 'Failed to entitle atoms: ' + error.message);
+
+        const userRef = admin.firestore().collection('users').doc(userId);
+
+        const userDoc = await userRef.get();
+
+        if (userDoc.exists)
+            await userRef.update({ atomEntitlement });
+        else
+            await userRef.set({ atomEntitlement });
+
+        return res.json({
+            success:true,
+            totalAtoms,
+            remainingAtoms:totalAtoms,
+            expiryTime
+        });
+
+    }
+    catch(e){
+
+        console.error("entitleAtomsOnSubscription error",e);
+
+        return res.status(500).json({
+            error:"Internal error",
+            details:e.message
+        });
     }
 });
 
@@ -1582,52 +1644,83 @@ exports.entitleAtomsOnSubscription = onCall({ region: 'us-central1' }, async (re
  *   - deadline-exceeded:  Atom entitlement has expired
  *   - resource-exhausted: No remaining atoms (consumedAtoms >= totalAtoms)
  */
-exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
-    // 1. Auth Logic: Support both ID Token (Client) and Shared Secret (Server-to-Server)
-    let userId = request.auth?.uid;
-    const SECRET = process.env.CONSUME_ATOM_SECRET; // Set this env var in Firebase Functions
-
-    // If not authenticated via ID token, check for shared secret
-    if (!userId && SECRET) {
-        const authHeader = request.rawRequest.headers.authorization; // Access raw headers
-        if (authHeader === `Bearer ${SECRET}`) {
-            userId = request.data.userId;
-            if (!userId) {
-                throw new HttpsError('invalid-argument', 'userId is required when using shared secret');
-            }
-            console.log(`Authenticated via shared secret for user: ${userId}`);
-        }
-    }
-
-    if (!userId) {
-        throw new HttpsError('unauthenticated', 'User must be authenticated');
-    }
-
-    const deductionId = request.data.deductionId;
-    if (!deductionId) {
-        // Optional: enforce deductionId for robustness, but allow without for backward compat if needed?
-        // Requirement says "Idempotency protection", so let's use it if provided.
-        // For Lambda integration, we provide it.
-        console.warn('No deductionId provided for consumeAtom');
-    }
-
-    const userRef = admin.firestore().collection('users').doc(userId);
+exports.consumeAtom = onRequest({ region: 'us-central1' }, async (req, res) => {
 
     try {
+
+        let userId = null;
+        const SECRET = CONSUME_SECRET.value();
+
+        // -------------------------
+        // AUTH HEADER PARSE (FIXED)
+        // -------------------------
+        const authHeader = req.headers.authorization || "";
+
+        if (!authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ error: "Missing authorization" });
+        }
+
+        // ⭐ IMPORTANT: extract token safely and trim whitespace
+        const token = authHeader.replace("Bearer ", "").trim();
+
+        // -------------------------
+        // 1️⃣ BACKEND AUTH (Lambda secret)
+        // -------------------------
+        //console.log("SECRET Loaded:", SECRET);
+        //console.log("token  Loaded:", token);
+        if (SECRET && token === SECRET) {
+
+            userId = req.body.userId;
+
+            if (!userId)
+                return res.status(400).json({ error: "userId required for backend call" });
+
+            console.log("Backend authenticated:", userId);
+        }
+
+        // -------------------------
+        // 2️⃣ CLIENT AUTH (Firebase ID token)
+        // -------------------------
+        else {
+
+            try {
+                const decoded = await admin.auth().verifyIdToken(token);
+                userId = decoded.uid;
+                console.log("Client authenticated:", userId);
+            }
+            catch (e) {
+                console.error("Token verification failed:", token.substring(0,20));
+                return res.status(401).json({ error: "Invalid Firebase token" });
+            }
+        }
+
+        // -------------------------
+        // FINAL AUTH CHECK
+        // -------------------------
+        if (!userId)
+            return res.status(401).json({ error: "Unauthorized" });
+
+        const deductionId = req.body.deductionId;
+
+        const userRef = admin.firestore().collection('users').doc(userId);
+
         const result = await admin.firestore().runTransaction(async (transaction) => {
-            // 2. Idempotency Check
+
+            // -------------------------
+            // IDEMPOTENCY CHECK
+            // -------------------------
             if (deductionId) {
+
                 const deductionRef = userRef.collection('atom_deductions').doc(deductionId);
                 const deductionDoc = await transaction.get(deductionRef);
 
                 if (deductionDoc.exists) {
-                    // Already processed
-                    const existingData = deductionDoc.data();
-                    console.log(`Idempotency check: Deduction ${deductionId} already exists`);
+
+                    const existing = deductionDoc.data();
+
                     return {
                         success: true,
-                        remainingAtoms: existingData.remainingAtoms, // Return stored state
-                        message: 'Already deducted (idempotent)',
+                        remainingAtoms: existing.remainingAtoms,
                         idempotent: true
                     };
                 }
@@ -1635,38 +1728,22 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
 
             const userDoc = await transaction.get(userRef);
 
-            if (!userDoc.exists) {
-                throw new HttpsError('not-found', 'No atom entitlement found for this user');
-            }
+            if (!userDoc.exists)
+                return { success:false, message:"No entitlement", remainingAtoms:0 };
 
             const entitlement = userDoc.data().atomEntitlement;
 
-            if (!entitlement) {
-                throw new HttpsError('not-found', 'No atom entitlement found for this user');
-            }
+            if (!entitlement)
+                return { success:false, message:"No entitlement", remainingAtoms:0 };
 
-            // Check expiry
-            if (entitlement.expiryTime <= Date.now()) {
-                // Determine if we should fail or just return success:false
-                // Returning success:false allows client to handle gracefully (e.g. show upgrade prompt)
-                return {
-                    success: false,
-                    message: 'Atom entitlement has expired',
-                    remainingAtoms: 0
-                };
-            }
+            if (entitlement.expiryTime <= Date.now())
+                return { success:false, message:"Expired", remainingAtoms:0 };
 
-            // Check remaining atoms
             const remaining = entitlement.totalAtoms - entitlement.consumedAtoms;
-            if (remaining <= 0) {
-                return {
-                    success: false,
-                    message: 'No remaining atoms',
-                    remainingAtoms: 0
-                };
-            }
 
-            // Atomically deduct 1 atom
+            if (remaining <= 0)
+                return { success:false, message:"No atoms", remainingAtoms:0 };
+
             const newConsumed = entitlement.consumedAtoms + 1;
             const newRemaining = entitlement.totalAtoms - newConsumed;
 
@@ -1675,9 +1752,10 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
                 'atomEntitlement.lastUpdated': admin.firestore.FieldValue.serverTimestamp(),
             });
 
-            // Record deduction for idempotency
             if (deductionId) {
+
                 const deductionRef = userRef.collection('atom_deductions').doc(deductionId);
+
                 transaction.set(deductionRef, {
                     deductedAt: admin.firestore.FieldValue.serverTimestamp(),
                     remainingAtoms: newRemaining,
@@ -1686,24 +1764,24 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
             }
 
             return {
-                success: true,
-                totalAtoms: entitlement.totalAtoms,
-                consumedAtoms: newConsumed,
-                remainingAtoms: newRemaining,
-                expiryTime: entitlement.expiryTime,
+                success:true,
+                remainingAtoms:newRemaining,
+                consumedAtoms:newConsumed
             };
         });
 
-        return result;
-    } catch (error) {
-        // Re-throw HttpsError as-is; wrap unexpected errors
-        if (error instanceof HttpsError) {
-            throw error;
-        }
-        console.error('consumeAtom error:', error);
-        throw new HttpsError('internal', 'Failed to consume atom: ' + error.message);
-    }
+        return res.json(result);
 
+    }
+    catch (e) {
+
+        console.error("consumeAtom error", e);
+
+        return res.status(500).json({
+            error:"Internal error",
+            details:e.message
+        });
+    }
 });
 
 /**
@@ -1714,46 +1792,63 @@ exports.consumeAtom = onCall({ region: 'us-central1' }, async (request) => {
  *   - isExpired: whether the entitlement is past its expiry
  *   - hasEntitlement: false if no atom state exists
  */
-exports.getAtomStatus = onCall({ region: 'us-central1' }, async (request) => {
-    const auth = request.auth;
-
-    if (!auth) {
-        throw new HttpsError('unauthenticated', 'User must be authenticated');
-    }
-
-    const userId = auth.uid;
+exports.getAtomStatus = onRequest({ region: 'us-central1' }, async (req, res) => {
 
     try {
+
+        const authHeader = req.headers.authorization || "";
+
+        if (!authHeader.startsWith("Bearer "))
+            return res.status(401).json({error:"Missing token"});
+
+        const token = authHeader.split("Bearer ")[1];
+
+        let decoded;
+
+        try {
+            decoded = await admin.auth().verifyIdToken(token);
+        }
+        catch {
+            return res.status(401).json({error:"Invalid token"});
+        }
+
+        const userId = decoded.uid;
+
         const userDoc = await admin.firestore().collection('users').doc(userId).get();
 
         if (!userDoc.exists || !userDoc.data().atomEntitlement) {
-            return {
-                hasEntitlement: false,
-                totalAtoms: 0,
-                consumedAtoms: 0,
-                remainingAtoms: 0,
-                expiryTime: 0,
-                planKey: null,
-                isExpired: true,
-            };
+
+            return res.json({
+                hasEntitlement:false,
+                remainingAtoms:0
+            });
         }
 
-        const entitlement = userDoc.data().atomEntitlement;
-        const isExpired = entitlement.expiryTime <= Date.now();
-        const remaining = Math.max(0, entitlement.totalAtoms - entitlement.consumedAtoms);
+        const e = userDoc.data().atomEntitlement;
 
-        return {
-            hasEntitlement: true,
-            totalAtoms: entitlement.totalAtoms,
-            consumedAtoms: entitlement.consumedAtoms,
-            remainingAtoms: isExpired ? 0 : remaining,
-            expiryTime: entitlement.expiryTime,
-            planKey: entitlement.planKey || null,
-            isExpired,
-        };
-    } catch (error) {
-        console.error('getAtomStatus error:', error);
-        throw new HttpsError('internal', 'Failed to get atom status: ' + error.message);
+        const isExpired = e.expiryTime <= Date.now();
+        const remaining = Math.max(0, e.totalAtoms - e.consumedAtoms);
+
+        return res.json({
+            hasEntitlement:true,
+            totalAtoms:e.totalAtoms,
+            consumedAtoms:e.consumedAtoms,
+            remainingAtoms:isExpired ? 0 : remaining,
+            expiryTime:e.expiryTime,
+            planKey:e.planKey || null,
+            isExpired
+        });
+
     }
+    catch(e){
+
+        console.error("getAtomStatus error",e);
+
+        return res.status(500).json({
+            error:"Internal error",
+            details:e.message
+        });
+    }
+
 });
 
