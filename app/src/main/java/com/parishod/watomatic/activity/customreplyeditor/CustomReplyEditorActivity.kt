@@ -317,7 +317,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         Log.d("CustomReplyEditor", "Restoring selected reply method: $savedMethod")
 
         // Update UI
-        updateCardExpansionState(savedMethod)
+        selectReplyMethod(savedMethod)
     }
 
     /**
