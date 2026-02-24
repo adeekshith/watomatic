@@ -242,14 +242,14 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
         val apiKey = apiKeyInput.text.toString()
         val model = modelInput.text.toString()
 
-        /*if (apiKey.isEmpty()) {
-            apiKeyInput.error = "API Key is required"
+        if (apiKey.isEmpty()) {
+            Toast.makeText(this, "API key cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
         if (model.isEmpty()) {
-            modelInput.error = "Please select a model"
+            Toast.makeText(this, "Select a model", Toast.LENGTH_SHORT).show()
             return
-        }*/
+        }
 
         // Return result
         val resultIntent = Intent()
