@@ -274,6 +274,7 @@ class SubscriptionInfoActivity : BaseActivity() {
             preferencesManager?.saveFallbackMessage(fallbackMessage)
 
             Toast.makeText(this, R.string.ai_config_saved, Toast.LENGTH_SHORT).show()
+            onNavigateUp()
         }
         
         // Reset to Defaults link
