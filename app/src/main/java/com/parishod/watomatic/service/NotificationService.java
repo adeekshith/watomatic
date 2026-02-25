@@ -263,15 +263,16 @@ public class NotificationService extends NotificationListenerService {
         fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, false);
     }
 
-    private void fetchAtomaticAiReplyInternal(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText, boolean isRetryAfterTokenRefresh) {
+    private void fetchAtomaticAiReplyInternal(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String defaultReply, boolean isRetryAfterTokenRefresh) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
 
+        String fallbackReply = prefs.getFallbackMessage().trim().isEmpty() ? defaultReply : prefs.getFallbackMessage();
         // Get Firebase ID token
         String firebaseToken = prefs.getFirebaseToken();
 
         if (firebaseToken == null || firebaseToken.trim().isEmpty()) {
             Log.e(TAG, "Firebase token not available, falling back to default reply");
-            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            sendActualReply(sbn, notificationWear, fallbackReply);
             return;
         }
 
@@ -299,7 +300,7 @@ public class NotificationService extends NotificationListenerService {
                         sendActualReply(sbn, notificationWear, reply);
                     } else {
                         Log.e(TAG, "Atomatic AI returned empty reply, using fallback");
-                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+                        sendActualReply(sbn, notificationWear, fallbackReply);
                     }
                 } else {
                     // Check if this is an authentication error (401 or 403)
@@ -317,7 +318,7 @@ public class NotificationService extends NotificationListenerService {
                     // If it's an auth error and we haven't retried yet, refresh token and retry
                     if (isAuthError && !isRetryAfterTokenRefresh) {
                         Log.w(TAG, "Atomatic AI authentication failed (code: " + response.code() + "). Attempting token refresh...");
-                        handleTokenExpirationAndRetry(sbn, notificationWear, incomingMessage, fallbackReplyText);
+                        handleTokenExpirationAndRetry(sbn, notificationWear, incomingMessage, fallbackReply);
                     } else {
                         // Either not an auth error, or already retried - use fallback
                         if (isRetryAfterTokenRefresh) {
@@ -325,7 +326,7 @@ public class NotificationService extends NotificationListenerService {
                         } else {
                             Log.e(TAG, "Atomatic AI API failed: " + response.code() + " " + response.message());
                         }
-                        sendActualReply(sbn, notificationWear, fallbackReplyText);
+                        sendActualReply(sbn, notificationWear, fallbackReply);
                     }
                 }
             }
@@ -333,7 +334,7 @@ public class NotificationService extends NotificationListenerService {
             @Override
             public void onFailure(@NonNull Call<AtomaticAIResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "Atomatic AI API network error", t);
-                sendActualReply(sbn, notificationWear, fallbackReplyText);
+                sendActualReply(sbn, notificationWear, defaultReply);
             }
         });
     }

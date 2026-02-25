@@ -407,6 +407,7 @@
     <string name="ai_config_save">Save Configuration</string>
     <string name="ai_config_saved">Configuration saved successfully!</string>
     <string name="ai_config_reset">Configuration reset to defaults</string>
+    <string name="ai_config_empty_error">Custom AI Prompt and Fallback Reply Message Cannot be empty</string>
 
     <!-- Emoji placeholders (for better accessibility) -->
     <string name="icon_crown">👑</string>

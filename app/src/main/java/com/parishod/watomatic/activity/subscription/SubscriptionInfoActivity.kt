@@ -261,7 +261,7 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     private fun setupActiveStateUI() {
         // Load saved AI configuration from preferences
-        aiPromptInput?.setText(preferencesManager?.getOpenAICustomPrompt() ?: "")
+        aiPromptInput?.setText(preferencesManager?.getAtomaticAICustomPrompt() ?: "")
         fallbackMessageInput?.setText(preferencesManager?.getFallbackMessage() ?: "")
 
         // Save Configuration button (reusing manage_subscription_button ID)
@@ -270,7 +270,11 @@ class SubscriptionInfoActivity : BaseActivity() {
             val aiPrompt = aiPromptInput?.text?.toString() ?: ""
             val fallbackMessage = fallbackMessageInput?.text?.toString() ?: ""
 
-            preferencesManager?.saveOpenAICustomPrompt(aiPrompt)
+            if(aiPrompt.isEmpty() && fallbackMessage.isEmpty()) {
+                Toast.makeText(this, R.string.ai_config_empty_error, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            preferencesManager?.saveAtomaticAICustomPrompt(aiPrompt)
             preferencesManager?.saveFallbackMessage(fallbackMessage)
 
             Toast.makeText(this, R.string.ai_config_saved, Toast.LENGTH_SHORT).show()
