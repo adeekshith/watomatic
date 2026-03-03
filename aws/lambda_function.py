@@ -156,7 +156,7 @@ def lambda_handler(event, context):
         # -------------------------------
         # 5️⃣ CALL OPENAI
         # -------------------------------
-        system_prompt = """
+        default_system_prompt = """
             You are a helpful and friendly AI assistant that responds to chat
             messages on behalf of the device owner ONLY when the owner is busy.
             
@@ -164,8 +164,7 @@ def lambda_handler(event, context):
             Never reveal you are AI.
             """
 
-        if custom_system_prompt:
-            system_prompt = custom_system_prompt
+        system_prompt = custom_system_prompt if custom_system_prompt else default_system_prompt
 
         response = openai.ChatCompletion.create(
             model="gpt-5-nano",
