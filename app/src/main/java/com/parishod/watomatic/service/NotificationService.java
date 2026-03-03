@@ -277,7 +277,7 @@ public class NotificationService extends NotificationListenerService {
         }
 
         // Create the request
-        AtomaticAIRequest request = new AtomaticAIRequest(incomingMessage);
+        AtomaticAIRequest request = new AtomaticAIRequest(incomingMessage, prefs.getAtomaticAICustomPrompt());
 
         // Create the service
         AtomaticAIService service = RetrofitInstance.getAtomaticAIRetrofitInstance()

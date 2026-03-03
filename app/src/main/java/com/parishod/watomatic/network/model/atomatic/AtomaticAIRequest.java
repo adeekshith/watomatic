@@ -5,9 +5,20 @@ import com.google.gson.annotations.SerializedName;
 public class AtomaticAIRequest {
     @SerializedName("message")
     private String message;
+    @SerializedName("custom_prompt")
+    private String custom_prompt;
 
-    public AtomaticAIRequest(String message) {
+    public String getPrompt() {
+        return custom_prompt;
+    }
+
+    public void setPrompt(String prompt) {
+        this.custom_prompt = prompt;
+    }
+
+    public AtomaticAIRequest(String message, String prompt) {
         this.message = message;
+        this.custom_prompt = prompt;
     }
 
     public String getMessage() {
