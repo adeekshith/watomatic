@@ -144,6 +144,7 @@ def lambda_handler(event, context):
         # -------------------------------
         body = json.loads(event.get("body", "{}"))
         user_message = body.get("message", "")
+        custom_system_prompt = body.get("custom_prompt", "")
 
         if not user_message:
             return {
@@ -162,6 +163,9 @@ def lambda_handler(event, context):
             Keep responses short, natural, and human-like.
             Never reveal you are AI.
             """
+
+        if custom_system_prompt:
+            system_prompt = custom_system_prompt
 
         response = openai.ChatCompletion.create(
             model="gpt-5-nano",
