@@ -164,12 +164,12 @@ def lambda_handler(event, context):
             """
 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-5-nano",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message}
             ],
-            max_tokens=200,
+            verbosity="low",
             timeout=15
         )
 
