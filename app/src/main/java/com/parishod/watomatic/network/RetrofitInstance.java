@@ -6,6 +6,7 @@ import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -75,6 +76,10 @@ public class RetrofitInstance {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(40, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(45, TimeUnit.SECONDS)
                 .build();
 
         return new Retrofit.Builder()
@@ -122,6 +127,10 @@ public class RetrofitInstance {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(40, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .callTimeout(45, TimeUnit.SECONDS)
                     .build();
 
             atomaticAIRetrofit = new Retrofit.Builder()
