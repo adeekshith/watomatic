@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 // import Constants.kt
@@ -266,7 +267,12 @@ public class NotificationService extends NotificationListenerService {
     private void fetchAtomaticAiReplyInternal(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String defaultReply, boolean isRetryAfterTokenRefresh) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
 
-        String fallbackReply = prefs.getFallbackMessage().trim().isEmpty() ? defaultReply : prefs.getFallbackMessage();
+        String fallbackReply;
+        if(!TextUtils.isEmpty(prefs.getFallbackMessage())){
+            fallbackReply = prefs.getFallbackMessage();
+        } else {
+            fallbackReply = defaultReply;
+        }
         // Get Firebase ID token
         String firebaseToken = prefs.getFirebaseToken();
 

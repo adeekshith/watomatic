@@ -542,7 +542,7 @@ public class PreferencesManager {
     }
 
     public String getAtomaticAICustomPrompt() {
-        return _sharedPrefs.getString(KEY_ATOMATIC_AI_CUSTOM_PROMPT, null);
+        return _sharedPrefs.getString(KEY_ATOMATIC_AI_CUSTOM_PROMPT, "");
     }
 
     public void saveAtomaticAICustomPrompt(String prompt) {
@@ -552,7 +552,7 @@ public class PreferencesManager {
     }
 
     public String getFallbackMessage() {
-        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, null);
+        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, "");
     }
 
     public void saveFallbackMessage(String message) {
