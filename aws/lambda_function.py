@@ -5,7 +5,6 @@ import os
 import urllib3
 import firebase_admin
 from firebase_admin import auth, credentials
-import openai
 
 # ─── LOGGING ───────────────────────────────────────────────
 logger = logging.getLogger()
@@ -17,18 +16,27 @@ _firebase_cred = credentials.Certificate(
 )
 firebase_admin.initialize_app(_firebase_cred)
 
-openai.api_key = os.environ["OPEN_AI_KEY"]
-
-# _openai_client = OpenAI(
-#     api_key=os.environ["OPEN_AI_KEY"],
-#     timeout=15.0,
-#     max_retries=2,
-# )
-
 _http = urllib3.PoolManager(num_pools=2, maxsize=4)
 
+OPEN_AI_KEY = os.environ["OPEN_AI_KEY"]
 CONSUME_ATOM_URL = os.environ["CONSUME_ATOM_URL"]
 CONSUME_ATOM_SECRET = os.environ["CONSUME_ATOM_SECRET"]
+
+OPENAI_URL = "https://api.openai.com/v1/responses"
+
+OPENAI_HEADERS = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {OPEN_AI_KEY}",
+}
+
+OPENAI_BASE_PAYLOAD = {
+    "model": "gpt-5-nano",
+    "reasoning": {"effort": "minimal"},
+    "max_output_tokens": 500,
+    "store": False,
+    "parallel_tool_calls": False,
+    "text": {"verbosity": "low"},
+}
 
 DEFAULT_SYSTEM_PROMPT = (
     "You are a helpful and friendly AI assistant that responds to chat "
@@ -49,15 +57,25 @@ def _json_response(status_code, body):
 
 def _post_json(url, body, headers, timeout=10):
     resp = _http.request(
-        "POST", url,
+        "POST",
+        url,
         body=json.dumps(body).encode("utf-8"),
         headers=headers,
         timeout=timeout,
     )
-    result = json.loads(resp.data.decode("utf-8"))
+
+    data = resp.data.decode("utf-8")
+
+    try:
+        result = json.loads(data)
+    except Exception:
+        logger.error("Invalid JSON response: %s", data)
+        raise
+
     if resp.status >= 400:
-        logger.error("HTTP %d: %s", resp.status, resp.data.decode())
-        raise Exception(f"HTTP {resp.status}: {resp.data.decode()}")
+        logger.error("HTTP %d: %s", resp.status, data)
+        raise Exception(f"HTTP {resp.status}: {data}")
+
     return resp.status, result
 
 
@@ -81,7 +99,7 @@ def lambda_handler(event, context):
             logger.warning("Firebase token invalid: %s", e)
             return _json_response(401, {"success": False, "error": "Invalid Firebase token"})
 
-        # ─── 2. PARSE & VALIDATE BODY (before consuming atom) ──
+        # ─── 2. PARSE BODY ─────────────────────────────────
         body = json.loads(event.get("body", "{}"))
         user_message = body.get("message", "")
         custom_system_prompt = body.get("custom_prompt", "")
@@ -93,44 +111,73 @@ def lambda_handler(event, context):
         status, atom_response = _post_json(
             CONSUME_ATOM_URL,
             {"userId": user_uid, "deductionId": context.aws_request_id},
-            {"Content-Type": "application/json", "Authorization": f"Bearer {CONSUME_ATOM_SECRET}"},
+            {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {CONSUME_ATOM_SECRET}",
+            },
         )
 
         if not atom_response or not atom_response.get("success"):
-            return _json_response(402, {
-                "success": False,
-                "error": "Atom limit exceeded",
-                "details": (atom_response or {}).get("message", "Unknown"),
-            })
+            return _json_response(
+                402,
+                {
+                    "success": False,
+                    "error": "Atom limit exceeded",
+                    "details": (atom_response or {}).get("message", "Unknown"),
+                },
+            )
 
         remaining_atoms = atom_response.get("remainingAtoms")
 
         # ─── 4. CALL OPENAI ───────────────────────────────
         system_prompt = custom_system_prompt or DEFAULT_SYSTEM_PROMPT
 
-        response = openai.ChatCompletion.create(
-            model="gpt-5-nano",
-            messages=[
+        openai_payload = {
+            **OPENAI_BASE_PAYLOAD,
+            "input": [
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
+                {"role": "user", "content": user_message},
             ],
-            verbosity="low",
-            timeout=25
+        }
+
+        status, openai_resp = _post_json(
+            OPENAI_URL,
+            openai_payload,
+            OPENAI_HEADERS,
+            timeout=25,
         )
 
-        ai_reply = response.choices[0].message.content
+        if status != 200:
+            raise Exception(f"OpenAI API error: {openai_resp}")
+
+        ai_reply = ""
+
+        if "output" in openai_resp and isinstance(openai_resp["output"], list):
+            for item in openai_resp["output"]:
+                if item.get("type") == "message":
+                    for c in item.get("content", []):
+                        if c.get("type") == "output_text":
+                            ai_reply += c.get("text", "")
+        else:
+            raise Exception(f"Unexpected response format from OpenAI API: {openai_resp}")
 
         # ─── 5. SUCCESS ───────────────────────────────────
-        return _json_response(200, {
-            "success": True,
-            "reply": ai_reply,
-            "remainingAtoms": remaining_atoms,
-        })
+        return _json_response(
+            200,
+            {
+                "success": True,
+                "reply": ai_reply,
+                "remainingAtoms": remaining_atoms,
+            },
+        )
 
     except Exception as e:
         logger.error("FATAL ERROR: %s", e, exc_info=True)
-        return _json_response(500, {
-            "success": False,
-            "error": "Internal server error",
-            "details": str(e),
-        })
+        return _json_response(
+            500,
+            {
+                "success": False,
+                "error": "Internal server error",
+                "details": str(e),
+            },
+        )
