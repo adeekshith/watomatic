@@ -29,8 +29,9 @@ import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.SharedPreferences
 
-class CustomReplyEditorActivity : BaseActivity() {
+class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     companion object {
         private const val REPLY_METHOD_MANUAL = "manual"
         private const val REPLY_METHOD_AUTOMATIC_AI = "automatic_ai"
@@ -98,6 +99,7 @@ class CustomReplyEditorActivity : BaseActivity() {
     private var btnUpgradePlan: MaterialButton? = null
     private var subscriptionRenewalDate: TextView? = null
     private var subscriptionPlanName: TextView? = null
+    private var automaticAiRemainingReplies: TextView? = null
     private var automaticAiTag: TextView? = null
 
     // BYOK card expanded content
@@ -145,6 +147,9 @@ class CustomReplyEditorActivity : BaseActivity() {
             subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, it)
         }
 
+        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.registerOnSharedPreferenceChangeListener(this)
+
         // Refresh subscription status if needed before initializing UI
         refreshSubscriptionStatusIfNeeded()
 
@@ -163,6 +168,21 @@ class CustomReplyEditorActivity : BaseActivity() {
         super.onResume()
         // Restore the saved reply method and update UI
         restoreSelectedReplyMethod()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if (key == "pref_remaining_atoms") {
+            // Update UI dynamically when remaining atoms change
+            runOnUiThread {
+                updateCardExpansionState(selectedReplyMethod)
+            }
+        }
     }
 
     /**
@@ -210,6 +230,7 @@ class CustomReplyEditorActivity : BaseActivity() {
         btnUpgradePlan = findViewById(R.id.btn_upgrade_plan)
         subscriptionRenewalDate = findViewById(R.id.subscription_renewal_date)
         subscriptionPlanName = findViewById(R.id.subscription_plan_name)
+        automaticAiRemainingReplies = findViewById(R.id.automatic_ai_remaining_replies)
         automaticAiTag = findViewById(R.id.automatic_ai_tag)
         otherAiExpandedContent = findViewById(R.id.other_ai_expanded_content)
     }
@@ -504,6 +525,28 @@ class CustomReplyEditorActivity : BaseActivity() {
                 } else {
                     subscriptionRenewalDate?.text = "Active subscription"
                 }
+
+                // Show remaining atoms
+                val remainingAtoms = preferencesManager?.remainingAtoms ?: -1
+                automaticAiRemainingReplies?.visibility = android.view.View.VISIBLE
+                if (remainingAtoms >= 0) {
+                    automaticAiRemainingReplies?.text = "Remaining Replies: $remainingAtoms"
+                    when {
+                        remainingAtoms == 0 -> {
+                            automaticAiRemainingReplies?.setTextColor(0xFFFF453A.toInt()) // Red
+                        }
+                        remainingAtoms < 10 -> {
+                            automaticAiRemainingReplies?.setTextColor(0xFFFF9F0A.toInt()) // Orange
+                        }
+                        else -> {
+                            // Default text color
+//                            automaticAiRemainingReplies?.setTextColor(getThemeColor(android.R.attr.textColorPrimary))
+                        }
+                    }
+                } else {
+                    automaticAiRemainingReplies?.text = "Remaining Atoms: N/A"
+//                    automaticAiRemainingReplies?.setTextColor(getThemeColor(android.R.attr.textColorPrimary))
+                }
             } else {
                 // Not configured state - user needs subscription
                 automaticAiTag?.text = getString(R.string.badge_free)
@@ -518,6 +561,28 @@ class CustomReplyEditorActivity : BaseActivity() {
 
                 automaticAiNotSubscribedSection?.visibility = android.view.View.VISIBLE
                 automaticAiSubscribedSection?.visibility = android.view.View.GONE
+                
+                // Show remaining atoms even when not subscribed, but it might be --
+                val remainingAtoms = preferencesManager?.remainingAtoms ?: -1
+                automaticAiRemainingReplies?.visibility = android.view.View.GONE
+                /*if (remainingAtoms >= 0) {
+                    automaticAiRemainingReplies?.text = "Remaining Replies: $remainingAtoms"
+                    when {
+                        remainingAtoms == 0 -> {
+                            automaticAiRemainingReplies?.setTextColor(0xFFFF453A.toInt()) // Red
+                        }
+                        remainingAtoms < 10 -> {
+                            automaticAiRemainingReplies?.setTextColor(0xFFFF9F0A.toInt()) // Orange
+                        }
+                        else -> {
+                            // Default text color
+                            automaticAiRemainingReplies?.setTextColor(getThemeColor(android.R.attr.textColorSecondary))
+                        }
+                    }
+                } else {
+                    automaticAiRemainingReplies?.text = "Remaining Atoms: --"
+                    automaticAiRemainingReplies?.setTextColor(getThemeColor(android.R.attr.textColorSecondary))
+                }*/
             }
         } else {
             // Collapse Automatic AI card when not selected

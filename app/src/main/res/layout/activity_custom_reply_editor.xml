@@ -380,6 +380,15 @@
                                         android:textColor="?android:textColorPrimary" />
 
                                     <TextView
+                                        android:id="@+id/automatic_ai_remaining_replies"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Remaining Replies: N/A"
+                                        android:textSize="13sp"
+                                        android:textColor="?android:textColorPrimary"
+                                        android:visibility="gone"/>
+
+                                    <TextView
                                         android:id="@+id/subscription_renewal_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"

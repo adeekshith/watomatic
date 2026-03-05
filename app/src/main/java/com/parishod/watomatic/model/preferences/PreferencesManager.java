@@ -71,6 +71,7 @@ public class PreferencesManager {
     private final String KEY_LAST_VERIFIED_TIME = "pref_last_verified_time";
     private final String KEY_SELECTED_REPLY_METHOD = "pref_selected_reply_method";
     private final String KEY_SUBSCRIPTION_STATUS_LAST_CHECKED = "pref_subscription_status_last_checked";
+    private final String KEY_REMAINING_ATOMS = "pref_remaining_atoms";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -692,6 +693,16 @@ public class PreferencesManager {
     public void setSubscriptionStatusLastChecked(long timestamp) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_SUBSCRIPTION_STATUS_LAST_CHECKED, timestamp);
+        editor.apply();
+    }
+
+    public int getRemainingAtoms() {
+        return _sharedPrefs.getInt(KEY_REMAINING_ATOMS, -1);
+    }
+
+    public void setRemainingAtoms(int atoms) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putInt(KEY_REMAINING_ATOMS, atoms);
         editor.apply();
     }
 }

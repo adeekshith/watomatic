@@ -303,6 +303,7 @@ public class NotificationService extends NotificationListenerService {
 
                     if (reply != null && !reply.trim().isEmpty()) {
                         Log.i(TAG, "Atomatic AI successful response. Remaining atoms: " + remainingAtoms);
+                        prefs.setRemainingAtoms(remainingAtoms);
                         sendActualReply(sbn, notificationWear, reply);
                     } else {
                         Log.e(TAG, "Atomatic AI returned empty reply, using fallback");
