@@ -304,6 +304,7 @@ public class NotificationService extends NotificationListenerService {
                     if (reply != null && !reply.trim().isEmpty()) {
                         Log.i(TAG, "Atomatic AI successful response. Remaining atoms: " + remainingAtoms);
                         prefs.setRemainingAtoms(remainingAtoms);
+                        checkAndNotifyQuotaExhausted(remainingAtoms);
                         sendActualReply(sbn, notificationWear, reply);
                     } else {
                         Log.e(TAG, "Atomatic AI returned empty reply, using fallback");
@@ -540,6 +541,45 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isServiceEnabled() {
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+    }
+
+    /**
+     * Check if the user's quota is exhausted and show a notification if needed.
+     * Rate-limited to at most once every 24 hours.
+     */
+    private void checkAndNotifyQuotaExhausted(int remainingAtoms) {
+        Log.d("QuotaExhaustedChecker", "Remaining atoms: " + remainingAtoms);
+        if (remainingAtoms > 0) return;
+
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+        long lastShown = prefs.getQuotaNotificationLastShown();
+        long now = System.currentTimeMillis();
+        long TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000L;
+
+        if (lastShown == 0 || (now - lastShown) >= TWENTY_FOUR_HOURS_MS) {
+            prefs.setQuotaNotificationLastShown(now);
+
+            // Determine if user is on highest plan (pro)
+            boolean isHighestPlan = isOnHighestPlan(prefs);
+            String renewalDate = null;
+            if (isHighestPlan) {
+                long expiryTime = prefs.getSubscriptionExpiryTime();
+                if (expiryTime > 0) {
+                    renewalDate = new java.text.SimpleDateFormat(
+                            "MMMM dd, yyyy", java.util.Locale.getDefault()
+                    ).format(new java.util.Date(expiryTime));
+                }
+            }
+            NotificationUtils.showQuotaExhaustedNotification(this, isHighestPlan, renewalDate);
+        }
+    }
+
+    /**
+     * Check if the user is on the highest subscription plan (pro).
+     */
+    private boolean isOnHighestPlan(PreferencesManager prefs) {
+        String productId = prefs.getSubscriptionProductId();
+        return productId != null && productId.toLowerCase().contains("pro");
     }
 
     @Override

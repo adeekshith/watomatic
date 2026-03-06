@@ -78,6 +78,12 @@ class SubscriptionInfoActivity : BaseActivity() {
         mode = SubscriptionMode.fromIntent(intent)
         Log.d("SubscriptionInfo", "Opened with mode: $mode")
 
+        // Dismiss quota exhausted notification if opened from it
+        if (intent.getBooleanExtra("from_quota_notification", false)) {
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as android.app.NotificationManager
+            notificationManager.cancel(1002) // QUOTA_NOTIFICATION_ID
+        }
+
         // Setup toolbar
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

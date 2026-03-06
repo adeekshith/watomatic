@@ -9,11 +9,14 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
 import com.parishod.watomatic.NotificationWear;
+import com.parishod.watomatic.R;
+import com.parishod.watomatic.activity.subscription.SubscriptionInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,5 +181,74 @@ public class NotificationUtils {
 
         // Show Notification
         notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private static final String QUOTA_CHANNEL_ID = "default";
+    private static final String QUOTA_CHANNEL_NAME = "Quota Alerts";
+    private static final int QUOTA_NOTIFICATION_ID = 1002;
+
+    /**
+     * Show a notification when the user's quota is exhausted.
+     * If the user is on the highest plan, show the renewal date without an Upgrade button.
+     * Otherwise, show an Upgrade button that navigates to SubscriptionInfoActivity.
+     *
+     * @param context       Application context
+     * @param isHighestPlan true if the user is already on the highest plan (pro)
+     * @param renewalDate   formatted renewal date string, or null if unknown
+     */
+    public static void showQuotaExhaustedNotification(Context context, boolean isHighestPlan, String renewalDate) {
+        Log.d("QuotaExhaustedChecker", "showQuotaExhaustedNotification");
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create notification channel for Android O+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (notificationManager.getNotificationChannel(QUOTA_CHANNEL_ID) == null) {
+                NotificationChannel channel = new NotificationChannel(
+                        QUOTA_CHANNEL_ID,
+                        QUOTA_CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                channel.setDescription("Alerts when your AI reply quota is exhausted");
+//                channel.enableVibration(true);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        // Build the notification message
+        String title = context.getString(R.string.quota_exhausted_title);
+        String message;
+        if (isHighestPlan && renewalDate != null) {
+            message = context.getString(R.string.quota_exhausted_message_highest_plan, renewalDate);
+        } else {
+            message = context.getString(R.string.quota_exhausted_message);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, QUOTA_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_logo_full)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_STATUS)
+                .setAutoCancel(true);
+
+        // Only show Upgrade button if user is NOT on the highest plan
+        if (!isHighestPlan) {
+            // Create intent to open SubscriptionInfoActivity in UPGRADE mode
+            Intent upgradeIntent = new Intent(context, SubscriptionInfoActivity.class);
+            upgradeIntent.putExtra("subscription_mode", "UPGRADE");
+            upgradeIntent.putExtra("from_quota_notification", true);
+            upgradeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            PendingIntent upgradePendingIntent = PendingIntent.getActivity(
+                    context, QUOTA_NOTIFICATION_ID, upgradeIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+            builder.addAction(0, context.getString(R.string.upgrade_now), upgradePendingIntent);
+            builder.setContentIntent(upgradePendingIntent);
+        }
+
+        notificationManager.notify(QUOTA_NOTIFICATION_ID, builder.build());
     }
 }

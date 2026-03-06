@@ -444,4 +444,10 @@
     <!-- Subscription Date Labels -->
     <string name="subscription_renews_on">Renews on %s</string>
     <string name="subscription_expires_on">Expires on %s</string>
+
+    <!-- Quota Exhausted Notification -->
+    <string name="quota_exhausted_title">Quota Exhausted</string>
+    <string name="quota_exhausted_message">Your quota has been completed. Please upgrade to a higher plan to continue using the service.</string>
+    <string name="quota_exhausted_message_highest_plan">Your quota has been completed. It will renew on %1$s.</string>
+    <string name="upgrade_now">Upgrade</string>
 </resources>
