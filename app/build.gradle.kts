@@ -110,6 +110,9 @@ dependencies {
             add("implementation", libs.firebase.functions)
             add("implementation", libs.play.services.auth)
             add("implementation", libs.billing)
+            add("implementation", libs.credentials)
+            add("implementation", libs.credentials.play.services.auth)
+            add("implementation", libs.googleid)
         }
     }
 }
