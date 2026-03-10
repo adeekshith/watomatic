@@ -86,13 +86,36 @@ class FirebaseBackendService(private val context: Context) : BackendService {
                 )
             }
             
-            VerificationResult(
+            val verificationResult = VerificationResult(
                 isValid = resultData["isValid"] as? Boolean ?: false,
                 expiryTime = (resultData["expiryTime"] as? Number)?.toLong() ?: 0,
                 autoRenewing = resultData["autoRenewing"] as? Boolean ?: false,
                 planType = resultData["planType"] as? String ?: "",
                 error = resultData["error"] as? String
             )
+
+            // Extract and persist remaining atoms from atomEntitlement if verification is successful
+            if (verificationResult.isValid) {
+                try {
+                    val atomEntitlement = resultData["atomEntitlement"] as? Map<*, *>
+                    if (atomEntitlement != null) {
+                        val remainingAtoms = (atomEntitlement["remainingAtoms"] as? Number)?.toInt()
+                        if (remainingAtoms != null) {
+                            val prefs = com.parishod.watomatic.model.preferences.PreferencesManager.getPreferencesInstance(context)
+                            prefs.setRemainingAtoms(remainingAtoms)
+                            Log.d(TAG, "Updated remaining atoms from verifyPurchase: $remainingAtoms")
+                        } else {
+                            Log.w(TAG, "remainingAtoms field is missing or null in atomEntitlement")
+                        }
+                    } else {
+                        Log.w(TAG, "atomEntitlement object not found in verifyPurchase response")
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to extract/persist remaining atoms from verifyPurchase response", e)
+                }
+            }
+
+            verificationResult
         } catch (e: Exception) {
             Log.e(TAG, "Verification failed", e)
             VerificationResult(
