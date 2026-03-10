@@ -18,6 +18,7 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.network.OpenAIService
+import com.parishod.watomatic.utils.UnsavedChangesDialog
 import com.parishod.watomatic.network.RetrofitInstance
 import com.parishod.watomatic.network.model.openai.OpenAIModelsResponse
 import retrofit2.Call
@@ -36,12 +37,35 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
     private val providers = listOf("OpenAI", "Claude", "Grok", "Gemini", "DeepSeek", "Mistral", "Custom")
     private val providerUrls = Constants.PROVIDER_URLS
 
+    private lateinit var preferencesManager: PreferencesManager
+
+    // Track initial state for unsaved changes detection
+    private var initialProvider: String = ""
+    private var initialApiKey: String = ""
+    private var initialBaseUrl: String = ""
+    private var initialModel: String = ""
+    private var initialSystemPrompt: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_ai_configuration)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Setup back button handler for unsaved changes
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Check if configuration has changed
+                if (hasUnsavedChanges()) {
+                    showUnsavedChangesDialog()
+                } else {
+                    // Default behavior - remove callback and trigger back
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
         providerInput = findViewById(R.id.llmProviderAutoCompleteTextView)
         apiKeyInput = findViewById(R.id.apiKeyEditText)
@@ -60,37 +84,59 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
             saveConfiguration()
         }
     }
-    
-    private lateinit var preferencesManager: PreferencesManager
 
     private fun prefillData() {
         val savedProvider = preferencesManager.openApiSource
         if (!savedProvider.isNullOrEmpty()) {
             providerInput.setText(savedProvider, false)
             updateBaseUrlVisibility(savedProvider)
+            initialProvider = savedProvider
         } else {
              providerInput.setText(providers[0], false)
+             initialProvider = providers[0]
         }
 
         val savedApiKey = preferencesManager.openAIApiKey
         if (!savedApiKey.isNullOrEmpty()) {
             apiKeyInput.setText(savedApiKey)
+            initialApiKey = savedApiKey
+        } else {
+            initialApiKey = ""
         }
 
         val savedBaseUrl = preferencesManager.customOpenAIApiUrl
         if (!savedBaseUrl.isNullOrEmpty()) {
             baseUrlInput.setText(savedBaseUrl)
+            initialBaseUrl = savedBaseUrl
+        } else {
+            initialBaseUrl = ""
         }
 
         val savedModel = preferencesManager.selectedOpenAIModel
         if (!savedModel.isNullOrEmpty()) {
             modelInput.setText(savedModel, false)
+            initialModel = savedModel
+        } else {
+            initialModel = ""
         }
 
         val savedPrompt = preferencesManager.openAICustomPrompt
         if (!savedPrompt.isNullOrEmpty()) {
             systemPromptInput.setText(savedPrompt)
+            initialSystemPrompt = savedPrompt
+        } else {
+            initialSystemPrompt = ""
         }
+
+        // Capture actual UI state after prefilling (handles XML defaults and preference defaults)
+        // This ensures we compare against what's actually displayed
+        initialProvider = providerInput.text.toString()
+        initialApiKey = apiKeyInput.text.toString()
+        initialBaseUrl = baseUrlInput.text.toString()
+        initialModel = modelInput.text.toString()
+        initialSystemPrompt = systemPromptInput.text.toString()
+
+        Log.d("OtherAiConfig", "Initial state - Provider: '$initialProvider', ApiKey: '$initialApiKey', BaseUrl: '$initialBaseUrl', Model: '$initialModel', Prompt: '$initialSystemPrompt'")
     }
 
     private fun setupProviderDropdown() {
@@ -261,8 +307,55 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
             resultIntent.putExtra("baseUrl", baseUrlInput.text.toString())
         }
 
+        // Update initial state to prevent unsaved changes dialog
+        initialProvider = provider
+        initialApiKey = apiKey
+        initialModel = model
+        initialSystemPrompt = systemPromptInput.text.toString()
+        initialBaseUrl = if (provider == "Custom") baseUrlInput.text.toString() else ""
+
         setResult(RESULT_OK, resultIntent)
         finish()
+    }
+
+    /**
+     * Check if the current configuration has changed from the initial state
+     */
+    private fun hasUnsavedChanges(): Boolean {
+        val currentProvider = providerInput.text.toString()
+        val currentApiKey = apiKeyInput.text.toString()
+        val currentBaseUrl = baseUrlInput.text.toString()
+        val currentModel = modelInput.text.toString()
+        val currentSystemPrompt = systemPromptInput.text.toString()
+
+        val changed = currentProvider != initialProvider ||
+                currentApiKey != initialApiKey ||
+                currentBaseUrl != initialBaseUrl ||
+                currentModel != initialModel ||
+                currentSystemPrompt != initialSystemPrompt
+
+        Log.d("OtherAiConfig", "hasUnsavedChanges: $changed")
+        if (changed) {
+            Log.d("OtherAiConfig", "  Provider: '$currentProvider' vs '$initialProvider' = ${currentProvider != initialProvider}")
+            Log.d("OtherAiConfig", "  ApiKey: '$currentApiKey' vs '$initialApiKey' = ${currentApiKey != initialApiKey}")
+            Log.d("OtherAiConfig", "  BaseUrl: '$currentBaseUrl' vs '$initialBaseUrl' = ${currentBaseUrl != initialBaseUrl}")
+            Log.d("OtherAiConfig", "  Model: '$currentModel' vs '$initialModel' = ${currentModel != initialModel}")
+            Log.d("OtherAiConfig", "  Prompt: '$currentSystemPrompt' vs '$initialSystemPrompt' = ${currentSystemPrompt != initialSystemPrompt}")
+        }
+        return changed
+    }
+
+    /**
+     * Show a dialog to confirm discarding unsaved configuration changes
+     */
+    private fun showUnsavedChangesDialog() {
+        UnsavedChangesDialog.show(
+            context = this,
+            onDiscard = {
+                // Navigate back without saving
+                finish()
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -273,7 +366,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 true
             }
             R.id.action_save -> {
