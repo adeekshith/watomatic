@@ -22,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.billing.BillingManager
+import com.parishod.watomatic.utils.UnsavedChangesDialog
 import com.parishod.watomatic.billing.BillingManagerImpl
 import com.parishod.watomatic.billing.PurchaseUpdateListener
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -975,20 +976,13 @@ class SubscriptionInfoActivity : BaseActivity() {
      * Show a dialog to confirm discarding unsaved changes
      */
     private fun showUnsavedChangesDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.unsaved_changes_title)
-            .setMessage(R.string.unsaved_changes_message)
-            .setPositiveButton(R.string.discard_changes) { dialog, _ ->
-                // User wants to discard changes and go back
-                dialog.dismiss()
+        UnsavedChangesDialog.show(
+            context = this,
+            onDiscard = {
                 isDirty = false  // Clear dirty flag to prevent dialog from showing again
                 finish()  // Close the activity
             }
-            .setNegativeButton(R.string.stay_on_page) { dialog, _ ->
-                // User wants to stay on the page
-                dialog.dismiss()
-            }
-            .show()
+        )
     }
 
     override fun onDestroy() {

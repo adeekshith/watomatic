@@ -25,6 +25,7 @@ import com.parishod.watomatic.activity.subscription.SubscriptionMode
 import com.parishod.watomatic.flavor.FlavorNavigator
 import com.parishod.watomatic.model.CustomRepliesData
 import com.parishod.watomatic.model.preferences.PreferencesManager
+import com.parishod.watomatic.utils.UnsavedChangesDialog
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -106,6 +107,7 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
     private var otherAiExpandedContent: android.view.View? = null
 
     private var selectedReplyMethod = REPLY_METHOD_MANUAL
+    private var initialSelectedReplyMethod = REPLY_METHOD_MANUAL
 
     private val otherAiConfigLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -137,6 +139,20 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Setup back button handler for unsaved selection changes
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Check if selection has changed
+                if (hasSelectionChanged()) {
+                    showUnsavedChangesDialog()
+                } else {
+                    // Default behavior - remove callback and trigger back
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
         ViewModelProvider(this)[SwipeToKillAppDetectViewModel::class.java]
 
@@ -337,6 +353,9 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
         var savedMethod = getSelectedReplyMethod()
         Log.d("CustomReplyEditor", "Restoring selected reply method: $savedMethod")
 
+        // Save initial selection state for unsaved changes detection
+        initialSelectedReplyMethod = savedMethod
+
         // Update UI
         selectReplyMethod(savedMethod)
     }
@@ -395,7 +414,10 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
             }
         }
 
-        // Save successful, navigate back
+        // Save successful, update initial selection to prevent unsaved changes dialog
+        initialSelectedReplyMethod = selectedReplyMethod
+
+        // Navigate back
         onNavigateUp()
     }
 
@@ -685,9 +707,31 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
         }, 100)
     }
 
+    /**
+     * Check if the current selection has changed from the initial selection
+     */
+    private fun hasSelectionChanged(): Boolean {
+        val changed = selectedReplyMethod != initialSelectedReplyMethod
+        Log.d("CustomReplyEditor", "hasSelectionChanged: $changed (current: $selectedReplyMethod, initial: $initialSelectedReplyMethod)")
+        return changed
+    }
+
+    /**
+     * Show a dialog to confirm discarding unsaved selection changes
+     */
+    private fun showUnsavedChangesDialog() {
+        UnsavedChangesDialog.show(
+            context = this,
+            onDiscard = {
+                // Reset selection to initial state and navigate back
+                finish()
+            }
+        )
+    }
+
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
