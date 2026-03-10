@@ -1,6 +1,8 @@
 package com.parishod.watomatic.activity.subscription
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -14,6 +16,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.parishod.watomatic.R
@@ -57,6 +60,12 @@ class SubscriptionInfoActivity : BaseActivity() {
     private var aiPromptInput: android.widget.EditText? = null
     private var fallbackMessageInput: android.widget.EditText? = null
 
+    // Dirty state tracking for Active State
+    private var isDirty = false
+    private var initialAiPrompt: String = ""
+    private var initialFallbackMessage: String = ""
+    private var currentUIState: UIState = UIState.LOADING
+
     // State
     private var selectedProductDetails: ProductDetails? = null
     private var selectedPlanName: String? = null
@@ -77,6 +86,20 @@ class SubscriptionInfoActivity : BaseActivity() {
         // Read mode from intent
         mode = SubscriptionMode.fromIntent(intent)
         Log.d("SubscriptionInfo", "Opened with mode: $mode")
+
+        // Setup back button handler for unsaved changes
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Check if we're in ACTIVE state and have unsaved changes
+                if (currentUIState == UIState.ACTIVE && isDirty) {
+                    showUnsavedChangesDialog()
+                } else {
+                    // Default behavior - remove callback and trigger back
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
         // Dismiss quota exhausted notification if opened from it
         if (intent.getBooleanExtra("from_quota_notification", false)) {
@@ -147,6 +170,9 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     private fun showUIState(state: UIState) {
         Log.d("SubscriptionInfo", "Showing UI state: $state")
+
+        // Track current state
+        currentUIState = state
 
         // Hide all states first
         loadingStateView?.visibility = View.GONE
@@ -267,8 +293,28 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     private fun setupActiveStateUI() {
         // Load saved AI configuration from preferences
-        aiPromptInput?.setText(preferencesManager?.getAtomaticAICustomPrompt() ?: "")
-        fallbackMessageInput?.setText(preferencesManager?.getFallbackMessage() ?: "")
+        val savedAiPrompt = preferencesManager?.getAtomaticAICustomPrompt() ?: ""
+        val savedFallbackMessage = preferencesManager?.getFallbackMessage() ?: ""
+
+        aiPromptInput?.setText(savedAiPrompt)
+        fallbackMessageInput?.setText(savedFallbackMessage)
+
+        // Store initial values for dirty tracking
+        initialAiPrompt = savedAiPrompt
+        initialFallbackMessage = savedFallbackMessage
+        isDirty = false
+
+        // Add TextWatchers to detect changes
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                checkDirtyState()
+            }
+        }
+
+        aiPromptInput?.addTextChangedListener(textWatcher)
+        fallbackMessageInput?.addTextChangedListener(textWatcher)
 
         // Save Configuration button (reusing manage_subscription_button ID)
         manageButton?.setOnClickListener {
@@ -283,6 +329,11 @@ class SubscriptionInfoActivity : BaseActivity() {
             preferencesManager?.saveAtomaticAICustomPrompt(aiPrompt)
             preferencesManager?.saveFallbackMessage(fallbackMessage)
 
+            // Reset dirty state after successful save
+            initialAiPrompt = aiPrompt
+            initialFallbackMessage = fallbackMessage
+            isDirty = false
+
             Toast.makeText(this, R.string.ai_config_saved, Toast.LENGTH_SHORT).show()
             onNavigateUp()
         }
@@ -295,6 +346,16 @@ class SubscriptionInfoActivity : BaseActivity() {
         }
     }
     
+    /**
+     * Check if user has made changes to the configuration
+     */
+    private fun checkDirtyState() {
+        val currentAiPrompt = aiPromptInput?.text?.toString() ?: ""
+        val currentFallbackMessage = fallbackMessageInput?.text?.toString() ?: ""
+
+        isDirty = currentAiPrompt != initialAiPrompt || currentFallbackMessage != initialFallbackMessage
+    }
+
     private fun updateActiveSubscriptionDetails(state: SubscriptionState) {
         // Update plan type - use actual product name if available
         val planType = if (!state.productName.isNullOrEmpty()) {
@@ -910,6 +971,26 @@ class SubscriptionInfoActivity : BaseActivity() {
         statusTextView?.visibility = View.VISIBLE
     }
 
+    /**
+     * Show a dialog to confirm discarding unsaved changes
+     */
+    private fun showUnsavedChangesDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.unsaved_changes_title)
+            .setMessage(R.string.unsaved_changes_message)
+            .setPositiveButton(R.string.discard_changes) { dialog, _ ->
+                // User wants to discard changes and go back
+                dialog.dismiss()
+                isDirty = false  // Clear dirty flag to prevent dialog from showing again
+                finish()  // Close the activity
+            }
+            .setNegativeButton(R.string.stay_on_page) { dialog, _ ->
+                // User wants to stay on the page
+                dialog.dismiss()
+            }
+            .show()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         billingManager?.destroy()
@@ -917,7 +998,7 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)

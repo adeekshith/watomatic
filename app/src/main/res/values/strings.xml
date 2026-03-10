@@ -408,6 +408,10 @@
     <string name="ai_config_saved">Configuration saved successfully!</string>
     <string name="ai_config_reset">Configuration reset to defaults</string>
     <string name="ai_config_empty_error">Custom AI Prompt and Fallback Reply Message Cannot be empty</string>
+    <string name="unsaved_changes_title">Unsaved Changes</string>
+    <string name="unsaved_changes_message">You have unsaved changes. Do you want to discard them and leave this page?</string>
+    <string name="discard_changes">Discard</string>
+    <string name="stay_on_page">Stay</string>
 
     <!-- Emoji placeholders (for better accessibility) -->
     <string name="icon_crown">👑</string>
