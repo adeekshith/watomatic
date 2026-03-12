@@ -28,6 +28,7 @@ import com.parishod.watomatic.billing.PurchaseUpdateListener
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.subscription.SubscriptionState
 import androidx.lifecycle.lifecycleScope
+import com.parishod.watomatic.model.utils.Constants
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -294,7 +295,7 @@ class SubscriptionInfoActivity : BaseActivity() {
 
     private fun setupActiveStateUI() {
         // Load saved AI configuration from preferences
-        val savedAiPrompt = preferencesManager?.getAtomaticAICustomPrompt() ?: ""
+        val savedAiPrompt = preferencesManager?.getAtomaticAICustomPrompt() ?: Constants.DEFAULT_LLM_PROMPT
         val savedFallbackMessage = preferencesManager?.getFallbackMessage() ?: ""
 
         aiPromptInput?.setText(savedAiPrompt)
@@ -320,13 +321,16 @@ class SubscriptionInfoActivity : BaseActivity() {
         // Save Configuration button (reusing manage_subscription_button ID)
         manageButton?.setOnClickListener {
             // Save AI configuration
-            val aiPrompt = aiPromptInput?.text?.toString() ?: ""
+            // Get the current value from the edit box (will be default prompt or user-edited)
+            val aiPrompt = aiPromptInput?.text?.toString() ?: Constants.DEFAULT_LLM_PROMPT
             val fallbackMessage = fallbackMessageInput?.text?.toString() ?: ""
 
             if(aiPrompt.isEmpty() && fallbackMessage.isEmpty()) {
                 Toast.makeText(this, R.string.ai_config_empty_error, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // Save the prompt to preferences (will be default or user-edited)
             preferencesManager?.saveAtomaticAICustomPrompt(aiPrompt)
             preferencesManager?.saveFallbackMessage(fallbackMessage)
 
@@ -341,7 +345,8 @@ class SubscriptionInfoActivity : BaseActivity() {
         
         // Reset to Defaults link
         helpLink?.setOnClickListener {
-            aiPromptInput?.setText("")
+            // Reset to default prompt instead of empty string
+            aiPromptInput?.setText(Constants.DEFAULT_LLM_PROMPT)
             fallbackMessageInput?.setText("")
             Toast.makeText(this, R.string.ai_config_reset, Toast.LENGTH_SHORT).show()
         }
