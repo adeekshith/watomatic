@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.activity)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.robolectric)
     testImplementation(libs.test.core)
     androidTestImplementation(libs.ext.junit)

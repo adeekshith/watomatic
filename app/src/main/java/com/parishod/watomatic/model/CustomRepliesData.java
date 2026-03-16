@@ -41,6 +41,11 @@ public class CustomRepliesData {
         return _INSTANCE;
     }
 
+    @androidx.annotation.VisibleForTesting
+    public static void resetInstance() {
+        _INSTANCE = null;
+    }
+
     /**
      * Execute this code when the singleton is first created. All the tasks that needs to be done
      * when the instance is first created goes here. For example, set specific keys based on new install
@@ -49,7 +54,12 @@ public class CustomRepliesData {
     private void init() {
         // Set default auto reply message on first install
         if (!_sharedPrefs.contains(KEY_CUSTOM_REPLY_ALL)) {
-            set(thisAppContext.getString(R.string.auto_reply_default_message));
+            try {
+                set(thisAppContext.getString(R.string.auto_reply_default_message));
+            } catch (android.content.res.Resources.NotFoundException e) {
+                // Resources unavailable (e.g. unit-test environment); use a safe fallback
+                set("Auto Reply\nI'm currently unavailable and will get back to you as soon as I can.");
+            }
         }
     }
 
