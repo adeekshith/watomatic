@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="?attr/colorOnSurface"
+            app:titleTextColor="?attr/colorOnSurface"
+            app:titleCentered="true" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/subscription_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Loading State -->
+        <LinearLayout
+            android:id="@+id/loading_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscription_loading"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscription_loading_description"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Active Subscription State -->
+        <LinearLayout
+            android:id="@+id/active_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="16dp">
+
+                    <!-- Active Status Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="16dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="?attr/colorOutline"
+                        android:layout_marginBottom="24dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:gravity="center_vertical">
+
+                            <!-- Premium Icon -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                app:cardElevation="0dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardBackgroundColor="#E3F2FD"
+                                android:layout_marginEnd="12dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="👑"
+                                    android:gravity="center"
+                                    android:textSize="18sp" />
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Plan Info -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/subscription_plan_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Mini Plan - Active"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/ai_config_basic_capabilities"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                            </LinearLayout>
+
+                            <!-- Upgrade Button (hidden for now) -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Upgrade"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                android:textColor="?attr/colorPrimary"
+                                android:background="#E3F2FD"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Custom AI Prompt Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp">
+
+                        <!-- Section Header -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_brain"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ai_config_custom_prompt_header"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05" />
+
+                        </LinearLayout>
+
+                        <!-- AI Prompt Input -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="0dp"
+                            app:cardCornerRadius="16dp"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="?attr/colorOutline"
+                            android:layout_marginBottom="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <EditText
+                                    android:id="@+id/ai_prompt_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="160dp"
+                                    android:padding="16dp"
+                                    android:gravity="top|start"
+                                    android:hint="@string/ai_config_prompt_hint"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                                    android:background="@android:color/transparent"
+                                    android:inputType="textMultiLine|textCapSentences"
+                                    android:scrollbars="vertical"
+                                    android:maxLength="500"
+                                    android:importantForAutofill="no" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/ai_config_char_limit"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:layout_gravity="end"
+                                    android:paddingEnd="16dp"
+                                    android:paddingBottom="8dp"
+                                    android:paddingStart="16dp" />
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Help Text -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ai_config_prompt_help"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:paddingHorizontal="4dp" />
+
+                    </LinearLayout>
+
+                    <!-- Fallback Reply Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp">
+
+                        <!-- Section Header -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_warning"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ai_config_fallback_header"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05" />
+
+                        </LinearLayout>
+
+                        <!-- Fallback Input -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="0dp"
+                            app:cardCornerRadius="16dp"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="?attr/colorOutline"
+                            android:layout_marginBottom="8dp">
+
+                            <EditText
+                                android:id="@+id/fallback_message_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="96dp"
+                                android:padding="16dp"
+                                android:gravity="top|start"
+                                android:hint="@string/ai_config_fallback_hint"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textColorHint="?attr/colorOnSurfaceVariant"
+                                android:background="@android:color/transparent"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:scrollbars="vertical"
+                                android:importantForAutofill="no" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Help Text -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ai_config_fallback_help"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:paddingHorizontal="4dp" />
+
+                    </LinearLayout>
+
+                    <!-- Info Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="16dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="?attr/colorOutline"
+                        android:layout_marginBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_info"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="12dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/ai_config_info_message"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Subscription Details (Renewal Date) - hidden, used in Activity code -->
+                    <TextView
+                        android:id="@+id/subscription_renewal_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="Renews: January 28, 2027"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone" />
+
+                    <!-- Help Link -->
+                    <TextView
+                        android:id="@+id/help_learn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ai_config_reset_defaults"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_gravity="center"
+                        android:padding="12dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Bottom Fixed Button Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="24dp"
+                android:background="?attr/colorSurface"
+                android:elevation="8dp">
+
+                <!-- Save Configuration Button -->
+                <Button
+                    android:id="@+id/manage_subscription_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ai_config_save"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:paddingVertical="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Inactive Subscription State (Purchase Flow) - ViewPager2 with Tabs -->
+        <include layout="@layout/inactive_state_viewpager" />
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

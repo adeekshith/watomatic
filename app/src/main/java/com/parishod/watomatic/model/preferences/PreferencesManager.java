@@ -49,15 +49,30 @@ public class PreferencesManager {
     private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
     private final String KEY_OPENAI_API_SOURCE = "pref_openai_api_source";
     private final String KEY_OPENAI_CUSTOM_API_URL = "pref_openai_custom_api_url";
-    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies";
+    private final String KEY_ENABLE_OPENAI_REPLIES = "pref_enable_openai_replies"; // Deprecated - kept for migration
+    private final String KEY_ENABLE_AUTOMATIC_AI_REPLIES = "pref_enable_automatic_ai_replies";
+    private final String KEY_ENABLE_BYOK_REPLIES = "pref_enable_byok_replies";
     private final String KEY_OPENAI_SELECTED_MODEL = "pref_openai_selected_model";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_MESSAGE = "pref_openai_last_persistent_error_message";
     private final String KEY_OPENAI_LAST_PERSISTENT_ERROR_TIMESTAMP = "pref_openai_last_persistent_error_timestamp";
     private final String KEY_OPENAI_CUSTOM_PROMPT = "pref_openai_prompt";
+    private final String KEY_ATOMATIC_AI_CUSTOM_PROMPT = "pref_atomatic_ai_prompt";
+    private final String KEY_FALLBACK_MESSAGE = "pref_fallback_message";
     private final String KEY_IS_LOGGED_IN = "pref_is_logged_in";
     private final String KEY_IS_GUEST_MODE = "pref_is_guest_mode";
     private final String KEY_FIREBASE_TOKEN = "pref_firebase_token";
     private final String KEY_USER_EMAIL = "pref_user_email";
+    private final String KEY_SUBSCRIPTION_ACTIVE = "pref_subscription_active";
+    private final String KEY_SUBSCRIPTION_PLAN_TYPE = "pref_subscription_plan_type";
+    private final String KEY_SUBSCRIPTION_EXPIRY_TIME = "pref_subscription_expiry_time";
+    private final String KEY_SUBSCRIPTION_AUTO_RENEWING = "pref_subscription_auto_renewing";
+    private final String KEY_SUBSCRIPTION_PRODUCT_ID = "pref_subscription_product_id";
+    private final String KEY_SUBSCRIPTION_PRODUCT_NAME = "pref_subscription_product_name";
+    private final String KEY_LAST_VERIFIED_TIME = "pref_last_verified_time";
+    private final String KEY_SELECTED_REPLY_METHOD = "pref_selected_reply_method";
+    private final String KEY_SUBSCRIPTION_STATUS_LAST_CHECKED = "pref_subscription_status_last_checked";
+    private final String KEY_REMAINING_ATOMS = "pref_remaining_atoms";
+    private final String KEY_QUOTA_NOTIFICATION_LAST_SHOWN = "pref_quota_notification_last_shown";
     private static PreferencesManager _instance;
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
@@ -433,8 +448,40 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    /**
+     * @deprecated Use {@link #isAutomaticAiRepliesEnabled()} or {@link #isByokRepliesEnabled()} instead
+     */
+    @Deprecated
     public boolean isOpenAIRepliesEnabled() {
         return _sharedPrefs.getBoolean(KEY_ENABLE_OPENAI_REPLIES, false);
+    }
+
+    // New separate preference methods for Automatic AI and BYOK
+    public void setEnableAutomaticAiReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_AUTOMATIC_AI_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isAutomaticAiRepliesEnabled() {
+        return _sharedPrefs.getBoolean(KEY_ENABLE_AUTOMATIC_AI_REPLIES, false);
+    }
+
+    public void setEnableByokReplies(boolean enabled) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_ENABLE_BYOK_REPLIES, enabled);
+        editor.apply();
+    }
+
+    public boolean isByokRepliesEnabled() {
+        return _sharedPrefs.getBoolean(KEY_ENABLE_BYOK_REPLIES, false);
+    }
+
+    /**
+     * Returns true if any AI reply mode is enabled (Automatic AI or BYOK)
+     */
+    public boolean isAnyAiRepliesEnabled() {
+        return isAutomaticAiRepliesEnabled() || isByokRepliesEnabled();
     }
     public void setOpenAIRepliesEnabled(boolean enabled) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
@@ -496,6 +543,26 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    public String getAtomaticAICustomPrompt() {
+        return _sharedPrefs.getString(KEY_ATOMATIC_AI_CUSTOM_PROMPT, "");
+    }
+
+    public void saveAtomaticAICustomPrompt(String prompt) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_ATOMATIC_AI_CUSTOM_PROMPT, prompt);
+        editor.apply();
+    }
+
+    public String getFallbackMessage() {
+        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, "");
+    }
+
+    public void saveFallbackMessage(String message) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_FALLBACK_MESSAGE, message);
+        editor.apply();
+    }
+
     public boolean isLoggedIn() {
         return _sharedPrefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
@@ -538,5 +605,115 @@ public class PreferencesManager {
 
     public boolean shouldShowLogin() {
         return !isLoggedIn() && !isGuestMode();
+    }
+
+    // Subscription Management
+    public boolean isSubscriptionActive() {
+        // Check if subscription is marked active AND not expired
+        boolean isActive = _sharedPrefs.getBoolean(KEY_SUBSCRIPTION_ACTIVE, false);
+        long expiryTime = getSubscriptionExpiryTime();
+        // If expiry time is 0 (lifetime/unknown) or in future, consider active
+        // Note: For subscriptions, backend should set expiry time.
+        // If expiryTime > 0, check if it's still valid
+        if (isActive && expiryTime > 0 && System.currentTimeMillis() > expiryTime) {
+            return false; // Expired but not yet updated by backend
+        }
+        return isActive;
+    }
+
+    public void setSubscriptionActive(boolean active) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_SUBSCRIPTION_ACTIVE, active);
+        editor.apply();
+    }
+
+    public String getSubscriptionPlanType() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PLAN_TYPE, "");
+    }
+
+    public void setSubscriptionPlanType(String planType) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PLAN_TYPE, planType);
+        editor.apply();
+    }
+
+    public long getSubscriptionExpiryTime() {
+        return _sharedPrefs.getLong(KEY_SUBSCRIPTION_EXPIRY_TIME, 0);
+    }
+
+    public void setSubscriptionExpiryTime(long expiryTime) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_SUBSCRIPTION_EXPIRY_TIME, expiryTime);
+        editor.apply();
+    }
+
+    public boolean isSubscriptionAutoRenewing() {
+        return _sharedPrefs.getBoolean(KEY_SUBSCRIPTION_AUTO_RENEWING, false);
+    }
+
+    public void setSubscriptionAutoRenewing(boolean autoRenewing) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putBoolean(KEY_SUBSCRIPTION_AUTO_RENEWING, autoRenewing);
+        editor.apply();
+    }
+
+    public String getSubscriptionProductId() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PRODUCT_ID, "");
+    }
+
+    public void setSubscriptionProductId(String productId) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PRODUCT_ID, productId);
+        editor.apply();
+    }
+
+    public String getSubscriptionProductName() {
+        return _sharedPrefs.getString(KEY_SUBSCRIPTION_PRODUCT_NAME, "");
+    }
+
+    public void setSubscriptionProductName(String productName) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putString(KEY_SUBSCRIPTION_PRODUCT_NAME, productName);
+        editor.apply();
+    }
+
+    public long getLastVerifiedTime() {
+        return _sharedPrefs.getLong(KEY_LAST_VERIFIED_TIME, 0);
+    }
+
+    public void setLastVerifiedTime(long time) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_LAST_VERIFIED_TIME, time);
+        editor.apply();
+    }
+
+    public long getSubscriptionStatusLastChecked() {
+        return _sharedPrefs.getLong(KEY_SUBSCRIPTION_STATUS_LAST_CHECKED, 0);
+    }
+
+    public void setSubscriptionStatusLastChecked(long timestamp) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_SUBSCRIPTION_STATUS_LAST_CHECKED, timestamp);
+        editor.apply();
+    }
+
+    public int getRemainingAtoms() {
+        return _sharedPrefs.getInt(KEY_REMAINING_ATOMS, -1);
+    }
+
+    public void setRemainingAtoms(int atoms) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putInt(KEY_REMAINING_ATOMS, atoms);
+        editor.apply();
+    }
+
+    public long getQuotaNotificationLastShown() {
+        return _sharedPrefs.getLong(KEY_QUOTA_NOTIFICATION_LAST_SHOWN, 0);
+    }
+
+    public void setQuotaNotificationLastShown(long timestamp) {
+        SharedPreferences.Editor editor = _sharedPrefs.edit();
+        editor.putLong(KEY_QUOTA_NOTIFICATION_LAST_SHOWN, timestamp);
+        editor.apply();
     }
 }

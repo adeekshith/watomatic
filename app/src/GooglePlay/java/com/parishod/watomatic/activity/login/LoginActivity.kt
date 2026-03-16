@@ -1,24 +1,28 @@
 package com.parishod.watomatic.activity.login
 
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import android.app.AlertDialog
 import android.content.Intent
+import android.view.View
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -31,9 +35,9 @@ import com.parishod.watomatic.model.preferences.PreferencesManager
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var preferencesManager: PreferencesManager
-    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var credentialManager: CredentialManager
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    private var subscriptionManager: com.parishod.watomatic.model.subscription.SubscriptionManager? = null
 
     companion object {
         private const val PREF_USER_EMAIL = "pref_user_email"
@@ -47,6 +51,7 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         preferencesManager = PreferencesManager.getPreferencesInstance(this)
+        subscriptionManager = com.parishod.watomatic.model.subscription.SubscriptionManagerImpl(this, preferencesManager)
         auth = FirebaseAuth.getInstance()
 
         setupGoogleSignIn()
@@ -56,32 +61,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setupGoogleSignIn() {
-        val gsoBuilder = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-        // Try to request ID token if the resource exists (usually added via google-services.json)
-        val webClientIdRes = resources.getIdentifier("default_web_client_id", "string", packageName)
-        if (webClientIdRes != 0) {
-            gsoBuilder.requestIdToken(getString(webClientIdRes)) // default added with google-services.json
-        }
-        val gso = gsoBuilder.build()
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                handleGoogleSignInResult(task)
-            }
-        }
-    }
-
-    private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            account?.idToken?.let { firebaseAuthWithGoogle(it) }
-        } catch (e: ApiException) {
-            Toast.makeText(this, getString(R.string.google_sign_in_failed, e.message), Toast.LENGTH_SHORT).show()
-        }
+        credentialManager = CredentialManager.create(this)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -90,9 +70,10 @@ class LoginActivity : BaseActivity() {
             .addOnSuccessListener { authResult ->
                 authResult.user?.email?.let { email ->
                     handleSuccessfulAuth(email)
-                }
+                } ?: hideLoading()
             }
             .addOnFailureListener {
+                hideLoading()
                 Toast.makeText(this, getString(R.string.authentication_failed), Toast.LENGTH_SHORT).show()
             }
     }
@@ -125,6 +106,7 @@ class LoginActivity : BaseActivity() {
         val password = binding.etPassword.text.toString()
 
         if (validateInputs(email, password)) {
+            showLoading()
             checkIfEmailExists(email) { exists ->
                 if (exists) {
                     doSignin(email, password)
@@ -136,13 +118,81 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        googleSignInLauncher.launch(signInIntent)
+        showLoading()
+        
+        val webClientIdRes = resources.getIdentifier("default_web_client_id", "string", packageName)
+        val webClientId = if (webClientIdRes != 0) getString(webClientIdRes) else ""
+
+        if (webClientId.isEmpty()) {
+            hideLoading()
+            Toast.makeText(this, "Web Client ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false)
+            .setServerClientId(webClientId)
+            .setAutoSelectEnabled(false)
+            .build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        lifecycleScope.launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = this@LoginActivity
+                )
+                handleSignIn(result.credential)
+            } catch (e: GetCredentialException) {
+                hideLoading()
+                if (e !is GetCredentialCancellationException) {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        getString(R.string.google_sign_in_failed, e.message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun handleSignIn(credential: androidx.credentials.Credential) {
+        if (credential is CustomCredential && credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+            try {
+                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
+            } catch (e: GoogleIdTokenParsingException) {
+                hideLoading()
+                Toast.makeText(this, getString(R.string.google_sign_in_failed, e.message), Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            hideLoading()
+            Toast.makeText(this, getString(R.string.authentication_failed), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun continueAsGuest() {
         preferencesManager.isGuestMode = true
         navigateToMain()
+
+        //testing create anonymous user for non logged case to get firebase tiken
+        /*if (auth.currentUser != null) {
+            preferencesManager.isGuestMode = true
+            navigateToMain()
+            return
+        }
+
+        auth.signInAnonymously()
+            .addOnSuccessListener {
+                preferencesManager.isGuestMode = true
+                navigateToMain()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, getString(R.string.authentication_failed_with_message, e.message), Toast.LENGTH_SHORT).show()
+            }*/
     }
 
     private fun doSignin(email: String, password: String) {
@@ -162,6 +212,7 @@ class LoginActivity : BaseActivity() {
                     }
             }
             .addOnFailureListener { exception ->
+                hideLoading()
                 Toast.makeText(this, getString(R.string.authentication_failed_with_message, exception.message),
                     Toast.LENGTH_LONG).show()
             }
@@ -198,8 +249,7 @@ class LoginActivity : BaseActivity() {
             .addOnFailureListener { exception ->
                 val message = when {
                     exception.message?.contains(EMAIL_ALREADY_EXISTS, ignoreCase = true) == true -> {
-                        doSignin(email, password)
-//                        getString(R.string.email_already_registered)
+                        doSignin(email, password) // loader stays visible; doSignin will hide on its own failure
                         ""
                     }
                     exception.message?.contains(INVALID_CREDENTIALS, ignoreCase = true) == true -> {
@@ -209,8 +259,10 @@ class LoginActivity : BaseActivity() {
                         getString(R.string.create_account_failed, exception.message)
                     }
                 }
-                if(message.isNotEmpty())
+                if (message.isNotEmpty()) {
+                    hideLoading()
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
             }
     }
 
@@ -218,13 +270,16 @@ class LoginActivity : BaseActivity() {
         if (user != null && !user.isEmailVerified) {
             user.sendEmailVerification()
                 .addOnSuccessListener {
+                    hideLoading()
                     Toast.makeText(this, getString(R.string.verification_email_sent, user.email), Toast.LENGTH_SHORT).show()
                     showVerificationDialog(user)
                 }
                 .addOnFailureListener { exception ->
+                    hideLoading()
                     Toast.makeText(this, getString(R.string.verification_email_failed, exception.message), Toast.LENGTH_SHORT).show()
                 }
         } else {
+            hideLoading()
             user?.email?.let { handleSuccessfulAuth(it) }
         }
     }
@@ -284,6 +339,20 @@ class LoginActivity : BaseActivity() {
         handleSuccessfulLogin()
     }
 
+    private fun showLoading() {
+        binding.loadingOverlay.visibility = View.VISIBLE
+        binding.btnLogin.isEnabled = false
+        binding.btnGoogleSignIn.isEnabled = false
+        binding.btnContinueAsGuest.isEnabled = false
+    }
+
+    private fun hideLoading() {
+        binding.loadingOverlay.visibility = View.GONE
+        binding.btnLogin.isEnabled = true
+        binding.btnGoogleSignIn.isEnabled = true
+        binding.btnContinueAsGuest.isEnabled = true
+    }
+
     private fun setupTextWatchers() {
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -321,7 +390,17 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun handleSuccessfulLogin() {
-        navigateToMain()
+        // Refresh subscription status before navigating
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            try {
+                subscriptionManager?.refreshSubscriptionStatus()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                navigateToMain()
+            }
+        }
     }
 
     private fun navigateToMain() {

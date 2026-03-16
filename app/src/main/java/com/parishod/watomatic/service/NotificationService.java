@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
-import android.text.TextUtils; // Added import
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 // import Constants.kt
@@ -27,10 +27,13 @@ import androidx.core.app.RemoteInput;
 import com.parishod.watomatic.NotificationWear;
 import com.parishod.watomatic.R;
 import com.parishod.watomatic.model.CustomRepliesData;
+import com.parishod.watomatic.network.AtomaticAIService;
 import com.parishod.watomatic.network.OpenAIService;
-import com.parishod.watomatic.network.RetrofitInstance; // Ensure this is available
+import com.parishod.watomatic.network.RetrofitInstance;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIErrorResponse;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIRequest;
+import com.parishod.watomatic.network.model.atomatic.AtomaticAIResponse;
 import com.parishod.watomatic.network.model.openai.Message;
-import com.parishod.watomatic.network.model.openai.OpenAIErrorResponse; // Added import
 import com.parishod.watomatic.network.model.openai.OpenAIRequest;
 import com.parishod.watomatic.network.model.openai.OpenAIResponse;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
@@ -38,7 +41,7 @@ import com.parishod.watomatic.model.utils.ContactsHelper;
 import com.parishod.watomatic.model.utils.DbUtils;
 import com.parishod.watomatic.model.utils.NotificationHelper;
 import com.parishod.watomatic.model.utils.NotificationUtils;
-import com.parishod.watomatic.service.ReplyService;
+import com.parishod.watomatic.utils.FirebaseTokenRefresher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,8 +123,9 @@ public class NotificationService extends NotificationListenerService {
             }
         }
 
-        if(finalRemoteIn == null ) return;
-            RemoteInput.addResultsToIntent(new RemoteInput[]{ finalRemoteIn }, localIntent, localBundle);
+        if(finalRemoteIn == null) return;
+
+        RemoteInput.addResultsToIntent(new RemoteInput[]{ finalRemoteIn }, localIntent, localBundle);
         try {
             if (notificationWear.getPendingIntent() != null) {
                 if (dbUtils == null) {
@@ -170,18 +174,32 @@ public class NotificationService extends NotificationListenerService {
         PreferencesManager preferencesManager = PreferencesManager.getPreferencesInstance(this);
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(this); // For fallback
         String replyText = customRepliesData.getTextToSendOrElse();
-        if(preferencesManager.isOpenAIRepliesEnabled()){
+        if(preferencesManager.isAnyAiRepliesEnabled()){
             replyText = getString(R.string.auto_reply_default_message);
         }
-        String fallbackReplyText = replyText; // needs to be final to access in innere class hence one more variable
+        String fallbackReplyText = replyText; // needs to be final to access in inner class hence one more variable
 
         CharSequence incomingMessageChars = sbn.getNotification().extras.getCharSequence(android.app.Notification.EXTRA_TEXT);
         String incomingMessage = (incomingMessageChars != null) ? incomingMessageChars.toString() : null;
 
-        if (preferencesManager.isOpenAIRepliesEnabled() &&
-            incomingMessage != null && !incomingMessage.trim().isEmpty() &&
-            preferencesManager.getOpenAIApiKey() != null && !preferencesManager.getOpenAIApiKey().trim().isEmpty()) {
+        // Determine if AI should be used based on the selected reply method
+        boolean shouldUseAI = false;
 
+        if (preferencesManager.isAutomaticAiRepliesEnabled()) {
+            // Automatic AI: requires subscription but no API key
+            shouldUseAI = preferencesManager.isSubscriptionActive() &&
+                         incomingMessage != null && !incomingMessage.trim().isEmpty();
+            Log.d(TAG, "Automatic AI mode - Subscription active: " + preferencesManager.isSubscriptionActive());
+        } else if (preferencesManager.isByokRepliesEnabled()) {
+            // BYOK: requires API key but no subscription
+            String apiKey = preferencesManager.getOpenAIApiKey();
+            shouldUseAI = apiKey != null && !apiKey.trim().isEmpty() &&
+                         !apiKey.equals("PENDING_CONFIGURATION") &&
+                         incomingMessage != null && !incomingMessage.trim().isEmpty();
+            Log.d(TAG, "BYOK mode - API key configured: " + (apiKey != null && !apiKey.trim().isEmpty()));
+        }
+
+        if (shouldUseAI) {
             Log.d(TAG, "AI conditions met. Attempting to get AI reply.");
             fetchAiReply(sbn, notificationWear, incomingMessage, fallbackReplyText);
         } else {
@@ -192,16 +210,36 @@ public class NotificationService extends NotificationListenerService {
 
     private void fetchAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
         PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
-        String provider = prefs.getOpenApiSource();
-        if (provider == null) provider = "OpenAI";
 
-        String apiKey = prefs.getOpenAIApiKey();
+        // Determine which backend API to use based on the selected reply method
+        String apiKey;
+        String provider;
+        String baseUrl;
+
+        if (prefs.isAutomaticAiRepliesEnabled()) {
+            // Automatic AI: Use server-side API (Atomatic backend)
+            Log.d(TAG, "Using Automatic AI (server-based) backend");
+            fetchAtomaticAiReply(sbn, notificationWear, incomingMessage, fallbackReplyText);
+            return;
+        } else if (prefs.isByokRepliesEnabled()) {
+            // BYOK: Use user's own API key with configured provider
+            Log.d(TAG, "Using BYOK (client-based) backend");
+            apiKey = prefs.getOpenAIApiKey();
+            provider = prefs.getOpenApiSource();
+            if (provider == null) provider = "OpenAI";
+        } else {
+            // No AI mode enabled, use fallback
+            sendActualReply(sbn, notificationWear, fallbackReplyText);
+            return;
+        }
+
+        // BYOK flow continues here
         String model = prefs.getSelectedOpenAIModel();
         String systemPrompt = prefs.getOpenAICustomPrompt();
         if (systemPrompt == null || systemPrompt.trim().isEmpty()) systemPrompt = DEFAULT_LLM_PROMPT;
         if (model == null || model.isEmpty()) model = DEFAULT_LLM_MODEL;
 
-        String baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
+        baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
         if ("Custom".equals(provider)) {
             baseUrl = prefs.getCustomOpenAIApiUrl();
         }
@@ -219,6 +257,114 @@ public class NotificationService extends NotificationListenerService {
             // OpenAI, Grok, DeepSeek, Mistral, Custom
             fetchOpenAiCompatibleReply(service, apiKey, model, systemPrompt, incomingMessage, sbn, notificationWear, fallbackReplyText);
         }
+    }
+
+    private void fetchAtomaticAiReply(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        // Call the method without retry flag (first attempt)
+        fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, false);
+    }
+
+    private void fetchAtomaticAiReplyInternal(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String defaultReply, boolean isRetryAfterTokenRefresh) {
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+
+        String fallbackReply;
+        if(!TextUtils.isEmpty(prefs.getFallbackMessage())){
+            fallbackReply = prefs.getFallbackMessage();
+        } else {
+            fallbackReply = defaultReply;
+        }
+        // Get Firebase ID token
+        String firebaseToken = prefs.getFirebaseToken();
+
+        if (firebaseToken == null || firebaseToken.trim().isEmpty()) {
+            Log.e(TAG, "Firebase token not available, falling back to default reply");
+            sendActualReply(sbn, notificationWear, fallbackReply);
+            return;
+        }
+
+        // Create the request
+        AtomaticAIRequest request = new AtomaticAIRequest(incomingMessage, prefs.getAtomaticAICustomPrompt());
+
+        // Create the service
+        AtomaticAIService service = RetrofitInstance.getAtomaticAIRetrofitInstance()
+                .create(AtomaticAIService.class);
+
+        // Make the API call
+        String authHeader = "Bearer " + firebaseToken;
+        Log.d(TAG, "Atomatic AI API call - isRetry: " + isRetryAfterTokenRefresh);
+
+        service.getAIReply(authHeader, "application/json", request).enqueue(new Callback<AtomaticAIResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<AtomaticAIResponse> call, @NonNull Response<AtomaticAIResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    AtomaticAIResponse aiResponse = response.body();
+                    String reply = aiResponse.getReply();
+                    int remainingAtoms = aiResponse.getRemainingAtoms();
+
+                    if (reply != null && !reply.trim().isEmpty()) {
+                        Log.i(TAG, "Atomatic AI successful response. Remaining atoms: " + remainingAtoms);
+                        prefs.setRemainingAtoms(remainingAtoms);
+                        checkAndNotifyQuotaExhausted(remainingAtoms);
+                        sendActualReply(sbn, notificationWear, reply);
+                    } else {
+                        Log.e(TAG, "Atomatic AI returned empty reply, using fallback");
+                        sendActualReply(sbn, notificationWear, fallbackReply);
+                    }
+                } else {
+                    // Check if this is an authentication error (401 or 403)
+                    boolean isAuthError = response.code() == 401 || response.code() == 403;
+
+                    // Try to parse error response
+                    if (!isAuthError && response.errorBody() != null) {
+                        AtomaticAIErrorResponse errorResponse = RetrofitInstance.parseAtomaticAIError(response);
+                        if (errorResponse != null) {
+                            isAuthError = errorResponse.isAuthError();
+                            Log.e(TAG, "Atomatic AI error: " + errorResponse.getMessage());
+                        }
+                    }
+
+                    // If it's an auth error and we haven't retried yet, refresh token and retry
+                    if (isAuthError && !isRetryAfterTokenRefresh) {
+                        Log.w(TAG, "Atomatic AI authentication failed (code: " + response.code() + "). Attempting token refresh...");
+                        handleTokenExpirationAndRetry(sbn, notificationWear, incomingMessage, fallbackReply);
+                    } else {
+                        // Either not an auth error, or already retried - use fallback
+                        if (isRetryAfterTokenRefresh) {
+                            Log.e(TAG, "Atomatic AI still failed after token refresh, using fallback");
+                        } else {
+                            Log.e(TAG, "Atomatic AI API failed: " + response.code() + " " + response.message());
+                        }
+                        sendActualReply(sbn, notificationWear, fallbackReply);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<AtomaticAIResponse> call, @NonNull Throwable t) {
+                Log.e(TAG, "Atomatic AI API network error", t);
+                sendActualReply(sbn, notificationWear, defaultReply);
+            }
+        });
+    }
+
+    private void handleTokenExpirationAndRetry(StatusBarNotification sbn, NotificationWear notificationWear, String incomingMessage, String fallbackReplyText) {
+        Log.i(TAG, "Handling token expiration - refreshing Firebase token...");
+
+        // Refresh token asynchronously to avoid blocking the main thread
+        FirebaseTokenRefresher.refreshTokenAsync(this, new FirebaseTokenRefresher.TokenRefreshCallback() {
+            @Override
+            public void onSuccess(String newToken) {
+                Log.i(TAG, "Token refresh successful. Retrying Atomatic AI request...");
+                // Retry the request with the new token (pass true to indicate this is a retry)
+                fetchAtomaticAiReplyInternal(sbn, notificationWear, incomingMessage, fallbackReplyText, true);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Log.e(TAG, "Token refresh failed: " + error + ". Using fallback reply.");
+                sendActualReply(sbn, notificationWear, fallbackReplyText);
+            }
+        });
     }
 
     private void fetchClaudeReply(OpenAIService service, String baseUrl, String apiKey, String model, String systemPrompt, String incomingMessage, StatusBarNotification sbn, NotificationWear notificationWear, String fallbackReplyText) {
@@ -395,6 +541,45 @@ public class NotificationService extends NotificationListenerService {
 
     private boolean isServiceEnabled() {
         return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
+    }
+
+    /**
+     * Check if the user's quota is exhausted and show a notification if needed.
+     * Rate-limited to at most once every 24 hours.
+     */
+    private void checkAndNotifyQuotaExhausted(int remainingAtoms) {
+        Log.d("QuotaExhaustedChecker", "Remaining atoms: " + remainingAtoms);
+        if (remainingAtoms > 0) return;
+
+        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
+        long lastShown = prefs.getQuotaNotificationLastShown();
+        long now = System.currentTimeMillis();
+        long TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000L;
+
+        if (lastShown == 0 || (now - lastShown) >= TWENTY_FOUR_HOURS_MS) {
+            prefs.setQuotaNotificationLastShown(now);
+
+            // Determine if user is on highest plan (pro)
+            boolean isHighestPlan = isOnHighestPlan(prefs);
+            String renewalDate = null;
+            if (isHighestPlan) {
+                long expiryTime = prefs.getSubscriptionExpiryTime();
+                if (expiryTime > 0) {
+                    renewalDate = new java.text.SimpleDateFormat(
+                            "MMMM dd, yyyy", java.util.Locale.getDefault()
+                    ).format(new java.util.Date(expiryTime));
+                }
+            }
+            NotificationUtils.showQuotaExhaustedNotification(this, isHighestPlan, renewalDate);
+        }
+    }
+
+    /**
+     * Check if the user is on the highest subscription plan (pro).
+     */
+    private boolean isOnHighestPlan(PreferencesManager prefs) {
+        String productId = prefs.getSubscriptionProductId();
+        return productId != null && productId.toLowerCase().contains("pro");
     }
 
     @Override

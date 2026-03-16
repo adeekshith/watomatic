@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- New Inactive State with TabLayout + ViewPager2 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inactive_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <!-- Content Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Description Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subscription_plan_description"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Tab Layout - Matching 3.html design -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/subscription_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/tab_background"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorFullWidth="false"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="?attr/colorOnSurface"
+            app:tabTextColor="?attr/colorOnSurfaceVariant"
+            app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp" />
+
+        <!-- ViewPager2 for Plans -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/subscription_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp" />
+
+        <!-- Features Section - Hidden to prevent plan clipping -->
+        <!-- Re-enable if vertical space permits -->
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="16dp"
+            android:visibility="gone">
+            ...existing features...
+        </LinearLayout>
+        -->
+
+        <!-- Loading Indicator for Purchase -->
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginVertical="16dp" />
+
+        <!-- Status Text -->
+        <TextView
+            android:id="@+id/subscription_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            tools:text="Current status: No active subscription" />
+
+    </LinearLayout>
+
+    <!-- Bottom Fixed Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp"
+
+        android:background="?attr/colorSurface"
+        android:elevation="8dp">
+
+        <!-- Subscribe Button -->
+        <Button
+            android:id="@+id/subscribe_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subscription_subscribe_continue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Restore Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/restore_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subscription_restore_purchases"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
