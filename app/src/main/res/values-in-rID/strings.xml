@@ -240,7 +240,10 @@
     <string name="subscription_feature_priority_support">Dukungan prioritas</string>
     <string name="subscription_choose_plan">Pilih Paket Anda</string>
     <string name="subscription_monthly_plan">Bulanan</string>
+    <string name="subscription_monthly_price">$1.99/bulan</string>
     <string name="subscription_annual_plan">Tahunan</string>
+    <string name="subscription_annual_price">$10.99/tahun</string>
+    <string name="subscription_annual_savings">Hemat hingga 50%</string>
     <string name="subscription_most_popular">Terpopuler</string>
     <string name="subscription_all_features_included">Termasuk semua fitur</string>
     <string name="subscription_subscribe_button">Pilih Paket &amp; Lanjutkan</string>
@@ -248,9 +251,40 @@
     <string name="subscription_terms_conditions">Syarat &amp; Ketentuan</string>
     <string name="subscription_status_no_subscription">Tidak ada langganan aktif</string>
     <string name="subscription_status_logged_in">Masuk sebagai: %s</string>
+    <string name="subscription_loading">Memeriksa status langganan…</string>
+    <string name="subscription_loading_description">Mohon tunggu sebentar sementara kami mengambil detail langganan Anda</string>
+    <string name="subscription_renewal_date">Perpanjangan Berikutnya:</string>
+    <string name="subscription_manage">Kelola Langganan</string>
+    <string name="subscription_active_features">Fitur Aktif Anda</string>
+    <string name="subscription_need_help">Butuh bantuan? Hubungi Dukungan</string>
     <string name="configure_other_ai_llm_s_info">Konfigurasikan model bahasa besar AI LLM lainnya untuk menggunakan balasan otomatis AI</string>
+    <string name="configure_ai_llm_s_info">Konfigurasikan AI LLM untuk menggunakan Balasan Otomatis AI</string>
+    <string name="your_premium_features_are_unlocked">Fitur premium Anda telah dibuka.</string>
+    <string name="custom_ai_active">AI Khusus Aktif</string>
+    <string name="subscription_plan">Paket Langganan:</string>
+    <string name="renews_on">Diperpanjang dalam:</string>
+    <string name="premium_monthly">Premium Bulanan</string>
+    <string name="your_custom_ai_features">Fitur AI Khusus Anda</string>
+    <string name="manage_subscription">Kelola Langganan</string>
+    <string name="need_help_learn_more">Butuh bantuan? Pelajari lebih lanjut</string>
+    <string name="atomatic_ai">AI Otomatis</string>
+    <string name="managed_smart_responses">Respons cerdas yang dikelola</string>
+    <string name="bring_your_own_key">Siapkan Kunci Anda Sendiri</string>
+    <string name="use_external_llm_apis">Gunakan API LLM eksternal</string>
     <!-- New UI strings for reply mode selection -->
+    <string name="manual_replies">Balasan Manual</string>
+    <string name="automatic_ai">AI Otomatis</string>
+    <string name="expand">Perluas</string>
+    <string name="selected">Dipilih</string>
+    <string name="status">Status</string>
+    <string name="premium">Premium</string>
     <!-- Subscription UI Refactor Strings -->
+    <string name="subscription_plan_description">Pilih paket yang sesuai dengan kebutuhan balasan otomatis Anda. Semua paket dilengkapi dengan pemrosesan AI berkecepatan tinggi.</string>
+    <string name="subscription_monthly_replies">500 balasan AI/bulan</string>
+    <string name="subscription_annual_replies">2,000 balasan AI/bulan</string>
+    <string name="subscription_best_value">PENAWARAN TERBAIK</string>
+    <string name="subscription_standard_plan">Standar</string>
+    <string name="subscription_per_month">/ bln</string>
     <!-- Active Subscription Config Strings -->
     <!-- Emoji placeholders (for better accessibility) -->
     <!-- Plan Tiers -->
