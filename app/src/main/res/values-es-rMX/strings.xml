@@ -160,4 +160,13 @@
     <!-- Login Activity -->
     <string name="experimental">Experimental</string>
     <!-- Subscription Info -->
+    <!-- New UI strings for reply mode selection -->
+    <!-- Subscription UI Refactor Strings -->
+    <!-- Active Subscription Config Strings -->
+    <!-- Emoji placeholders (for better accessibility) -->
+    <!-- Plan Tiers -->
+    <!-- Tab Labels -->
+    <!-- Subscription Badge Labels -->
+    <!-- Subscription Date Labels -->
+    <!-- Quota Exhausted Notification -->
 </resources>
