@@ -240,10 +240,7 @@
     <string name="subscription_feature_priority_support">Priorità sull\'assistenza</string>
     <string name="subscription_choose_plan">Scegli il tuo piano</string>
     <string name="subscription_monthly_plan">Mensile</string>
-    <string name="subscription_monthly_price">~9,99€/mese</string>
     <string name="subscription_annual_plan">Annuale</string>
-    <string name="subscription_annual_price">~99,99€/anno</string>
-    <string name="subscription_annual_savings">Risparmi 20€ annualmente</string>
     <string name="subscription_most_popular">Più popolare</string>
     <string name="subscription_all_features_included">Tutte le funzioni incluse</string>
     <string name="subscription_subscribe_button">Scegli il piano e continua</string>
@@ -252,4 +249,13 @@
     <string name="subscription_status_no_subscription">Nessun abbonamento attivo</string>
     <string name="subscription_status_logged_in">Connesso come: %s</string>
     <string name="configure_other_ai_llm_s_info">Configura altre LLM per usare le risposte automatiche dalla IA</string>
+    <!-- New UI strings for reply mode selection -->
+    <!-- Subscription UI Refactor Strings -->
+    <!-- Active Subscription Config Strings -->
+    <!-- Emoji placeholders (for better accessibility) -->
+    <!-- Plan Tiers -->
+    <!-- Tab Labels -->
+    <!-- Subscription Badge Labels -->
+    <!-- Subscription Date Labels -->
+    <!-- Quota Exhausted Notification -->
 </resources>
