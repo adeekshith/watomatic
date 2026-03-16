@@ -285,11 +285,65 @@
     <string name="subscription_best_value">PENAWARAN TERBAIK</string>
     <string name="subscription_standard_plan">Standar</string>
     <string name="subscription_per_month">/ bln</string>
+    <string name="subscription_per_year">/ thn</string>
+    <string name="subscription_subscribe_continue">Berlangganan &amp; Lanjutkan</string>
+    <string name="subscription_feature_context_replies">Balasan cerdas yang disesuaikan dengan konteks</string>
+    <string name="subscription_feature_tone_matching">Pencocokan dialek khusus</string>
+    <string name="subscription_feature_messenger_support">Dukungan untuk semua aplikasi perpesanan ternama</string>
     <!-- Active Subscription Config Strings -->
+    <string name="ai_config_basic_capabilities">Kemampuan AI dasar</string>
+    <string name="ai_config_upgrade">Tingkatkan</string>
+    <string name="ai_config_custom_prompt_header">PERINTAH AI KHUSUS</string>
+    <string name="ai_config_fallback_header">PESAN BALASAN PENGGANTI</string>
+    <string name="ai_config_prompt_hint">Contoh: Berperanlah sebagai petugas layanan pelanggan yang ramah untuk toko roti saya. Bersikaplah sopan, berikan jawaban yang singkat, dan sampaikan bahwa kami tutup pada hari Minggu.</string>
+    <string name="ai_config_fallback_hint">Contoh: Maaf, saya tidak mengerti. Silakan tinggalkan detail kontak Anda, dan saya akan segera menghubungi Anda kembali.</string>
+    <string name="ai_config_char_limit">Batas karakter: 500</string>
+    <string name="ai_config_prompt_help">Tentukan kepribadian dan aturan yang harus diikuti oleh AI saat membalas pesan.</string>
+    <string name="ai_config_fallback_help">Pesan ini dikirim secara otomatis jika AI tidak dapat menghasilkan respons yang sah.</string>
+    <string name="ai_config_info_message">Respons AI dioptimalkan untuk kecepatan dan pemahaman konteks menggunakan LLM platform inti kami.</string>
+    <string name="ai_config_reset_defaults">Setel ulang ke bawaan</string>
+    <string name="ai_config_save">Simpan Konfigurasi</string>
+    <string name="ai_config_saved">Konfigurasi berhasil disimpan!</string>
+    <string name="ai_config_reset">Konfigurasi diatur ulang ke bawaan</string>
+    <string name="ai_config_empty_error">Perintah AI Khusus dan Pesan Balasan Pengganti Tidak boleh kosong</string>
+    <string name="unsaved_changes_title">Perubahan yang Belum Disimpan</string>
+    <string name="unsaved_changes_message">Anda memiliki perubahan yang belum disimpan. Apakah Anda ingin membuangnya dan keluar dari halaman ini?</string>
+    <string name="discard_changes">Buang</string>
+    <string name="stay_on_page">Tetap di sini</string>
     <!-- Emoji placeholders (for better accessibility) -->
+    <string name="icon_crown">👑</string>
+    <string name="icon_brain">🧠</string>
+    <string name="icon_warning">⚠️</string>
+    <string name="icon_info">ℹ️</string>
+    <string name="icon_email">📨</string>
+    <string name="icon_lightning">⚡</string>
+    <string name="icon_checkmark">✓</string>
     <!-- Plan Tiers -->
+    <string name="plan_free">Gratis</string>
+    <string name="plan_mini">Mini</string>
+    <string name="plan_standard">Standar</string>
+    <string name="plan_pro">Pro</string>
+    <string name="plan_free_replies">50 balasan AI/bulan</string>
+    <string name="plan_mini_replies">500 balasan AI/bulan</string>
+    <string name="plan_standard_replies">2,000 balasan AI/bulan</string>
+    <string name="plan_pro_replies">10,000 balasan AI/bulan</string>
+    <string name="plan_free_price">$0</string>
+    <string name="plan_current">Paket Saat Ini</string>
+    <string name="icon_person">👤</string>
+    <string name="icon_sparkles">✨</string>
     <!-- Tab Labels -->
+    <string name="tab_monthly">Bulanan</string>
+    <string name="tab_annual">Tahunan</string>
+    <string name="tab_save_badge">SIMPAN</string>
     <!-- Subscription Badge Labels -->
+    <string name="badge_pro">PRO</string>
+    <string name="badge_free">GRATIS</string>
     <!-- Subscription Date Labels -->
+    <string name="subscription_renews_on">Diperpanjang dalam %s</string>
+    <string name="subscription_expires_on">Berakhir pada %s</string>
     <!-- Quota Exhausted Notification -->
+    <string name="quota_exhausted_title">Kuota Sudah Habis</string>
+    <string name="quota_exhausted_message">Kuota Anda telah habis. Silakan tingkatkan ke paket yang lebih tinggi untuk terus menggunakan layanan ini.</string>
+    <string name="quota_exhausted_message_highest_plan">Kuota Anda sudah habis. Kuota tersebut akan diperbarui pada %1$s.</string>
+    <string name="upgrade_now">Tingkatkan</string>
 </resources>
