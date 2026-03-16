@@ -210,4 +210,13 @@
     <string name="subscription_restore_purchases">Restaura les compres</string>
     <string name="subscription_terms_conditions">Termes i condicions</string>
     <string name="subscription_status_no_subscription">Cap subscripció activa</string>
+    <!-- New UI strings for reply mode selection -->
+    <!-- Subscription UI Refactor Strings -->
+    <!-- Active Subscription Config Strings -->
+    <!-- Emoji placeholders (for better accessibility) -->
+    <!-- Plan Tiers -->
+    <!-- Tab Labels -->
+    <!-- Subscription Badge Labels -->
+    <!-- Subscription Date Labels -->
+    <!-- Quota Exhausted Notification -->
 </resources>
