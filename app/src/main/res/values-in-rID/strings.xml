@@ -240,10 +240,7 @@
     <string name="subscription_feature_priority_support">Dukungan prioritas</string>
     <string name="subscription_choose_plan">Pilih Paket Anda</string>
     <string name="subscription_monthly_plan">Bulanan</string>
-    <string name="subscription_monthly_price">$9,99/bulan</string>
     <string name="subscription_annual_plan">Tahunan</string>
-    <string name="subscription_annual_price">$99,99/tahun</string>
-    <string name="subscription_annual_savings">Hemat $20 setiap tahun</string>
     <string name="subscription_most_popular">Terpopuler</string>
     <string name="subscription_all_features_included">Termasuk semua fitur</string>
     <string name="subscription_subscribe_button">Pilih Paket &amp; Lanjutkan</string>
@@ -252,4 +249,13 @@
     <string name="subscription_status_no_subscription">Tidak ada langganan aktif</string>
     <string name="subscription_status_logged_in">Masuk sebagai: %s</string>
     <string name="configure_other_ai_llm_s_info">Konfigurasikan model bahasa besar AI LLM lainnya untuk menggunakan balasan otomatis AI</string>
+    <!-- New UI strings for reply mode selection -->
+    <!-- Subscription UI Refactor Strings -->
+    <!-- Active Subscription Config Strings -->
+    <!-- Emoji placeholders (for better accessibility) -->
+    <!-- Plan Tiers -->
+    <!-- Tab Labels -->
+    <!-- Subscription Badge Labels -->
+    <!-- Subscription Date Labels -->
+    <!-- Quota Exhausted Notification -->
 </resources>
