@@ -3,70 +3,108 @@ name: Android Build
 on: pull_request
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup JDK
+      - name: Setup JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'zulu'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Build Project
-        run: ./gradlew assemble
+      # --- Build ---
 
-      - name: Run Tests
-        run: ./gradlew test
+      - name: Build Default Debug APK
+        run: ./gradlew assembleDefaultDebug
 
-      - name: Get apk path
-        id: apk-path-id
-        run: echo "::set-output name=apk-path::$(find app -name "*.apk" | head -1)"
-        shell: bash
+      - name: Build GooglePlay Debug APK
+        run: ./gradlew assembleGooglePlayDebug
 
-      - name: Upload Default Apk
+      # --- Unit Tests ---
+
+      - name: Run Default flavor unit tests
+        run: ./gradlew testDefaultDebugUnitTest
+
+      - name: Run GooglePlay flavor unit tests
+        run: ./gradlew testGooglePlayDebugUnitTest
+
+      # --- Coverage Report ---
+
+      - name: Generate JaCoCo coverage report
+        run: ./gradlew jacocoUnitTestReport
+
+      - name: Upload coverage report
+        if: always()
         uses: actions/upload-artifact@v4
-        id: upload
         with:
-          name: PR-${{ github.event.number }}
-          path: ${{ steps.apk-path-id.outputs.apk-path }}
+          name: coverage-report
+          path: app/build/reports/jacoco/jacocoUnitTestReport/html/
+          retention-days: 7
+
+      # --- Upload APKs ---
+
+      - name: Upload Default APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PR-${{ github.event.number }}-default
+          path: app/build/outputs/apk/Default/debug/*.apk
           retention-days: 2
 
-      - name: Build GooglePlay Variant
-        run: ./gradlew assembleGooglePlay
-
-      - name: Get apk path
-        id: google-play-apk-path-id
-        run: echo "::set-output name=google-play-apk-path::$(find app -name "*GooglePlay*.apk" | head -1)"
-        shell: bash
-
-      - name: Upload GooglePlay Apk
+      - name: Upload GooglePlay APK
         uses: actions/upload-artifact@v4
-        id: upload-googpe-play
         with:
           name: PR-${{ github.event.number }}-googleplay
-          path: ${{ steps.google-play-apk-path-id.outputs.google-play-apk-path }}
+          path: app/build/outputs/apk/GooglePlay/debug/*.apk
           retention-days: 2
 
-      # Diabled as uploading to transfer.sh is not working. Need to find another provider or self host one to get this working again
-      #- name: upload apk
-      #  uses: wei/curl@v1
-      #  with:
-      #    args: --upload-file ${{ steps.apk-path-id.outputs.apk-path }} https://transfer.sh/PR-${{ github.event.number }}.apk -o apkpath.txt
+  instrumentation-tests:
+    runs-on: ubuntu-latest
+    # Instrumentation tests require an emulator and take longer.
+    # Run in parallel with the build job to save time.
 
-      #- name: upload apk
-      #  id: upload-apk-path-id
-      #  run: | 
-      #    echo "::set-output name=apk-path::$(cat apkpath.txt)"
-      #  shell: bash
+    steps:
+      - uses: actions/checkout@v4
 
-      #- name: comment on PR with download link
-      #  uses: mshick/add-pr-comment@v2
-      #  with:
-      #    message: |
-      #      **Download apk from path: ${{ steps.upload-apk-path-id.outputs.apk-path }}**
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Enable KVM for Android emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run instrumentation tests on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          arch: x86_64
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          disable-animations: true
+          script: ./gradlew connectedDefaultDebugAndroidTest
+
+      - name: Upload instrumentation test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: instrumentation-test-results
+          path: app/build/reports/androidTests/connected/
+          retention-days: 7
