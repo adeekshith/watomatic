@@ -1,8 +1,10 @@
 package com.parishod.watomatic
 
+import android.content.Intent
 import androidx.preference.PreferenceManager
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
@@ -10,7 +12,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -20,7 +21,6 @@ import org.hamcrest.Matchers.not
 import org.junit.Assert.assertNotNull
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -30,33 +30,47 @@ import org.junit.runner.RunWith
  * Runs on an Android device or emulator. Tests here verify that the activity
  * launches correctly, the primary UI elements are visible, and key interactions
  * work as expected.
+ *
+ * Note: In the GooglePlay flavor, MainActivity redirects to LoginActivity when
+ * the user is not logged in and not in guest mode. We set guest mode before
+ * launching to bypass this redirect.
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class MainActivityTest {
 
-    @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    private lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        // Ensure service is disabled so switch starts unchecked
+        // Reset to clean state
+        PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit()
+        PreferencesManager.resetInstance()
         val prefs = PreferencesManager.getPreferencesInstance(context)
+        // Set guest mode to bypass GooglePlay flavor's login redirect
+        prefs.setGuestMode(true)
+        // Ensure service is disabled so switch starts unchecked
         prefs.setServicePref(false)
+
+        // Launch activity AFTER prefs are configured
+        val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java)
+        scenario = ActivityScenario.launch(intent)
     }
 
     @After
     fun tearDown() {
+        scenario.close()
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        PreferencesManager.getPreferencesInstance(context).setServicePref(false)
+        PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit()
+        PreferencesManager.resetInstance()
     }
 
     // --- Launch Tests ---
 
     @Test
     fun mainActivityLaunchesSuccessfully() {
-        activityRule.scenario.onActivity { activity ->
+        scenario.onActivity { activity ->
             assertNotNull(activity)
         }
     }
@@ -68,8 +82,8 @@ class MainActivityTest {
 
     @Test
     fun activityCanBeRecreated() {
-        activityRule.scenario.recreate()
-        activityRule.scenario.onActivity { activity ->
+        scenario.recreate()
+        scenario.onActivity { activity ->
             assertNotNull(activity)
         }
     }
