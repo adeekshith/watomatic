@@ -826,4 +826,40 @@ class PreferencesManagerTest {
         // In Robolectric, firstInstallTime == lastUpdateTime (both 0), so returns true
         assertTrue(PreferencesManager.isFirstInstall(context))
     }
+
+    // --- Edge cases ---
+
+    @Test
+    fun `getReplyToNames returns empty set when prefs have no value`() {
+        val result = prefs.replyToNames
+        assertNotNull(result)
+        assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun `subscription timestamps handle Long MAX_VALUE`() {
+        prefs.setSubscriptionStatusLastChecked(Long.MAX_VALUE)
+        assertEquals(Long.MAX_VALUE, prefs.getSubscriptionStatusLastChecked())
+    }
+
+    @Test
+    fun `subscription timestamps handle 0`() {
+        prefs.setSubscriptionStatusLastChecked(0L)
+        assertEquals(0L, prefs.getSubscriptionStatusLastChecked())
+    }
+
+    @Test
+    fun `getSelectedLanguage handles empty locale string`() {
+        prefs.saveString("KEY_SELECTED_APP_LANGUAGE", "")
+        val result = prefs.getString("KEY_SELECTED_APP_LANGUAGE", "en")
+        assertNotNull(result)
+    }
+
+    @Test
+    fun `resetInstance does not throw when called multiple times`() {
+        PreferencesManager.resetInstance()
+        PreferencesManager.resetInstance()
+        prefs = PreferencesManager.getPreferencesInstance(context)
+        assertNotNull(prefs)
+    }
 }

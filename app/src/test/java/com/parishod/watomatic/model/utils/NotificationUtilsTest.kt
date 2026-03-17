@@ -416,4 +416,76 @@ class NotificationUtilsTest {
         val notifications = Shadows.shadowOf(nm).allNotifications
         assertTrue(notifications.isNotEmpty())
     }
+
+    // --- Edge cases ---
+
+    @Test
+    fun `getTitle handles emoji in group title`() {
+        val extras = Bundle()
+        extras.putBoolean("android.isGroupConversation", true)
+        extras.putString("android.hiddenConversationTitle", "\uD83D\uDE00 Fun Group")
+
+        val notification = Notification()
+        notification.extras = extras
+        whenever(mockSbn.notification).thenReturn(notification)
+
+        assertEquals("\uD83D\uDE00 Fun Group", NotificationUtils.getTitle(mockSbn))
+    }
+
+    @Test
+    fun `getTitle handles RTL characters in title`() {
+        val extras = Bundle()
+        extras.putBoolean("android.isGroupConversation", false)
+        extras.putString("android.title", "\u0645\u062D\u0645\u062F") // Arabic name
+
+        val notification = Notification()
+        notification.extras = extras
+        whenever(mockSbn.notification).thenReturn(notification)
+
+        assertEquals("\u0645\u062D\u0645\u062F", NotificationUtils.getTitle(mockSbn))
+    }
+
+    @Test(expected = NullPointerException::class)
+    fun `getTitle throws NPE for group conversation with null title and null hiddenTitle`() {
+        // Documents existing bug: getTitle does not null-check title before calling indexOf(':')
+        // See plan item C1 for the fix
+        val extras = Bundle()
+        extras.putBoolean("android.isGroupConversation", true)
+
+        val notification = Notification()
+        notification.extras = extras
+        whenever(mockSbn.notification).thenReturn(notification)
+
+        NotificationUtils.getTitle(mockSbn)
+    }
+
+    @Test
+    fun `extractWearNotification returns empty remoteInputs when all actions lack RemoteInput`() {
+        val intent = Intent("test_action")
+        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val action1 = NotificationCompat.Action.Builder(0, "Archive", pi).build()
+        val action2 = NotificationCompat.Action.Builder(0, "Delete", pi).build()
+
+        val notification = NotificationCompat.Builder(context, "test_channel")
+            .addAction(action1)
+            .addAction(action2)
+            .build()
+
+        whenever(mockSbn.notification).thenReturn(notification)
+        whenever(mockSbn.packageName).thenReturn("com.whatsapp")
+        whenever(mockSbn.tag).thenReturn(null)
+
+        val result = NotificationUtils.extractWearNotification(mockSbn)
+        assertTrue(result.remoteInputs.isEmpty())
+        assertNull(result.pendingIntent)
+    }
+
+    @Test
+    fun `isNewNotification returns true for future notification timestamp`() {
+        val notification = Notification()
+        notification.`when` = System.currentTimeMillis() + 60_000L // 1 minute in the future
+        whenever(mockSbn.notification).thenReturn(notification)
+
+        assertTrue(NotificationUtils.isNewNotification(mockSbn))
+    }
 }

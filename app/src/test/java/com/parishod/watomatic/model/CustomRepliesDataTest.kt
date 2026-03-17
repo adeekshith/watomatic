@@ -280,4 +280,22 @@ class CustomRepliesDataTest {
         val atMax: Editable = SpannableStringBuilder("a".repeat(CustomRepliesData.MAX_STR_LENGTH_CUSTOM_REPLY))
         assertTrue(CustomRepliesData.isValidCustomReply(atMax))
     }
+
+    // --- Edge cases ---
+
+    @Test
+    fun `get returns non-null default when fresh instance created`() {
+        val instance = CustomRepliesData.getInstance(context)
+        // init() sets a default reply, so get() returns non-null on fresh instance
+        assertNotNull(instance.get())
+    }
+
+    @Test
+    fun `set with MAX_STR_LENGTH_CUSTOM_REPLY characters succeeds`() {
+        val instance = CustomRepliesData.getInstance(context)
+        val longReply = "a".repeat(CustomRepliesData.MAX_STR_LENGTH_CUSTOM_REPLY)
+        val result = instance.set(longReply)
+        assertEquals(longReply, result)
+        assertEquals(longReply, instance.get())
+    }
 }
