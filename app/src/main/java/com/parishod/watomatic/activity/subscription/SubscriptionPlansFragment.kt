@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.android.billingclient.api.ProductDetails
 import com.google.android.material.card.MaterialCardView
@@ -22,6 +23,11 @@ class SubscriptionPlansFragment : Fragment() {
     private var miniPlanCard: MaterialCardView? = null
     private var standardPlanCard: MaterialCardView? = null
     private var proPlanCard: MaterialCardView? = null
+
+    private var freePlanbadge: TextView? = null
+    private var miniPlanbadge: TextView? = null
+    private var standardPlanbadge: TextView? = null
+    private var proPlanbadge: TextView? = null
 
     // Price text views
     private var miniPriceText: TextView? = null
@@ -58,6 +64,11 @@ class SubscriptionPlansFragment : Fragment() {
         miniPlanCard = view.findViewById(R.id.mini_plan_card)
         standardPlanCard = view.findViewById(R.id.standard_plan_card)
         proPlanCard = view.findViewById(R.id.pro_plan_card)
+
+        freePlanbadge = view.findViewById(R.id.current_plan_free)
+        miniPlanbadge = view.findViewById(R.id.current_plan_mini)
+        standardPlanbadge = view.findViewById(R.id.current_plan_standard)
+        proPlanbadge = view.findViewById(R.id.current_plan_pro)
 
         miniPriceText = view.findViewById(R.id.mini_price)
         standardPriceText = view.findViewById(R.id.standard_price)
@@ -250,6 +261,11 @@ class SubscriptionPlansFragment : Fragment() {
 
         // Helper to apply current/disabled state to a card
         fun applyState(card: MaterialCardView?, rank: Int, priceView: TextView?) {
+//            freePlanbadge?.isVisible = false
+//            miniPlanbadge?.isVisible = false
+//            standardPlanbadge?.isVisible = false
+//            proPlanbadge?.isVisible = false
+
             if (tierRank < 0) {
                 // No current plan - reset everything
                 card?.alpha = 1.0f
@@ -267,7 +283,15 @@ class SubscriptionPlansFragment : Fragment() {
                 card?.alpha = 0.5f
                 card?.isClickable = false
                 card?.isFocusable = false
-                priceView?.text = getString(R.string.plan_current)
+                if(rank == 0) {
+                    freePlanbadge?.isVisible = true
+                } else if (rank == 1) {
+                    miniPlanbadge?.isVisible = true
+                } else if (rank == 2) {
+                    standardPlanbadge?.isVisible = true
+                } else if (rank == 3) {
+                    proPlanbadge?.isVisible = true
+                }
             } else {
                 // Higher tier - keep fully interactive
                 card?.alpha = 1.0f
