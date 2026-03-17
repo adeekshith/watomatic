@@ -86,7 +86,7 @@ class LoginActivity : BaseActivity() {
         val emailInput = android.widget.EditText(this)
         emailInput.hint = "Confirm your email"
         emailInput.inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-        
+
         AlertDialog.Builder(this)
             .setTitle("Confirm Email")
             .setMessage("Please enter your email to complete the sign-in.")
@@ -111,7 +111,7 @@ class LoginActivity : BaseActivity() {
                 authResult.user?.email?.let { verifiedEmail ->
                     handleSuccessfulAuth(verifiedEmail)
                 } ?: hideLoading()
-                
+
                 authResult.user?.getIdToken(true)?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         preferencesManager.firebaseToken = task.result?.token
@@ -208,7 +208,7 @@ class LoginActivity : BaseActivity() {
 
     private fun signInWithGoogle() {
         showLoading()
-        
+
         val webClientIdRes = resources.getIdentifier("default_web_client_id", "string", packageName)
         val webClientId = if (webClientIdRes != 0) getString(webClientIdRes) else ""
 
