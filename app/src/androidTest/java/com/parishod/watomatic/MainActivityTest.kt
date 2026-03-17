@@ -1,6 +1,7 @@
 package com.parishod.watomatic
 
 import android.content.Intent
+import android.os.Build
 import androidx.preference.PreferenceManager
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -44,6 +45,17 @@ class MainActivityTest {
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+        // Grant POST_NOTIFICATIONS permission on Android 13+ (API 33+) to prevent
+        // the system permission dialog from blocking Espresso tests.
+        if (Build.VERSION.SDK_INT >= 33) {
+            InstrumentationRegistry.getInstrumentation().uiAutomation
+                .grantRuntimePermission(
+                    context.packageName,
+                    "android.permission.POST_NOTIFICATIONS"
+                )
+        }
+
         // Reset to clean state
         PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit()
         PreferencesManager.resetInstance()
