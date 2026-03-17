@@ -23,6 +23,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -58,6 +59,69 @@ class LoginActivity : BaseActivity() {
         setupViews()
         setupClickListeners()
         setupTextWatchers()
+
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        val link = intent?.data?.toString()
+        if (link != null && auth.isSignInWithEmailLink(link)) {
+            val email = preferencesManager.getString(PREF_USER_EMAIL, "")
+            if (email.isNotEmpty()) {
+                completeSignInWithEmailLink(email, link)
+            } else {
+                // Email missing from prefs (e.g. user clicked link on different device/browser)
+                showEmailInputDialog(link)
+            }
+        }
+    }
+
+    private fun showEmailInputDialog(link: String) {
+        val emailInput = android.widget.EditText(this)
+        emailInput.hint = "Confirm your email"
+        emailInput.inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Email")
+            .setMessage("Please enter your email to complete the sign-in.")
+            .setView(emailInput)
+            .setPositiveButton("Verify") { _, _ ->
+                val email = emailInput.text.toString()
+                if (email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    completeSignInWithEmailLink(email, link)
+                } else {
+                    Toast.makeText(this, "Invalid email", Toast.LENGTH_SHORT).show()
+                    showEmailInputDialog(link)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun completeSignInWithEmailLink(email: String, link: String) {
+        showLoading()
+        auth.signInWithEmailLink(email, link)
+            .addOnSuccessListener { authResult ->
+                authResult.user?.email?.let { verifiedEmail ->
+                    handleSuccessfulAuth(verifiedEmail)
+                } ?: hideLoading()
+                
+                authResult.user?.getIdToken(true)?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        preferencesManager.firebaseToken = task.result?.token
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                hideLoading()
+                Toast.makeText(this, "Sign-in failed: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun setupGoogleSignIn() {
@@ -103,18 +167,43 @@ class LoginActivity : BaseActivity() {
 
     private fun handleLoginButtonClick() {
         val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
 
-        if (validateInputs(email, password)) {
+        if (validateInputs(email)) {
             showLoading()
-            checkIfEmailExists(email) { exists ->
-                if (exists) {
-                    doSignin(email, password)
-                } else {
-                    createNewAccount(email, password)
-                }
-            }
+            sendSignInLink(email)
         }
+    }
+
+    private fun sendSignInLink(email: String) {
+        val actionCodeSettings = ActionCodeSettings.newBuilder()
+            .setUrl("https://atomatic-cd91f.firebaseapp.com/finishSignIn")
+            .setHandleCodeInApp(true)
+            .setAndroidPackageName(
+                packageName,
+                true, // installIfNotAvailable
+                null // minimumVersion
+            )
+            .build()
+
+        auth.sendSignInLinkToEmail(email, actionCodeSettings)
+            .addOnSuccessListener {
+                hideLoading()
+                preferencesManager.saveString(PREF_USER_EMAIL, email)
+                Toast.makeText(this, "Verification link sent to $email", Toast.LENGTH_LONG).show()
+                showVerificationSentDialog(email)
+            }
+            .addOnFailureListener { e ->
+                hideLoading()
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun showVerificationSentDialog(email: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Check your email")
+            .setMessage("We've sent a verification link to $email. Please click the link in your email to sign in.")
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun signInWithGoogle() {
@@ -195,141 +284,8 @@ class LoginActivity : BaseActivity() {
             }*/
     }
 
-    private fun doSignin(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                checkAndSendEmailVerification(it.user)
-                it.user?.getIdToken(true)?.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val idToken = task.result?.token
-                            // Use the token here
-                            Log.d("firebase","Firebase ID Token: $idToken")
-                            preferencesManager.firebaseToken = idToken
-                        } else {
-                            // Handle error
-                            task.exception?.printStackTrace()
-                        }
-                    }
-            }
-            .addOnFailureListener { exception ->
-                hideLoading()
-                Toast.makeText(this, getString(R.string.authentication_failed_with_message, exception.message),
-                    Toast.LENGTH_LONG).show()
-            }
-    }
-
-    fun checkIfEmailExists(email: String, onResult: (Boolean) -> Unit) {
-        auth.fetchSignInMethodsForEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val signInMethods = task.result?.signInMethods ?: emptyList()
-                    onResult(signInMethods.isNotEmpty()) // true if email exists
-                } else {
-                    onResult(false)
-                }
-            }
-    }
-
-    private fun showSignUpConfirmation(email: String, password: String) {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.create_new_account)
-            .setMessage(getString(R.string.create_new_account_prompt, email))
-            .setPositiveButton(R.string.create_account) { _, _ ->
-                createNewAccount(email, password)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
-    }
-
-    private fun createNewAccount(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                checkAndSendEmailVerification(it.user)
-            }
-            .addOnFailureListener { exception ->
-                val message = when {
-                    exception.message?.contains(EMAIL_ALREADY_EXISTS, ignoreCase = true) == true -> {
-                        doSignin(email, password) // loader stays visible; doSignin will hide on its own failure
-                        ""
-                    }
-                    exception.message?.contains(INVALID_CREDENTIALS, ignoreCase = true) == true -> {
-                        getString(R.string.invalid_email_or_password_length)
-                    }
-                    else -> {
-                        getString(R.string.create_account_failed, exception.message)
-                    }
-                }
-                if (message.isNotEmpty()) {
-                    hideLoading()
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-                }
-            }
-    }
-
-    private fun checkAndSendEmailVerification(user: FirebaseUser?) {
-        if (user != null && !user.isEmailVerified) {
-            user.sendEmailVerification()
-                .addOnSuccessListener {
-                    hideLoading()
-                    Toast.makeText(this, getString(R.string.verification_email_sent, user.email), Toast.LENGTH_SHORT).show()
-                    showVerificationDialog(user)
-                }
-                .addOnFailureListener { exception ->
-                    hideLoading()
-                    Toast.makeText(this, getString(R.string.verification_email_failed, exception.message), Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            hideLoading()
-            user?.email?.let { handleSuccessfulAuth(it) }
-        }
-    }
-
     private fun showVerificationDialog(user: FirebaseUser) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.verify_your_email))
-        builder.setMessage(getString(R.string.verification_dialog_message, user.email))
-
-        builder.setPositiveButton(getString(R.string.i_ve_verified)) { _, _ ->
-            user.reload()
-                .addOnSuccessListener {
-                    if (user.isEmailVerified) {
-                        Toast.makeText(this, getString(R.string.email_verified), Toast.LENGTH_SHORT).show()
-                        user.email?.let { handleSuccessfulAuth(it) }
-                        user?.getIdToken(true)?.addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val idToken = task.result?.token
-                                // Use the token here
-                                Log.d("firebase","Firebase ID Token: $idToken")
-                                preferencesManager.firebaseToken = idToken
-                            } else {
-                                // Handle error
-                                task.exception?.printStackTrace()
-                            }
-                        }
-                    } else {
-                        Toast.makeText(this, getString(R.string.email_not_verified_yet), Toast.LENGTH_SHORT).show()
-                        showVerificationDialog(user)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(this, getString(R.string.verification_check_failed, exception.message), Toast.LENGTH_SHORT).show()
-                }
-        }
-
-        builder.setNeutralButton(getString(R.string.resend_email)) { _, _ ->
-            user.sendEmailVerification()
-                .addOnSuccessListener {
-                    Toast.makeText(this, getString(R.string.verification_email_resent, user.email), Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(this, getString(R.string.failed_to_resend_email, exception.message), Toast.LENGTH_SHORT).show()
-                }
-        }
-
-        builder.setNegativeButton(getString(R.string.contact_permission_dialog_cancel)) { dialog, _ -> dialog.dismiss() }
-
-        builder.setCancelable(false)
-        builder.show()
+        // No longer used in Email Link flow
     }
 
     private fun handleSuccessfulAuth(email: String) {
@@ -359,15 +315,13 @@ class LoginActivity : BaseActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 binding.tilEmail.error = null
-                binding.tilPassword.error = null
             }
         }
 
         binding.etEmail.addTextChangedListener(textWatcher)
-        binding.etPassword.addTextChangedListener(textWatcher)
     }
 
-    private fun validateInputs(email: String, password: String): Boolean {
+    private fun validateInputs(email: String): Boolean {
         var isValid = true
 
         if (email.isEmpty()) {
@@ -375,14 +329,6 @@ class LoginActivity : BaseActivity() {
             isValid = false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.tilEmail.error = getString(R.string.error_invalid_email)
-            isValid = false
-        }
-
-        if (password.isEmpty()) {
-            binding.tilPassword.error = getString(R.string.error_password_required)
-            isValid = false
-        } else if (password.length < 6) {
-            binding.tilPassword.error = getString(R.string.error_password_too_short)
             isValid = false
         }
 
