@@ -1,8 +1,10 @@
 package com.parishod.watomatic
 
+import android.content.Context
+import androidx.preference.PreferenceManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.parishod.watomatic.model.preferences.PreferencesManager
+import com.parishod.watomatic.model.preferences.PreferencesManager as AppPreferencesManager
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -14,24 +16,28 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented tests for [PreferencesManager] using the real Android Keystore
+ * Instrumented tests for [AppPreferencesManager] using the real Android Keystore
  * and SharedPreferences on a device or emulator.
  */
 @RunWith(AndroidJUnit4::class)
 class PreferencesManagerInstrumentedTest {
 
-    private lateinit var prefs: PreferencesManager
+    private lateinit var context: Context
+    private lateinit var prefs: AppPreferencesManager
 
     @Before
     fun setUp() {
-        PreferencesManager.resetInstance()
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        prefs = PreferencesManager.getPreferencesInstance(context)
+        context = InstrumentationRegistry.getInstrumentation().targetContext
+        // Clear all preferences before each test to guarantee a clean, isolated state
+        PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit()
+        AppPreferencesManager.resetInstance()
+        prefs = AppPreferencesManager.getPreferencesInstance(context)
     }
 
     @After
     fun tearDown() {
-        PreferencesManager.resetInstance()
+        PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit()
+        AppPreferencesManager.resetInstance()
     }
 
     @Test
@@ -41,18 +47,17 @@ class PreferencesManagerInstrumentedTest {
 
     @Test
     fun serviceEnabledDefaultsToFalseOnFreshInstance() {
-        // On a fresh test run, service should not be enabled
-        // (This assumes prefs are clear; see note below if this flakes)
+        // Preferences are cleared in setUp, so this always starts from a known clean state
         assertFalse(prefs.isServiceEnabled)
     }
 
     @Test
     fun setAndGetServiceEnabled() {
-        val original = prefs.isServiceEnabled
-        prefs.setServicePref(!original)
-        assertEquals(!original, prefs.isServiceEnabled)
-        // Restore
-        prefs.setServicePref(original)
+        assertFalse(prefs.isServiceEnabled)
+        prefs.setServicePref(true)
+        assertTrue(prefs.isServiceEnabled)
+        prefs.setServicePref(false)
+        assertFalse(prefs.isServiceEnabled)
     }
 
     @Test
@@ -106,7 +111,7 @@ class PreferencesManagerInstrumentedTest {
     fun deleteOpenAIApiKeyRemovesIt() {
         prefs.saveOpenAIApiKey("sk-key-to-delete")
         prefs.deleteOpenAIApiKey()
-        // After deletion, key should be absent (null)
+        // Whether EncryptedSharedPreferences is available or not, key must be absent after deletion
         assertNull(prefs.getOpenAIApiKey())
     }
 
