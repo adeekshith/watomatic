@@ -1,19 +1,25 @@
 package com.parishod.watomatic
 
+import androidx.preference.PreferenceManager
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.parishod.watomatic.activity.main.MainActivity
 import com.parishod.watomatic.model.preferences.PreferencesManager
+import org.hamcrest.Matchers.not
 import org.junit.Assert.assertNotNull
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,7 +28,8 @@ import org.junit.runner.RunWith
  * Instrumented tests for [MainActivity].
  *
  * Runs on an Android device or emulator. Tests here verify that the activity
- * launches correctly and the primary UI elements are visible.
+ * launches correctly, the primary UI elements are visible, and key interactions
+ * work as expected.
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -30,6 +37,22 @@ class MainActivityTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        // Ensure service is disabled so switch starts unchecked
+        val prefs = PreferencesManager.getPreferencesInstance(context)
+        prefs.setServicePref(false)
+    }
+
+    @After
+    fun tearDown() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        PreferencesManager.getPreferencesInstance(context).setServicePref(false)
+    }
+
+    // --- Launch Tests ---
 
     @Test
     fun mainActivityLaunchesSuccessfully() {
@@ -44,17 +67,32 @@ class MainActivityTest {
     }
 
     @Test
-    fun autoRepliesSwitchIsDisplayed() {
-        onView(withId(R.id.switch_auto_replies)).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun activityCanBeRecreated() {
         activityRule.scenario.recreate()
         activityRule.scenario.onActivity { activity ->
             assertNotNull(activity)
         }
     }
+
+    // --- Auto-Reply Switch ---
+
+    @Test
+    fun autoRepliesSwitchIsDisplayed() {
+        onView(withId(R.id.switch_auto_replies)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun autoReplySwitchStateMatchesPreference() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val prefs = PreferencesManager.getPreferencesInstance(context)
+        if (prefs.isServiceEnabled) {
+            onView(withId(R.id.switch_auto_replies)).check(matches(isChecked()))
+        } else {
+            onView(withId(R.id.switch_auto_replies)).check(matches(isNotChecked()))
+        }
+    }
+
+    // --- Auto-Reply Card ---
 
     @Test
     fun aiReplyTextIsDisplayed() {
@@ -67,9 +105,34 @@ class MainActivityTest {
     }
 
     @Test
+    fun aiReplyTextIsNotEmpty() {
+        onView(withId(R.id.ai_reply_text))
+            .check(matches(not(withText(""))))
+    }
+
+    // --- Bottom Navigation ---
+
+    @Test
     fun bottomNavIsDisplayed() {
         onView(withId(R.id.bottom_nav)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun bottomNavAtomaticItemIsDisplayed() {
+        onView(withId(R.id.navigation_atomatic)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun bottomNavCommunityItemIsDisplayed() {
+        onView(withId(R.id.navigation_community)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun bottomNavSettingsItemIsDisplayed() {
+        onView(withId(R.id.navigation_settings)).check(matches(isDisplayed()))
+    }
+
+    // --- Filters Section ---
 
     @Test
     fun filterContactsRowIsDisplayed() {
@@ -92,13 +155,60 @@ class MainActivityTest {
     }
 
     @Test
-    fun autoReplySwitchStateMatchesPreference() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val prefs = PreferencesManager.getPreferencesInstance(context)
-        if (prefs.isServiceEnabled) {
-            onView(withId(R.id.switch_auto_replies)).check(matches(isChecked()))
-        } else {
-            onView(withId(R.id.switch_auto_replies)).check(matches(isNotChecked()))
-        }
+    fun contactsFilterDescriptionIsDisplayed() {
+        onView(withId(R.id.contacts_filter_description))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun messageTypeDescriptionIsDisplayed() {
+        onView(withId(R.id.message_type_desc))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun enabledAppsCountIsDisplayed() {
+        onView(withId(R.id.enabled_apps_count))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun replyCooldownDescriptionIsDisplayed() {
+        onView(withId(R.id.reply_cooldown_description))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+    }
+
+    // --- Filter descriptions have content ---
+
+    @Test
+    fun contactsFilterDescriptionIsNotEmpty() {
+        onView(withId(R.id.contacts_filter_description))
+            .perform(scrollTo())
+            .check(matches(not(withText(""))))
+    }
+
+    @Test
+    fun messageTypeDescriptionIsNotEmpty() {
+        onView(withId(R.id.message_type_desc))
+            .perform(scrollTo())
+            .check(matches(not(withText(""))))
+    }
+
+    @Test
+    fun enabledAppsCountIsNotEmpty() {
+        onView(withId(R.id.enabled_apps_count))
+            .perform(scrollTo())
+            .check(matches(not(withText(""))))
+    }
+
+    @Test
+    fun replyCooldownDescriptionIsNotEmpty() {
+        onView(withId(R.id.reply_cooldown_description))
+            .perform(scrollTo())
+            .check(matches(not(withText(""))))
     }
 }
