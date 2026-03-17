@@ -3,6 +3,7 @@ package com.parishod.watomatic.model.preferences
 import android.content.Context
 import androidx.preference.PreferenceManager
 import androidx.test.core.app.ApplicationProvider
+import com.parishod.watomatic.model.App
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -564,5 +565,265 @@ class PreferencesManagerTest {
     fun `setSubscriptionPlanType persists value`() {
         prefs.setSubscriptionPlanType("pro")
         assertEquals("pro", prefs.subscriptionPlanType)
+    }
+
+    // --- Show notification preference ---
+
+    @Test
+    fun `isShowNotificationEnabled is true after new install`() {
+        // init() calls setShowNotificationPref(true) for new installs (fresh cleared prefs)
+        assertTrue(prefs.isShowNotificationEnabled)
+    }
+
+    @Test
+    fun `setShowNotificationPref persists false`() {
+        prefs.setShowNotificationPref(false)
+        assertFalse(prefs.isShowNotificationEnabled)
+    }
+
+    @Test
+    fun `setShowNotificationPref persists true`() {
+        prefs.setShowNotificationPref(false)
+        prefs.setShowNotificationPref(true)
+        assertTrue(prefs.isShowNotificationEnabled)
+    }
+
+    // --- GitHub release notes ID ---
+
+    @Test
+    fun `getGithubReleaseNotesId defaults to 0`() {
+        assertEquals(0, prefs.getGithubReleaseNotesId())
+    }
+
+    @Test
+    fun `setGithubReleaseNotesId persists value`() {
+        prefs.setGithubReleaseNotesId(42)
+        assertEquals(42, prefs.getGithubReleaseNotesId())
+    }
+
+    @Test
+    fun `setGithubReleaseNotesId overwrites previous value`() {
+        prefs.setGithubReleaseNotesId(100)
+        prefs.setGithubReleaseNotesId(200)
+        assertEquals(200, prefs.getGithubReleaseNotesId())
+    }
+
+    // --- Last purged time ---
+
+    @Test
+    fun `getLastPurgedTime defaults to 0`() {
+        assertEquals(0L, prefs.getLastPurgedTime())
+    }
+
+    @Test
+    fun `setPurgeMessageTime persists value`() {
+        val time = 1_234_567_890L
+        prefs.setPurgeMessageTime(time)
+        assertEquals(time, prefs.getLastPurgedTime())
+    }
+
+    // --- Play store rating ---
+
+    @Test
+    fun `getPlayStoreRatingStatus defaults to empty string`() {
+        assertEquals("", prefs.getPlayStoreRatingStatus())
+    }
+
+    @Test
+    fun `setPlayStoreRatingStatus persists value`() {
+        prefs.setPlayStoreRatingStatus("done")
+        assertEquals("done", prefs.getPlayStoreRatingStatus())
+    }
+
+    @Test
+    fun `getPlayStoreRatingLastTime defaults to 0`() {
+        assertEquals(0L, prefs.getPlayStoreRatingLastTime())
+    }
+
+    @Test
+    fun `setPlayStoreRatingLastTime persists value`() {
+        val time = 9_876_543_210L
+        prefs.setPlayStoreRatingLastTime(time)
+        assertEquals(time, prefs.getPlayStoreRatingLastTime())
+    }
+
+    // --- Foreground service notification ---
+
+    @Test
+    fun `isForegroundServiceNotificationEnabled defaults to false`() {
+        assertFalse(prefs.isForegroundServiceNotificationEnabled)
+    }
+
+    @Test
+    fun `setShowForegroundServiceNotification persists true`() {
+        prefs.setShowForegroundServiceNotification(true)
+        assertTrue(prefs.isForegroundServiceNotificationEnabled)
+    }
+
+    @Test
+    fun `setShowForegroundServiceNotification persists false`() {
+        prefs.setShowForegroundServiceNotification(true)
+        prefs.setShowForegroundServiceNotification(false)
+        assertFalse(prefs.isForegroundServiceNotificationEnabled)
+    }
+
+    // --- Reply to names ---
+
+    @Test
+    fun `getReplyToNames defaults to empty set`() {
+        assertTrue(prefs.getReplyToNames().isEmpty())
+    }
+
+    @Test
+    fun `setReplyToNames persists single name`() {
+        prefs.setReplyToNames(setOf("Alice"))
+        assertEquals(setOf("Alice"), prefs.getReplyToNames())
+    }
+
+    @Test
+    fun `setReplyToNames persists multiple names`() {
+        val names = setOf("Alice", "Bob", "Charlie")
+        prefs.setReplyToNames(names)
+        assertEquals(names, prefs.getReplyToNames())
+    }
+
+    @Test
+    fun `setReplyToNames can overwrite with empty set`() {
+        prefs.setReplyToNames(setOf("Alice"))
+        prefs.setReplyToNames(emptySet())
+        assertTrue(prefs.getReplyToNames().isEmpty())
+    }
+
+    // --- Custom reply names ---
+
+    @Test
+    fun `getCustomReplyNames defaults to empty set`() {
+        assertTrue(prefs.getCustomReplyNames().isEmpty())
+    }
+
+    @Test
+    fun `setCustomReplyNames persists names`() {
+        val names = setOf("Alice", "Bob")
+        prefs.setCustomReplyNames(names)
+        assertEquals(names, prefs.getCustomReplyNames())
+    }
+
+    // --- Generic getString / saveString ---
+
+    @Test
+    fun `saveString and getString round trip`() {
+        prefs.saveString("test_custom_key", "test_custom_value")
+        assertEquals("test_custom_value", prefs.getString("test_custom_key", "default"))
+    }
+
+    @Test
+    fun `getString returns default when key not present`() {
+        assertEquals("my_default", prefs.getString("nonexistent_key_xyz_abc", "my_default"))
+    }
+
+    @Test
+    fun `saveString overwrites previous value`() {
+        prefs.saveString("overwrite_key", "first_value")
+        prefs.saveString("overwrite_key", "second_value")
+        assertEquals("second_value", prefs.getString("overwrite_key", "default"))
+    }
+
+    // --- Subscription status last checked ---
+
+    @Test
+    fun `getSubscriptionStatusLastChecked defaults to 0`() {
+        assertEquals(0L, prefs.getSubscriptionStatusLastChecked())
+    }
+
+    @Test
+    fun `setSubscriptionStatusLastChecked persists value`() {
+        val time = System.currentTimeMillis()
+        prefs.setSubscriptionStatusLastChecked(time)
+        assertEquals(time, prefs.getSubscriptionStatusLastChecked())
+    }
+
+    // --- Subscription product name ---
+
+    @Test
+    fun `getSubscriptionProductName defaults to empty string`() {
+        assertEquals("", prefs.getSubscriptionProductName())
+    }
+
+    @Test
+    fun `setSubscriptionProductName persists value`() {
+        prefs.setSubscriptionProductName("Watomatic Pro Monthly")
+        assertEquals("Watomatic Pro Monthly", prefs.getSubscriptionProductName())
+    }
+
+    // --- Deprecated isOpenAIRepliesEnabled ---
+
+    @Test
+    fun `isOpenAIRepliesEnabled defaults to false`() {
+        @Suppress("DEPRECATION")
+        assertFalse(prefs.isOpenAIRepliesEnabled())
+    }
+
+    @Test
+    fun `setEnableOpenAIReplies persists value`() {
+        prefs.setEnableOpenAIReplies(true)
+        @Suppress("DEPRECATION")
+        assertTrue(prefs.isOpenAIRepliesEnabled())
+    }
+
+    // --- Enabled apps ---
+
+    @Test
+    fun `saveEnabledApps by package name adds package`() {
+        prefs.saveEnabledApps("com.whatsapp", true)
+        assertTrue(prefs.isAppEnabled("com.whatsapp"))
+    }
+
+    @Test
+    fun `saveEnabledApps by package name removes package`() {
+        prefs.saveEnabledApps("com.whatsapp", true)
+        prefs.saveEnabledApps("com.whatsapp", false)
+        assertFalse(prefs.isAppEnabled("com.whatsapp"))
+    }
+
+    @Test
+    fun `saveEnabledApps can add multiple packages`() {
+        prefs.saveEnabledApps("com.whatsapp", true)
+        prefs.saveEnabledApps("org.telegram.messenger", true)
+        assertTrue(prefs.isAppEnabled("com.whatsapp"))
+        assertTrue(prefs.isAppEnabled("org.telegram.messenger"))
+    }
+
+    @Test
+    fun `saveEnabledApps with App object adds package`() {
+        val app = App("WhatsApp", "com.whatsapp", false)
+        prefs.saveEnabledApps(app, true)
+        assertTrue(prefs.isAppEnabled(app))
+    }
+
+    @Test
+    fun `saveEnabledApps with App object removes package`() {
+        val app = App("WhatsApp", "com.whatsapp", false)
+        prefs.saveEnabledApps(app, true)
+        prefs.saveEnabledApps(app, false)
+        assertFalse(prefs.isAppEnabled(app))
+    }
+
+    @Test
+    fun `isAppEnabled returns false for package not in list`() {
+        assertFalse(prefs.isAppEnabled("com.nonexistent.app.xyz"))
+    }
+
+    @Test
+    fun `getEnabledApps returns set containing explicitly added package`() {
+        prefs.saveEnabledApps("com.whatsapp", true)
+        assertTrue(prefs.getEnabledApps().contains("com.whatsapp"))
+    }
+
+    // --- isFirstInstall ---
+
+    @Test
+    fun `isFirstInstall returns true in Robolectric test environment`() {
+        // In Robolectric, firstInstallTime == lastUpdateTime (both 0), so returns true
+        assertTrue(PreferencesManager.isFirstInstall(context))
     }
 }

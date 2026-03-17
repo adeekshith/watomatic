@@ -128,15 +128,31 @@ public class CustomRepliesData {
     }
 
     public String getTextToSendOrElse() {
+        // Load string resources with fallbacks for environments where resources are unavailable
+        // (e.g. unit-test environments using Robolectric), consistent with init() pattern.
+        String aiDefaultMessage;
+        String regularDefaultMessage;
+        try {
+            aiDefaultMessage = thisAppContext.getString(R.string.ai_auto_reply_default_message);
+            regularDefaultMessage = thisAppContext.getString(R.string.auto_reply_default_message);
+        } catch (android.content.res.Resources.NotFoundException e) {
+            aiDefaultMessage = "AI Replies Enabled\nMessages are smartly handled by AI";
+            regularDefaultMessage = "Auto Reply\nI'm currently unavailable and will get back to you as soon as I can.";
+        }
+
         String currentText;
         // Check if AI is enabled (covers both Automatic AI and BYOK)
-        if(preferencesManager.isAnyAiRepliesEnabled()){
-            currentText = thisAppContext.getString(R.string.ai_auto_reply_default_message);
-        }else {
-            currentText = getOrElse(thisAppContext.getString(R.string.auto_reply_default_message));
+        if (preferencesManager.isAnyAiRepliesEnabled()) {
+            currentText = aiDefaultMessage;
+        } else {
+            currentText = getOrElse(regularDefaultMessage);
         }
         if (preferencesManager.isAppendWatomaticAttributionEnabled()) {
-            currentText += "\n\n" + RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
+            try {
+                currentText += "\n\n" + RTL_ALIGN_INVISIBLE_CHAR + thisAppContext.getString(R.string.sent_using_Watomatic);
+            } catch (android.content.res.Resources.NotFoundException e) {
+                currentText += "\n\n" + RTL_ALIGN_INVISIBLE_CHAR + "Sent using Watomatic";
+            }
         }
         return currentText;
     }

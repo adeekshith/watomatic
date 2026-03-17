@@ -1,6 +1,7 @@
 package com.parishod.watomatic.model.utils
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -21,6 +22,7 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -359,5 +361,59 @@ class NotificationUtilsTest {
 
         assertTrue(result.remoteInputs.isEmpty())
         assertNull(result.pendingIntent)
+    }
+
+    @Test
+    fun `extractWearNotification picks action from WearableExtender when no standard actions`() {
+        val intent = Intent("test_action")
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
+        val remoteInput = RemoteInput.Builder("key_wear_reply")
+            .setLabel("Reply")
+            .build()
+        val wearAction = NotificationCompat.Action.Builder(0, "Reply", pendingIntent)
+            .addRemoteInput(remoteInput)
+            .build()
+
+        // Only add via WearableExtender, not as a standard action
+        val notification = NotificationCompat.Builder(context, "test_channel")
+            .extend(NotificationCompat.WearableExtender().addAction(wearAction))
+            .build()
+
+        whenever(mockSbn.notification).thenReturn(notification)
+        whenever(mockSbn.packageName).thenReturn("com.whatsapp")
+        whenever(mockSbn.tag).thenReturn(null)
+
+        val result = NotificationUtils.extractWearNotification(mockSbn)
+
+        assertEquals(1, result.remoteInputs.size)
+        assertEquals("key_wear_reply", result.remoteInputs[0].resultKey)
+        assertNotNull(result.pendingIntent)
+    }
+
+    // --- showAccessRevokedNotification ---
+
+    @Test
+    fun `showAccessRevokedNotification does not throw`() {
+        // Smoke test: just verify no exception is thrown
+        NotificationUtils.showAccessRevokedNotification(context)
+    }
+
+    @Test
+    fun `showAccessRevokedNotification creates notification channel`() {
+        NotificationUtils.showAccessRevokedNotification(context)
+        val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = nm.getNotificationChannel("nls_health_channel")
+        assertNotNull(channel)
+        assertEquals("Notification Access Alerts", channel.name.toString())
+    }
+
+    @Test
+    fun `showAccessRevokedNotification posts a notification`() {
+        NotificationUtils.showAccessRevokedNotification(context)
+        val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notifications = Shadows.shadowOf(nm).allNotifications
+        assertTrue(notifications.isNotEmpty())
     }
 }

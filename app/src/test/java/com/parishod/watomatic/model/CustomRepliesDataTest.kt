@@ -1,6 +1,8 @@
 package com.parishod.watomatic.model
 
 import android.content.Context
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import androidx.preference.PreferenceManager
 import androidx.test.core.app.ApplicationProvider
 import com.parishod.watomatic.model.preferences.PreferencesManager
@@ -161,5 +163,121 @@ class CustomRepliesDataTest {
     fun `RTL_ALIGN_INVISIBLE_CHAR is defined`() {
         assertNotNull(CustomRepliesData.RTL_ALIGN_INVISIBLE_CHAR)
         assertTrue(CustomRepliesData.RTL_ALIGN_INVISIBLE_CHAR.isNotEmpty())
+    }
+
+    // --- getTextToSendOrElse ---
+
+    @Test
+    fun `getTextToSendOrElse returns custom reply when AI not enabled`() {
+        val instance = CustomRepliesData.getInstance(context)
+        instance.set("My custom reply")
+        val result = instance.getTextToSendOrElse()
+        assertEquals("My custom reply", result)
+    }
+
+    @Test
+    fun `getTextToSendOrElse returns non-empty string when automatic AI enabled`() {
+        val prefsInstance = PreferencesManager.getPreferencesInstance(context)
+        prefsInstance.setEnableAutomaticAiReplies(true)
+        val instance = CustomRepliesData.getInstance(context)
+        val result = instance.getTextToSendOrElse()
+        assertNotNull(result)
+        assertTrue(result.isNotEmpty())
+    }
+
+    @Test
+    fun `getTextToSendOrElse returns non-empty string when BYOK enabled`() {
+        val prefsInstance = PreferencesManager.getPreferencesInstance(context)
+        prefsInstance.setEnableByokReplies(true)
+        val instance = CustomRepliesData.getInstance(context)
+        val result = instance.getTextToSendOrElse()
+        assertNotNull(result)
+        assertTrue(result.isNotEmpty())
+    }
+
+    @Test
+    fun `getTextToSendOrElse appends RTL attribution when attribution enabled`() {
+        val prefsInstance = PreferencesManager.getPreferencesInstance(context)
+        prefsInstance.setAppendWatomaticAttribution(true)
+        val instance = CustomRepliesData.getInstance(context)
+        instance.set("My reply")
+        val result = instance.getTextToSendOrElse()
+        assertTrue(result.contains(CustomRepliesData.RTL_ALIGN_INVISIBLE_CHAR))
+    }
+
+    @Test
+    fun `getTextToSendOrElse does not append attribution when attribution disabled`() {
+        val prefsInstance = PreferencesManager.getPreferencesInstance(context)
+        prefsInstance.setAppendWatomaticAttribution(false)
+        val instance = CustomRepliesData.getInstance(context)
+        instance.set("My reply")
+        val result = instance.getTextToSendOrElse()
+        assertFalse(result.contains(CustomRepliesData.RTL_ALIGN_INVISIBLE_CHAR))
+    }
+
+    @Test
+    fun `getTextToSendOrElse AI result does not equal custom reply text`() {
+        val prefsInstance = PreferencesManager.getPreferencesInstance(context)
+        prefsInstance.setEnableAutomaticAiReplies(true)
+        val instance = CustomRepliesData.getInstance(context)
+        instance.set("My very specific custom reply 12345")
+        val aiResult = instance.getTextToSendOrElse()
+        // When AI is enabled, should return AI default message, not the stored custom reply
+        assertFalse(aiResult == "My very specific custom reply 12345")
+    }
+
+    // --- set(Editable) overload ---
+
+    @Test
+    fun `set with null Editable returns null`() {
+        val instance = CustomRepliesData.getInstance(context)
+        assertNull(instance.set(null as Editable?))
+    }
+
+    @Test
+    fun `set with valid Editable stores and returns string`() {
+        val instance = CustomRepliesData.getInstance(context)
+        val editable: Editable = SpannableStringBuilder("Valid editable reply")
+        val result = instance.set(editable)
+        assertEquals("Valid editable reply", result)
+        assertEquals("Valid editable reply", instance.get())
+    }
+
+    @Test
+    fun `set with empty Editable returns null`() {
+        val instance = CustomRepliesData.getInstance(context)
+        val editable: Editable = SpannableStringBuilder("")
+        assertNull(instance.set(editable))
+    }
+
+    // --- isValidCustomReply(Editable) overload ---
+
+    @Test
+    fun `isValidCustomReply returns false for null Editable`() {
+        assertFalse(CustomRepliesData.isValidCustomReply(null as Editable?))
+    }
+
+    @Test
+    fun `isValidCustomReply returns true for valid Editable`() {
+        val editable: Editable = SpannableStringBuilder("Valid input")
+        assertTrue(CustomRepliesData.isValidCustomReply(editable))
+    }
+
+    @Test
+    fun `isValidCustomReply returns false for empty Editable`() {
+        val editable: Editable = SpannableStringBuilder("")
+        assertFalse(CustomRepliesData.isValidCustomReply(editable))
+    }
+
+    @Test
+    fun `isValidCustomReply returns false for Editable exceeding max length`() {
+        val tooLong: Editable = SpannableStringBuilder("a".repeat(CustomRepliesData.MAX_STR_LENGTH_CUSTOM_REPLY + 1))
+        assertFalse(CustomRepliesData.isValidCustomReply(tooLong))
+    }
+
+    @Test
+    fun `isValidCustomReply returns true for Editable at max length`() {
+        val atMax: Editable = SpannableStringBuilder("a".repeat(CustomRepliesData.MAX_STR_LENGTH_CUSTOM_REPLY))
+        assertTrue(CustomRepliesData.isValidCustomReply(atMax))
     }
 }
