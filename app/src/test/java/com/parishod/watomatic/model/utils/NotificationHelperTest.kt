@@ -79,14 +79,16 @@ class NotificationHelperTest {
         helper.sendNotification("User123", "Hello", "com.whatsapp")
 
         val notifications = shadowNm.allNotifications
-        // The first notification should have the app name prefixed to title
-        val posted = notifications.firstOrNull()
-        assertNotNull(posted)
-        // Title should contain "WhatsApp:" prefix since com.whatsapp is a supported app
-        val extras = posted!!.extras
-        val title = extras?.getString("android.title") ?: ""
-        assert(title.contains("WhatsApp")) {
-            "Expected title to contain 'WhatsApp' but was: $title"
+        assert(notifications.isNotEmpty()) { "Expected at least one notification" }
+        // Check ALL notifications — order may differ between local and CI Robolectric.
+        // The individual notification has the title; the summary notification may not.
+        val anyTitleContainsWhatsApp = notifications.any { notification ->
+            val title = notification.extras?.getString("android.title") ?: ""
+            title.contains("WhatsApp")
+        }
+        assert(anyTitleContainsWhatsApp) {
+            val titles = notifications.map { it.extras?.getString("android.title") ?: "(null)" }
+            "Expected at least one notification title to contain 'WhatsApp' but titles were: $titles"
         }
     }
 
