@@ -54,6 +54,10 @@ public class NotificationHelper {
         return _INSTANCE;
     }
 
+    public static void resetInstance() {
+        _INSTANCE = null;
+    }
+
     public void sendNotification(String title, String message, String packageName) {
         for (App supportedApp : Constants.SUPPORTED_APPS) {
             if (supportedApp.getPackageName().equalsIgnoreCase(packageName)) {

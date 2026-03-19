@@ -44,8 +44,10 @@ public class PreferencesManager {
     private final String KEY_REPLY_CONTACTS_TYPE = "pref_reply_contacts_type";
     private final String KEY_REPLY_CUSTOM_NAMES = "pref_reply_custom_names";
     private final String KEY_SELECTED_CONTACT_NAMES = "pref_selected_contacts_names";
-    private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED;
-    private String KEY_SELECTED_APP_LANGUAGE;
+    // Initialized to the same string values as the string resources they reference,
+    // so these keys work correctly even if resources fail to load (e.g. in unit tests).
+    private String KEY_IS_SHOW_NOTIFICATIONS_ENABLED = "pref_show_notification_replied_msg";
+    private String KEY_SELECTED_APP_LANGUAGE = "pref_app_language";
     private final String KEY_OPENAI_API_KEY = "pref_openai_api_key";
     private final String KEY_OPENAI_API_SOURCE = "pref_openai_api_source";
     private final String KEY_OPENAI_CUSTOM_API_URL = "pref_openai_custom_api_url";
@@ -95,6 +97,11 @@ public class PreferencesManager {
         } catch (GeneralSecurityException | IOException e) {
             Log.e("PreferencesManager", "Error initializing EncryptedSharedPreferences", e);
             _encryptedSharedPrefs = null;
+        } catch (Error e) {
+            // Catches LinkageError/NoClassDefFoundError which can occur in test environments
+            // when the Android Keystore hardware abstraction is not available.
+            Log.e("PreferencesManager", "Error initializing EncryptedSharedPreferences (hardware unavailable)", e);
+            _encryptedSharedPrefs = null;
         }
         init();
     }
@@ -106,15 +113,26 @@ public class PreferencesManager {
         return _instance;
     }
 
+    @androidx.annotation.VisibleForTesting
+    public static void resetInstance() {
+        _instance = null;
+    }
+
     /**
      * Execute this code when the singleton is first created. All the tasks that needs to be done
      * when the instance is first created goes here. For example, set specific keys based on new install
      * or app upgrade, etc.
      */
     private void init() {
-        // Use key from string resource
-        KEY_SELECTED_APP_LANGUAGE = thisAppContext.getString(R.string.key_pref_app_language);
-        KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
+        // Resolve preference key strings from resources (matches the android:key values in XML).
+        // Fields are pre-initialised with the same literal values so they work if resources
+        // are unavailable (e.g. in unit-test environments).
+        try {
+            KEY_SELECTED_APP_LANGUAGE = thisAppContext.getString(R.string.key_pref_app_language);
+            KEY_IS_SHOW_NOTIFICATIONS_ENABLED = thisAppContext.getString(R.string.pref_show_notification_replied_msg);
+        } catch (android.content.res.Resources.NotFoundException e) {
+            Log.w("PreferencesManager", "String resources not available, using default key values", e);
+        }
 
         // For new installs, enable all the supported apps
         boolean newInstall = !_sharedPrefs.contains(KEY_SERVICE_ENABLED)
