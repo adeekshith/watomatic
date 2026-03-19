@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     alias(libs.plugins.google.ksp)
     id("kotlin-parcelize")
+    id("jacoco")
 }
 
 android {
@@ -34,6 +35,9 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            enableUnitTestCoverage = true
+        }
         getByName("release") {
             // Enables code shrinking, obfuscation, and optimization for only
             // your project's release build type.
@@ -83,6 +87,7 @@ dependencies {
     implementation(libs.activity)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.robolectric)
     testImplementation(libs.test.core)
     androidTestImplementation(libs.ext.junit)
@@ -125,4 +130,40 @@ gradle.startParameter.taskNames.any { task ->
     } else {
         false
     }
+}
+
+// JaCoCo unit test coverage report for the Default/Debug variant
+tasks.register<JacocoReport>("jacocoUnitTestReport") {
+    dependsOn("testDefaultDebugUnitTest")
+    group = "Reporting"
+    description = "Generates JaCoCo unit test coverage report for DefaultDebug variant."
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+    val excludes = listOf(
+        "**/R.class", "**/R\$*.class",
+        "**/BuildConfig.*", "**/Manifest*.*",
+        "**/*Test*.*", "android/**/*.*",
+        "**/databinding/**", "**/*_MembersInjector.class",
+        "**/*_Factory.class", "**/*Directions*.*",
+        "**/*\$\$serializer.class"
+    )
+
+    val javaClasses = fileTree("${layout.buildDirectory.get()}/intermediates/javac/DefaultDebug/compileDefaultDebugJavaWithJavac/classes") {
+        exclude(excludes)
+    }
+    val kotlinClasses = fileTree("${layout.buildDirectory.get()}/tmp/kotlin-classes/DefaultDebug") {
+        exclude(excludes)
+    }
+
+    sourceDirectories.setFrom(files("src/main/java", "src/main/kotlin"))
+    classDirectories.setFrom(files(javaClasses, kotlinClasses))
+    executionData.setFrom(
+        fileTree(layout.buildDirectory.get()) {
+            include("**/*.exec", "**/*.ec")
+        }
+    )
 }

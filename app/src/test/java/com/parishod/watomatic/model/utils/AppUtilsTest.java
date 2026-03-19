@@ -64,4 +64,31 @@ public class AppUtilsTest {
         // Then
         assert(!isInstalled);
     }
+
+    @Test
+    public void getInstance_returnsSameInstance() {
+        AppUtils instance1 = AppUtils.getInstance(mockContext);
+        AppUtils instance2 = AppUtils.getInstance(mockContext);
+        assert(instance1 == instance2);
+    }
+
+    @Test
+    public void getInstance_afterReset_returnsNewInstance() {
+        AppUtils instance1 = AppUtils.getInstance(mockContext);
+        AppUtils.resetInstance();
+        AppUtils instance2 = AppUtils.getInstance(mockContext);
+        assert(instance2 != null);
+    }
+
+    @Test
+    public void isPackageInstalled_shouldReturnFalse_whenPackageNameIsEmpty() throws PackageManager.NameNotFoundException {
+        // Given an empty package name
+        when(mockPackageManager.getApplicationIcon("")).thenThrow(new PackageManager.NameNotFoundException());
+
+        // When
+        boolean isInstalled = appUtils.isPackageInstalled("");
+
+        // Then
+        assert(!isInstalled);
+    }
 }
