@@ -28,7 +28,7 @@ class ContactSelectorActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         contactSelectorFragment = supportFragmentManager.findFragmentById(R.id.contact_selector_layout)
-                as ContactSelectorFragment
+                as? ContactSelectorFragment ?: return
 
         ViewModelProvider(this).get(SwipeToKillAppDetectViewModel::class.java)
 
