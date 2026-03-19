@@ -49,8 +49,3 @@
 -keep class * {
     @com.google.gson.annotations.SerializedName <fields>;
 }
-
-# Moshi
--dontwarn com.squareup.moshi.**
--keep class com.squareup.moshi.** { *; }
--keep class **JsonAdapter { *; }
