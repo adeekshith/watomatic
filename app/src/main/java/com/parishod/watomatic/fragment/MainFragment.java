@@ -411,7 +411,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     private boolean isAppUsedSufficientlyToAskRating() {
         DbUtils dbUtils = new DbUtils(mActivity);
         long firstRepliedTime = dbUtils.getFirstRepliedTime();
-        return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
+        return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNumReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
     }
 
     private void showFeedbackPopup(int rating) {
