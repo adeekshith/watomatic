@@ -166,10 +166,9 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
         prefs.registerOnSharedPreferenceChangeListener(this)
 
-        // Refresh subscription status if needed before initializing UI
-        refreshSubscriptionStatusIfNeeded()
-
         initializeViews()
+        // Refresh subscription status after views are initialized so callbacks can update UI safely
+        refreshSubscriptionStatusIfNeeded()
         setupClickListeners()
         handleDeepLink()
 
