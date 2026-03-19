@@ -35,6 +35,9 @@ public class NotificationUtils {
             // then extract group name from title
             if (title == null) {
                 title = sbn.getNotification().extras.getString("android.title");
+                if (title == null) {
+                    return null;
+                }
                 int index = title.indexOf(':');
                 if (index != -1) {
                     title = title.substring(0, index);
@@ -42,7 +45,8 @@ public class NotificationUtils {
             }
 
             //To eliminate the case where group title has number of messages count in it
-            Parcelable[] b = (Parcelable[]) sbn.getNotification().extras.get("android.messages");
+            Object messagesObj = sbn.getNotification().extras.get("android.messages");
+            Parcelable[] b = (messagesObj instanceof Parcelable[]) ? (Parcelable[]) messagesObj : null;
             if (b != null && b.length > 1) {
                 int startIndex = title.lastIndexOf('(');
                 if (startIndex != -1) {
