@@ -553,7 +553,7 @@ class SubscriptionInfoActivity : BaseActivity() {
     private fun updateSubscribeButtonText() {
         val planName = selectedPlanName
         subscribeButton?.text = if (planName != null) {
-            "Subscribe to ${planName.capitalize()} Plan"
+            "Subscribe to ${planName.replaceFirstChar { it.uppercase() }} Plan"
         } else {
             getString(R.string.subscription_subscribe_continue)
         }
@@ -740,12 +740,11 @@ class SubscriptionInfoActivity : BaseActivity() {
                             val currentState = subscriptionManager?.subscriptionStatus?.value
                             if (currentState?.isActive == true) {
                                 Log.d("SubscriptionInfo", "FREE plan is active, recreating activity")
-                                recreate()
+                                restartInManageMode()
                             }
                         } catch (e: Exception) {
                             Log.e("SubscriptionInfo", "Error refreshing after FREE plan activation", e)
-                            // Still try to recreate
-                            recreate()
+                            restartInManageMode()
                         }
                     } else {
                         Toast.makeText(
@@ -854,7 +853,7 @@ class SubscriptionInfoActivity : BaseActivity() {
                                                             "SubscriptionInfo",
                                                             "Reloading activity (interactive restore)."
                                                         )
-                                                        recreate()
+                                                        restartInManageMode()
                                                     }
                                                 }
                                             } else {
@@ -872,7 +871,7 @@ class SubscriptionInfoActivity : BaseActivity() {
                                             // Only recreate on interactive restore, even on error
                                             if (isInteractive) {
                                                 withContext(kotlinx.coroutines.Dispatchers.Main) {
-                                                    recreate()
+                                                    restartInManageMode()
                                                 }
                                             }
                                         }
@@ -934,14 +933,14 @@ class SubscriptionInfoActivity : BaseActivity() {
                                 // Recreate the activity
                                 withContext(kotlinx.coroutines.Dispatchers.Main) {
                                     Log.d("SubscriptionInfo", "Reloading activity. Active status confirmed.")
-                                    recreate()
+                                    restartInManageMode()
                                 }
                             }
                         } catch (e: Exception) {
                             Log.e("SubscriptionInfo", "Error refreshing subscription status", e)
                             // Still try to recreate to show updated UI
                             withContext(kotlinx.coroutines.Dispatchers.Main) {
-                                recreate()
+                                restartInManageMode()
                             }
                         }
                     }
@@ -958,6 +957,19 @@ class SubscriptionInfoActivity : BaseActivity() {
                 }
             }
         )
+    }
+
+    /**
+     * Re-launch this activity in MANAGE mode after a successful purchase or plan activation.
+     * Using recreate() would re-read the original intent (e.g. UPGRADE mode), so instead we
+     * start a fresh instance with MANAGE mode and finish the current one.
+     */
+    private fun restartInManageMode() {
+        val intent = android.content.Intent(this, SubscriptionInfoActivity::class.java)
+        intent.putExtra(SubscriptionMode.EXTRA_KEY, SubscriptionMode.MANAGE.name)
+        intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 
     private fun showLoading() {
