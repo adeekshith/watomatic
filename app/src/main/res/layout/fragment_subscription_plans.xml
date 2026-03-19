@@ -17,171 +17,227 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <!-- Free Plan -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/free_plan_card"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="16dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutline"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-        <LinearLayout
+        <!-- Free Plan -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/free_plan_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            app:cardElevation="0dp"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/card_stroke_default"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="12dp">
 
-            <!-- Icon Container -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                android:layout_marginEnd="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/icon_person"
-                    android:gravity="center"
-                    android:textSize="20sp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Plan Info -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
+                <!-- Icon Container -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/icon_person"
+                        android:gravity="center"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Plan Info -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_free"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_free_replies"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
+
+                <!-- Price -->
                 <TextView
+                    android:id="@+id/free_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/plan_free"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/plan_free_replies"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
-
-            </LinearLayout>
-
-            <!-- Price -->
-            <TextView
-                android:id="@+id/free_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plan_free_price"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="?attr/colorOnSurface"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Mini Plan -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mini_plan_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="16dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutline"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="12dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
-
-            <!-- Icon Container -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#E3F2FD"
-                android:layout_marginEnd="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/icon_email"
-                    android:gravity="center"
-                    android:textSize="20sp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Plan Info -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/plan_mini"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/plan_mini_replies"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
-
-            </LinearLayout>
-
-            <!-- Price -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="end">
-
-                <TextView
-                    android:id="@+id/mini_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="$1.99"
+                    android:text="@string/plan_free_price"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/mini_period"
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- BEST VALUE Badge (Overlay, NOT clipped) -->
+        <TextView
+            android:id="@+id/current_plan_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plan_current"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_best_value_badge"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="14dp"
+            android:translationY="-10dp"
+            android:elevation="8dp"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <!-- Mini Plan -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mini_plan_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/card_stroke_default"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <!-- Icon Container -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#E3F2FD"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/icon_email"
+                        android:gravity="center"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Plan Info -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_mini"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_mini_replies"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
+
+                <!-- Price -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/subscription_per_month"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/mini_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="$1.99"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mini_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subscription_per_month"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
 
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <!-- BEST VALUE Badge (Overlay, NOT clipped) -->
+        <TextView
+            android:id="@+id/current_plan_mini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plan_current"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_best_value_badge"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="14dp"
+            android:translationY="-10dp"
+            android:elevation="8dp"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
     <!-- Standard Plan (BEST VALUE) -->
     <FrameLayout
@@ -200,7 +256,7 @@
             app:cardElevation="0dp"
             app:cardCornerRadius="16dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutline"
+            app:strokeColor="@color/card_stroke_default"
             android:clickable="true"
             android:focusable="true">
 
@@ -277,9 +333,10 @@
 
         <!-- BEST VALUE Badge (Overlay, NOT clipped) -->
         <TextView
+            android:id="@+id/current_plan_standard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/subscription_best_value"
+            android:text="@string/plan_current"
             android:textSize="11sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
@@ -289,100 +346,128 @@
             android:layout_gravity="top|end"
             android:layout_marginEnd="14dp"
             android:translationY="-10dp"
-            android:elevation="8dp" />
+            android:elevation="8dp"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
-    <!-- Pro Plan -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/pro_plan_card"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="16dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutline"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-        <LinearLayout
+        <!-- Pro Plan -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pro_plan_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            app:cardElevation="0dp"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/card_stroke_default"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="12dp">
 
-            <!-- Icon Container -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#EDE7F6"
-                android:layout_marginEnd="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/icon_sparkles"
-                    android:gravity="center"
-                    android:textSize="20sp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Plan Info -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-                <TextView
+                <!-- Icon Container -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#EDE7F6"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/icon_sparkles"
+                        android:gravity="center"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Plan Info -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_pro"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_pro_replies"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
+
+                <!-- Price -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/plan_pro"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:gravity="end">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/plan_pro_replies"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    <TextView
+                        android:id="@+id/pro_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="$7.99"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pro_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subscription_per_month"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
 
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- BEST VALUE Badge (Overlay, NOT clipped) -->
+        <TextView
+            android:id="@+id/current_plan_pro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plan_current"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_best_value_badge"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="14dp"
+            android:translationY="-10dp"
+            android:elevation="8dp"
+            android:visibility="gone"/>
 
-            <!-- Price -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="end">
-
-                <TextView
-                    android:id="@+id/pro_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="$7.99"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/pro_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/subscription_per_month"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
 </LinearLayout>
 

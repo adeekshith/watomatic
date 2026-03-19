@@ -34,5 +34,5 @@
     <color name="ai_green">#4CAF50</color>
 
     <!-- Card Colors -->
-    <color name="card_stroke_default">#E0E0E0</color>
+    <color name="card_stroke_default">#5B5B5B</color>
 </resources>
