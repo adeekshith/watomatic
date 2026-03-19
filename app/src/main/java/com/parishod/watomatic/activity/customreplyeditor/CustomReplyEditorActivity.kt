@@ -258,7 +258,7 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
             if ((data != null))
                 data.getQueryParameter("message")
             else
-                customRepliesData?.get()
+                customRepliesData?.get() ?: ""
         )
     }
 
