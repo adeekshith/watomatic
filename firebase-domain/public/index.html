@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Atomatic Login</title>
+	<link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        .box {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        canvas {
+            margin-top: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Complete Authentication</h2>
+    <p id="msg">Processing...</p>
+    <div id="qr"></div>
+</div>
+
+<script src="/js/qrious.min.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search)
+const oobCode = params.get("oobCode")
+const mode = params.get("mode")
+const fullLink = window.location.href
+
+function isMobile() {
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
+if (mode === "signIn" && oobCode) {
+    if (isMobile()) {
+        document.getElementById("msg").innerText =
+            "Opening app..."
+    } else {
+        document.getElementById("msg").innerText =
+            "Scan this QR code using your mobile device where Atomatic is installed."
+
+        const canvas = document.createElement("canvas")
+        document.getElementById("qr").appendChild(canvas)
+
+        new QRious({
+            element: canvas,
+            value: fullLink,
+            size: 300,
+            level: "H"
+        })
+    }
+} else {
+    document.getElementById("msg").innerText =
+        "Invalid login link"
+}
+</script>
+</body>
+</html>
