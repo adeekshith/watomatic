@@ -131,6 +131,54 @@ gradle.startParameter.taskNames.any { task ->
     }
 }
 
+// JaCoCo coverage verification – enforces minimum thresholds
+tasks.register<JacocoCoverageVerification>("jacocoCoverageVerification") {
+    dependsOn("testDefaultDebugUnitTest")
+    group = "Verification"
+    description = "Enforces minimum JaCoCo coverage thresholds for model/utility classes."
+
+    val excludes = listOf(
+        "**/R.class", "**/R\$*.class",
+        "**/BuildConfig.*", "**/Manifest*.*",
+        "**/*Test*.*", "android/**/*.*",
+        "**/databinding/**", "**/*_MembersInjector.class",
+        "**/*_Factory.class", "**/*Directions*.*",
+        "**/*\$\$serializer.class",
+        // Exclude UI classes that cannot be unit-tested
+        "**/activity/**", "**/fragment/**",
+        "**/service/NotificationService.*", "**/service/ReplyService.*",
+        "**/model/adapters/**",
+        "**/billing/**", "**/backend/**",
+        "**/viewmodel/**"
+    )
+
+    val javaClasses = fileTree("${layout.buildDirectory.get()}/intermediates/javac/DefaultDebug/compileDefaultDebugJavaWithJavac/classes") {
+        exclude(excludes)
+    }
+    val kotlinClasses = fileTree("${layout.buildDirectory.get()}/tmp/kotlin-classes/DefaultDebug") {
+        exclude(excludes)
+    }
+
+    classDirectories.setFrom(files(javaClasses, kotlinClasses))
+    executionData.setFrom(
+        fileTree(layout.buildDirectory.get()) {
+            include("**/*.exec", "**/*.ec")
+        }
+    )
+
+    violationRules {
+        rule {
+            limit {
+                // Minimum instruction coverage for testable model/utility classes.
+                // Note: Robolectric tests do not contribute to JaCoCo offline
+                // instrumentation, so the reported number is lower than actual
+                // coverage. This threshold catches major regressions.
+                minimum = "0.05".toBigDecimal()
+            }
+        }
+    }
+}
+
 // JaCoCo unit test coverage report for the Default/Debug variant
 tasks.register<JacocoReport>("jacocoUnitTestReport") {
     dependsOn("testDefaultDebugUnitTest")
