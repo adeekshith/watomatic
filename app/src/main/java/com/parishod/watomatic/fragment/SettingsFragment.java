@@ -18,7 +18,6 @@ import com.parishod.watomatic.activity.main.MainActivity;
 import com.parishod.watomatic.model.preferences.PreferencesManager;
 import com.parishod.watomatic.flavor.FlavorNavigator;
 import com.parishod.watomatic.model.utils.AutoStartHelper;
-import com.parishod.watomatic.model.utils.ServieUtils;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

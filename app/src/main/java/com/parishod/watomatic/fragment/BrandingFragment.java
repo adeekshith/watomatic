@@ -2,6 +2,7 @@ package com.parishod.watomatic.fragment;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -108,7 +109,7 @@ public class BrandingFragment extends Fragment {
                 Intent intent = new Intent(ACTION_VIEW, Uri.parse(eachReleaseUrl))
                         .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                                 FLAG_ACTIVITY_REQUIRE_DEFAULT);
-                startactivity(intent);
+                launchWithPrefs(intent);
                 isLaunched = true;
             } catch (ActivityNotFoundException e) {
                 // This code executes in one of the following cases:
@@ -119,7 +120,7 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
+            launchWithPrefs(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
@@ -128,11 +129,11 @@ public class BrandingFragment extends Fragment {
         for (String url : urls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
-                    getActivity().getPackageManager().queryIntentActivities(intent, 0) :
+                    getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
             List<ResolveInfo> possibleBrowserIntents = getActivity() != null ?
                     getActivity().getPackageManager()
-                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0) :
+                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
 
             Set<String> excludeIntents = new HashSet<>();
@@ -147,7 +148,7 @@ public class BrandingFragment extends Fragment {
                 for (ResolveInfo resolveInfo : list) {
                     if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                         intent.setPackage(resolveInfo.activityInfo.packageName);
-                        startactivity(intent);
+                        launchWithPrefs(intent);
                         isLaunched = true;
                         break;
                     }
@@ -159,11 +160,11 @@ public class BrandingFragment extends Fragment {
             }
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
-            startactivity(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
+            launchWithPrefs(new Intent(ACTION_VIEW).setData(Uri.parse(fallbackUrl)));
         }
     }
 
-    private void startactivity(Intent intent) {
+    private void launchWithPrefs(Intent intent) {
         PreferencesManager.getPreferencesInstance(getActivity()).setGithubReleaseNotesId(gitHubReleaseNotesId);
         startActivity(intent);
         showHideWhatsNewBtn(false);

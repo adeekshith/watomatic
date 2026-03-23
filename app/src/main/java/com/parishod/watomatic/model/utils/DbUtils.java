@@ -15,7 +15,7 @@ public class DbUtils {
         mContext = context;
     }
 
-    public long getNunReplies() {
+    public long getNumReplies() {
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         return messageLogsDB.logsDao().getNumReplies();
     }

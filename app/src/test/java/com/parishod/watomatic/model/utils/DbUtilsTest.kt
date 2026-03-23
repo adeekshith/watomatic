@@ -45,11 +45,11 @@ class DbUtilsTest {
         }
     }
 
-    // --- getNunReplies ---
+    // --- getNumReplies ---
 
     @Test
-    fun `getNunReplies returns 0 when no logs exist`() {
-        val count = dbUtils.getNunReplies()
+    fun `getNumReplies returns 0 when no logs exist`() {
+        val count = dbUtils.getNumReplies()
         assertEquals(0L, count)
     }
 
@@ -81,7 +81,7 @@ class DbUtilsTest {
     fun `purgeMessageLogs does not throw when no logs exist`() {
         // Should not throw
         dbUtils.purgeMessageLogs()
-        assertEquals(0L, dbUtils.getNunReplies())
+        assertEquals(0L, dbUtils.getNumReplies())
     }
 
     // --- Constructor ---
@@ -90,6 +90,6 @@ class DbUtilsTest {
     fun `DbUtils can be constructed with context`() {
         val utils = DbUtils(context)
         // Basic smoke test — doesn't crash
-        assertTrue(utils.getNunReplies() >= 0)
+        assertTrue(utils.getNumReplies() >= 0)
     }
 }

@@ -4,6 +4,7 @@ import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_MODEL;
 import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_PROMPT;
 
 import android.app.PendingIntent;
+import android.content.res.Resources;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
@@ -175,7 +176,11 @@ public class NotificationService extends NotificationListenerService {
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(this); // For fallback
         String replyText = customRepliesData.getTextToSendOrElse();
         if(preferencesManager.isAnyAiRepliesEnabled()){
-            replyText = getString(R.string.auto_reply_default_message);
+            try {
+                replyText = getString(R.string.auto_reply_default_message);
+            } catch (Resources.NotFoundException e) {
+                replyText = "I am currently busy. Will reply later.";
+            }
         }
         String fallbackReplyText = replyText; // needs to be final to access in inner class hence one more variable
 

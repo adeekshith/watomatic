@@ -445,10 +445,8 @@ class NotificationUtilsTest {
         assertEquals("\u0645\u062D\u0645\u062F", NotificationUtils.getTitle(mockSbn))
     }
 
-    @Test(expected = NullPointerException::class)
-    fun `getTitle throws NPE for group conversation with null title and null hiddenTitle`() {
-        // Documents existing bug: getTitle does not null-check title before calling indexOf(':')
-        // See plan item C1 for the fix
+    @Test
+    fun `getTitle returns null for group conversation with null title and null hiddenTitle`() {
         val extras = Bundle()
         extras.putBoolean("android.isGroupConversation", true)
 
@@ -456,7 +454,7 @@ class NotificationUtilsTest {
         notification.extras = extras
         whenever(mockSbn.notification).thenReturn(notification)
 
-        NotificationUtils.getTitle(mockSbn)
+        assertNull(NotificationUtils.getTitle(mockSbn))
     }
 
     @Test

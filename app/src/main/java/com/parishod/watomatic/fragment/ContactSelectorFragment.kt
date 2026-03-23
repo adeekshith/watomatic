@@ -83,6 +83,25 @@ class ContactSelectorFragment : Fragment() {
     private lateinit var contactList: ArrayList<ContactHolder>
     private var searchJob: Job? = null
 
+    private val contactPermissionLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            loadContactList()
+        }
+    }
+
+    private fun requestContactPermissionWithLauncher() {
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.contact_permission_dialog_title)
+            .setMessage(R.string.contact_permission_suggestion_dialog_msg)
+            .setPositiveButton(R.string.contact_permission_dialog_enable_permission) { _, _ ->
+                contactPermissionLauncher.launch(android.Manifest.permission.READ_CONTACTS)
+            }
+            .setNegativeButton(R.string.contact_permission_dialog_not_now, null)
+            .show()
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -92,7 +111,7 @@ class ContactSelectorFragment : Fragment() {
 
         contactsHelper = ContactsHelper.getInstance(requireContext()).also {
             if (!it.hasContactPermission()) {
-                it.requestContactPermission(requireActivity())
+                requestContactPermissionWithLauncher()
             }
         }
         prefs = PreferencesManager.getPreferencesInstance(requireContext())
@@ -215,17 +234,22 @@ class ContactSelectorFragment : Fragment() {
         return false
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.enable_contact_permission_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.enable_contact_permission) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                contactsHelper.requestContactPermission(requireActivity())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(object : androidx.core.view.MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.enable_contact_permission_menu, menu)
             }
-        }
-        return super.onOptionsItemSelected(item)
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.enable_contact_permission) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestContactPermissionWithLauncher()
+                    }
+                    return true
+                }
+                return false
+            }
+        }, viewLifecycleOwner, androidx.lifecycle.Lifecycle.State.RESUMED)
     }
 }

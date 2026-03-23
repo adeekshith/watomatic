@@ -1,6 +1,5 @@
 package com.parishod.watomatic.fragment;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -23,14 +22,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuProvider;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -72,11 +74,11 @@ import static com.parishod.watomatic.model.utils.Constants.MIN_REPLIES_TO_ASK_AP
 
 public class MainFragment extends Fragment implements DialogActionListener {
 
-    private static final int REQ_NOTIFICATION_LISTENER = 100;
-    private static final int NOTIFICATION_REQUEST_CODE = 101;
     private PreferencesManager preferencesManager;
-    private Activity mActivity;
     private CustomRepliesData customRepliesData;
+
+    private ActivityResultLauncher<Intent> notificationListenerLauncher;
+    private ActivityResultLauncher<String> notificationPermissionLauncher;
     private MaterialSwitch autoRepliesSwitch;
     private TextView aiReplyText;
     private View view;
@@ -93,17 +95,39 @@ public class MainFragment extends Fragment implements DialogActionListener {
             "https://twitter.com/watomatic",
             "https://www.reddit.com/r/watomatic");
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        notificationListenerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (isListenerEnabled(requireContext(), NotificationService.class)) {
+                        Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_LONG).show();
+                        preferencesManager.setServicePref(true);
+                    } else {
+                        Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_LONG).show();
+                        preferencesManager.setServicePref(false);
+                    }
+                    setSwitchState();
+                });
+
+        notificationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (!isGranted) {
+                        showPostNotificationPermissionDeniedSnackbar(autoRepliesSwitch);
+                    }
+                });
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main_redesigned, container, false);
 
-        setHasOptionsMenu(true);
-
-        mActivity = getActivity();
-
-        customRepliesData = CustomRepliesData.getInstance(mActivity);
-        preferencesManager = PreferencesManager.getPreferencesInstance(mActivity);
+        customRepliesData = CustomRepliesData.getInstance(requireContext());
+        preferencesManager = PreferencesManager.getPreferencesInstance(requireContext());
 
         // Assign Views
         aiReplyText = view.findViewById(R.id.ai_reply_text);
@@ -118,7 +142,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         contactsSelectorDescription = view.findViewById(R.id.contacts_filter_description);
         contactsFilterLL = view.findViewById(R.id.filter_contacts);
         contactsFilterLL.setOnClickListener(view -> {
-            startActivity(new Intent(mActivity, ContactSelectorActivity.class));
+            startActivity(new Intent(requireActivity(), ContactSelectorActivity.class));
         });
 
         messageTypeDescription = view.findViewById(R.id.message_type_desc);
@@ -144,7 +168,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         // Setup Auto-replies switch
         autoRepliesSwitch.setChecked(preferencesManager.isServiceEnabled());
         autoRepliesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked && !isListenerEnabled(mActivity, NotificationService.class)) {
+            if (isChecked && !isListenerEnabled(requireContext(), NotificationService.class)) {
                 showPermissionsDialog();
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -154,11 +178,6 @@ public class MainFragment extends Fragment implements DialogActionListener {
                     }
                 }
                 preferencesManager.setServicePref(isChecked);
-                /*if (isChecked) {
-                    startNotificationService();
-                } else {
-                    stopNotificationService();
-                }*/
                 setSwitchState();
             }
         });
@@ -196,6 +215,26 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 );
             }
         });
+
+        // MenuProvider replaces deprecated setHasOptionsMenu/onCreateOptionsMenu/onOptionsItemSelected
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+                // Toolbar menu is inflated by MainActivity; nothing to inflate here.
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.about) {
+                    openAboutActivity();
+                    return true;
+                } else if (item.getItemId() == R.id.setting) {
+                    loadSettingsActivity();
+                    return true;
+                }
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
         if (!isPostNotificationPermissionGranted()) {
             checkNotificationPermission();
@@ -240,11 +279,11 @@ public class MainFragment extends Fragment implements DialogActionListener {
         for (String url : urls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
-                    getActivity().getPackageManager().queryIntentActivities(intent, 0) :
+                    getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
             List<ResolveInfo> possibleBrowserIntents = getActivity() != null ?
                     getActivity().getPackageManager()
-                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0) :
+                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
 
             Set<String> excludeIntents = new HashSet<>();
@@ -278,39 +317,26 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     private void checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ActivityCompat.requestPermissions(mActivity, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST_CODE);
+            notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
         }
     }
 
     private boolean isPostNotificationPermissionGranted() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+            return ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
         }
         return true;
     }
 
     private void showPostNotificationPermissionDeniedSnackbar(View view) {
-        Snackbar.make(view, mActivity.getResources().getString(R.string.post_notification_permission_snackbar_text), Snackbar.LENGTH_INDEFINITE)
-                .setAction(mActivity.getResources().getString(R.string.post_notification_permission_snackbar_setting), view1 -> {
+        Snackbar.make(view, requireActivity().getResources().getString(R.string.post_notification_permission_snackbar_text), Snackbar.LENGTH_INDEFINITE)
+                .setAction(requireActivity().getResources().getString(R.string.post_notification_permission_snackbar_setting), view1 -> {
                     // Open app settings
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     Uri uri = Uri.fromParts("package", view1.getContext().getPackageName(), null);
                     intent.setData(uri);
                     view1.getContext().startActivity(intent);
                 }).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == NOTIFICATION_REQUEST_CODE) {
-            // If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Displaying a toast
-            } else {
-                // Displaying another toast if permission is not granted
-                showPostNotificationPermissionDeniedSnackbar(autoRepliesSwitch);
-            }
-        }
     }
 
     @Override
@@ -321,7 +347,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         }
         //If user directly goes to Settings and removes notifications permission
         //when app is launched check for permission and set appropriate app state
-        if (!isListenerEnabled(mActivity, NotificationService.class)) {
+        if (!isListenerEnabled(requireContext(), NotificationService.class)) {
             preferencesManager.setServicePref(false);
         }
 
@@ -380,12 +406,12 @@ public class MainFragment extends Fragment implements DialogActionListener {
     }
 
     private void showAppRatingPopup() {
-        boolean isFromStore = isAppInstalledFromStore(mActivity);
+        boolean isFromStore = isAppInstalledFromStore(requireActivity());
         String status = preferencesManager.getPlayStoreRatingStatus();
         long ratingLastTime = preferencesManager.getPlayStoreRatingLastTime();
         if (isFromStore && !status.equals("Not Interested") && !status.equals("DONE") && ((System.currentTimeMillis() - ratingLastTime) > (10 * 24 * 60 * 60 * 1000L))) {
             if (isAppUsedSufficientlyToAskRating()) {
-                CustomDialog customDialog = new CustomDialog(mActivity);
+                CustomDialog customDialog = new CustomDialog(requireActivity());
                 customDialog.showAppLocalRatingDialog(v -> showFeedbackPopup((int) v.getTag()));
                 preferencesManager.setPlayStoreRatingLastTime(System.currentTimeMillis());
             }
@@ -398,8 +424,15 @@ public class MainFragment extends Fragment implements DialogActionListener {
         List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
 
         try {
-            // The package name of the app that has installed your app
-            final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+            final String installer;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                installer = context.getPackageManager()
+                        .getInstallSourceInfo(context.getPackageName())
+                        .getInstallingPackageName();
+            } else {
+                installer = context.getPackageManager()
+                        .getInstallerPackageName(context.getPackageName());
+            }
 
             // true if your app has been downloaded from Play Store
             return installer != null && validInstallers.contains(installer);
@@ -409,24 +442,24 @@ public class MainFragment extends Fragment implements DialogActionListener {
     }
 
     private boolean isAppUsedSufficientlyToAskRating() {
-        DbUtils dbUtils = new DbUtils(mActivity);
+        DbUtils dbUtils = new DbUtils(requireActivity());
         long firstRepliedTime = dbUtils.getFirstRepliedTime();
-        return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNunReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
+        return firstRepliedTime > 0 && System.currentTimeMillis() - firstRepliedTime > 2 * 24 * 60 * 60 * 1000L && dbUtils.getNumReplies() >= MIN_REPLIES_TO_ASK_APP_RATING;
     }
 
     private void showFeedbackPopup(int rating) {
-        CustomDialog customDialog = new CustomDialog(mActivity);
+        CustomDialog customDialog = new CustomDialog(requireActivity());
         customDialog.showAppRatingDialog(rating, v -> {
             String tag = (String) v.getTag();
-            if (tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))) {
+            if (tag.equals(requireActivity().getResources().getString(R.string.app_rating_goto_store_dialog_button1_title))) {
                 //not interested
                 preferencesManager.setPlayStoreRatingStatus("Not Interested");
-            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))) {
+            } else if (tag.equals(requireActivity().getResources().getString(R.string.app_rating_goto_store_dialog_button2_title))) {
                 //Launch playstore rating page
                 rateApp();
-            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))) {
+            } else if (tag.equals(requireActivity().getResources().getString(R.string.app_rating_feedback_dialog_mail_button_title))) {
                 launchEmailCompose();
-            } else if (tag.equals(mActivity.getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))) {
+            } else if (tag.equals(requireActivity().getResources().getString(R.string.app_rating_feedback_dialog_telegram_button_title))) {
                 launchFeedbackApp();
             }
         });
@@ -437,7 +470,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         intent.setDataAndType(Uri.parse("mailto:"), "plain/text"); // only email apps should handle this
         intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Constants.EMAIL_ADDRESS});
         intent.putExtra(Intent.EXTRA_SUBJECT, Constants.EMAIL_SUBJECT);
-        if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
     }
@@ -455,7 +488,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                     .addCategory(CATEGORY_BROWSABLE)
                     .setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_REQUIRE_NON_BROWSER |
                             FLAG_ACTIVITY_REQUIRE_DEFAULT);
-            mActivity.startActivity(intent);
+            requireActivity().startActivity(intent);
             isLaunched = true;
         } catch (ActivityNotFoundException e) {
             // This code executes in one of the following cases:
@@ -466,7 +499,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
         }
         if (!isLaunched) { // Open Github latest release url in browser if everything else fails
             String url = getString(R.string.watomatic_github_latest_release_url);
-            mActivity.startActivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
+            requireActivity().startActivity(new Intent(ACTION_VIEW).setData(Uri.parse(url)));
         }
     }
 
@@ -474,9 +507,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
         if (getActivity() != null) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
             List<ResolveInfo> list = getActivity().getPackageManager()
-                    .queryIntentActivities(intent, 0);
+                    .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             List<ResolveInfo> possibleBrowserIntents = getActivity().getPackageManager()
-                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), PackageManager.MATCH_DEFAULT_ONLY);
             Set<String> excludeIntents = new HashSet<>();
             for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
                 excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
@@ -485,7 +518,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
             for (ResolveInfo resolveInfo : list) {
                 if (!excludeIntents.contains(resolveInfo.activityInfo.name)) {
                     intent.setPackage(resolveInfo.activityInfo.packageName);
-                    mActivity.startActivity(intent);
+                    requireActivity().startActivity(intent);
                     break;
                 }
             }
@@ -527,17 +560,17 @@ public class MainFragment extends Fragment implements DialogActionListener {
     }
 
     private void openCustomReplyEditorActivity(View v) {
-        Intent intent = new Intent(mActivity, CustomReplyEditorActivity.class);
+        Intent intent = new Intent(requireActivity(), CustomReplyEditorActivity.class);
         startActivity(intent);
     }
 
     private void openAboutActivity() {
-        Intent intent = new Intent(mActivity, AboutActivity.class);
+        Intent intent = new Intent(requireActivity(), AboutActivity.class);
         startActivity(intent);
     }
 
     private void showPermissionsDialog() {
-        CustomDialog customDialog = new CustomDialog(mActivity);
+        CustomDialog customDialog = new CustomDialog(requireActivity());
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_TITLE, getString(R.string.permission_dialog_title));
         bundle.putString(Constants.PERMISSION_DIALOG_MSG, getString(R.string.permission_dialog_msg));
@@ -553,7 +586,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     }
 
     private void showPermissionDeniedDialog() {
-        CustomDialog customDialog = new CustomDialog(mActivity);
+        CustomDialog customDialog = new CustomDialog(requireActivity());
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_TITLE, getString(R.string.permission_dialog_denied_title));
         bundle.putString(Constants.PERMISSION_DIALOG_DENIED_MSG, getString(R.string.permission_dialog_denied_msg));
@@ -580,28 +613,12 @@ public class MainFragment extends Fragment implements DialogActionListener {
             NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
         }
         Intent i = new Intent(NOTIFICATION_LISTENER_SETTINGS);
-        startActivityForResult(i, REQ_NOTIFICATION_LISTENER);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_NOTIFICATION_LISTENER) {
-            if (isListenerEnabled(mActivity, NotificationService.class)) {
-                Toast.makeText(mActivity, "Permission Granted", Toast.LENGTH_LONG).show();
-//                startNotificationService();
-                preferencesManager.setServicePref(true);
-            } else {
-                Toast.makeText(mActivity, "Permission Denied", Toast.LENGTH_LONG).show();
-                preferencesManager.setServicePref(false);
-            }
-            setSwitchState();
-        }
+        notificationListenerLauncher.launch(i);
     }
 
     private void enableService(boolean enable) {
-        PackageManager packageManager = mActivity.getPackageManager();
-        ComponentName componentName = new ComponentName(mActivity, NotificationService.class);
+        PackageManager packageManager = requireActivity().getPackageManager();
+        ComponentName componentName = new ComponentName(requireActivity(), NotificationService.class);
         int settingCode = enable
                 ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
                 : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
@@ -610,30 +627,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        // We are using a Toolbar in the layout, so we don't need to inflate a menu here.
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.about) {
-            openAboutActivity();
-        } else if (item.getItemId() == R.id.setting) {
-            loadSettingsActivity();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void loadSettingsActivity() {
-        Intent intent = new Intent(mActivity, SettingsActivity.class);
-        mActivity.startActivity(intent);
-    }
-
-    @Override
-    public void onDestroy() {
-//        stopNotificationService();
-        super.onDestroy();
+        Intent intent = new Intent(requireActivity(), SettingsActivity.class);
+        requireActivity().startActivity(intent);
     }
 
     // Dialog 1: Apps with toggles and search
@@ -685,9 +681,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 dialogItems
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity, config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(requireActivity(), config);
         dialog.setActionListener(this);
-        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "apps_dialog");
+        dialog.show(((MainActivity) requireActivity()).getSupportFragmentManager(), "apps_dialog");
     }
 
     // Dialog 2: Message Type with radio buttons
@@ -708,9 +704,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 messageTypes
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity,config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(requireActivity(),config);
         dialog.setActionListener(this);
-        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "message_type_dialog");
+        dialog.show(((MainActivity) requireActivity()).getSupportFragmentManager(), "message_type_dialog");
     }
 
     // Dialog 3: Cooldown with selection boxes
@@ -731,9 +727,9 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 cooldownOptions
         );
 
-        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(mActivity, config);
+        UniversalDialogFragment dialog = UniversalDialogFragment.Companion.newInstance(requireActivity(), config);
         dialog.setActionListener(this);
-        dialog.show(((MainActivity) mActivity).getSupportFragmentManager(), "cooldown_dialog");
+        dialog.show(((MainActivity) requireActivity()).getSupportFragmentManager(), "cooldown_dialog");
     }
 
     @Override
@@ -743,7 +739,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
                 long cooldownInMillis = selectedCooldownTime * 60 * 1000L;
                 preferencesManager.setAutoReplyDelay(cooldownInMillis);
                 updateCooldownFilterDisplay();
-                Toast.makeText(mActivity, "Cooldown settings saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Cooldown settings saved", Toast.LENGTH_SHORT).show();
             }
             selectedCooldownTime = -1;//reset so that no accidental cahnges on going back to cooldown page
         }
@@ -760,7 +756,7 @@ public class MainFragment extends Fragment implements DialogActionListener {
     public void onItemSelected(int position, boolean isSelected) {
         // Handle radio button selections (for Message Type)
         Log.d("Dialog", "Item at position " + position + " selected: " + isSelected);
-        PreferencesManager.getPreferencesInstance(mActivity).setGroupReplyPref(position == 1);
+        PreferencesManager.getPreferencesInstance(requireActivity()).setGroupReplyPref(position == 1);
         updateMessageType();
     }
 

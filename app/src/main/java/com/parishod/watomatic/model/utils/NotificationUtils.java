@@ -2,6 +2,7 @@ package com.parishod.watomatic.model.utils;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.res.Resources;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,9 @@ public class NotificationUtils {
             // then extract group name from title
             if (title == null) {
                 title = sbn.getNotification().extras.getString("android.title");
+                if (title == null) {
+                    return null;
+                }
                 int index = title.indexOf(':');
                 if (index != -1) {
                     title = title.substring(0, index);
@@ -41,7 +45,8 @@ public class NotificationUtils {
             }
 
             //To eliminate the case where group title has number of messages count in it
-            Parcelable[] b = (Parcelable[]) sbn.getNotification().extras.get("android.messages");
+            Object messagesObj = sbn.getNotification().extras.get("android.messages");
+            Parcelable[] b = (messagesObj instanceof Parcelable[]) ? (Parcelable[]) messagesObj : null;
             if (b != null && b.length > 1) {
                 int startIndex = title.lastIndexOf('(');
                 if (startIndex != -1) {
@@ -216,12 +221,21 @@ public class NotificationUtils {
         }
 
         // Build the notification message
-        String title = context.getString(R.string.quota_exhausted_title);
+        String title;
+        try {
+            title = context.getString(R.string.quota_exhausted_title);
+        } catch (Resources.NotFoundException e) {
+            title = "AI Reply Quota Exhausted";
+        }
         String message;
-        if (isHighestPlan && renewalDate != null) {
-            message = context.getString(R.string.quota_exhausted_message_highest_plan, renewalDate);
-        } else {
-            message = context.getString(R.string.quota_exhausted_message);
+        try {
+            if (isHighestPlan && renewalDate != null) {
+                message = context.getString(R.string.quota_exhausted_message_highest_plan, renewalDate);
+            } else {
+                message = context.getString(R.string.quota_exhausted_message);
+            }
+        } catch (Resources.NotFoundException e) {
+            message = "Your AI reply quota has been exhausted. Please upgrade your plan.";
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, QUOTA_CHANNEL_ID)
