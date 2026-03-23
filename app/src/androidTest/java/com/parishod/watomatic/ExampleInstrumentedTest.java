@@ -21,6 +21,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.parishod.watomatic", appContext.getPackageName());
+        // Package name varies by flavor: "com.parishod.watomatic" (Default) or "com.parishod.atomatic" (GooglePlay)
+        assertTrue(appContext.getPackageName().startsWith("com.parishod."));
     }
 }
