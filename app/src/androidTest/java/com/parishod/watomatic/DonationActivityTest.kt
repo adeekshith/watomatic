@@ -51,7 +51,13 @@ class DonationActivityTest {
         scenario.close()
     }
 
-    // Note: recreation test removed because DonationFragment.getData() uses a Retrofit
-    // callback that calls requireContext() without checking isAdded(), which crashes
-    // when the fragment detaches during recreate(). See DonationFragment line 131.
+    @Test
+    fun activityCanBeRecreated() {
+        val scenario = launchActivity()
+        scenario.recreate()
+        scenario.onActivity { activity ->
+            assertNotNull(activity)
+        }
+        scenario.close()
+    }
 }
