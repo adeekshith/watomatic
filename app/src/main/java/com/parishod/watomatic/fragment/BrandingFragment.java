@@ -2,6 +2,7 @@ package com.parishod.watomatic.fragment;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -128,11 +129,11 @@ public class BrandingFragment extends Fragment {
         for (String url : urls) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(url));
             List<ResolveInfo> list = getActivity() != null ?
-                    getActivity().getPackageManager().queryIntentActivities(intent, 0) :
+                    getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
             List<ResolveInfo> possibleBrowserIntents = getActivity() != null ?
                     getActivity().getPackageManager()
-                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0) :
+                            .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), PackageManager.MATCH_DEFAULT_ONLY) :
                     null;
 
             Set<String> excludeIntents = new HashSet<>();

@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -210,9 +211,9 @@ public class CustomDialog {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Intent intent = new Intent(ACTION_VIEW, Uri.parse(Constants.TELEGRAM_URL));
             List<ResolveInfo> list = mContext.getPackageManager()
-                    .queryIntentActivities(intent, 0);
+                    .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             List<ResolveInfo> possibleBrowserIntents = mContext.getPackageManager()
-                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), 0);
+                    .queryIntentActivities(new Intent(ACTION_VIEW, Uri.parse("http://www.deekshith.in/")), PackageManager.MATCH_DEFAULT_ONLY);
             Set<String> excludeIntents = new HashSet<>();
             for (ResolveInfo eachPossibleBrowserIntent : possibleBrowserIntents) {
                 excludeIntents.add(eachPossibleBrowserIntent.activityInfo.name);
