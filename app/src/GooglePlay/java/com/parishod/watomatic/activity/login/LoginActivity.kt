@@ -70,6 +70,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun handleIntent(intent: Intent?) {
+        if(preferencesManager.isLoggedIn){
+            navigateToMain()
+            return
+        }
         val link = intent?.data?.toString()
         if (link != null && auth.isSignInWithEmailLink(link)) {
             val email = preferencesManager.getString(PREF_USER_EMAIL, "")
