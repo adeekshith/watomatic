@@ -6,7 +6,6 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.activity.BaseActivity
 import com.parishod.watomatic.databinding.ActivityContactSelectorBinding
 import com.parishod.watomatic.fragment.ContactSelectorFragment
-import com.parishod.watomatic.model.utils.ContactsHelper
 import com.parishod.watomatic.viewmodel.SwipeToKillAppDetectViewModel
 
 import androidx.core.view.ViewCompat
@@ -44,14 +43,4 @@ class ContactSelectorActivity : BaseActivity() {
         return true
     }
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == ContactsHelper.CONTACT_PERMISSION_REQUEST_CODE && this::contactSelectorFragment.isInitialized) {
-            contactSelectorFragment.loadContactList()
-        }
-    }
 }
