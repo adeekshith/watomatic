@@ -39,6 +39,9 @@ jobs:
 
       # --- Coverage Report ---
 
+      - name: Enforce JaCoCo coverage thresholds
+        run: ./gradlew jacocoCoverageVerification
+
       - name: Generate JaCoCo coverage report
         run: ./gradlew jacocoUnitTestReport
 

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -51,55 +50,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static java.lang.Math.max;
 
 public class NotificationService extends NotificationListenerService {
     private final String TAG = NotificationService.class.getSimpleName();
-    // CustomRepliesData customRepliesData; // Will be initialized locally where needed or passed
     private DbUtils dbUtils;
+    private NotificationReplyDecider replyDecider;
+
+    private NotificationReplyDecider getReplyDecider() {
+        if (replyDecider == null) {
+            if (dbUtils == null) {
+                dbUtils = new DbUtils(getApplicationContext());
+            }
+            replyDecider = new NotificationReplyDecider(
+                    PreferencesManager.getPreferencesInstance(this),
+                    dbUtils,
+                    ContactsHelper.Companion.getInstance(this));
+        }
+        return replyDecider;
+    }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        if (canReply(sbn) && shouldReply(sbn)) {
+        NotificationReplyDecider decider = getReplyDecider();
+        if (decider.canReply(sbn) && decider.shouldReply(sbn)) {
             sendReply(sbn);
         }
-    }
-
-    private boolean canReply(StatusBarNotification sbn) {
-        return isServiceEnabled() &&
-                isSupportedPackage(sbn) &&
-                NotificationUtils.isNewNotification(sbn) &&
-                isGroupMessageAndReplyAllowed(sbn) &&
-                canSendReplyNow(sbn);
-    }
-
-    private boolean shouldReply(StatusBarNotification sbn) {
-        PreferencesManager prefs = PreferencesManager.getPreferencesInstance(this);
-        boolean isGroup = sbn.getNotification().extras.getBoolean("android.isGroupConversation");
-
-        //Check contact based replies
-        if (prefs.isContactReplyEnabled() && !isGroup) {
-            //Title contains sender name (at least on WhatsApp)
-            String senderName = sbn.getNotification().extras.getString("android.title");
-            //Check if should reply to contact
-            boolean isNameSelected =
-                    (ContactsHelper.Companion.getInstance(this).hasContactPermission()
-                            && prefs.getReplyToNames().contains(senderName)) ||
-                            prefs.getCustomReplyNames().contains(senderName);
-            if ((isNameSelected && prefs.isContactReplyBlacklistMode()) ||
-                    !isNameSelected && !prefs.isContactReplyBlacklistMode()) {
-                //If contact is on the list and contact reply is on blacklist mode, 
-                // or contact is not in the list and reply is on whitelist mode,
-                // we don't want to reply
-                return false;
-            }
-        }
-
-        //Check more conditions on future feature implementations
-
-        //If we got here, all conditions to reply are met
-        return true;
     }
 
     @Override
@@ -507,46 +483,8 @@ public class NotificationService extends NotificationListenerService {
         return (System.currentTimeMillis() - PreferencesManager.getPreferencesInstance(this).getLastPurgedTime()) > daysBeforePurgeInMS;
     }
 
-    private boolean isSupportedPackage(StatusBarNotification sbn) {
-        return PreferencesManager.getPreferencesInstance(this)
-                .getEnabledApps()
-                .contains(sbn.getPackageName());
-    }
-
-    private boolean canSendReplyNow(StatusBarNotification sbn) {
-        // Do not reply to consecutive notifications from same person/group that arrive in below time
-        // This helps to prevent infinite loops when users on both end uses Watomatic or similar app
-        int DELAY_BETWEEN_REPLY_IN_MILLISEC = 10 * 1000;
-
-        String title = NotificationUtils.getTitle(sbn);
-        String selfDisplayName = sbn.getNotification().extras.getString("android.selfDisplayName");
-        if (title != null && title.equalsIgnoreCase(selfDisplayName)) { //to protect double reply in case where if notification is not dismissed and existing notification is updated with our reply
-            return false;
-        }
-        if (dbUtils == null) {
-            dbUtils = new DbUtils(getApplicationContext());
-        }
-        long timeDelay = PreferencesManager.getPreferencesInstance(this).getAutoReplyDelay();
-        return (System.currentTimeMillis() - dbUtils.getLastRepliedTime(sbn.getPackageName(), title) >= max(timeDelay, DELAY_BETWEEN_REPLY_IN_MILLISEC));
-    }
-
-    private boolean isGroupMessageAndReplyAllowed(StatusBarNotification sbn) {
-        String rawTitle = NotificationUtils.getTitleRaw(sbn);
-        //android.text returning SpannableString
-        SpannableString rawText = SpannableString.valueOf("" + sbn.getNotification().extras.get("android.text"));
-        // Detect possible group image message by checking for colon and text starts with camera icon #181
-        boolean isPossiblyAnImageGrpMsg = ((rawTitle != null) && (": ".contains(rawTitle) || "@ ".contains(rawTitle)))
-                && ((rawText != null) && rawText.toString().contains("\uD83D\uDCF7"));
-        if (!sbn.getNotification().extras.getBoolean("android.isGroupConversation")) {
-            return !isPossiblyAnImageGrpMsg;
-        } else {
-            return PreferencesManager.getPreferencesInstance(this).isGroupReplyEnabled();
-        }
-    }
-
-    private boolean isServiceEnabled() {
-        return PreferencesManager.getPreferencesInstance(this).isServiceEnabled();
-    }
+    // Decision logic (canReply, shouldReply, isSupportedPackage, canSendReplyNow,
+    // isGroupMessageAndReplyAllowed, isServiceEnabled) is in NotificationReplyDecider.
 
     /**
      * Check if the user's quota is exhausted and show a notification if needed.
