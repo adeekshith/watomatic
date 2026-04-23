@@ -493,6 +493,8 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
                 // Apply badge configuration
                 automaticAiTag?.text = planConfig.badgeText
                 automaticAiTag?.setBackgroundResource(planConfig.badgeBackgroundRes)
+                // Hide the tag if it shows FREE
+                automaticAiTag?.visibility = if (planConfig.badgeText == getString(R.string.badge_free)) android.view.View.GONE else android.view.View.VISIBLE
 
                 automaticAiStatusIcon?.setImageResource(R.drawable.ic_task_alt)
                 automaticAiStatusIcon?.setColorFilter(0xFF34C759.toInt())
@@ -572,6 +574,8 @@ class CustomReplyEditorActivity : BaseActivity(), SharedPreferences.OnSharedPref
                 // Not configured state - user needs subscription
                 automaticAiTag?.text = getString(R.string.badge_free)
                 automaticAiTag?.setBackgroundResource(R.drawable.bg_badge_gray)
+                // Hide the tag for FREE plan
+                automaticAiTag?.visibility = android.view.View.GONE
 
                 automaticAiStatusIcon?.setImageResource(R.drawable.ic_error_outline)
                 automaticAiStatusIcon?.setColorFilter(0xFFFF453A.toInt())
