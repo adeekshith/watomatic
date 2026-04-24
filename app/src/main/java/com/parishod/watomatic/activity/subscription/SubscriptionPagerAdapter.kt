@@ -6,14 +6,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class SubscriptionPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = 1
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> SubscriptionPlansFragment.newInstance(SubscriptionPlansFragment.PLAN_TYPE_MONTHLY)
-            1 -> SubscriptionPlansFragment.newInstance(SubscriptionPlansFragment.PLAN_TYPE_ANNUAL)
             else -> throw IllegalStateException("Invalid position: $position")
         }
     }
 }
-
