@@ -79,6 +79,7 @@ public class PreferencesManager {
     private final SharedPreferences _sharedPrefs;
     private SharedPreferences _encryptedSharedPrefs;
     private final Context thisAppContext;
+    private final Long SUBSCRIPTION_GRACE_INTERVAL = 60 * 60 * 1000L; // 60 minutes
 
     private PreferencesManager(Context context) {
         thisAppContext = context;
@@ -572,7 +573,7 @@ public class PreferencesManager {
     }
 
     public String getFallbackMessage() {
-        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, "");
+        return _sharedPrefs.getString(KEY_FALLBACK_MESSAGE, thisAppContext.getString(R.string.auto_reply_default_message));
     }
 
     public void saveFallbackMessage(String message) {
@@ -633,7 +634,7 @@ public class PreferencesManager {
         // If expiry time is 0 (lifetime/unknown) or in future, consider active
         // Note: For subscriptions, backend should set expiry time.
         // If expiryTime > 0, check if it's still valid
-        if (isActive && expiryTime > 0 && System.currentTimeMillis() > expiryTime) {
+        if (isActive && expiryTime > 0 && System.currentTimeMillis() > expiryTime + SUBSCRIPTION_GRACE_INTERVAL) {
             return false; // Expired but not yet updated by backend
         }
         return isActive;
