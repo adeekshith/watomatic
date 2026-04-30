@@ -438,10 +438,7 @@ class SubscriptionInfoActivity : BaseActivity() {
         // Check for pre-selected plan from login flow
         val preselectedPlan = intent.getStringExtra("PRESELECTED_PLAN")
         preselectedPlan?.let { sku ->
-            when {
-                sku.contains("annual") -> viewPager?.currentItem = 1
-                else -> viewPager?.currentItem = 0
-            }
+            viewPager?.currentItem = 0
         }
 
         // If in UPGRADE mode, mark current plan tier after fragments load
@@ -478,7 +475,7 @@ class SubscriptionInfoActivity : BaseActivity() {
     private fun markCurrentPlanInFragments() {
         val tier = resolveCurrentPlanTier()
         viewPager?.postDelayed({
-            for (i in 0..1) {
+            for (i in 0..0) {
                 val fragment = supportFragmentManager.findFragmentByTag("f$i")
                 if (fragment is SubscriptionPlansFragment) {
                     fragment.setCurrentPlan(tier)
@@ -581,8 +578,8 @@ class SubscriptionInfoActivity : BaseActivity() {
 
         // Use postDelayed to ensure fragments are fully created and attached
         viewPager?.postDelayed({
-            // Update both fragments (monthly and annual)
-            for (i in 0..1) {
+            // Update the fragment (monthly)
+            for (i in 0..0) {
                 val fragment = supportFragmentManager.findFragmentByTag("f$i")
                 if (fragment is SubscriptionPlansFragment) {
                     android.util.Log.d("SubscriptionInfo", "Updating prices for fragment $i")

@@ -61,6 +61,7 @@ class SubscriptionPlansFragment : Fragment() {
 
         // Initialize views
         freePlanCard = view.findViewById(R.id.free_plan_card)
+        freePlanCard?.visibility = View.GONE
         miniPlanCard = view.findViewById(R.id.mini_plan_card)
         standardPlanCard = view.findViewById(R.id.standard_plan_card)
         proPlanCard = view.findViewById(R.id.pro_plan_card)

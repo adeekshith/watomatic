@@ -37,6 +37,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/tab_background"
+            android:visibility="gone"
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"

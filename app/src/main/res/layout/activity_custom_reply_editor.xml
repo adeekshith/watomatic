@@ -212,7 +212,8 @@
                                     android:background="@drawable/bg_badge_gray"
                                     android:paddingHorizontal="6dp"
                                     android:paddingVertical="2dp"
-                                    android:layout_marginStart="8dp" />
+                                    android:layout_marginStart="8dp"
+                                    android:visibility="gone"/>
                             </LinearLayout>
 
                             <TextView
