@@ -53,5 +53,5 @@ object Constants {
         "Mistral" to "https://api.mistral.ai/"
     )
 
-    const val CUSTOM_AI_PROVIDER_NAME = "Custom OpenAI Compatible"
+    const val CUSTOM_AI_PROVIDER_NAME = "OpenAI Compatible"
 }
