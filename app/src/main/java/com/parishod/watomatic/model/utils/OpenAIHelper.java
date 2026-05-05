@@ -1,5 +1,7 @@
 package com.parishod.watomatic.model.utils;
 
+import static com.parishod.watomatic.model.utils.Constants.CUSTOM_AI_PROVIDER_NAME;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -57,7 +59,7 @@ public class OpenAIHelper {
         Log.d(TAG, "customApiUrl: " + customApiUrl);
 
         Retrofit retrofit;
-        if ("custom".equals(apiSource) && customApiUrl != null && !customApiUrl.isEmpty()) {
+        if (CUSTOM_AI_PROVIDER_NAME.equals(apiSource) && customApiUrl != null && !customApiUrl.isEmpty()) {
             retrofit = RetrofitInstance.getOpenAIRetrofitInstance(customApiUrl);
         } else {
             retrofit = RetrofitInstance.getOpenAIRetrofitInstance();

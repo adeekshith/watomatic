@@ -2,9 +2,12 @@ package com.parishod.watomatic.activity.customreplyeditor
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.parishod.watomatic.R
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.Constants
+import com.parishod.watomatic.model.utils.Constants.CUSTOM_AI_PROVIDER_NAME
 import com.parishod.watomatic.network.OpenAIService
 import com.parishod.watomatic.utils.UnsavedChangesDialog
 import com.parishod.watomatic.network.RetrofitInstance
@@ -24,6 +28,7 @@ import com.parishod.watomatic.network.model.openai.OpenAIModelsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URI
 
 class OtherAiConfigurationActivity : AppCompatActivity() {
 
@@ -34,10 +39,19 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
     private lateinit var modelInput: AutoCompleteTextView
     private lateinit var systemPromptInput: TextInputEditText
 
-    private val providers = listOf("OpenAI", "Claude", "Grok", "Gemini", "DeepSeek", "Mistral", "Custom")
+    private val providers = listOf("OpenAI", "Claude", "Grok", "Gemini", "DeepSeek", "Mistral", CUSTOM_AI_PROVIDER_NAME)
     private val providerUrls = Constants.PROVIDER_URLS
 
     private lateinit var preferencesManager: PreferencesManager
+
+    // Debounce handler for fetch requests
+    private val fetchHandler = Handler(Looper.getMainLooper())
+    private var fetchRunnable: Runnable? = null
+    private var currentCall: Call<OpenAIModelsResponse>? = null
+    private var lastFetchedUrl: String? = null
+    private companion object {
+        const val FETCH_DEBOUNCE_MS = 500L
+    }
 
     // Track initial state for unsaved changes detection
     private var initialProvider: String = ""
@@ -164,13 +178,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
         providerInput.addTextChangedListener(object : TextWatcher {
              override fun afterTextChanged(s: Editable?) {
                  updateBaseUrlVisibility(s.toString())
-                 // Only clear if user changed it? 
-                 // But this is called on prefill too. 
-                 // We should be careful not to clear prefilled data.
-                 // Actually, prefillData sets text, which triggers this.
-                 // So we should NOT clear model here unconditionally.
-                 // But we should fetch models.
-                 fetchModels()
+                 debouncedFetchModels()
              }
              override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
              override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -179,7 +187,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
         apiKeyInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrEmpty()) {
-                    fetchModels()
+                    debouncedFetchModels()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -188,8 +196,8 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
 
         baseUrlInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (providerInput.text.toString() == "Custom") {
-                    fetchModels()
+                if (providerInput.text.toString() == CUSTOM_AI_PROVIDER_NAME) {
+                    debouncedFetchModels()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -223,11 +231,38 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
     }
 
     private fun updateBaseUrlVisibility(provider: String) {
-        if (provider == "Custom") {
+        if (provider == CUSTOM_AI_PROVIDER_NAME) {
             baseUrlLayout.visibility = View.VISIBLE
         } else {
             baseUrlLayout.visibility = View.GONE
         }
+    }
+
+    /**
+     * Validates that the given URL is well-formed and uses http or https scheme.
+     */
+    private fun isValidUrl(url: String): Boolean {
+        if (url.isBlank()) return false
+        // Must start with http:// or https://
+        if (!url.startsWith("http://") && !url.startsWith("https://")) return false
+        return try {
+            val uri = URI(url)
+            // Must have a valid host
+            !uri.host.isNullOrBlank()
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    /**
+     * Schedules a debounced fetchModels call. Cancels any pending debounce
+     * and any in-flight network request.
+     */
+    private fun debouncedFetchModels() {
+        // Cancel pending debounce
+        fetchRunnable?.let { fetchHandler.removeCallbacks(it) }
+        fetchRunnable = Runnable { fetchModels() }
+        fetchHandler.postDelayed(fetchRunnable!!, FETCH_DEBOUNCE_MS)
     }
 
     private fun fetchModels() {
@@ -236,7 +271,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
 
         if (apiKey.isEmpty()) return
 
-        val baseUrl = if (provider == "Custom") {
+        val baseUrl = if (provider == CUSTOM_AI_PROVIDER_NAME) {
             baseUrlInput.text.toString()
         } else {
             providerUrls[provider]
@@ -244,8 +279,26 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
 
         if (baseUrl.isNullOrEmpty()) return
 
-        // Create Retrofit instance
-        val retrofit = RetrofitInstance.getOpenAIRetrofitInstance(baseUrl)
+        // Validate URL before making any network call
+        if (!isValidUrl(baseUrl)) {
+            Log.d("OtherAiConfig", "Skipping fetch — invalid URL: $baseUrl")
+            return
+        }
+
+        // Skip if URL hasn't changed since last successful fetch
+        val fetchKey = "$baseUrl|$apiKey"
+        if (fetchKey == lastFetchedUrl) return
+
+        // Cancel any in-flight request
+        currentCall?.cancel()
+
+        // Create Retrofit instance safely
+        val retrofit = try {
+            RetrofitInstance.getOpenAIRetrofitInstance(baseUrl)
+        } catch (e: IllegalArgumentException) {
+            Log.e("OtherAiConfig", "Invalid base URL for Retrofit: $baseUrl", e)
+            return
+        }
         val service = retrofit.create(OpenAIService::class.java)
 
         val headers = HashMap<String, String>()
@@ -256,9 +309,14 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
             headers["Authorization"] = "Bearer $apiKey"
         }
 
-        service.getModels(headers).enqueue(object : Callback<OpenAIModelsResponse> {
+        val call = service.getModels(headers)
+        currentCall = call
+
+        call.enqueue(object : Callback<OpenAIModelsResponse> {
             override fun onResponse(call: Call<OpenAIModelsResponse>, response: Response<OpenAIModelsResponse>) {
+                if (call.isCanceled) return
                 if (response.isSuccessful && response.body() != null) {
+                    lastFetchedUrl = fetchKey
                     val models = response.body()!!.data.map { it.id }
                     updateModelDropdown(models)
                 } else {
@@ -268,6 +326,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<OpenAIModelsResponse>, t: Throwable) {
+                if (call.isCanceled) return
                 Log.e("OtherAiConfig", "Failed to fetch models", t)
                 Toast.makeText(this@OtherAiConfigurationActivity, "Failed to fetch models: ${t.message}", Toast.LENGTH_SHORT).show()
             }
@@ -303,7 +362,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
         resultIntent.putExtra("apiKey", apiKey)
         resultIntent.putExtra("model", model)
         resultIntent.putExtra("systemPrompt", systemPromptInput.text.toString())
-        if (provider == "Custom") {
+        if (provider == CUSTOM_AI_PROVIDER_NAME) {
             resultIntent.putExtra("baseUrl", baseUrlInput.text.toString())
         }
 
@@ -312,7 +371,7 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
         initialApiKey = apiKey
         initialModel = model
         initialSystemPrompt = systemPromptInput.text.toString()
-        initialBaseUrl = if (provider == "Custom") baseUrlInput.text.toString() else ""
+        initialBaseUrl = if (provider == CUSTOM_AI_PROVIDER_NAME) baseUrlInput.text.toString() else ""
 
         setResult(RESULT_OK, resultIntent)
         finish()
@@ -375,5 +434,12 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Clean up debounce handler and cancel in-flight request
+        fetchRunnable?.let { fetchHandler.removeCallbacks(it) }
+        currentCall?.cancel()
     }
 }

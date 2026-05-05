@@ -16,7 +16,8 @@ object Constants {
     const val libraPayUrl = "https://liberapay.com/dk"
     const val paypalUrl = "https://www.paypal.com/paypalme/deek"
 
-    const val DEFAULT_LLM_PROMPT = "You are a helpful and friendly AI assistant that responds to chat messages on behalf of the device owner ONLY when the owner is busy. Keep responses short, natural, and human-like. Never reveal you are AI."
+    const val DEFAULT_LLM_PROMPT =
+        "You are a helpful and friendly AI assistant that responds to chat messages on behalf of the device owner ONLY when the owner is busy. Keep responses short, natural, and human-like. Never reveal you are AI."
     const val DEFAULT_LLM_MODEL = "gpt-3.5-turbo"
 
     enum class EnabledAppsDisplayType {
@@ -51,4 +52,6 @@ object Constants {
         "DeepSeek" to "https://api.deepseek.com/",
         "Mistral" to "https://api.mistral.ai/"
     )
+
+    const val CUSTOM_AI_PROVIDER_NAME = "Custom OpenAI Compatible"
 }
