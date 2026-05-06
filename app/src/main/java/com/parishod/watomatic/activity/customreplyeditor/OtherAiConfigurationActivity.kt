@@ -7,7 +7,6 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +20,7 @@ import com.parishod.watomatic.R
 import com.parishod.watomatic.model.preferences.PreferencesManager
 import com.parishod.watomatic.model.utils.Constants
 import com.parishod.watomatic.model.utils.Constants.CUSTOM_AI_PROVIDER_NAME
+import com.parishod.watomatic.model.utils.UrlValidator
 import com.parishod.watomatic.network.OpenAIService
 import com.parishod.watomatic.utils.UnsavedChangesDialog
 import com.parishod.watomatic.network.RetrofitInstance
@@ -28,7 +28,7 @@ import com.parishod.watomatic.network.model.openai.OpenAIModelsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.URI
+
 
 class OtherAiConfigurationActivity : AppCompatActivity() {
 
@@ -240,19 +240,9 @@ class OtherAiConfigurationActivity : AppCompatActivity() {
 
     /**
      * Validates that the given URL is well-formed and uses http or https scheme.
+     * Delegates to [UrlValidator] for testability.
      */
-    private fun isValidUrl(url: String): Boolean {
-        if (url.isBlank()) return false
-        // Must start with http:// or https://
-        if (!url.startsWith("http://") && !url.startsWith("https://")) return false
-        return try {
-            val uri = URI(url)
-            // Must have a valid host
-            !uri.host.isNullOrBlank()
-        } catch (e: Exception) {
-            false
-        }
-    }
+    private fun isValidUrl(url: String): Boolean = UrlValidator.isValidUrl(url)
 
     /**
      * Schedules a debounced fetchModels call. Cancels any pending debounce
