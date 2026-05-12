@@ -29,6 +29,7 @@ play-services-auth = "20.7.0"
 billing = "7.1.1"
 credentials = "1.3.0"
 googleid = "1.1.1"
+workTesting = "2.11.2"
 
 [libraries]
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
@@ -65,6 +66,7 @@ billing = { module = "com.android.billingclient:billing", version.ref = "billing
 credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+work-testing = { group = "androidx.work", name = "work-testing", version.ref = "workTesting" }
 
 [plugins]
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }

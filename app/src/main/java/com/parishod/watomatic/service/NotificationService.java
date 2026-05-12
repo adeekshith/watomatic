@@ -1,5 +1,6 @@
 package com.parishod.watomatic.service;
 
+import static com.parishod.watomatic.model.utils.Constants.CUSTOM_AI_PROVIDER_NAME;
 import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_MODEL;
 import static com.parishod.watomatic.model.utils.Constants.DEFAULT_LLM_PROMPT;
 
@@ -221,7 +222,7 @@ public class NotificationService extends NotificationListenerService {
         if (model == null || model.isEmpty()) model = DEFAULT_LLM_MODEL;
 
         baseUrl = Constants.INSTANCE.getPROVIDER_URLS().get(provider);
-        if ("Custom".equals(provider)) {
+        if (CUSTOM_AI_PROVIDER_NAME.equals(provider)) {
             baseUrl = prefs.getCustomOpenAIApiUrl();
         }
         if (baseUrl == null) baseUrl = "https://api.openai.com/";
