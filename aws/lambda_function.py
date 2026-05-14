@@ -23,6 +23,11 @@ GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 CONSUME_ATOM_URL = os.environ["CONSUME_ATOM_URL"]
 CONSUME_ATOM_SECRET = os.environ["CONSUME_ATOM_SECRET"]
 
+# ─── FEATURE FLAGS ─────────────────────────────────────────
+IS_OPENAI_RESPONSE_VALIDATION_ENABLED = os.environ.get(
+    "IS_OPENAI_RESPONSE_VALIDATION_ENABLED", "false"
+).lower() == "true"
+
 # ─── PROVIDER CONFIG ──────────────────────────────────────
 # Providers are tried in order; first successful response wins.
 GROQ_PROVIDER = {
@@ -238,7 +243,7 @@ def lambda_handler(event, context):
             return _json_response(400, {"success": False, "error": "message required"})
 
         # ─── 3. VALIDATE CUSTOM PROMPT ────────────────────
-        if custom_prompt:
+        if custom_prompt and IS_OPENAI_RESPONSE_VALIDATION_ENABLED:
             allowed, reason = _is_custom_prompt_allowed(custom_prompt)
             if not allowed:
                 logger.warning("Custom prompt rejected for UID %s: %s", user_uid, reason)
@@ -250,6 +255,12 @@ def lambda_handler(event, context):
                         "details": reason,
                     },
                 )
+        elif custom_prompt:
+            logger.info(
+                "Skipping custom prompt validation for UID %s "
+                "(IS_OPENAI_RESPONSE_VALIDATION_ENABLED=false)",
+                user_uid,
+            )
 
         # ─── 4. CONSUME ATOM ──────────────────────────────
         status, atom_response = _post_json(
