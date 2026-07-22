@@ -10,6 +10,7 @@ import com.parishod.watomatic.backend.BackendService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 class BillingManagerImpl(private val context: Context) : BillingManager, PurchasesUpdatedListener {
 
@@ -24,13 +25,21 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
 
     private var billingClient: BillingClient = BillingClient.newBuilder(context)
         .setListener(this)
-        .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+        .enablePendingPurchases(
+            PendingPurchasesParams.newBuilder()
+                .enableOneTimeProducts()
+                .enablePrepaidPlans()
+                .build()
+        )
         .build()
 
     private var purchaseListener: PurchaseUpdateListener? = null
     private var isConnected = false
     private val productDetailsCache = mutableMapOf<String, ProductDetails>()
     private val backendService: BackendService = FirebaseBackendService(context)
+
+    private var connectionAttempt = 0
+    private val maxConnectionAttempts = 3
 
     override fun startConnection(onConnected: (() -> Unit)?, onDisconnected: (() -> Unit)?) {
         if (isConnected) {
@@ -42,6 +51,7 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     isConnected = true
+                    connectionAttempt = 0
                     Log.d(TAG, "Billing client connected successfully")
                     onConnected?.invoke()
                 } else {
@@ -54,7 +64,20 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
             override fun onBillingServiceDisconnected() {
                 isConnected = false
                 Log.w(TAG, "Billing service disconnected")
-                onDisconnected?.invoke()
+
+                if (connectionAttempt < maxConnectionAttempts) {
+                    connectionAttempt++
+                    val backoffTime = (Math.pow(2.0, connectionAttempt.toDouble()) * 1000).toLong() // 2s, 4s, 8s
+                    Log.d(TAG, "Retrying billing connection in ${backoffTime}ms (attempt $connectionAttempt of $maxConnectionAttempts)...")
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(backoffTime)
+                        startConnection(onConnected, onDisconnected)
+                    }
+                } else {
+                    Log.e(TAG, "Max connection attempts reached. Could not connect to billing service.")
+                    onDisconnected?.invoke()
+                }
             }
         })
     }
@@ -227,6 +250,14 @@ class BillingManagerImpl(private val context: Context) : BillingManager, Purchas
                         purchaseListener?.onPurchaseFailure("Item already owned but failed to query: $error")
                     }
                 )
+            }
+            BillingClient.BillingResponseCode.NETWORK_ERROR -> {
+                Log.e(TAG, "Network error during purchase")
+                purchaseListener?.onPurchaseFailure("Network error. Please check your internet connection.")
+            }
+            BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE -> {
+                Log.e(TAG, "Service unavailable during purchase")
+                purchaseListener?.onPurchaseFailure("Service unavailable. Please try again later.")
             }
             else -> {
                 val errorMsg = "Purchase failed: ${billingResult.debugMessage}"
